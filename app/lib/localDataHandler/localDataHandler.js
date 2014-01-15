@@ -113,7 +113,7 @@ function localDataHandler()
 	};
 	*/
 	
-	var addDefultValuesToQuestionSet = function(JASON_question_list, fileName, riskMap, pageID, pageType){
+	var addDefultValuesToQuestionSet = function(JASON_question_list, fileName, riskMap, pageID, pageName, pageType){
 		for(var i=0; i< JASON_question_list.length; i++){
 			JASON_question_list[i].associatedFileName = fileName;
 			JASON_question_list[i].notes ="";
