@@ -12,5 +12,12 @@
 	width : Ti.UI.SIZE,
 	height : Ti.UI.SIZE,
 	color : "#fff",
-	text : "Pages"
+	text : "title"
+},
+"#backButton" : {
+	width : Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+	left : "10dp",
+	title : "back",
+	color : "#fff"
 }

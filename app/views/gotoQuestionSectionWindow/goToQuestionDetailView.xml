@@ -1,14 +1,14 @@
 <Alloy>
 	<View id="container">
 		<View id ="header">
+			<Button id="backButton" onClick="backButtonClick">
 			<Label id="headerTitle"/>
 		</View>
 		<ListView id="listView">
 			<Templates>
-				<Require src="gotoQuestionSectionWindow/riskAssessmentPageRowTemplate" type="view"/>
+				<Require src="gotoQuestionSectionWindow/goToQuestionRow" type="view"/>
+				<Require src="gotoQuestionSectionWindow/goToSectionHeader" type="view"/>
 			</Templates>
-			
-			
 			<ListSection id="section"/>
 		</ListView>
 	</View>

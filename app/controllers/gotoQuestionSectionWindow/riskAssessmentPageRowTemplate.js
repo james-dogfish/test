@@ -4,6 +4,7 @@ function onClickCallBack(e){
 	
 	
 	Ti.App.fireEvent("pageSelected", {
-		sectionList : item.sectionList
+		sectionList : item.sectionList,
+		pageName : item.name
 	}); 
 };

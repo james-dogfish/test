@@ -7,7 +7,8 @@
 			<Button id="createCensus" class="gotoButton" onClick="createCensusClick">Create Census</Button>
 			
 			<View id="contaierView">
-				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>  
+				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>
+				 <Require id="detailView" src="gotoQuestionSectionWindow/goToQuestionDetailView" type="view"/>  
 			</View>
 			
 			<!--

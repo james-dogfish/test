@@ -1,5 +1,17 @@
 var pageList = [];
 
+var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(200);
+
+$.container.width = gotoDisplayViewWidth;
+
+var animationOpen = Titanium.UI.createAnimation();
+animationOpen.left = "0dp";
+animationOpen.duration = 700;
+
+var animationClose = Titanium.UI.createAnimation();
+animationClose.left = -gotoDisplayViewWidth;
+animationClose.duration = 700;
+
 
 
 var addSectionToPageList= function(section){
@@ -12,6 +24,7 @@ var addSectionToPageList= function(section){
 	}
 	
 	var newPage = {
+		name : section.pageName,
 		title : {text : section.pageName}, 
 		sectionList : [],  
 		pageType : section.pageType
@@ -42,6 +55,24 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 		addSectionToPageList(sectionList[sectionListIndex]);
 	}
 	$.section.setItems(pageList);
-	
-	
 };
+
+exports.MoveToOpen = function(isAnimated){
+	if(isAnimated == true){
+		$.container.animate(animationOpen);
+	}
+	else{
+		$.container.left = "0%";
+	}
+};
+
+exports.MoveToClose = function(isAnimated){
+	if(isAnimated == true){
+		$.container.animate(animationClose);
+	}
+	else{
+		$.container.left = -gotoDisplayViewWidth;
+	}
+};
+
+

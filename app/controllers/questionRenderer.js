@@ -697,12 +697,12 @@ var validateEntireQuestion = function(valueChangeObject){
 	}
 	else{
 		questionRef.question = questionObject;
-		alert("setQuestionError");
+		//alert("setQuestionError");
 		setQuestionError(validateResponse.isValid, validateResponse.outPutMessage, questionRef);
 	}
 	
 	questionRef.question = questionObject;
-	alert("setQuestionError");
+	//alert("setQuestionError");
 	setQuestionError(validateResponse.isValid, validateResponse.outPutMessage, questionRef);
 	
 	/*
