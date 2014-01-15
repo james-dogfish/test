@@ -74,4 +74,4 @@ if (User.isLoggedIn() && !User.isLoginExpired()) {
 }
 
 /*RUN our Unit Tests Here*/
-require('tests_runner').run();
+// require('tests_runner').run();
