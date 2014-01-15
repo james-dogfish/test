@@ -6,17 +6,29 @@ var questionToGoToIndex = 0;
 
 var currentAssessmentObject = null;
 
-var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(400);
+
+
+var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(200);
 $.gotoDisplayView.width = gotoDisplayViewWidth;
 $.gotoDisplayView.left = -gotoDisplayViewWidth;
 
+var animationDuration = 700;
+
+var animationFadeIn = Titanium.UI.createAnimation();
+animationFadeIn.opacity = 0.5;
+animationFadeIn.duration = animationDuration;
+
+var animationFadeOut = Titanium.UI.createAnimation();
+animationFadeOut.opacity = 0;
+animationFadeOut.duration = animationDuration;
+
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "0dp";
-animationOpen.duration = 700;
+animationOpen.duration = animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
 animationClose.left = -gotoDisplayViewWidth;
-animationClose.duration = 700;
+animationClose.duration = animationDuration;
 var closeAnimationHandler = function() {
 	closeing= false;
 	$.win.close();
@@ -29,6 +41,7 @@ function closeWindowCallBack(e){
 
 exports.show = function(message){
 	$.win.open();
+	$.background.animate(animationFadeIn);
 	$.gotoDisplayView.animate(animationOpen);
 };
 
@@ -36,6 +49,7 @@ var hide = function(){
 	if(closeing == false){
 		closeing= true;
 		$.gotoDisplayView.animate(animationClose);
+		$.background.animate(animationFadeOut);
 	}
 	
 };
@@ -66,20 +80,10 @@ exports.setAssessmentObject = function(assessmentObject){
 
 exports.setContentsDetails = function(questionSectionContentsDetails){
 	//sectionClick
-	
 	$.masterView.setContentsDetails(questionSectionContentsDetails);
-	$.masterView.on();
-	/*
-	var sectionList = questionSectionContentsDetails;
-	var ListViewSectionList = [];
 	
-	for(var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++){
-		var newListViewSection = Alloy.createController('gotoQuestionSectionWindow/goToQuestionSection');
-		newListViewSection.setdata(sectionList[sectionListIndex]);
-		ListViewSectionList.push(newListViewSection.getView());
-	}
-	$.listView.setSections(ListViewSectionList);
-	*/
+	$.masterView.MoveToOpen(false);
+	$.detailView.MoveToClose(false);
 };
 
 Ti.App.addEventListener("goToQuestionEvent", function(data){
@@ -87,6 +91,16 @@ Ti.App.addEventListener("goToQuestionEvent", function(data){
 	hide();
 });
 
-Ti.App.addEventListener("pageSelected", function(data){
-	alert("row Clicked, sectionList.length = "+e.sectionList.length);
+Ti.App.addEventListener("pageSelected", function(e){
+	//alert("row Clicked, sectionList.length = "+e.sectionList.length);
+	$.masterView.MoveToClose(true);
+	$.detailView.MoveToOpen(true);
+	$.detailView.setContentsDetails(e.pageName, e.sectionList);
+	
+});
+
+
+$.detailView.on("moveToMaster", function(){
+	$.masterView.MoveToOpen(true);
+	$.detailView.MoveToClose(true);
 });
