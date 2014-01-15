@@ -1,5 +1,5 @@
 <Alloy>
-	<Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
+	<Window id="window" navBarHidden="true">
+		<Require type="widget" src="sh.dogfi.login" id="dfl"/>
 	</Window>
 </Alloy>

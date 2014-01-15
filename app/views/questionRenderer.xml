@@ -1,0 +1,30 @@
+<Alloy>
+	<View id="container">
+		<ListView id="listView">
+			<Templates>
+	           <Require src="questionTemplates/textFieldTemplate" type="view"/>
+	           <Require src="questionTemplates/multiSelectTemplate" type="view"/>
+	           <Require src="questionTemplates/dateSelectTemplate" type="view"/>
+	           <Require src="questionTemplates/singleSelectTemplate" type="view"/>
+	           <Require src="questionTemplates/rangeFieldTemplate" type="view"/>
+	           <Require src="questionTemplates/dateRangeTemplate" type="view"/>
+	           <Require src="questionTemplates/censusCounterTemplate" type="view"/>    
+	           <Require src="questionTemplates/censusStartTimerTemplate" type="view"/>  
+	        </Templates>
+		</ListView>
+		<View id="footer">
+			<View id="singleSectionsNavView">
+				<Button id="backButton" class="navButton" bindId="backButton" onClick="moveSectionBackClick">Back</Button>
+				<Button class="singleSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
+				<Button class="singleSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
+				<Button class="singleSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
+				<Button id="nextButton" class="navButton" bindId="nextButton" onClick="moveSectionNextClick">Next</Button>
+			</View>
+			<View id="allSectionsNavView">
+				<Button class="allSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
+				<Button class="allSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
+				<Button class="allSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
+			</View>
+		</View>
+	</View>
+</Alloy>

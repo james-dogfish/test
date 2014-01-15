@@ -1,0 +1,5 @@
+<Alloy>
+	<View id="headerView">
+		<Label id="headerTitle" />
+	</View>
+</Alloy>

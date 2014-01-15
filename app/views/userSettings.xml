@@ -1,0 +1,21 @@
+<Alloy>
+	<Window id="window" navBarHidden="true" fullScreen="true">
+		<ScrollView id="container">
+			<View id="settingView" layout="vertical">
+				<View id="headingView">
+					<Label class="heading" text="Settings"/>
+					<Button id="closeButton" onClick='closeSettings' backgroundImage="/images/close.png" />
+				</View> 
+				<Label class='label' text="Name" />
+				<TextField class='textField' id='name' />
+				<Label class='label' text="Mobile Number" />
+				<TextField class='numberField' id='mobile'/>
+				<Label class='label' text="Email" />
+				<TextField class='textField' id='email' />
+				<Label class='label' text="Single Section View" />
+				<Switch id='sectionSwitch' value='false' />
+				<Button id='saveButton' title='Save' onClick='saveSettings' />
+			</View>
+		</ScrollView>
+	</Window>
+</Alloy>

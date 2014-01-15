@@ -1,0 +1,18 @@
+"#textFieldTemplate" : {
+	width: Ti.UI.FILL,
+	height: "110dp",
+	bottom : "10dp",
+},
+"#valueTextField" : {
+	width: Ti.UI.Fill,
+	height: "50dp",
+	left : "0dp",
+	right : "0dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	backgroundColor: '#fff',
+	clearButtonMode : true,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	paddingLeft : "10dp",
+	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+}

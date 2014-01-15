@@ -1,0 +1,18 @@
+"#detailRow" : {
+	width : Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+},
+"#viewGroup" : {
+	width : Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	
+	layout: 'vertical',
+},
+"#name" : {
+	width : Ti.UI.FILL,
+	height: "30dp",
+	top : "10dp",
+	left : "20dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"25sp", fontWeight:'normal'},
+	color: '#000000'
+}

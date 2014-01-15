@@ -1,0 +1,75 @@
+"#shadowView": {
+	width: 410,
+	height: 280,
+	borderRadius: 10,
+	backgroundColor: '#556e7a',
+	opacity: 0.5	
+},
+"#loginWin": {
+},
+"#loginView": {
+	width : 400,
+	height : 270,
+	backgroundColor : '#ffffff',
+	borderRadius : 8,
+	borderSize : 1,
+	borderColor : '#383838'
+},
+"#userLabel" : {
+	top : 0,
+	height : 40,
+	left : 50
+}
+"#userField" : {
+	top : 10,
+	height : 40,
+	width : 300,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+"#passLabel" : {
+	top : 10,
+	height : 40,
+	left : 50
+},
+"#passField" : {
+	top : 10,
+	height : 40,
+	width : 300,
+	passwordMask: true,
+	returnKeyType: Ti.UI.RETURNKEY_DONE,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+},
+"#loginButton" : {
+	top : 20,
+	height : 40,
+	width : 200,
+	backgroundImage: WPATH('images/login/buttonBg.png'),
+	backgroundRepeat: true,
+	borderRadius: 10,
+	backgroundColor: 'none',
+	font: {
+		fontSize: 20,
+		fontWeight: 'bold',
+		fontFamily: 'Arial'
+	}
+},
+"#loginLabel": {
+	top: 20,
+	height: 35,
+	left: 50,
+	font: {
+		fontSize: 35,
+		fontWeight: 'bold',
+		fontFamily: 'Arial'
+	},
+	color: '#363636'
+},
+"#nrLogo" : {
+	top : -50,
+	right: 30,
+	width : 150,
+	height : 75,
+	backgroundImage : WPATH('images/nrlogo.png')
+}

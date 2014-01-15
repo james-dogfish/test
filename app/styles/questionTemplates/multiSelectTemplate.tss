@@ -1,0 +1,40 @@
+"#multiSelectTemplate" : {
+	width: Ti.UI.FILL,
+	height: "110dp",
+	bottom : "10dp"
+},
+/*
+"#multiSelectInputContaner" : {
+	width: "80%",
+	left : "0dp",
+	right : "5dp",
+	height: "50dp",
+},
+"#multiSelectTextField" : {
+	width: Ti.UI.FILL,
+	left : "10dp",
+	height: Ti.UI.FILL,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+*/
+"#multiSelectTextField" : {
+	width: "79%",
+	left : "0dp",
+	right : "1%",
+	height: "50dp",
+	enabled: false,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+"#multiSelectButton" : {
+	width : Ti.UI.FILL,
+	height: "50dp",
+	right: "0dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+}

@@ -1,0 +1,19 @@
+"#headerView" : {
+	width: Ti.UI.Fill,
+	height: "30dp",
+	top: "10dp",
+	left : "10dp",
+	right : "10dp",
+	borderRadius: 5,
+	borderWidth : 1,
+	borderColor : "#F54949",
+	backgroundColor: '#E8C8C8'
+}
+"#headerTitle" : {
+	left : "10dp",
+	width: Ti.UI.SIZE,
+	height: "30dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'center'
+}

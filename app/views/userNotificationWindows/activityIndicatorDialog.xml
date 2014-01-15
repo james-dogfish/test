@@ -1,0 +1,6 @@
+<Alloy>
+	<Window id="win">
+		<View id="background" />
+		<ActivityIndicator id="activityIndicator" message="Loading..."/>
+	</Window>
+</Alloy>

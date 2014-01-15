@@ -1,0 +1,61 @@
+"#tableView" : {
+	top : 65,
+	separatorStyle : Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
+	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+},
+"Label": {      //TODO: Andy can you please name things so that we know what they are? :P :)
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#000"
+}
+".container": {
+	backgroundColor: '#000',
+	zIndex: 0
+},
+"#header" : {
+	backgroundColor : '#ededed',
+	height : 60,
+	top : 0
+},
+"#titleContainer" : {
+	top : 50,
+	height : 50,
+	zIndex : 1,
+	backgroundColor : '#8a2132'	
+},
+"#appTitle" : {
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ffffff'	
+},
+".button" : {
+	width : 55,
+	height : 30,
+	borderRadius:6,
+    borderWidth:1,
+    borderColor:'#151d21',
+    font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+    color: '#fefefe',
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#456473', '#052f43']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
+},
+"#home" : {
+	barColor: '#000',
+    barTint : '#000',
+    top : Alloy.Globals.windowTop,
+    statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
+}

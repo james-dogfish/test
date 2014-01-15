@@ -1,0 +1,31 @@
+"#rangeFieldTemplate" : {
+	width: Ti.UI.FILL,
+	height: "110dp",
+	bottom : "10dp"
+},
+"#valueTextFieldOne" : {
+	width: "49%",
+	height: "50dp",
+	left : "0dp",
+	right : "0dp",
+	clearButtonMode : true,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	backgroundColor: '#fff',
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	paddingLeft : "10dp",
+	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+},
+"#valueTextFieldTwo" : {
+	width: "49%",
+	height: "50dp",
+	left : "2%",
+	right : "0dp",
+	clearButtonMode : true,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	backgroundColor: '#fff',
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	paddingLeft : "10dp",
+	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+}

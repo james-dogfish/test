@@ -1,0 +1,24 @@
+"#questionSectionNavigation" : {
+	width: Ti.UI.FILL,
+	height: "80dp",
+	bottom : "10dp",
+},
+"#navView" : {
+	width: Ti.UI.FILL,
+	height : Ti.UI.FILL
+},
+".navButton" : {
+	width: "150dp",
+	height: "50dp",
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee'
+},
+"#backButton" : {
+	left : "10dp"
+},
+"#nextButton" : {
+	right : "10dp"
+}

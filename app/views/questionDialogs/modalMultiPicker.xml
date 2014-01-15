@@ -1,0 +1,23 @@
+<Alloy>
+	<!--
+	<NavigationWindow id="navWindow">
+		<Window id="win">
+			<RightNavButton>
+                <Button id="rightNavButton" onClick="rightNavButtonClick"/>
+            </RightNavButton>
+			<TableView id="tableView" onClick="rowClicked"/>
+		</Window>
+	</NavigationWindow>
+	-->
+	<Window id="window">
+		<View id="background" onClick="onBackgroundClick"/>
+		<View id="modalBackgorund">
+			<Toolbar platform="ios" top="0" borderTop="true" borderBottom="true" barColor="#084f6f">
+				<Button class="systemButton" title="Done" onClick="rightNavButtonClick" right="10" />
+				<Label id="appTitle"/>
+			</Toolbar>
+			<TableView id="tableView" onClick="rowClicked"/>
+		</View>
+	</Window>
+	
+</Alloy>

@@ -1,0 +1,24 @@
+<Alloy>
+	<Window id="win">
+		<View id="background" onClick="closeWindowCallBack"/>
+		<View id="gotoDisplayView">
+			<Button id="firstUnanswered" class="gotoButton" onClick="firstUnansweredClick">First Unanswered</Button>
+			<Button id="resumeLastPosition" class="gotoButton" onClick="resumeLastPositionClick">Resume Last Position</Button>
+			<Button id="createCensus" class="gotoButton" onClick="createCensusClick">Create Census</Button>
+			
+			<View id="contaierView">
+				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>  
+			</View>
+			
+			<!--
+			<ListView id="listView">
+				<Templates>
+					<Require src="gotoQuestionSectionWindow/goToQuestionRow" type="view"/>
+					<Require src="gotoQuestionSectionWindow/goToSectionHeader" type="view"/>
+				</Templates>
+			</ListView>
+			-->
+			
+		</View>
+	</Window>
+</Alloy>

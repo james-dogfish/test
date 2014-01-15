@@ -1,0 +1,12 @@
+{
+	"id": "sh.dogfi.login",
+	"description" : "Dogfish Login Module",
+	"author": "Alessio Failla",
+	"version": "0.1",
+	"copyright":"Copyright (c) 2013 by Dogfi.sh Mobile LTD",
+	"license":"Public Domain",
+	"min-alloy-version": "0.1.16",
+	"min-titanium-version":"2.0",
+	"tags":"utility",
+	"platforms":"ios"
+}

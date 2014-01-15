@@ -1,9 +1,8 @@
-function doClick(e) {
-    alert($.label.text);
-}
-
-$.index.open();
-
+Ti.App.addEventListener('closeLoginWin',function(){
+	$.window.close();
+	$.destroy;
+	Alloy.Globals.aIndicator.hide();
+});
 if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad')
 {
   var touchTestModule = undefined;

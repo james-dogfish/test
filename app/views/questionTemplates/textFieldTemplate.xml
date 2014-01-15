@@ -1,0 +1,18 @@
+<Alloy>
+	<ItemTemplate id="textFieldTemplate" name="textFieldTemplate" class="basicTemplate">
+        <View class="viewGroup">
+			<View class="headerView" bindId="debugTitleView" onClick="onTitleClick">
+				<Label id="questionTitle" bindId="title" class="questionTitle" />
+				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
+			</View>
+			
+			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
+				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
+			</View>
+			
+			<View class="questionView">
+				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" />
+			</View>
+		</View>
+    </ItemTemplate>
+</Alloy>

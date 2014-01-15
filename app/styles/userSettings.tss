@@ -1,0 +1,69 @@
+"#window": {
+	backgroundColor: "transparent"	
+},
+"#container": {
+	backgroundColor: "transparent",
+	zIndex : 1
+},
+"#settingView": {
+	width : 400,
+	height : 475,
+	backgroundColor : '#084e6d',
+	borderRadius : 8,
+	borderSize : 1,
+	borderColor : '#053c54'
+},
+"#headingView": {
+	top:0,
+	width: 400,
+	height: 45,
+	backgroundColor: '#0e6388'
+},
+".heading": {
+	top: 10,
+	color: '#ffffff',
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	}
+},
+"#closeButton":{
+	height: 32,
+	width: 32,
+	right: 10	
+},
+".textField": {
+	width: 350,
+	height: 45,
+	top: 10,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+".numberField": {
+	width: 350,
+	height: 45,
+	top: 10,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD
+	},
+".label": {
+	top: 15,
+	left: 25,
+	color: '#ffffff',
+	font : {
+		fontSize : 18,
+		fontWeight : 'normal'
+	}
+},
+"#sectionSwitch": {
+	left: 25,
+	top: 10
+},
+"#saveButton": {
+	top: 15,
+	width: 125,
+	height: 35
+}

@@ -1,0 +1,19 @@
+<Alloy>
+	<ItemTemplate id="censusCounterTemplate" name="censusCounterTemplate" class="basicTemplate">
+        <View class="viewGroup">
+			<View class="headerView" bindId="debugTitleView">
+				<Label id="questionTitle" bindId="title" class="questionTitle" />
+				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
+			</View>
+			
+			<View class="questionView">
+				<Button class="additionButton" onClick="minusFive">-5</Button>
+				<Button class="additionButton" onClick="minusOne">-1</Button>
+				
+				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextField1Blur" onFocus="onTextFieldFocus" />
+				<Button class="additionButton" onClick="addOne">+1</Button>
+				<Button class="additionButton" onClick="addFive">+5</Button>
+			</View>
+		</View>
+    </ItemTemplate>
+</Alloy>

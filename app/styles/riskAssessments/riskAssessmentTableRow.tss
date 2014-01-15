@@ -1,0 +1,63 @@
+"#row": {
+	height: Ti.UI.SIZE,
+	layout: 'vertical',
+	className: 'assessments',
+	hasChild: true,
+	touchEnabled : true
+},
+".view": {
+	layout: 'horizontal',
+	left: 0,
+	top: 2,
+	bottom: 2,
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
+".icon": {
+	height: Ti.UI.SIZE,
+	left: 10,
+	top: 10,
+	font: {
+		fontSize: 20,
+		fontFamily: Alloy.Globals.fontawesome.fontfamily
+	}
+},
+".titleText": {
+	height: Ti.UI.SIZE,
+	left: 10,
+	top: 10,
+	font: {
+		fontSize: 18,
+		fontFamily: 'Arial',
+		fontWeight: 'bold'
+	}
+},
+".labelText": {
+	height: Ti.UI.SIZE,
+	left: 15,
+	top: 7,
+	font: {
+		fontSize: 20,
+		fontFamily: 'Arial'
+	},
+	color: '#989696'
+},
+"#statusView" : {
+	bottom : 10
+},
+"#statusLabel" : {
+	left : 95
+},
+"#alcrmView" : {
+	bottom : 10
+},
+"#alcrmIcon" : {
+	top : 5
+},
+"#alcrmStatus" : {
+	top : 5
+},
+"#alcrmStatusLabel" : {
+	left : 80,
+	top : 2
+}

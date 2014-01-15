@@ -1,0 +1,8 @@
+<Alloy>
+	<ItemTemplate id="questionSectionNavigation" name="questionSectionNavigation">
+        <View id="navView">
+			<Button id="backButton" class="navButton" bindId="backButton" onClick="moveBackClick">Back</Button>
+			<Button id="nextButton" class="navButton" bindId="nextButton" onClick="moveNextClick">Next</Button>
+		</View>
+    </ItemTemplate>
+</Alloy>

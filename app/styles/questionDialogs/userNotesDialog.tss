@@ -1,0 +1,59 @@
+"#window" : {
+	exitOnClose : true
+},
+"#appTitle" : {
+	text : "Notes",
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ffffff'	
+},
+
+"#background" : {
+	backgroundColor:"#000",
+	opacity : 0
+},
+"#modalBackgorund" : {
+	width: "50%",
+	right : "-50%",
+	height: "50%",
+	layout : "vertical",
+	backgroundColor:"#fff",
+	borderRadius: 5,
+	borderWidth : 2,
+	borderColor : "#aaa",
+},
+"#textAreaContainerView" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	top : "5dp",
+	bottom : "5dp",
+	left : "5dp",
+	right : "5dp",
+	//borderRadius: 5,
+	borderWidth : 3,
+	borderColor : "#ddd",
+},
+"#textArea" : {
+	top : "10dp",
+	bottom : "10dp",
+	left : "10dp",
+	right : "10dp",
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	backgroundColor:"#fff",
+},
+"#hintText" : {
+	width: "150dp",
+	height: "50dp",
+	top : "10dp",
+	left : "10dp",
+	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ddd',
+}
+

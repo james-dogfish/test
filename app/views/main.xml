@@ -1,0 +1,22 @@
+<Alloy>
+	<TabGroup id="tabGroup">
+			<Require id="riskAssessmentsTab" src="riskAssessments/riskAssessmentsWindow" type="view"/>
+			<Require id="questionRendererTab" src="questionRendererTab" type="view"/>
+			<Require id="masterSearchTab" src="searchWindow/masterSearchTab" type="view"/>
+			<Require id="detailSearchTab" src="searchWindow/detailSearchTab" type="view"/>
+			<!--
+			<Window id="home" tabBarHidden="true" navBarHidden="true" onFocus="windowFocused">
+				<View id="container">
+					<Toolbar platform="ios" top="20" borderTop="true" borderBottom="true" barColor="#084f6f">
+						<Button class="button" id="searchButton" title="Search" onClick="toggleSearch" left="10" />
+						<Label id="appTitle" text="APP TITLE"/>
+						gi
+					</Toolbar>
+					
+					<Require id="questionListView" src="questionRenderer" type="view"/>
+								
+				</View>
+			</Window>
+			-->
+	</TabGroup>
+</Alloy>

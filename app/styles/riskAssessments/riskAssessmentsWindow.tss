@@ -1,0 +1,31 @@
+"#window" : {
+	barColor: '#000',
+    barTint : '#000',
+    top : Alloy.Globals.windowTop,
+    statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+	layout: 'vertical',
+},
+"#appTitle" : {
+	text : "My Risk Assessments",
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ffffff'	
+},
+"#listView" : {
+	backgroundColor:"#fff",
+},
+"#listView" : {
+	backgroundColor:"#fff",
+	caseInsensitiveSearch: true
+},
+"#tableVeiw" : {
+	filterAttribute : "filter",
+	
+},
+"#searchBar" : {
+	barColor:'#000', 
+    height:43,
+    top:0,
+}

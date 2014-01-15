@@ -1,0 +1,21 @@
+<Alloy>
+	<ItemTemplate id="multiSelectTemplate" name="multiSelectTemplate" class="basicTemplate">
+        <View class="viewGroup">
+			<View class="headerView" bindId="debugTitleView">
+				<Label id="questionTitle" bindId="title" class="questionTitle" />
+				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
+			</View>
+		
+			<View class="questionView">
+				<!--
+				<View id="multiSelectInputContaner" class="inputField">
+					<Label id="multiSelectTextField" bindId="displayValue"/>
+				</View>
+				-->
+				<TextField id="multiSelectTextField" class="inputField" bindId="displayValue" onClick="multiSelectButtonClicked"/>
+				<Button id="multiSelectButton" class="inputButton" onClick="multiSelectButtonClicked">Select</Button>
+			</View>
+			
+		</View>
+    </ItemTemplate>
+</Alloy>

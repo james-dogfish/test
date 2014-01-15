@@ -1,0 +1,19 @@
+<Alloy>
+	<TableViewRow id="row">
+		<View id="crossingView" class="view">
+			<Label id="crossingIcon" class="icon"></Label>
+			<Label id="crossing" class="titleText">Crossing Name </Label>
+			<Label id="crossingLabel" class="labelText" />
+		</View>
+		<View id="statusView" class="view">
+			<Label id="statusIcon" class="icon" />
+			<Label id="status" class="titleText">Status </Label>
+			<Label id="statusLabel" class="labelText"/>
+		</View>
+		<View id="alcrmView" class="view">
+			<Label id="alcrmIcon" class="icon" />
+			<Label id="alcrmStatus" class="titleText">ALCRM </Label>
+			<Label id="alcrmStatusLabel" class="labelText"/>
+		</View>
+	</TableViewRow>
+</Alloy>

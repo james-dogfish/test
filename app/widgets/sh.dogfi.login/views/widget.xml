@@ -1,0 +1,15 @@
+<Alloy>
+		<ScrollView id="loginWin">
+			<View id="shadowView">
+			</View>
+			<View id="loginView" layout="vertical">
+				<Label id="loginLabel" text="Login"/>
+				<ImageView id="nrLogo" />
+				<!-- <Label id="userLabel" text="Username"/> -->
+				<TextField id="userField" hintText="Username" />
+				<!-- <Label id="passLabel" text="Password" /> -->
+				<TextField id="passField" hintText="Password" onReturn="doLogin"/>
+				<Button id="loginButton" onClick="doLogin">Login</Button>
+			</View>
+		</ScrollView>
+</Alloy>

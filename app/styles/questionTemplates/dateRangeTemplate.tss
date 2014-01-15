@@ -1,0 +1,74 @@
+"#dateRangeTemplate" : {
+	width: Ti.UI.FILL,
+	height: "110dp",
+	bottom : "10dp"
+},
+/*
+"#inputContaner1" : {
+	width: "29%",
+	left : "0dp",
+	right : "1%",
+	height: "50dp",
+},
+"#inputContaner2" : {
+	width: "28%",
+	left : "3%",
+	right : "1%",
+	height: "50dp",
+},
+"#textField1" : {
+	width: Ti.UI.FILL,
+	left : "10dp",
+	height: Ti.UI.FILL,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+"#textField2" : {
+	width: Ti.UI.FILL,
+	left : "10dp",
+	height: Ti.UI.FILL,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+*/
+"#textField1" : {
+	width: "29%",
+	left : "0dp",
+	right : "1%",
+	height: "50dp",
+	enabled: false,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+"#textField2" : {
+	width: "28%",
+	left : "3%",
+	right : "1%",
+	height: "50dp",
+	enabled: false,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+
+"#button1" : {
+	width : "19%",
+	height: "50dp",
+	right: "0dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+},
+"#button2" : {
+	width : "19%",
+	height: "50dp",
+	right: "0dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+}

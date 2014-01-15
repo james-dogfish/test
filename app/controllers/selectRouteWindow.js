@@ -1,0 +1,69 @@
+var args = arguments[0] || {};
+var User = require('core/User');
+
+var doneCallbackfunction = null;
+
+var currentValue = null;
+
+var pWidth = Ti.Platform.displayCaps.platformWidth,
+	pHeight = Ti.Platform.displayCaps.platformHeight;
+
+if (pWidth > pHeight) {
+	// landscape
+	$.background.backgroundImage = 'images/bg/landscape.jpg';
+} else {
+	// portrait
+	$.background.backgroundImage = 'images/bg/portrait.jpg';
+}
+
+exports.show = function(routeList,callbackfunction){
+	doneCallbackfunction = callbackfunction;
+	/*	var routeList = [
+		{ 
+			title : "route one",
+			value : 1
+		},
+		{ 
+			title : "route two",
+			value : 2
+		},
+		{ 
+			title : "route three",
+			value : 3
+		},
+		{ 
+			title : "route four",
+			value : 4
+		}
+	];*/
+	var data = [];
+	for(var i=0;i<routeList.length;i++){
+		data.push(Ti.UI.createPickerRow({title: routeList[i].title/*, value : routeList[i].value*/ }
+		));
+	}
+	
+	$.pickerView.add(data);
+	$.pickerView.selectionIndicator = true;
+	$.pickerView.setSelectedRow(0, 0, true);
+	currentValue = routeList[0];
+	
+	$.win.open();
+	
+	//selectedRoute
+};
+
+function pickerChange(e){
+	currentValue = {
+		title : $.pickerView.getSelectedRow(null).title,
+		value : $.pickerView.getSelectedRow(null).value
+	};
+};
+
+function doneButtonClick(e){
+	$.win.close();
+	
+	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
+	
+	doneCallbackfunction(currentValue);
+	
+};

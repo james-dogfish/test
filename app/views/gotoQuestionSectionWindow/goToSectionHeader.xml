@@ -1,0 +1,5 @@
+<Alloy>
+	<ItemTemplate id="headerRow" name="headerRow" >
+		<Label id="title" bindId="headerTitle" onClick="onClickCallBack"/>
+	</ItemTemplate>
+</Alloy>

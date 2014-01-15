@@ -1,0 +1,26 @@
+"#win" : {
+	width  : Ti.UI.FILL,
+	height  : Ti.UI.FILL
+},
+"#background" : {
+	backgroundColor:"#000",
+	opacity : 0.5,
+	width  : Ti.UI.FILL,
+	height  : Ti.UI.FILL
+},
+"#gotoDisplayView" : {
+	backgroundColor:"#fff",
+	height  : Ti.UI.FILL,
+	left : "-400dp",
+	top : "70dp",
+	layout : "vertical"
+},
+".gotoButton" : {
+	height  : Ti.UI.SIZE,
+	width  : Ti.UI.FILL,
+	left : "20dp",
+	right : "20dp",
+	bottom : "10dp"
+}
+
+

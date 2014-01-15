@@ -1,0 +1,68 @@
+"#listView" : {
+	top : 0,
+	bottom : "60dp"
+	//separatorStyle : Ti.UI.iPhone.ListViewSeparatorStyle.NONE
+},
+"#container" : {
+	top : 65,
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+},
+"#footer" : {
+	bottom : "0dp",
+	width: Ti.UI.FILL,
+	height : "60dp",
+	backgroundColor: "#ccc"
+},
+"#allSectionsNavView" : {
+	left : "1%",
+	width: "98%",
+	height : Ti.UI.FILL,
+	layout : "horizontal",
+	horizontalWrap : false,
+	top : 0,
+},
+"#singleSectionsNavView" : {
+	left : "1%",
+	width: "98%",
+	height : Ti.UI.FILL,
+	layout : "horizontal",
+	horizontalWrap : false,
+	top : 0,
+},
+".navButton" : {
+	width: "19.9%",
+	height: "40dp",
+	top : "15dp",
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee'
+},
+"#backButton" : {
+},
+"#nextButton" : {
+
+},
+
+".singleSectionsFooterButton" : {
+	width: "20%",
+	height: "50dp",
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee',
+	top : "5dp"
+},
+".allSectionsFooterButton" : {
+	width: "33.333%",
+	height: "50dp",
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee',
+	top : "5dp"
+}

@@ -1,0 +1,21 @@
+<Alloy>
+	<ItemTemplate id="dateSelectTemplate" name="dateTemplate" class="basicTemplate">
+        <View class="viewGroup">
+			<View class="headerView" bindId="debugTitleView">
+				<Label id="questionTitle" bindId="title" class="questionTitle" />
+				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
+			</View>
+		
+			<View class="questionView">
+				<!--
+				<View id="inputContaner" class="inputField">
+					<Label id="textField" bindId="displayValue"/>
+				</View>
+				-->
+				<TextField id="textField" class="inputField" bindId="displayValue" onClick="dateButtonClicked"/>
+				<Button id="button" class="inputButton" onClick="dateButtonClicked">Select</Button>
+			</View>
+			
+		</View>
+    </ItemTemplate>
+</Alloy>

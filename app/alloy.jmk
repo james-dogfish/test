@@ -1,0 +1,88 @@
+// Will sort out the 3.2.0 textfield in a template issue on alloy
+function fixAlloy(filetoFix, contentToRemove) {
+    var fs = require('fs');
+    var content = fs.readFileSync(filetoFix).toString();
+    contentToRemove.forEach(function(needle) {
+        content = content.replace(needle,'');
+    });
+    // write to file now
+    fs.writeFileSync(filetoFix, content);
+};
+
+task("post:compile", function(event, logger) {
+
+    logger.info('Compile finished');
+
+    // Sort out the textfield bug
+
+    var resourcesDir = event.dir.resources;
+
+    // filename to work on
+    var fileNames = [{
+        file: 'textFieldTemplate',
+        toRemove: [
+            'onTextFieldBlur ? $.__views.valueTextField.addEventListener("blur", onTextFieldBlur) : __defers["$.__views.valueTextField!blur!onTextFieldBlur"] = true;',
+            'onTextFieldFocus ? $.__views.valueTextField.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextField!focus!onTextFieldFocus"] = true;',
+            '__defers["$.__views.valueTextField!blur!onTextFieldBlur"] && $.__views.valueTextField.addEventListener("blur", onTextFieldBlur);',
+            '__defers["$.__views.valueTextField!focus!onTextFieldFocus"] && $.__views.valueTextField.addEventListener("focus", onTextFieldFocus);'
+        ]
+    }, {
+        file: 'multiSelectTemplate',
+        toRemove: [
+            'multiSelectButtonClicked ? $.__views.multiSelectTextField.addEventListener("click", multiSelectButtonClicked) : __defers["$.__views.multiSelectTextField!click!multiSelectButtonClicked"] = true;',
+            '__defers["$.__views.multiSelectTextField!click!multiSelectButtonClicked"] && $.__views.multiSelectTextField.addEventListener("click", multiSelectButtonClicked);'
+        ]
+    }, {
+        file: 'dateSelectTemplate',
+        toRemove: [
+            'dateButtonClicked ? $.__views.textField.addEventListener("click", dateButtonClicked) : __defers["$.__views.textField!click!dateButtonClicked"] = true;',
+            '__defers["$.__views.textField!click!dateButtonClicked"] && $.__views.textField.addEventListener("click", dateButtonClicked);'
+        ]
+    }, {
+        file: 'singleSelectTemplate',
+        toRemove: [
+            'selectButtonClicked ? $.__views.selectTextField.addEventListener("click", selectButtonClicked) : __defers["$.__views.selectTextField!click!selectButtonClicked"] = true;',
+            '__defers["$.__views.selectTextField!click!selectButtonClicked"] && $.__views.selectTextField.addEventListener("click", selectButtonClicked);'
+        ]
+    }, {
+        file: 'rangeFieldTemplate',
+        toRemove: [
+            'onTextField1Blur ? $.__views.valueTextFieldOne.addEventListener("blur", onTextField1Blur) : __defers["$.__views.valueTextFieldOne!blur!onTextField1Blur"] = true;',
+            'onTextFieldFocus ? $.__views.valueTextFieldOne.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextFieldOne!focus!onTextFieldFocus"] = true;',
+            'onTextField2Blur ? $.__views.valueTextFieldTwo.addEventListener("blur", onTextField2Blur) : __defers["$.__views.valueTextFieldTwo!blur!onTextField2Blur"] = true;',
+            'onTextFieldFocus ? $.__views.valueTextFieldTwo.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextFieldTwo!focus!onTextFieldFocus"] = true;',
+            '__defers["$.__views.valueTextFieldOne!blur!onTextField1Blur"] && $.__views.valueTextFieldOne.addEventListener("blur", onTextField1Blur);',
+            '__defers["$.__views.valueTextFieldOne!focus!onTextFieldFocus"] && $.__views.valueTextFieldOne.addEventListener("focus", onTextFieldFocus);',
+            '__defers["$.__views.valueTextFieldTwo!blur!onTextField2Blur"] && $.__views.valueTextFieldTwo.addEventListener("blur", onTextField2Blur);',
+            '__defers["$.__views.valueTextFieldTwo!focus!onTextFieldFocus"] && $.__views.valueTextFieldTwo.addEventListener("focus", onTextFieldFocus);'
+        ]
+    }, {
+        file: 'dateRangeTemplate',
+        toRemove: [
+            'dateButton1Clicked ? $.__views.textField1.addEventListener("click", dateButton1Clicked) : __defers["$.__views.textField1!click!dateButton1Clicked"] = true;',
+            'dateButton2Clicked ? $.__views.textField2.addEventListener("click", dateButton2Clicked) : __defers["$.__views.textField2!click!dateButton2Clicked"] = true;',
+            '__defers["$.__views.textField1!click!dateButton1Clicked"] && $.__views.textField1.addEventListener("click", dateButton1Clicked);',
+            '__defers["$.__views.textField2!click!dateButton2Clicked"] && $.__views.textField2.addEventListener("click", dateButton2Clicked);'
+        ]
+    }, {
+        file: 'censusCounterTemplate',
+        toRemove: [
+            'onTextField1Blur ? $.__views.valueTextField.addEventListener("blur", onTextField1Blur) : __defers["$.__views.valueTextField!blur!onTextField1Blur"] = true;',
+            'onTextFieldFocus ? $.__views.valueTextField.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextField!focus!onTextFieldFocus"] = true;',
+            '__defers["$.__views.valueTextField!blur!onTextField1Blur"] && $.__views.valueTextField.addEventListener("blur", onTextField1Blur);',
+            '__defers["$.__views.valueTextField!focus!onTextFieldFocus"] && $.__views.valueTextField.addEventListener("focus", onTextFieldFocus);'
+        ]
+    }, {
+        file: 'censusStartTimerTemplate',
+        toRemove: [
+            'onTextFieldFocus ? $.__views.valueTextField.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextField!focus!onTextFieldFocus"] = true;',
+            '__defers["$.__views.valueTextField!focus!onTextFieldFocus"] && $.__views.valueTextField.addEventListener("focus", onTextFieldFocus);'
+        ]
+    }];
+
+    fileNames.forEach(function(obj) {
+        var fullyFormedName = resourcesDir + '/iphone/alloy/controllers/questionTemplates/' + obj.file + '.js';
+        fixAlloy(fullyFormedName, obj.toRemove);
+    });
+    logger.info();
+});

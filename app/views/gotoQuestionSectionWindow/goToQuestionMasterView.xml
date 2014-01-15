@@ -1,0 +1,10 @@
+<Alloy>
+	<ListView id="listView">
+		<Templates>
+			<Require src="gotoQuestionSectionWindow/riskAssessmentPageRowTemplate" type="view"/>
+		</Templates>
+		
+		
+		<ListSection id="section"/>
+	</ListView>
+</Alloy>

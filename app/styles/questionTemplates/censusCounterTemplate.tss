@@ -1,0 +1,30 @@
+"#censusCounterTemplate" : {
+	width: Ti.UI.FILL,
+	height: "110dp",
+	bottom : "10dp"
+},
+"#valueTextField" : {
+	width: "49%",
+	height: "50dp",
+	left : "0.5%",
+	right : "0dp",
+	clearButtonMode : true,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	backgroundColor: '#fff',
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	paddingLeft : "10dp",
+	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+	keyboardType : Titanium.UI.KEYBOARD_NUMBER_PAD
+},
+".additionButton" : {
+	width: "12%",
+	height: "50dp",
+	left : "0.5%",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee'
+}

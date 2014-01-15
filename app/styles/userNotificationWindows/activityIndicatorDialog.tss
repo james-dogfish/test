@@ -1,0 +1,13 @@
+"#win" : {
+
+},
+"#background" : {
+	backgroundColor:"#000",
+	opacity : 0.5
+},
+"#activityIndicator" : {
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	style : Titanium.UI.iPhone.ActivityIndicatorStyle.BIG,
+	color   : "#fff"
+}

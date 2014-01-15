@@ -1,0 +1,101 @@
+".viewGroup" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	layout : "vertical"
+},
+".basicTemplate" : {
+	selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+
+".headerView" : {
+	width: Ti.UI.Fill,
+	height: "35dp",
+	top: "20dp",
+	left : "10dp",
+	right : "10dp",
+	borderRadius: 5,
+	borderWidth : 1,
+	borderColor : "#000",
+	backgroundColor: '#eee'
+},
+".questionTitle" : {
+	left : "10dp",
+	width: Ti.UI.SIZE,
+	height: "30dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'center'
+},
+".notesButton" : {
+	backgroundImage: 'images/questionNote.png',
+	right : "10dp",
+	width: 30,
+	height: 30,
+},
+".questionErrorMessageView" : {
+	width: Ti.UI.Fill,
+	height: "0dp",
+	top: "0dp",
+	left : "10dp",
+	right : "10dp",
+	borderRadius: 5,
+	borderWidth : 1,
+	borderColor : "#e00",
+	backgroundColor: '#fee'
+},
+".questionErrorMessage" : {
+	left : "10dp",
+	width: Ti.UI.SIZE,
+	height: "30dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"17sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'center'
+},
+
+".questionView" : {
+	width: Ti.UI.Fill,
+	height: Ti.UI.SIZE,
+	top: "5dp",
+	bottom : "10dp",
+	left : "10dp",
+	right : "10dp",
+	layout : "horizontal",
+	horizontalWrap : false
+},
+
+".inputField" : {
+	borderRadius: 5,
+	borderWidth : 2,
+	borderColor : "#aaa",
+	backgroundColor: '#fff'
+},
+".inputButton" :{
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee'
+},
+".systemButton" : {
+	width : 55,
+	height : 30,
+	borderRadius:6,
+    borderWidth:1,
+    borderColor:'#151d21',
+    font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+    color: '#fefefe',
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#456473', '#052f43']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
+}
