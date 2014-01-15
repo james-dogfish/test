@@ -46,6 +46,7 @@ function localDataHandler()
 	};
 	
 	self.updateSavedAssessments = function(savedAssessments){
+		//alert("updateSavedAssessments called");
 		var indexFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + "/assessmentIndex.json");
 		indexFile.write(JSON.stringify(savedAssessments));
 		return true;
@@ -188,6 +189,9 @@ function localDataHandler()
 	
 	self.addDefaultCensus = function(assessmentObject,defaultQuestionSet)
 	{
+		alert("addDefaultCensus called");
+		alert("assessmentObject: "+JSON.stringify(assessmentObject));
+		alert("defaultQuestionSet: "+JSON.stringify(defaultQuestionSet));
 		var savedAssessments = self.getAllSavedAssessments();
 		
 		for(var i=0; i < savedAssessments.length; i++){
@@ -218,6 +222,7 @@ function localDataHandler()
 		var savedAssessments = self.getAllSavedAssessments();
 		
 		for(var i=0; i < savedAssessments.length; i++){
+			
 			if(savedAssessments[i].assessmentID == assessmentObject.assessmentID){
 				var newCensusFileName = assessmentObject.assessmentID +"CensusQuestions.json";
 				var newCensusFile =Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + newCensusFileName);			
@@ -226,7 +231,7 @@ function localDataHandler()
 				savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
 				savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID)+ 1;
 				//alert("censusLastPageID 2 = " + savedAssessments[i].censusLastPageID);
-				
+				alert("savedAssessments[i].defaultCensusQuestions: "+savedAssessments[i].defaultCensusQuestions);
 				var returnList = addDefultValuesToQuestionSet(
 					savedAssessments[i].defaultCensusQuestions,
 					newCensusFileName, 

@@ -1,9 +1,12 @@
 var User = require('core/User');
 var userPreferences = User.getPreferences();
 var currentAssessmentObject = null;
-
+var localDataHandler = require('localDataHandler/localDataHandler');
+var interpreter = require('interpreter/interpreterModule');
+	
 exports.setAssessment = function(sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
+	alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
 	$.questionListView.setAssessment(sectionList, assessmentObject);
 	
 };
@@ -17,7 +20,7 @@ function backButtonClick(e) {
 	$.trigger("BackButtonClick");
 }
 
-function parseData(xml_text)
+/*function parseData(xml_text)
 {
 	if(xml_text!==null || typeof xml_text!=='undefined'){
 		var localParser = require('parser/localParser');
@@ -28,7 +31,7 @@ function parseData(xml_text)
 		//alert("data: "+JSON.stringify(data));
 		//alert("currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
 		
-		var localDataHandler = require('localDataHandler/localDataHandler');
+		
 		
 		
 		
@@ -36,14 +39,16 @@ function parseData(xml_text)
 		alert("ParseData Failed");
 
 	}
-};
+};*/
 
 var createCensus = function(){
 	currentAssessmentObject;
-
+	alert(JSON.stringify(currentAssessmentObject));
 	var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
 	var censusDataInterpreted = interpreter.interpret(censusData);
+	alert(JSON.stringify(censusData));
 	$.questionListView.appendSectionsToAssessment(censusDataInterpreted);
+	alert("after $.questionListView.appendSectionsToAssessment");
 };
 
 // Setting up menu item for home screen
