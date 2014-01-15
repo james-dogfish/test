@@ -25,18 +25,15 @@ var _Soap = function() {
 	var XMLTools = require('tools/XMLTools'),
 		User = require('core/User'),
 		Util = require('core/Util');
-
-
-
-		targetNS = 'http://com/icon/networkrail/alcrm/',
-		loginUrl = 'http://server.iconsolutions.com/alcrm3/adminService/admin.wsdl',
+		
+		targetNS 	  = 'http://com/icon/networkrail/alcrm/',
+		loginUrl 	  = 'http://server.iconsolutions.com/alcrm3/adminService/admin.wsdl',
 		assessmentUrl = 'http://server.iconsolutions.com/alcrm3/assessmentService/assessment.wsdl',
-		questionsUrl = 'http://server.iconsolutions.com/alcrm3/questionsService/questions.wsdl',
-		crossingUrl  = 'http://server.iconsolutions.com/alcrm3/crossingService/crossing.wsdl',
-		censusUrl = 'http://server.iconsolutions.com/alcrm3/censusService/census.wsdl',
+		questionsUrl  = 'http://server.iconsolutions.com/alcrm3/questionsService/questions.wsdl',
+		crossingUrl   = 'http://server.iconsolutions.com/alcrm3/crossingService/crossing.wsdl',
+		censusUrl     = 'http://server.iconsolutions.com/alcrm3/censusService/census.wsdl',
+		trainUrl      = 'http://server.iconsolutions.com/alcrm3/trainService/train.wsdl',
 		suds = require('tools/Suds2_fat');
-
-
 
 	var soapObject = {
 		/*
@@ -370,7 +367,63 @@ var _Soap = function() {
 		| TRAIN OPERATIONS
 		|---------------------------------------------------------------------------------
 		*/
+		getTrainGroupRequest: function(args, success, failure) {
+			var userPass = User.getLogin();
+			var sudsClient = new suds({
+						endpoint: trainUrl,
+						targetNamespace: targetNS + 'train',
+						ns: 'tra',
+						includeNS: true,
+						xmlDeclaration: '',
+						envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tra="http://com/icon/networkrail/alcrm/train">',
+						bodyBegin: '<soapenv:Body>',
+						bodyEnd: '</soapenv:Body>',
+						envelopeEnd: '</soapenv:Envelope>',
+						headerBegin: '<soapenv:Header>',
+						headerContent: '<wsse:Security soapenv:mustUnderstand="1"' + 
+										'   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
+										'   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' + 
+										' <wsse:UsernameToken wsu:Id="UsernameToken-1">' + 
+										' <wsse:Username>'+userPass.username+'</wsse:Username>' + 
+										' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+userPass.password+'</wsse:Password>'+
+										'</wsse:UsernameToken>' + 
+										'</wsse:Security>' + 
+										'<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+						headerEnd: '</soapenv:Header>',
+						enableWs: true
+			});
+
+			sudsClient.invoke('GetTrainGroupRequest', args, success, failure);
+		},
 		
+		createTrainGroupRequest: function(args, success, failure) {
+			var userPass = User.getLogin();
+			var sudsClient = new suds({
+						endpoint: trainUrl,
+						targetNamespace: targetNS + 'train',
+						ns: 'tra',
+						includeNS: true,
+						xmlDeclaration: '',
+						envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tra="http://com/icon/networkrail/alcrm/train" xmlns:tra1="http://trains.beans.alcrm.networkrail.icon.com" xmlns:ques="http://questions.beans.alcrm.networkrail.icon.com">',
+						bodyBegin: '<soapenv:Body>',
+						bodyEnd: '</soapenv:Body>',
+						envelopeEnd: '</soapenv:Envelope>',
+						headerBegin: '<soapenv:Header>',
+						headerContent: '<wsse:Security soapenv:mustUnderstand="1"' + 
+										'   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
+										'   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' + 
+										' <wsse:UsernameToken wsu:Id="UsernameToken-1">' + 
+										' <wsse:Username>'+userPass.username+'</wsse:Username>' + 
+										' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+userPass.password+'</wsse:Password>'+
+										'</wsse:UsernameToken>' + 
+										'</wsse:Security>' + 
+										'<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+						headerEnd: '</soapenv:Header>',
+						enableWs: true
+			});
+
+			sudsClient.invoke('CreateTrainGroupRequest', args, success, failure);
+		}
 		
 	};
 

@@ -164,13 +164,13 @@ function responseGenerator() {
 		for(var assessmentIndex =0; assessmentIndex < activeAssessments.length; assessmentIndex++){
 			//if(activeAssessments[assessmentIndex].alcrmStatus == "sent")continue;
 			var questionList = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
-			//var censusQuestions = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
+			var censusQuestions = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
 			//var trainQuestions =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
 
 			
 			//if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
 			
-			//var xmlCensusRequest = self.buildCensusResponse(censusQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			var xmlCensusRequest = self.buildCensusResponse(censusQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			//var xmlTrainRequest
 			var xmlRequest = self.buildAssessmentResponse(questionList,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			
@@ -180,20 +180,12 @@ function responseGenerator() {
 							var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                var response = JSON.stringify(xml.toObject());
-			                Alloy.Globals.aIndicator.hide();
+			                activeAssessments[assessmentIndex].alcrmStatus = "sent";
+			                localDataHandler.updateSavedAssessments(activeAssessments);
 			                Ti.API.info('createAssessment Success response >> ' + response);
-			                 
-				}, 
-				function(xmlDoc){
-							var XMLTools = require("tools/XMLTools");
-			                var xml = new XMLTools(xmlDoc);
-			                var response = JSON.stringify(xml.toObject());
-			                Ti.API.error('createAssessment Failure response >> ' + response);
-			                Alloy.Globals.aIndicator.hide();
-				}
-			);	
-			 //COMMIT CENSUS
-			        /*        Alloy.Globals.Soap.createCensus(xmlCensusRequest, 
+			                
+			                //COMMIT CENSUS
+			       			Alloy.Globals.Soap.createCensus(xmlCensusRequest, 
 								function(xmlDoc){
 											var XMLTools = require("tools/XMLTools");
 							                var xml = new XMLTools(xmlDoc);
@@ -208,7 +200,17 @@ function responseGenerator() {
 							                Ti.API.error('createCensusRequest Failure response >> ' + response);
 							                Alloy.Globals.aIndicator.hide();
 								}
-							); */
+							);//END OF COMMIT CENSUS      
+				}, 
+				function(xmlDoc){
+							var XMLTools = require("tools/XMLTools");
+			                var xml = new XMLTools(xmlDoc);
+			                var response = JSON.stringify(xml.toObject());
+			                Ti.API.error('createAssessment Failure response >> ' + response);
+			                Alloy.Globals.aIndicator.hide();
+				}
+			);	
+			 
 		}//end for loop
 	}; //end self.committAllCompleted
 }
