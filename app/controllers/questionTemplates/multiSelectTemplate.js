@@ -68,10 +68,8 @@ function multiSelectButtonClicked(e){
 		for(var i=0; i< data.valueList.length; i++){
 			values = values+"<ques:values>"+data.valueList[i]+"</ques:values>";
 		}
-		var responseObject = 
-		"<ass1:riskData>"+
-	       "<ques:parameterName>"+item.name+"</ques:parameterName>"+ values;
-	    "</ass1:riskData>";
+		var responseObject =
+	        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ values;
 	    
 
 		Ti.App.fireEvent("questionValueChange", {

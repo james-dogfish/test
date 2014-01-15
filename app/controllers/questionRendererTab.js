@@ -29,13 +29,7 @@ function parseData(xml_text)
 		//alert("currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
 		
 		var localDataHandler = require('localDataHandler/localDataHandler');
-		var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, data, []);
-		//alert("Census Data: "+JSON.stringify(censusData));
 		
-		var censusDataInterpreted = interpreter.interpret(censusData);
-		//alert("censusDataInterpreted Data: "+JSON.stringify(censusDataInterpreted));
-		
-		$.questionListView.appendSectionsToAssessment(censusDataInterpreted);
 		
 		
 	}else{
@@ -46,42 +40,10 @@ function parseData(xml_text)
 
 var createCensus = function(){
 	currentAssessmentObject;
-	
-	//$.questionListView.appendSectionsToAssessment();
-	
-	Alloy.Globals.Soap.getQuestionsRequest(
-									{
-										
-										crossingId:currentAssessmentObject.crossingID,
-										groupType:"Census"
-									},
-									function(xmlDoc){
-										parseData(xmlDoc);
-									},
-									function(xmlDoc){
-										    var XMLTools = require("tools/XMLTools");
-							                var xml = new XMLTools(xmlDoc);
-							                Alloy.Globals.aIndicator.hide();
-							                Ti.API.error('getQuestionReqeust Census Error response >> ' + xml.toJSON());
-							          
-									});
-	/*Alloy.Globals.Soap.getQuestionsRequest(
-									{
-										crossingId:Ti.App.Properties.getString("crossingIDSelected"),
-										groupType:"Train"
-									},
-									function(xmlDoc){
-										parseData(xmlDoc,crossingDetail.crossingId,riskMap);
-									},
-									function(xmlDoc){
-										    var XMLTools = require("tools/XMLTools");
-							                var xml = new XMLTools(xmlDoc);
-							                Alloy.Globals.aIndicator.hide();
-							                Ti.API.error('getQuestionReqeust Train Error response >> ' + xml.toJSON());
-							          
-									});*/
-	
 
+	var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
+	var censusDataInterpreted = interpreter.interpret(censusData);
+	$.questionListView.appendSectionsToAssessment(censusDataInterpreted);
 };
 
 // Setting up menu item for home screen

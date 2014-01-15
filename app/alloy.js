@@ -45,8 +45,7 @@ var getValidator = function()
 var startup = function(){
 		Alloy.Globals.aIndicator.show('Starting up...');
 		getValidator();
-		alert("hello1");
-		
+
 		Alloy.Globals.aIndicator.hide();
 		var mainView = Alloy.createController('main').getView();
         mainView.open();

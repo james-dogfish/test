@@ -51,10 +51,9 @@ function dateButtonClicked(e){
 		];
 		*/
 		
-		var responseObject = {
-			"ques:parameterName":{"#text":item.name},
-			"ques:parameterValue":{"#text":dateString}
-		};
+		var responseObject = 
+       		"<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
+       		"<ques:parameterValue>"+dateString+"</ques:parameterValue>";
 	
 	
 		Ti.App.fireEvent("questionValueChange", {

@@ -110,52 +110,46 @@ function responseGenerator() {
 		return true;
 	};
 	
-	self.buildAssessmentResponse = function(questionList){
+	self.buildCensusResponse = function(questionList,crossingID,detailID){
+		var censusData = "";
+		
+		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
+			if(questionResponse != null){
+				censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+			}
+		}
+
+		var xmlRequest = 
+		"<cen:CreateCensusRequest>"+
+        "<cen:census>"+
+            "<cen1:crossingID>"+crossingID+"</cen1:crossingID>"+
+            "<cen1:censusDate>"+new Date().toISOString()+"</cen1:censusDate>"+
+            censusData+
+           "</cen:census>"+
+         "</cen:CreateCensusRequest>";
+		
+		return xmlRequest;
+	};
+	
+	self.buildTrainInfoGroupResponse = function(questionList,crossingID,detailID){
+	};
+	
+	self.buildAssessmentResponse = function(questionList,crossingID,detailID){
 		var riskData = "";
 		
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
 			if(questionResponse != null){
-				//riskData.push(questionResponse);
-				riskData = riskData + questionResponse;
+				riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
 			}
 		}
-		
-		/*
-		var xmlRequest = 
-		"<ass:CreateAssessmentRequest>"+
-        "<ass:assessment>"+
-            "<ass1:crossingID>${#TestCase#crossing.id}</ass1:crossingID>"+
-            "<ass1:detailId>${#TestCase#crossing.detailId}</ass1:detailId>"+
-            "<ass1:riskData>"+
-               "<ques:parameterName>I_CONDUCTOR</ques:parameterName>"+
-               "<ques:parameterValue>405</ques:parameterValue>"+
-            "</ass1:riskData>"+
-           "</ass:assessment>"+
-         "</ass:CreateAssessmentRequest>";
-		*/
-				
-		var crossingID = 10;
-		var detailId = 1;
-		
-		/*
-		var jasonResponse = 
-		{"CreateAssessmentRequest" : 
-			{"ass:assessment":
-				{
-					"ass1:crossingID":{"#text":crossingID},
-					"ass1:detailId":{"#text":detailId},
-					"ass1:riskData":riskData
-				}
-			}
-		};
-		*/
-		
+
 		var xmlRequest = 
 		"<ass:CreateAssessmentRequest>"+
         "<ass:assessment>"+
             "<ass1:crossingID>"+crossingID+"</ass1:crossingID>"+
-            "<ass1:detailId>"+detailId+"</ass1:detailId>"+
+            "<ass1:detailId>"+detailID+"</ass1:detailId>"+
             riskData+
            "</ass:assessment>"+
          "</ass:CreateAssessmentRequest>";
@@ -168,34 +162,55 @@ function responseGenerator() {
 		var activeAssessments = localDataHandler.getAllSavedAssessments();
 		//alert("Size of activeAssessments = " + JSON.stringify(activeAssessments));
 		for(var assessmentIndex =0; assessmentIndex < activeAssessments.length; assessmentIndex++){
-			alert("inside for loop");
 			//if(activeAssessments[assessmentIndex].alcrmStatus == "sent")continue;
-			
 			var questionList = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
-			//if(testIfAssessmentIsComplete(questionList) == false)continue;
+			//var censusQuestions = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
+			//var trainQuestions =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
+
 			
+			//if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
 			
-			var xmlRequest = self.buildAssessmentResponse(questionList);
-			alert(xmlRequest);
+			//var xmlCensusRequest = self.buildCensusResponse(censusQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			//var xmlTrainRequest
+			var xmlRequest = self.buildAssessmentResponse(questionList,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			
+			//COMMIT ASS
 			Alloy.Globals.Soap.createAssessment(xmlRequest, 
 				function(xmlDoc){
 							var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                var response = JSON.stringify(xml.toObject());
-			                alert('createAssessment Success response >> ' + response);
+			                Alloy.Globals.aIndicator.hide();
+			                Ti.API.info('createAssessment Success response >> ' + response);
+			                 
 				}, 
 				function(xmlDoc){
 							var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                var response = JSON.stringify(xml.toObject());
-			                alert('createAssessment Failure response >> ' + response);
+			                Ti.API.error('createAssessment Failure response >> ' + response);
+			                Alloy.Globals.aIndicator.hide();
 				}
-			);
-			
-		}
-	};
-
+			);	
+			 //COMMIT CENSUS
+			        /*        Alloy.Globals.Soap.createCensus(xmlCensusRequest, 
+								function(xmlDoc){
+											var XMLTools = require("tools/XMLTools");
+							                var xml = new XMLTools(xmlDoc);
+							                var response = JSON.stringify(xml.toObject());
+							                Ti.API.info('createCensusRequest Success response >> ' + response);
+							                Alloy.Globals.aIndicator.hide();
+								}, 
+								function(xmlDoc){
+											var XMLTools = require("tools/XMLTools");
+							                var xml = new XMLTools(xmlDoc);
+							                var response = JSON.stringify(xml.toObject());
+							                Ti.API.error('createCensusRequest Failure response >> ' + response);
+							                Alloy.Globals.aIndicator.hide();
+								}
+							); */
+		}//end for loop
+	}; //end self.committAllCompleted
 }
 
 module.exports = responseGenerator; 

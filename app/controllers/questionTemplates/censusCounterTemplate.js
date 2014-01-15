@@ -58,11 +58,9 @@ function onTextField1Blur(e){
 	
 	item.displayValue = {value : currentValue};
 	
-	var responseObject = 
-	"<ass1:riskData>"+
-       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-       "<ques:parameterValue>"+currentValue+"</ques:parameterValue>"+
-    "</ass1:riskData>";
+	var responseObject =
+       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
+       "<ques:parameterValue>"+currentValue+"</ques:parameterValue>";
 	
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,

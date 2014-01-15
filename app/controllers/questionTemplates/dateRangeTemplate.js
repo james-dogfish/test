@@ -65,11 +65,9 @@ function dateButton1Clicked(e){
 		*/
 		
 		var responseObject = 
-		"<ass1:riskData>"+
-	       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
+	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
 	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
-	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
-	    "</ass1:riskData>";
+	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
 	
 		//questionValueChange(item, section, dateString);
 		Ti.App.fireEvent("questionValueChange", {

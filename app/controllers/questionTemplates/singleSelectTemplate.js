@@ -32,10 +32,8 @@ function selectButtonClicked(e){
 		*/
 		
 		var responseObject = 
-		"<ass1:riskData>"+
-	       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-	       "<ques:parameterValue>"+data.displayValue+"</ques:parameterValue>"+
-	    "</ass1:riskData>";
+	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
+	       "<ques:parameterValue>"+data.displayValue+"</ques:parameterValue>";
 	
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,

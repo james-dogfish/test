@@ -1,6 +1,9 @@
 /*
  * 
  */
+var CENSUS = 0;  //GLOBAL DEFINE FOR ANDY
+var TRAINS = 1;  //GLOBAL DEFINE FOR ANDY
+
 function localDataHandler()
 {
 	var self = this;
@@ -128,7 +131,8 @@ function localDataHandler()
 		return JASON_question_list;
 	};
 	
-	self.addNewAssessment = function(JASON_question_list, crossingName, crossingID, riskMap){
+	
+	self.addNewAssessment = function(JASON_question_list, crossingName, detailID, crossingID, riskMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/){
 
 		var savedAssessments = self.getAllSavedAssessments();
 		
@@ -154,7 +158,12 @@ function localDataHandler()
 			questionCount : mandatoryQuestionCount,
 			questionsCompleted : 0,
 			alcrmStatus : "not sent",
-			notes : ""
+			notes : "",
+			detailID: detailID,
+			
+			defaultCensusQuestions: [],
+			defaultTrainInfoQuestions: []
+			
 		};
 		savedAssessments.push(newAssessment);
 		
@@ -173,10 +182,39 @@ function localDataHandler()
 					"riskAssessment")
 			)
 		);
+		
+		return newAssessment;
 	}; 
 	
+	self.addDefaultCensus = function(assessmentObject,defaultQuestionSet)
+	{
+		var savedAssessments = self.getAllSavedAssessments();
+		
+		for(var i=0; i < savedAssessments.length; i++){
+			if(savedAssessments[i].assessmentID == assessmentObject.assessmentID){
+				savedAssessments[i].defaultCensusQuestions = defaultQuestionSet;
+				self.updateSavedAssessments(savedAssessments);
+				return true;
+			}
+		}
+		return false;
+	};
 	
-	self.addNewCensusToAssessment = function(assessmentObject, JASON_question_list, censusMap){
+	self.addDefaultTrainInfo = function(assessmentObject,defaultQuestionSet)
+	{
+		var savedAssessments = self.getAllSavedAssessments();
+
+		for(var i=0; i < savedAssessments.length; i++){
+			if(savedAssessments[i].assessmentID == assessmentObject.assessmentID){
+				savedAssessments[i].defaultTrainInfoQuestions = defaultQuestionSet;
+				self.updateSavedAssessments(savedAssessments);
+				return true;
+			}
+		}
+		return false;
+	};
+		
+	self.addNewCensusToAssessment = function(assessmentObject, censusMap){
 		var savedAssessments = self.getAllSavedAssessments();
 		
 		for(var i=0; i < savedAssessments.length; i++){
@@ -190,7 +228,7 @@ function localDataHandler()
 				//alert("censusLastPageID 2 = " + savedAssessments[i].censusLastPageID);
 				
 				var returnList = addDefultValuesToQuestionSet(
-					JASON_question_list, 
+					savedAssessments[i].defaultCensusQuestions,
 					newCensusFileName, 
 					censusMap, 
 					savedAssessments[i].censusLastPageID, 
@@ -214,7 +252,7 @@ function localDataHandler()
 		return [];
 	};
 	
-	self.addNewTrainGroupToAssessment = function(assessmentObject, JASON_question_list, trainGroupMap){
+	self.addNewTrainGroupToAssessment = function(assessmentObject, trainGroupMap){
 		var savedAssessments = self.getAllSavedAssessments();
 		
 		
@@ -226,7 +264,7 @@ function localDataHandler()
 				savedAssessments[i].trainGroupLastPageID = parseInt(savedAssessments[i].trainGroupLastPageID)+ 1;
 				
 				var returnList =addDefultValuesToQuestionSet(
-					JASON_question_list, 
+					savedAssessments[i].defaultTrainInfoQuestions,
 					newTrainGroupFileName, 
 					trainGroupMap, 
 					savedAssessments[i].trainGroupLastPageID, 
@@ -268,6 +306,54 @@ function localDataHandler()
 		}
 		
 		return false;
+	};
+
+	
+	self.getAllCensusesOrTrains = function(assessmentObject,type)
+	{
+		alert("inside getAllCensusesOrTrains localDataHandler.js 314");
+		var getAllData = [];
+		switch (type)
+		{
+			case 0: //census
+				var censusQuestionsfileNameList = assessmentObject.censusQuestionsfileNameList;
+				for(var i=0; i<censusQuestionsfileNameList.length; i++)
+				{
+					//read each file here
+					var currentCensusFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + censusQuestionsfileNameList[i]);
+					if(!currentCensusFile.exists)
+					{
+						Ti.API.error("Line 324 localDataHandler.js - cant open currentCensusfile "+censusQuestionsfileNameList[i]);
+					}else{
+						var currentContents = currentCensusFile.read().text;
+						getAllData.push(
+							JSON.parse(currentContents)
+						);
+					}
+				}
+			break;
+			case 1: //trains
+				var trainGroupQuestionsfileNameList = assessmentObject.trainGroupQuestionsfileNameList;
+				for(var i=0; i<trainGroupQuestionsfileNameList.length; i++)
+				{
+					//read each file here
+					var currentTrainFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + trainGroupQuestionsfileNameList[i]);
+					if(!currentTrainFile.exists)
+					{
+						Ti.API.error("Line 341 localDataHandler.js - cant open currentTrainfile "+trainGroupQuestionsfileNameList[i]);
+					}else{
+						var currentContents = currentTrainFile.read().text;
+						getAllData.push(
+							JSON.parse(currentContents)
+						);
+					}
+				}
+			break;
+
+		}
+		
+		
+		return getAllCensus;
 	};
 	
 	self.openAssessment = function(assessmentObject){

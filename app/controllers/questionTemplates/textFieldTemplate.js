@@ -25,10 +25,9 @@ function onTextFieldBlur(e){
 	};
 	*/
 	var responseObject = 
-	"<ass1:riskData>"+
-       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-       "<ques:parameterValue>"+e.value+"</ques:parameterValue>"+
-    "</ass1:riskData>";
+       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
+       "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
+    
     
 
 	Ti.App.fireEvent("questionValueChange", {

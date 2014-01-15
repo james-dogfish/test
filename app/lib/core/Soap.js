@@ -364,13 +364,14 @@ var _Soap = function() {
 			sudsClient.invoke('CreateCensusRequest', args, success, failure);
 		},
 		
+		
 		/*
 		|---------------------------------------------------------------------------------
-		| RISK OPERATIONS TODO
+		| TRAIN OPERATIONS
 		|---------------------------------------------------------------------------------
 		*/
 		
-
+		
 	};
 
 	return soapObject;
