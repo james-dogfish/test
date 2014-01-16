@@ -403,7 +403,7 @@ exports.getGoToContentsDetails = function(){
 		
 		var newSectionContents= {
 			questionList : [], 
-			title : sectionList[sectionIndex].title,
+			title : sectionList[sectionIndex].groupType.substring(1),
 			pageName :  sectionList[sectionIndex].pageName,
 			pageType : sectionList[sectionIndex].pageType,
 			sectionIndex : sectionIndex, 
@@ -656,13 +656,13 @@ var setQuestionError = function(isValid, message, questionRefObject){
 	if(isValid == false){
 		
 		questionRefObject.question.errorMessageVisable = true;
-		questionRefObject.question.properties.height = "145dp";
+		//questionRefObject.question.properties.height = "145dp";
 		questionRefObject.question.questionErrorMessageView =  {height : "30dp", top : "5dp"};
 		questionRefObject.question.questionErrorMessage = {text : message};
 	}
 	else{
 		questionRefObject.question.errorMessageVisable = false;
-		questionRefObject.question.properties.height = "110dp";
+		//questionRefObject.question.properties.height = "110dp";
 		questionRefObject.question.questionErrorMessageView =  {height : "0dp", top : "0dp"};
 		questionRefObject.question.questionErrorMessage = {text : ""};
 	}

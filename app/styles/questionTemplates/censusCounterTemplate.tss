@@ -1,6 +1,6 @@
 "#censusCounterTemplate" : {
 	width: Ti.UI.FILL,
-	height: "110dp",
+	height: Ti.UI.SIZE,
 	bottom : "10dp"
 },
 "#valueTextField" : {
@@ -27,4 +27,15 @@
 	color : "#000",
 	borderColor : "#aaa",
 	backgroundColor: '#eee'
+},
+"#mainView" : {
+	layout : "horizontal",
+	horizontalWrap : false
+},
+"#header" : {
+	width : "48%",
+},
+"#questionView" : {
+	width : "49%",
+	left : 0
 }

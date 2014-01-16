@@ -1,6 +1,6 @@
 "#rangeFieldTemplate" : {
 	width: Ti.UI.FILL,
-	height: "110dp",
+	height: Ti.UI.SIZE,
 	bottom : "10dp"
 },
 "#valueTextFieldOne" : {
