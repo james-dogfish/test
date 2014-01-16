@@ -48,6 +48,8 @@ function interpreterModule2(){
 		displayValue : {value : ""}, 
 		displayValue2 : {value : ""}, 
 		
+		questionResponse: null,
+		
 		errorMessageVisable : false,
 		questionErrorMessageView : {},
 		questionErrorMessage : {},
@@ -96,7 +98,7 @@ function interpreterModule2(){
 			visable : true, 
 			order : Alloy.Globals.localParser.getQuestionOrder(question), 
 			associatedFileName : passObject.associatedFileName, // file the question is in
-			assessmentObject : null,
+			questionResponse : null,
 			
 			notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 			notes : "",

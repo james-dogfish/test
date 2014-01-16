@@ -110,24 +110,28 @@ function responseGenerator() {
 		return true;
 	};
 	
-	self.buildCensusResponse = function(questionList,crossingID,detailID){
+	self.buildCensusResponse = function(sectionList,crossingID,detailID){
 		var censusData = "";
 		
-		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
-			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
-			
-			var questionType = questionList[questionIndex].type;
-			if(questionResponse != null){
-				if(questionType === "multiSelect"){
-					censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
-				}else if(questionType === "dateRange" || questionType === "numericRange" 
-							|| questionType === "decimalRange" || questionType === "alphaRange")
-				{
-					censusData = censusData + '<cen1:censusData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
-				}else{
-					censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+		{
+				var questionList = sectionList[sectionListIndex].questionList;
+				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+					var questionResponse = questionList[questionIndex].questionResponse;
+					
+					var questionType = questionList[questionIndex].type;
+					if(questionResponse != null){
+						if(questionType === "multiSelect"){
+							censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+						}else if(questionType === "dateRange" || questionType === "numericRange" 
+									|| questionType === "decimalRange" || questionType === "alphaRange")
+						{
+							censusData = censusData + '<cen1:censusData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+						}else{
+							censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+						}
+					}
 				}
-			}
 		}
 
 		var xmlRequest = 
@@ -142,24 +146,28 @@ function responseGenerator() {
 		return xmlRequest;
 	};
 	
-	self.buildTrainInfoGroupResponse = function(questionList,crossingID,detailID){
+	self.buildTrainInfoGroupResponse = function(sectionList,crossingID,detailID){
 		var trainData = "";
 		
-		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
-			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
-			
-			var questionType = questionList[questionIndex].type;
-			if(questionResponse != null){
-				if(questionType === "multiSelect"){
-					trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
-				}else if(questionType === "dateRange" || questionType === "numericRange" 
-							|| questionType === "decimalRange" || questionType === "alphaRange")
-				{
-					trainData = trainData + '<tra1:detailedData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
-				}else{
-					trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+		{
+				var questionList = sectionList[sectionListIndex].questionList;
+				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+					var questionResponse = questionList[questionIndex].questionResponse;
+					
+					var questionType = questionList[questionIndex].type;
+					if(questionResponse != null){
+						if(questionType === "multiSelect"){
+							trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+						}else if(questionType === "dateRange" || questionType === "numericRange" 
+									|| questionType === "decimalRange" || questionType === "alphaRange")
+						{
+							trainData = trainData + '<tra1:detailedData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+						}else{
+							trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+						}
+					}
 				}
-			}
 		}
 
 		var xmlRequest = 
@@ -175,25 +183,32 @@ function responseGenerator() {
 		
 	};
 	
-	self.buildAssessmentResponse = function(questionList,crossingID,detailID){
+	self.buildAssessmentResponse = function(sectionList,crossingID,detailID){
 		var riskData = "";
 		
-		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
-			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
-			
-			var questionType = questionList[questionIndex].type;
-			if(questionResponse != null){
-				if(questionType === "multiSelect"){
-					riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
-				}else if(questionType === "dateRange" || questionType === "numericRange" 
-							|| questionType === "decimalRange" || questionType === "alphaRange")
-				{
-					riskData = riskData + '<ass1:riskData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
-				}else{
-					riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
-				}
-			}
-		}
+		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+		{
+				var questionList = sectionList[sectionListIndex].questionList;
+
+				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+					var questionResponse = questionList[questionIndex].questionResponse;
+					
+					var questionType = questionList[questionIndex].type;
+					alert("QuestionType >>"+questionType);
+					if(questionResponse != null){
+						if(questionType === "multiSelect"){
+							riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+						}else if(questionType === "dateRange" || questionType === "numericRange" 
+									|| questionType === "decimalRange" || questionType === "alphaRange")
+						{
+							riskData = riskData + '<ass1:riskData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+						}else{
+							riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
+						}
+					}
+					
+				}//end of inner for loop
+		}//end of outer for loop
 
 		var xmlRequest = 
 		"<ass:CreateAssessmentRequest>"+
@@ -213,9 +228,10 @@ function responseGenerator() {
 		//alert("Size of activeAssessments = " + JSON.stringify(activeAssessments));
 		for(var assessmentIndex =0; assessmentIndex < activeAssessments.length; assessmentIndex++){
 			//if(activeAssessments[assessmentIndex].alcrmStatus == "sent")continue;
-			var questionList = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
-			var censusQuestions = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
-			var trainQuestions =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
+			var sectionListAss = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
+			
+			var sectionListCen = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
+			var sectionListTra =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
 
 			//THIS IS GONNA CHANGE
 			/*var assQuestions = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
@@ -232,9 +248,11 @@ function responseGenerator() {
 			
 			//if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
 			
-			var xmlCensusRequest = self.buildCensusResponse(censusQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
-			var xmlTrainRequest  = self.buildTrainInfoGroupResponse(trainQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
-			var xmlRequest = self.buildAssessmentResponse(questionList,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			var xmlCensusRequest = self.buildCensusResponse(sectionListCen,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			var xmlTrainRequest  = self.buildTrainInfoGroupResponse(sectionListTra,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			var xmlRequest = self.buildAssessmentResponse(sectionListAss,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
+			
+			alert("xmlRequest >> " + JSON.stringify(xmlRequest));
 			
 			//COMMIT ASS
 			Alloy.Globals.Soap.createAssessment(xmlRequest, 
