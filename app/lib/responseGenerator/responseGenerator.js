@@ -110,28 +110,33 @@ function responseGenerator() {
 		return true;
 	};
 	
-	self.buildCensusResponse = function(sectionList,crossingID,detailID){
+	self.buildCensusResponse = function(censusList,crossingID,detailID){
 		var censusData = "";
 		
-		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+		for(var censusListIndex = 0; censusListIndex<censusList.length; censusListIndex++)
 		{
-				var questionList = sectionList[sectionListIndex].questionList;
-				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
-					var questionResponse = questionList[questionIndex].questionResponse;
-					
-					var questionType = questionList[questionIndex].type;
-					if(questionResponse != null){
-						if(questionType === "multiSelect"){
-							censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
-						}else if(questionType === "dateRange" || questionType === "numericRange" 
-									|| questionType === "decimalRange" || questionType === "alphaRange")
-						{
-							censusData = censusData + '<cen1:censusData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
-						}else{
-							censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+			var sectionList = censusList[censusListIndex];
+			for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+			{
+					var questionList = sectionList[sectionListIndex].questionList;
+					//alert("responseGenerator.js 118 -> questionList >> "+JSON.stringify(questionList));
+					for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+						var questionResponse = questionList[questionIndex].questionResponse;
+						
+						var questionType = questionList[questionIndex].type;
+						if(questionResponse != null){
+							if(questionType === "multiSelect"){
+								censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+							}else if(questionType === "dateRange" || questionType === "numericRange" 
+										|| questionType === "decimalRange" || questionType === "alphaRange")
+							{
+								censusData = censusData + '<cen1:censusData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+							}else{
+								censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+							}
 						}
 					}
-				}
+			}
 		}
 
 		var xmlRequest = 
@@ -146,28 +151,35 @@ function responseGenerator() {
 		return xmlRequest;
 	};
 	
-	self.buildTrainInfoGroupResponse = function(sectionList,crossingID,detailID){
+	self.buildTrainInfoGroupResponse = function(trainList,crossingID,detailID){
 		var trainData = "";
 		
-		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+		for(var trainListIndex = 0; trainListIndex<trainList.length; trainListIndex++)
 		{
-				var questionList = sectionList[sectionListIndex].questionList;
-				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
-					var questionResponse = questionList[questionIndex].questionResponse;
-					
-					var questionType = questionList[questionIndex].type;
-					if(questionResponse != null){
-						if(questionType === "multiSelect"){
-							trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
-						}else if(questionType === "dateRange" || questionType === "numericRange" 
-									|| questionType === "decimalRange" || questionType === "alphaRange")
-						{
-							trainData = trainData + '<tra1:detailedData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
-						}else{
-							trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+			var sectionList = trainList[trainListIndex];
+			
+			for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
+			{
+					//alert("sectionList[sectionListIndex] 155 >>"+JSON.stringify(sectionList[sectionListIndex]));
+					var questionList = sectionList[sectionListIndex].questionList;
+					//alert("responseGenerator.js 157 -> questionList >> "+JSON.stringify(questionList));
+					for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+						var questionResponse = questionList[questionIndex].questionResponse;
+						
+						var questionType = questionList[questionIndex].type;
+						if(questionResponse != null){
+							if(questionType === "multiSelect"){
+								trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+							}else if(questionType === "dateRange" || questionType === "numericRange" 
+										|| questionType === "decimalRange" || questionType === "alphaRange")
+							{
+								trainData = trainData + '<tra1:detailedData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+							}else{
+								trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+							}
 						}
 					}
-				}
+			}
 		}
 
 		var xmlRequest = 
@@ -189,12 +201,12 @@ function responseGenerator() {
 		for(var sectionListIndex = 0; sectionListIndex<sectionList.length; sectionListIndex++)
 		{
 				var questionList = sectionList[sectionListIndex].questionList;
-
+				//alert("responseGenerator.js 191 -> questionList >> "+JSON.stringify(questionList));
 				for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 					var questionResponse = questionList[questionIndex].questionResponse;
 					
 					var questionType = questionList[questionIndex].type;
-					alert("QuestionType >>"+questionType);
+					//alert("QuestionType >>"+questionType);
 					if(questionResponse != null){
 						if(questionType === "multiSelect"){
 							riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
@@ -213,7 +225,7 @@ function responseGenerator() {
 		var xmlRequest = 
 		"<ass:CreateAssessmentRequest>"+
         "<ass:assessment>"+
-            "<ass1:crossingId>"+crossingID+"</ass1:crossingId>"+
+            "<ass1:crossingID>"+crossingID+"</ass1:crossingID>"+
             "<ass1:detailId>"+detailID+"</ass1:detailId>"+
             riskData+
            "</ass:assessment>"+
