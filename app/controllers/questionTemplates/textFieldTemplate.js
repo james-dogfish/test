@@ -87,6 +87,6 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
-	alert("name = "+item.name);
+	//alert("name = "+item.name);
 }
 

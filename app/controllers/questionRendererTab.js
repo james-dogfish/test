@@ -8,7 +8,7 @@ var interpreter = require('interpreter/interpreterModule');
 	
 exports.setAssessment = function(sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
-	alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
+	//alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
 	$.questionListView.setAssessment(sectionList, assessmentObject);
 	
 };
@@ -46,8 +46,8 @@ function backButtonClick(e) {
 var createCensus = function(){
 	currentAssessmentObject;
 	var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-	var censusDataInterpreted = interpreter.interpret(censusData);
-	$.questionListView.appendSectionsToAssessment(censusDataInterpreted);
+	//var censusDataInterpreted = interpreter.interpret(censusData);
+	$.questionListView.appendSectionsToAssessment(censusData);
 };
 
 // Setting up menu item for home screen
