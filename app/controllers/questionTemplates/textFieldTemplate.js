@@ -24,11 +24,11 @@ function onTextFieldBlur(e){
 		"ques:parameterValue":{"#text":e.value}
 	};
 	*/
-	var responseObject = 
+	var questionResponse = 
        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
        "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
     
-    
+    item.questionResponse = questionResponse;
 
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,
@@ -36,7 +36,7 @@ function onTextFieldBlur(e){
 		itemIndex : e.itemIndex,
 		groupType : item.groupType,
 		value : [e.value],
-		responseObject : responseObject
+		responseObject : questionResponse
 	}); 
 		
 	//section.updateItemAt(e.itemIndex, item);

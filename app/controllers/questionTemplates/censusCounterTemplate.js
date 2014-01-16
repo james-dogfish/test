@@ -58,9 +58,11 @@ function onTextField1Blur(e){
 	
 	item.displayValue = {value : currentValue};
 	
-	var responseObject =
+	var questionResponse =
        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
        "<ques:parameterValue>"+currentValue+"</ques:parameterValue>";
+       
+    item.questionResponse = questionResponse;
 	
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,
@@ -68,7 +70,7 @@ function onTextField1Blur(e){
 		itemIndex : e.itemIndex,
 		groupType : item.groupType,
 		value : [currentValue],
-		responseObject : responseObject
+		responseObject : questionResponse
 	}); 
 };
 

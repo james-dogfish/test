@@ -72,10 +72,12 @@ function onTextField1Blur(e){
 	};
 	*/
 	
-	var responseObject = 
+	var questionResponse = 
        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
        "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
        "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
+       
+    item.questionResponse = questionResponse;
 	
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,
@@ -83,7 +85,7 @@ function onTextField1Blur(e){
 		itemIndex : e.itemIndex,
 		groupType : item.groupType,
 		value : currentValue,
-		responseObject : responseObject
+		responseObject : questionResponse
 	}); 
 };
 
@@ -106,12 +108,13 @@ function onTextField2Blur(e){
 	];
 	*/
 	
-	var responseObject = {
+	var questionResponse = {
 		"ques:parameterName":{"#text":item.name},
 		"ques:lowValue":{"#text":currentValue[0]},
 		"ques:highValue":{"#text":currentValue[1]}
 	};
 
+	item.questionResponse = questionResponse;
 	
 	
 	Ti.App.fireEvent("questionValueChange", {
@@ -120,6 +123,6 @@ function onTextField2Blur(e){
 		itemIndex : e.itemIndex,
 		groupType : item.groupType,
 		value : currentValue,
-		responseObject : responseObject
+		responseObject : questionResponse
 	}); 
 };

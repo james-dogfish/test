@@ -278,7 +278,14 @@ var buildQuestionSections = function(JASON_sectionList){
 	for(var i= 0 ; i <JASON_sectionList.length; i++){
 		var newQuestionsSection = Titanium.UI.createListSection();
 		
-		newQuestionsSection.headerTitle = JASON_sectionList[i].title;
+		if(JASON_sectionList[i].pageType == "riskAssessment"){
+			newQuestionsSection.headerView =  Alloy.createController("questionSectionHeader", {title : JASON_sectionList[i].title}).getView() ;
+		}
+		else{
+			newQuestionsSection.headerView =  Alloy.createController("questionSectionHeader", {title : JASON_sectionList[i].pageName + " " + JASON_sectionList[i].title}).getView() ;
+		}
+		
+		//newQuestionsSection.headerTitle = JASON_sectionList[i].title;
 		newQuestionsSection.title = JASON_sectionList[i].title;
 		newQuestionsSection.groupType = JASON_sectionList[i].groupType;
 		newQuestionsSection.pageName = JASON_sectionList[i].pageName;

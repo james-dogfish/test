@@ -58,8 +58,10 @@ function multiSelectButtonClicked(e){
 		for(var i=0; i< returnValue.valueList.length; i++){
 			values = values+"<ques:values>"+returnValue.valueList[i]+"</ques:values>";
 		}
-		var responseObject =
+		var questionResponse =
 	        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ values;
+	        
+	    item.questionResponse = questionResponse;
 	    
 
 		Ti.App.fireEvent("questionValueChange", {
@@ -68,7 +70,7 @@ function multiSelectButtonClicked(e){
 			itemIndex : e.itemIndex,
 			groupType : item.groupType,
 			value : returnValue.valueList,
-			responseObject : responseObject
+			responseObject : questionResponse
 		}); 
 	}});
 };
