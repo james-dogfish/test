@@ -36,9 +36,7 @@ Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activ
 Alloy.Globals.localParser = localParser;
 
 //only downloads if not already downloaded before.
-if(!Ti.App.Properties.hasOwnProperty('helpContent')){
 	Util.downloadAppHelp();
-}
 
 var getValidator = function()
 {
