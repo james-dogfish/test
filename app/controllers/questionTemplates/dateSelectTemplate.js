@@ -51,10 +51,11 @@ function dateButtonClicked(e){
 		];
 		*/
 		
-		var responseObject = 
+		var questionResponse = 
        		"<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
        		"<ques:parameterValue>"+dateString+"</ques:parameterValue>";
 	
+		item.questionResponse = questionResponse;
 	
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
@@ -62,7 +63,7 @@ function dateButtonClicked(e){
 			itemIndex : e.itemIndex,
 			groupType : item.groupType,
 			value : dateString,
-			responseObject : responseObject
+			responseObject : questionResponse
 		}); 
 	}});
 };

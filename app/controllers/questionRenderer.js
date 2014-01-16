@@ -282,7 +282,7 @@ var buildQuestionSections = function(JASON_sectionList){
 			newQuestionsSection.headerView =  Alloy.createController("questionSectionHeader", {title : JASON_sectionList[i].title}).getView() ;
 		}
 		else{
-			newQuestionsSection.headerView =  Alloy.createController("questionSectionHeader", {title : JASON_sectionList[i].pageType + " " + JASON_sectionList[i].title}).getView() ;
+			newQuestionsSection.headerView =  Alloy.createController("questionSectionHeader", {title : JASON_sectionList[i].pageName + " " + JASON_sectionList[i].title}).getView() ;
 		}
 		
 		//newQuestionsSection.headerTitle = JASON_sectionList[i].title;

@@ -64,10 +64,12 @@ function dateButton1Clicked(e){
 		};
 		*/
 		
-		var responseObject = 
+		var questionResponse = 
 	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
 	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
 	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
+	       
+	    item.questionResponse = questionResponse;
 	
 		//questionValueChange(item, section, dateString);
 		Ti.App.fireEvent("questionValueChange", {
@@ -76,7 +78,7 @@ function dateButton1Clicked(e){
 			itemIndex : e.itemIndex,
 			groupType : item.groupType,
 			value : currentValue,
-			responseObject : responseObject
+			responseObject : questionResponse
 		}); 
 	}});
 };
@@ -113,12 +115,14 @@ function dateButton2Clicked(e){
 		};
 		*/
 		
-		var responseObject = 
+		var questionResponse = 
 		"<ass1:riskData>"+
 	       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
 	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
 	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
 	    "</ass1:riskData>";
+	    
+	   item.questionResponse = questionResponse;
 	
 		
 		//questionValueChange(item, section, dateString);
@@ -128,7 +132,7 @@ function dateButton2Clicked(e){
 			itemIndex : e.itemIndex,
 			groupType : item.groupType,
 			value : currentValue,
-			responseObject : responseObject
+			responseObject : questionResponse
 		}); 
 	}});
 };
