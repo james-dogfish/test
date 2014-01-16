@@ -87,6 +87,10 @@ function localParser()
 	};
 	
 	self.getConditionalMandatory = function(validation){
+		
+		if(typeof validation === "undefined"){
+			return [];	
+		}
 		var conditionalMandatory = validation.conditionalMandatory;
 		if(typeof conditionalMandatory === "undefined"){
 			return [];

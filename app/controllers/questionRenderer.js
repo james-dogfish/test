@@ -559,9 +559,47 @@ var getQuestionSection = function(groupType){
 var validateSingleQuestionValue = function(value, questionObject){
 	var returnObject = {isValid : true, outPutMessage : ""};
 	
-	var validation = Alloy.Globals.localParser.getValidation(questionObject.jsonObject);
+	//var validation = Alloy.Globals.localParser.getValidation(questionObject);
 	var dataType = questionObject.type;
 	
+	
+	
+	if(value == ""){
+		if(questionObject.validation.mandatory == true){
+			returnObject.isValid = false;
+			returnObject.outPutMessage = "This question is mandatory";
+			return returnObject;
+		}
+		else{
+			
+			var conditionalMandatory = questionObject.validation.conditionalMandatory;
+			if(conditionalMandatory.length != 0){
+				for(var i=0; i< conditionalMandatory.length; i++){
+					var testValue = findQuestionsValue(conditionalMandatory[i].name);
+
+					for(var testValueIndex =0; testValueIndex < testValue.length; testValueIndex++){
+						if(conditionalMandatory[i].value == testValue[testValueIndex]){
+							returnObject.isValid = false;
+							returnObject.outPutMessage = "This question is mandatory";
+							return returnObject;
+						}
+					}
+					
+				}
+			}
+
+			returnObject.isValid = true;
+			return returnObject;
+
+		}
+	}
+	
+	
+	
+	
+	
+	
+	/*
 	if(typeof validation !== "undefined"){
 		var mandatory = validation.mandatory;
 		if(typeof mandatory !== "undefined"){
@@ -586,6 +624,8 @@ var validateSingleQuestionValue = function(value, questionObject){
 	}
 	
 	
+	
+	
 	var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
 	if(conditionalMandatory.length != 0 && value == ""){
 		
@@ -602,6 +642,7 @@ var validateSingleQuestionValue = function(value, questionObject){
 			}
 		}
 	}
+	*/
 	
 	
 	if(dataType == "numeric" || dataType == "numericRange"){
@@ -621,55 +662,53 @@ var validateSingleQuestionValue = function(value, questionObject){
 		}
 	}
 	
-	if(typeof validation === "undefined"){
+	if(questionObject.validation.validationTest == false){
 		returnObject.isValid = true;
 		return returnObject;
 	}
 	
-	var min = validation.min;
-	if(typeof min !== "undefined"){
-		if(parseInt(value) < parseInt(min["#text"])){
+	if(questionObject.validation.min != null){
+		if(parseInt(value) < parseInt(questionObject.validation.min)){
 			returnObject.isValid = false;
-			returnObject.outPutMessage = "value most be greater than "+min["#text"];
+			returnObject.outPutMessage = "value most be greater than "+questionObject.validation.min;
 			return returnObject;
 		}
 	}
 	
-	var max = validation.max;
-	if(typeof max !== "undefined"){
-		if(parseInt(value) > parseInt(max["#text"])){
+	if(questionObject.validation.max != null){
+		if(parseInt(value) > parseInt(questionObject.validation.max)){
 			returnObject.isValid = false;
-			returnObject.outPutMessage = "value most be less than "+max["#text"];
+			returnObject.outPutMessage = "value most be less than "+questionObject.validation.max;
+			return returnObject;
+		}
+	}
+
+	if(questionObject.validation.minLength != null){
+		if(value.length < parseInt(questionObject.validation.minLength)){
+			returnObject.isValid = false;
+			returnObject.outPutMessage = "value cannot have less than "+questionObject.validation.minLength + " characters";
 			return returnObject;
 		}
 	}
 	
-	var minLength = validation.minLenght;
-	if(typeof minLength !== "undefined"){
-		if(value.length < parseInt(minLength["#text"])){
+	
+	if(questionObject.validation.maxLength != null){
+		if(value.length > parseInt(questionObject.validation.maxLength)){
 			returnObject.isValid = false;
-			returnObject.outPutMessage = "value cannot have less than "+minLength["#text"] + " characters";
+			returnObject.outPutMessage = "value cannot have more than "+questionObject.validation.maxLength + " characters";
 			return returnObject;
 		}
 	}
 	
-	var maxLength = validation.maxLenght;
-	if(typeof maxLenght !== "undefined"){
-		if(value.length > parseInt(maxLenght["#text"])){
-			returnObject.isValid = false;
-			returnObject.outPutMessage = "value cannot have more than "+maxLenght["#text"] + " characters";
-			return returnObject;
-		}
-	}
 	
-	var format = validation.format;
-	if(typeof format !== "undefined"){
+	if(questionObject.validation.format != null){
 		if(Validator.isValidFormat(value) == false){
 			returnObject.isValid = false;
-			returnObject.outPutMessage = "value most be in the format "+format["#text"];
+			returnObject.outPutMessage = "value most be in the format "+questionObject.validation.format;
 			return returnObject;
 		}
 	}
+
 	
 	returnObject.isValid = true;
 	return returnObject;
@@ -774,11 +813,11 @@ function moveSectionNextClick(e){
 
 var questionValueChange = function(valueChangeObject){
 	//alert("questionValueChange");
-	/*
+	
 	if(validateEntireQuestion(valueChangeObject) == false){
 		return;
 	}	
-	*/
+	
 	
 	testIfQuestionsNeedToBeRemoved(valueChangeObject);
 	testIfQuestionsNeedToBeAdded(valueChangeObject);

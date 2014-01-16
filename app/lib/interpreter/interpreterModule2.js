@@ -43,6 +43,7 @@ function interpreterModule2(){
 		value : [""],// a list of all values set for this question
 		renderValue : [], // a list of condtions if the question is visable
 		selections : [], // a list of possible values for the question
+		validation : {},
 		
 		title : {text : ""}, // the title text for this question
 		displayValue : {value : ""}, 
@@ -90,6 +91,57 @@ function interpreterModule2(){
 		}
 		
 		
+		var questionValidation = {
+			validationTest : false,
+			min : null,
+			max : null,
+			minLenght : null,
+			maxLenght : null,
+			format : null,
+			mandatory : false,
+			conditionalMandatory : []
+		};
+		
+		
+		var validation = Alloy.Globals.localParser.getConditionalMandatory(validation);
+		if(typeof validation !== "undefined"){
+			questionValidation.validationTest = true;
+			
+			var mandatory = validation.mandatory;
+			if(typeof mandatory !== "undefined"){
+				if(mandatory["#text"] == "true"){
+					questionValidation.mandatory = true;
+				}
+			}
+			
+			var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
+			for(var i = 0; i< conditionalMandatory.length; i++){
+				questionValidation.conditionalMandatory.push({name : conditionalMandatory[i].name, value : conditionalMandatory[i].value});
+			}
+			
+			if(typeof validation.min !== "undefined"){
+				questionValidation.min = parseInt(validation.min["#text"]);
+			}
+			
+			if(typeof validation.max !== "undefined"){
+				questionValidation.max = parseInt(validation.max["#text"]);
+			}
+			
+			if(typeof validation.minLenght !== "undefined"){
+				questionValidation.max = validation.minLenght(minLenght["#text"]);
+			}
+			
+			if(typeof validation.maxLenght !== "undefined"){
+				questionValidation.maxLenght = parseInt(validation.maxLenght["#text"]);
+			}
+			
+			if(typeof validation.format !== "undefined"){
+				questionValidation.format = validation.format["#text"];
+			}
+		}
+		
+		
+		
 		var questionObject = {
 			template : templateType, // this is the template used to show the question in the list view
 			type : type,
@@ -106,6 +158,7 @@ function interpreterModule2(){
 			value : [""],// a list of all values set for this question
 			renderValue : questionRenderValues, // a list of condtions if the question is visable
 			selections : questionSelections, // a list of possible values for the question
+			validation : questionValidation,
 			
 			title : {text : Alloy.Globals.localParser.getQuestionText(question)}, // the title text for this question
 			displayValue : {value : ""}, 
