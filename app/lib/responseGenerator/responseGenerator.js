@@ -142,7 +142,7 @@ function responseGenerator() {
 		var xmlRequest = 
 		"<cen:CreateCensusRequest>"+
         "<cen:census>"+
-            "<cen1:crossingId>"+crossingID+"</cen1:crossingID>"+
+            "<cen1:crossingId>"+crossingID+"</cen1:crossingId>"+
             "<cen1:censusDate>"+new Date().toISOString()+"</cen1:censusDate>"+
             censusData+
            "</cen:census>"+
@@ -207,9 +207,10 @@ function responseGenerator() {
 					
 					var questionType = questionList[questionIndex].type;
 					//alert("QuestionType >>"+questionType);
+					
 					if(questionResponse != null){
 						if(questionType === "multiSelect"){
-							riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+							riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'  + questionResponse + "</ass1:riskData>";
 						}else if(questionType === "dateRange" || questionType === "numericRange" 
 									|| questionType === "decimalRange" || questionType === "alphaRange")
 						{
@@ -221,13 +222,15 @@ function responseGenerator() {
 					
 				}//end of inner for loop
 		}//end of outer for loop
-
+		var date = new Date();
+		var dateNode = "<ass1:riskData><ques:parameterName>LAST_ASSESSMENT_DATE</ques:parameterName>"+
+            					   "<ques:parameterValue>"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+"</ques:parameterValue></ass1:riskData>";
 		var xmlRequest = 
 		"<ass:CreateAssessmentRequest>"+
         "<ass:assessment>"+
             "<ass1:crossingID>"+crossingID+"</ass1:crossingID>"+
-            "<ass1:detailId>"+detailID+"</ass1:detailId>"+
-            riskData+
+            "<ass1:detailId>"+detailID+"</ass1:detailId>" + dateNode +
+            	riskData+
            "</ass:assessment>"+
          "</ass:CreateAssessmentRequest>";
 		
@@ -272,8 +275,8 @@ function responseGenerator() {
 							var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                var response = JSON.stringify(xml.toObject());
-			                activeAssessments[assessmentIndex].alcrmStatus = "sent";
-			                localDataHandler.updateSavedAssessments(activeAssessments);
+			                //activeAssessments[assessmentIndex].alcrmStatus = "sent";
+			                //localDataHandler.updateSavedAssessments(activeAssessments);
 			                Ti.API.info('createAssessment Success response >> ' + response);
 			                
 			                //COMMIT CENSUS
