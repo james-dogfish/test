@@ -1,0 +1,44 @@
+"#window": {
+	backgroundColor: "#f8f8f8"
+},
+"#borderedView": {
+	top: 10,
+	bottom: 10,
+	left: 10,
+	right: 10,
+	borderRadius: 10,
+	borderWidth: 1,
+	borderColor: '#e4e4e4',
+	backgroundColor: "#ffffff",
+	layout: 'vertical'
+},
+"#raTitle": {
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ffffff'
+},
+".button" : {
+	width : 55,
+	height : 30,
+	borderRadius:6,
+    borderWidth:1,
+    borderColor:'#151d21',
+    font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+    color: '#fefefe',
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#456473', '#052f43']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
+}

@@ -30,7 +30,8 @@ exports.setData = function() {
 								'ques:parameterValue':Ti.App.Properties.getString('SelectedRoute'),
 							},
 						},
-						sortByELR:false
+						sortByELR:true,
+						includeDeleted:false
 					},
 					function(xmlDoc){
 							var XMLTools = require("tools/XMLTools");

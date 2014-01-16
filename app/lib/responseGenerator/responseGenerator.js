@@ -115,15 +115,25 @@ function responseGenerator() {
 		
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
+			
+			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
 			if(questionResponse != null){
-				censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+				if(questionType === "multiSelect"){
+					censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+				}else if(questionType === "dateRange" || questionType === "numericRange" 
+							|| questionType === "decimalRange" || questionType === "alphaRange")
+				{
+					censusData = censusData + '<cen1:censusData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+				}else{
+					censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+				}
 			}
 		}
 
 		var xmlRequest = 
 		"<cen:CreateCensusRequest>"+
         "<cen:census>"+
-            "<cen1:crossingID>"+crossingID+"</cen1:crossingID>"+
+            "<cen1:crossingId>"+crossingID+"</cen1:crossingID>"+
             "<cen1:censusDate>"+new Date().toISOString()+"</cen1:censusDate>"+
             censusData+
            "</cen:census>"+
@@ -133,6 +143,36 @@ function responseGenerator() {
 	};
 	
 	self.buildTrainInfoGroupResponse = function(questionList,crossingID,detailID){
+		var trainData = "";
+		
+		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
+			
+			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
+			if(questionResponse != null){
+				if(questionType === "multiSelect"){
+					trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+				}else if(questionType === "dateRange" || questionType === "numericRange" 
+							|| questionType === "decimalRange" || questionType === "alphaRange")
+				{
+					trainData = trainData + '<tra1:detailedData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+				}else{
+					trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+				}
+			}
+		}
+
+		var xmlRequest = 
+		"<tra:CreateTrainGroupRequest>"+
+        "<tra:trainGroupData>"+
+            "<tra1:crossingId>"+crossingID+"</tra1:crossingId>"+
+            "<tra1:date>"+new Date().toISOString()+"</tra1:date>"+
+            trainData+
+           "</tra:trainGroupData>"+
+         "</tra:CreateTrainGroupRequest>";
+		
+		return xmlRequest;
+		
 	};
 	
 	self.buildAssessmentResponse = function(questionList,crossingID,detailID){
@@ -140,8 +180,18 @@ function responseGenerator() {
 		
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
+			
+			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
 			if(questionResponse != null){
-				riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
+				if(questionType === "multiSelect"){
+					riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+				}else if(questionType === "dateRange" || questionType === "numericRange" 
+							|| questionType === "decimalRange" || questionType === "alphaRange")
+				{
+					riskData = riskData + '<ass1:riskData xsi:type="ques:'+questionType+'" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+				}else{
+					riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
+				}
 			}
 		}
 
@@ -200,7 +250,8 @@ function responseGenerator() {
 							                Ti.API.error('createCensusRequest Failure response >> ' + response);
 							                Alloy.Globals.aIndicator.hide();
 								}
-							);//END OF COMMIT CENSUS      
+							);//END OF COMMIT CENSUS  
+							    
 				}, 
 				function(xmlDoc){
 							var XMLTools = require("tools/XMLTools");

@@ -63,8 +63,8 @@ var openMenu = function() {
 			userSettings.open();
 		}  else if (e.row.id === 3) {
 			// Help screen 
-			//var appHelp = Alloy.createController('appHelp').getView();
-			//appHelp.open();
+			var appHelp = Alloy.createController('appHelp').getView();
+			appHelp.open();
 		} else if (e.row.id === 4) {
 			// Commit all assessments
 			 Alloy.Globals.aIndicator.show("Committing...");

@@ -80,6 +80,7 @@ function _Util() {
     | Downloads app level help for the app
     |---------------------------------------------------------------------------------
     */
+   
     self.downloadAppHelp = function(callback) {
         if (self.phoneConnected()) {
             var fileName = 'apphelp.json';

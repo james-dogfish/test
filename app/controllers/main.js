@@ -318,6 +318,14 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                             },
                             function (xmlDoc) {
                                 parseTrainData(xmlDoc, assObj);
+                                var localDataHandler = require('localDataHandler/localDataHandler');
+                                
+                                //DO THIS 4 TIMES Because as far we know they need 4 train info groups
+                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+                                
                                 alert("created train data");
                             },
                             function (xmlDoc) {
@@ -327,6 +335,8 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                                 Ti.API.error('getQuestionReqeust Error response >> ' + xml.toJSON());
 
                             });//end of get Train Question Set
+                            
+                            
                       
                     },//end of get Question Request Success function
                     function (xmlDoc) {

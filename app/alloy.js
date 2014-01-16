@@ -35,6 +35,11 @@ Alloy.Globals.isDebugOn  = true;
 Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 Alloy.Globals.localParser = localParser;
 
+//only downloads if not already downloaded before.
+if(!Ti.App.Properties.hasOwnProperty('helpContent')){
+	Util.downloadAppHelp();
+}
+
 var getValidator = function()
 {
 		var Validator = require('validator/Validator');
