@@ -174,7 +174,8 @@ riskAssessmentsTab.on("openRiskAssessment", function (e) {
 
     activityIndicator.show();
     var assessment = localDataHandler.openAssessment(e.assessmentObject);
-    questionRendererTab.setAssessment(interpreterModule.interpret(assessment), e.assessmentObject);
+    //questionRendererTab.setAssessment(interpreterModule.interpret(assessment), e.assessmentObject);
+    questionRendererTab.setAssessment(assessment, e.assessmentObject);
     activityIndicator.hide();
 });
 
@@ -301,7 +302,7 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                             },
                             function (xmlDoc) {
                                 parseCensusData(xmlDoc, assObj);
-                                alert("created census data");
+     
                             },
                             function (xmlDoc) {
                                 var XMLTools = require("tools/XMLTools");
@@ -326,7 +327,7 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 
-                                alert("created train data");
+               
                             },
                             function (xmlDoc) {
                                 var XMLTools = require("tools/XMLTools");

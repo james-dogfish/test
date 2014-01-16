@@ -69,11 +69,11 @@ function interpreterModule2(){
 		}
 		
 		questionRenderValues = [];
-		var allRenderValues=Alloy.Globals.localParser.getRenderValue(questionJsonObject);
+		var allRenderValues=Alloy.Globals.localParser.getRenderValue(question);
 		for(var i=0;i<allRenderValues.length;i++){
-			questionRenderValues.renderValue.push(
+			questionRenderValues.push(
 				{
-					name : questionJsonObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]),
+					name : passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]),
 					value : Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i])
 				});
 		}
@@ -123,7 +123,7 @@ function interpreterModule2(){
 	
 	var addQuestionToSectionHeader  = function(question, passObject){
 		
-		var groupName = Alloy.Globals.localParser.getQuestionType(question);
+		var groupName = Alloy.Globals.localParser.getQuestionGroup(question);
 		var groupType = passObject.pageID + groupName;
 		
 		
@@ -161,6 +161,7 @@ function interpreterModule2(){
 			
 			addQuestionToSectionHeader(allQuestions[i], passObject);
 		}
+		return self.sectionHeaderList;
 	};
 	
 	

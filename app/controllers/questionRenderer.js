@@ -273,11 +273,29 @@ exports.clear = function(){
 	$.listView.setSections(allSections);
 };
 
-exports.setAssessment = function(sectionList, assessmentObject){
+var buildQuestionSections = function(JASON_sectionList){
+	var newSectionList = [];
+	for(var i= 0 ; i <JASON_sectionList.length; i++){
+		var newQuestionsSection = Titanium.UI.createListSection();
+		
+		newQuestionsSection.headerTitle = JASON_sectionList[i].title;
+		newQuestionsSection.title = JASON_sectionList[i].title;
+		newQuestionsSection.groupType = JASON_sectionList[i].groupType;
+		newQuestionsSection.pageName = JASON_sectionList[i].pageName;
+		newQuestionsSection.pageType = JASON_sectionList[i].pageType;
+		newQuestionsSection.setItems(JASON_sectionList[i].questionList);
+		newSectionList.push(newQuestionsSection);
+	}
+	return newSectionList;
+};
+
+exports.setAssessment = function(JASON_sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
 	
+	sectionList = buildQuestionSections(JASON_sectionList);
+	
 	if(Alloy.Globals.isDebugOn == true){
-		debugLookUpDependentQuestions(sectionList);
+		//debugLookUpDependentQuestions(sectionList);
 	}
 	
 	allSections = sectionList;
@@ -300,13 +318,11 @@ exports.setAssessment = function(sectionList, assessmentObject){
 			questionSelected.name = questionList[0].name;
 		}
 	}
-	
-
-	
 };
 
-exports.appendSectionsToAssessment = function(appendSectionList){
+exports.appendSectionsToAssessment = function(JASON_sectionList){
 	//allSections = sectionList;
+	appendSectionList = buildQuestionSections(JASON_sectionList);
 	
 	removeAnyRenderOptionQuestion(appendSectionList);
 	allSections = allSections.concat(appendSectionList);
@@ -751,9 +767,11 @@ function moveSectionNextClick(e){
 
 var questionValueChange = function(valueChangeObject){
 	//alert("questionValueChange");
+	/*
 	if(validateEntireQuestion(valueChangeObject) == false){
 		return;
 	}	
+	*/
 	
 	testIfQuestionsNeedToBeRemoved(valueChangeObject);
 	testIfQuestionsNeedToBeAdded(valueChangeObject);
@@ -761,9 +779,7 @@ var questionValueChange = function(valueChangeObject){
 	if(valueChangeObject.responseObject != null){
 		localDataHandler.updateQuestionWithUserResponse(
 			valueChangeObject.item.associatedFileName,
-			valueChangeObject.item.jsonObject, 
-			valueChangeObject.responseObject,
-			valueChangeObject.value
+			valueChangeObject.item
 		);
 	}
 
@@ -815,8 +831,7 @@ Ti.App.addEventListener("notesAdded", function(notesObject){
 	
 	localDataHandler.updateQuestionWithUserNotes(
 			notesObject.item.associatedFileName,
-			notesObject.item.jsonObject, 
-			notesObject.notes
+			notesObject.item
 		);
 });
 Ti.App.addEventListener("startCensesTimer", function(questionValueChange){
@@ -844,8 +859,7 @@ Ti.App.addEventListener("startCensesTimer", function(questionValueChange){
 	
 	localDataHandler.updateQuestionWithUserNotes(
 			notesObject.item.associatedFileName,
-			notesObject.item.jsonObject, 
-			notesObject.notes
+			notesObject.item
 		);
 });
 
