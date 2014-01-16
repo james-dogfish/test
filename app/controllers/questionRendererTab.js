@@ -3,6 +3,8 @@ var userPreferences = User.getPreferences();
 var currentAssessmentObject = null;
 var localDataHandler = require('localDataHandler/localDataHandler');
 var interpreter = require('interpreter/interpreterModule');
+
+
 	
 exports.setAssessment = function(sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
@@ -43,12 +45,9 @@ function backButtonClick(e) {
 
 var createCensus = function(){
 	currentAssessmentObject;
-	alert(JSON.stringify(currentAssessmentObject));
 	var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
 	var censusDataInterpreted = interpreter.interpret(censusData);
-	alert(JSON.stringify(censusData));
 	$.questionListView.appendSectionsToAssessment(censusDataInterpreted);
-	alert("after $.questionListView.appendSectionsToAssessment");
 };
 
 // Setting up menu item for home screen
@@ -106,15 +105,13 @@ var openMenu = function() {
 		} else if (e.row.id === 2) {
 			// GoTo screen
 			var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
-			gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
-			gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-			
+
 			gotoQuestionSectionWindow.on("goToQuestion", function(data){
 				$.questionListView.moveToQuestion(data.groupType, data.questionIndex);
 			});
-			
 			gotoQuestionSectionWindow.on("createCensus", function(data){
 				createCensus();
+				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 			});
 			gotoQuestionSectionWindow.on("goToFirstUnanswered", function(data){
 				$.questionListView.goToFirstUnanswered();
@@ -122,6 +119,12 @@ var openMenu = function() {
 			gotoQuestionSectionWindow.on("goToLastPositiond", function(data){
 				$.questionListView.goToLastPositiond();
 			});
+			
+			
+			gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
+			gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+			
+			
 			gotoQuestionSectionWindow.show();
 			
 		} else if (e.row.id === 3) {

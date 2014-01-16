@@ -34,20 +34,29 @@ animationClose.addEventListener("complete", function(e){
 });
 
 var closeWindow = function(){
-	var returnString = "";
-	var returnValueList = [];
+
+	var returnValue = {
+		displayNameList : [], 
+		valueList : [],
+		singleStringValue : ""
+	};
+		
+		
 	for(var i=0;i<data.length;i++){
 		if(data[i].hasCheck == true){
-			returnValueList.push(data[i].title);
-			if(returnString == ""){
-				returnString = data[i].title;
+			
+			returnValue.displayNameList.push(data[i].title);
+			returnValue.valueList.push(data[i].value);
+			
+			if(returnValue.singleStringValue == ""){
+				returnValue.singleStringValue = data[i].title;
 			}
 			else{
-				returnString = returnString +", "+data[i].title;
+				returnValue.singleStringValue = returnValue.singleStringValue +", "+data[i].title;
 			}
 		}
 	}
-	args.closeCallBack({displayValue : returnString, valueList  : returnValueList});
+	args.closeCallBack(returnValue);
 	$.modalBackgorund.animate(animationClose);
 	$.background.animate(animationFadeOut);
 };

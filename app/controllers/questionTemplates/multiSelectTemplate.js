@@ -37,36 +37,26 @@ function multiSelectButtonClicked(e){
 		groupType : item.groupType
 	}); 
 	
-	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, closeCallBack : function(data){
-		item.displayValue = {value : data.displayValue};
-		item.value = data.valueList;
+	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, closeCallBack : function(returnValue){
+		
+		/*
+		var returnValue = {
+			displayNameList : [], 
+			valueList : [],
+			singleStringValue : ""
+		};
+		*/
+	
+	
+		item.displayValue = {value : returnValue.singleStringValue};
+		item.value = returnValue.displayNameList;
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, valueString);
 		
-		/*
-		var responseObject = [
-			{name : item.name},
-			{notes : ""}
-		];
-		for(var i=0; i< data.valueList.length; i++){
-			responseObject.push({values : data.valueList[i]});
-		}
-		*/
-		
-		/*
-		var values =[];
-		for(var i=0; i< data.valueList.length; i++){
-			values.push({"#text":data.valueList[i]});
-		}
-		var responseObject = {
-			"ques:parameterName":{"#text":item.name},
-			"ques:values":values,
-		};
-		*/
 		
 		var values ="";
-		for(var i=0; i< data.valueList.length; i++){
-			values = values+"<ques:values>"+data.valueList[i]+"</ques:values>";
+		for(var i=0; i< returnValue.valueList.length; i++){
+			values = values+"<ques:values>"+returnValue.valueList[i]+"</ques:values>";
 		}
 		var responseObject =
 	        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ values;
@@ -77,7 +67,7 @@ function multiSelectButtonClicked(e){
 			name : item.name,
 			itemIndex : e.itemIndex,
 			groupType : item.groupType,
-			value : data.valueList,
+			value : returnValue.valueList,
 			responseObject : responseObject
 		}); 
 	}});

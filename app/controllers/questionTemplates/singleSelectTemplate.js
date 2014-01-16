@@ -16,24 +16,9 @@ function selectButtonClicked(e){
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, valueString);
 		
-		/*
-		var responseObject = [
-			{name : item.name},
-			{value : data.displayValue},
-			{notes : ""}
-		];
-		*/
-		
-		/*
-		var responseObject = {
-			"ques:parameterName":{"#text":item.name},
-			"ques:parameterValue":{"#text":data.displayValue}
-		};
-		*/
-		
 		var responseObject = 
 	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
-	       "<ques:parameterValue>"+data.displayValue+"</ques:parameterValue>";
+	       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
 	
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
