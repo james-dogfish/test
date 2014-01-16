@@ -116,7 +116,7 @@ function responseGenerator() {
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
 			
-			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
+			var questionType = questionList[questionIndex].type;
 			if(questionResponse != null){
 				if(questionType === "multiSelect"){
 					censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
@@ -148,7 +148,7 @@ function responseGenerator() {
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
 			
-			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
+			var questionType = questionList[questionIndex].type;
 			if(questionResponse != null){
 				if(questionType === "multiSelect"){
 					trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
@@ -181,7 +181,7 @@ function responseGenerator() {
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
 			var questionResponse = Alloy.Globals.localParser.getUserResponse(questionList[questionIndex]);
 			
-			var questionType = Alloy.Globals.localParser.getQuestionType(questionList[questionIndex]);
+			var questionType = questionList[questionIndex].type;
 			if(questionResponse != null){
 				if(questionType === "multiSelect"){
 					riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
@@ -198,7 +198,7 @@ function responseGenerator() {
 		var xmlRequest = 
 		"<ass:CreateAssessmentRequest>"+
         "<ass:assessment>"+
-            "<ass1:crossingID>"+crossingID+"</ass1:crossingID>"+
+            "<ass1:crossingId>"+crossingID+"</ass1:crossingId>"+
             "<ass1:detailId>"+detailID+"</ass1:detailId>"+
             riskData+
            "</ass:assessment>"+
@@ -215,13 +215,25 @@ function responseGenerator() {
 			//if(activeAssessments[assessmentIndex].alcrmStatus == "sent")continue;
 			var questionList = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
 			var censusQuestions = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
-			//var trainQuestions =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
+			var trainQuestions =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
 
+			//THIS IS GONNA CHANGE
+			/*var assQuestions = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
+			var allNotes = [];
+			for(var questionIndex=0 ; questionIndex<assQuestions.length; questionIndex++)
+			{
+				allNotes.push({
+					//questionId:assQuestions[questionIndex].alcrmQuestionID
+					notes:assQuestions[questionIndex].notes
+				});
+			}*/
+			//END
+			
 			
 			//if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
 			
 			var xmlCensusRequest = self.buildCensusResponse(censusQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
-			//var xmlTrainRequest
+			var xmlTrainRequest  = self.buildTrainInfoGroupResponse(trainQuestions,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			var xmlRequest = self.buildAssessmentResponse(questionList,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			
 			//COMMIT ASS
@@ -241,13 +253,29 @@ function responseGenerator() {
 							                var xml = new XMLTools(xmlDoc);
 							                var response = JSON.stringify(xml.toObject());
 							                Ti.API.info('createCensusRequest Success response >> ' + response);
-							                Alloy.Globals.aIndicator.hide();
+							                //COMMIT TRAIN INFO
+							       			Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest, 
+												function(xmlDoc){
+															var XMLTools = require("tools/XMLTools");
+											                var xml = new XMLTools(xmlDoc);
+											                var response = JSON.stringify(xml.toObject());
+											                Ti.API.info('createTrainGroupRequest Success response >> ' + response);
+											                Alloy.Globals.aIndicator.hide();
+												}, 
+												function(xmlDoc){
+															var XMLTools = require("tools/XMLTools");
+											                var xml = new XMLTools(xmlDoc);
+											                var response = JSON.stringify(xml.toObject());
+											                Ti.API.info('createTrainGroupRequest Failure response >> ' + response);
+											                Alloy.Globals.aIndicator.hide();
+												}
+											);//END OF COMMIT TRAIN INFO
 								}, 
 								function(xmlDoc){
 											var XMLTools = require("tools/XMLTools");
 							                var xml = new XMLTools(xmlDoc);
 							                var response = JSON.stringify(xml.toObject());
-							                Ti.API.error('createCensusRequest Failure response >> ' + response);
+							                Ti.API.info('createCensusRequest Failure response >> ' + response);
 							                Alloy.Globals.aIndicator.hide();
 								}
 							);//END OF COMMIT CENSUS  
@@ -257,8 +285,42 @@ function responseGenerator() {
 							var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                var response = JSON.stringify(xml.toObject());
-			                Ti.API.error('createAssessment Failure response >> ' + response);
 			                Alloy.Globals.aIndicator.hide();
+			                Ti.API.info('createAssessment Failure response >> ' + response);
+			                //COMMIT CENSUS
+			       			Alloy.Globals.Soap.createCensus(xmlCensusRequest, 
+								function(xmlDoc){
+											var XMLTools = require("tools/XMLTools");
+							                var xml = new XMLTools(xmlDoc);
+							                var response = JSON.stringify(xml.toObject());
+							                Ti.API.info('createCensusRequest Success response >> ' + response);
+							                //COMMIT TRAIN INFO
+							       			Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest, 
+												function(xmlDoc){
+															var XMLTools = require("tools/XMLTools");
+											                var xml = new XMLTools(xmlDoc);
+											                var response = JSON.stringify(xml.toObject());
+											                Ti.API.info('createTrainGroupRequest Success response >> ' + response);
+											                Alloy.Globals.aIndicator.hide();
+												}, 
+												function(xmlDoc){
+															var XMLTools = require("tools/XMLTools");
+											                var xml = new XMLTools(xmlDoc);
+											                var response = JSON.stringify(xml.toObject());
+											                Ti.API.info('createTrainGroupRequest Failure response >> ' + response);
+											                Alloy.Globals.aIndicator.hide();
+												}
+											);//END OF COMMIT TRAIN INFO
+								}, 
+								function(xmlDoc){
+											var XMLTools = require("tools/XMLTools");
+							                var xml = new XMLTools(xmlDoc);
+							                var response = JSON.stringify(xml.toObject());
+							                Ti.API.info('createCensusRequest Failure response >> ' + response);
+							                Alloy.Globals.aIndicator.hide();
+								}
+							);//END OF COMMIT CENSUS
+			                
 				}
 			);	
 			 
