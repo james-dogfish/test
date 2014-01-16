@@ -287,39 +287,7 @@ function responseGenerator() {
 			                var response = JSON.stringify(xml.toObject());
 			                Alloy.Globals.aIndicator.hide();
 			                Ti.API.info('createAssessment Failure response >> ' + response);
-			                //COMMIT CENSUS
-			       			Alloy.Globals.Soap.createCensus(xmlCensusRequest, 
-								function(xmlDoc){
-											var XMLTools = require("tools/XMLTools");
-							                var xml = new XMLTools(xmlDoc);
-							                var response = JSON.stringify(xml.toObject());
-							                Ti.API.info('createCensusRequest Success response >> ' + response);
-							                //COMMIT TRAIN INFO
-							       			Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest, 
-												function(xmlDoc){
-															var XMLTools = require("tools/XMLTools");
-											                var xml = new XMLTools(xmlDoc);
-											                var response = JSON.stringify(xml.toObject());
-											                Ti.API.info('createTrainGroupRequest Success response >> ' + response);
-											                Alloy.Globals.aIndicator.hide();
-												}, 
-												function(xmlDoc){
-															var XMLTools = require("tools/XMLTools");
-											                var xml = new XMLTools(xmlDoc);
-											                var response = JSON.stringify(xml.toObject());
-											                Ti.API.info('createTrainGroupRequest Failure response >> ' + response);
-											                Alloy.Globals.aIndicator.hide();
-												}
-											);//END OF COMMIT TRAIN INFO
-								}, 
-								function(xmlDoc){
-											var XMLTools = require("tools/XMLTools");
-							                var xml = new XMLTools(xmlDoc);
-							                var response = JSON.stringify(xml.toObject());
-							                Ti.API.info('createCensusRequest Failure response >> ' + response);
-							                Alloy.Globals.aIndicator.hide();
-								}
-							);//END OF COMMIT CENSUS
+			               
 			                
 				}
 			);	
