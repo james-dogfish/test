@@ -177,7 +177,6 @@ function interpreterModule()
 		setDefaultValues(questionObject);
 		
 		var allSelections=Alloy.Globals.localParser.getAllSelections(questionJsonObject);
-
 		for(var i=0;i<allSelections.length;i++){
 			questionObject.selections.push({
 				displayValue: Alloy.Globals.localParser.getSelectionDisplayValue(allSelections[i]),
@@ -217,8 +216,14 @@ function interpreterModule()
 		if(groupType in group_types_map){
 			sectionName = group_types_map[groupType];
 		}
-		newQuestionsSection.headerTitle = sectionName;
-		newQuestionsSection.title = sectionName;
+		//newQuestionsSection.headerTitle = sectionName;
+		if(questionJsonObject.pageType == "riskAssessment"){
+			newQuestionsSection.headerTitle = sectionName.substring(1);
+		}
+		else{
+			newQuestionsSection.headerTitle = questionJsonObject.pageName + " "+sectionName.substring(1);
+		}
+		newQuestionsSection.title = questionJsonObject.pageName + " "+sectionName.substring(1);
 		newQuestionsSection.groupType = groupType;
 		newQuestionsSection.pageName = questionJsonObject.pageName;
 		newQuestionsSection.pageType = questionJsonObject.pageType;

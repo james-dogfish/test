@@ -1,12 +1,12 @@
 <Alloy>
 	<ItemTemplate id="censusCounterTemplate" name="censusCounterTemplate" class="basicTemplate">
-        <View class="viewGroup">
-			<View class="headerView" bindId="debugTitleView">
+        <View id="mainView" class="viewGroup">
+			<View id="header" class="headerView" bindId="debugTitleView">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
 			
-			<View class="questionView">
+			<View id="questionView" class="questionView">
 				<Button class="additionButton" onClick="minusFive">-5</Button>
 				<Button class="additionButton" onClick="minusOne">-1</Button>
 				

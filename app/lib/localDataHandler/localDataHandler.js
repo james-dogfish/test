@@ -6,6 +6,9 @@ var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 
 function localDataHandler() {
     var self = this;
+    
+    var interpreterModule2 = require('interpreter/interpreterModule2'); //test 
+    
     //assessmentIndex.json file contains detils of all the assessments and the file names 
 
     self.clearAllSavedAssessments = function () {
@@ -170,6 +173,18 @@ function localDataHandler() {
         var newAssessmentFileName = newAssessment.mainQuestionsfileName;
         var newAssessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + newAssessmentFileName);
 
+		/*
+		//new interpreterModule
+		var newQuestionSet = interpreterModule2.interpret(JASON_question_list, {
+				associatedFileName : newAssessment.mainQuestionsfileName, 
+				pageName : "Risk Assessment", 
+				pageID : 0, 
+				pageType : "riskAssessment"
+			});
+		Ti.API.info("newQuestionSet" + JSON.stringify(newQuestionSet));
+		*/
+		
+		
         newAssessmentFile.write(
             JSON.stringify(
                 addDefultValuesToQuestionSet(
@@ -219,14 +234,15 @@ function localDataHandler() {
         for (var i = 0; i < savedAssessments.length; i++) {
 
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-                var newCensusFileName = assessmentObject.assessmentID + "CensusQuestions.json";
+            	
+                var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID+"CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + newCensusFileName);
 
                 //alert("censusLastPageID 1 = " + savedAssessments[i].censusLastPageID);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
-                savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
+                
                 //alert("censusLastPageID 2 = " + savedAssessments[i].censusLastPageID);
-                alert("savedAssessments[i].defaultCensusQuestions: " + savedAssessments[i].defaultCensusQuestions);
+                //alert("savedAssessments[i].defaultCensusQuestions: " + savedAssessments[i].defaultCensusQuestions);
                 var returnList = addDefultValuesToQuestionSet(
                     savedAssessments[i].defaultCensusQuestions,
                     newCensusFileName,
@@ -243,7 +259,7 @@ function localDataHandler() {
                 );
 
 
-
+				savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
                 self.updateSavedAssessments(savedAssessments);
                 return returnList;
             }
@@ -258,10 +274,10 @@ function localDataHandler() {
 
         for (var i = 0; i < savedAssessments.length; i++) {
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-                var newTrainGroupFileName = assessmentObject.assessmentID + "TrainGroupQuestions.json";
+                var newTrainGroupFileName = assessmentObject.assessmentID + savedAssessments[i].trainGroupLastPageID+"TrainGroupQuestions.json";
                 var newTrainGroupFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + newTrainGroupFileName);
                 savedAssessments[i].trainGroupQuestionsfileNameList.push(newTrainGroupFileName);
-                savedAssessments[i].trainGroupLastPageID = parseInt(savedAssessments[i].trainGroupLastPageID) + 1;
+                
 
                 var returnList = addDefultValuesToQuestionSet(
                     savedAssessments[i].defaultTrainInfoQuestions,
@@ -277,7 +293,8 @@ function localDataHandler() {
                         returnList
                     )
                 );
-
+                
+				savedAssessments[i].trainGroupLastPageID = parseInt(savedAssessments[i].trainGroupLastPageID) + 1;
                 self.updateSavedAssessments(savedAssessments);
                 return returnList;
             }
@@ -350,11 +367,33 @@ function localDataHandler() {
     };
 
     self.openAssessment = function (assessmentObject) {
+    	var returnQuestionSet = [];
+    	
         var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.mainQuestionsfileName);
         if (assessmentFile.exists()) {
-            return assessment = JSON.parse(assessmentFile.read().text);
+           var assessment = JSON.parse(assessmentFile.read().text);
+           returnQuestionSet = returnQuestionSet.concat(assessment);
+           
         }
-        return [];
+        for(var i=0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
+        	var censusQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
+ 
+        	if (censusQuestionFile.exists()) {
+	            var censusQuestions = JSON.parse(censusQuestionFile.read().text);
+	            returnQuestionSet = returnQuestionSet.concat(censusQuestions);
+	            
+	        }
+        }
+        
+        for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+        	var trainGroupQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
+        	if (trainGroupQuestionFile.exists()) {
+	            var trainGroupQuestions = JSON.parse(trainGroupQuestionFile.read().text);
+	            returnQuestionSet = returnQuestionSet.concat(trainGroupQuestions);
+	        }
+        }
+        Ti.API.info("returnQuestionSet = "+JSON.stringify(returnQuestionSet));
+        return returnQuestionSet;
     };
 }
 

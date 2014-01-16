@@ -8,11 +8,11 @@
 },
 
 ".headerView" : {
-	width: Ti.UI.Fill,
+	width: "98%",
 	height: "35dp",
 	top: "20dp",
-	left : "10dp",
-	right : "10dp",
+	left : "1%",
+	right : "1%",
 	borderRadius: 5,
 	borderWidth : 1,
 	borderColor : "#000",
@@ -53,12 +53,12 @@
 },
 
 ".questionView" : {
-	width: Ti.UI.Fill,
+	width: "98%",
 	height: Ti.UI.SIZE,
 	top: "5dp",
 	bottom : "10dp",
-	left : "10dp",
-	right : "10dp",
+	left : "1%",
+	right : "1%",
 	layout : "horizontal",
 	horizontalWrap : false
 },
