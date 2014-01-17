@@ -1,0 +1,12 @@
+"#pageRow" : {
+	width: Ti.UI.FILL,
+	height : "50dp"
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "50dp",
+	left : "40dp",
+	wordWrap : false,
+	minimumFontSize : "25dp"
+}
+

@@ -8,9 +8,11 @@ var currentAssessmentObject = null;
 
 
 
-var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(200);
+var gotoDisplayViewWidth = "50%";
+var leftPostionClosed = "-50%";
+
 $.gotoDisplayView.width = gotoDisplayViewWidth;
-$.gotoDisplayView.left = -gotoDisplayViewWidth;
+$.gotoDisplayView.left = leftPostionClosed;
 
 var animationDuration = 700;
 
@@ -27,7 +29,7 @@ animationOpen.left = "0dp";
 animationOpen.duration = animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
-animationClose.left = -gotoDisplayViewWidth;
+animationClose.left = leftPostionClosed;
 animationClose.duration = animationDuration;
 var closeAnimationHandler = function() {
 	closeing= false;

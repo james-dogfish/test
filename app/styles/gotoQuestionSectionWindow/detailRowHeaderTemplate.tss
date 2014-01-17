@@ -1,0 +1,12 @@
+"#detailRowHeaderTemplate" : {
+	width: Ti.UI.FILL,
+	height : "40dp"
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "20dp",
+	wordWrap : false,
+	minimumFontSize : "18dp",
+	left : "20dp"
+}
+

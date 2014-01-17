@@ -1,0 +1,22 @@
+"#pageRow" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+},
+"#container" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "50dp",
+	left : "40dp",
+	wordWrap : false,
+	minimumFontSize : "25dp"
+},
+"#deleteButton" : {
+	width : Ti.UI.SIZE,
+	height : "50dp",
+	right : "40dp"
+}
+
+

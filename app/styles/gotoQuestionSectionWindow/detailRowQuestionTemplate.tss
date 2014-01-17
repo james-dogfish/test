@@ -1,0 +1,12 @@
+"#detailRowQuestionTemplate" : {
+	width: Ti.UI.FILL,
+	height : "40dp"
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "20dp",
+	left : "40dp",
+	wordWrap : false,
+	minimumFontSize : "18dp"
+}
+

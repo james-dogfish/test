@@ -1,0 +1,9 @@
+<Alloy>
+	<ItemTemplate id="pageRow" name="masterCensusRowTemplate">
+		<View id="container">
+			<Label id="title" bindId="title" onClick="onClickCallBack"/>
+			<Button id="deleteButton" onClick="deleteButtonClick">Delete</Button>
+		</View>
+		
+	</ItemTemplate>
+</Alloy>

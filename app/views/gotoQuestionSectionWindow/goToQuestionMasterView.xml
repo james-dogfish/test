@@ -5,7 +5,8 @@
 		</View>
 		<ListView id="listView">
 			<Templates>
-				<Require src="gotoQuestionSectionWindow/riskAssessmentPageRowTemplate" type="view"/>
+				<Require src="gotoQuestionSectionWindow/masterRowTemplate" type="view"/>
+				<Require src="gotoQuestionSectionWindow/masterCensusRowTemplate" type="view"/>
 			</Templates>
 			
 			
