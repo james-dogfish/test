@@ -6,8 +6,8 @@
 		</View>
 		<ListView id="listView">
 			<Templates>
-				<Require src="gotoQuestionSectionWindow/goToQuestionRow" type="view"/>
-				<Require src="gotoQuestionSectionWindow/goToSectionHeader" type="view"/>
+				<Require src="gotoQuestionSectionWindow/detailRowQuestionTemplate" type="view"/>
+				<Require src="gotoQuestionSectionWindow/detailRowHeaderTemplate" type="view"/>
 			</Templates>
 			<ListSection id="section"/>
 		</ListView>

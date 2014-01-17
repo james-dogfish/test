@@ -172,11 +172,11 @@ riskAssessmentsTab.on("openRiskAssessment", function (e) {
     questionRendererTab.clear();
     $.tabGroup.setActiveTab($.questionRendererTab.getView());
 
-    activityIndicator.show();
-    var assessment = localDataHandler.openAssessment(e.assessmentObject);
+    //activityIndicator.show();
+    
     //questionRendererTab.setAssessment(interpreterModule.interpret(assessment), e.assessmentObject);
-    questionRendererTab.setAssessment(assessment, e.assessmentObject);
-    activityIndicator.hide();
+    questionRendererTab.setAssessment(e.assessmentObject);
+    //activityIndicator.hide();
 });
 
 riskAssessmentsTab.on("openSearchTab", toggleSearch);

@@ -1,0 +1,13 @@
+"#detailRowHeaderTemplate" : {
+	width: Ti.UI.FILL,
+	height : "40dp",
+	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "20dp",
+	wordWrap : false,
+	minimumFontSize : "18dp",
+	left : "20dp"
+}
+

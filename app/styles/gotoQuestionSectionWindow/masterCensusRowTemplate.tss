@@ -1,0 +1,29 @@
+"#pageRow" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+"#container" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "50dp",
+	left : "40dp",
+	wordWrap : false,
+	minimumFontSize : "25dp"
+},
+"#deleteButton" : {
+	width : "80dp",
+	height : "30dp",
+	right : "40dp",
+	color : "#fff",
+	font: {fontFamily:'Helvetica Neue', fontSize:"18sp", fontWeight:'bold'},
+	borderColor : "#555",
+	borderRadius: 5,
+	borderWidth : 1,
+	backgroundColor  : "#D11313",
+}
+
+
