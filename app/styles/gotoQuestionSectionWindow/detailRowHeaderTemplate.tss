@@ -1,6 +1,7 @@
 "#detailRowHeaderTemplate" : {
 	width: Ti.UI.FILL,
-	height : "40dp"
+	height : "40dp",
+	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "#title" : {
 	width: Ti.UI.FILL,

@@ -101,6 +101,10 @@ Ti.App.addEventListener("pageSelected", function(e){
 	
 });
 
+Ti.App.addEventListener("deletePage", function(e){
+	//alert("associatedFileName = "+ JSON.stringify(e.associatedFileName));
+	$.trigger('deletePage', {associatedFileName : e.associatedFileName});
+});
 
 $.detailView.on("moveToMaster", function(){
 	$.masterView.MoveToOpen(true);

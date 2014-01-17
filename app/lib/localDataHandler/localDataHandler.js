@@ -415,6 +415,53 @@ function localDataHandler() {
 
         return getAllData;
     };
+    
+    
+    self.getMostUpTodateAssessmentObject = function(assessmentObject){
+    	var savedAssessments = self.getAllSavedAssessments();
+        for (var i = 0; i < savedAssessments.length; i++) {
+            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+            	assessmentObject = savedAssessments[i];
+            	break;
+            }
+    	}
+    	return assessmentObject;
+    };
+    
+    self.deleteAssociatedFileNameFromAssessment = function(assessmentObject, associatedFileName){
+    	
+    	assessmentObject= self.getMostUpTodateAssessmentObject(assessmentObject);
+    	
+    	for(var i=0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
+    		if(associatedFileName == assessmentObject.censusQuestionsfileNameList[i]){
+    			var file = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
+    			if(file.exists() == true){
+    				file.deleteFile();
+    			}
+    			assessmentObject.censusQuestionsfileNameList.splice(i,1);
+    			self.updateSingleAssessmentIndexEntry(assessmentObject);
+    			return true;
+    		}
+    	}
+    	
+    	/*
+    	for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+    		if(associatedFileName == assessmentObject.trainGroupQuestionsfileNameList[i]){
+    			var file = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
+
+    			if(file.exists() == true){
+    				file.deleteFile();
+    			}
+    			assessmentObject.trainGroupQuestionsfileNameList.splice(i,1);
+    			self.updateSingleAssessmentIndexEntry(assessmentObject);
+    			return true;
+    		}
+    	}
+    	*/
+    	
+    	return false;
+    	
+    };
   
 
     self.openAssessment = function (assessmentObject) {
@@ -424,14 +471,7 @@ function localDataHandler() {
     		alert("assessment file format is out of date, continued use of this assessment may cause errors");
     	}
     	
-    	var savedAssessments = self.getAllSavedAssessments();
-
-        for (var i = 0; i < savedAssessments.length; i++) {
-            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-            	assessmentObject = savedAssessments[i];
-            	break;
-            }
-    	}
+    	assessmentObject= self.getMostUpTodateAssessmentObject(assessmentObject);
     	
     	
         var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.mainQuestionsfileName);

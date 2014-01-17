@@ -1,6 +1,7 @@
 "#pageRow" : {
 	width: Ti.UI.FILL,
-	height : "50dp"
+	height : "50dp",
+	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "#title" : {
 	width: Ti.UI.FILL,

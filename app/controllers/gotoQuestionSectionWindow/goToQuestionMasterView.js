@@ -27,7 +27,8 @@ var addSectionToPageList= function(section){
 		name : section.pageName,
 		title : {text : section.pageName}, 
 		sectionList : [],  
-		pageType : section.pageType
+		pageType : section.pageType,
+		associatedFileName : section.associatedFileName
 	};
 	
 	if(section.pageType == "riskAssessment"){

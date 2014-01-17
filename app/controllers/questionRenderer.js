@@ -288,6 +288,7 @@ var buildQuestionSections = function(JASON_sectionList){
 		//newQuestionsSection.headerTitle = JASON_sectionList[i].title;
 		newQuestionsSection.title = JASON_sectionList[i].title;
 		newQuestionsSection.groupType = JASON_sectionList[i].groupType;
+		newQuestionsSection.associatedFileName = JASON_sectionList[i].associatedFileName;
 		newQuestionsSection.pageName = JASON_sectionList[i].pageName;
 		newQuestionsSection.pageType = JASON_sectionList[i].pageType;
 		newQuestionsSection.setItems(JASON_sectionList[i].questionList);
@@ -296,26 +297,46 @@ var buildQuestionSections = function(JASON_sectionList){
 	return newSectionList;
 };
 
+var removeHiddenQuestions = function(JASON_sectionList){
+	for(var sectionIndex= 0 ; sectionIndex <JASON_sectionList.length; sectionIndex++){
+		var questionList = JASON_sectionList[sectionIndex].questionList;
+		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+			
+			if(questionList[questionIndex].visable == false){
+				hiddenQuestions.push(questionList[questionIndex]);
+				questionList.splice(questionIndex,1);
+				questionIndex= questionIndex-1;
+			}
+		}
+		JASON_sectionList.questionList = questionList;
+	}
+	return JASON_sectionList;
+};
+
 exports.setAssessment = function(JASON_sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
 	
-	sectionList = buildQuestionSections(JASON_sectionList);
+	hiddenQuestions = [];
 	
+	JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+	
+
+	sectionList = buildQuestionSections(JASON_sectionList);
+
 	if(Alloy.Globals.isDebugOn == true){
 		//debugLookUpDependentQuestions(sectionList);
 	}
 	
 	allSections = sectionList;
-	try{
-		removeAnyRenderOptionQuestion(sectionList);
-	}catch(e){
-		
-	}
+
+
 	//removeAnyRenderOptionQuestion(data);
 	$.listView.setSections(sectionList);
+
 	
+
 	setListViewDisplayTypeToSingleSections(userPreferences.singleView);
-	
+
 	
 	//setup questionSelected to be the first question
 	if(sectionList.length > 0){
@@ -325,15 +346,24 @@ exports.setAssessment = function(JASON_sectionList, assessmentObject){
 			questionSelected.name = questionList[0].name;
 		}
 	}
+
 };
 
 exports.appendSectionsToAssessment = function(JASON_sectionList){
 	//allSections = sectionList;
+	JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+	
 	appendSectionList = buildQuestionSections(JASON_sectionList);
 	
-	removeAnyRenderOptionQuestion(appendSectionList);
+	//removeAnyRenderOptionQuestion(appendSectionList);
 	allSections = allSections.concat(appendSectionList);
 	$.listView.setSections(allSections);	
+};
+
+exports.removeAllSectionsWithAssociatedFileName = function(associatedFileName){
+	for(var i=0; i < allSections.length; i++){
+		
+	}
 };
 
 exports.moveToQuestion = function(groupType, questionIndex){
@@ -427,6 +457,7 @@ exports.getGoToContentsDetails = function(){
 		var newSectionContents= {
 			questionList : [], 
 			title : sectionList[sectionIndex].groupType.substring(1),
+			associatedFileName : sectionList[sectionIndex].associatedFileName,
 			pageName :  sectionList[sectionIndex].pageName,
 			pageType : sectionList[sectionIndex].pageType,
 			sectionIndex : sectionIndex, 
@@ -455,6 +486,7 @@ var questionValueChange = function(item, name, value){
 	//alert("value = "+value);
 };
 
+/*
 var removeAnyRenderOptionQuestion = function(data){
 	var sectionList = data;
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
@@ -470,6 +502,7 @@ var removeAnyRenderOptionQuestion = function(data){
 		}
 	}
 };
+*/
 
 var testIfQuestionsNeedToBeRemoved = function(data){
 	var sectionList = getAllQuestionSections();

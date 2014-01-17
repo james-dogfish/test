@@ -3,14 +3,18 @@ var userPreferences = User.getPreferences();
 var currentAssessmentObject = null;
 var localDataHandler = require('localDataHandler/localDataHandler');
 var interpreter = require('interpreter/interpreterModule');
-
+var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 
 	
-exports.setAssessment = function(sectionList, assessmentObject){
+exports.setAssessment = function(assessmentObject){
+	activityIndicator.show();
+	
 	currentAssessmentObject = assessmentObject;
+	var sectionList = localDataHandler.openAssessment(assessmentObject);
 	//alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
 	$.questionListView.setAssessment(sectionList, assessmentObject);
 	
+	activityIndicator.hide();
 };
 
 exports.clear = function(){
@@ -107,14 +111,30 @@ var openMenu = function() {
 				$.questionListView.moveToQuestion(data.groupType, data.questionIndex);
 			});
 			gotoQuestionSectionWindow.on("createCensus", function(data){
+				activityIndicator.show();
+				
 				createCensus();
 				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+				
+				activityIndicator.hide();
 			});
 			gotoQuestionSectionWindow.on("goToFirstUnanswered", function(data){
 				$.questionListView.goToFirstUnanswered();
 			});
 			gotoQuestionSectionWindow.on("goToLastPositiond", function(data){
 				$.questionListView.goToLastPositiond();
+			});
+			gotoQuestionSectionWindow.on("deletePage", function(e){
+				//alert("delete associatedFileName = "+e.associatedFileName);
+				activityIndicator.show();
+				
+				if(localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true){
+					var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+					$.questionListView.setAssessment(sectionList, currentAssessmentObject);
+					gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+				}
+				
+				activityIndicator.hide();
 			});
 			
 			
