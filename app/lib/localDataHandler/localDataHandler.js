@@ -52,23 +52,26 @@ function localDataHandler() {
         return true;
     };
 
-    self.updateQuestionWithUserResponse = function (fileName, question) {
-        var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + fileName);
+    self.updateQuestion = function (question) {
+        var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + question.associatedFileName);
         if (assessmentFile.exists()) {
             var sectionList = JSON.parse(assessmentFile.read().text);
             
             var questionFound = false;
            // var questonName = Alloy.Globals.localParser.getQuestionName(question_node);
             for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true ; sectionIndex++) {
-            	var questionList = sectionList[sectionIndex].questionList;
             	
-            	for(var questionIndex =0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true  ; questionIndex++){
-            		
-            		if(sectionList[sectionIndex].questionList[questionIndex].name == question.name){
-            			sectionList[sectionIndex].questionList[questionIndex] = question;
-            			questionFound= true;	
-            		}
-            	}
+            	if(sectionList[sectionIndex].groupType == question.groupType){
+	            	var questionList = sectionList[sectionIndex].questionList;
+	            	
+	            	for(var questionIndex =0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true  ; questionIndex++){
+	            		
+	            		if(sectionList[sectionIndex].questionList[questionIndex].name == question.name){
+	            			sectionList[sectionIndex].questionList[questionIndex] = question;
+	            			questionFound= true;	
+	            		}
+	            	}
+           		}
             }
 
 
@@ -100,15 +103,18 @@ function localDataHandler() {
             var questionFound = false;
            // var questonName = Alloy.Globals.localParser.getQuestionName(question_node);
             for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true ; sectionIndex++) {
-            	var questionList = sectionList[sectionIndex].questionList;
             	
-            	for(var questionIndex =0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true  ; questionIndex++){
-            		
-            		if(sectionList[sectionIndex].questionList[questionIndex].name == question.name){
-            			sectionList[sectionIndex].questionList[questionIndex] = question;
-            			questionFound= true;	
-            		}
-            		
+            	if(sectionList[sectionIndex].groupType == question.groupType){
+	            	var questionList = sectionList[sectionIndex].questionList;
+	            	
+	            	for(var questionIndex =0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true  ; questionIndex++){
+	            		
+	            		if(sectionList[sectionIndex].questionList[questionIndex].name == question.name){
+	            			sectionList[sectionIndex].questionList[questionIndex] = question;
+	            			questionFound= true;	
+	            		}
+	            		
+	            	}
             	}
             }
 
@@ -287,6 +293,8 @@ function localDataHandler() {
 
 				savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
                 self.updateSavedAssessments(savedAssessments);
+                
+                
                 return newCensusQuestionSet;
             }
         }
@@ -333,6 +341,8 @@ function localDataHandler() {
                 
 				savedAssessments[i].trainGroupLastPageID = parseInt(savedAssessments[i].trainGroupLastPageID) + 1;
                 self.updateSavedAssessments(savedAssessments);
+               
+                
                 return newTrainInfoQuestionSet;
             }
         }
@@ -406,6 +416,16 @@ function localDataHandler() {
 
     self.openAssessment = function (assessmentObject) {
     	var returnQuestionSet = [];
+    	
+    	var savedAssessments = self.getAllSavedAssessments();
+
+        for (var i = 0; i < savedAssessments.length; i++) {
+            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+            	assessmentObject = savedAssessments[i];
+            	break;
+            }
+    	}
+    	
     	
         var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.mainQuestionsfileName);
         if (assessmentFile.exists()) {

@@ -98,9 +98,17 @@ function localParser()
 		
 		var returnList = [];
 		for(var i=0; i< conditionalMandatory.length; i++){
+			var parameterValue = conditionalMandatory[i].parameterValue;
+			if(typeof parameterValue === "undefined"){
+				parameterValue = null;
+			}
+			else{
+				parameterValue = parameterValue["#text"];
+			}	
+			
 			returnList.push({
 				name : conditionalMandatory[i].parameterName["#text"], 
-				value : conditionalMandatory[i].parameterValue["#text"]
+				value : parameterValue
 			});
 		}
 		return returnList;
