@@ -248,17 +248,7 @@ function responseGenerator() {
 			var sectionListCen = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],0);
 			var sectionListTra =  localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex],1);
 
-			//THIS IS GONNA CHANGE
-			/*var assQuestions = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
-			var allNotes = [];
-			for(var questionIndex=0 ; questionIndex<assQuestions.length; questionIndex++)
-			{
-				allNotes.push({
-					//questionId:assQuestions[questionIndex].alcrmQuestionID
-					notes:assQuestions[questionIndex].notes
-				});
-			}*/
-			//END
+		
 			
 			
 			//if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
@@ -268,6 +258,8 @@ function responseGenerator() {
 			var xmlRequest = self.buildAssessmentResponse(sectionListAss,activeAssessments[assessmentIndex].crossingID,activeAssessments[assessmentIndex].detailID);
 			
 			alert("xmlRequest >> " + JSON.stringify(xmlRequest));
+			
+			
 			
 			//COMMIT ASS
 			Alloy.Globals.Soap.createAssessment(xmlRequest, 
@@ -292,8 +284,19 @@ function responseGenerator() {
 															var XMLTools = require("tools/XMLTools");
 											                var xml = new XMLTools(xmlDoc);
 											                var response = JSON.stringify(xml.toObject());
+											                
+											                var assessmentForPDF = JSON.stringify(
+											                	localDataHandler.createAssessmentPDFResponse
+											                	(
+											                		activeAssessments[assessmentIndex]
+											                	)
+											                );
+											                
+											                
 											                Ti.API.info('createTrainGroupRequest Success response >> ' + response);
 											                Alloy.Globals.aIndicator.hide();
+											                
+											                
 												}, 
 												function(xmlDoc){
 															var XMLTools = require("tools/XMLTools");

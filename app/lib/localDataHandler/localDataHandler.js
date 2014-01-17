@@ -293,6 +293,53 @@ function localDataHandler() {
 
         return [];
     };
+    
+    self.createAssessmentPDFResponse = function(assessmentObject)
+    {
+    	var returnQuestionObj = {
+    		mainQuestionSet: new Array(),
+    		individualCensusList: [],
+    		individualTrainList: []
+    	};
+    	
+    	
+        var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.mainQuestionsfileName);
+
+        if (assessmentFile.exists()) {
+        	returnQuestionObj.mainQuestionSet = JSON.parse(assessmentFile.read().text);
+           //var assessment = JSON.parse(assessmentFile.read().text);
+           //returnQuestionSet = returnQuestionSet.concat(assessment);
+           
+        }
+
+        for(var i=0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
+        	var censusQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
+ 
+        	if (censusQuestionFile.exists()) {
+        		returnQuestionObj.individualCensusList.push(
+        			JSON.parse(censusQuestionFile.read().text)
+        		);
+	           // var censusQuestions = JSON.parse(censusQuestionFile.read().text);
+	            //returnQuestionSet = returnQuestionSet.concat(censusQuestions);
+	            
+	        }
+        }
+ 
+        for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+        	var trainGroupQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
+        	if (trainGroupQuestionFile.exists()) {
+        		returnQuestionObj.individualTrainList.push(
+        			JSON.parse(trainGroupQuestionFile.read().text)
+        		);
+	            //var trainGroupQuestions = JSON.parse(trainGroupQuestionFile.read().text);
+	            //returnQuestionSet = returnQuestionSet.concat(trainGroupQuestions);
+	        }
+        }
+        
+        //Ti.API.info("returnQuestionSet = "+JSON.stringify(returnQuestionSet));
+        return returnQuestionObj;
+    };
+    
 
     self.addNewTrainGroupToAssessment = function (assessmentObject, trainGroupMap) {
         var savedAssessments = self.getAllSavedAssessments();
