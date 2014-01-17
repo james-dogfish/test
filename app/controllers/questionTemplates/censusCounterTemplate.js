@@ -1,4 +1,4 @@
-var currentValue = "";
+//var currentValue = "";
 
 function onNotesClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
@@ -49,18 +49,21 @@ function onTextField1Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 	
+
+	
 	var intValue =0;
 	intValue = parseInt(e.value);
 	if(isNaN(intValue)){
 		intValue =0;
 	}
-	currentValue = ""+intValue;
 	
-	item.displayValue = {value : currentValue};
+	//currentValue = ""+intValue;
+	item.value[0] = intValue;
+	item.displayValue = {value : item.value[0]};
 	
 	var questionResponse =
        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
-       "<ques:parameterValue>"+currentValue+"</ques:parameterValue>";
+       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
        
     item.questionResponse = questionResponse;
 	
@@ -69,26 +72,31 @@ function onTextField1Blur(e){
 		name : item.name,
 		itemIndex : e.itemIndex,
 		groupType : item.groupType,
-		value : [currentValue],
+		value : item.value,
 		responseObject : questionResponse
 	}); 
 };
 
 var addValue = function(additionValue, questionObject){
+	
+	var item = questionObject.section.getItemAt(questionObject.itemIndex);
+	
+
+	
 	var intValue = 0;
-	if(currentValue != ""){
-		intValue = parseInt(currentValue);
+	if(item.value[0] != ""){
+		intValue = parseInt(item.value[0]);
 	}
 	
 	intValue= (intValue + additionValue);
 	if(intValue < 0){
 		intValue = 0;
 	}
-	currentValue = ""+intValue;
+	item.value[0] = ""+intValue;
 	
-	var item = questionObject.section.getItemAt(questionObject.itemIndex);
+	
 	var section = questionObject.section; 
-	item.displayValue = {value : currentValue};
+	item.displayValue = {value : item.value[0]};
 	
 	
 	section.updateItemAt(questionObject.itemIndex, item);
@@ -96,7 +104,7 @@ var addValue = function(additionValue, questionObject){
 	var responseObject = 
 	"<ass1:riskData>"+
        "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-       "<ques:parameterValue>"+currentValue+"</ques:parameterValue>"+
+       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>"+
     "</ass1:riskData>";
 	
 	Ti.App.fireEvent("questionValueChange", {
@@ -104,7 +112,7 @@ var addValue = function(additionValue, questionObject){
 		name : item.name,
 		itemIndex : questionObject.itemIndex,
 		groupType : item.groupType,
-		value : [currentValue],
+		value : item.value,
 		responseObject : responseObject
 	}); 
 	
