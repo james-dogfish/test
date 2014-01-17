@@ -81,9 +81,6 @@ var openMenu = function() {
 		title: 'Help',
 		id: 3
 	}, {
-		title: 'Commit All Completed',
-		id: 4
-	}, {
 		title: 'Logout',
 		id: 5
 	}];

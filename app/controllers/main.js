@@ -181,14 +181,14 @@ riskAssessmentsTab.on("openRiskAssessment", function (e) {
 
 riskAssessmentsTab.on("openSearchTab", toggleSearch);
 
-masterSearchTab.on("crossingSelected", function (crossingObject) {
+/*masterSearchTab.on("crossingSelected", function (crossingObject) {
     //alert("crossing name : "+crossingObject.name);
     $.tabGroup.setActiveTab(detailSearchTab.getView());
     Alloy.Globals.currentCrossingName = crossingObject.name;
     Alloy.Globals.aIndicator.show("Loading...");
     detailSearchTab.setData(crossingObject);
 
-});
+});*/
 masterSearchTab.on("BackButtonClick", function (e) {
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
@@ -235,11 +235,10 @@ function parseData(xml_text, detaildID, crossingID, riskMap) {
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         var localParser = require('parser/localParser');
         localParser = new localParser();
-        Alloy.Globals.parsedData = localParser.getQuestions(xml_text);
-        Alloy.Globals.localParser = localParser;
+        var questionsData = localParser.getQuestions(xml_text);
 
         var localDataHandler = require('localDataHandler/localDataHandler');
-        curAssObj = localDataHandler.addNewAssessment(Alloy.Globals.parsedData, Alloy.Globals.currentCrossingName, detaildID, crossingID, riskMap);
+        curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, riskMap);
 
         Alloy.Globals.aIndicator.hide();
         $.tabGroup.setActiveTab(riskAssessmentsTab.getView());
@@ -254,14 +253,18 @@ detailSearchTab.on("BackButtonClick", function (e) {
     $.tabGroup.setActiveTab(masterSearchTab.getView());
 });
 
-detailSearchTab.on("assSelected", function (crossingDetail) {
+masterSearchTab.on("crossingSelected", function (crossingDetail) {
+	//alert(JSON.stringify(crossingDetail));
+    //alert("crossing name : "+crossingObject.name);
+    Alloy.Globals.currentCrossingName = crossingDetail.name;
+    
     //alert(JSON.stringify(crossingDetail));
     Alloy.Globals.aIndicator.show("Loading...");
     var assData2 = [];
     var riskMap = {};
     Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
 
-    Alloy.Globals.Soap.getAssessment({
+    /*Alloy.Globals.Soap.getAssessment({
             assessmentId: crossingDetail.id
         },
         function (xmlDoc) {
@@ -287,17 +290,22 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                         displayValue: results[i]["ns6:displayValue"]
                     });
                     riskMap[results[i]["ns6:parameterName"]] = paramDetails;
-                }
+                }*/
                 //get Assessment Question Set
                 Alloy.Globals.Soap.getQuestionsRequest({
-                        crossingId: crossingDetail.crossingId
+                        crossingId: crossingDetail.id,
+                        groupType: "Assessment"
                     },
-                    function (xmlDoc) {
-                        parseData(xmlDoc, crossingDetail.detailId, crossingDetail.crossingId, riskMap);
+                    function (xmlDoc){
+                    	 var riskMap = [];
+                    	 var XMLTools = require("tools/XMLTools");
+            			 var xml2 = new XMLTools(xmlDoc);
+                    	 var assObj = JSON.stringify(xml2.toObject());
+                        parseData(xmlDoc, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
 
                         	//get Census Question Set
                         	Alloy.Globals.Soap.getQuestionsRequest({
-                                crossingId: crossingDetail.crossingId,
+                                crossingId: crossingDetail.id,
                                 groupType: "Census"
                             },
                             function (xmlDoc) {
@@ -308,13 +316,13 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                                 var XMLTools = require("tools/XMLTools");
                                 var xml = new XMLTools(xmlDoc);
                                 Alloy.Globals.aIndicator.hide();
-                                Ti.API.error('getQuestionReqeust Error response >> ' + xml.toJSON());
+                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
 
                             });//end of get census question set
 
                         	//get Train Question Set
                         	Alloy.Globals.Soap.getQuestionsRequest({
-                                crossingId: crossingDetail.crossingId,
+                                crossingId: crossingDetail.id,
                                 groupType: "Train"
                             },
                             function (xmlDoc) {
@@ -326,14 +334,16 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                
-               
+                                 Alloy.Globals.aIndicator.hide();
+               					 detailSearchTab.setData(crossingDetail);
+               					 
+               					 
                             },
                             function (xmlDoc) {
                                 var XMLTools = require("tools/XMLTools");
                                 var xml = new XMLTools(xmlDoc);
                                 Alloy.Globals.aIndicator.hide();
-                                Ti.API.error('getQuestionReqeust Error response >> ' + xml.toJSON());
+                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
 
                             });//end of get Train Question Set
                             
@@ -344,17 +354,17 @@ detailSearchTab.on("assSelected", function (crossingDetail) {
                         var XMLTools = require("tools/XMLTools");
                         var xml = new XMLTools(xmlDoc);
                         Alloy.Globals.aIndicator.hide();
-                        Ti.API.error('getQuestionReqeust Error response >> ' + xml.toJSON());
+                        Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
 
                     });//end of get Question Request Failure function
-            }//end of get Questions Request
-        },
+});
+
+        /*},
         function (xmlDoc) {
             var XMLTools = require("tools/XMLTools");
             var xml2 = new XMLTools(xmlDoc);
-            alert('getAssessment Error response >> ' + xml2.toJSON());
         });
-});
+});*/
 
 questionRendererTab.on("BackButtonClick", function (e) {
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());

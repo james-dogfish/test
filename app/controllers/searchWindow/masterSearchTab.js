@@ -47,9 +47,9 @@ exports.setData = function() {
 								Util.showAlert("No Results");
 								
 			                }else{
-			                 
 				                for(var i=0; i<results.length; i++)
 				                {
+				                	
 				                	crossingData.push({
 				                		name: results[i]["ns6:name"],
 				                		id:   results[i]["ns5:id"]
