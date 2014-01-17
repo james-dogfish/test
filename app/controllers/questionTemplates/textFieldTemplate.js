@@ -24,6 +24,9 @@ function onTextFieldBlur(e){
 		"ques:parameterValue":{"#text":e.value}
 	};
 	*/
+	
+	section.updateItemAt(e.itemIndex, item);
+	
 	var questionResponse = 
        "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
        "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
@@ -39,7 +42,7 @@ function onTextFieldBlur(e){
 		responseObject : questionResponse
 	}); 
 		
-	//section.updateItemAt(e.itemIndex, item);
+	//
 };
 
 function onNotesClick(e){

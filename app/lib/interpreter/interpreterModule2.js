@@ -103,7 +103,8 @@ function interpreterModule2(){
 		};
 		
 		
-		var validation = Alloy.Globals.localParser.getConditionalMandatory(validation);
+		var validation = Alloy.Globals.localParser.getValidation(question);
+		
 		if(typeof validation !== "undefined"){
 			questionValidation.validationTest = true;
 			
@@ -116,7 +117,11 @@ function interpreterModule2(){
 			
 			var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
 			for(var i = 0; i< conditionalMandatory.length; i++){
-				questionValidation.conditionalMandatory.push({name : conditionalMandatory[i].name, value : conditionalMandatory[i].value});
+				
+				questionValidation.conditionalMandatory.push({
+						name : conditionalMandatory[i].name, 
+						value : conditionalMandatory[i].value
+					});
 			}
 			
 			if(typeof validation.min !== "undefined"){

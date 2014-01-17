@@ -575,7 +575,12 @@ var validateSingleQuestionValue = function(value, questionObject){
 			var conditionalMandatory = questionObject.validation.conditionalMandatory;
 			if(conditionalMandatory.length != 0){
 				for(var i=0; i< conditionalMandatory.length; i++){
+					
 					var testValue = findQuestionsValue(conditionalMandatory[i].name);
+					
+					if(conditionalMandatory[i].value == null){
+						continue;
+					}
 
 					for(var testValueIndex =0; testValueIndex < testValue.length; testValueIndex++){
 						if(conditionalMandatory[i].value == testValue[testValueIndex]){
@@ -667,6 +672,7 @@ var validateSingleQuestionValue = function(value, questionObject){
 		return returnObject;
 	}
 	
+	alert("questionObject.validation.min = "+questionObject.validation.min);
 	if(questionObject.validation.min != null){
 		if(parseInt(value) < parseInt(questionObject.validation.min)){
 			returnObject.isValid = false;
@@ -749,7 +755,6 @@ var validateEntireQuestion = function(valueChangeObject){
 			//return false;
 		}
 	}
-	
 
 	var questionRef = findQuestion(questionObject.name);
 	//alert(JSON.stringify(questionRef));
@@ -814,17 +819,13 @@ function moveSectionNextClick(e){
 var questionValueChange = function(valueChangeObject){
 	//alert("questionValueChange");
 	
-	if(validateEntireQuestion(valueChangeObject) == false){
-		return;
-	}	
-	
+	validateEntireQuestion(valueChangeObject);
 	
 	testIfQuestionsNeedToBeRemoved(valueChangeObject);
 	testIfQuestionsNeedToBeAdded(valueChangeObject);
 	
 	if(valueChangeObject.responseObject != null){
-		localDataHandler.updateQuestionWithUserResponse(
-			valueChangeObject.item.associatedFileName,
+		localDataHandler.updateQuestion(
 			valueChangeObject.item
 		);
 	}
@@ -875,10 +876,14 @@ Ti.App.addEventListener("questionValueChange", questionValueChange);
 
 Ti.App.addEventListener("notesAdded", function(notesObject){
 	
+	localDataHandler.updateQuestion(
+			notesObject.item
+		);
+		/*
 	localDataHandler.updateQuestionWithUserNotes(
 			notesObject.item.associatedFileName,
 			notesObject.item
-		);
+		);*/
 });
 Ti.App.addEventListener("startCensesTimer", function(questionValueChange){
 	
