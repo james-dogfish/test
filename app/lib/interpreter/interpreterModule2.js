@@ -64,10 +64,10 @@ function interpreterModule2(){
 		questionErrorMessage : {},
 		
 		debugQuestionDependencyList : [],
-		debugTitleView : {}
+		headerView : {}
 	};
 	
-	var createQuestionObject = function(question, passObject){
+	var createQuestionObject = function(question, passObject, sectionGroupType){
 		
 		var type = Alloy.Globals.localParser.getQuestionType(question);
 		var templateType = "";
@@ -164,6 +164,7 @@ function interpreterModule2(){
 			isAQuestion : true,
 			template : templateType, // this is the template used to show the question in the list view
 			type : type,
+			groupType : sectionGroupType,
 			name : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question),
 			alcrmQuestionID : Alloy.Globals.localParser.getQuestionName(question),
 			alcrmGroupType : Alloy.Globals.localParser.getQuestionGroup(question),
@@ -189,7 +190,7 @@ function interpreterModule2(){
 			questionErrorMessage : {},
 			
 			debugQuestionDependencyList : [],
-			debugTitleView : {}
+			headerView : {}
 		};
 		return questionObject;
 	};
@@ -202,7 +203,7 @@ function interpreterModule2(){
 		
 		for(var i=0; i< self.sectionHeaderList.length; i++){
 			if(groupType == self.sectionHeaderList[i].groupType){
-				var newQuestionObject = createQuestionObject(question, passObject);
+				var newQuestionObject = createQuestionObject(question, passObject, groupType);
 				if(newQuestionObject != null){
 					self.sectionHeaderList[i].questionList.push(newQuestionObject);
 				}
@@ -219,7 +220,7 @@ function interpreterModule2(){
 			associatedFileName : passObject.associatedFileName,
 			questionList : []
 		};
-		var newQuestionObject = createQuestionObject(question, passObject);
+		var newQuestionObject = createQuestionObject(question, passObject, groupType);
 		if(newQuestionObject != null){
 			newSectionHeader.questionList.push(newQuestionObject);
 		}
@@ -234,9 +235,11 @@ function interpreterModule2(){
 				var newRow = {
 					isAQuestion : false,
 					template : "setEntireSectionTemplate",
+					
 					title : {text : "Set all photograph questions to"},
 					visable : true,
 					name : "",
+					questionToChangeTemplate : "singleSelectTemplate",
 					selections : [{displayValue : "Yes", value : 1},{displayValue : "No", value : 0}],
 					renderValue : []
 				};

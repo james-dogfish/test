@@ -3,10 +3,13 @@ function selectButtonClicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
 	
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
+	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	
 	
@@ -22,6 +25,8 @@ function selectButtonClicked(e){
 	       
 	    item.questionResponse = questionResponse;
 	
+		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		/*
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
 			name : item.name,
@@ -30,6 +35,7 @@ function selectButtonClicked(e){
 			value : [data.displayValue],
 			responseObject : questionResponse
 		}); 
+		*/
 	}});
 };
 
@@ -80,18 +86,5 @@ function debugShowRenderDependencies(e){
 		}
 	}
 	alert(string);
-}
-
-exports.updateAndReturnQuestion = function(question, value, displayValue){
-	
-	question.displayValue = {value : displayValue};
-	question.value = [data.displayValue];
-	
-	var questionResponse = 
-       "<ques:parameterName>"+question.alcrmQuestionID+"</ques:parameterName>"+
-       "<ques:parameterValue>"+value+"</ques:parameterValue>";
-       
-    question.questionResponse = questionResponse;
-	    
-	return question;
 };
+

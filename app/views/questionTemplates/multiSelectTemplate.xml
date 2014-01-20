@@ -1,7 +1,7 @@
 <Alloy>
 	<ItemTemplate id="multiSelectTemplate" name="multiSelectTemplate" class="basicTemplate">
         <View class="viewGroup">
-			<View class="headerView" bindId="debugTitleView">
+			<View class="headerView" bindId="headerView">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>

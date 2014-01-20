@@ -1,7 +1,7 @@
 <Alloy>
 	<ItemTemplate id="textFieldTemplate" name="textFieldTemplate" class="basicTemplate">
         <View class="viewGroup">
-			<View class="headerView" bindId="debugTitleView" onClick="onTitleClick">
+			<View class="headerView" bindId="headerView" onClick="onTitleClick">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>

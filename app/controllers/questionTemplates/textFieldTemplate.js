@@ -32,17 +32,21 @@ function onTextFieldBlur(e){
        "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
     
     item.questionResponse = questionResponse;
+    
+    item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
 
+/*
 	Ti.App.fireEvent("questionValueChange", {
-		item : item,
+		questionObject : item,
 		name : item.name,
-		itemIndex : e.itemIndex,
+		questionIndex : e.itemIndex,
 		groupType : item.groupType,
 		value : [e.value],
 		responseObject : questionResponse
 	}); 
+	*/
 		
-	//
+	//questionIndex, questionObject, section
 };
 
 function onNotesClick(e){
@@ -81,10 +85,13 @@ function onTextFieldFocus(e){
 		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
 };
 
 function onTitleClick(e){
