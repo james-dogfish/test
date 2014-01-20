@@ -32,10 +32,12 @@ function multiSelectButtonClicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 	
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, closeCallBack : function(returnValue){
 		
@@ -63,7 +65,9 @@ function multiSelectButtonClicked(e){
 	        
 	    item.questionResponse = questionResponse;
 	    
-
+		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		
+		/*
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
 			name : item.name,
@@ -72,5 +76,7 @@ function multiSelectButtonClicked(e){
 			value : returnValue.valueList,
 			responseObject : questionResponse
 		}); 
+		*/
+		
 	}});
 };

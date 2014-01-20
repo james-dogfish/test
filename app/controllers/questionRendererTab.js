@@ -5,6 +5,8 @@ var localDataHandler = require('localDataHandler/localDataHandler');
 var interpreter = require('interpreter/interpreterModule');
 var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 
+Alloy.Globals.questionRenderer =$.questionListView;
+
 	
 exports.setAssessment = function(assessmentObject){
 	activityIndicator.show();

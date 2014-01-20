@@ -35,18 +35,22 @@ function dateButton1Clicked(e){
 	var section = e.section; 
 	
 	
-	
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
-		item.value = dateString;
-		section.updateItemAt(e.itemIndex, item);
+		//section.updateItemAt(e.itemIndex, item);
 		
-		currentValue[0] = dateString;
+		if(item.value.length < 2){
+			item.value[1] = ""; 
+		}
+		
+		item.value[0] = dateString;
 		
 		/*
 		var responseObject = [
@@ -66,12 +70,16 @@ function dateButton1Clicked(e){
 		
 		var questionResponse = 
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
-	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
+	       "<ques:lowValue>"+item.value[0]+"</ques:lowValue>"+
+	       "<ques:highValue>"+item.value[2]+"</ques:highValue>";
 	       
 	    item.questionResponse = questionResponse;
 	
 		//questionValueChange(item, section, dateString);
+		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		
+		/*
+
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
 			name : item.name,
@@ -80,6 +88,7 @@ function dateButton1Clicked(e){
 			value : currentValue,
 			responseObject : questionResponse
 		}); 
+		*/
 	}});
 };
 
@@ -87,17 +96,21 @@ function dateButton2Clicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 	
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
 		item.displayValue2 = {value : dateString};
-		item.value = dateString;
-		section.updateItemAt(e.itemIndex, item);
+
+		//section.updateItemAt(e.itemIndex, item);
 		
-		currentValue[1] = dateString;
+		
+		
+		item.value[1] = dateString;
 		
 		/*
 		var responseObject = [
@@ -118,13 +131,15 @@ function dateButton2Clicked(e){
 		var questionResponse = 
 		"<ass1:riskData>"+
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
-	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
+	       "<ques:lowValue>"+item.value[0]+"</ques:lowValue>"+
+	       "<ques:highValue>"+item.value[2]+"</ques:highValue>"+
 	    "</ass1:riskData>";
 	    
 	   item.questionResponse = questionResponse;
-	
 		
+		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		
+		/*
 		//questionValueChange(item, section, dateString);
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
@@ -134,5 +149,6 @@ function dateButton2Clicked(e){
 			value : currentValue,
 			responseObject : questionResponse
 		}); 
+		*/
 	}});
 };

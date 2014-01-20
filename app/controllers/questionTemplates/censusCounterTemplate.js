@@ -37,10 +37,13 @@ function onTextFieldFocus(e){
 		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
+	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	/*
 	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
+		questionObject : item
 	}); 
+	*/
 };
 
 
@@ -77,11 +80,18 @@ function onTextField1Blur(e){
 	}); 
 };
 
-var addValue = function(additionValue, questionObject){
+var addValue = function(additionValue, e){
 	
-	var item = questionObject.section.getItemAt(questionObject.itemIndex);
+	var section = e.section; 
+	var item = section.getItemAt(e.itemIndex);
 	
-
+	/*
+	Ti.App.fireEvent("questionSelected", {
+		questionObject : item
+	});
+	*/
+	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	var intValue = 0;
 	if(item.value[0] != ""){
@@ -95,17 +105,22 @@ var addValue = function(additionValue, questionObject){
 	item.value[0] = ""+intValue;
 	
 	
-	var section = questionObject.section; 
 	item.displayValue = {value : item.value[0]};
 	
 	
-	section.updateItemAt(questionObject.itemIndex, item);
+	//section.updateItemAt(questionObject.itemIndex, item);
 	
-	var responseObject = 
+	var questionResponse = 
 	"<ass1:riskData>"+
        "<ques:parameterName>"+item.name+"</ques:parameterName>"+
        "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>"+
     "</ass1:riskData>";
+    
+    item.questionResponse = questionResponse;
+    
+    item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+    
+    /*
 	
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,
@@ -115,6 +130,7 @@ var addValue = function(additionValue, questionObject){
 		value : item.value,
 		responseObject : responseObject
 	}); 
+	*/
 	
 };
 
