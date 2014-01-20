@@ -65,7 +65,7 @@ function dateButton1Clicked(e){
 		*/
 		
 		var questionResponse = 
-	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
+	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
 	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
 	       
@@ -117,7 +117,7 @@ function dateButton2Clicked(e){
 		
 		var questionResponse = 
 		"<ass1:riskData>"+
-	       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
+	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 	       "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
 	       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
 	    "</ass1:riskData>";

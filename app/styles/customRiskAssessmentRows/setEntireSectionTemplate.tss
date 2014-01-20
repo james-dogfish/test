@@ -1,0 +1,23 @@
+"#setEntireSectionTemplate" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	bottom : "10dp"
+},
+"#selectButton" : {
+	width : "19%",
+	height: "50dp",
+	right: "0%",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+},
+"#mainView" : {
+	layout : "horizontal",
+	horizontalWrap : false
+},
+"#header" : {
+	width : "78%",
+	height: "50dp",
+	left : "1%",
+	right : "1%",
+	top: "0",
+}

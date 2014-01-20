@@ -17,7 +17,7 @@ function selectButtonClicked(e){
 		//questionValueChange(item, section, valueString);
 		
 		var questionResponse = 
-	       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+
+	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 	       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
 	       
 	    item.questionResponse = questionResponse;
@@ -81,3 +81,17 @@ function debugShowRenderDependencies(e){
 	}
 	alert(string);
 }
+
+exports.updateAndReturnQuestion = function(question, value, displayValue){
+	
+	question.displayValue = {value : displayValue};
+	question.value = [data.displayValue];
+	
+	var questionResponse = 
+       "<ques:parameterName>"+question.alcrmQuestionID+"</ques:parameterName>"+
+       "<ques:parameterValue>"+value+"</ques:parameterValue>";
+       
+    question.questionResponse = questionResponse;
+	    
+	return question;
+};

@@ -28,7 +28,7 @@ function onTextFieldBlur(e){
 	section.updateItemAt(e.itemIndex, item);
 	
 	var questionResponse = 
-       "<ques:parameterName>"+item.name.substring(1)+"</ques:parameterName>"+ 
+       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
        "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
     
     item.questionResponse = questionResponse;
