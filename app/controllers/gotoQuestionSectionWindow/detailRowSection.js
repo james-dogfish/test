@@ -12,7 +12,7 @@ function showQuestions(){
 		var questionList = sectionDataObject.questionList;
 		for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
 			questionRowList.push({
-				template : "questionRow", 
+				template : "detailRowQuestionTemplate", 
 				groupType : groupType,
 				questionTitle : {text : questionList[questionIndex].title}, 
 				questionIndex : questionList[questionIndex].questionIndex
@@ -43,7 +43,7 @@ exports.setdata = function(passedSectionDataObject){
 	
 	groupType = sectionDataObject.groupType;
 	
-	headerRow = {template : "headerRow", headerTitle : {text : sectionDataObject.title}, groupType : sectionDataObject.groupType};
+	headerRow = {template : "detailRowHeaderTemplate", headerTitle : {text : sectionDataObject.title}, groupType : sectionDataObject.groupType};
 	$.section.setItems([headerRow]);
 };
 

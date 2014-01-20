@@ -1,14 +1,14 @@
 
-var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(200);
+//var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(400);
 
-$.container.width = gotoDisplayViewWidth;
+//$.container.width = gotoDisplayViewWidth;
 
 var animationOpen = Titanium.UI.createAnimation();
-animationOpen.left = "0dp";
+animationOpen.left = "0%";
 animationOpen.duration = 700;
 
 var animationClose = Titanium.UI.createAnimation();
-animationClose.left = gotoDisplayViewWidth;
+animationClose.left = "100%";
 animationClose.duration = 700;
 
 exports.setContentsDetails = function(pageName, questionSectionContentsDetails){
@@ -18,7 +18,7 @@ exports.setContentsDetails = function(pageName, questionSectionContentsDetails){
 	var ListViewSectionList = [];
 	
 	for(var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++){
-		var newListViewSection = Alloy.createController('gotoQuestionSectionWindow/goToQuestionSection');
+		var newListViewSection = Alloy.createController('gotoQuestionSectionWindow/detailRowSection');
 		newListViewSection.setdata(sectionList[sectionListIndex]);
 		ListViewSectionList.push(newListViewSection.getView());
 	}
@@ -44,7 +44,7 @@ exports.MoveToClose = function(isAnimated){
 		$.container.animate(animationClose);
 	}
 	else{
-		$.container.left = gotoDisplayViewWidth;
+		$.container.left = "100%";
 	}
 };
 

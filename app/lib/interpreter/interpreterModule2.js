@@ -24,6 +24,7 @@ function interpreterModule2(){
 		groupType : "",
 		pageName : "",
 		pageType : "",
+		associatedFileName : "",
 		questionList : []
 	};
 	
@@ -72,6 +73,10 @@ function interpreterModule2(){
 		
 		questionRenderValues = [];
 		var allRenderValues=Alloy.Globals.localParser.getRenderValue(question);
+		var questionVisable = true;
+		if(allRenderValues != 0){
+			questionVisable = false;
+		}
 		for(var i=0;i<allRenderValues.length;i++){
 			questionRenderValues.push(
 				{
@@ -151,7 +156,7 @@ function interpreterModule2(){
 			type : type,
 			name : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question),
 			alcrmQuestionID : Alloy.Globals.localParser.getQuestionName(question),
-			visable : true, 
+			visable : questionVisable, 
 			order : Alloy.Globals.localParser.getQuestionOrder(question), 
 			associatedFileName : passObject.associatedFileName, // file the question is in
 			questionResponse : null,
@@ -201,6 +206,7 @@ function interpreterModule2(){
 			groupType : groupType,
 			pageName : passObject.pageName,
 			pageType : passObject.pageType,
+			associatedFileName : passObject.associatedFileName,
 			questionList : []
 		};
 		var newQuestionObject = createQuestionObject(question, passObject);

@@ -1,0 +1,5 @@
+<Alloy>
+	<ItemTemplate id="pageRow" name="masterRowTemplate">
+		<Label id="title" bindId="title" onClick="onClickCallBack"/>
+	</ItemTemplate>
+</Alloy>

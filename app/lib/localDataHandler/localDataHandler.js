@@ -3,6 +3,8 @@
  */
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
+var versionID
+var INDEX_FILE_VERSION_NUM = 1;
 
 function localDataHandler() {
     var self = this;
@@ -169,6 +171,7 @@ function localDataHandler() {
 
         var assessmentID = new Date().getTime();
         var newAssessment = {
+        	versionID : INDEX_FILE_VERSION_NUM,
             assessmentID: assessmentID,
             mainQuestionsfileName: assessmentID + "mainQuestions.json",
 
@@ -459,27 +462,80 @@ function localDataHandler() {
 
         return getAllData;
     };
-  
-
-    self.openAssessment = function (assessmentObject) {
-    	var returnQuestionSet = [];
-    	
+    
+    
+    self.getMostUpTodateAssessmentObject = function(assessmentObject){
     	var savedAssessments = self.getAllSavedAssessments();
-
         for (var i = 0; i < savedAssessments.length; i++) {
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
             	assessmentObject = savedAssessments[i];
             	break;
             }
     	}
+    	return assessmentObject;
+    };
+    
+    self.deleteAssociatedFileNameFromAssessment = function(assessmentObject, associatedFileName){
+    	
+    	assessmentObject= self.getMostUpTodateAssessmentObject(assessmentObject);
+    	
+    	for(var i=0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
+    		if(associatedFileName == assessmentObject.censusQuestionsfileNameList[i]){
+    			var file = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
+    			if(file.exists() == true){
+    				file.deleteFile();
+    			}
+    			assessmentObject.censusQuestionsfileNameList.splice(i,1);
+    			self.updateSingleAssessmentIndexEntry(assessmentObject);
+    			return true;
+    		}
+    	}
+    	
+    	/*
+    	for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+    		if(associatedFileName == assessmentObject.trainGroupQuestionsfileNameList[i]){
+    			var file = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
+
+    			if(file.exists() == true){
+    				file.deleteFile();
+    			}
+    			assessmentObject.trainGroupQuestionsfileNameList.splice(i,1);
+    			self.updateSingleAssessmentIndexEntry(assessmentObject);
+    			return true;
+    		}
+    	}
+    	*/
+    	
+    	return false;
+    	
+    };
+  
+
+    self.openAssessment = function (assessmentObject) {
+    	var returnQuestionSet = [];
+    	
+    	if(assessmentObject.versionID != INDEX_FILE_VERSION_NUM){
+    		alert("assessment file format is out of date, continued use of this assessment may cause errors");
+    	}
+    	
+    	assessmentObject= self.getMostUpTodateAssessmentObject(assessmentObject);
     	
     	
         var assessmentFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.mainQuestionsfileName);
         if (assessmentFile.exists()) {
            var assessment = JSON.parse(assessmentFile.read().text);
            returnQuestionSet = returnQuestionSet.concat(assessment);
-           
         }
+        
+        
+        for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+        	var trainGroupQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
+        	if (trainGroupQuestionFile.exists()) {
+	            var trainGroupQuestions = JSON.parse(trainGroupQuestionFile.read().text);
+	            returnQuestionSet = returnQuestionSet.concat(trainGroupQuestions);
+	        }
+        }
+        
         for(var i=0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
         	var censusQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
  
@@ -487,14 +543,6 @@ function localDataHandler() {
 	            var censusQuestions = JSON.parse(censusQuestionFile.read().text);
 	            returnQuestionSet = returnQuestionSet.concat(censusQuestions);
 	            
-	        }
-        }
-        
-        for(var i=0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
-        	var trainGroupQuestionFile = Ti.Filesystem.getFile(Ti.Filesystem.getApplicationDataDirectory() + assessmentObject.trainGroupQuestionsfileNameList[i]);
-        	if (trainGroupQuestionFile.exists()) {
-	            var trainGroupQuestions = JSON.parse(trainGroupQuestionFile.read().text);
-	            returnQuestionSet = returnQuestionSet.concat(trainGroupQuestions);
 	        }
         }
         //Ti.API.info("returnQuestionSet = "+JSON.stringify(returnQuestionSet));

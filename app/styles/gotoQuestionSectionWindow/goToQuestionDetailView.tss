@@ -1,5 +1,5 @@
 "#container" : {
-	width : Ti.UI.FILL,
+	width : "100%",
 	height : Ti.UI.FILL,
 	layout : "vertical"
 },
