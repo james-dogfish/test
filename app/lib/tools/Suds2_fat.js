@@ -9,6 +9,7 @@
  * License: http://www.apache.org/licenses/LICENSE-2.0.html
  * Source: http://github.com/kwhinnery/Suds
  */
+var XMLTools = require("tools/XMLTools");
 var SudsClient = function(_options) {
 
   //A generic extend function - thanks MooTools
@@ -128,8 +129,7 @@ var SudsClient = function(_options) {
     }
   };
 
-  // Invoke a web service
-  this.invoke = function(_soapAction, _body, _callback, _failure, _header) {
+  function invokeService(_soapAction, _body, _callback, _failure, _header) {
 
     //Build request body 
     var body = _body;
@@ -161,7 +161,47 @@ var SudsClient = function(_options) {
     };
     xhr.onerror = function(e) {
       Ti.API.error('SUDS - Error' + this.responseText);
-      _failure.call(this, xmlDomFromString(this.responseText));
+      //_failure.call(this, xmlDomFromString(this.responseText));
+      var errXml = new XMLTools(xmlDomFromString(this.responseText));
+      var errObj = JSON.stringify(errXml.toObject());
+      
+      var error_object = JSON.parse(errObj);
+      var error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+      var error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
+      var error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+      
+      var alert = Titanium.UI.createAlertDialog({
+	  	title: 'Error: '+error_code,
+		message: error_message + "\n\nWould you like to retry?",
+		buttonNames: ['Yes', 'No'],
+		cancel: 1,
+		stackTrace: error_stacktrace
+	  });
+	  
+	  alert.addEventListener('click', function(e) {
+		   //Clicked cancel, first check is for iphone, second for android
+	       if (e.cancel === e.index || e.cancel === true) {
+	          return;
+	       }
+ 
+           //now you can use parameter e to switch/case
+ 
+	       switch (e.index) {
+	          case 0: invokeService(_soapAction, _body, _callback, _failure, _header);
+	          break;
+	 
+	          //This will never be reached, if you specified cancel for index 1
+	          case 1: Alloy.Globals.aIndicator.hide();
+	          break;
+	 
+	          default:
+	          break;
+	 
+	      }
+		}); 
+		alert.show();
+
+    
     };
     xhr.setTimeout(config.timeout);
     var sendXML = '';
@@ -195,6 +235,8 @@ var SudsClient = function(_options) {
     //alert('SUDS - Sending data >> ' + sendXML);
     xhr.send(sendXML);
   };
+  // Invoke a web service
+  this.invoke = invokeService;
 };
 
 
