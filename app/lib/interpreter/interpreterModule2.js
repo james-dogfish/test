@@ -1,7 +1,12 @@
 function interpreterModule2(){
 	
+	//self.QUESTION_ROW_TYPE = "question";
+	//self.NON_QUESTION_ROW_TYPE = "NonQuestion";
+	
 	var self = this;
 	self.sectionHeaderList = [];
+	var User = require('core/User');
+	var userPreferences = User.getPreferences();
 	
 	var ui_types_map = {};
 		ui_types_map["date"] 			= "censusCounterTemplate";
@@ -22,6 +27,7 @@ function interpreterModule2(){
 	var sectionHeader = {
 		title : "",
 		groupType : "",
+		alcrmGroupType : "",
 		pageName : "",
 		pageType : "",
 		associatedFileName : "",
@@ -29,6 +35,7 @@ function interpreterModule2(){
 	};
 	
 	var question = {
+		isAQuestion : true,
 		template : "", // this is the template used to show the question in the list view
 		type : "", // this is the alcrem question type
 		name : "", // this is the id of the question
@@ -95,6 +102,7 @@ function interpreterModule2(){
 		}
 		
 		
+		
 		var questionValidation = {
 			validationTest : false,
 			min : null,
@@ -152,10 +160,12 @@ function interpreterModule2(){
 		
 		
 		var questionObject = {
+			isAQuestion : true,
 			template : templateType, // this is the template used to show the question in the list view
 			type : type,
 			name : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question),
 			alcrmQuestionID : Alloy.Globals.localParser.getQuestionName(question),
+			alcrmGroupType : Alloy.Globals.localParser.getQuestionGroup(question),
 			visable : questionVisable, 
 			order : Alloy.Globals.localParser.getQuestionOrder(question), 
 			associatedFileName : passObject.associatedFileName, // file the question is in
@@ -180,15 +190,13 @@ function interpreterModule2(){
 			debugQuestionDependencyList : [],
 			debugTitleView : {}
 		};
-		
-		
 		return questionObject;
 	};
 	
 	var addQuestionToSectionHeader  = function(question, passObject){
 		
-		var groupName = Alloy.Globals.localParser.getQuestionGroup(question);
-		var groupType = passObject.pageID + groupName;
+		var alcrmGroupType = Alloy.Globals.localParser.getQuestionGroup(question);
+		var groupType = passObject.pageID + alcrmGroupType;
 		
 		
 		for(var i=0; i< self.sectionHeaderList.length; i++){
@@ -202,8 +210,9 @@ function interpreterModule2(){
 		}
 		
 		var newSectionHeader = {
-			title : groupName,
+			title : alcrmGroupType,
 			groupType : groupType,
+			alcrmGroupType : alcrmGroupType,
 			pageName : passObject.pageName,
 			pageType : passObject.pageType,
 			associatedFileName : passObject.associatedFileName,
@@ -214,7 +223,52 @@ function interpreterModule2(){
 			newSectionHeader.questionList.push(newQuestionObject);
 		}
 		self.sectionHeaderList.push(newSectionHeader);
-		
+	};
+	
+	var postInterpretSettings = function(passObject){
+		for(var sectionIndex =0;  sectionIndex < self.sectionHeaderList.length; sectionIndex++){
+			
+			
+			if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph"){
+				var newRow = {
+					isAQuestion : false,
+					template : "setEntireSectionTemplate",
+					title : {text : "Set all photograph questions to"},
+					visable : true,
+					name : "",
+					selections : [{displayValue : "Yes", value : 1},{displayValue : "No", value : 0}],
+					renderValue : []
+				};
+				self.sectionHeaderList[sectionIndex].questionList.unshift(newRow);//adds row to front of the list
+			}
+			
+			
+			
+			
+			
+			for(var questionIndex =0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++){
+				
+				if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false)continue;
+				
+				var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+				
+				//self.sectionHeaderList[sectionIndex].questionList[questionIndex]
+				if(questionObject.name == "I_COLLECTOR_NAME"){
+					questionObject.value = [userPreferences.name];
+					questionObject.displayValue = {value : userPreferences.name};
+				}
+				else if(questionObject.name == "PHONE_NUMBER"){
+					questionObject.value = [userPreferences.mobile];
+					questionObject.displayValue = {value : userPreferences.mobile};
+				}
+				else if(questionObject.name == "EMAIL_ADDRESS"){
+					questionObject.value = [userPreferences.email];
+					questionObject.displayValue = {value : userPreferences.email};
+				}
+				
+				self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
+			}
+		}
 	};
 	
 	
@@ -223,9 +277,9 @@ function interpreterModule2(){
 		self.sectionHeaderList = [];
 		
 		for(var i=0; i< allQuestions.length; i++){
-			
 			addQuestionToSectionHeader(allQuestions[i], passObject);
 		}
+		postInterpretSettings(passObject);
 		return self.sectionHeaderList;
 	};
 	

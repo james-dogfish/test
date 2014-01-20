@@ -288,6 +288,7 @@ var buildQuestionSections = function(JASON_sectionList){
 		//newQuestionsSection.headerTitle = JASON_sectionList[i].title;
 		newQuestionsSection.title = JASON_sectionList[i].title;
 		newQuestionsSection.groupType = JASON_sectionList[i].groupType;
+		newQuestionsSection.alcrmGroupType = JASON_sectionList[i].alcrmGroupType;
 		newQuestionsSection.associatedFileName = JASON_sectionList[i].associatedFileName;
 		newQuestionsSection.pageName = JASON_sectionList[i].pageName;
 		newQuestionsSection.pageType = JASON_sectionList[i].pageType;
@@ -456,7 +457,7 @@ exports.getGoToContentsDetails = function(){
 		
 		var newSectionContents= {
 			questionList : [], 
-			title : sectionList[sectionIndex].groupType.substring(1),
+			title : sectionList[sectionIndex].alcrmGroupType,
 			associatedFileName : sectionList[sectionIndex].associatedFileName,
 			pageName :  sectionList[sectionIndex].pageName,
 			pageType : sectionList[sectionIndex].pageType,
@@ -469,6 +470,11 @@ exports.getGoToContentsDetails = function(){
 		
 		var questionsList = sectionList[sectionIndex].getItems();
 		for(var questionIndex =0; questionIndex < questionsList.length; questionIndex++){
+			
+			if(questionsList[questionIndex].isAQuestion == false){
+				//alert('isAQuestion == false');
+				continue;
+			}
 			
 			var newQuestionDetails = {
 				title : questionsList[questionIndex].title.text, 

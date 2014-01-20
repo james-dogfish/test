@@ -3,8 +3,8 @@
  */
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
-var versionID
-var INDEX_FILE_VERSION_NUM = 1;
+var versionID;
+var INDEX_FILE_VERSION_NUM = 3;
 
 function localDataHandler() {
     var self = this;
@@ -62,11 +62,13 @@ function localDataHandler() {
             var questionFound = false;
            // var questonName = Alloy.Globals.localParser.getQuestionName(question_node);
             for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true ; sectionIndex++) {
-            	
-            	if(sectionList[sectionIndex].groupType == question.groupType){
+           	
+            	//Ti.API.info("section group alcrmGroupType = "+sectionList[sectionIndex].alcrmGroupType+", question group type = "+question.alcrmGroupType);
+            	if(sectionList[sectionIndex].alcrmGroupType == question.alcrmGroupType){
 	            	var questionList = sectionList[sectionIndex].questionList;
 	            	
 	            	for(var questionIndex =0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true  ; questionIndex++){
+	            		
 	            		
 	            		if(sectionList[sectionIndex].questionList[questionIndex].name == question.name){
 	            			sectionList[sectionIndex].questionList[questionIndex] = question;
@@ -74,6 +76,10 @@ function localDataHandler() {
 	            		}
 	            	}
            		}
+            }
+            
+            if(questionFound == false){
+            	alert("updateQuestion : question not found ");
             }
 
 

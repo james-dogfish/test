@@ -10,6 +10,7 @@
 	           <Require src="questionTemplates/dateRangeTemplate" type="view"/>
 	           <Require src="questionTemplates/censusCounterTemplate" type="view"/>    
 	           <Require src="questionTemplates/censusStartTimerTemplate" type="view"/>  
+	           <Require src="customRiskAssessmentRows/setEntireSectionTemplate" type="view"/>  
 	        </Templates>
 		</ListView>
 		<View id="footer">
