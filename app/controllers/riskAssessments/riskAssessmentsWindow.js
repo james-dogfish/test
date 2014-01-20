@@ -162,12 +162,66 @@ exports.loadRiskAssessments = function() {
 	return true;
 };
 
+var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: 'There is no undo. Are you sure you want to delete this Risk Assessment?', buttonNames: ['Yes', 'No'], cancel: 1 });
+confirmDeleteRA.addEventListener('click', function(e) { Titanium.API.info('e = ' + JSON.stringify(e));
+   //Clicked cancel, first check is for iphone, second for android
+   if (e.cancel === e.index || e.cancel === true) {
+      return;
+   }
+
+    //now you can use parameter e to switch/case
+
+   switch (e.index) {
+      case 0: Titanium.API.info('Clicked button 0 (YES)');
+      		  localDataHandler.removeAssessment(e.rowData.customData);
+      break;
+
+      //This will never be reached, if you specified cancel for index 1
+      case 1: Titanium.API.info('Clicked button 1 (NO)');
+      break;
+
+      default:
+      break;
+
+  }
+});
+
 function onDeleteRow(e){
-	alert("onDeleteRow, rowData.crossingName = " + e.rowData.customData);
-	localDataHandler.removeAssessment(e.rowData.customData);
-	
-	
+  var deletingRow = e;
+  
+  var alertYesNo = Titanium.UI.createAlertDialog({
+    message: 'Are you sure you want to delete this RA?',
+    buttonNames: ['Yes','No']
+  });
+ 
+  alertYesNo.addEventListener('click', function(e) {
+    if (e.index == 0) { 
+      /*
+       * YES was clicked.
+       */
+       localDataHandler.removeAssessment(deletingRow.rowData.customData);
+    } else if (e.index == 1) { 
+      /*
+       * Put the row back since it will be removed from the view even if NO is clicked.
+       */
+       activeAssessments = localDataHandler.getAllSavedAssessments();
+		
+		var data = [];	
+		for(var i=0; i < activeAssessments.length; i++){
+			data.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",
+				{
+					thisRA: activeAssessments[i],
+					fontawesome: fontawesome
+				}).getView());
+		}
+		$.tableVeiw.setData(data);
+    }	 
+  });
+ 
+  alertYesNo.show();
 };
+
+
 
 
 var openSearchClick = function(e){

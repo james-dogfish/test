@@ -80,6 +80,9 @@ var openMenu = function() {
 	},{
 		title: 'Help',
 		id: 3
+	},{
+		title: 'Cheat Sheet',
+		id: 4
 	}, {
 		title: 'Logout',
 		id: 5
@@ -126,18 +129,13 @@ var openMenu = function() {
 			
 		} else if (e.row.id === 3) {
 			// Help screen 
-			//var appHelp = Alloy.createController('appHelp').getView();
-			//appHelp.open();
+			var appHelp = Alloy.createController('appHelp').getView();
+			appHelp.open();
 		} else if (e.row.id === 4) {
 			// Commit all assessments
 			//Alloy.Globals.Util.submitCompletedAssessments();
+			alert("TODO: need to confirm what to put in here?!");
 		} else if (e.row.id === 5) {
-			// Reset the searching table 
-			//$.searchTable.visible = false;
-			//$.searchButton.title = 'Search';
-			// Making table clickable!
-			//$.searchTable.loading = false;
-			// Log a user out
 			
 			Alloy.Globals.tabGroup.close();
 			loginView = Alloy.createController('index').getView();

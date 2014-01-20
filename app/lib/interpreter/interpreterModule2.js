@@ -1,4 +1,3 @@
-
 function interpreterModule2(){
 	
 	var self = this;
