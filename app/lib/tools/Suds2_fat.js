@@ -181,6 +181,7 @@ var SudsClient = function(_options) {
 	  alert.addEventListener('click', function(e) {
 		   //Clicked cancel, first check is for iphone, second for android
 	       if (e.cancel === e.index || e.cancel === true) {
+	       		Alloy.Globals.aIndicator.hide();
 	          return;
 	       }
  
@@ -194,7 +195,7 @@ var SudsClient = function(_options) {
 	          case 1: Alloy.Globals.aIndicator.hide();
 	          break;
 	 
-	          default:
+	          default: 
 	          break;
 	 
 	      }
