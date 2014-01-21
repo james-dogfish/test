@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <property name="com-appcelerator-apm-id" type="string">52d64d5d04d3392dbc000007</property>
+    <property name="com-appcelerator-apm-id" type="string">52dec9c2ddff2138b000002c</property>
     <property name="acs-authbase-url" type="string">https://secure-identity.cloud.appcelerator.com</property>
     <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
-    <property name="acs-oauth-secret-development" type="string">QZb4W8fWSIbs44E5NYasPzsGAqVq3zjR</property>
-    <property name="acs-oauth-key-development" type="string">EEotMGDBuWy2qIYpwFwu1fEmGUSzHkH9</property>
-    <property name="acs-api-key-development" type="string">Q028ivgRfA4pvZNKtxawhALWjUiJUhDM</property>
-    <property name="acs-oauth-secret-production" type="string">YcK5vipOEltfAEoMLg7ZKB1eYSpunhvM</property>
-    <property name="acs-oauth-key-production" type="string">Nk7B2oMOnRahrAFbkCleZCIqgcf8tX7u</property>
-    <property name="acs-api-key-production" type="string">LlWZTdizSVe8UbaD9nVSsKWEjmnQTsaG</property>
-    <id>sh.dogfi.nwr4</id>
+    <property name="acs-oauth-secret-development" type="string">qEyOOmG4a1A2H71xsOTEMCnNDmODW13G</property>
+    <property name="acs-oauth-key-development" type="string">8SHDDPCtYaPz2SqzvbADp4aD3JZtShIz</property>
+    <property name="acs-api-key-development" type="string">OFS4B8rEJzL9fWhNLQyjjiaVOAeTcoDr</property>
+    <property name="acs-oauth-secret-production" type="string">TrX1rd1ohuQrWXGHie9cfo3o0PV664K2</property>
+    <property name="acs-oauth-key-production" type="string">hWxJL9flYK3rpSmKW1ZsSEzoOcQvKUNT</property>
+    <property name="acs-api-key-production" type="string">kdlTgaaS85v1hl6HoIpSImEfqwagi10W</property>
+    <id>sh.dogfi.nwr.phase2</id>
     <name>ALCRM_Mobile</name>
     <version>1.0</version>
     <publisher>Gorenjai</publisher>
@@ -20,7 +20,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>798ed126-2ccb-4921-a7c6-11a1ef10e7fe</guid>
+    <guid>88779ba1-0b65-4d98-9dc9-7cc9b05bd9b7</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>
@@ -50,7 +50,7 @@
                         <key>CFBundleTypeRole</key>
                         <string>Editor</string>
                         <key>CFBundleURLName</key>
-                        <string>sh.dogfi.nwr4</string>
+                        <string>sh.dogfi.nwr.phase2</string>
                         <key>CFBundleURLSchemes</key>
                         <array>
                             <string>touchtest-67b91087-36ab-4b58-a705-cdd209df4912</string>
@@ -90,5 +90,5 @@
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>
     <property name="com-soasta-touchtest-version" type="string">6872.18</property>
-    <property name="com-soasta-touchtest-ios-appId" type="string">177295</property>
+    <property name="com-soasta-touchtest-ios-appId" type="string">179729</property>
 </ti:app>
