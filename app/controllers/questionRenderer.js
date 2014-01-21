@@ -359,6 +359,9 @@ exports.moveToQuestion = function(groupType, questionIndex){
 				setSelectedSectionForSingleSections(sectionIndex);
 				$.listView.scrollToItem(sectionIndex, questionIndex);
 			}
+			
+			selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
+			
 			return;
 		}
 	}
