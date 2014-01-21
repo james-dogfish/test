@@ -36,7 +36,10 @@ Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activ
 Alloy.Globals.localParser = localParser;
 
 //only downloads if not already downloaded before.
-	Util.downloadAppHelp();
+Util.downloadAppHelp();
+
+//only downloads if not already downloaded before.
+Util.downloadCheatSheet();
 
 var getValidator = function()
 {
@@ -75,6 +78,6 @@ if (User.isLoggedIn() && !User.isLoginExpired()) {
 	//show login screen
 	Alloy.createController('index').getView().open();
 }
-alert(L('test'));
+//alert(L('test'));
 /*RUN our Unit Tests Here*/
 // require('tests_runner').run();

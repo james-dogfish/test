@@ -2,7 +2,7 @@ function _Util() {
 
     var self = this,
         docsFolder, templatesFolder,
-        cmsUrl, templateFiles,
+        cmsUrl, cheatSheetUrl, templateFiles,
         crossingTypes,
         routeFiles,
         Alloy = require("alloy");
@@ -101,10 +101,40 @@ function _Util() {
             });
         }
     };
+    
+    /*
+    |---------------------------------------------------------------------------------
+    | Downloads cheat sheet pdf
+    |---------------------------------------------------------------------------------
+    */
+   
+    self.downloadCheatSheet = function(callback) {
+        if (self.phoneConnected()) {
+            var fileName = 'pdf.pdf';
+            self.downloadFileConditionally(cheatSheetUrl, docsFolder + fileName, function(c) {
+                // get last modified date
+                var lastModified = c.getResponseHeader('Last-Modified');
+                var previousDate = Ti.App.Properties.getString('cheatSheetLastModified', '');
+                if (lastModified !== previousDate) {
+                    return true;
+                }
+
+            }, function(data, client) {
+                Ti.App.Properties.setString('cheatSheetPath', docsFolder + fileName);
+                Ti.App.Properties.setString('cheatSheetLastModified', client.getResponseHeader('Last-Modified'));
+                if (callback) {
+                    callback();
+                }
+            });
+        }
+    };
+    
+    
 
 
     //cmsUrl = 'http://localhost:8888/nwr';
     cmsUrl = 'http://nwrcrossings.co.uk';
+    cheatSheetUrl = 'http://www.pdf995.com/samples/pdf.pdf';
     templateFiles = ['abcl.json', 'ahb.json', 'aocl.json', 'barrow.json', 'fp.json', 'fpmwl.json', 'fps.json', 'mcb.json', 'mcbcctv.json', 'mcg.json', 'oc.json', 'uwc.json', 'uwcmwl.json', 'uwct.json'];
     crossingTypes = ['abcl', 'ahb', 'aocl', 'barrow', 'fp', 'fpmwl', 'fps', 'mcb', 'mcbcctv', 'mcg', 'oc', 'uwc', 'uwcmwl', 'uwct'];
     routeFiles = ['anglia.json', 'engineering.json', 'kent.json', 'london_north_east.json', 'london_north_west.json', 'midland_and_continental.json', 'scotland.json', 'sussex.json', 'training.json', 'wales.json', 'wessex.json', 'western.json'];
@@ -253,6 +283,7 @@ function _Util() {
             for (var i in routeFiles) {
                 if (callback && (i == (routeFiles.length - 1))) {
                     self.downloadFile(cmsUrl + '/data/compiled/routes/' + routeFiles[i], docsFolder + '/routes/' + routeFiles[i], callback);
+
                 } else {
                     self.downloadFile(cmsUrl + '/data/compiled/routes/' + routeFiles[i], docsFolder + '/routes/' + routeFiles[i]);
                 }

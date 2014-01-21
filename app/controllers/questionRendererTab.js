@@ -154,9 +154,8 @@ var openMenu = function() {
 			var appHelp = Alloy.createController('appHelp').getView();
 			appHelp.open();
 		} else if (e.row.id === 4) {
-			// Commit all assessments
-			//Alloy.Globals.Util.submitCompletedAssessments();
-			alert("TODO: need to confirm what to put in here?!");
+			var cheatSheet = Alloy.createController('cheatSheet').getView();
+			cheatSheet.open();
 		} else if (e.row.id === 5) {
 			
 			Alloy.Globals.tabGroup.close();
