@@ -12,6 +12,7 @@ var interpreterModule = require('interpreter/interpreterModule2');
 
 var riskAssessmentsTab = $.riskAssessmentsTab;
 var questionRendererTab = $.questionRendererTab;
+Alloy.Globals.questionRendererTab = questionRendererTab;
 var masterSearchTab = $.masterSearchTab;
 var detailSearchTab = $.detailSearchTab;
 

@@ -21,7 +21,42 @@ closePickerContainer.duration = animationDuration;
 
 var valueList = [{displayValue : "Census 2", value : 1}, {displayValue : "Census 2", value : 2}, {displayValue : "Census 3", value : 3}, {displayValue : "Census 4", value : 4}];
 var currentValue = valueList[0];
+alert(JSON.stringify(Alloy.Globals.questionRendererTab.getAssessment().crossingID));
 
+Alloy.Globals.aIndicator.show("Loading...");
+Alloy.Globals.Soap.searchCensus(
+	{
+		crossingId:Alloy.Globals.questionRendererTab.getAssessment().crossingID
+	},
+	function(xmlDoc){
+		 var XMLTools = require("tools/XMLTools");
+         var xml2 = new XMLTools(xmlDoc);
+         var responseObj = JSON.stringify(xml2.toObject());
+         if(typeof responseObj === "undefined")
+         {
+         	alert("No data. Please retry.");
+            Alloy.Globals.aIndicator.hide();
+            return;
+         }else{
+         	alert(JSON.stringify(responseObj));
+         	//TODO: 
+         	//	(1) parse response
+         	//	(2) add each item to 
+         	//  (3) SET valueList = [{displayValue : "Census 2", value : 1}, {displayValue : "Census 2", value : 2}, {displayValue : "Census 3", value : 3}, {displayValue : "Census 4", value : 4}];
+			//	(4) SET currentValue = valueList[0];
+			/*	(5) var data = [];
+				for(var i=0;i<valueList.length;i++){
+					data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }
+					));
+				}
+			*/
+         	Alloy.Globals.aIndicator.hide();
+         }
+	},
+	function(xmlDoc){
+	});
+						
+						
 var data = [];
 for(var i=0;i<valueList.length;i++){
 	data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }

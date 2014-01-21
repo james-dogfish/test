@@ -7,7 +7,11 @@ var activityIndicator = Alloy.createController('userNotificationWindows/activity
 
 Alloy.Globals.questionRenderer =$.questionListView;
 
-	
+exports.getAssessment = function()
+{
+	return currentAssessmentObject;
+};
+
 exports.setAssessment = function(assessmentObject){
 	activityIndicator.show();
 	

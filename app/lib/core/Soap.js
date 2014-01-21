@@ -305,7 +305,7 @@ var _Soap = function () {
         getCensus: function (args, success, failure) {
             var userPass = User.getLogin();
             var sudsClient = new suds({
-                endpoint: assessmentUrl,
+                endpoint: censusUrl,
                 targetNamespace: targetNS + 'census',
                 ns: 'cen',
                 includeNS: true,
@@ -323,7 +323,7 @@ var _Soap = function () {
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
-                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
                 enableWs: true
             });
@@ -334,7 +334,7 @@ var _Soap = function () {
         createCensus: function (args, success, failure) {
             var userPass = User.getLogin();
             var sudsClient = new suds({
-                endpoint: assessmentUrl,
+                endpoint: censusUrl,
                 targetNamespace: targetNS + 'census',
                 ns: 'cen',
                 includeNS: true,
@@ -352,12 +352,41 @@ var _Soap = function () {
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
-                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
                 enableWs: true
             });
 
             sudsClient.invoke('CreateCensusRequest', args, success, failure);
+        },
+        
+        searchCensus: function (args, success, failure) {
+            var userPass = User.getLogin();
+            var sudsClient = new suds({
+                endpoint: censusUrl,
+                targetNamespace: targetNS + 'census',
+                ns: 'cen',
+                includeNS: true,
+                xmlDeclaration: '',
+                envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cen="http://com/icon/networkrail/alcrm/census">',
+                bodyBegin: '<soapenv:Body>',
+                bodyEnd: '</soapenv:Body>',
+                envelopeEnd: '</soapenv:Envelope>',
+                headerBegin: '<soapenv:Header>',
+                headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
+                    '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
+                    '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
+                    '</wsse:Security>' +
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
+                headerEnd: '</soapenv:Header>',
+                enableWs: true
+            });
+
+            sudsClient.invoke('SearchCensusRequest', args, success, failure);
         },
 
 
