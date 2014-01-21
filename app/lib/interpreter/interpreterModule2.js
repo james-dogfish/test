@@ -9,7 +9,7 @@ function interpreterModule2(){
 	var userPreferences = User.getPreferences();
 	
 	var ui_types_map = {};
-		ui_types_map["date"] 			= "censusCounterTemplate";
+		ui_types_map["date"] 	        = "dateTemplate";
 		ui_types_map["alpha"] 			= "textFieldTemplate";
 		ui_types_map["radio"] 			= "singleSelectTemplate";
 		ui_types_map["select"] 			= "singleSelectTemplate";

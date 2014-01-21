@@ -165,10 +165,19 @@ var SudsClient = function(_options) {
       var errXml = new XMLTools(xmlDomFromString(this.responseText));
       var errObj = JSON.stringify(errXml.toObject());
       
+      
       var error_object = JSON.parse(errObj);
-      var error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-      var error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
-      var error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+      var error_code = null;
+      var error_message = null;
+      var error_stacktrace = null;
+      if(typeof error_object === "undefined")
+      {
+      	
+      }else{
+      	error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+      	error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
+      	error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+      }
       
       var alert = Titanium.UI.createAlertDialog({
 	  	title: 'Error: '+error_code,
