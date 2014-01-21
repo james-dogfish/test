@@ -84,7 +84,8 @@ function interpreterModule2(){
 		questionRenderValues = [];
 		var allRenderValues=Alloy.Globals.localParser.getRenderValue(question);
 		var questionVisable = true;
-		if(allRenderValues != 0){
+		
+		if(allRenderValues.length != 0){
 			questionVisable = false;
 		}
 		for(var i=0;i<allRenderValues.length;i++){

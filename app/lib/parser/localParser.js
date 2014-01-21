@@ -148,6 +148,14 @@ function localParser() {
         if (typeof renderValue === "undefined") {
             renderValue = [];
         }
+        else if(renderValue instanceof Array){
+        	Ti.API.info("renderValue = "+JSON.stringify(renderValue));
+        	return renderValue;
+        }
+        else{
+        	return [renderValue];
+        	Ti.API.info("renderValue = "+JSON.stringify(renderValue));
+        }
         return renderValue;
     };
 

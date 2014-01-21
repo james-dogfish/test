@@ -45,6 +45,7 @@ function onNotesClick(e){
 	//notesBackground : {backgroundImage: 'images/questionNote.png'}
 	//{backgroundImage: 'images/questionNote.png'}
 	//{backgroundImage: 'images/questionSelectedNote.png'},
+	//alert("question name = "+item.name);
 	
 	
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, closeCallBack : function(notes){

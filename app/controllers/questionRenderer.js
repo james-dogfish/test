@@ -155,7 +155,7 @@ var removeQuestionFromListSection = function(section, question, questionIndex){
 	//e.questionIndex, e.questionObject, e.section
 	question.value =  [""];
 	
-	Ti.API.info("removeQuestionFromListSection = "+JSON.stringify(question));
+	//Ti.API.info("removeQuestionFromListSection = "+JSON.stringify(question));
 	
 	questionValueChange({
 		questionObject : question,
@@ -224,9 +224,7 @@ var addItemFromHiddenList = function(hiddenListItemIndex){
 	//updateSection(section);
 	hiddenQuestions.splice(hiddenListItemIndex, 1);
 	
-	//Ti.API.info("addItemFromHiddenList 1");
-	Ti.API.info("addItemFromHiddenList = "+JSON.stringify(question));
-	//Ti.API.info("addItemFromHiddenList 2");
+	//Ti.API.info("addItemFromHiddenList = "+JSON.stringify(question));
 	
 	questionValueChange({
 		questionObject : question,
@@ -361,6 +359,9 @@ exports.moveToQuestion = function(groupType, questionIndex){
 				setSelectedSectionForSingleSections(sectionIndex);
 				$.listView.scrollToItem(sectionIndex, questionIndex);
 			}
+			
+			selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
+			
 			return;
 		}
 	}
@@ -387,7 +388,12 @@ var moveToQuestionByName = function(questionName, groupType){
 		if(sectionList[sectionIndex].groupType == groupType){
 			
 			var questionIndex = getQuestionIndexFromSection(questionName, sectionList[sectionIndex]);
+			
+			
+			
 			if(questionIndex == null)return;
+			
+			
 			
 			else if(listViewDisplayType == ALL_SECTIONS){
 				$.listView.scrollToItem(sectionIndex, questionIndex);
@@ -396,6 +402,8 @@ var moveToQuestionByName = function(questionName, groupType){
 				setSelectedSectionForSingleSections(sectionIndex);
 				$.listView.scrollToItem(sectionIndex, questionIndex);
 			}
+			selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
+			
 			return;
 		}
 	}
@@ -410,6 +418,8 @@ exports.goToFirstUnanswered = function(){
 			if(questionList[questionIndex].value[0] == ""){
 				
 				alert("unanswered question name = "+questionList[questionIndex].name);
+				
+				selectQuestion(questionList[questionIndex]);
 				
 				if(listViewDisplayType == ALL_SECTIONS){
 					$.listView.scrollToItem(sectionIndex, questionIndex);
@@ -984,7 +994,7 @@ Ti.App.addEventListener("setEntireSectionTemplate", function(e){
 });
 
 
-exports.selectQuestion = function(newQuestionSelected){
+var selectQuestion = function(newQuestionSelected){
 	var sectionList = getAllQuestionSections();
 
 	if(questionSelected != null){
@@ -1014,6 +1024,8 @@ exports.selectQuestion = function(newQuestionSelected){
 	
 	return newQuestionSelected;
 };
+
+exports.selectQuestion = selectQuestion;
 
 /*
 Ti.App.addEventListener("questionSelected", function(e){
