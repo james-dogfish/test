@@ -75,6 +75,6 @@ if (User.isLoggedIn() && !User.isLoginExpired()) {
 	//show login screen
 	Alloy.createController('index').getView().open();
 }
-
+alert(L('test'));
 /*RUN our Unit Tests Here*/
 // require('tests_runner').run();
