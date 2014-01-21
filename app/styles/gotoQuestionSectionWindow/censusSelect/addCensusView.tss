@@ -1,0 +1,39 @@
+"#container" : {
+	left : "100%",
+	width : "48%",
+	height : Ti.UI.SIZE,
+	layout : "vertical",
+	backgroundColor:"#fff",
+},
+"#header" : {
+	width : Ti.UI.FILL,
+	height : "50dp",
+	bottom : "10dp",
+	backgroundColor : "#084f6f"
+},
+"#headerTitle" : {
+	width : Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+	color : "#fff",
+	text : "Select from past censuses"
+},
+"#doneButton" : {
+	width : Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+	right : "10dp",
+	title : "Done",
+	color : "#fff"
+},
+"#pickerContainerView" : {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	bottom : "20dp",
+	backgroundColor:"#eee",
+	//borderRadius: 5,
+	borderWidth : 3,
+	borderColor : "#ddd",
+},
+"#pickerView" : {
+	
+}
+

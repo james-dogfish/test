@@ -10,16 +10,10 @@
 				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>
 				 <Require id="detailView" src="gotoQuestionSectionWindow/goToQuestionDetailView" type="view"/>  
 			</View>
-			
-			<!--
-			<ListView id="listView">
-				<Templates>
-					<Require src="gotoQuestionSectionWindow/goToQuestionRow" type="view"/>
-					<Require src="gotoQuestionSectionWindow/goToSectionHeader" type="view"/>
-				</Templates>
-			</ListView>
-			-->
-			
+
 		</View>
+		<Require id="selectCensusView" src="gotoQuestionSectionWindow/censusSelect/selectCensusView" type="view"/>
+		<Require id="addCensusView" src="gotoQuestionSectionWindow/censusSelect/addCensusView" type="view"/>
+		
 	</Window>
 </Alloy>

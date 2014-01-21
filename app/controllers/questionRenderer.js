@@ -42,42 +42,6 @@ var SINGLE_SECTIONS = 2;
 var currentSingleSectionIndex = 0;
 
 var listViewDisplayType = ALL_SECTIONS;
-
-var debugAddQuestionDependency = function(sectionList, parentQuestionName, dependentQuestionName){
-	var parentQuestionRef = findQuestionsRef(sectionList, parentQuestionName);
-	
-	
-	if(typeof parentQuestionRef === "undefined"){
-		alert("parentQuestion undefined name  = "+parentQuestionName);
-		return;
-	}
-	var parentQuestionDependencyList = parentQuestionRef.question.debugQuestionDependencyList;
-	
-	for(var i =0; i < parentQuestionDependencyList.length; i++){
-		if(parentQuestionDependencyList[i] == dependentQuestionName){
-			return;
-		}
-	}
-	parentQuestionDependencyList.push(dependentQuestionName);
-	parentQuestionRef.question.headerView = {backgroundColor : "#A1F7B6"};
-	parentQuestionRef.section.updateItemAt(parentQuestionRef.questionIndex, parentQuestionRef.question);
-	
-};
-
-function debugLookUpDependentQuestions(sectionList){
-	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
-		
-		for(var itemIndex =0; itemIndex < sectionList[sectionIndex].getItems().length; itemIndex++){
-			var itemsList = sectionList[sectionIndex].getItems();
-				
-			for(var renderIndex =0; renderIndex < itemsList[itemIndex].renderValue.length; renderIndex++){
-				debugAddQuestionDependency(sectionList, itemsList[itemIndex].renderValue[renderIndex].name , itemsList[itemIndex].name);
-			}
-		}
-	}
-};
-
-
 	
 	
 var findQuestionsRef= function(sectionList, questionName){
@@ -181,15 +145,17 @@ var removeQuestionFromListSection = function(section, question, questionIndex){
 	
 	var listViewAnimationProperties = {
 		animated : true, 
-		animationStyle : Titanium.UI.iPhone.RowAnimationStyle.RIGHT, 
+		//animationStyle : Titanium.UI.iPhone.RowAnimationStyle.RIGHT, 
 		position : Titanium.UI.iPhone.ListViewScrollPosition.NONE
 	};
 	section.deleteItemsAt(questionIndex, 1, listViewAnimationProperties);
 	
-	updateSection(section);
+	//updateSection(section);
 	
 	//e.questionIndex, e.questionObject, e.section
-	questionObject.value =  [""];
+	question.value =  [""];
+	
+	Ti.API.info("removeQuestionFromListSection = "+JSON.stringify(question));
 	
 	questionValueChange({
 		questionObject : question,
@@ -235,7 +201,7 @@ var addItemFromHiddenList = function(hiddenListItemIndex){
 	
 	var listViewAnimationProperties = {
 		animated : true, 
-		animationStyle : Titanium.UI.iPhone.RowAnimationStyle.LEFT , 
+		//animationStyle : Titanium.UI.iPhone.RowAnimationStyle.LEFT , 
 		position : Titanium.UI.iPhone.ListViewScrollPosition.NONE
 	};
 	
@@ -255,8 +221,12 @@ var addItemFromHiddenList = function(hiddenListItemIndex){
 			break;
 		}
 	}
-	updateSection(section);
+	//updateSection(section);
 	hiddenQuestions.splice(hiddenListItemIndex, 1);
+	
+	//Ti.API.info("addItemFromHiddenList 1");
+	Ti.API.info("addItemFromHiddenList = "+JSON.stringify(question));
+	//Ti.API.info("addItemFromHiddenList 2");
 	
 	questionValueChange({
 		questionObject : question,
@@ -333,6 +303,7 @@ exports.setAssessment = function(JASON_sectionList, assessmentObject){
 
 	sectionList = buildQuestionSections(JASON_sectionList);
 
+
 	if(Alloy.Globals.isDebugOn == true){
 		//debugLookUpDependentQuestions(sectionList);
 	}
@@ -344,7 +315,7 @@ exports.setAssessment = function(JASON_sectionList, assessmentObject){
 	$.listView.setSections(sectionList);
 
 	
-
+	userPreferences = User.getPreferences();
 	setListViewDisplayTypeToSingleSections(userPreferences.singleView);
 
 	

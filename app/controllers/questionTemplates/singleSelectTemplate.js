@@ -74,6 +74,7 @@ function debugShowRenderDependencies(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	
 	var item = e.section.getItemAt(e.itemIndex);
+	
 	var dependencyList = item.debugQuestionDependencyList;
 	
 	var string = "";

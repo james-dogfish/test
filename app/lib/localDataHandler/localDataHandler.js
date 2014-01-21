@@ -185,8 +185,6 @@ function localDataHandler() {
             pageType: "riskAssessment"
         });
 
-
-
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
     };

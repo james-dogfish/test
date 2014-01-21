@@ -8,6 +8,9 @@ function interpreterModule2(){
 	var User = require('core/User');
 	var userPreferences = User.getPreferences();
 	
+	
+	var renderDependenciesMap = [];
+	
 	var ui_types_map = {};
 		ui_types_map["date"] 	        = "dateTemplate";
 		ui_types_map["alpha"] 			= "textFieldTemplate";
@@ -85,9 +88,18 @@ function interpreterModule2(){
 			questionVisable = false;
 		}
 		for(var i=0;i<allRenderValues.length;i++){
+			
+			dependencieName = passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]);
+
+			if(typeof renderDependenciesMap[dependencieName] === "undefined"){
+				renderDependenciesMap[dependencieName] = [];
+			}
+			
+			renderDependenciesMap[dependencieName].push(passObject.pageID + Alloy.Globals.localParser.getQuestionName(question));
+			
 			questionRenderValues.push(
 				{
-					name : passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]),
+					name : dependencieName,
 					value : Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i])
 				});
 		}
@@ -226,6 +238,29 @@ function interpreterModule2(){
 		self.sectionHeaderList.push(newSectionHeader);
 	};
 	
+	var lookRenderDependencies = function(){
+		
+		
+		for(var sectionIndex =0;  sectionIndex < self.sectionHeaderList.length; sectionIndex++){
+			for(var questionIndex =0;  questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++){
+			
+				var name = self.sectionHeaderList[sectionIndex].questionList[questionIndex].name;
+				
+				if(typeof renderDependenciesMap[name] !== "undefined"){
+					alert(name);
+					
+					var newArray =renderDependenciesMap[name];
+					newArray = newArray.filter(function(elem, pos) {
+					    return newArray.indexOf(elem) == pos;
+					});
+					
+					
+					self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = newArray;
+				}
+			}
+		}
+	};
+	
 	var postInterpretSettings = function(passObject){
 		for(var sectionIndex =0;  sectionIndex < self.sectionHeaderList.length; sectionIndex++){
 			
@@ -244,9 +279,6 @@ function interpreterModule2(){
 				};
 				self.sectionHeaderList[sectionIndex].questionList.unshift(newRow);//adds row to front of the list
 			}
-			
-			
-			
 			
 			
 			for(var questionIndex =0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++){
@@ -274,6 +306,22 @@ function interpreterModule2(){
 		}
 	};
 	
+	var sortQuestionsByOrder = function(){
+		
+		//sort the question by order within each section
+		for(var sectionIndex =0;  sectionIndex < self.sectionHeaderList.length; sectionIndex++){
+			self.sectionHeaderList[sectionIndex].questionList.sort(function(a,b) {
+				return parseInt(a.order) - parseInt(b.order); 
+			});
+		}
+		
+		//sort the sections by order of the first question in the section
+		self.sectionHeaderList.sort(function(a, b){
+			return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
+		});
+		
+	};
+	
 	
 	//passObject = {associatedFileName : "", pageName : "", pageID : "", pageType : ""}
 	self.interpret = function(allQuestions, passObject){
@@ -282,6 +330,8 @@ function interpreterModule2(){
 		for(var i=0; i< allQuestions.length; i++){
 			addQuestionToSectionHeader(allQuestions[i], passObject);
 		}
+		lookRenderDependencies();
+		sortQuestionsByOrder();
 		postInterpretSettings(passObject);
 		return self.sectionHeaderList;
 	};

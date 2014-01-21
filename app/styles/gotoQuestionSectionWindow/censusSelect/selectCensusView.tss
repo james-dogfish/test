@@ -1,24 +1,33 @@
 "#container" : {
 	left : "100%",
-	width : "100%",
+	width : "48%",
 	height : Ti.UI.SIZE,
-	layout : "vertical"
+	layout : "vertical",
+	backgroundColor:"#fff",
 },
 "#header" : {
 	width : Ti.UI.FILL,
 	height : "50dp",
+	bottom : "10dp",
 	backgroundColor : "#084f6f"
 },
 "#headerTitle" : {
 	width : Ti.UI.SIZE,
 	height : Ti.UI.SIZE,
 	color : "#fff",
-	text : "title"
+	text : "Census Options"
 },
-"#backButton" : {
+"#doneButton" : {
 	width : Ti.UI.SIZE,
 	height : Ti.UI.SIZE,
-	left : "10dp",
-	title : "Back",
+	right : "10dp",
+	title : "Done",
 	color : "#fff"
+},
+".selectButton" : {
+	width : "75%",
+	height : Ti.UI.SIZE,
+	bottom : "10dp",
+	//left : "10dp",
+	color : "#000"
 }
