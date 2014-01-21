@@ -204,7 +204,11 @@ function parseTrainData(xml_text) {
         localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
-
+		if(typeof data === "undefined")
+		{
+			alert("There is an issue with train data. No data returned by webservice.");
+			return;
+		}
         var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
         
@@ -223,7 +227,11 @@ function parseCensusData(xml_text) {
         localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
-
+		if(typeof data === "undefined")
+		{
+			alert("There is an issue with census data. No data returned by webservice.");
+			return;
+		}
         var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
 
@@ -238,7 +246,12 @@ function parseData(xml_text, detaildID, crossingID, riskMap) {
         var localParser = require('parser/localParser');
         localParser = new localParser();
         var questionsData = localParser.getQuestions(xml_text);
-
+		if(typeof data === "undefined")
+		{
+			alert("Sorry, this crossing has no questions!");
+			Alloy.Globals.aIndicator.hide();
+			return;
+		}
         var localDataHandler = require('localDataHandler/localDataHandler');
         curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, riskMap);
 
@@ -301,56 +314,72 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                     	 var XMLTools = require("tools/XMLTools");
             			 var xml2 = new XMLTools(xmlDoc);
                     	 var assObj = JSON.stringify(xml2.toObject());
-                        parseData(xmlDoc, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
-
-                        	//get Census Question Set
-                        	Alloy.Globals.Soap.getQuestionsRequest({
-                                crossingId: crossingDetail.id,
-                                groupType: "Census"
-                            },
-                            function (xmlDoc) {
-                                parseCensusData(xmlDoc, assObj);
-     
-                            },
-                            function (xmlDoc) {
-                                var XMLTools = require("tools/XMLTools");
-                                var xml = new XMLTools(xmlDoc);
-                                Alloy.Globals.aIndicator.hide();
-                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
-
-                            });//end of get census question set
-
-                        	//get Train Question Set
-                        	Alloy.Globals.Soap.getQuestionsRequest({
-                                crossingId: crossingDetail.id,
-                                groupType: "Train"
-                            },
-                            function (xmlDoc) {
-                                parseTrainData(xmlDoc, assObj);
-                                var localDataHandler = require('localDataHandler/localDataHandler');
-                                
-                                //DO THIS 4 TIMES Because as far we know they need 4 train info groups
-                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                 //Alloy.Globals.aIndicator.hide();
-               					 //detailSearchTab.setData(crossingDetail);
+                    	 if(typeof assObj === "undefined")
+               			 {
+               					 	alert("Issue with webservice. Please retry.");
+               					 	Alloy.Globals.aIndicator.hide();
+               					 	return;
+               			 }else{
+               					 	
                					 
-               					 riskAssessmentsTab.loadRiskAssessments();
-               					 questionRendererTab.setAssessment(curAssObj);
-							     $.tabGroup.setActiveTab(questionRendererTab.getView());
-							    
-							     
-							      Alloy.Globals.aIndicator.hide();
-                            },
-                            function (xmlDoc) {
-                                var XMLTools = require("tools/XMLTools");
-                                var xml = new XMLTools(xmlDoc);
-                                Alloy.Globals.aIndicator.hide();
-                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
-
-                            });//end of get Train Question Set
+		                         parseData(xmlDoc, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
+		
+		                        	//get Census Question Set
+		                        	Alloy.Globals.Soap.getQuestionsRequest({
+		                                crossingId: crossingDetail.id,
+		                                groupType: "Census"
+		                            },
+		                            function (xmlDoc) {
+		                                parseCensusData(xmlDoc, assObj);
+		     
+		                            },
+		                            function (xmlDoc) {
+		                                var XMLTools = require("tools/XMLTools");
+		                                var xml = new XMLTools(xmlDoc);
+		                                Alloy.Globals.aIndicator.hide();
+		                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
+		
+		                            });//end of get census question set
+		
+		                        	//get Train Question Set
+		                        	Alloy.Globals.Soap.getQuestionsRequest({
+		                                crossingId: crossingDetail.id,
+		                                groupType: "Train"
+		                            },
+		                            function (xmlDoc) {
+		                                parseTrainData(xmlDoc, assObj);
+		                                var localDataHandler = require('localDataHandler/localDataHandler');
+		                                
+		                                //DO THIS 4 TIMES Because as far we know they need 4 train info groups
+		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+		                                 //Alloy.Globals.aIndicator.hide();
+		               					 //detailSearchTab.setData(crossingDetail);
+		               					 
+		               					 if(typeof curAssObj === "undefined")
+		               					 {
+		               					 	alert("Issue with webservice. Please retry.");
+		               					 	
+		               					 }else{
+		               					 	 riskAssessmentsTab.loadRiskAssessments();
+		               					 	questionRendererTab.setAssessment(curAssObj);
+									     	$.tabGroup.setActiveTab(questionRendererTab.getView());	
+		               					 }
+		               					
+									    
+									     
+									      Alloy.Globals.aIndicator.hide();
+		                            },
+		                            function (xmlDoc) {
+		                                var XMLTools = require("tools/XMLTools");
+		                                var xml = new XMLTools(xmlDoc);
+		                                Alloy.Globals.aIndicator.hide();
+		                                Ti.API.info('getQuestionReqeust Error response >> ' + xml.toJSON());
+		
+		                            });//end of get Train Question Set
+		                  }
                             
                             
                       
