@@ -10,6 +10,7 @@
  * Source: http://github.com/kwhinnery/Suds
  */
 var XMLTools = require("tools/XMLTools");
+var retry_counter = 0;
 var SudsClient = function(_options) {
 
   //A generic extend function - thanks MooTools

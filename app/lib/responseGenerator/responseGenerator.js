@@ -235,68 +235,73 @@ function responseGenerator() {
             var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, activeAssessments[assessmentIndex].crossingID, activeAssessments[assessmentIndex].detailID);
             var xmlRequest = self.buildAssessmentResponse(sectionListAss, activeAssessments[assessmentIndex].crossingID, activeAssessments[assessmentIndex].detailID);
 
-            //COMMIT ASS
-            Alloy.Globals.Soap.createAssessment(xmlRequest,
-                function (xmlDoc) {
-                    var XMLTools = require("tools/XMLTools");
-                    var xml = new XMLTools(xmlDoc);
-                    var response = JSON.stringify(xml.toObject());
-
-                    Ti.API.info('createAssessment Success response >> ' + response);
-
-                    //COMMIT CENSUS
-                    Alloy.Globals.Soap.createCensus(xmlCensusRequest,
-                        function (xmlDoc) {
-                            var XMLTools = require("tools/XMLTools");
-                            var xml = new XMLTools(xmlDoc);
-                            var response = JSON.stringify(xml.toObject());
-                            Ti.API.info('createCensusRequest Success response >> ' + response);
-                            //COMMIT TRAIN INFO
-                            Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest,
-                                function (xmlDoc) {
-                                    var XMLTools = require("tools/XMLTools");
-                                    var xml = new XMLTools(xmlDoc);
-                                    var response = JSON.stringify(xml.toObject());
-
-                                    var assessmentForPDF = JSON.stringify(
-                                        localDataHandler.createAssessmentPDFResponse(
-                                            activeAssessments[assessmentIndex]
-                                        )
-                                    );
-
-                                    Ti.API.info('createTrainGroupRequest Success response >> ' + response);
-                                    Alloy.Globals.aIndicator.hide();
-
-                                },
-                                function (xmlDoc) {
-                                    var XMLTools = require("tools/XMLTools");
-                                    var xml = new XMLTools(xmlDoc);
-                                    var response = JSON.stringify(xml.toObject());
-                                    Ti.API.info('createTrainGroupRequest Failure response >> ' + response);
-                                    Alloy.Globals.aIndicator.hide();
-                                }
-                            ); //END OF COMMIT TRAIN INFO
-                        },
-                        function (xmlDoc) {
-                            var XMLTools = require("tools/XMLTools");
-                            var xml = new XMLTools(xmlDoc);
-                            var response = JSON.stringify(xml.toObject());
-                            Ti.API.info('createCensusRequest Failure response >> ' + response);
-                            Alloy.Globals.aIndicator.hide();
-                        }
-                    ); //END OF COMMIT CENSUS  
-
-                },
-                function (xmlDoc) {
-                    var XMLTools = require("tools/XMLTools");
-                    var xml = new XMLTools(xmlDoc);
-                    var response = JSON.stringify(xml.toObject());
-                    Alloy.Globals.aIndicator.hide();
-                    Ti.API.info('createAssessment Failure response >> ' + response);
-                }
-            );
-
-        } //end for loop
+			if(activeAssessments[assessmentIndex].isSubmitted === false) {
+				            //COMMIT ASS
+				            Alloy.Globals.Soap.createAssessment(xmlRequest,
+				                function (xmlDoc) {
+				                    var XMLTools = require("tools/XMLTools");
+				                    var xml = new XMLTools(xmlDoc);
+				                    var response = JSON.stringify(xml.toObject());
+				
+				                    Ti.API.info('createAssessment Success response >> ' + response);
+				
+				                    //COMMIT CENSUS
+				                    Alloy.Globals.Soap.createCensus(xmlCensusRequest,
+				                        function (xmlDoc) {
+				                            var XMLTools = require("tools/XMLTools");
+				                            var xml = new XMLTools(xmlDoc);
+				                            var response = JSON.stringify(xml.toObject());
+				                            Ti.API.info('createCensusRequest Success response >> ' + response);
+				                            //COMMIT TRAIN INFO
+				                            Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest,
+				                                function (xmlDoc) {
+				                                    var XMLTools = require("tools/XMLTools");
+				                                    var xml = new XMLTools(xmlDoc);
+				                                    var response = JSON.stringify(xml.toObject());
+				
+				                                    var assessmentForPDF = JSON.stringify(
+				                                        localDataHandler.createAssessmentPDFResponse(
+				                                            activeAssessments[assessmentIndex]
+				                                        )
+				                                    );
+				
+				                                    Ti.API.info('createTrainGroupRequest Success response >> ' + response);
+				                                    Alloy.Globals.aIndicator.hide();
+				
+				                                },
+				                                function (xmlDoc) {
+				                                    var XMLTools = require("tools/XMLTools");
+				                                    var xml = new XMLTools(xmlDoc);
+				                                    var response = JSON.stringify(xml.toObject());
+				                                    Ti.API.info('createTrainGroupRequest Failure response >> ' + response);
+				                                    Alloy.Globals.aIndicator.hide();
+				                                }
+				                            ); //END OF COMMIT TRAIN INFO
+				                        },
+				                        function (xmlDoc) {
+				                            var XMLTools = require("tools/XMLTools");
+				                            var xml = new XMLTools(xmlDoc);
+				                            var response = JSON.stringify(xml.toObject());
+				                            Ti.API.info('createCensusRequest Failure response >> ' + response);
+				                            Alloy.Globals.aIndicator.hide();
+				                        }
+				                    ); //END OF COMMIT CENSUS  
+				
+				                },
+				                function (xmlDoc) {
+				                    var XMLTools = require("tools/XMLTools");
+				                    var xml = new XMLTools(xmlDoc);
+				                    var response = JSON.stringify(xml.toObject());
+				                    Alloy.Globals.aIndicator.hide();
+				                    Ti.API.info('createAssessment Failure response >> ' + response);
+				                }
+				            );
+			
+			}else{
+				//upate the assessment instead
+				//TODO : xxx
+			}
+		} //end for loop
     }; //end self.committAllCompleted
 }
 

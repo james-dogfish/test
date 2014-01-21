@@ -4,7 +4,7 @@
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 var versionID;
-var INDEX_FILE_VERSION_NUM = 3;
+var INDEX_FILE_VERSION_NUM = 4;
 
 function localDataHandler() {
     var self = this;
@@ -119,8 +119,21 @@ function localDataHandler() {
         alert("ERROR - assessmentFile does not exists");
         return false;
     };
+    
+    self.setAssessmentCompleted = function(assessmentObject)
+    {
+    	 var savedAssessments = self.getAllSavedAssessments();
 
+         for (var i = 0; i < savedAssessments.length; i++) {
 
+            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+            	savedAssessments[i].isSubmitted = true;
+            	self.updateSavedAssessments(savedAssessments);
+            	return;
+            }
+         }    
+    };
+    
     self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, riskMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
 
         var savedAssessments = self.getAllSavedAssessments();
@@ -150,7 +163,8 @@ function localDataHandler() {
             alcrmStatus: "not sent",
             notes: "",
             detailID: detailID,
-
+			
+			isSubmitted: false,
             defaultCensusQuestions: [],
             defaultTrainInfoQuestions: []
 
