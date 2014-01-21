@@ -52,23 +52,43 @@ var hide = function(){
 		closeing= true;
 		$.gotoDisplayView.animate(animationClose);
 		$.background.animate(animationFadeOut);
+		$.selectCensusView.hide();
+		$.addCensusView.hide();
 	}
 	
 };
 
 function firstUnansweredClick(e){
+	hide();
 	$.trigger('goToFirstUnanswered');
-	
 };
 
 function resumeLastPositionClick(e){
+	hide();
 	$.trigger('goToLastPositiond');
 };
 
 function createCensusClick(e){
-	$.trigger('createCensus');
+	//$.trigger('createCensus');
+	$.selectCensusView.show();
+	//hide();
 };
 
+$.selectCensusView.on("createCensus", function(){
+	$.trigger('createCensus');
+	$.selectCensusView.hide();
+});
+$.selectCensusView.on("addCensus", function(){
+	//$.trigger('addCensus');
+	//alert(addCensus);
+	$.addCensusView.show();
+});
+$.addCensusView.on("addPastCensus", function(e){
+	//e.pastCensusObject;
+	$.trigger('addPastCensus');
+	$.selectCensusView.hide();
+	$.addCensusView.hide();
+});
 
 var sectionClick = function(sectionDetails){
 	sectionToGoToGroupType = sectionDetails.groupType;

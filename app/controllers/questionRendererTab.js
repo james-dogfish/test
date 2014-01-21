@@ -123,6 +123,14 @@ var openMenu = function() {
 				
 				activityIndicator.hide();
 			});
+			gotoQuestionSectionWindow.on("addPastCensus", function(e){
+				activityIndicator.show();
+				
+				createCensus();
+				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+				
+				activityIndicator.hide();
+			});
 			gotoQuestionSectionWindow.on("goToFirstUnanswered", function(data){
 				$.questionListView.goToFirstUnanswered();
 			});

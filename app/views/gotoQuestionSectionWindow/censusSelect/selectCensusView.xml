@@ -1,0 +1,10 @@
+<Alloy>
+	<View id="container">
+		<View id ="header">
+			<Button id="doneButton" onClick="doneButtonClick"/>
+			<Label id="headerTitle"/>
+		</View>
+		<Button class="selectButton" onClick="createCensusClick">Create Census</Button>
+		<Button class="selectButton" onClick="addCensusClick">Select from past censuses</Button>
+	</View>
+</Alloy>

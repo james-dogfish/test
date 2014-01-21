@@ -41,8 +41,7 @@
 "#pickerContainerView" : {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	top : "20dp",
-	bottom : "20dp",
+	bottom : "10dp",
 	backgroundColor:"#eee",
 	//borderRadius: 5,
 	borderWidth : 3,

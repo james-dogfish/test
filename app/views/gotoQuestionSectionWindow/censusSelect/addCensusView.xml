@@ -1,0 +1,11 @@
+<Alloy>
+	<View id="container">
+		<View id ="header">
+			<Button id="doneButton" onClick="doneButtonClick"/>
+			<Label id="headerTitle"/>
+		</View>
+		<View id="pickerContainerView">
+			<Picker id="pickerView" onChange="pickerChange"/>
+		</View>
+	</View>
+</Alloy>
