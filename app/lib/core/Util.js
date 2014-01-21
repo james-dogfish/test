@@ -8,7 +8,7 @@ function _Util() {
         Alloy = require("alloy");
     //downloader = require('tools/downloader');
 
-    self.getCmsUrl = function() {
+    self.getCmsUrl = function () {
         return cmsUrl;
     };
 
@@ -18,11 +18,11 @@ function _Util() {
     | callback -> will be fired when download is complete and data is passed to callback
     |---------------------------------------------------------------------------------
     */
-    self.downloadFile = function(url, localFile, callback) {
+    self.downloadFile = function (url, localFile, callback) {
 
         Ti.API.info('Downloading file at ' + url + ' to ' + localFile);
         var c = Ti.Network.createHTTPClient({
-            onload: function() {
+            onload: function () {
 
                 if (localFile) {
                     var f = Ti.Filesystem.getFile(localFile);
@@ -35,7 +35,7 @@ function _Util() {
                     callback(JSON.parse(this.responseData));
                 }
             },
-            onerror: function(e) {
+            onerror: function (e) {
                 self.log('There has been an error downloading file ' + e.error);
             },
             timeout: 40000
@@ -46,11 +46,11 @@ function _Util() {
 
     };
 
-    self.downloadFileConditionally = function(url, localFile, condition, callback) {
+    self.downloadFileConditionally = function (url, localFile, condition, callback) {
 
         Ti.API.info('Downloading file at ' + url + ' to ' + localFile);
         var c = Ti.Network.createHTTPClient({
-            onload: function() {
+            onload: function () {
                 if (condition(c)) {
                     if (localFile) {
                         var f = Ti.Filesystem.getFile(localFile);
@@ -64,7 +64,7 @@ function _Util() {
                     }
                 }
             },
-            onerror: function(e) {
+            onerror: function (e) {
                 self.log('There has been an error downloading file ' + e.error);
             },
             timeout: 40000
@@ -80,11 +80,11 @@ function _Util() {
     | Downloads app level help for the app
     |---------------------------------------------------------------------------------
     */
-   
-    self.downloadAppHelp = function(callback) {
+
+    self.downloadAppHelp = function (callback) {
         if (self.phoneConnected()) {
             var fileName = 'apphelp.json';
-            self.downloadFileConditionally(cmsUrl + '/data/apphelp.json', docsFolder + fileName, function(c) {
+            self.downloadFileConditionally(cmsUrl + '/data/apphelp.json', docsFolder + fileName, function (c) {
                 // get last modified date
                 var lastModified = c.getResponseHeader('Last-Modified');
                 var previousDate = Ti.App.Properties.getString('helpLastModified', '');
@@ -92,7 +92,7 @@ function _Util() {
                     return true;
                 }
 
-            }, function(data, client) {
+            }, function (data, client) {
                 Ti.App.Properties.setString('helpContent', data.help);
                 Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
@@ -101,17 +101,17 @@ function _Util() {
             });
         }
     };
-    
+
     /*
     |---------------------------------------------------------------------------------
     | Downloads cheat sheet pdf
     |---------------------------------------------------------------------------------
     */
-   
-    self.downloadCheatSheet = function(callback) {
+
+    self.downloadCheatSheet = function (callback) {
         if (self.phoneConnected()) {
             var fileName = 'pdf.pdf';
-            self.downloadFileConditionally(cheatSheetUrl, docsFolder + fileName, function(c) {
+            self.downloadFileConditionally(cheatSheetUrl, docsFolder + fileName, function (c) {
                 // get last modified date
                 var lastModified = c.getResponseHeader('Last-Modified');
                 var previousDate = Ti.App.Properties.getString('cheatSheetLastModified', '');
@@ -119,7 +119,7 @@ function _Util() {
                     return true;
                 }
 
-            }, function(data, client) {
+            }, function (data, client) {
                 Ti.App.Properties.setString('cheatSheetPath', docsFolder + fileName);
                 Ti.App.Properties.setString('cheatSheetLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
@@ -128,8 +128,8 @@ function _Util() {
             });
         }
     };
-    
-    
+
+
 
 
     //cmsUrl = 'http://localhost:8888/nwr';
@@ -141,7 +141,7 @@ function _Util() {
     docsFolder = Ti.Filesystem.getApplicationDataDirectory();
 
     // Checks for an override file being left in by Iain
-    self.getOverrideFile = function() {
+    self.getOverrideFile = function () {
         var overRideFile = Ti.Filesystem.getFile(docsFolder, 'endpoint_override.json');
 
         if (overRideFile.exists() && overRideFile.size) {
@@ -163,7 +163,7 @@ function _Util() {
 
 
     // Function to bring the route picker up
-    self.showRoutePicker = function(data) {
+    self.showRoutePicker = function (data) {
 
         var routes = data;
 
@@ -176,7 +176,7 @@ function _Util() {
     | Checks whether all template files are downloaded completely
     |---------------------------------------------------------------------------------
     */
-    self.allTemplatesAvailable = function() {
+    self.allTemplatesAvailable = function () {
         var templatesFolder = Ti.Filesystem.getFile(docsFolder, 'templates');
         var localTemplateFiles = templatesFolder.getDirectoryListing();
 
@@ -206,7 +206,7 @@ function _Util() {
     | Download all assessment templates locally 
     |---------------------------------------------------------------------------------
     */
-    self.downloadAllTemplates = function(callback) {
+    self.downloadAllTemplates = function (callback) {
 
         if (self.phoneConnected()) {
 
@@ -242,7 +242,7 @@ function _Util() {
     | Checks whether all route template files are downloaded completely
     |---------------------------------------------------------------------------------
     */
-    self.allRouteTemplatesAvailable = function() {
+    self.allRouteTemplatesAvailable = function () {
         var templatesFolder = Ti.Filesystem.getFile(docsFolder, 'routes');
         var localTemplateFiles = templatesFolder.getDirectoryListing();
 
@@ -273,7 +273,7 @@ function _Util() {
     |---------------------------------------------------------------------------------
     */
 
-    self.downloadAllRouteTemplates = function(callback) {
+    self.downloadAllRouteTemplates = function (callback) {
         if (self.phoneConnected()) {
             routesFolder = Ti.Filesystem.getFile(docsFolder, 'routes');
             if (!routesFolder.exists()) {
@@ -294,7 +294,7 @@ function _Util() {
         }
     };
 
-    self.getRouteCrossings = function(route, callback) {
+    self.getRouteCrossings = function (route, callback) {
 
         var routeFile = route.toLowerCase() + '.json';
         for (var i in routeFiles) {
@@ -312,7 +312,7 @@ function _Util() {
                         // Download the file from the internet and return data
                         self.downloadFile(cmsUrl + '/data/compiled/routes/' + routeFile, docsFolder + '/routes/' + routeFile,
 
-                            function(data, callback) {
+                            function (data, callback) {
                                 if (callback) {
                                     callback(data);
                                 } else {
@@ -334,7 +334,7 @@ function _Util() {
     | download it and return JSON data
     |---------------------------------------------------------------------------------
     */
-    self.getAssessment = function(crossingType) {
+    self.getAssessment = function (crossingType) {
         var crossingType = crossingType.toLowerCase().trim();
         for (var i in crossingTypes) { // Note crossingTypes is global var declared above
             if (crossingTypes[i] === crossingType) {
@@ -348,7 +348,7 @@ function _Util() {
                         // Download the file and return data
                         self.downloadFile(cmsUrl + '/data/compiled/' + templateFiles[i], docsFolder + '/templates/' + templateFiles[i],
 
-                            function(data) {
+                            function (data) {
                                 return data;
                             });
                     } else {
@@ -365,7 +365,7 @@ function _Util() {
     | Saves a RA to filesystem
     |---------------------------------------------------------------------------------
     */
-    self.saveAssessment = function(filename, data) {
+    self.saveAssessment = function (filename, data) {
 
         var assessmentsFolder = Ti.Filesystem.getFile(docsFolder, 'assessments');
         if (!assessmentsFolder.exists()) {
@@ -385,7 +385,7 @@ function _Util() {
 
     };
 
-    self.saveFile = function(filename, nfolder, data) {
+    self.saveFile = function (filename, nfolder, data) {
         var folder = Ti.Filesystem.getFile(docsFolder, nfolder);
         if (!folder.exists()) {
             folder.createDirectory();
@@ -403,7 +403,7 @@ function _Util() {
         folder = null;
     };
 
-    self.deleteFile = function(folder, fileName) {
+    self.deleteFile = function (folder, fileName) {
         var file = Ti.Filesystem.getFile(docsFolder + folder + fileName);
         if (file.exists()) {
             file.deleteFile();
@@ -416,7 +416,7 @@ function _Util() {
     | Get all active assessments
     |---------------------------------------------------------------------------------
     */
-    self.getActiveAssessments = function() {
+    self.getActiveAssessments = function () {
         var assessmentsFolder = Ti.Filesystem.getFile(docsFolder, 'assessments'),
             dirFiles = assessmentsFolder.getDirectoryListing(),
             outputObj = [];
@@ -440,7 +440,7 @@ function _Util() {
         }
 
         // Now sort based on timeStamp
-        outputObj.sort(function(a, b) {
+        outputObj.sort(function (a, b) {
             return (b.timeStamp - a.timeStamp);
         });
 
@@ -455,7 +455,7 @@ function _Util() {
         return outputArray;
     };
 
-    self.escapeXML = function(s) {
+    self.escapeXML = function (s) {
         // From https://gist.github.com/panzi/1857360
         var XML_CHAR_MAP = {
             '<': '&lt;',
@@ -465,7 +465,7 @@ function _Util() {
             "'": '&apos;'
         };
 
-        return s.replace(/[<>&"']/g, function(ch) {
+        return s.replace(/[<>&"']/g, function (ch) {
             return XML_CHAR_MAP[ch];
         });
     };
@@ -475,7 +475,7 @@ function _Util() {
     | Emails assessment and question notes to the user
     |---------------------------------------------------------------------------------
     */
-    self.emailNotes = function(subject, assessmentNotes, questionNotes, archiveInfo) {
+    self.emailNotes = function (subject, assessmentNotes, questionNotes, archiveInfo) {
         var User = require('core/User');
         var userEmail = User.getEmail();
         if (userEmail === '') {
@@ -496,10 +496,10 @@ function _Util() {
         Ti.API.info(params.archived);
 
         var c = Ti.Network.createHTTPClient({
-            onload: function() {
+            onload: function () {
                 self.log('Assessment and Question Notes emailed successfully');
             },
-            onerror: function(e) {
+            onerror: function (e) {
                 self.log('Error emailing Assessment and Question Notes');
             },
             timeout: 40000
@@ -516,7 +516,7 @@ function _Util() {
     |---------------------------------------------------------------------------------
     */
 
-    self.submitCompletedAssessments = function() {
+    self.submitCompletedAssessments = function () {
         var that = this;
         if (!self.phoneConnected()) {
             self.showAlert('Error submitting assessments - Please make sure you are connected to the internet');
@@ -561,14 +561,14 @@ function _Util() {
             i = toSendLength;
             while (i !== 0) {
                 // Creating function scope so that alert messages will pick up crossing name 
-                (function(i) {
+                (function (i) {
 
                     Soap.createAssessment({
                         arg0: toSend[i - 1].xmlToSend,
                         arg1: toSend[i - 1].crossingDetail,
                         arg2: username,
                         arg3: password
-                    }, function(xmlDoc) {
+                    }, function (xmlDoc) {
                         // Success Callback
                         var XMLTools = require("tools/XMLTools");
                         var xml = new XMLTools(xmlDoc);
@@ -581,7 +581,7 @@ function _Util() {
                             questionNotes = toSend[i - 1].questionNotes || '\n No question notes found',
 
                             archivedInfo = toSend[i - 1].archiveInformation || null;
-                            
+
                         self.emailNotes(subject, assessmentNotes, questionNotes, archivedInfo); // Email notes
                         // Also save this assessment after changing the alcrm status
                         var fileName = toSend[i - 1].fileName;
@@ -593,7 +593,7 @@ function _Util() {
                         var seen = [];
 
                         // Now save this file
-                        that.saveFile(fileName, 'assessments', JSON.stringify(data, function(key, val) {
+                        that.saveFile(fileName, 'assessments', JSON.stringify(data, function (key, val) {
                             if (typeof val == "object") {
                                 if (seen.indexOf(val) >= 0) {
                                     return;
@@ -606,7 +606,7 @@ function _Util() {
                         // Refresh the tableview
                         Ti.App.fireEvent('refreshAssessments');
 
-                    }, function(xmlDoc) {
+                    }, function (xmlDoc) {
                         if (xmlDoc) {
                             // Error Callback
                             var faultString;
@@ -628,7 +628,7 @@ function _Util() {
         }
     };
 
-    self.log = function(toLog) {
+    self.log = function (toLog) {
         if (self.phoneConnected()) {
             //Alloy.Globals.testFlight.passCheckpoint(toLog);
         }
@@ -640,7 +640,7 @@ function _Util() {
     | Function accepts a table and blurs all the textfields in that table
     |---------------------------------------------------------------------------------
     */
-    self.blurAllTextFields = function(table) {
+    self.blurAllTextFields = function (table) {
         var tableSections = table.data,
             tableSectionLength = tableSections.length;
 
@@ -681,18 +681,18 @@ function _Util() {
         }
     };
 
-    self.getRandomThreeDigit = function() {
+    self.getRandomThreeDigit = function () {
         return Math.floor(Math.random() * 2000) + 1;
     };
 
-    self.getRandom = function(From) {
+    self.getRandom = function (From) {
         /*
          * Returns a random number from param limit
          */
         return Math.floor(Math.random() * From);
     };
 
-    self.phoneConnected = function() {
+    self.phoneConnected = function () {
         if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) {
             return false;
         } else {
@@ -701,7 +701,7 @@ function _Util() {
 
     };
 
-    self.getFont = function(size, bold) {
+    self.getFont = function (size, bold) {
 
         return {
             fontFamily: "HelveticaNeue-Light",
@@ -711,7 +711,7 @@ function _Util() {
 
     };
 
-    self.showAlert = function(message, callback) {
+    self.showAlert = function (message, callback) {
         var alert = Titanium.UI.createAlertDialog({
             title: 'Network Rail',
             message: message,
@@ -727,26 +727,26 @@ function _Util() {
     };
 
     // Returns a new object with the prototype of the old one
-    self.objectify = function(o) {
-        var F = function() {};
+    self.objectify = function (o) {
+        var F = function () {};
         F.prototype = o;
         return new F();
     };
 
     self.sliderVisible = false; // tracks if slider is currently visible on screen
     self.sliderProxy = null;
-    self.slideNotify = function(win, bottom, message, hideAll) {
+    self.slideNotify = function (win, bottom, message, hideAll) {
         /*
          * Function will show a notifier that slides in
          */
 
-        var completedAnimation = function() {
+        var completedAnimation = function () {
             var newAnimation = Ti.UI.createAnimation();
             newAnimation.duration = 200;
             newAnimation.left = -50;
             newAnimation.opacity = 0;
 
-            newAnimation.addEventListener('complete', function() {
+            newAnimation.addEventListener('complete', function () {
                 sliderView.remove(noConnectionText);
                 win.remove(sliderView);
                 noConnectionText = null;
@@ -804,7 +804,7 @@ function _Util() {
         animation.left = 5;
         animation.opacity = 1;
 
-        var animationHandler = function() {
+        var animationHandler = function () {
             var newAnimation = Ti.UI.createAnimation();
             newAnimation.duration = 100;
             newAnimation.left = 0;
@@ -828,7 +828,7 @@ function _Util() {
         animation.addEventListener('complete', animationHandler);
         sliderView.animate(animation);
 
-        sliderView.addEventListener('click', function() {
+        sliderView.addEventListener('click', function () {
             completedAnimation();
         });
 
@@ -843,7 +843,7 @@ function _Util() {
     | Walk through a given table and execute a function at a particular level
     |---------------------------------------------------------------------------------
     */
-    self.traverseTable = function(table, level, toExecute) {
+    self.traverseTable = function (table, level, toExecute) {
 
         var tableSections = table.data,
             tableSectionLength = tableSections.length,
