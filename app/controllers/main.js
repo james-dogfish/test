@@ -8,7 +8,7 @@ Alloy.Globals.tabGroup = $.tabGroup;
 var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 var localDataHandler = require('localDataHandler/localDataHandler');
 
-var interpreterModule = require('interpreter/interpreterModule');
+var interpreterModule = require('interpreter/interpreterModule2');
 
 var riskAssessmentsTab = $.riskAssessmentsTab;
 var questionRendererTab = $.questionRendererTab;
@@ -200,7 +200,7 @@ masterSearchTab.on("RefreshButtonClick", function (e) {
 function parseTrainData(xml_text) {
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         var localParser = require('parser/localParser');
-        var interpreter = require('interpreter/interpreterModule');
+        var interpreter = require('interpreter/interpreterModule2');
         localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
@@ -217,7 +217,7 @@ function parseTrainData(xml_text) {
 function parseCensusData(xml_text) {
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         var localParser = require('parser/localParser');
-        var interpreter = require('interpreter/interpreterModule');
+        var interpreter = require('interpreter/interpreterModule2');
         localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);

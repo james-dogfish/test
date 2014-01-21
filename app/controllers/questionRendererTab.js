@@ -2,7 +2,7 @@ var User = require('core/User');
 var userPreferences = User.getPreferences();
 var currentAssessmentObject = null;
 var localDataHandler = require('localDataHandler/localDataHandler');
-var interpreter = require('interpreter/interpreterModule');
+var interpreter = require('interpreter/interpreterModule2');
 var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 
 Alloy.Globals.questionRenderer =$.questionListView;
@@ -32,7 +32,7 @@ function backButtonClick(e) {
 {
 	if(xml_text!==null || typeof xml_text!=='undefined'){
 		var localParser = require('parser/localParser');
-		var interpreter = require('interpreter/interpreterModule');
+		var interpreter = require('interpreter/interpreterModule2');
 		localParser = new localParser();
 		
 		var data = localParser.getQuestions(xml_text);
