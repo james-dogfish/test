@@ -207,6 +207,8 @@ function parseTrainData(xml_text) {
 
         var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
+        
+        
 
     } else {
         alert("TrainParseData Failed");
@@ -240,9 +242,7 @@ function parseData(xml_text, detaildID, crossingID, riskMap) {
         var localDataHandler = require('localDataHandler/localDataHandler');
         curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, riskMap);
 
-        Alloy.Globals.aIndicator.hide();
-        $.tabGroup.setActiveTab(riskAssessmentsTab.getView());
-        riskAssessmentsTab.loadRiskAssessments();
+       
     } else {
         alert("Startup Failure: no xml text null or undefined");
 
@@ -334,10 +334,15 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
                                 localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-                                 Alloy.Globals.aIndicator.hide();
-               					 detailSearchTab.setData(crossingDetail);
+                                 //Alloy.Globals.aIndicator.hide();
+               					 //detailSearchTab.setData(crossingDetail);
                					 
-               					 
+               					 riskAssessmentsTab.loadRiskAssessments();
+               					 questionRendererTab.setAssessment(curAssObj);
+							     $.tabGroup.setActiveTab(questionRendererTab.getView());
+							    
+							     
+							      Alloy.Globals.aIndicator.hide();
                             },
                             function (xmlDoc) {
                                 var XMLTools = require("tools/XMLTools");

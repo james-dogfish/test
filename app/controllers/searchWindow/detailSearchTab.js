@@ -8,6 +8,7 @@ function backButtonClick(e) {
 };
 
 function onRowClick(e){
+		alert("detailSearchtab onRowClick");
 		$.trigger("assSelected",detailsData[e.index]);
 };
 
@@ -52,7 +53,8 @@ exports.setData = function(crossingObject) {
 							}
 							detailsData = assData;
 							$.tableViewDetails.setData(rowViewList);
-							Alloy.Globals.aIndicator.hide();
+							alert("here");
+       						Alloy.Globals.aIndicator.hide();
 					},
 					function(xmlDoc){
 						    var XMLTools = require("tools/XMLTools");
