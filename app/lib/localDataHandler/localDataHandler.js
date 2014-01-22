@@ -4,7 +4,7 @@
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 var versionID;
-var INDEX_FILE_VERSION_NUM = 5;
+var INDEX_FILE_VERSION_NUM = 6;
 
 function localDataHandler() {
     var self = this;
@@ -290,13 +290,16 @@ function localDataHandler() {
                 var newCensusFile = Ti.Filesystem.getFile(curUserDir.nativePath + newCensusFileName);
 
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
-
+				Ti.API.info("============================");
+				Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
+				Ti.API.info("============================");
                 //new interpreterModule
                 var newCensusQuestionSet = interpreterModule2.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
                     pageName: "Census " + savedAssessments[i].censusLastPageID,
                     pageID: savedAssessments[i].censusLastPageID,
-                    pageType: "census"
+                    pageType: "census",
+                    assessmentId: assessmentObject.assessmentID
                 });
 
                 newCensusFile.write(

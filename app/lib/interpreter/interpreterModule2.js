@@ -47,7 +47,7 @@ function interpreterModule2(){
 		order : "", 
 		associatedFileName : "", // file the question is in
 		
-		assessmentId: null,
+		assessmentId: "",
 		
 		notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 		notes : "",
