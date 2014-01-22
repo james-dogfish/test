@@ -24,4 +24,13 @@
 	bottom : "10dp",
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
 	color: '#000000'
+},
+"#crossingType" : {
+	width : Ti.UI.FILL,
+	height: "20dp",
+	top : "5dp",
+	left : "20dp",
+	bottom : "10dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
+	color: '#000000'
 }
