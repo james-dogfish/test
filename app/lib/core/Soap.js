@@ -445,7 +445,7 @@ var _Soap = function () {
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
-                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Train</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
                 enableWs: true
             });
@@ -474,7 +474,7 @@ var _Soap = function () {
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
-                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Train</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
                 enableWs: true
             });
