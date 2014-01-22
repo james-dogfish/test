@@ -88,18 +88,31 @@ var testIfQuesionIsVisable = function(question, changedQuestionName, changedQues
 //a compelete check if the question satisfies its render condtions
 var reevaluateQuestionIfQuestionIsVisable = function(question){
 
-	var searchedName = "";
-	var searchedValue = "";
+	var questionRef = null;
 	
 	for(var i=0; i < question.renderValue.length; i++){
 		
-		if(question.renderValue[i].name != searchedName){
-			searchedName = question.renderValue[i].name;
-			searchedValue = findQuestionsValue(question.renderValue[i].name);
-		}		
-
-		for(var valueIndex =0; valueIndex < searchedValue.length; valueIndex++){
-			if(question.renderValue[i].value == searchedValue[valueIndex]){
+		if(questionRef == null){
+			questionRef = findQuestionObject(question.renderValue[i].name);
+		}
+		else if(question.renderValue[i].name != questionRef.name){
+			questionRef = findQuestionObject(question.renderValue[i].name);
+		}
+		
+		if(questionRef == null){
+			Ti.API.info("reevaluateQuestionIfQuestionIsVisable = question not found");
+		}
+		
+		
+		if(question.renderValue[i].value == null){
+			if(questionRef.visable == true){
+				return true;
+			}
+		}
+		
+		for(var valueIndex =0; valueIndex < questionRef.value.length; valueIndex++){
+			Ti.API.info("renderValue = "+question.renderValue[i].value + ", question.value["+valueIndex+"] = "+questionRef.value[valueIndex]);
+			if(question.renderValue[i].value == questionRef.value[valueIndex]){
 				return true;
 			}
 		}
@@ -110,6 +123,8 @@ var reevaluateQuestionIfQuestionIsVisable = function(question){
 
 var findQuestion = function(questionName){
 	var sectionList = getAllQuestionSections();
+	
+	
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
 		
 		for(var questionIndex =0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++){
@@ -118,6 +133,30 @@ var findQuestion = function(questionName){
 			if(questionList[questionIndex].name ==questionName){
 				//return questionList[questionIndex].value;
 				return {question : questionList[questionIndex], questionIndex : questionIndex, section : sectionList[sectionIndex]};
+			}
+		}
+	}
+	return null;
+};
+
+var findQuestionObject = function(questionName){
+	
+	
+	for(var questionIndex=0; questionIndex < hiddenQuestions.length; questionIndex++){
+		if(hiddenQuestions[questionIndex].name ==questionName){
+			return hiddenQuestions[questionIndex];
+		}
+	}
+	
+	var sectionList = getAllQuestionSections();
+	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
+		
+		for(var questionIndex =0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++){
+			var questionList = sectionList[sectionIndex].getItems();
+				
+			if(questionList[questionIndex].name ==questionName){
+				//return questionList[questionIndex].value;
+				return questionList[questionIndex];
 			}
 		}
 	}

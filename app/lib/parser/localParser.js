@@ -164,6 +164,9 @@ function localParser() {
     };
 
     self.getRenderValueParamValue = function (render_value_tag) {
+    	if (typeof render_value_tag.parameterValue === "undefined") {
+    		return null;
+    	}
         return render_value_tag.parameterValue["#text"];
     };
 
