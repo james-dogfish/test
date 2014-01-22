@@ -403,6 +403,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
 });*/
 
 questionRendererTab.on("BackButtonClick", function (e) {
+	riskAssessmentsTab.loadRiskAssessments();
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
 questionRendererTab.on("openMenu", openMenu);

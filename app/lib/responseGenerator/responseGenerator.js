@@ -1,6 +1,7 @@
 function responseGenerator() {
     var self = this;
-
+	var localDataHandler = require('localDataHandler/localDataHandler');
+    
     self.toXml = function (v, name, ind) {
         var xml = "";
         if (v instanceof Array) {
@@ -220,36 +221,44 @@ function responseGenerator() {
 
         return xmlRequest;
     };
-
-    self.commitAllCompleted = function () {
-        var localDataHandler = require('localDataHandler/localDataHandler');
-        var activeAssessments = localDataHandler.getAllSavedAssessments();
-        for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
-            var sectionListAss = localDataHandler.openAssessment(activeAssessments[assessmentIndex]);
-            var sectionListCen = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex], 0);
-            var sectionListTra = localDataHandler.getAllCensusesOrTrains(activeAssessments[assessmentIndex], 1);
-
-            //if(testIfAssessmentIsComplete(questionList) == false)continue;  //just for testing...need to put back in!!!
-
-            var xmlCensusRequest = self.buildCensusResponse(sectionListCen, activeAssessments[assessmentIndex].crossingID, activeAssessments[assessmentIndex].detailID);
-            var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, activeAssessments[assessmentIndex].crossingID, activeAssessments[assessmentIndex].detailID);
-            var xmlRequest = self.buildAssessmentResponse(sectionListAss, activeAssessments[assessmentIndex].crossingID, activeAssessments[assessmentIndex].detailID);
-
-
-            //COMMIT CENSUS
+    
+    self.submitAss = function(assObj)
+    {     
+    	/*if(assObj.questionCount !== assObj.questionsCompleted)
+    	{
+    		Alloy.Globals.aIndicator.hide();
+    		return;
+    	}*/
+    	var sectionListAss = localDataHandler.getMainRiskAssessmentQuestions(assObj);
+        var sectionListCen = localDataHandler.getAllCensusesOrTrains(assObj, 0);
+        var sectionListTra = localDataHandler.getAllCensusesOrTrains(assObj, 1);
+        
+        var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
+        //Ti.API.info('1activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
+        var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
+       // Ti.API.info('2activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
+        var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID);
+		//Ti.API.info('3activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
+        
+        //COMMIT CENSUS
             Alloy.Globals.Soap.createCensus(xmlCensusRequest,
                 function (xmlDoc) {
+                	//Ti.API.info('4activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
                     var XMLTools = require("tools/XMLTools");
                     var xml = new XMLTools(xmlDoc);
                     var response = JSON.stringify(xml.toObject());
-                    Ti.API.info('createCensusRequest Success response >> ' + response);
-                    if (activeAssessments[assessmentIndex].isSubmitted === false) {
+                    //Ti.API.info('createCensusRequest Success response >> ' + response);
+                    //Ti.API.info('activeAssessments[assessmentIndex]='+JSON.stringify(activeAssessments[assessmentIndex]));
+                    if (assObj.isSubmitted === false) {
                     	 Alloy.Globals.Soap.createAssessment(xmlRequest,
 		                    function (xmlDoc) {
 		                        var XMLTools = require("tools/XMLTools");
 		                        var xml = new XMLTools(xmlDoc);
 		                        var response = JSON.stringify(xml.toObject());
-		
+		                        
+		                        assObj.alcrmStatus = "sent";
+								localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+								
 		                        Ti.API.info('createAssessment Success response >> ' + response);
 		                        Alloy.Globals.aIndicator.hide();
 		                    },function(){});
@@ -259,7 +268,10 @@ function responseGenerator() {
 		                        var XMLTools = require("tools/XMLTools");
 		                        var xml = new XMLTools(xmlDoc);
 		                        var response = JSON.stringify(xml.toObject());
-		
+								
+								assObj.alcrmStatus = "sent";
+								localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+								
 		                        Ti.API.info('createAssessment Success response >> ' + response);
 		                        Alloy.Globals.aIndicator.hide();
 		                    },function(){});
@@ -275,18 +287,19 @@ function responseGenerator() {
 					Ti.API.info('createTrainGroupRequest Success response >> ' + response);
 					
                     var assessmentForPDF = JSON.stringify(
-                        localDataHandler.createAssessmentPDFResponse(
-                            activeAssessments[assessmentIndex]
-                        )
+                        localDataHandler.createAssessmentPDFResponse(assObj)
                     );
 					
-					if (activeAssessments[assessmentIndex].isSubmitted === false) {
+					if (assObj.isSubmitted === false) {
                     	 Alloy.Globals.Soap.createAssessment(xmlRequest,
 		                    function (xmlDoc) {
 		                        var XMLTools = require("tools/XMLTools");
 		                        var xml = new XMLTools(xmlDoc);
 		                        var response = JSON.stringify(xml.toObject());
-		
+								
+								assObj.alcrmStatus = "sent";
+								localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+								
 		                        Ti.API.info('createAssessment Success response >> ' + response);
 		                        Alloy.Globals.aIndicator.hide();
 		                    },function(){});
@@ -297,14 +310,24 @@ function responseGenerator() {
 		                        var xml = new XMLTools(xmlDoc);
 		                        var response = JSON.stringify(xml.toObject());
 		
+								assObj.alcrmStatus = "sent";
+								localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+								
 		                        Ti.API.info('createAssessment Success response >> ' + response);
 		                        Alloy.Globals.aIndicator.hide();
 		                    },function(){});
                     }
                 }, function (xmlDoc) {}); //END OF COMMIT TRAIN INFO
-                
-        } //end for loop
-    }; //end self.committAllCompleted
+    };//end of test1
+
+    self.commitAllCompleted = function () {
+    	var activeAssessments = localDataHandler.getAllSavedAssessments();
+    	
+        Ti.API.info('activeAssessments='+JSON.stringify(activeAssessments));
+        for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
+        	self.submitAss(activeAssessments[assessmentIndex]);    	
+        }
+	};
 }
 
 module.exports = responseGenerator;

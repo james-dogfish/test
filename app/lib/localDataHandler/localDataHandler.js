@@ -4,7 +4,7 @@
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 var versionID;
-var INDEX_FILE_VERSION_NUM = 4;
+var INDEX_FILE_VERSION_NUM = 5;
 
 function localDataHandler() {
     var self = this;
@@ -57,6 +57,20 @@ function localDataHandler() {
     	//alert(Alloy.Globals.User.getLogin().username);
 		 var curUserDir = Alloy.Globals.User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
+		var savedAssessments = self.getAllSavedAssessments();
+		var refToSaveAssessmentIndex = null;
+		for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
+		{
+			Ti.API.info("question = "+ JSON.stringify(question));
+			Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
+			Ti.API.info("question.assesmentId = "+ question.assessmentId);
+
+			if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
+			{
+				refToSaveAssessmentIndex = savedAssementIndex;
+				break;
+			}
+		}
         var assessmentFile = Ti.Filesystem.getFile(curUserDir.nativePath + question.associatedFileName);
         if (assessmentFile.exists()) {
             var sectionList = JSON.parse(assessmentFile.read().text);
@@ -69,18 +83,41 @@ function localDataHandler() {
 
                     for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true; questionIndex++) {
                         if (sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
+                            
+                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
+                            var newQuestion =  question;
+                            
+                            if(oldQuestion.validation.mandatory === true)
+                            {
+                            	if(oldQuestion.value[0] === "" && newQuestion.value[0] !== "")
+                            	{
+                            		
+                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted++;
+                            	}else if(oldQuestion.value[0] !== "" && newQuestion.value[0] === "")
+                            	{
+                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
+                            	}
+                            	
+                            	
+                            }
+                                      
                             sectionList[sectionIndex].questionList[questionIndex] = question;
                             questionFound = true;
                         }
+              
+                        
                     }
                 }
+                
+                
             }
 
             if (questionFound == false) {
                 alert("updateQuestion : question not found ");
             }
 
-
+			self.updateSavedAssessments(savedAssessments);
+			
             assessmentFile.deleteFile();
             assessmentFile.write(JSON.stringify(sectionList));
 
@@ -182,6 +219,7 @@ function localDataHandler() {
             alcrmStatus: "not sent",
             notes: "",
             detailID: detailID,
+       
 			
 			isSubmitted: false,
             defaultCensusQuestions: [],
@@ -201,7 +239,8 @@ function localDataHandler() {
             associatedFileName: newAssessment.mainQuestionsfileName,
             pageName: "Risk Assessment",
             pageID: 0,
-            pageType: "riskAssessment"
+            pageType: "riskAssessment",
+            assessmentId: assessmentID
         });
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
@@ -468,7 +507,32 @@ function localDataHandler() {
         return false;
 
     };
+	
+	self.getMainRiskAssessmentQuestions = function (assessmentObject) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
+        var returnQuestionSet = [];
 
+        if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
+            alert("assessment file format is out of date, continued use of this assessment may cause errors");
+        }
+
+        assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
+
+
+        var assessmentFile = Ti.Filesystem.getFile(curUserDir.nativePath + assessmentObject.mainQuestionsfileName);
+        if (assessmentFile.exists()) {
+            var assessment = JSON.parse(assessmentFile.read().text);
+            returnQuestionSet = returnQuestionSet.concat(assessment);
+        }
+
+
+       
+        return returnQuestionSet;
+    };
 
     self.openAssessment = function (assessmentObject) {
     	
