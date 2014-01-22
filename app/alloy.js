@@ -25,6 +25,7 @@ Alloy.Globals.apm && Alloy.Globals.apm.init();
 // Alloy.Globals.someGlobalFunction = function(){};			
 Alloy.Globals.User = require('core/User');
 var User = Alloy.Globals.User;
+
 var Util = require('core/Util');
 Alloy.Measurement = require('alloy/measurement');
 var localParser = require('parser/localParser');

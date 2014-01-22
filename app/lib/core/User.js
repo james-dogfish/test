@@ -1,11 +1,11 @@
 // File deals with a User = an LCM
 function _User() {
 
-    var keychain = require('com.obscure.keychain'),
+    var /*keychain = require('com.obscure.keychain'),*/
         moment = require('alloy/moment'),
-        userKeychain = keychain.createKeychainItem('User'),
-        passKeychain = keychain.createKeychainItem('Pass'),
-        loginKeychain = keychain.createKeychainItem("LoggedIn");
+        userKeychain = null; // = keychain.createKeychainItem('User'),
+        passKeychain = null; // = keychain.createKeychainItem('Pass'),
+        loginKeychain = null; // = keychain.createKeychainItem("LoggedIn");
 
     	/*
 		|---------------------------------------------------------------------------------
@@ -14,6 +14,21 @@ function _User() {
 		*/
 
     userObject = {
+    	
+    	init: function () {
+    		if(Ti.App.Properties.hasOwnProperty('userKeychain'))
+    		{
+    			userKeychain = Ti.App.Properties.getString('userKeychain');
+    		}
+    		if(Ti.App.Properties.hasOwnProperty('passKeychain'))
+    		{
+    			passKeychain = Ti.App.Properties.getString('passKeychain');
+    		}
+    		if(Ti.App.Properties.hasOwnProperty('loginKeychain'))
+    		{
+    			loginKeychain = Ti.App.Properties.getBool('loginKeychain');
+    		}
+    	},
 
         setLoginTimestamp: function () {
             Ti.App.Properties.setString('lastLogin', moment().format('YYYY-MM-DD'));
@@ -51,14 +66,14 @@ function _User() {
             if (args.username && args.password && args.access && args.route) {
                 if (args.access !== 0 && args.route) {
                     // Log a user in
-                    userKeychain.valueData = args.username;
-                    passKeychain.valueData = args.password;
+                    userKeychain = Ti.App.Properties.setString('userKeychain',args.username);
+                    passKeychain = Ti.App.Properties.setString('passKeychain',args.password);
                     Ti.App.Properties.setString('LCM_ACCESS', args.access);
                     Ti.App.Properties.setString('LCM_ROUTE', args.route);
                     Ti.App.Properties.setString('LCM_ID', 0/*TODO: add user ID here*/);
                     that.setLoginTimestamp(); // Recording login time
                     if (success) {
-                        loginKeychain.valueData = "true";
+                        loginKeychain = Ti.App.Properties.setBool("loginKeychain",true);
                         success(args);
                     } else {
                         return true;
@@ -89,12 +104,13 @@ function _User() {
 
         getLogin: function () {
             var toReturn = {
-                username: userKeychain.valueData,
-                password: passKeychain.valueData,
+                username: Ti.App.Properties.getString('userKeychain'),
+                password: Ti.App.Properties.getString('passKeychain'),
                 route: Ti.App.Properties.getString('LCM_ROUTE', null),
                 access: Ti.App.Properties.getString('LCM_ACCESS', null),
                 lcmId: Ti.App.Properties.getString('LCM_ID', null),
             };
+            //alert("getLogin >> "+JSON.stringify(toReturn));
             return toReturn;
         },
 
@@ -105,7 +121,7 @@ function _User() {
 			*/
 
         isLoggedIn: function () {
-            if (userKeychain.valueData && loginKeychain.valueData && passKeychain.valueData &&
+            if (Ti.App.Properties.getBool("loginKeychain") &&
                 Ti.App.Properties.getString('LCM_ROUTE', null) !== null) {
                 return true;
             } else {
@@ -126,7 +142,7 @@ function _User() {
         },
         
         getUserDir: function () {
-           return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
+           return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
         },
 
         	/*
@@ -148,7 +164,7 @@ function _User() {
 		     };
 		     
              
-             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
+             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
 				Ti.API.info("Created User Directory: " + UserDir.createDirectory());
 				Ti.API.info('UserDir ' + UserDir);
 				var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
@@ -171,7 +187,7 @@ function _User() {
                 email: Ti.App.Properties.getString('userEmail', ''),
                 singleView: Ti.App.Properties.getBool('userSingleView', false)
             };*/
-            var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
+            var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
             var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
             //alert(UserDir.nativePath);
 			 if (!UserFile.exists()) {
@@ -249,11 +265,16 @@ function _User() {
 			|---------------------------------------------------------------------------------
 			*/
         logOut: function () {
-            loginKeychain.reset();
+            Ti.App.Properties.removeProperty('loginKeychain');
+             Ti.App.Properties.removeProperty('userKeychain');
+              Ti.App.Properties.removeProperty('passKeychain');
+           // userKeychain.reset();
+           // passKeychain.reset();
+            //this = null;
         },
 
         offlineLogin: function (data) {
-            if (data.username == userKeychain.valueData && data.password == passKeychain.valueData) {
+            if (data.username == userKeychain && data.password == passKeychain) {
                 return true;
             } else {
                 return false;
@@ -261,7 +282,7 @@ function _User() {
         },
 
         activeUser: function () {
-            return (userKeychain.valueData) ? true : false;
+            return (userKeychain) ? true : false;
         }
     };
 

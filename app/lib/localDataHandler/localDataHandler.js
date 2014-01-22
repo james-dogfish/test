@@ -10,10 +10,12 @@ function localDataHandler() {
     var self = this;
 	
     var interpreterModule2 = require('interpreter/interpreterModule2');
-    alert(Alloy.Globals.User.getLogin().username);
-	var curUserDir = Alloy.Globals.User.getUserDir();
-	//alert("curUserDir = "+curUserDir.nativePath);
+   
     self.clearAllSavedAssessments = function () {
+    	 //alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+	
         var indexFile = Ti.Filesystem.getFile(curUserDir.nativePath + "assessmentIndex.json");
         var savedAssessments = [];
         if (!indexFile.exists()) {
@@ -31,6 +33,8 @@ function localDataHandler() {
     };
 
     self.getAllSavedAssessments = function () {
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		// alert("curUserDir = "+curUserDir.nativePath);
         var indexFile = Ti.Filesystem.getFile(curUserDir.nativePath + "assessmentIndex.json");
         if (indexFile.exists()) {
             indexFileContents = indexFile.read().text;
@@ -41,12 +45,18 @@ function localDataHandler() {
     };
 
     self.updateSavedAssessments = function (savedAssessments) {
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
         var indexFile = Ti.Filesystem.getFile(curUserDir.nativePath + "assessmentIndex.json");
         indexFile.write(JSON.stringify(savedAssessments));
         return true;
     };
 
     self.updateQuestion = function (question) {
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
         var assessmentFile = Ti.Filesystem.getFile(curUserDir.nativePath + question.associatedFileName);
         if (assessmentFile.exists()) {
             var sectionList = JSON.parse(assessmentFile.read().text);
@@ -81,6 +91,7 @@ function localDataHandler() {
     };
 
     self.updateSingleAssessmentIndexEntry = function (assessmentObject) {
+    	
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -92,6 +103,9 @@ function localDataHandler() {
     };
 
     self.updateQuestionWithUserNotes = function (fileName, question) {
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
         var assessmentFile = Ti.Filesystem.getFile(curUserDir.nativePath + fileName);
         if (assessmentFile.exists()) {
 
@@ -137,7 +151,10 @@ function localDataHandler() {
     };
     
     self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, riskMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
-
+		//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
         var savedAssessments = self.getAllSavedAssessments();
 
         var mandatoryQuestionCount = 0;
@@ -219,6 +236,11 @@ function localDataHandler() {
     };
 
     self.addNewCensusToAssessment = function (assessmentObject, censusMap) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -255,6 +277,12 @@ function localDataHandler() {
     };
 
     self.createAssessmentPDFResponse = function (assessmentObject) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
+		 
         var returnQuestionObj = {
             mainQuestionSet: new Array(),
             individualCensusList: [],
@@ -292,6 +320,12 @@ function localDataHandler() {
 
 
     self.addNewTrainGroupToAssessment = function (assessmentObject, trainGroupMap) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
+		 
         var savedAssessments = self.getAllSavedAssessments();
 
 
@@ -327,6 +361,11 @@ function localDataHandler() {
     };
 
     self.removeAssessment = function (assessmentObject) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -350,6 +389,10 @@ function localDataHandler() {
 
 
     self.getAllCensusesOrTrains = function (assessmentObject, type) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
 
         var getAllData = [];
 
@@ -403,6 +446,10 @@ function localDataHandler() {
     };
 
     self.deleteAssociatedFileNameFromAssessment = function (assessmentObject, associatedFileName) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
 
@@ -424,6 +471,11 @@ function localDataHandler() {
 
 
     self.openAssessment = function (assessmentObject) {
+    	
+    	//alert(Alloy.Globals.User.getLogin().username);
+		 var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
         var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {

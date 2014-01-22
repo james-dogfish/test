@@ -1,6 +1,6 @@
 // Get orientation on load to assign right bg image
 // get max width and height
-var User = require('core/User');
+var User = Alloy.Globals.User; //require('core/User');
 var Util = require('core/Util');
 
 var pWidth = Ti.Platform.displayCaps.platformWidth,
