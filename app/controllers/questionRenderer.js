@@ -291,6 +291,29 @@ var removeHiddenQuestions = function(JASON_sectionList){
 	return JASON_sectionList;
 };
 
+var setupSelectedQuestion = function(){
+	
+	for(var sectionIndex= 0 ; sectionIndex <allSections.length; sectionIndex++){
+		var questionList = allSections[sectionIndex].getItems();
+		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+			if(questionList[questionIndex].selected == true){
+				selectQuestion(questionList[questionIndex]);
+				return;
+			}
+		}
+	}
+	
+	
+	if(allSections.length > 0){
+		//questionSelected.groupType = sectionList[0].groupType;
+		var questionList = allSections[0].getItems();
+		if(questionList > 0){
+			//questionSelected = questionList[0];
+			selectQuestion(questionList[0]);
+		}
+	}
+};
+
 exports.setAssessment = function(JASON_sectionList, assessmentObject){
 	currentAssessmentObject = assessmentObject;
 	
@@ -316,15 +339,9 @@ exports.setAssessment = function(JASON_sectionList, assessmentObject){
 	userPreferences = User.getPreferences();
 	setListViewDisplayTypeToSingleSections(userPreferences.singleView);
 
-	
+	setupSelectedQuestion();
 	//setup questionSelected to be the first question
-	if(sectionList.length > 0){
-		//questionSelected.groupType = sectionList[0].groupType;
-		var questionList = sectionList[0].getItems();
-		if(questionList > 0){
-			questionSelected = questionList[0];
-		}
-	}
+	
 
 };
 
@@ -1001,6 +1018,7 @@ var selectQuestion = function(newQuestionSelected){
 		var questionRef = findQuestionsRef(sectionList, questionSelected.name);
 		if(questionRef != null){
 			questionRef.question.headerView = {backgroundColor : "#eee"};
+			questionRef.question.selected = false;
 			questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 			
 			localDataHandler.updateQuestion(questionRef.question);
@@ -1017,6 +1035,7 @@ var selectQuestion = function(newQuestionSelected){
 	var questionRef = findQuestionsRef(sectionList, questionSelected.name);
 	if(questionRef != null){
 		questionRef.question.headerView = {backgroundColor : "#A1F7B6"};
+		questionRef.question.selected = true;
 		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 		newQuestionSelected = questionRef.question;
 		localDataHandler.updateQuestion(questionRef.question);

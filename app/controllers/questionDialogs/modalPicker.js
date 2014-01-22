@@ -41,7 +41,8 @@ var closeWindow = function(){
 };
 
 function onBackgroundClick(e){
-	closeWindow();
+	$.modalBackgorund.animate(animationClose);
+	$.background.animate(animationFadeOut);
 }
 
 function rightNavButtonClick(e){
