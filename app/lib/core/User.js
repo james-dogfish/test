@@ -148,15 +148,16 @@ function _User() {
 		     };
 		     
              
-             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,object.name.replace(/ /g,''));
+             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
 				Ti.API.info("Created User Directory: " + UserDir.createDirectory());
 				Ti.API.info('UserDir ' + UserDir);
 				var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
 				
-				
+				newFile.createFile();
+				//newFile.write(JSON.stringify(UserObj));
 				if (newFile.exists()){
-					newFile.deleteFile();
-					newFile.createFile();
+					//newFile.deleteFile();
+					
 				    newFile.write(JSON.stringify(UserObj));
 				    Ti.API.info('userFile: '+newFile.read());
 				}    
@@ -172,7 +173,7 @@ function _User() {
             };*/
             var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
             var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
-           
+            //alert(UserDir.nativePath);
 			 if (!UserFile.exists()) {
 		          return {};
 		     } 
@@ -189,7 +190,7 @@ function _User() {
 
         hasPreferences: function () {
             var prefHash = this.getPreferences();
-            alert(JSON.stringify(prefHash));
+            //alert(JSON.stringify(prefHash));
             if (prefHash.name && prefHash.mobile && prefHash.email) {
                 return true;
             } else {

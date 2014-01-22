@@ -10,8 +10,9 @@ function localDataHandler() {
     var self = this;
 	
     var interpreterModule2 = require('interpreter/interpreterModule2');
+    alert(Alloy.Globals.User.getLogin().username);
 	var curUserDir = Alloy.Globals.User.getUserDir();
-	alert("curUserDir = "+curUserDir.nativePath);
+	//alert("curUserDir = "+curUserDir.nativePath);
     self.clearAllSavedAssessments = function () {
         var indexFile = Ti.Filesystem.getFile(curUserDir.nativePath + "assessmentIndex.json");
         var savedAssessments = [];

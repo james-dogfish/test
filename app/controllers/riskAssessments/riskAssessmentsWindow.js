@@ -16,7 +16,7 @@ var activeAssessments = [];
 var openMenu = function() {
 
 	// Check whether settings are filled 
-	if (!User.hasPreferences()) {
+	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message: true
@@ -82,8 +82,8 @@ var openMenu = function() {
 			Alloy.Globals.tabGroup.close();
 			loginView = Alloy.createController('index').getView();
 			loginView.open();
-			User.logOut();
-			User = null;
+			Alloy.Globals.User.logOut();
+			//Alloy.Globals.User = null;
 			Ti.API.info("User object after logging out = "+JSON.stringify(User));
 		}
 	});
