@@ -171,13 +171,24 @@ var SudsClient = function(_options) {
       var error_code = null;
       var error_message = null;
       var error_stacktrace = null;
-      if(typeof error_object === "undefined")
+      if(typeof error_object === "undefined" || 
+      	typeof error_object["soapenv:Body"] === "undefined" ||
+      	typeof error_object["soapenv:Body"]["soapenv:Fault"] === "undefined" ||
+      	typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] === "undefined")
       {
-      	
+      		error_code = "0";
+      		error_message = JSON.stringify(error_object);
+      		error_stacktrace = "";
+      		if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["faultstring"] !=="undefined")
+      		{
+      			error_message = error_object["soapenv:Body"]["soapenv:Fault"]["faultstring"];
+      			error_code = "General Error";
+      		}
       }else{
-      	error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-      	error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
-      	error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+  
+      		error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+      		error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
+      		error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
       }
       
       var alert = Titanium.UI.createAlertDialog({
