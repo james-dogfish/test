@@ -10,6 +10,9 @@ Ti.API.info("com.appcelerator.apm module is not available");
 
 // Initialize the module if it is defined
 Alloy.Globals.apm && Alloy.Globals.apm.init();
+
+
+Alloy.Globals.animationDuration = 300;
 // END: APM code injection
 
 // The contents of this file will be executed before any of

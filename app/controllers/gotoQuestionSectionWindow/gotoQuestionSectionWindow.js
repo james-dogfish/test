@@ -14,23 +14,23 @@ var leftPostionClosed = "-50%";
 $.gotoDisplayView.width = gotoDisplayViewWidth;
 $.gotoDisplayView.left = leftPostionClosed;
 
-var animationDuration = 700;
+
 
 var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
-animationFadeIn.duration = animationDuration;
+animationFadeIn.duration = Alloy.Globals.animationDuration;
 
 var animationFadeOut = Titanium.UI.createAnimation();
 animationFadeOut.opacity = 0;
-animationFadeOut.duration = animationDuration;
+animationFadeOut.duration = Alloy.Globals.animationDuration;
 
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "0dp";
-animationOpen.duration = animationDuration;
+animationOpen.duration = Alloy.Globals.animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
 animationClose.left = leftPostionClosed;
-animationClose.duration = animationDuration;
+animationClose.duration = Alloy.Globals.animationDuration;
 var closeAnimationHandler = function() {
 	closeing= false;
 	$.win.close();
