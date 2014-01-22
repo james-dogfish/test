@@ -59,11 +59,11 @@ exports.setData = function() {
 				                		type = "undefined";
 				                	}
 				                	else if(crossingDetailsSearchResult instanceof Array){
-				                		Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
+				                		//Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
 				                		var type = crossingDetailsSearchResult[0]["ns6:type"];
 				                	}
 				                	else{
-				                		Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
+				                		//Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
 				                		var type = crossingDetailsSearchResult["ns6:type"];
 				                	}
 				                	
