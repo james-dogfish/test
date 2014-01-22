@@ -243,11 +243,12 @@ function parseCensusData(xml_text) {
 };
 
 function parseData(xml_text, detaildID, crossingID, riskMap) {
+	
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         var localParser = require('parser/localParser');
         localParser = new localParser();
         var questionsData = localParser.getQuestions(xml_text);
-		if(typeof data === "undefined")
+		if(typeof questionsData === "undefined")
 		{
 			alert("Sorry, this crossing has no questions!");
 			Alloy.Globals.aIndicator.hide();
@@ -364,7 +365,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
 		               					 	alert("Issue with webservice. Please retry.");
 		               					 	
 		               					 }else{
-		               					 	 riskAssessmentsTab.loadRiskAssessments();
+		               					 	riskAssessmentsTab.loadRiskAssessments();
 		               					 	questionRendererTab.setAssessment(curAssObj);
 									     	$.tabGroup.setActiveTab(questionRendererTab.getView());	
 		               					 }

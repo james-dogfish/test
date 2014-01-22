@@ -49,7 +49,7 @@ function interpreterModule2(){
 		
 		notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 		notes : "",
-		
+		selected : false,
 		value : [""],// a list of all values set for this question
 		renderValue : [], // a list of condtions if the question is visable
 		selections : [], // a list of possible values for the question
@@ -187,6 +187,7 @@ function interpreterModule2(){
 			
 			notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 			notes : "",
+			selected : false,
 			
 			value : [""],// a list of all values set for this question
 			renderValue : questionRenderValues, // a list of condtions if the question is visable
