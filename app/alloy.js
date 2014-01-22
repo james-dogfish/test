@@ -23,7 +23,8 @@ Alloy.Globals.apm && Alloy.Globals.apm.init();
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};			
-var User = require('core/User');
+Alloy.Globals.User = require('core/User');
+var User = Alloy.Globals.User;
 var Util = require('core/Util');
 Alloy.Measurement = require('alloy/measurement');
 var localParser = require('parser/localParser');
@@ -57,7 +58,7 @@ var startup = function(){
         mainView.open();
         
 		// Check whether settings are filled 
-		if (!User.hasPreferences()) {
+		if (!Alloy.Globals.User.hasPreferences()) {
 				// Open setting screen
 				var userSettings = Alloy.createController('userSettings', {
 					message: true
@@ -69,7 +70,7 @@ var startup = function(){
 };
 Ti.App.addEventListener('fireStartup',startup);
 
-if (User.isLoggedIn() && !User.isLoginExpired()) {
+if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
 		//Alloy.Globals.Util.showAlert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}

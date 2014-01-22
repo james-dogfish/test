@@ -45,15 +45,15 @@ Alloy.Globals.Soap.searchCensus(
          	//  (3) SET valueList = [{displayValue : "Census 2", value : 1}, {displayValue : "Census 2", value : 2}, {displayValue : "Census 3", value : 3}, {displayValue : "Census 4", value : 4}];
 			//	(4) SET currentValue = valueList[0];
 			/*	(5) var data = [];
-				for(var i=0;i<valueList.length;i++){
-					data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }
-					));
-				}
+			//	for(var i=0;i<valueList.length;i++){
+			//		data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }
+			//		));
+			//	}
 			*/
          	Alloy.Globals.aIndicator.hide();
          }
 	},
-	function(xmlDoc){
+	function(xmlDoc){ /**handled by Suds2_fat error message - so no need to put anything here**/
 	});
 						
 						

@@ -83,6 +83,8 @@ var openMenu = function() {
 			loginView = Alloy.createController('index').getView();
 			loginView.open();
 			User.logOut();
+			User = null;
+			Ti.API.info("User object after logging out = "+JSON.stringify(User));
 		}
 	});
 };

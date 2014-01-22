@@ -55,6 +55,7 @@ function _User() {
                     passKeychain.valueData = args.password;
                     Ti.App.Properties.setString('LCM_ACCESS', args.access);
                     Ti.App.Properties.setString('LCM_ROUTE', args.route);
+                    Ti.App.Properties.setString('LCM_ID', 0/*TODO: add user ID here*/);
                     that.setLoginTimestamp(); // Recording login time
                     if (success) {
                         loginKeychain.valueData = "true";
@@ -91,7 +92,8 @@ function _User() {
                 username: userKeychain.valueData,
                 password: passKeychain.valueData,
                 route: Ti.App.Properties.getString('LCM_ROUTE', null),
-                access: Ti.App.Properties.getString('LCM_ACCESS', null)
+                access: Ti.App.Properties.getString('LCM_ACCESS', null),
+                lcmId: Ti.App.Properties.getString('LCM_ID', null),
             };
             return toReturn;
         },
@@ -122,6 +124,10 @@ function _User() {
                 return Ti.App.Properties.getString('LCM_ROUTE', null);
             }
         },
+        
+        getUserDir: function () {
+           return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
+        },
 
         	/*
 			|---------------------------------------------------------------------------------
@@ -130,24 +136,60 @@ function _User() {
 			*/
 
         setPreferences: function (object) {
-            Ti.App.Properties.setString('userName', object.name);
+            /*Ti.App.Properties.setString('userName', object.name);
             Ti.App.Properties.setString('userEmail', object.email);
             Ti.App.Properties.setString('userMobile', object.mobile);
-            Ti.App.Properties.setBool('userSingleView', object.singleView);
-        },
+            Ti.App.Properties.setBool('userSingleView', object.singleView);*/
+             var UserObj = {
+		     	userName: object.name,
+		     	userEmail: object.email,
+		     	userMobile: object.mobile,
+		     	userSingleView: object.singleView
+		     };
+		     
+             
+             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,object.name.replace(/ /g,''));
+				Ti.API.info("Created User Directory: " + UserDir.createDirectory());
+				Ti.API.info('UserDir ' + UserDir);
+				var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
+				
+				
+				if (newFile.exists()){
+					newFile.deleteFile();
+					newFile.createFile();
+				    newFile.write(JSON.stringify(UserObj));
+				    Ti.API.info('userFile: '+newFile.read());
+				}    
+		     //userPrefs.write(JSON.stringify(UserObj));			    
+		},
 
         getPreferences: function () {
-            var settingsObj = {
+            /*var settingsObj = {
                 name: Ti.App.Properties.getString('userName', ''),
                 mobile: Ti.App.Properties.getString('userMobile', ''),
                 email: Ti.App.Properties.getString('userEmail', ''),
                 singleView: Ti.App.Properties.getBool('userSingleView', false)
+            };*/
+            var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,userKeychain.valueData.replace(/ /g,''));
+            var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
+           
+			 if (!UserFile.exists()) {
+		          return {};
+		     } 
+    		//alert(UserFile.read().text);
+    		var UserObj = JSON.parse(UserFile.read().text);
+    		
+            return {
+            	name: UserObj.userName,
+            	mobile: UserObj.userMobile,
+            	email:UserObj.userEmail,
+            	singleView:UserObj.userSingleView
             };
-            return settingsObj;
         },
 
         hasPreferences: function () {
             var prefHash = this.getPreferences();
+            alert(JSON.stringify(prefHash));
             if (prefHash.name && prefHash.mobile && prefHash.email) {
                 return true;
             } else {
@@ -156,15 +198,33 @@ function _User() {
         },
 
         getEmail: function () {
-            return Ti.App.Properties.getString('userEmail', '');
+        	var prefHash = this.getPreferences();
+            if (prefHash.email) {
+                return prefHash.email;
+            } else {
+                return false;
+            }
+            //return Ti.App.Properties.getString('userEmail', '');
         },
 
         getName: function () {
-            return Ti.App.Properties.getString('userName', '');
+        	var prefHash = this.getPreferences();
+            if (prefHash.name) {
+                return prefHash.name;
+            } else {
+                return false;
+            }
+            //return Ti.App.Properties.getString('userName', '');
         },
 
         getMobile: function () {
-            return Ti.App.Properties.getString('userMobile', '');
+        	var prefHash = this.getPreferences();
+            if (prefHash.mobile) {
+                return prefHash.mobile;
+            } else {
+                return false;
+            }
+            //return Ti.App.Properties.getString('userMobile', '');
         },
 
         	/*
@@ -173,7 +233,13 @@ function _User() {
 			|---------------------------------------------------------------------------------
 			*/
         prefersSingleView: function () {
-            return Ti.App.Properties.getBool('userSingleView', false);
+        	var prefHash = this.getPreferences();
+            if (prefHash.singleView) {
+                return prefHash.singleView;
+            } else {
+                return false;
+            }
+            //return Ti.App.Properties.getBool('userSingleView', false);
         },
 
         	/*
