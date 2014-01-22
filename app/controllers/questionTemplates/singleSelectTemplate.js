@@ -25,7 +25,20 @@ function selectButtonClicked(e){
 	       
 	    item.questionResponse = questionResponse;
 	
+		var showSpiner = false;
+		var activityIndicator;
+		if(item.debugQuestionDependencyList.length > 0){
+			showSpiner = true;
+			activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
+			activityIndicator.show();
+		}
+		
+		
 		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		
+		if(showSpiner == true){
+			activityIndicator.hide();
+		}
 		/*
 		Ti.App.fireEvent("questionValueChange", {
 			item : item,
