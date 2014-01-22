@@ -15,7 +15,7 @@ function selectButtonClicked(e){
 	
 	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
-		item.value = [data.displayValue];
+		item.value = [data.value];
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, valueString);
 		

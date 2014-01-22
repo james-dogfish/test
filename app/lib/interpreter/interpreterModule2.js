@@ -91,17 +91,18 @@ function interpreterModule2(){
 		for(var i=0;i<allRenderValues.length;i++){
 			
 			dependencieName = passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]);
+			dependencieValue = Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i]);
 
 			if(typeof renderDependenciesMap[dependencieName] === "undefined"){
 				renderDependenciesMap[dependencieName] = [];
 			}
-			
 			renderDependenciesMap[dependencieName].push(passObject.pageID + Alloy.Globals.localParser.getQuestionName(question));
+			
 			
 			questionRenderValues.push(
 				{
 					name : dependencieName,
-					value : Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i])
+					value : dependencieValue
 				});
 		}
 		
