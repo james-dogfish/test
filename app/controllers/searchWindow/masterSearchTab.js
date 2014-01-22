@@ -49,10 +49,31 @@ exports.setData = function() {
 			                }else{
 				                for(var i=0; i<results.length; i++)
 				                {
+				                	//Ti.API.info("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
 				                	
+
+									var crossingDetailsSearchResult = results[i]["ns6:crossingDetailsSearchResult"];
+									var type = "";
+				                	if (typeof crossingDetailsSearchResult === "undefined") {
+				                		
+				                		type = "undefined";
+				                	}
+				                	else if(crossingDetailsSearchResult instanceof Array){
+				                		Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
+				                		var type = crossingDetailsSearchResult[0]["ns6:type"];
+				                	}
+				                	else{
+				                		Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
+				                		var type = crossingDetailsSearchResult["ns6:type"];
+				                	}
+				                	
+				                	
+				                	
+				                	//alert("stop");
 				                	crossingData.push({
 				                		name: results[i]["ns6:name"],
-				                		id:   results[i]["ns5:id"]
+				                		id:   results[i]["ns5:id"],
+				                		type : type
 				                	});
 				                }
 				                var data = [];

@@ -3,6 +3,9 @@
         <View id="viewGroup">
         	<Label id="crossingName"/>
         	<Label id="crossingElr"/>
+        	
+        	<Label id="crossingType"/>
+        	
 		</View>
     </TableViewRow>
 </Alloy>
