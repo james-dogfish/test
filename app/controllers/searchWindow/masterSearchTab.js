@@ -90,7 +90,7 @@ exports.setData = function() {
 						    var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                Alloy.Globals.aIndicator.hide();
-			                alert('searchCrossingRequest Error response >> ' + xml.toJSON());
+			                //alert('searchCrossingRequest Error response >> ' + xml.toJSON());
 					});
 	}
 };

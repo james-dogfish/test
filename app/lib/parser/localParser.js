@@ -10,7 +10,7 @@ function localParser() {
             doc = XMLTools.xmlToJson(XMLTools.getDocument());
         } else {
             Ti.API.error("[localParser Err: ] File does not exists");
-            alert("xmltext is null");
+            //alert("xmltext is null");
 
         }
 

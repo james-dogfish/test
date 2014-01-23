@@ -82,7 +82,7 @@ function onTextFieldFocus(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
+		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	Ti.App.fireEvent("questionSelected", {
@@ -94,6 +94,6 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
-	alert("name = "+item.name);
+	//alert("name = "+item.name);
 }
 

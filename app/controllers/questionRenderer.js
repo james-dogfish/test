@@ -54,7 +54,7 @@ var findQuestionsRef= function(sectionList, questionName){
 			}
 		}
 	}
-	alert("not found " +questionName);
+	//alert("not found " +questionName);
 	return null;
 };
 
@@ -473,7 +473,7 @@ exports.goToFirstUnanswered = function(){
 		for(var questionIndex =0; questionIndex < questionList.length; questionIndex++ ){
 			if(questionList[questionIndex].value[0] == ""){
 				
-				alert("unanswered question name = "+questionList[questionIndex].name);
+				//alert("unanswered question name = "+questionList[questionIndex].name);
 				
 				selectQuestion(questionList[questionIndex]);
 				
@@ -988,7 +988,7 @@ Ti.App.addEventListener("startCensesTimer", function(questionValueChange){
 	
 	var questionRef = findQuestion(I_DURATION);
 	if(questionRef == null){
-		alert("I_DURATION not found");
+		//alert("I_DURATION not found");
 		return;
 	}
 	

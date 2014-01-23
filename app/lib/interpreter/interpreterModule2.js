@@ -86,7 +86,7 @@ function interpreterModule2() {
         if (type in ui_types_map) {
             templateType = ui_types_map[type];
         } else {
-            alert("question_type_key " + question_type_key);
+            //alert("question_type_key " + question_type_key);
             return null;
         }
 

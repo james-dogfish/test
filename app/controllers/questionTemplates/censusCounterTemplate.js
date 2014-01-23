@@ -34,7 +34,7 @@ function onTextFieldFocus(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
+		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	

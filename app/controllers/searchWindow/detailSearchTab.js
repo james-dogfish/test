@@ -8,7 +8,7 @@ function backButtonClick(e) {
 };
 
 function onRowClick(e){
-		alert("detailSearchtab onRowClick");
+		//alert("detailSearchtab onRowClick");
 		$.trigger("assSelected",detailsData[e.index]);
 };
 
@@ -53,14 +53,14 @@ exports.setData = function(crossingObject) {
 							}
 							detailsData = assData;
 							$.tableViewDetails.setData(rowViewList);
-							alert("here");
+							//alert("here");
        						Alloy.Globals.aIndicator.hide();
 					},
 					function(xmlDoc){
 						    var XMLTools = require("tools/XMLTools");
 			                var xml = new XMLTools(xmlDoc);
 			                Alloy.Globals.aIndicator.hide();
-			                alert('searchAssessment Error response >> ' + xml.toJSON());
+			                //alert('searchAssessment Error response >> ' + xml.toJSON());
 					});
 	
 	

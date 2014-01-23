@@ -3,7 +3,7 @@ function onTextFieldBlur(e){
 	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldBlur item was undefined");
+		//alert("in textFieldTemplate.onTextFieldBlur item was undefined");
 		return;
 	}
 	var section = e.section; 
@@ -82,7 +82,7 @@ function onTextFieldFocus(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
+		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
@@ -97,6 +97,6 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
-	alert("name = "+item.order);
+	//alert("name = "+item.order);
 }
 

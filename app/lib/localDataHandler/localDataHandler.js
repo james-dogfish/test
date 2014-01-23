@@ -61,9 +61,9 @@ function localDataHandler() {
 		var refToSaveAssessmentIndex = null;
 		for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 		{
-			Ti.API.info("question = "+ JSON.stringify(question));
-			Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
-			Ti.API.info("question.assesmentId = "+ question.assessmentId);
+			//Ti.API.info("question = "+ JSON.stringify(question));
+			//Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
+			//Ti.API.info("question.assesmentId = "+ question.assessmentId);
 
 			if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
 			{
@@ -113,7 +113,7 @@ function localDataHandler() {
             }
 
             if (questionFound == false) {
-                alert("updateQuestion : question not found ");
+                //alert("updateQuestion : question not found ");
             }
 
 			self.updateSavedAssessments(savedAssessments);
@@ -290,9 +290,9 @@ function localDataHandler() {
                 var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID + "CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(curUserDir.nativePath + newCensusFileName);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
-				Ti.API.info("============================");
-				Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
-				Ti.API.info("============================");
+			//	Ti.API.info("============================");
+				//Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
+				//Ti.API.info("============================");
                 //new interpreterModule
               
                 var newCensusQuestionSet = interpreterModule2.interpret(savedAssessments[i].defaultCensusQuestions, {
@@ -448,7 +448,7 @@ function localDataHandler() {
                 //read each file here
                 var currentCensusFile = Ti.Filesystem.getFile(curUserDir.nativePath + censusQuestionsfileNameList[i]);
                 if (!currentCensusFile.exists) {
-                    Ti.API.error("Line 352 localDataHandler.js - cant open currentCensusfile " + censusQuestionsfileNameList[i]);
+                    //Ti.API.error("Line 352 localDataHandler.js - cant open currentCensusfile " + censusQuestionsfileNameList[i]);
                 } else {
                     var currentContents = currentCensusFile.read().text;
                     getAllData.push(
@@ -463,7 +463,7 @@ function localDataHandler() {
                 //read each file here
                 var currentTrainFile = Ti.Filesystem.getFile(curUserDir.nativePath + trainGroupQuestionsfileNameList[i]);
                 if (!currentTrainFile.exists) {
-                    Ti.API.error("Line 367 localDataHandler.js - cant open currentTrainfile " + trainGroupQuestionsfileNameList[i]);
+                    //Ti.API.error("Line 367 localDataHandler.js - cant open currentTrainfile " + trainGroupQuestionsfileNameList[i]);
                 } else {
                     var currentContents = currentTrainFile.read().text;
                     getAllData.push(
