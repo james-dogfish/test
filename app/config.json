@@ -1,5 +1,5 @@
 {
-	"global": {}, 
+	"global": {"debug":false}, 
 	"env:development": {}, 
 	"env:test": {}, 
 	"env:production": {}, 

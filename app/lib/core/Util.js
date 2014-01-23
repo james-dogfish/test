@@ -710,6 +710,16 @@ function _Util() {
         };
 
     };
+    
+    self.showDebugAlert = function(message)
+    {
+    	var isDebugOn = require('alloy').CFG.debug;
+    	
+    	if(isDebugOn)
+    	{
+    		alert(message);
+    	}
+    };
 
     self.showAlert = function (message, callback) {
         var alert = Titanium.UI.createAlertDialog({

@@ -51,6 +51,7 @@ var getValidator = function()
 
 
 var startup = function(){
+		Util.showDebugAlert("DEBUG ALERTS IS ON");
 		Alloy.Globals.aIndicator.show('Starting up...');
 		getValidator();
 
