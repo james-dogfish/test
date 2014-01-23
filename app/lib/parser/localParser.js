@@ -42,7 +42,13 @@ function localParser() {
     };
 
     self.getQuestionGroup = function (question) {
-        return question.group["#text"];
+    	if(typeof question !=="undefined")
+    	{
+    		//alert("self.getQuestionGroup >> " + JSON.stringify(question));
+       		return question.group["#text"];
+    	}
+    	return "";
+    	
     };
     self.getQuestionMandatory = function (question) {
         var validation = Alloy.Globals.localParser.getValidation(question);

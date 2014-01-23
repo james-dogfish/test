@@ -5,211 +5,177 @@ var localDataHandler = require('localDataHandler/localDataHandler');
 var interpreter = require('interpreter/interpreterModule2');
 var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 
-Alloy.Globals.questionRenderer =$.questionListView;
+Alloy.Globals.questionRenderer = $.questionListView;
 
-exports.getAssessment = function()
-{
-	return currentAssessmentObject;
+exports.getAssessment = function () {
+    return currentAssessmentObject;
 };
 
-exports.setAssessment = function(assessmentObject){
-	activityIndicator.show();
-	
-	currentAssessmentObject = assessmentObject;
-	var sectionList = localDataHandler.openAssessment(assessmentObject);
-	//alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
-	$.questionListView.setAssessment(sectionList, assessmentObject);
-	
-	activityIndicator.hide();
+exports.setAssessment = function (assessmentObject) {
+    activityIndicator.show();
+
+    currentAssessmentObject = assessmentObject;
+    var sectionList = localDataHandler.openAssessment(assessmentObject);
+    //alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
+    $.questionListView.setAssessment(sectionList, assessmentObject);
+
+    activityIndicator.hide();
 };
 
-exports.clear = function(){
-	$.questionListView.clear();
+exports.clear = function () {
+    $.questionListView.clear();
 };
 
 
 function backButtonClick(e) {
-	$.trigger("BackButtonClick");
+    $.trigger("BackButtonClick");
 }
 
-/*function parseData(xml_text)
-{
-	if(xml_text!==null || typeof xml_text!=='undefined'){
-		var localParser = require('parser/localParser');
-		var interpreter = require('interpreter/interpreterModule2');
-		localParser = new localParser();
-		
-		var data = localParser.getQuestions(xml_text);
-		//alert("data: "+JSON.stringify(data));
-		//alert("currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
-		
-		
-		
-		
-		
-	}else{
-		alert("ParseData Failed");
-
-	}
-};*/
-
-var createCensus = function(){
-	currentAssessmentObject;
-	var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-	//var censusDataInterpreted = interpreter.interpret(censusData);
-	$.questionListView.appendSectionsToAssessment(censusData);
+var createCensus = function () {
+    currentAssessmentObject;
+    var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
+    //var censusDataInterpreted = interpreter.interpret(censusData);
+    $.questionListView.appendSectionsToAssessment(censusData);
 };
 
-var createPastCensus = function(pastCensusData){
-	currentAssessmentObject;
-	
-         		var cenMap = [];
-         		for(var t = 0; t < pastCensusData.length; t++)
-         		{
-         			cenMap.push({
-         				parameterName:pastCensusData[t]["ns6:parameterName"],
-         				parameterValue:pastCensusData[t]["ns6:parameterValue"]
-         			});
-         		}
-         		alert("cenMap >> Need to add this stuff to current assessment >> "+JSON.stringify(cenMap));
-         		
-	//var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-	//var censusDataInterpreted = interpreter.interpret(pastCensusData);
-	//alert("censusDataInterpreted >> "+JSON.stringify(censusDataInterpreted));
-	//$.questionListView.appendSectionsToAssessment(censusData);
-	
-	//var localParser = require('parser/localParser');
-      //  var interpreter = require('interpreter/interpreterModule2');
-        //localParser = new localParser();
+var createPastCensus = function (pastCensusData) {
+    currentAssessmentObject;
+    Ti.API.info("pastCensusData >> " + JSON.stringify(pastCensusData));
+    var cenMap = [];
+    for (var t = 0; t < pastCensusData.length; t++) {
+        if (typeof pastCensusData[t]["xsi:type"] !== "undefined") {
+            cenMap[pastCensusData[t]["ns6:parameterName"]] = {
+                value: pastCensusData[t]["ns6:values"]
+            };
+            Ti.API.info("paramName=" + pastCensusData[t]["ns6:parameterName"] + "type=" + pastCensusData[t]["xsi:type"]);
+        } else {
+            cenMap[pastCensusData[t]["ns6:parameterName"]] = {
+                value: pastCensusData[t]["ns6:parameterValue"]
+            };
+        }
+    }
 
-        //var data = localParser.getQuestions(pastCensusData);
-        //alert("pastCensusData >> "+JSON.stringify(pastCensusData));
-		//if(typeof data === "undefined")
-		//{
-		//	alert("There is an issue with census data. No data returned by webservice.");
-		//	return;
-		//}
-        //var localDataHandler = require('localDataHandler/localDataHandler');
-        //var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
+    var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
+    $.questionListView.appendSectionsToAssessment(censusData);
 };
 
 
 // Setting up menu item for home screen
-var openMenu = function() {
+var openMenu = function () {
 
-	// Check whether settings are filled 
-	if (!User.hasPreferences()) {
-		// Open setting screen
-		var userSettings = Alloy.createController('userSettings', {
-			message: true
-		}).getView();
-		userSettings.open();
-		return false;
-	}
+    // Check whether settings are filled 
+    if (!User.hasPreferences()) {
+        // Open setting screen
+        var userSettings = Alloy.createController('userSettings', {
+            message: true
+        }).getView();
+        userSettings.open();
+        return false;
+    }
 
-	var Ui = require('core/Ui'),
-	popOver = Ui.renderPopOver({
-		width: 250
-	}),
-	menuTable = Ti.UI.createTableView({
-		width: 250,
-		height: Ti.UI.SIZE
-	}),
-	data = [{
-		title: 'Settings',
-		id: 1
-	}, {
-		title: 'GoTo',
-		id: 2
-	},{
-		title: 'Help',
-		id: 3
-	},{
-		title: 'Cheat Sheet',
-		id: 4
-	}, {
-		title: 'Logout',
-		id: 5
-	}];
+    var Ui = require('core/Ui'),
+        popOver = Ui.renderPopOver({
+            width: 250
+        }),
+        menuTable = Ti.UI.createTableView({
+            width: 250,
+            height: Ti.UI.SIZE
+        }),
+        data = [{
+            title: 'Settings',
+            id: 1
+        }, {
+            title: 'GoTo',
+            id: 2
+        }, {
+            title: 'Help',
+            id: 3
+        }, {
+            title: 'Cheat Sheet',
+            id: 4
+        }, {
+            title: 'Logout',
+            id: 5
+        }];
 
-	menuTable.setData(data);
+    menuTable.setData(data);
 
-	popOver.add(menuTable);
+    popOver.add(menuTable);
 
-	popOver.show({
-		view: $.menuButton
-	});
+    popOver.show({
+        view: $.menuButton
+    });
 
-	menuTable.addEventListener('click', function(e) {
-		popOver.hide();
-		if (e.row.id === 1) {
-			// Open setting screen
-			var userSettings = Alloy.createController('userSettings');
-			userSettings.open();
-		} else if (e.row.id === 2) {
-			// GoTo screen
-			var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
+    menuTable.addEventListener('click', function (e) {
+        popOver.hide();
+        if (e.row.id === 1) {
+            // Open setting screen
+            var userSettings = Alloy.createController('userSettings');
+            userSettings.open();
+        } else if (e.row.id === 2) {
+            // GoTo screen
+            var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
 
-			gotoQuestionSectionWindow.on("goToQuestion", function(data){
-				$.questionListView.moveToQuestion(data.groupType, data.questionIndex);
-			});
-			gotoQuestionSectionWindow.on("createCensus", function(data){
-				activityIndicator.show();
-				
-				createCensus();
-				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-				
-				activityIndicator.hide();
-			});
-			gotoQuestionSectionWindow.on("addPastCensus", function(e){
-				alert("addPastCensus back = "+JSON.stringify(e));
-				activityIndicator.show();
-				
-				//createCensus();
-				createPastCensus(e.questionList);
-				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-				
-				activityIndicator.hide();
-			});
-			gotoQuestionSectionWindow.on("goToFirstUnanswered", function(data){
-				$.questionListView.goToFirstUnanswered();
-			});
-			gotoQuestionSectionWindow.on("goToLastPositiond", function(data){
-				$.questionListView.goToLastPositiond();
-			});
-			gotoQuestionSectionWindow.on("deletePage", function(e){
-				//alert("delete associatedFileName = "+e.associatedFileName);
-				activityIndicator.show();
-				
-				if(localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true){
-					var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
-					$.questionListView.setAssessment(sectionList, currentAssessmentObject);
-					gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-				}
-				
-				activityIndicator.hide();
-			});
-			
-			
-			gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
-			gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-			
-			
-			gotoQuestionSectionWindow.show();
-			
-		} else if (e.row.id === 3) {
-			// Help screen 
-			var appHelp = Alloy.createController('appHelp').getView();
-			appHelp.open();
-		} else if (e.row.id === 4) {
-			var cheatSheet = Alloy.createController('cheatSheet').getView();
-			cheatSheet.open();
-		} else if (e.row.id === 5) {
-			
-			Alloy.Globals.tabGroup.close();
-			loginView = Alloy.createController('index').getView();
-			loginView.open();
-			User.logOut();
-		}
-	});
+            gotoQuestionSectionWindow.on("goToQuestion", function (data) {
+                $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
+            });
+            gotoQuestionSectionWindow.on("createCensus", function (data) {
+                activityIndicator.show();
+
+                createCensus();
+                gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+                activityIndicator.hide();
+            });
+            gotoQuestionSectionWindow.on("addPastCensus", function (e) {
+                //alert("addPastCensus back = "+JSON.stringify(e));
+                activityIndicator.show();
+
+                //createCensus();
+                createPastCensus(e.questionList);
+                gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+                activityIndicator.hide();
+            });
+            gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
+                $.questionListView.goToFirstUnanswered();
+            });
+            gotoQuestionSectionWindow.on("goToLastPositiond", function (data) {
+                $.questionListView.goToLastPositiond();
+            });
+            gotoQuestionSectionWindow.on("deletePage", function (e) {
+                //alert("delete associatedFileName = "+e.associatedFileName);
+                activityIndicator.show();
+
+                if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
+                    var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+                    $.questionListView.setAssessment(sectionList, currentAssessmentObject);
+                    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+                }
+
+                activityIndicator.hide();
+            });
+
+
+            gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
+            gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+
+            gotoQuestionSectionWindow.show();
+
+        } else if (e.row.id === 3) {
+            // Help screen 
+            var appHelp = Alloy.createController('appHelp').getView();
+            appHelp.open();
+        } else if (e.row.id === 4) {
+            var cheatSheet = Alloy.createController('cheatSheet').getView();
+            cheatSheet.open();
+        } else if (e.row.id === 5) {
+
+            Alloy.Globals.tabGroup.close();
+            loginView = Alloy.createController('index').getView();
+            loginView.open();
+            User.logOut();
+        }
+    });
 };

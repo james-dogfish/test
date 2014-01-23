@@ -240,7 +240,8 @@ function localDataHandler() {
             pageName: "Risk Assessment",
             pageID: 0,
             pageType: "riskAssessment",
-            assessmentId: assessmentID
+            assessmentId: assessmentID,
+            questionMap: []
         });
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
@@ -288,18 +289,19 @@ function localDataHandler() {
 
                 var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID + "CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(curUserDir.nativePath + newCensusFileName);
-
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
 				Ti.API.info("============================");
 				Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
 				Ti.API.info("============================");
                 //new interpreterModule
+              
                 var newCensusQuestionSet = interpreterModule2.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
                     pageName: "Census " + savedAssessments[i].censusLastPageID,
                     pageID: savedAssessments[i].censusLastPageID,
                     pageType: "census",
-                    assessmentId: assessmentObject.assessmentID
+                    assessmentId: assessmentObject.assessmentID,
+                    questionMap: censusMap
                 });
 
                 newCensusFile.write(
@@ -383,7 +385,8 @@ function localDataHandler() {
                     associatedFileName: newTrainGroupFileName,
                     pageName: "Train Info " + savedAssessments[i].trainGroupLastPageID,
                     pageID: savedAssessments[i].trainGroupLastPageID,
-                    pageType: "trainInfo"
+                    pageType: "trainInfo",
+                    questionMap: []
                 });
 
                 newTrainGroupFile.write(

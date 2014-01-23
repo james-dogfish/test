@@ -179,10 +179,15 @@ var SudsClient = function(_options) {
       		error_code = "0";
       		error_message = JSON.stringify(error_object);
       		error_stacktrace = "";
-      		if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["faultstring"] !=="undefined")
+      		if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] !=="undefined")
       		{
-      			error_message = error_object["soapenv:Body"]["soapenv:Fault"]["faultstring"];
-      			error_code = "General Error";
+      			error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"] + ". ";
+      			error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+      			if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"] !=="undefined")
+      			{
+      				error_message += error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"];
+      			}
+      			
       		}
       }else{
   
