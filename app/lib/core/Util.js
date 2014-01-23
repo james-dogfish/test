@@ -729,7 +729,7 @@ function _Util() {
         });
 
         if (callback) {
-            alert.addEventListener('click', callback)
+            alert.addEventListener('click', callback);
         }
 
         alert.show();
