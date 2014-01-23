@@ -31,8 +31,8 @@ function _Util() {
                     f = null;
                 }
                 // Passing data back to callback
-                if (callback) {
-                    callback(JSON.parse(this.responseData));
+                if (callback && url.search(".pdf")===-1) {
+                   callback(JSON.parse(this.responseData));
                 }
             },
             onerror: function (e) {
@@ -59,7 +59,7 @@ function _Util() {
                         f = null;
                     }
                     // Passing data back to callback
-                    if (callback) {
+                    if (callback && url.search(".pdf")===-1) {
                         callback(JSON.parse(this.responseData), c);
                     }
                 }
@@ -140,103 +140,18 @@ function _Util() {
     routeFiles = ['anglia.json', 'engineering.json', 'kent.json', 'london_north_east.json', 'london_north_west.json', 'midland_and_continental.json', 'scotland.json', 'sussex.json', 'training.json', 'wales.json', 'wessex.json', 'western.json'];
     docsFolder = Ti.Filesystem.getApplicationDataDirectory();
 
-    // Checks for an override file being left in by Iain
-    self.getOverrideFile = function () {
-        var overRideFile = Ti.Filesystem.getFile(docsFolder, 'endpoint_override.json');
-
-        if (overRideFile.exists() && overRideFile.size) {
-            var overRide = JSON.parse(overRideFile.read()),
-                toReturn = {};
-            if (overRide['uri']) {
-                toReturn['uri'] = overRide['uri'];
-            }
-            if (overRide['ws_security']) {
-                toReturn['ws_security'] = overRide['ws_security'];
-            }
-
-            return toReturn;
-        } else {
-            return false;
-        }
-    };
+    
 
 
 
     // Function to bring the route picker up
     self.showRoutePicker = function (data) {
-
         var routes = data;
-
         Alloy.createController('selectRouteWindow').getView().open();
     };
 
 
-    /*
-    |---------------------------------------------------------------------------------
-    | Checks whether all template files are downloaded completely
-    |---------------------------------------------------------------------------------
-    */
-    self.allTemplatesAvailable = function () {
-        var templatesFolder = Ti.Filesystem.getFile(docsFolder, 'templates');
-        var localTemplateFiles = templatesFolder.getDirectoryListing();
-
-        if (!localTemplateFiles) return false;
-
-        // Iterate through the file list and remove any files
-        // that aren't JSON
-        var localFileLength = localTemplateFiles.length;
-        while (localFileLength--) {
-            if (localTemplateFiles[localFileLength].indexOf('json') === -1) {
-                localTemplateFiles.splice(localFileLength, 1);
-            }
-        }
-
-        if (localTemplateFiles.length === templateFiles.length) {
-            templatesFolder = null;
-            localTemplateFiles = null;
-            return true;
-        } else {
-            templatesFolder = null;
-            localTemplateFiles = null;
-            return false;
-        }
-    };
-    /*
-    |---------------------------------------------------------------------------------
-    | Download all assessment templates locally 
-    |---------------------------------------------------------------------------------
-    */
-    self.downloadAllTemplates = function (callback) {
-
-        if (self.phoneConnected()) {
-
-            //var downloadQueue = [];
-
-            templatesFolder = Ti.Filesystem.getFile(docsFolder, 'templates');
-
-            if (!templatesFolder.exists()) {
-                templatesFolder.createDirectory();
-            }
-
-            for (var i in templateFiles) {
-                // downloadQueue.push({
-                //     'filepath': docsFolder + '/templates/' + templateFiles[i],
-                //     'url': cmsUrl + '/data/compiled/' + templateFiles[i]
-                // });
-
-                if (callback && (i == (templateFiles.length - 1))) {
-                    self.downloadFile(cmsUrl + '/data/compiled/' + templateFiles[i], docsFolder + '/templates/' + templateFiles[i], callback);
-                } else {
-                    self.downloadFile(cmsUrl + '/data/compiled/' + templateFiles[i], docsFolder + '/templates/' + templateFiles[i]);
-                }
-            }
-            templatesFolder = null;
-        } else {
-            self.showAlert('Error downloading questionnaire template files - No Internet Connection');
-        }
-
-
-    };
+    
     /*
     |---------------------------------------------------------------------------------
     | Checks whether all route template files are downloaded completely

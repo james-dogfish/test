@@ -1,6 +1,9 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="login_error">THIS IS A TEST FOR I18N</string>
-    
+    <string name="no_data">No data available. Please try again!</string>
+    <string name="delete_ra">There is no undo. Are you sure you want to delete this Risk Assessment?</string>
+    <string name="no_results">No Results Available.</string>
+    <string name="spinner_text">Loading ... </string>
+    <string name="no_help_content">No help content available!</string>
 </resources>

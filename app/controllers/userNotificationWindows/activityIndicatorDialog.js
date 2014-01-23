@@ -4,10 +4,10 @@ var args = arguments[0] || {};
 exports.show = function(message){
 
 	if(typeof message === "undefined"){
-		$.activityIndicator.message = "Loading...";
+		$.activityIndicator.message = L('spinner_text');
 	}
 	else if(message == ""){
-		$.activityIndicator.message = "Loading...";
+		$.activityIndicator.message = L('spinner_text');
 	}
 	else{
 		$.activityIndicator.message = message;

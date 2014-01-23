@@ -37,7 +37,7 @@ Alloy.Globals.Soap.searchCensus(
          var responseObj = JSON.stringify(xml2.toObject());
          if(typeof responseObj === "undefined")
          {
-         	alert("No data. Please retry.");
+         	alert(L("no_data"));
             Alloy.Globals.aIndicator.hide();
             return;
          }else{

@@ -207,7 +207,7 @@ function parseTrainData(xml_text) {
         var data = localParser.getQuestions(xml_text);
 		if(typeof data === "undefined")
 		{
-			alert("There is an issue with train data. No data returned by webservice.");
+			alert(L('no_data'));
 			return;
 		}
         var localDataHandler = require('localDataHandler/localDataHandler');
@@ -216,7 +216,7 @@ function parseTrainData(xml_text) {
         
 
     } else {
-        alert("TrainParseData Failed");
+        alert(L('no_data'));
 
     }
 };
@@ -230,14 +230,14 @@ function parseCensusData(xml_text) {
         var data = localParser.getQuestions(xml_text);
 		if(typeof data === "undefined")
 		{
-			alert("There is an issue with census data. No data returned by webservice.");
+			alert(L('no_data'));
 			return;
 		}
         var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
 
     } else {
-        alert("CensusParseData Failed");
+        alert(L('no_data'));
 
     }
 };
@@ -250,7 +250,7 @@ function parseData(xml_text, detaildID, crossingID, riskMap) {
         var questionsData = localParser.getQuestions(xml_text);
 		if(typeof questionsData === "undefined")
 		{
-			alert("Sorry, this crossing has no questions!");
+			alert(L('no_data'));
 			Alloy.Globals.aIndicator.hide();
 			return;
 		}
@@ -259,7 +259,7 @@ function parseData(xml_text, detaildID, crossingID, riskMap) {
 
        
     } else {
-        alert("Startup Failure: no xml text null or undefined");
+        alert(L('no_data'));
 
     }
 };
@@ -318,7 +318,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                     	 var assObj = JSON.stringify(xml2.toObject());
                     	 if(typeof assObj === "undefined")
                			 {
-               					 	alert("Issue with webservice. Please retry.");
+               					 	alert(L('no_data'));
                					 	Alloy.Globals.aIndicator.hide();
                					 	return;
                			 }else{
@@ -362,7 +362,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
 		               					 
 		               					 if(typeof curAssObj === "undefined")
 		               					 {
-		               					 	alert("Issue with webservice. Please retry.");
+		               					 	alert(L('no_data'));
 		               					 	
 		               					 }else{
 		               					 	riskAssessmentsTab.loadRiskAssessments();

@@ -164,7 +164,7 @@ exports.loadRiskAssessments = function() {
 	return true;
 };
 
-var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: 'There is no undo. Are you sure you want to delete this Risk Assessment?', buttonNames: ['Yes', 'No'], cancel: 1 });
+var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: L('delete_ra'), buttonNames: ['Yes', 'No'], cancel: 1 });
 confirmDeleteRA.addEventListener('click', function(e) { Titanium.API.info('e = ' + JSON.stringify(e));
    //Clicked cancel, first check is for iphone, second for android
    if (e.cancel === e.index || e.cancel === true) {
@@ -192,7 +192,7 @@ function onDeleteRow(e){
   var deletingRow = e;
   
   var alertYesNo = Titanium.UI.createAlertDialog({
-    message: 'Are you sure you want to delete this RA?',
+    message: L('delete_ra'),
     buttonNames: ['Yes','No']
   });
  

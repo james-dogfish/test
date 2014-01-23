@@ -50,5 +50,5 @@ if (helpText) {
 
 	}
 } else {
-	Alloy.Globals.Util.showAlert('No help content available!');
+	Alloy.Globals.Util.showAlert(L('no_help_content'));
 }

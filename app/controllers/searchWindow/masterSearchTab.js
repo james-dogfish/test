@@ -53,7 +53,7 @@ exports.setData = function() {
 			                {
 			                	Alloy.Globals.aIndicator.hide();
 			                	var Util = require('core/Util');
-								Util.showAlert("No Results");
+								Util.showAlert(L('no_results'));
 								
 			                }else{
 				                for(var i=0; i<results.length; i++)
