@@ -2,9 +2,6 @@ var Validator = require('validator/Validator');
 var localDataHandler = require('localDataHandler/localDataHandler');
 
 
-		
-		
-
 var User = require('core/User');
 var userPreferences = User.getPreferences();
 
@@ -134,6 +131,41 @@ var findQuestion = function(questionName){
 				//return questionList[questionIndex].value;
 				return {question : questionList[questionIndex], questionIndex : questionIndex, section : sectionList[sectionIndex]};
 			}
+		}
+	}
+	return null;
+};
+
+var findQuestionByAssociatedFileName = function(alcrmQuestionID, associatedFileName){
+	var sectionList = getAllQuestionSections();
+	
+	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
+		
+		//Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+		if(sectionList[sectionIndex].associatedFileName == associatedFileName){
+			var questionList = sectionList[sectionIndex].getItems();
+			for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+				
+				Ti.API.info("alcrmQuestionID "+alcrmQuestionID+" : "+questionList[questionIndex].alcrmQuestionID);
+				if(questionList[questionIndex].alcrmQuestionID ==alcrmQuestionID){
+
+					//return questionList[questionIndex].value;
+					return {question : questionList[questionIndex], questionIndex : questionIndex, section : sectionList[sectionIndex]};
+				}
+			}
+		}
+	}
+	return null;
+};
+
+var findSectionByAssociatedFileName = function(alcrmGroupType, associatedFileName){
+	var sectionList = getAllQuestionSections();
+	
+	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
+		
+		//Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+		if(sectionList[sectionIndex].associatedFileName == associatedFileName && sectionList[sectionIndex].alcrmGroupType ==alcrmGroupType){
+			return sectionList[sectionIndex];
 		}
 	}
 	return null;
@@ -938,6 +970,10 @@ function footerTextButtonClick(e){
 };
 
 function footerNotesButtonClick(e){
+	
+	//$.censusFooterView.toggleOpen();
+	
+	
 	/*
 	var questionObject = debugFindQuestions(allSections, questionSelected.name);
 	
@@ -983,33 +1019,38 @@ Ti.App.addEventListener("notesAdded", function(notesObject){
 			notesObject.item
 		);*/
 });
-Ti.App.addEventListener("startCensesTimer", function(questionValueChange){
+
+Ti.App.addEventListener("startCensesTimer", function(e){
+	var question = e.question;
 	
+	var sectionList = getAllQuestionSections();
 	
-	var questionRef = findQuestion(I_DURATION);
-	if(questionRef == null){
-		alert("I_DURATION not found");
-		return;
-	}
-	
-	var durationInt = 0;
-	if(questionRef.question.value.length > 0){
-		durationInt = parseInt(questionRef.question.value[0]);
-		if(isNaN(intValue)){
-			intValue =0;
+	var questionRef = findQuestionByAssociatedFileName("I_DURATION", question.associatedFileName);
+	if(questionRef != null){
+		
+		if(questionRef.question.value[0] == ""){
+			
+			questionRef.question = setQuestionError(false, "you most enter a value to start the census", questionRef.question);
+			questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+			localDataHandler.updateQuestion(questionRef.question);
+		}
+		else{
+			
+			var timerDuration = parseInt(questionRef.question.value[0])*60;;
+			$.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
 		}
 	}
-	else durationInt = 0;
-	
-	if(durationInt <= 0){
-		setQuestionError(false, "enter a Duration Value greater than 0");
+});
+
+$.censusFooterView.on("goToCensus", function(e){
+	e.censusAssociatedFileName;
+	var section = findSectionByAssociatedFileName("CensusUsage", e.censusAssociatedFileName);
+	if(section != null){
+		if(section.getItems().length >= 1){
+			moveToQuestionByName(section.getItems()[0].name, section.groupType);
+		}
 	}
 	
-	
-	localDataHandler.updateQuestionWithUserNotes(
-			notesObject.item.associatedFileName,
-			notesObject.item
-		);
 });
 
 var updateAndReturnQuestion= function(question, value, displayValue){
@@ -1085,32 +1126,8 @@ var selectQuestion = function(newQuestionSelected){
 
 exports.selectQuestion = selectQuestion;
 
-/*
-Ti.App.addEventListener("questionSelected", function(e){
-
-	var sectionList = getAllQuestionSections();
-
-	if(questionSelected != null){
-		var questionRef = findQuestionsRef(sectionList, questionSelected.name);
-		if(questionRef != null){
-			questionRef.question.headerView = {backgroundColor : "#eee"};
-			questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-		}
-	}
-	
-	//findQuestionsRef= function(sectionList, questionName){
-	//return {questionIndex : itemIndex, question : itemsList[itemIndex], section : sectionList[sectionIndex]};
-	
-	
-	questionSelected= e.questionObject;
-	
-	
-	var questionRef = findQuestionsRef(sectionList, questionSelected.name);
-	if(questionRef != null){
-		questionRef.question.headerView = {backgroundColor : "#A1F7B6"};
-		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	}
-
-});
-*/
+function footerPostlayout(e){
+	//alert("footerHeight = " +$.footer.size.height);
+	$.listView.bottom = $.footer.size.height;
+};
 

@@ -1,0 +1,37 @@
+"#container" : {
+	width: Ti.UI.FILL,
+	height : "0dp",
+	backgroundColor: "#E0B6BA",
+	borderRadius: 5,
+	borderWidth : 1,
+	borderColor : "#e00",
+	layout : "horizontal"
+},
+"#timerDisplay" : {
+	width: Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+},
+"#timerDisplayContainer" : {
+	top : "10dp",
+	left : "10dp",
+	width: "200dp",
+	height : "40dp",
+	borderRadius: 5,
+	borderWidth : 2,
+	borderColor : "#aaa",
+	backgroundColor: '#fff'
+},
+"#resetButton" : {
+	title: "Reset",
+	top : "10dp",
+	left : "10dp",
+	width: "200dp",
+	height : "40dp"
+},
+"#gotToCensusButton" : {
+	title: "GoTo Census",
+	top : "10dp",
+	left : "10dp",
+	width: "200dp",
+	height : "40dp"
+}

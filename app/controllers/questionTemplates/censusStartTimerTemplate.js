@@ -37,17 +37,23 @@ function onTextFieldBlur(e){
 };
 
 function onStartButtonClick(e){
-	var item = e.section.getItemAt(e.itemIndex);
-
+	var question = e.section.getItemAt(e.itemIndex);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+	
 	Ti.App.fireEvent("startCensesTimer", {
-		item : item,
-		name : item.name,
-		itemIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : [e.value],
-		responseObject : responseObject
+		question : question,
 	}); 
 };
+
+function onTextFieldFocus(e){
+	var question = e.section.getItemAt(e.itemIndex);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+}
+
+function textFieldClick(e){
+	var question = e.section.getItemAt(e.itemIndex);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+}
 
 function onNotesClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
@@ -76,19 +82,6 @@ function onNotesClick(e){
 			notes : notes
 		});
 	}});
-};
-
-function onTextFieldFocus(e){
-	
-	var item = e.section.getItemAt(e.itemIndex);
-	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldFocus item was undefined");
-		return;
-	}
-	Ti.App.fireEvent("questionSelected", {
-		name : item.name,
-		groupType : item.groupType
-	}); 
 };
 
 function onTitleClick(e){

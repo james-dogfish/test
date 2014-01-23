@@ -255,7 +255,7 @@ function interpreterModule2(){
 				var name = self.sectionHeaderList[sectionIndex].questionList[questionIndex].name;
 				
 				if(typeof renderDependenciesMap[name] !== "undefined"){
-					alert(name);
+					//alert(name);
 					
 					var newArray =renderDependenciesMap[name];
 					newArray = newArray.filter(function(elem, pos) {
@@ -308,6 +308,12 @@ function interpreterModule2(){
 					questionObject.value = [userPreferences.email];
 					questionObject.displayValue = {value : userPreferences.email};
 				}
+				else if(questionObject.alcrmQuestionID == "I_CENSUS_START"){
+					questionObject.template = "censusStartTimerTemplate";
+					//questionObject.displayValue = {value : userPreferences.email};
+				}
+				
+				
 				
 				self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
 			}

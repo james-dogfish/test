@@ -11,6 +11,12 @@
 "#footer" : {
 	bottom : "0dp",
 	width: Ti.UI.FILL,
+	height : Ti.UI.SIZE,
+	layout : "vertical"
+},
+"#footerNavContainer" : {
+	bottom : "0dp",
+	width: Ti.UI.FILL,
 	height : "60dp",
 	backgroundColor: "#ccc"
 },

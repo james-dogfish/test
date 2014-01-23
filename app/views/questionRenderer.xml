@@ -13,18 +13,21 @@
 	           <Require src="customRiskAssessmentRows/setEntireSectionTemplate" type="view"/>  
 	        </Templates>
 		</ListView>
-		<View id="footer">
-			<View id="singleSectionsNavView">
-				<Button id="backButton" class="navButton" bindId="backButton" onClick="moveSectionBackClick">Back</Button>
-				<Button class="singleSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
-				<Button class="singleSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
-				<Button class="singleSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
-				<Button id="nextButton" class="navButton" bindId="nextButton" onClick="moveSectionNextClick">Next</Button>
-			</View>
-			<View id="allSectionsNavView">
-				<Button class="allSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
-				<Button class="allSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
-				<Button class="allSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
+		<View id="footer" onPostlayout="footerPostlayout">
+			<Require id="censusFooterView" src="censusFooterView" type="view"/>
+			<View id="footerNavContainer">
+				<View id="singleSectionsNavView">
+					<Button id="backButton" class="navButton" bindId="backButton" onClick="moveSectionBackClick">Back</Button>
+					<Button class="singleSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
+					<Button class="singleSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
+					<Button class="singleSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
+					<Button id="nextButton" class="navButton" bindId="nextButton" onClick="moveSectionNextClick">Next</Button>
+				</View>
+				<View id="allSectionsNavView">
+					<Button class="allSectionsFooterButton" onClick="footerTextButtonClick">Text</Button>
+					<Button class="allSectionsFooterButton" onClick="footerNotesButtonClick">Notes</Button>
+					<Button class="allSectionsFooterButton" onClick="footerHelpButtonClick">Help</Button>
+				</View>
 			</View>
 		</View>
 	</View>
