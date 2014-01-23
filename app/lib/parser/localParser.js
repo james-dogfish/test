@@ -85,6 +85,9 @@ function localParser() {
         if (typeof conditionalMandatory === "undefined") {
             return [];
         }
+        else if(!(conditionalMandatory instanceof Array)){
+			conditionalMandatory = [conditionalMandatory];
+        }
 
         var returnList = [];
         for (var i = 0; i < conditionalMandatory.length; i++) {
@@ -101,6 +104,8 @@ function localParser() {
             });
         }
         return returnList;
+        
+       
     };
 
     self.getValidationFormat = function (question) {
