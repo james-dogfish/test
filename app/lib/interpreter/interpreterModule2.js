@@ -47,6 +47,8 @@ function interpreterModule2(){
 		order : "", 
 		associatedFileName : "", // file the question is in
 		
+		assessmentId: "",
+		
 		notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 		notes : "",
 		selected : false,
@@ -69,7 +71,8 @@ function interpreterModule2(){
 		headerView : {}
 	};
 	
-	var createQuestionObject = function(question, passObject, sectionGroupType){
+	var createQuestionObject = function(question, passObject, sectionGroupType, assessmentId){
+		//alert("assessmentId = "+assessmentId);
 		
 		var type = Alloy.Globals.localParser.getQuestionType(question);
 		var templateType = "";
@@ -186,6 +189,8 @@ function interpreterModule2(){
 			associatedFileName : passObject.associatedFileName, // file the question is in
 			questionResponse : null,
 			
+			assessmentId: assessmentId,
+			
 			notesBackground : {backgroundImage: 'images/questionNote.png'},//{backgroundImage: 'images/questionSelectedNote.png'}
 			notes : "",
 			selected : false,
@@ -209,7 +214,7 @@ function interpreterModule2(){
 		return questionObject;
 	};
 	
-	var addQuestionToSectionHeader  = function(question, passObject){
+	var addQuestionToSectionHeader  = function(question, passObject, assessmentId){
 		
 		var alcrmGroupType = Alloy.Globals.localParser.getQuestionGroup(question);
 		var groupType = passObject.pageID + alcrmGroupType;
@@ -217,7 +222,7 @@ function interpreterModule2(){
 		
 		for(var i=0; i< self.sectionHeaderList.length; i++){
 			if(groupType == self.sectionHeaderList[i].groupType){
-				var newQuestionObject = createQuestionObject(question, passObject, groupType);
+				var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId);
 				if(newQuestionObject != null){
 					self.sectionHeaderList[i].questionList.push(newQuestionObject);
 				}
@@ -234,7 +239,7 @@ function interpreterModule2(){
 			associatedFileName : passObject.associatedFileName,
 			questionList : []
 		};
-		var newQuestionObject = createQuestionObject(question, passObject, groupType);
+		var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId);
 		if(newQuestionObject != null){
 			newSectionHeader.questionList.push(newQuestionObject);
 		}
@@ -331,7 +336,7 @@ function interpreterModule2(){
 		self.sectionHeaderList = [];
 		
 		for(var i=0; i< allQuestions.length; i++){
-			addQuestionToSectionHeader(allQuestions[i], passObject);
+			addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
 		}
 		lookRenderDependencies();
 		sortQuestionsByOrder();

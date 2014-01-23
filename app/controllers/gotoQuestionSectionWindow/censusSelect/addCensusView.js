@@ -18,9 +18,12 @@ closePickerContainer.height = 0;
 //closePickerContainer.bottom = 0;
 closePickerContainer.duration = Alloy.Globals.animationDuration;
 
-var valueList = [{displayValue : "Census 2", value : 1}, {displayValue : "Census 2", value : 2}, {displayValue : "Census 3", value : 3}, {displayValue : "Census 4", value : 4}];
-var currentValue = valueList[0];
-alert(JSON.stringify(Alloy.Globals.questionRendererTab.getAssessment().crossingID));
+var valueList = [];
+var currentValue = 0;
+
+
+
+exports.show = function(){
 
 Alloy.Globals.aIndicator.show("Loading...");
 Alloy.Globals.Soap.searchCensus(
@@ -37,37 +40,44 @@ Alloy.Globals.Soap.searchCensus(
             Alloy.Globals.aIndicator.hide();
             return;
          }else{
-         	alert(JSON.stringify(responseObj));
-         	//TODO: 
-         	//	(1) parse response
-         	//	(2) add each item to 
-         	//  (3) SET valueList = [{displayValue : "Census 2", value : 1}, {displayValue : "Census 2", value : 2}, {displayValue : "Census 3", value : 3}, {displayValue : "Census 4", value : 4}];
-			//	(4) SET currentValue = valueList[0];
-			/*	(5) var data = [];
-			//	for(var i=0;i<valueList.length;i++){
-			//		data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }
-			//		));
-			//	}
-			*/
+         	//alert(JSON.stringify(responseObj));
+         	var pastCensusObject = JSON.parse(responseObj);
+         	var pastCensuses = [];
+         	if(typeof pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"] !== "undefined"){
+         		pastCensuses = pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"];
+         	}
+         	if(pastCensuses.length === 0)
+         	{
+         		alert("Sorry there are no past censuses. Please create a new census and try again.");
+         		Alloy.Globals.aIndicator.hide();
+         		return;
+         	}
+         	
+         	for(var pastCensuesIndex = 0; pastCensuesIndex < pastCensuses.length; pastCensuses++)
+         	{
+         		valueList.push({
+         			displayValue : "Census "+pastCensuses[pastCensuesIndex]["ns5:censusId"], value : pastCensuses[pastCensuesIndex]["ns5:censusId"], questionList: pastCensuses[pastCensuesIndex]["ns5:censusData"]
+         		});
+         		
+         	}
+         	currentValue = valueList[0];
+			var data = [];
+		    for(var i=0;i<valueList.length;i++){
+					data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value, questionList: valueList[i].questionList}
+					));
+			}
+			
+			$.pickerView.add(data);
+			$.pickerView.selectionIndicator = true;
+			$.pickerView.setSelectedRow(0, 0, true);
+			
          	Alloy.Globals.aIndicator.hide();
+         	
+         	$.container.animate(animationOpen);
          }
 	},
 	function(xmlDoc){ /**handled by Suds2_fat error message - so no need to put anything here**/
 	});
-						
-						
-var data = [];
-for(var i=0;i<valueList.length;i++){
-	data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value }
-	));
-}
-
-$.pickerView.add(data);
-$.pickerView.selectionIndicator = true;
-$.pickerView.setSelectedRow(0, 0, true);
-
-exports.show = function(){
-	$.container.animate(animationOpen);
 };
 
 var hide = function(){
@@ -79,14 +89,15 @@ exports.hide = function(){
 };
 
 function doneButtonClick(e){
-	alert("displayValue = "+currentValue.displayValue);
+	//alert("displayValue = "+currentValue.displayValue);
 	$.trigger('addPastCensus', currentValue);
 };
 
 function pickerChange(e){
 	currentValue = {
 		displayValue : $.pickerView.getSelectedRow(null).title,
-		value : $.pickerView.getSelectedRow(null).value
+		value : $.pickerView.getSelectedRow(null).value,
+		questionList: $.pickerView.getSelectedRow(null).questionList,
 	};
 };
 

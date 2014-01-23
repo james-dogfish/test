@@ -85,7 +85,7 @@ $.selectCensusView.on("addCensus", function(){
 });
 $.addCensusView.on("addPastCensus", function(e){
 	//e.pastCensusObject;
-	$.trigger('addPastCensus');
+	$.trigger('addPastCensus', e);
 	$.selectCensusView.hide();
 	$.addCensusView.hide();
 });

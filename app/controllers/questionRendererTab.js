@@ -60,6 +60,40 @@ var createCensus = function(){
 	$.questionListView.appendSectionsToAssessment(censusData);
 };
 
+var createPastCensus = function(pastCensusData){
+	currentAssessmentObject;
+	
+         		var cenMap = [];
+         		for(var t = 0; t < pastCensusData.length; t++)
+         		{
+         			cenMap.push({
+         				parameterName:pastCensusData[t]["ns6:parameterName"],
+         				parameterValue:pastCensusData[t]["ns6:parameterValue"]
+         			});
+         		}
+         		alert("cenMap >> Need to add this stuff to current assessment >> "+JSON.stringify(cenMap));
+         		
+	//var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
+	//var censusDataInterpreted = interpreter.interpret(pastCensusData);
+	//alert("censusDataInterpreted >> "+JSON.stringify(censusDataInterpreted));
+	//$.questionListView.appendSectionsToAssessment(censusData);
+	
+	//var localParser = require('parser/localParser');
+      //  var interpreter = require('interpreter/interpreterModule2');
+        //localParser = new localParser();
+
+        //var data = localParser.getQuestions(pastCensusData);
+        //alert("pastCensusData >> "+JSON.stringify(pastCensusData));
+		//if(typeof data === "undefined")
+		//{
+		//	alert("There is an issue with census data. No data returned by webservice.");
+		//	return;
+		//}
+        //var localDataHandler = require('localDataHandler/localDataHandler');
+        //var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
+};
+
+
 // Setting up menu item for home screen
 var openMenu = function() {
 
@@ -128,9 +162,11 @@ var openMenu = function() {
 				activityIndicator.hide();
 			});
 			gotoQuestionSectionWindow.on("addPastCensus", function(e){
+				alert("addPastCensus back = "+JSON.stringify(e));
 				activityIndicator.show();
 				
-				createCensus();
+				//createCensus();
+				createPastCensus(e.questionList);
 				gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 				
 				activityIndicator.hide();
