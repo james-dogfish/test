@@ -10,6 +10,28 @@ function localDataHandler() {
     var self = this;
 	
     var interpreterModule2 = require('interpreter/interpreterModule2');
+    
+    self.cacheCrossingSearch = function(payload)
+    {
+    	var curUserDir = Alloy.Globals.User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+        var crossingsFile = Ti.Filesystem.getFile(curUserDir.nativePath + "crossingsSearch.json");
+        crossingsFile.write(JSON.stringify(payload));
+        return true;
+    };
+    
+    self.loadCachedCrossingSearch = function()
+    {
+    	var curUserDir = Alloy.Globals.User.getUserDir();
+		// alert("curUserDir = "+curUserDir.nativePath);
+        var crossingsFile = Ti.Filesystem.getFile(curUserDir.nativePath + "crossingsSearch.json");
+        if (crossingsFile.exists()) {
+            crossingsFileContents = crossingsFile.read().text;
+            return JSON.parse(crossingsFileContents);
+        } else {
+            return [];
+        }
+    };
    
     self.clearAllSavedAssessments = function () {
     	 //alert(Alloy.Globals.User.getLogin().username);

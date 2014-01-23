@@ -247,6 +247,8 @@ function responseGenerator() {
                     var XMLTools = require("tools/XMLTools");
                     var xml = new XMLTools(xmlDoc);
                     var response = JSON.stringify(xml.toObject());
+                    
+				    	 
                     //Ti.API.info('createCensusRequest Success response >> ' + response);
                     //Ti.API.info('activeAssessments[assessmentIndex]='+JSON.stringify(activeAssessments[assessmentIndex]));
                     if (assObj.isSubmitted === false) {

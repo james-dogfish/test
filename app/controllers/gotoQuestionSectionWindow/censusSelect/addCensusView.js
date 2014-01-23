@@ -47,6 +47,7 @@ Alloy.Globals.Soap.searchCensus(
          	if(typeof pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"] !== "undefined"){
          		pastCensuses = pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"];
          	}
+         	alert(pastCensuses.length);
          	if(pastCensuses.length === 0)
          	{
          		alert("Sorry there are no past censuses. Please create a new census and try again.");
