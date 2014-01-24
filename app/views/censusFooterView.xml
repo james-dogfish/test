@@ -1,11 +1,13 @@
 <Alloy>
 	<View id="container">
-		
-		<View id="timerDisplayContainer">
-			<Label id="timerDisplay"/>
+		<View id="floatCenterContainer">
+			<View id="timerDisplayContainer">
+				<Label id="timerDisplay"/>
+			</View>
+			<Button id="playButton" class="inputButton" onClick="playClick"/>
+			<Button id="pauseButton" class="inputButton" onClick="pauseClick"/>
+			<Button id="stopButton" class="inputButton" onClick="stopClick"/>
+			<Button id="gotToCensusButton" class="inputButton" onClick="goToCensus"/>
 		</View>
-		<Button id="resetButton" class="inputButton" onClick="resetClick"/>
-		<Button id="gotToCensusButton" class="inputButton" onClick="goToCensus"/>
-
 	</View>
 </Alloy>

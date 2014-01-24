@@ -16,25 +16,6 @@ var currentAssessmentObject = null;
 //when a question is selected this value is updated
 var questionSelected = null;
 
-/*
-var createNavigationSection = function(){
-	var navSection = Titanium.UI.createListSection();
-	navSection.setItems([{template : "questionSectionNavigation", backButton : {visible : true}, nextButton : {visible : true}}]);
-	return navSection;
-};
-
-
-var setNavigationButtons = function(isBackButtonVisible, isNextButtonVisible){
-	var sectionNavigation = navigationSection.getItems()[0];
-	sectionNavigation.backButton.visible = isBackButtonVisible;
-	sectionNavigation.nextButton.visible = isNextButtonVisible;
-	navigationSection.updateItemAt(0, sectionNavigation);
-	
-	$.backButton.visible =  isBackButtonVisible;
-	$.nextButton.visible =  isNextButtonVisible;
-};
-*/
-//var navigationSection = createNavigationSection();
 
 var ALL_SECTIONS =1;
 var SINGLE_SECTIONS = 2;
@@ -59,109 +40,131 @@ var findQuestionsRef= function(sectionList, questionName){
 };
 
 
-//simple test to cheak if the question is effected by the question change
-var testIfQuesionIsVisable = function(question, changedQuestionName, changedQuestionValueList){
-	if(question.renderValue.length == 0)return true;
+var newTestIfVisable = function(questionObject){
 
-	//if true, do a complete check on its render condtions
-	var reevaluate = false;
 	
-	for(var renderValueIndex=0; renderValueIndex < question.renderValue.length; renderValueIndex++){
-		//alert("value : "+question.renderValue[i].value );
-
-		if(question.renderValue[renderValueIndex].name == changedQuestionName){
-			reevaluate = true;
-			break;
-		}
-	
-
-	}
-	
-	if(reevaluate == false){
-		return question.visable;
-	}
-	else{
-		return reevaluateQuestionIfQuestionIsVisable(question);
-	}
-};
-
-//a compelete check if the question satisfies its render condtions
-var reevaluateQuestionIfQuestionIsVisable = function(question){
-
-	var questionRef = null;
-	
-	for(var i=0; i < question.renderValue.length; i++){
+	for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+		var parentQuestion = newFindQuestionObject(questionObject.renderValue[renderValueIndex].question.name, questionObject.renderValue[renderValueIndex].question.groupType);
+		if(parentQuestion == null)continue;
+		if(questionObject.renderValue[renderValueIndex].value == null)return true;
 		
-		if(questionRef == null){
-			questionRef = findQuestionObject(question.renderValue[i].name);
-		}
-		else if(question.renderValue[i].name != questionRef.name){
-			questionRef = findQuestionObject(question.renderValue[i].name);
-		}
-		
-		if(questionRef == null){
-			Ti.API.info("reevaluateQuestionIfQuestionIsVisable = question not found");
-		}
-		
-		
-		if(question.renderValue[i].value == null){
-			if(questionRef.visable == true){
-				return true;
-			}
-		}
-		
-		for(var valueIndex =0; valueIndex < questionRef.value.length; valueIndex++){
-			Ti.API.info("renderValue = "+question.renderValue[i].value + ", question.value["+valueIndex+"] = "+questionRef.value[valueIndex]);
-			if(question.renderValue[i].value == questionRef.value[valueIndex]){
+		for(var valueIndex =0; valueIndex < parentQuestion.value.length; valueIndex++){
+			if(questionObject.renderValue[renderValueIndex].value == parentQuestion.value[valueIndex]){
 				return true;
 			}
 		}
 	}
-	
 	return false;
 };
 
-var findQuestion = function(questionName){
+var newFindQuestionObject = function(questionName, groupType){
 	var sectionList = getAllQuestionSections();
-	
-	
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
 		
-		for(var questionIndex =0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++){
+		if(sectionList[sectionIndex].groupType ==  groupType){
 			var questionList = sectionList[sectionIndex].getItems();
-				
-			if(questionList[questionIndex].name ==questionName){
-				//return questionList[questionIndex].value;
-				return {question : questionList[questionIndex], questionIndex : questionIndex, section : sectionList[sectionIndex]};
+			for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+				if(questionList[questionIndex].name ==questionName){
+					//return questionList[questionIndex].value;
+					return  questionList[questionIndex];
+				}
 			}
 		}
 	}
 	return null;
 };
 
-var findQuestionObject = function(questionName){
+var newTestRenderDependentQuestions= function(questionObject){
 	
+	var addToSectionMap =[];
+	for(var questionIndex =0; questionIndex < hiddenQuestions.length; questionIndex++){
+		for(var childQuestionIndex=0; childQuestionIndex < questionObject.debugQuestionDependencyList.length; childQuestionIndex++){
+			
+			if(hiddenQuestions[questionIndex].name == questionObject.debugQuestionDependencyList[childQuestionIndex].name){
+				if(newTestIfVisable(hiddenQuestions[questionIndex]) == true){
+					if(!(hiddenQuestions[questionIndex].groupType in addToSectionMap)){
+						addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
+					}
+
+					addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
+					hiddenQuestions.splice(questionIndex, 1);
+					questionIndex--;
+				}
+			}
+		}
+	}
 	
-	for(var questionIndex=0; questionIndex < hiddenQuestions.length; questionIndex++){
-		if(hiddenQuestions[questionIndex].name ==questionName){
-			return hiddenQuestions[questionIndex];
+	var removeFromSectionMap =[];
+	for(var questionIndex=0; questionIndex < questionObject.debugQuestionDependencyList.length; questionIndex++){
+		var childQuestion= newFindQuestionObject(questionObject.debugQuestionDependencyList[questionIndex].name, questionObject.debugQuestionDependencyList[questionIndex].groupType);
+		if(childQuestion == null)continue;
+		
+		if(newTestIfVisable(childQuestion) == false){
+			if(!(childQuestion.groupType in removeFromSectionMap)){
+				removeFromSectionMap[childQuestion.groupType] = [];
+			}
+		
+
+			removeFromSectionMap[childQuestion.groupType][childQuestion.name] = true;
+			
 		}
 	}
 	
 	var sectionList = getAllQuestionSections();
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
 		
-		for(var questionIndex =0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++){
-			var questionList = sectionList[sectionIndex].getItems();
+		var questionList = sectionList[sectionIndex].getItems();
+		var sectionGroupType = sectionList[sectionIndex].groupType;
+		
+		if(sectionGroupType in removeFromSectionMap){
+			Ti.API.info("R sectionGroupType : "+ sectionGroupType);
+			
+			for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+				if(questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]){
+					Ti.API.info("remove : "+questionList[questionIndex].name);
+					questionList[questionIndex].visable = false;
+					localDataHandler.updateQuestion(questionList[questionIndex]);
+					hiddenQuestions.push(questionList[questionIndex]);
+					questionList.splice(questionIndex, 1);
+					
+					questionIndex--;
+				}
+			}	
+		}
+		
+		if(sectionGroupType in addToSectionMap){
+			Ti.API.info("----- A sectionGroupType : "+ sectionGroupType + " = "+JSON.stringify(addToSectionMap[sectionGroupType]));
+			
+			for(var addQuestionIndex=0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++){
 				
-			if(questionList[questionIndex].name ==questionName){
-				//return questionList[questionIndex].value;
-				return questionList[questionIndex];
+				
+				var questionAdded = false;
+				for(var questionIndex=0; questionIndex < questionList.length && questionAdded != true; questionIndex++){
+					if(addToSectionMap[sectionGroupType][addQuestionIndex].order < questionList[questionIndex].order){
+						addToSectionMap[sectionGroupType][addQuestionIndex].visable = true;
+						localDataHandler.updateQuestion(addToSectionMap[sectionGroupType][addQuestionIndex]);
+						questionList.splice(questionIndex, 0, addToSectionMap[sectionGroupType][addQuestionIndex]);
+						Ti.API.info("added splice: "+addToSectionMap[sectionGroupType][addQuestionIndex].name);
+						questionAdded = true;
+					}
+				}
+				if(questionAdded == false){
+					questionList.push(addToSectionMap[sectionGroupType][addQuestionIndex]);
+					Ti.API.info("added push : "+addToSectionMap[sectionGroupType][addQuestionIndex].name);
+				}
+				
+				
 			}
 		}
+		
+		if(sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap){
+			sectionList[sectionIndex].setItems(questionList);
+		}
 	}
-	return null;
+	
+	
 };
+
 
 var findQuestionsValue = function(questionName){
 	var sectionList = getAllQuestionSections();
@@ -223,7 +226,7 @@ var removeQuestionFromListSection = function(section, question, questionIndex){
 		//animationStyle : Titanium.UI.iPhone.RowAnimationStyle.RIGHT, 
 		position : Titanium.UI.iPhone.ListViewScrollPosition.NONE
 	};
-	section.deleteItemsAt(questionIndex, 1, listViewAnimationProperties);
+	section.deleteItemsAt(questionIndex, 1);
 	
 	//updateSection(section);
 	
@@ -574,39 +577,6 @@ var questionValueChange = function(item, name, value){
 	//alert("value = "+value);
 };
 
-/*
-var removeAnyRenderOptionQuestion = function(data){
-	var sectionList = data;
-	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
-		
-		for(var itemIndex =0; itemIndex < sectionList[sectionIndex].getItems().length; itemIndex++){
-			var itemsList = sectionList[sectionIndex].getItems();
-				
-			if(itemsList[itemIndex].renderValue.length != 0){
-				//alert("itemsList.length "+itemsList.length);
-				itemIndex = removeQuestionFromListSection(sectionList[sectionIndex],itemsList[itemIndex], itemIndex);
-
-			}
-		}
-	}
-};
-*/
-
-var testIfQuestionsNeedToBeRemoved = function(questionObject){
-	var sectionList = getAllQuestionSections();
-	
-	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
-		
-		for(var questionIndex =0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++){
-			var questionList = sectionList[sectionIndex].getItems();
-			
-			if(testIfQuesionIsVisable(questionList[questionIndex], questionObject.name, questionObject.value) == false){ 
-				//alert("itemsList.length "+itemsList.length);
-				questionIndex = removeQuestionFromListSection(sectionList[sectionIndex],questionList[questionIndex], questionIndex);
-			}
-		}
-	}
-};
 
 var getAllQuestionSections = function(){
 	return allSections;
@@ -657,14 +627,6 @@ var setListViewDisplayTypeToSingleSections= function(onSingleSection){
 	}
 };
 
-var testIfQuestionsNeedToBeAdded = function(questionObject){
-	
-	for(var i=0; i < hiddenQuestions.length; i++){
-		if(testIfQuesionIsVisable(hiddenQuestions[i], questionObject.name, questionObject.value ) == true){
-			i = addItemFromHiddenList(i);
-		}
-	}
-};
 
 var getQuestionSection = function(groupType){
 	var sectionList = getAllQuestionSections();
@@ -719,56 +681,7 @@ var validateSingleQuestionValue = function(value, questionObject){
 
 		}
 	}
-	
-	
-	
-	
-	
-	
-	/*
-	if(typeof validation !== "undefined"){
-		var mandatory = validation.mandatory;
-		if(typeof mandatory !== "undefined"){
-			if(mandatory["#text"] == "true"){
-				if(value == ""){
-					
-					returnObject.isValid = false;
-					returnObject.outPutMessage = "This question is mandatory";
-					return returnObject;
-				}
-			}
-			else if(value == ""){
-				returnObject.isValid = true;
-				return returnObject;
-				
-			}
-		}
-		else if(value == ""){
-			returnObject.isValid = true;
-			return returnObject;
-		}
-	}
-	
-	
-	
-	
-	var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
-	if(conditionalMandatory.length != 0 && value == ""){
-		
-		for(var i = 0; i< conditionalMandatory.length; i++){
-			var testValue = findQuestionsValue(conditionalMandatory.name);
-			if(testValue.length == 0)continue;
-			
-			for(var testValueIndex =0; testValueIndex < testValue.length; testValueIndex++){
-				if(conditionalMandatory[i].value == testValue[testValueIndex]){
-					returnObject.isValid = false;
-					returnObject.outPutMessage = "This question is mandatory";
-					return returnObject;
-				}
-			}
-		}
-	}
-	*/
+
 	
 	
 	if(dataType == "numeric" || dataType == "numericRange"){
@@ -915,41 +828,8 @@ function moveSectionNextClick(e){
 	setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
 
-
-exports.changeQuestionValue = function(e){
-	/*
-	e.questionObject = validateEntireQuestion(e.questionIndex, e.questionObject, e.section);
-	
-	e.section.updateItemAt(e.questionIndex, e.questionObject);
-	localDataHandler.updateQuestion(e.questionObject);
-	
-	
-	testIfQuestionsNeedToBeRemoved(e.questionObject);
-	testIfQuestionsNeedToBeAdded(e.questionObject);
-	
-	return e.questionObject;
-	*/
-	return questionValueChange(e);
-};
-
 var questionValueChange = function(e){
 	
-	/*
-	//alert("questionValueChange");
-	
-	////questionIndex, questionObject, section
-	
-	validateEntireQuestion(e.questionIndex, e.questionObject, e.section);
-	
-	testIfQuestionsNeedToBeRemoved(questionObject);
-	testIfQuestionsNeedToBeAdded(questionObject);
-	
-	if(valueChangeObject.responseObject != null){
-		localDataHandler.updateQuestion(
-			valueChangeObject.item
-		);
-	}
-	*/
 	e.questionObject = validateEntireQuestion(e.questionObject);
 	
 	if(e.section != null){
@@ -959,12 +839,13 @@ var questionValueChange = function(e){
 	localDataHandler.updateQuestion(e.questionObject);
 	
 	
-	testIfQuestionsNeedToBeRemoved(e.questionObject);
-	testIfQuestionsNeedToBeAdded(e.questionObject);
+	//testIfQuestionsNeedToBeRemoved(e.questionObject);
+	//testIfQuestionsNeedToBeAdded(e.questionObject);
+	newTestRenderDependentQuestions(e.questionObject);
 	
 	return e.questionObject;
-
 };
+exports.questionValueChange = questionValueChange;
 
 function footerTextButtonClick(e){
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : currentAssessmentObject.notes, title : "Assessment Notes", closeCallBack : function(notes){
@@ -1040,7 +921,8 @@ Ti.App.addEventListener("startCensesTimer", function(e){
 		}
 		else{
 			
-			var timerDuration = parseInt(questionRef.question.value[0])*60;;
+			var timerDuration = parseInt(questionRef.question.value[0])*60;
+			Ti.API.info("timerDuration = "+timerDuration + ", text = "+questionRef.question.value[0]);
 			$.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
 		}
 	}
