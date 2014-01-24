@@ -1,5 +1,6 @@
 var User = require('core/User');
 var loginView;
+var Util = require('core/Util');
 
 // Set current tab globally so that other windows can be opened
 Alloy.Globals.currentTab = $.tab1;
@@ -306,6 +307,17 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                     });
                     riskMap[results[i]["ns6:parameterName"]] = paramDetails;
                 }*/
+               
+                Alloy.Globals.Soap.getCrossingRequest({
+                        crossingId: crossingDetail.id
+                    },
+                     function (xmlDoc){
+                    	 var riskMap = [];
+                    	 var XMLTools = require("tools/XMLTools");
+            			 var xml2 = new XMLTools(xmlDoc);
+                    	 var crossObj = JSON.stringify(xml2.toObject());
+                    	 Ti.API.info("crssoObj >>> "+crossObj);
+                     },function(xmlDoc){});
                 //get Assessment Question Set
                 Alloy.Globals.Soap.getQuestionsRequest({
                         crossingId: crossingDetail.id,
@@ -316,6 +328,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                     	 var XMLTools = require("tools/XMLTools");
             			 var xml2 = new XMLTools(xmlDoc);
                     	 var assObj = JSON.stringify(xml2.toObject());
+                    	 Ti.API.info("assObj >>> "+assObj);
                     	 if(typeof assObj === "undefined")
                			 {
                					 	alert(L('no_data'));
@@ -356,7 +369,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
 		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
 		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
 		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
-		                                localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
+		                               // localDataHandler.addNewTrainGroupToAssessment(curAssObj,[]);
 		                                 //Alloy.Globals.aIndicator.hide();
 		               					 //detailSearchTab.setData(crossingDetail);
 		               					 
