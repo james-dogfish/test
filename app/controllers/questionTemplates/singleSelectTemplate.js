@@ -16,6 +16,8 @@ function selectButtonClicked(e){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.value];
 		section.updateItemAt(e.itemIndex, item);
+		
+		Ti.API.info("modalPicker value = "+data.value);
 		//questionValueChange(item, section, valueString);
 		
 		var questionResponse = 
@@ -87,6 +89,6 @@ function debugShowRenderDependencies(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	alert(JSON.stringify(item.debugQuestionDependencyList));
+	alert("renderValue = "+JSON.stringify( item.renderValue));
 };
 

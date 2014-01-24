@@ -112,7 +112,8 @@ function interpreterModule2() {
 
 
             questionRenderValues.push({
-                name: dependencieName,
+            	question : {name : dependencieName, groupType : ""},
+                //name: dependencieName,
                 value: dependencieValue
             });
         }
@@ -237,12 +238,12 @@ function interpreterModule2() {
 
     var questionSetPastVariables = function (questionObject, questionMap) {
     	//alert("questionSetPastVariables called");
-    	Ti.API.info("MAP="+questionMap);
+    	//Ti.API.info("MAP="+questionMap);
         if (questionObject.alcrmQuestionID in questionMap) {
         	//Ti.API.info("inside first if stat");
             if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
             	//alert("questionSetPastvariables >> " + JSON.stringify(questionMap[questionObject.alcrmQuestionID]));
-            	Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
+            	//Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
             	
                 questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
                 questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
@@ -344,16 +345,12 @@ function interpreterModule2() {
                     //builds a list objects for all of the render Dependent question for this question
                     renderDependenciesQuestionList = [];
                     for(var i=0; i< questionNameArray.length; i++){
-                    	if(questionNameArray[i] in questionMap){
-                    		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : questionMap[questionNameArray[i]].groupType});
+                    	if(questionNameArray[i] in self.questionMap){
+                    		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : self.questionMap[questionNameArray[i]].groupType});
                     	}
                     }
                     
                     self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = renderDependenciesQuestionList;
-                    
-                    
-                    
-                    
                 }
             }
         }
@@ -410,6 +407,17 @@ function interpreterModule2() {
                         value: userPreferences.email
                     };
                 }
+                
+                
+                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+                	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
+                		questionObject.renderValue[renderValueIndex].question.groupType = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].groupType;
+                	}
+                	else{
+                		Ti.API.info("interpreterModule2 :: NOT FOUND = questionObject.renderValue[renderValueIndex].question.name");
+                	}
+                }
+                
 
                 self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
             }
