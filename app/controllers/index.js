@@ -1,4 +1,27 @@
-	
+// Touchtest params from old project
+if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
+	var touchTestModule = undefined;
+	try {
+		touchTestModule = require("com.soasta.touchtest");
+	} catch (tt_exception) {
+		Ti.API.error("com.soasta.touchest module is required");
+	}
+
+	var cloudTestURL = Ti.App.getArguments().url;
+	if (cloudTestURL != null) {
+		// The URL will be null if we don't launch through TouchTest.
+		touchTestModule && touchTestModule.initTouchTest(cloudTestURL);
+	}
+
+	Ti.App.addEventListener('resumed', function(e) {
+		// Hook the resumed from background
+		var cloudTestURL = Ti.App.getArguments().url;
+		if (cloudTestURL != null) {
+			touchTestModule && touchTestModule.initTouchTest(cloudTestURL);
+		}
+	});
+}
+
 Alloy.Globals.User = require('core/User');
 var User = Alloy.Globals.User;
 
@@ -9,44 +32,42 @@ localParser = new localParser();
 
 //GLOBALS
 Alloy.Globals.Soap = require('core/Soap');
-Alloy.Globals.isDebugOn  = true;
+Alloy.Globals.isDebugOn = true;
 Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 Alloy.Globals.localParser = localParser;
 
-var getValidator = function()
-{
-		var Validator = require('validator/Validator');
-		Alloy.Globals.validator =  Validator;
+var getValidator = function() {
+	var Validator = require('validator/Validator');
+	Alloy.Globals.validator = Validator;
 };
 
+var startup = function() {
+	//only downloads if not already downloaded before.
+	Util.downloadAppHelp();
 
-var startup = function(){
-		//only downloads if not already downloaded before.
-		Util.downloadAppHelp();
+	//only downloads if not already downloaded before.
+	Util.downloadCheatSheet();
 
-		//only downloads if not already downloaded before.
-		Util.downloadCheatSheet();
-		
-		Util.showDebugAlert("DEBUG ALERTS IS ON");
-		Alloy.Globals.aIndicator.show('Starting up...');
-		getValidator();
+	Util.showDebugAlert("DEBUG ALERTS IS ON");
+	Alloy.Globals.aIndicator.show('Starting up...');
+	getValidator();
 
-		Alloy.Globals.aIndicator.hide();
-		var mainView = Alloy.createController('main').getView();
-        mainView.open();
-        
-		// Check whether settings are filled 
-		if (!Alloy.Globals.User.hasPreferences()) {
-				// Open setting screen
-				var userSettings = Alloy.createController('userSettings', {
-					message: true
-				}).getView();
-				userSettings.open();
-				//return false;
-		}
-		
+	Alloy.Globals.aIndicator.hide();
+	var mainView = Alloy.createController('main').getView();
+	mainView.open();
+
+	// Check whether settings are filled
+	if (!Alloy.Globals.User.hasPreferences()) {
+		// Open setting screen
+		var userSettings = Alloy.createController('userSettings', {
+			message : true
+		}).getView();
+		userSettings.open();
+		//return false;
+	}
+
 };
-Ti.App.addEventListener('fireStartup',startup);
+Ti.App.addEventListener('fireStartup', startup);
 
 if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
