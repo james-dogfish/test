@@ -12,7 +12,6 @@ function selectButtonClicked(e){
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	
-	
 	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.value];
@@ -61,7 +60,7 @@ function onNotesClick(e){
 	//alert("question name = "+item.name);
 	
 	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, closeCallBack : function(notes){
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
 		
 		if(notes != ""){
 			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};

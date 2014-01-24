@@ -1,23 +1,22 @@
-var animationDuration = 700;
 
 
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "51%";
-animationOpen.duration = animationDuration;
+animationOpen.duration = Alloy.Globals.animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
 animationClose.left = "100%";
-animationClose.duration = animationDuration;
+animationClose.duration = Alloy.Globals.animationDuration;
 
 var openPickerContainer= Titanium.UI.createAnimation();
 openPickerContainer.height = Ti.UI.SIZE;
 //openPickerContainer.bottom = "20dp";
-openPickerContainer.duration = animationDuration;
+openPickerContainer.duration = Alloy.Globals.animationDuration;
 
 var closePickerContainer= Titanium.UI.createAnimation();
 closePickerContainer.height = 0;
 //closePickerContainer.bottom = 0;
-closePickerContainer.duration = animationDuration;
+closePickerContainer.duration = Alloy.Globals.animationDuration;
 
 var valueList = [];
 var currentValue = 0;

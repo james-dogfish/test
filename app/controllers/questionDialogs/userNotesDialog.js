@@ -5,25 +5,32 @@ if(args.notes != ""){
 	$.hintText.hide();
 }
 
-$.hintText.text = "Enter Notes : ";
+if(args.title == ""  || typeof args.title === "undefined"){
+	$.appTitle.text = "Notes";
+}
+else{
+	$.appTitle.text = args.title;
+}
 
-var animationDuration = 700;
+
+
+$.hintText.text = "Enter Notes : ";
 
 var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
-animationFadeIn.duration = animationDuration;
+animationFadeIn.duration = Alloy.Globals.animationDuration;
 
 var animationFadeOut = Titanium.UI.createAnimation();
 animationFadeOut.opacity = 0;
-animationFadeOut.duration = animationDuration;
+animationFadeOut.duration = Alloy.Globals.animationDuration;
 
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.right = "25%";
-animationOpen.duration = animationDuration;
+animationOpen.duration = Alloy.Globals.animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
 animationClose.right = "-50%";
-animationClose.duration = animationDuration;
+animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
 	$.window.close();
 });
