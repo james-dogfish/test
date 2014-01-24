@@ -178,6 +178,42 @@ var findQuestionsValue = function(questionName){
 	return [""];
 };
 
+
+var findQuestionByAssociatedFileName = function(alcrmQuestionID, associatedFileName){
+	var sectionList = getAllQuestionSections();
+	
+	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
+		
+		//Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+		if(sectionList[sectionIndex].associatedFileName == associatedFileName){
+			var questionList = sectionList[sectionIndex].getItems();
+			for(var questionIndex =0; questionIndex < questionList.length; questionIndex++){
+				
+				Ti.API.info("alcrmQuestionID "+alcrmQuestionID+" : "+questionList[questionIndex].alcrmQuestionID);
+				if(questionList[questionIndex].alcrmQuestionID ==alcrmQuestionID){
+
+					//return questionList[questionIndex].value;
+					return {question : questionList[questionIndex], questionIndex : questionIndex, section : sectionList[sectionIndex]};
+				}
+			}
+		}
+	}
+	return null;
+};
+
+var findSectionByAssociatedFileName = function(alcrmGroupType, associatedFileName){
+	var sectionList = getAllQuestionSections();
+	
+	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
+		
+		//Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+		if(sectionList[sectionIndex].associatedFileName == associatedFileName && sectionList[sectionIndex].alcrmGroupType ==alcrmGroupType){
+			return sectionList[sectionIndex];
+		}
+	}
+	return null;
+};
+
 var removeQuestionFromListSection = function(section, question, questionIndex){
 	question.visable = false;
 	hiddenQuestions.push(question);
