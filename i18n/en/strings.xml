@@ -6,4 +6,7 @@
     <string name="no_results">No Results Available.</string>
     <string name="spinner_text">Loading ... </string>
     <string name="no_help_content">No help content available!</string>
+    <string name="census_has_finished">Census has finished</string>
+    <string name="census">Census</string>
+    
 </resources>

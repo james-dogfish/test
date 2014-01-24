@@ -2,6 +2,8 @@ var duration = 0;
 var censusGroupType = "";
 var censusAssociatedFileName = "";
 
+var soundEffect = Ti.Media.createSound({url:"sound/beep-01a.wav"});
+
 var convertSecondsToTimeObject = function(seconds){
 	return {
 			h : Math.floor(seconds / (3600)), 
@@ -22,7 +24,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 		start: function() {
 			var self = this;
 			this.timer = setInterval( function() {
-				Ti.API.info("self.totalSec" + self.totalSec);
+
 				if (self.totalSec) {
 					self.totalSec--;
 				
@@ -75,6 +77,26 @@ var ticCallBack = function(time){
 
 var finishCallBack = function(){
 	$.timerDisplay.text = "00:00:00";
+	
+	soundEffect.setLooping(true);
+	soundEffect.play();
+	var dialog = Ti.UI.createAlertDialog({
+	    message: L('census_has_finished'),
+	    ok: 'Okay',
+	    title: L('census')
+
+	});
+	
+	 dialog.addEventListener('click', function(e){
+	 	//soundEffect.setLooping(false);
+	 	soundEffect.stop();
+	 });
+	 
+	 dialog.show();
+	 
+  
+  
+	close();
 };
 
 var countDownObject = countDown(0, ticCallBack, finishCallBack);
@@ -96,6 +118,7 @@ var open = function(timerDuration, groupType, associatedFileName){
 	//duration = parseInt(1)*3600000+parseInt(0)*60+parseInt(10);
 	//duration = timerDuration;
 	Ti.API.info("timerDuration 2 = "+timerDuration);
+	timerDuration= 5;
 	countDownObject.set(timerDuration);
 	countDownObject.start();
 };
