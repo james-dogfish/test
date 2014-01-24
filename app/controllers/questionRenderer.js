@@ -719,56 +719,7 @@ var validateSingleQuestionValue = function(value, questionObject){
 
 		}
 	}
-	
-	
-	
-	
-	
-	
-	/*
-	if(typeof validation !== "undefined"){
-		var mandatory = validation.mandatory;
-		if(typeof mandatory !== "undefined"){
-			if(mandatory["#text"] == "true"){
-				if(value == ""){
-					
-					returnObject.isValid = false;
-					returnObject.outPutMessage = "This question is mandatory";
-					return returnObject;
-				}
-			}
-			else if(value == ""){
-				returnObject.isValid = true;
-				return returnObject;
-				
-			}
-		}
-		else if(value == ""){
-			returnObject.isValid = true;
-			return returnObject;
-		}
-	}
-	
-	
-	
-	
-	var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
-	if(conditionalMandatory.length != 0 && value == ""){
-		
-		for(var i = 0; i< conditionalMandatory.length; i++){
-			var testValue = findQuestionsValue(conditionalMandatory.name);
-			if(testValue.length == 0)continue;
-			
-			for(var testValueIndex =0; testValueIndex < testValue.length; testValueIndex++){
-				if(conditionalMandatory[i].value == testValue[testValueIndex]){
-					returnObject.isValid = false;
-					returnObject.outPutMessage = "This question is mandatory";
-					return returnObject;
-				}
-			}
-		}
-	}
-	*/
+
 	
 	
 	if(dataType == "numeric" || dataType == "numericRange"){
@@ -915,41 +866,8 @@ function moveSectionNextClick(e){
 	setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
 
-
-exports.changeQuestionValue = function(e){
-	/*
-	e.questionObject = validateEntireQuestion(e.questionIndex, e.questionObject, e.section);
-	
-	e.section.updateItemAt(e.questionIndex, e.questionObject);
-	localDataHandler.updateQuestion(e.questionObject);
-	
-	
-	testIfQuestionsNeedToBeRemoved(e.questionObject);
-	testIfQuestionsNeedToBeAdded(e.questionObject);
-	
-	return e.questionObject;
-	*/
-	return questionValueChange(e);
-};
-
 var questionValueChange = function(e){
 	
-	/*
-	//alert("questionValueChange");
-	
-	////questionIndex, questionObject, section
-	
-	validateEntireQuestion(e.questionIndex, e.questionObject, e.section);
-	
-	testIfQuestionsNeedToBeRemoved(questionObject);
-	testIfQuestionsNeedToBeAdded(questionObject);
-	
-	if(valueChangeObject.responseObject != null){
-		localDataHandler.updateQuestion(
-			valueChangeObject.item
-		);
-	}
-	*/
 	e.questionObject = validateEntireQuestion(e.questionObject);
 	
 	if(e.section != null){
@@ -963,8 +881,8 @@ var questionValueChange = function(e){
 	testIfQuestionsNeedToBeAdded(e.questionObject);
 	
 	return e.questionObject;
-
 };
+exports.questionValueChange = questionValueChange;
 
 function footerTextButtonClick(e){
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : currentAssessmentObject.notes, title : "Assessment Notes", closeCallBack : function(notes){

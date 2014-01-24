@@ -33,7 +33,7 @@ function onTextFieldBlur(e){
     
     item.questionResponse = questionResponse;
     
-    item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+    item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 
 /*
 	Ti.App.fireEvent("questionValueChange", {

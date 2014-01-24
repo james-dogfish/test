@@ -33,7 +33,7 @@ function selectButtonClicked(e){
 		}
 		
 		
-		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 		
 		if(showSpiner == true){
 			activityIndicator.hide();
@@ -87,18 +87,6 @@ function debugShowRenderDependencies(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	
-	var dependencyList = item.debugQuestionDependencyList;
-	
-	var string = "";
-	for(var i=0; i< dependencyList.length; i++){
-		if(i == 0){
-			string = dependencyList[i];
-		}
-		else{
-			string = string+ ", "+dependencyList[i];
-		}
-	}
-	alert(string);
+	alert(JSON.stringify(item.debugQuestionDependencyList));
 };
 

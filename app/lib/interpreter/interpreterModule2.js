@@ -5,6 +5,9 @@ function interpreterModule2() {
 
     var self = this;
     self.sectionHeaderList = [];
+    
+    var questionMap = [];
+    
     var User = require('core/User');
     var userPreferences = User.getPreferences();
 
@@ -227,6 +230,8 @@ function interpreterModule2() {
         
         questionObject = questionSetPastVariables(questionObject, questionMap);
         
+        self.questionMap[questionObject.name] = questionObject;
+        
         return questionObject;
     };
 
@@ -330,13 +335,25 @@ function interpreterModule2() {
                 if (typeof renderDependenciesMap[name] !== "undefined") {
                     //alert(name);
 
-                    var newArray = renderDependenciesMap[name];
-                    newArray = newArray.filter(function (elem, pos) {
-                        return newArray.indexOf(elem) == pos;
+					//creates a list of Dependent question names with no repeated names
+                    var questionNameArray = renderDependenciesMap[name];
+                    questionNameArray = questionNameArray.filter(function (elem, pos) {
+                        return questionNameArray.indexOf(elem) == pos;
                     });
-
-
-                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = newArray;
+                    
+                    //builds a list objects for all of the render Dependent question for this question
+                    renderDependenciesQuestionList = [];
+                    for(var i=0; i< questionNameArray.length; i++){
+                    	if(questionNameArray[i] in questionMap){
+                    		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : questionMap[questionNameArray[i]].groupType});
+                    	}
+                    }
+                    
+                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = renderDependenciesQuestionList;
+                    
+                    
+                    
+                    
                 }
             }
         }
@@ -417,6 +434,7 @@ function interpreterModule2() {
 
     self.interpret = function (allQuestions, passObject) {
         self.sectionHeaderList = [];
+        self.questionMap = [];
 
         for (var i = 0; i < allQuestions.length; i++) {
             addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);

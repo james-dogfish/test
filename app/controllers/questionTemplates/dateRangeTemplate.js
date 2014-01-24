@@ -76,7 +76,7 @@ function dateButton1Clicked(e){
 	    item.questionResponse = questionResponse;
 	
 		//questionValueChange(item, section, dateString);
-		item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+		item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 		
 		/*
 
