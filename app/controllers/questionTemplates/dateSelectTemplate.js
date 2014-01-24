@@ -6,7 +6,7 @@ function onNotesClick(e){
 	//{backgroundImage: 'images/questionSelectedNote.png'},
 	
 	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, closeCallBack : function(notes){
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
 		
 		if(notes != ""){
 			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};

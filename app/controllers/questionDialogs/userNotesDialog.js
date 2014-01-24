@@ -5,6 +5,15 @@ if(args.notes != ""){
 	$.hintText.hide();
 }
 
+if(args.title == ""  || typeof args.title === "undefined"){
+	$.appTitle.text = "Notes";
+}
+else{
+	$.appTitle.text = args.title;
+}
+
+
+
 $.hintText.text = "Enter Notes : ";
 
 var animationFadeIn = Titanium.UI.createAnimation();

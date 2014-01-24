@@ -963,7 +963,7 @@ var questionValueChange = function(e){
 };
 
 function footerTextButtonClick(e){
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : currentAssessmentObject.notes, closeCallBack : function(notes){
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : currentAssessmentObject.notes, title : "Assessment Notes", closeCallBack : function(notes){
 		currentAssessmentObject.notes  = notes;
 		localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
 	}});
