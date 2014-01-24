@@ -5,11 +5,11 @@
 
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "0%";
-animationOpen.duration = 700;
+animationOpen.duration = Alloy.Globals.animationDuration;
 
 var animationClose = Titanium.UI.createAnimation();
 animationClose.left = "100%";
-animationClose.duration = 700;
+animationClose.duration = Alloy.Globals.animationDuration;
 
 exports.setContentsDetails = function(pageName, questionSectionContentsDetails){
 	$.headerTitle.text = pageName;

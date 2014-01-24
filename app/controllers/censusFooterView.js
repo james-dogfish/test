@@ -2,25 +2,34 @@ var duration = 0;
 var censusGroupType = "";
 var censusAssociatedFileName = "";
 
-var countDown =  function( millisecond, fn_tick, fn_end  ) {
+var convertSecondsToTimeObject = function(seconds){
 	return {
-		totalSec: millisecond,
+			h : Math.floor(seconds / (3600)), 
+			m : Math.floor((seconds / 60) % 60), 
+			s : seconds % 60
+		};
+};
+
+var countDown =  function( seconds, fn_tick, fn_end  ) {
+	return {
+		totalSec: seconds,
 		timer:this.timer,
-		set: function(millisecond) {
-			this.totalSec = millisecond;
-			this.time = {h : Math.floor(this.totalSec / 3600000), m : Math.floor(this.totalSec / 60), s : this.totalSec % 60};
+		set: function(seconds) {
+			this.totalSec = seconds;
+			this.time = convertSecondsToTimeObject(this.totalSec);
 			return this;
 		},
 		start: function() {
 			var self = this;
 			this.timer = setInterval( function() {
+				Ti.API.info("self.totalSec" + self.totalSec);
 				if (self.totalSec) {
 					self.totalSec--;
+				
 					
-					self.time = {h : Math.floor(self.totalSec / 3600000), m : Math.floor(self.totalSec / 60), s : self.totalSec % 60};
-					
-					self.time.h %= 60;
-					self.time.m %= 60;
+					self.time = convertSecondsToTimeObject(self.totalSec);
+					//Ti.API.info("self.totalSec" + self.totalSec+ ", time = "+JSON.stringify(self.time));
+
 				
 					fn_tick(self.time);
 				}
@@ -32,13 +41,19 @@ var countDown =  function( millisecond, fn_tick, fn_end  ) {
 				
 			return this;
 		},
+		pause: function(){
+			clearInterval(this.timer);
+			this.time = convertSecondsToTimeObject(this.totalSec);
+			//this.time = {h : Math.floor(this.totalSec / 3600000), m : Math.floor(this.totalSec / 60), s : this.totalSec % 60};
+			
+		},
 		stop: function() {
 			clearInterval(this.timer);
 			this.time = {h:0,m:0,s:0};
 			this.totalSec = 0;
-			this.startTotalSec = 0;
 			return this;
 		}
+		
 	};
 };
 
@@ -79,7 +94,8 @@ var open = function(timerDuration, groupType, associatedFileName){
 	censusGroupType =groupType;
 	censusAssociatedFileName = associatedFileName;
 	//duration = parseInt(1)*3600000+parseInt(0)*60+parseInt(10);
-	duration = timerDuration;
+	//duration = timerDuration;
+	Ti.API.info("timerDuration 2 = "+timerDuration);
 	countDownObject.set(timerDuration);
 	countDownObject.start();
 };
@@ -106,6 +122,22 @@ var toggleOpen = function(){
 };
 exports.toggleOpen = toggleOpen;
 
+
+function playClick(e){
+	if(countDownObject != null){
+		countDownObject.start();
+	}
+};
+
+function pauseClick(e){
+	if(countDownObject != null){
+		countDownObject.pause();
+	}
+};
+
+function stopClick(e){
+	close();
+};
 
 function resetClick(e){
 	if(countDownObject != null){

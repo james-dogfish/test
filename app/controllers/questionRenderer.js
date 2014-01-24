@@ -1040,7 +1040,8 @@ Ti.App.addEventListener("startCensesTimer", function(e){
 		}
 		else{
 			
-			var timerDuration = parseInt(questionRef.question.value[0])*60;;
+			var timerDuration = parseInt(questionRef.question.value[0])*60;
+			Ti.API.info("timerDuration = "+timerDuration + ", text = "+questionRef.question.value[0]);
 			$.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
 		}
 	}
