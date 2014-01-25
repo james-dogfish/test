@@ -50,6 +50,10 @@ function addCensusClick(e){
 	$.trigger('addCensus');
 };
 
+function censusDesktopCompleteClick(e){
+	$.trigger('censusDesktopComplete');
+};
+
 function pickerChange(e){
 	
 };

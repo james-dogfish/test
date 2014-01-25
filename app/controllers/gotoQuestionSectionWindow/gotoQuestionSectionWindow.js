@@ -83,6 +83,10 @@ $.selectCensusView.on("addCensus", function(){
 	//alert(addCensus);
 	$.addCensusView.show();
 });
+$.selectCensusView.on("censusDesktopComplete", function(){
+	$.trigger('censusDesktopComplete');
+	$.selectCensusView.hide();
+});
 $.addCensusView.on("addPastCensus", function(e){
 	//e.pastCensusObject;
 	$.trigger('addPastCensus', e);
