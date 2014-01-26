@@ -28,7 +28,7 @@ function selectButtonClicked(e){
 	
 		var showSpiner = false;
 		var activityIndicator;
-		if(item.debugQuestionDependencyList.length > 0){
+		if(item.renderDependencyList.length > 0){
 			showSpiner = true;
 			activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 			activityIndicator.show();
@@ -89,6 +89,6 @@ function debugShowRenderDependencies(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	alert("renderValue = "+JSON.stringify( item.renderValue));
+	alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
 };
 
