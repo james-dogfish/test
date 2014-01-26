@@ -406,8 +406,10 @@ function interpreterModule2() {
                     questionObject.displayValue = {
                         value: userPreferences.email
                     };
+                } 
+               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
+                	questionObject.template = "censusStartTimerTemplate";
                 }
-                
                 
                 for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
                 	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){

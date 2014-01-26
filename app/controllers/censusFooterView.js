@@ -115,10 +115,8 @@ var open = function(timerDuration, groupType, associatedFileName){
 	
 	censusGroupType =groupType;
 	censusAssociatedFileName = associatedFileName;
-	//duration = parseInt(1)*3600000+parseInt(0)*60+parseInt(10);
-	//duration = timerDuration;
-	Ti.API.info("timerDuration 2 = "+timerDuration);
-	timerDuration= 5;
+	//Ti.API.info("timerDuration 2 = "+timerDuration);
+	//timerDuration= 5;
 	countDownObject.set(timerDuration);
 	countDownObject.start();
 };

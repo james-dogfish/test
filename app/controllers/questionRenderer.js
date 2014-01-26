@@ -149,6 +149,8 @@ var newTestRenderDependentQuestions= function(questionObject){
 					}
 				}
 				if(questionAdded == false){
+					addToSectionMap[sectionGroupType][addQuestionIndex].visable = true;
+					localDataHandler.updateQuestion(addToSectionMap[sectionGroupType][addQuestionIndex]);
 					questionList.push(addToSectionMap[sectionGroupType][addQuestionIndex]);
 					Ti.API.info("added push : "+addToSectionMap[sectionGroupType][addQuestionIndex].name);
 				}
