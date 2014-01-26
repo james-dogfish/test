@@ -5,6 +5,10 @@
 	borderRadius: 5,
 	borderWidth : 1,
 	borderColor : "#e00",
+},
+"#floatCenterContainer" : {
+	width: Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
 	layout : "horizontal"
 },
 "#timerDisplay" : {
@@ -21,16 +25,29 @@
 	borderColor : "#aaa",
 	backgroundColor: '#fff'
 },
-"#resetButton" : {
-	title: "Reset",
-	top : "10dp",
+"#playButton" : {
+	title: "Play",
 	left : "10dp",
-	width: "200dp",
+	width: "80dp",
+	height : "40dp"
+},
+"#pauseButton" : {
+	title: "Pause",
+
+	left : "10dp",
+	width: "80dp",
+	height : "40dp"
+},
+"#stopButton" : {
+	title: "Stop",
+
+	left : "10dp",
+	width: "80dp",
 	height : "40dp"
 },
 "#gotToCensusButton" : {
 	title: "GoTo Census",
-	top : "10dp",
+
 	left : "10dp",
 	width: "200dp",
 	height : "40dp"

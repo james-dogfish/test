@@ -33,7 +33,7 @@ function onTextFieldBlur(e){
     
     item.questionResponse = questionResponse;
     
-    item = Alloy.Globals.questionRenderer.changeQuestionValue({questionObject : item, questionIndex : e.itemIndex, section : section});
+    item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 
 /*
 	Ti.App.fireEvent("questionValueChange", {
@@ -97,6 +97,6 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
-	//alert("name = "+item.order);
+	alert("renderValue = "+JSON.stringify( item.renderValue));
 }
 

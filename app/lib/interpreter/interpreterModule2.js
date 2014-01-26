@@ -5,6 +5,9 @@ function interpreterModule2() {
 
     var self = this;
     self.sectionHeaderList = [];
+    
+    var questionMap = [];
+    
     var User = require('core/User');
     var userPreferences = User.getPreferences();
 
@@ -109,7 +112,8 @@ function interpreterModule2() {
 
 
             questionRenderValues.push({
-                name: dependencieName,
+            	question : {name : dependencieName, groupType : ""},
+                //name: dependencieName,
                 value: dependencieValue
             });
         }
@@ -227,18 +231,19 @@ function interpreterModule2() {
         
         questionObject = questionSetPastVariables(questionObject, questionMap);
         
+        self.questionMap[questionObject.name] = questionObject;
+        
         return questionObject;
     };
 
     var questionSetPastVariables = function (questionObject, questionMap) {
     	//alert("questionSetPastVariables called");
-    	
-    	Ti.API.info("MAP="+questionMap);
+    	//Ti.API.info("MAP="+questionMap);
         if (questionObject.alcrmQuestionID in questionMap) {
         	//Ti.API.info("inside first if stat");
             if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
-            	
-            	Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
+            	//alert("questionSetPastvariables >> " + JSON.stringify(questionMap[questionObject.alcrmQuestionID]));
+            	//Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
             	
                 questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
                 questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
@@ -331,13 +336,21 @@ function interpreterModule2() {
                 if (typeof renderDependenciesMap[name] !== "undefined") {
                     //alert(name);
 
-                    var newArray = renderDependenciesMap[name];
-                    newArray = newArray.filter(function (elem, pos) {
-                        return newArray.indexOf(elem) == pos;
+					//creates a list of Dependent question names with no repeated names
+                    var questionNameArray = renderDependenciesMap[name];
+                    questionNameArray = questionNameArray.filter(function (elem, pos) {
+                        return questionNameArray.indexOf(elem) == pos;
                     });
-
-
-                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = newArray;
+                    
+                    //builds a list objects for all of the render Dependent question for this question
+                    renderDependenciesQuestionList = [];
+                    for(var i=0; i< questionNameArray.length; i++){
+                    	if(questionNameArray[i] in self.questionMap){
+                    		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : self.questionMap[questionNameArray[i]].groupType});
+                    	}
+                    }
+                    
+                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = renderDependenciesQuestionList;
                 }
             }
         }
@@ -394,6 +407,17 @@ function interpreterModule2() {
                         value: userPreferences.email
                     };
                 }
+                
+                
+                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+                	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
+                		questionObject.renderValue[renderValueIndex].question.groupType = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].groupType;
+                	}
+                	else{
+                		Ti.API.info("interpreterModule2 :: NOT FOUND = questionObject.renderValue[renderValueIndex].question.name");
+                	}
+                }
+                
 
                 self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
             }
@@ -418,6 +442,7 @@ function interpreterModule2() {
 
     self.interpret = function (allQuestions, passObject) {
         self.sectionHeaderList = [];
+        self.questionMap = [];
 
         for (var i = 0; i < allQuestions.length; i++) {
             addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
