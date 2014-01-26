@@ -137,6 +137,12 @@ var openMenu = function () {
 
                 activityIndicator.hide();
             });
+            gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
+                 currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+                 currentAssessmentObject.censusDesktopComplete = true;
+                 localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+                 
+            });
             gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
                 $.questionListView.goToFirstUnanswered();
             });

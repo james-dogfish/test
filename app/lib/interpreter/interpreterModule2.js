@@ -13,6 +13,8 @@ function interpreterModule2() {
 
 
     var renderDependenciesMap = [];
+    
+    var mandatoryDependenciesMap = [];
 
     var ui_types_map = {};
     ui_types_map["date"] = "dateTemplate";
@@ -61,6 +63,7 @@ function interpreterModule2() {
         renderValue: [], // a list of condtions if the question is visable
         selections: [], // a list of possible values for the question
         validation: {},
+        mandatory : false, //can be changed at run time with conditionalMandatory
 
         title: {
             text: ""
@@ -78,12 +81,14 @@ function interpreterModule2() {
         questionErrorMessageView: {},
         questionErrorMessage: {},
 
-        debugQuestionDependencyList: [],
+        renderDependencyList: [],
+        mandatoryDependenciesList : [],
         headerView: {}
     };
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
 
+		var questionName = passObject.pageID + Alloy.Globals.localParser.getQuestionName(question);
         var type = Alloy.Globals.localParser.getQuestionType(question);
         var templateType = "";
         if (type in ui_types_map) {
@@ -108,8 +113,8 @@ function interpreterModule2() {
             if (typeof renderDependenciesMap[dependencieName] === "undefined") {
                 renderDependenciesMap[dependencieName] = [];
             }
-            renderDependenciesMap[dependencieName].push(passObject.pageID + Alloy.Globals.localParser.getQuestionName(question));
-
+            renderDependenciesMap[dependencieName].push(questionName);
+			
 
             questionRenderValues.push({
             	question : {name : dependencieName, groupType : ""},
@@ -142,6 +147,7 @@ function interpreterModule2() {
 
 
         var validation = Alloy.Globals.localParser.getValidation(question);
+        var mandatory = false;
 
         if (typeof validation !== "undefined") {
             questionValidation.validationTest = true;
@@ -150,16 +156,25 @@ function interpreterModule2() {
             if (typeof mandatory !== "undefined") {
                 if (mandatory["#text"] == "true") {
                     questionValidation.mandatory = true;
+                    mandatory = true;
                 }
             }
 
             var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
             for (var i = 0; i < conditionalMandatory.length; i++) {
 
+				var dependencieName = passObject.pageID +conditionalMandatory[i].name;
                 questionValidation.conditionalMandatory.push({
-                    name: conditionalMandatory[i].name,
+                    //name: conditionalMandatory[i].name,
+                    question : {name : dependencieName, groupType : ""},
                     value: conditionalMandatory[i].value
                 });
+                
+                if (typeof mandatoryDependenciesMap[dependencieName] === "undefined") {
+	                mandatoryDependenciesMap[dependencieName] = [];
+	            }
+                mandatoryDependenciesMap[dependencieName].push(questionName);
+                
             }
 
             if (typeof validation.min !== "undefined") {
@@ -210,6 +225,7 @@ function interpreterModule2() {
             renderValue: questionRenderValues, // a list of condtions if the question is visable
             selections: questionSelections, // a list of possible values for the question
             validation: questionValidation,
+            mandatory : mandatory, //can be changed at run time with conditionalMandatory
 
             title: {
                 text: Alloy.Globals.localParser.getQuestionText(question)
@@ -225,7 +241,8 @@ function interpreterModule2() {
             questionErrorMessageView: {},
             questionErrorMessage: {},
 
-            debugQuestionDependencyList: [],
+            renderDependencyList: [],
+            mandatoryDependenciesList : [],
             headerView: {}
         };
         
@@ -325,7 +342,7 @@ function interpreterModule2() {
         self.sectionHeaderList.push(newSectionHeader);
     };
 
-    var lookRenderDependencies = function () {
+    var lookQuestionDependencies = function () {
 
 
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
@@ -333,6 +350,7 @@ function interpreterModule2() {
 
                 var name = self.sectionHeaderList[sectionIndex].questionList[questionIndex].name;
 
+				//adds a list of all questions that have a Dependencies on if it is visable based on this question
                 if (typeof renderDependenciesMap[name] !== "undefined") {
                     //alert(name);
 
@@ -350,8 +368,29 @@ function interpreterModule2() {
                     	}
                     }
                     
-                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].debugQuestionDependencyList = renderDependenciesQuestionList;
+                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = renderDependenciesQuestionList;
                 }
+                
+                //adds a list of all questions that have a Dependencies on if it is mandatory based on this question
+                if (typeof mandatoryDependenciesMap[name] !== "undefined") {
+                	
+					//creates a list of Dependent question names with no repeated names
+                    var questionNameArray = mandatoryDependenciesMap[name];
+                    questionNameArray = questionNameArray.filter(function (elem, pos) {
+                        return questionNameArray.indexOf(elem) == pos;
+                    });
+                    
+                    //builds a list objects for all of the render Dependent question for this question
+                   mandatoryDependenciesQuestionList = [];
+                    for(var i=0; i< questionNameArray.length; i++){
+                    	if(questionNameArray[i] in self.questionMap){
+                    		mandatoryDependenciesQuestionList.push({name : questionNameArray[i],  groupType : self.questionMap[questionNameArray[i]].groupType});
+                    	}
+                    }
+                    
+                    self.sectionHeaderList[sectionIndex].questionList[questionIndex].mandatoryDependenciesList = mandatoryDependenciesQuestionList;
+                }
+
             }
         }
     };
@@ -420,6 +459,21 @@ function interpreterModule2() {
                 	}
                 }
                 
+                for(var conditionalMandatoryIndex = 0; conditionalMandatoryIndex < questionObject.validation.conditionalMandatory.length; conditionalMandatoryIndex++){
+                	if(questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name in self.questionMap){
+                		
+                		questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.groupType = self.questionMap[questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name].groupType;
+                	}
+                	else{
+                		Ti.API.info("interpreterModule2 :: NOT FOUND = questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name");
+                	}
+                }
+                
+                if(questionObject.mandatory == true){
+                	questionObject.title.text = questionObject.title.text + "*";
+                }
+                
+                //validation.conditionalMandatory
 
                 self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
             }
@@ -449,7 +503,7 @@ function interpreterModule2() {
         for (var i = 0; i < allQuestions.length; i++) {
             addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
         }
-        lookRenderDependencies();
+        lookQuestionDependencies();
         sortQuestionsByOrder();
         postInterpretSettings(passObject);
         return self.sectionHeaderList;

@@ -9,7 +9,7 @@
 
 ".headerView" : {
 	width: "98%",
-	height: "35dp",
+	height: Ti.UI.SIZE,
 	top: "20dp",
 	left : "1%",
 	right : "1%",
@@ -19,12 +19,14 @@
 	backgroundColor: '#eee'
 },
 ".questionTitle" : {
-	left : "10dp",
-	width: Ti.UI.SIZE,
-	height: "30dp",
+	width: "90%",
+	height: Ti.UI.SIZE,
+	left : "1%",
+	top : "5dp",
+	bottom : "5dp",
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
 	color: '#000000',
-	textAlign: 'center'
+	textAlign: 'left'
 },
 ".notesButton" : {
 	backgroundImage: 'images/questionNote.png',

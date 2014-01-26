@@ -4,7 +4,7 @@
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 var versionID;
-var INDEX_FILE_VERSION_NUM = 6;
+var INDEX_FILE_VERSION_NUM = 7;
 
 function localDataHandler() {
     var self = this;
@@ -160,6 +160,17 @@ function localDataHandler() {
         }
         self.updateSavedAssessments(savedAssessments);
     };
+    
+    self.getMostUpTodateAssessmentObject = function (assessmentObject) {
+        var savedAssessments = self.getAllSavedAssessments();
+        for (var i = 0; i < savedAssessments.length; i++) {
+            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+                assessmentObject = savedAssessments[i];
+                break;
+            }
+        }
+        return assessmentObject;
+    };
 
     self.updateQuestionWithUserNotes = function (fileName, question) {
     	//alert(Alloy.Globals.User.getLogin().username);
@@ -241,6 +252,8 @@ function localDataHandler() {
             alcrmStatus: "not sent",
             notes: "",
             detailID: detailID,
+            
+            censusDesktopComplete : false,
        
 			
 			isSubmitted: false,
@@ -500,16 +513,7 @@ function localDataHandler() {
     };
 
 
-    self.getMostUpTodateAssessmentObject = function (assessmentObject) {
-        var savedAssessments = self.getAllSavedAssessments();
-        for (var i = 0; i < savedAssessments.length; i++) {
-            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-                assessmentObject = savedAssessments[i];
-                break;
-            }
-        }
-        return assessmentObject;
-    };
+    
 
     self.deleteAssociatedFileNameFromAssessment = function (assessmentObject, associatedFileName) {
     	
