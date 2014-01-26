@@ -18,7 +18,21 @@ function localParser() {
     };
 
     self.getQuestions = function (xml_text) {
-        var questions = self.parse(xml_text).Body.GetQuestionsResponse.questions;
+    	 var questions = "";
+    	 /*Ti.API.info("************************");
+    	 Ti.API.info(self.parse(xml_text));
+    	 Ti.API.info("************************");*/
+    	if(typeof self.parse(xml_text).Body.GetQuestionsResponse !== "undefined")
+    	{
+    		questions = self.parse(xml_text).Body.GetQuestionsResponse.questions;	
+    	}
+    	else if(typeof self.parse(xml_text).Body["ns8:GetCrossingResponse"] !== "undefined")
+    	{
+    		//alert('here');
+    		questions = self.parse(xml_text).Body["ns8:GetCrossingResponse"]["ns8:crossing"];
+    		//alert(JSON.stringify(questions));
+    	}
+       
         if (typeof questions === "undefined") {
             questions = [];
         }

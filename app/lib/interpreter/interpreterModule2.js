@@ -232,11 +232,12 @@ function interpreterModule2() {
 
     var questionSetPastVariables = function (questionObject, questionMap) {
     	//alert("questionSetPastVariables called");
+    	
     	Ti.API.info("MAP="+questionMap);
         if (questionObject.alcrmQuestionID in questionMap) {
         	//Ti.API.info("inside first if stat");
             if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
-            	//alert("questionSetPastvariables >> " + JSON.stringify(questionMap[questionObject.alcrmQuestionID]));
+            	
             	Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
             	
                 questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;

@@ -291,6 +291,7 @@ function responseGenerator() {
                     var assessmentForPDF = JSON.stringify(
                         localDataHandler.createAssessmentPDFResponse(assObj)
                     );
+                    Ti.API.info("assessmentForPDF >> "+assessmentForPDF);
 					
 					if (assObj.isSubmitted === false) {
                     	 Alloy.Globals.Soap.createAssessment(xmlRequest,

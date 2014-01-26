@@ -209,7 +209,7 @@ function localDataHandler() {
          }    
     };
     
-    self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, riskMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
+    self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, quesMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
 		//alert(Alloy.Globals.User.getLogin().username);
 		 var curUserDir = Alloy.Globals.User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
@@ -263,7 +263,7 @@ function localDataHandler() {
             pageID: 0,
             pageType: "riskAssessment",
             assessmentId: assessmentID,
-            questionMap: []
+            questionMap: quesMap
         });
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
@@ -271,7 +271,6 @@ function localDataHandler() {
     };
 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
-
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
