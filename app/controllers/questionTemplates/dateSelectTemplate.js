@@ -39,11 +39,21 @@ function dateButtonClicked(e){
 	*/
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
+	
+	
 	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
 		item.value = dateString;
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, dateString);
+		
+		if(item.alcrmQuestionID.trim() === "LAST_ASSESSMENT_DATE")
+		{
+			Ti.App.Properties.setString("LastAssDate",dateString);
+			//alert("LastAssDate = "+Ti.App.Properties.getString("LastAssDate"));
+		}else{
+			//alert(item.alcrmQuestionID.trim());
+		}
 		
 		/*
 		var responseObject = [
@@ -52,6 +62,8 @@ function dateButtonClicked(e){
 			{notes : ""}
 		];
 		*/
+		
+		
 		
 		var questionResponse = 
        		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 

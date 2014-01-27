@@ -2,6 +2,22 @@ function onTextFieldBlur(e){
 	//Alloy.createController("userNotificationWindows/activityIndicatorDialog").show(); 
 	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
+	var curDate = new Date();
+	if(item.alcrmQuestionID.trim() === "I_ASSESSMENT_TITLE")
+	{
+		if(typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null)
+		{
+			if(Ti.App.Properties.getString("LastAssDate").trim() !== "")
+			{
+				e.value = e.value.trim() + " " + Ti.App.Properties.getString("LastAssDate").trim();
+			}else{
+				e.value = e.value.trim() + " " + curDate.getDay() + "/" + (curDate.getMonth())+1 + "/" + curDate.getFullYear();
+			}
+		}else{
+			e.value = e.value.trim() + " " + curDate.getDay() + "/" + (curDate.getMonth())+1 + "/" + curDate.getFullYear();
+		}
+	}
+	
 	if(typeof item === "undefined"){
 		//alert("in textFieldTemplate.onTextFieldBlur item was undefined");
 		return;
@@ -24,6 +40,8 @@ function onTextFieldBlur(e){
 		"ques:parameterValue":{"#text":e.value}
 	};
 	*/
+	
+
 	
 	section.updateItemAt(e.itemIndex, item);
 	
@@ -98,7 +116,7 @@ function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
 	
-	alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
+	//alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
 	//alert("alcrmQuestionID = "+item.alcrmQuestionID);
 }
 
