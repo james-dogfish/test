@@ -448,7 +448,18 @@ function interpreterModule2() {
                 } 
                else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
                 	questionObject.template = "censusStartTimerTemplate";
-                }
+               }
+               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
+               			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_HGV_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_PED_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_CYC_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_HOOF_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_EQUESTRIAN_COUNT" || 
+               			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
+                	questionObject.template = "censusCounterTemplate";
+               }
                 
                 for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
                 	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
