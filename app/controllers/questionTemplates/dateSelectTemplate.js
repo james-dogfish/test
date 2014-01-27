@@ -51,9 +51,8 @@ function dateButtonClicked(e){
 		{
 			Ti.App.Properties.setString("LastAssDate",dateString);
 			//alert("LastAssDate = "+Ti.App.Properties.getString("LastAssDate"));
-		}else{
-			//alert(item.alcrmQuestionID.trim());
 		}
+	
 		
 		/*
 		var responseObject = [

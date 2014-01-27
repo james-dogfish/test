@@ -666,9 +666,9 @@ exports.getGoToContentsDetails = function(){
 	return sectionContentsDetailsList;
 };
 
-var questionValueChange = function(item, name, value){
+/*var questionValueChange = function(item, name, value){
 	//alert("value = "+value);
-};
+};*/
 
 
 var getAllQuestionSections = function(){
@@ -922,6 +922,49 @@ function moveSectionNextClick(e){
 };
 
 var questionValueChange = function(e){
+	
+	if(e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE")
+	{
+		
+		var sectionList = getAllQuestionSections();
+		
+		var questionTitleRef = findQuestionsRef(sectionList,"0I_ASSESSMENT_TITLE");
+		
+		if(questionTitleRef !== null)
+		{
+			if(typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null)
+			{
+				if(Ti.App.Properties.getString("LastAssDate").trim() !== "")
+				{
+					//e.questionObject.value[0] = e.questionObject.value[0] + " " + Ti.App.Properties.getString("LastAssDate").trim();
+					if(questionTitleRef.question.displayValue.value.trim().length > 0){
+						questionTitleRef.question.displayValue.value = questionTitleRef.question.displayValue.value.trim().replace(/\s/g, '').replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '') + " " + Ti.App.Properties.getString("LastAssDate").trim();
+					}
+				}else{
+					if(questionTitleRef.question.displayValue.value.trim().length > 0){
+						questionTitleRef.question.displayValue.value = questionTitleRef.question.displayValue.value.trim().replace(/\s/g, '').replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '') + " " + curDate.getDay() + "/" + (curDate.getMonth())+1 + "/" + curDate.getFullYear();
+					}
+				}
+			}else{
+				if(questionTitleRef.question.displayValue.value.trim().length > 0){
+					questionTitleRef.question.displayValue.value = questionTitleRef.question.displayValue.value.trim().replace(/\s/g, '').replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '') + " " + curDate.getDay() + "/" + (curDate.getMonth())+1 + "/" + curDate.getFullYear();
+				}
+			}
+			
+			var questionResponse = 
+					"<ques:parameterName>"+questionTitleRef.question.alcrmQuestionID+"</ques:parameterName>"+ 
+	      			"<ques:parameterValue>"+questionTitleRef.question.displayValue.value+"</ques:parameterValue>";
+	       
+			questionTitleRef.question.questionResponse = questionResponse;
+				
+			questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex,questionTitleRef.question);
+				
+			if(e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
+				e.questionObject = questionTitleRef.question;
+			}
+		}
+				
+	}
 	
 	e.questionObject = validateEntireQuestion(e.questionObject);
 	
