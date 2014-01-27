@@ -466,7 +466,7 @@ function interpreterModule2() {
                 		questionObject.renderValue[renderValueIndex].question.groupType = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].groupType;
                 	}
                 	else{
-                		Ti.API.info("interpreterModule2 :: NOT FOUND = questionObject.renderValue[renderValueIndex].question.name");
+                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.renderValue[renderValueIndex].question.name);
                 	}
                 }
                 
@@ -476,7 +476,7 @@ function interpreterModule2() {
                 		questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.groupType = self.questionMap[questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name].groupType;
                 	}
                 	else{
-                		Ti.API.info("interpreterModule2 :: NOT FOUND = questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name");
+                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name);
                 	}
                 }
                 
