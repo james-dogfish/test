@@ -147,7 +147,7 @@ function interpreterModule2() {
 
 
         var validation = Alloy.Globals.localParser.getValidation(question);
-        var mandatory = false;
+        var isMandatory = false;
 
         if (typeof validation !== "undefined") {
             questionValidation.validationTest = true;
@@ -156,7 +156,7 @@ function interpreterModule2() {
             if (typeof mandatory !== "undefined") {
                 if (mandatory["#text"] == "true") {
                     questionValidation.mandatory = true;
-                    mandatory = true;
+                    isMandatory = true;
                 }
             }
 
@@ -225,7 +225,7 @@ function interpreterModule2() {
             renderValue: questionRenderValues, // a list of condtions if the question is visable
             selections: questionSelections, // a list of possible values for the question
             validation: questionValidation,
-            mandatory : mandatory, //can be changed at run time with conditionalMandatory
+            mandatory : isMandatory, //can be changed at run time with conditionalMandatory
 
             title: {
                 text: Alloy.Globals.localParser.getQuestionText(question)

@@ -34,9 +34,9 @@ var interpretedQuestions = interpreterModule2.interpret(JASON_question_list, {
     questionMap: []
 });
 
-//Ti.API.info("interpretedQuestions = "+JSON.stringify(interpretedQuestions));
+Ti.API.info("interpretedQuestions = "+JSON.stringify(interpretedQuestions));
 
-var interpretedTestFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "testFiles/test_question_text_interpreted.json");
+var interpretedTestFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "testFiles/test_question_set_interpreted.json");
 var interpretedTestText = interpretedTestFile.read().text;
 var interpretedTest = JSON.parse(interpretedTestText);
 
