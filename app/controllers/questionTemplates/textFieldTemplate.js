@@ -98,7 +98,7 @@ function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
 	
-	alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
+	//alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
 	//alert("alcrmQuestionID = "+item.alcrmQuestionID);
 }
 

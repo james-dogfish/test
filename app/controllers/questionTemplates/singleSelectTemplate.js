@@ -89,6 +89,6 @@ function debugShowRenderDependencies(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
+	//alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
 };
 
