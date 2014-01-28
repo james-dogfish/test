@@ -23,12 +23,12 @@ var currentValue = 0;
 
 
 
-exports.show = function(){
+exports.show = function(assessmentObject){
 
 Alloy.Globals.aIndicator.show("Loading...");
 Alloy.Globals.Soap.searchCensus(
 	{
-		crossingId:Alloy.Globals.questionRendererTab.getAssessment().crossingID
+		crossingId:assessmentObject.crossingID
 	},
 	function(xmlDoc){
 		 var XMLTools = require("tools/XMLTools");

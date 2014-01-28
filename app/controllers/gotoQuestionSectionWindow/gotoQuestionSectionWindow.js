@@ -67,7 +67,8 @@ function firstUnansweredClick(e){
 
 function resumeLastPositionClick(e){
 	hide();
-	$.trigger('goToLastPositiond');
+	//$.trigger('goToLastPositiond');
+	Ti.App.fireEvent("goToLastPositiond", {});
 };
 
 function createCensusClick(e){
@@ -76,22 +77,29 @@ function createCensusClick(e){
 	//hide();
 };
 
+
+
 $.selectCensusView.on("createCensus", function(){
-	$.trigger('createCensus');
+	Ti.API.info("selectCensusView : createCensus");
+	//$.trigger('createCensus', {});
+	Ti.App.fireEvent("createCensus", {});
+	
 	$.selectCensusView.hide();
 });
 $.selectCensusView.on("addCensus", function(){
 	//$.trigger('addCensus');
 	//alert(addCensus);
-	$.addCensusView.show();
+	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	$.trigger('censusDesktopComplete');
+	Ti.App.fireEvent("censusDesktopComplete", {});
+	//$.trigger('censusDesktopComplete');
 	$.selectCensusView.hide();
 });
 $.addCensusView.on("addPastCensus", function(e){
 	//e.pastCensusObject;
-	$.trigger('addPastCensus', e);
+	Ti.App.fireEvent("addPastCensus", e);
+	//$.trigger('addPastCensus', e);
 	$.selectCensusView.hide();
 	$.addCensusView.hide();
 });
@@ -115,7 +123,8 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 };
 
 Ti.App.addEventListener("goToQuestionEvent", function(data){
-	$.trigger('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
+	//$.trigger('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
+	Ti.App.fireEvent('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
 	hide();
 });
 
@@ -127,10 +136,13 @@ Ti.App.addEventListener("pageSelected", function(e){
 	
 });
 
+/*
 Ti.App.addEventListener("deletePage", function(e){
 	//alert("associatedFileName = "+ JSON.stringify(e.associatedFileName));
-	$.trigger('deletePage', {associatedFileName : e.associatedFileName});
+	//$.trigger('deletePage', {associatedFileName : e.associatedFileName});
+	Ti.App.fireEvent('deletePage', {associatedFileName : e.associatedFileName});
 });
+*/
 
 $.detailView.on("moveToMaster", function(){
 	$.masterView.MoveToOpen(true);
