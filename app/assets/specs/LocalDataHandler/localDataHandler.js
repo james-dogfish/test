@@ -210,9 +210,6 @@ describe("Local Data Handler Test Suite", function () {
 					}
 				}
 				
-				Ti.API.info("compare question sets ="+(JSON.stringify(sectionList) == JSON.stringify(interpretedTest)));
-				Ti.API.info(JSON.stringify(sectionList));
-				Ti.API.info(JSON.stringify(interpretedTest));
 				response = JSON.stringify(sectionList) == JSON.stringify(interpretedTest);
 		
 		
@@ -240,7 +237,7 @@ describe("Local Data Handler Test Suite", function () {
 			expect(response).toEqual(true);
     });
     
-    
+    LocalDataHandler.setTestEnvironment(false);
     
     
     /* END OF TEST SUITE */

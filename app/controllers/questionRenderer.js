@@ -187,8 +187,9 @@ var newTestDependentQuestions= function(questionObject){
 				var questionAdded = false;
 				for(var questionIndex=0; questionIndex < questionList.length && questionAdded != true; questionIndex++){
 					
-					
-					if(questionObjectToAdd.order < questionList[questionIndex].order){
+					Ti.API.info("questionIndex = "+questionIndex+", addObject.order = "+questionObjectToAdd.order+", order2 = "+questionList[questionIndex].order);
+					if(parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)){
+						Ti.API.info("**** "+questionObjectToAdd.order+" < "+questionList[questionIndex].order);
 						questionObjectToAdd.visable = true;
 						
 						questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
