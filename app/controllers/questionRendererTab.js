@@ -58,19 +58,42 @@ var createPastCensus = function (pastCensusData) {
     $.questionListView.appendSectionsToAssessment(censusData);
 };
 
-var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
+var gotoQuestionSectionWindow = null;
 
+/*
 gotoQuestionSectionWindow.on("goToQuestion", function (data) {
+	Ti.API.info("gotoQuestionSectionWindow : goToQuestion");
     $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
 });
-gotoQuestionSectionWindow.on("createCensus", function (data) {
-    activityIndicator.show();
+*/
 
+Ti.App.addEventListener("goToQuestion", function (e) {
+	Ti.API.info("gotoQuestionSectionWindow : goToQuestion");
+    $.questionListView.moveToQuestion(e.groupType, e.questionIndex);
+});
+
+/*
+gotoQuestionSectionWindow.on("createCensus", function (data) {
+	Ti.API.info("gotoQuestionSectionWindow : createCensus");
+    activityIndicator.show();
+	
     createCensus();
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
     activityIndicator.hide();
 });
+*/
+
+Ti.App.addEventListener("createCensus", function (e) {
+	
+    activityIndicator.show();
+    createCensus();
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    activityIndicator.hide();
+});
+
+/*
 gotoQuestionSectionWindow.on("addPastCensus", function (e) {
     //alert("addPastCensus back = "+JSON.stringify(e));
     activityIndicator.show();
@@ -81,18 +104,52 @@ gotoQuestionSectionWindow.on("addPastCensus", function (e) {
 
     activityIndicator.hide();
 });
+*/
+
+Ti.App.addEventListener("addPastCensus", function (e) {
+	activityIndicator.show();
+
+    //createCensus();
+    createPastCensus(e.questionList);
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    activityIndicator.hide();
+});
+
+/*
 gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
      currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
      currentAssessmentObject.censusDesktopComplete = true;
      localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
-     
 });
+*/
+
+Ti.App.addEventListener("censusDesktopComplete", function (e) {
+	currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+     currentAssessmentObject.censusDesktopComplete = true;
+     localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+});
+
+/*
 gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
     $.questionListView.goToFirstUnanswered();
 });
-gotoQuestionSectionWindow.on("goToLastPositiond", function (data) {
-    $.questionListView.goToLastPositiond();
+*/
+
+Ti.App.addEventListener("goToFirstUnanswered", function (e) {
+	 $.questionListView.goToFirstUnanswered();
 });
+
+/*
+gotoQuestionSectionWindow.on("goToLastPositiond", function (e) {
+    $.questionListView.goToLastPositiond();
+});*/
+
+Ti.App.addEventListener("goToLastPositiond", function (e) {
+	 $.questionListView.goToLastPositiond();
+});
+
+/*
 gotoQuestionSectionWindow.on("deletePage", function (e) {
     //alert("delete associatedFileName = "+e.associatedFileName);
     activityIndicator.show();
@@ -105,11 +162,19 @@ gotoQuestionSectionWindow.on("deletePage", function (e) {
 
     activityIndicator.hide();
 });
+*/
 
-gotoQuestionSectionWindow.destroy();
+Ti.App.addEventListener("deletePage", function (e) {
+	Ti.API.info("gotoQuestionSectionWindow : deletePage");
+	activityIndicator.show();
 
-gotoQuestionSectionWindow.on("windowFinishedClosing", function (data) {
-    //gotoQuestionSectionWindow.destroy();
+    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
+        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+        $.questionListView.setAssessment(sectionList, currentAssessmentObject);
+        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+    }
+
+    activityIndicator.hide();
 });
 
 
