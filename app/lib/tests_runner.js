@@ -8,6 +8,7 @@ function run() {
 	Ti.API.info("============ RUNNING UNIT TESTS ... ===========");
     tijasmine.addSpecModules(
         "specs/Parser/parserSpec",
+        "specs/interpreterModule/interpreterModule",
         "specs/LocalDataHandler/localDataHandler",
         "specs/ResponseGenerator/responseGenerator",
         "specs/Validator/validatorSpec"

@@ -142,7 +142,8 @@ function _User() {
         },
         
         getUserDir: function () {
-           return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
+          // return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
+          return Ti.App.Properties.getString('userKeychain').replace(/ /g,'');
         },
 
         	/*

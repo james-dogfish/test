@@ -96,6 +96,8 @@ var newTestIfVisable = function(questionObject){
 	return false;
 };
 
+
+
 var newFindQuestionObject = function(questionName, groupType){
 	var sectionList = getAllQuestionSections();
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){
