@@ -34,6 +34,9 @@ animationClose.duration = Alloy.Globals.animationDuration;
 var closeAnimationHandler = function() {
 	closeing= false;
 	$.win.close();
+	animationClose.removeEventListener('complete',closeAnimationHandler);
+	Ti.App.removeEventListener("goToQuestionEvent", goToQuestionCallBack);
+	Ti.App.removeEventListener("pageSelected", pageSelectedCallBack);
 	$.destroy();
 	//$.trigger('windowFinishedClosing');
 };
@@ -59,6 +62,7 @@ var hide = function(){
 	}
 	
 };
+exports.hide = hide;
 
 function firstUnansweredClick(e){
 	hide();
@@ -122,19 +126,22 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 	$.detailView.MoveToClose(false);
 };
 
-Ti.App.addEventListener("goToQuestionEvent", function(data){
+
+var goToQuestionCallBack = function(data){
 	//$.trigger('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
 	Ti.App.fireEvent('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
 	hide();
-});
+};
+Ti.App.addEventListener("goToQuestionEvent", goToQuestionCallBack);
 
-Ti.App.addEventListener("pageSelected", function(e){
+var pageSelectedCallBack = function(e){
 	//alert("row Clicked, sectionList.length = "+e.sectionList.length);
 	$.masterView.MoveToClose(true);
 	$.detailView.MoveToOpen(true);
 	$.detailView.setContentsDetails(e.pageName, e.sectionList);
 	
-});
+};
+Ti.App.addEventListener("pageSelected", pageSelectedCallBack);
 
 /*
 Ti.App.addEventListener("deletePage", function(e){

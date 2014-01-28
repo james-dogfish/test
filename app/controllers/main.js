@@ -338,7 +338,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
         }, function () {});
 });
 
-questionRendererTab.on("BackButtonClick", function (e) {
+questionRendererTab.on("saveAndExitClick", function (e) {
     riskAssessmentsTab.loadRiskAssessments();
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });

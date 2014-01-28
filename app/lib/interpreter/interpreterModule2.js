@@ -28,7 +28,7 @@ function interpreterModule2() {
     ui_types_map["dateRange"] = "dateRangeTemplate";
     ui_types_map["numericRange"] = "rangeFieldTemplate";
     ui_types_map["decimalRange"] = "rangeFieldTemplate";
-    ui_types_map["alphaRange"] = "rangeFieldTemplate";
+    ui_types_map["alphaRange"] = "rangeFieldTemplate"; 
 
 
     //header Object Format
