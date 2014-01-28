@@ -51,7 +51,7 @@ function multiSelectButtonClicked(e){
 	
 	
 		item.displayValue = {value : returnValue.singleStringValue};
-		item.value = returnValue.displayNameList;
+		item.value = returnValue.valueList;
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, valueString);
 		
