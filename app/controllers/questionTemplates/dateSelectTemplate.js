@@ -66,7 +66,8 @@ function dateButtonClicked(e){
 		
 		var questionResponse = 
        		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-       		"<ques:parameterValue>"+dateString+"</ques:parameterValue>";
+       		"<ques:parameterValue>"+dateString+"</ques:parameterValue>"+
+       		"<ques:notes>"+item.notes+"</ques:notes>";
 	
 		item.questionResponse = questionResponse;
 		

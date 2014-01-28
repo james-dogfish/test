@@ -377,13 +377,9 @@ function localDataHandler() {
     };
 
     self.createAssessmentPDFResponse = function (assessmentObject) {
-    	
-    	//alert(Alloy.Globals.User.getLogin().username);
-		 //var curUserDir = Alloy.Globals.User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
-		 
+    		 
         var returnQuestionObj = {
+        	assessmentNotes: assessmentObject.notes,
             mainQuestionSet: new Array(),
             individualCensusList: [],
             individualTrainList: []

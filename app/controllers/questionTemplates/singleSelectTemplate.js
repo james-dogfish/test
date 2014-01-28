@@ -22,7 +22,8 @@ function selectButtonClicked(e){
 		
 		var questionResponse = 
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-	       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
+	       "<ques:parameterValue>"+data.value+"</ques:parameterValue>"+
+	       "<ques:notes>"+item.notes+"</ques:notes>";
 	       
 	    item.questionResponse = questionResponse;
 	

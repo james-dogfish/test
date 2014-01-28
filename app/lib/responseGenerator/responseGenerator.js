@@ -185,7 +185,7 @@ function responseGenerator() {
 
     };
 
-    self.buildAssessmentResponse = function (sectionList, crossingID, detailID) {
+    self.buildAssessmentResponse = function (sectionList, crossingID, detailID, assNotes) {
         var riskData = "";
 
         for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
@@ -214,6 +214,7 @@ function responseGenerator() {
             "<ass:CreateAssessmentRequest>" +
             "<ass:assessment>" +
             "<ass1:crossingID>" + crossingID + "</ass1:crossingID>" +
+            "<ass1:assNotes>" + assNotes + "</ass1:assNotes>";
         //"<ass1:detailId>" + detailID + "</ass1:detailId>" + dateNode +
         riskData +
             "</ass:assessment>" +
@@ -237,9 +238,10 @@ function responseGenerator() {
         //Ti.API.info('1activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
         var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
        // Ti.API.info('2activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
-        var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID);
+        var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes);
 		//Ti.API.info('3activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
-        
+       
+
         //COMMIT CENSUS
             Alloy.Globals.Soap.createCensus(xmlCensusRequest,
                 function (xmlDoc) {

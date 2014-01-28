@@ -66,7 +66,8 @@ function onTextField1Blur(e){
 	
 	var questionResponse =
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
+       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>"+
+       "<ques:notes>"+item.notes+"</ques:notes>";
        
     item.questionResponse = questionResponse;
 	
