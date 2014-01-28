@@ -21,11 +21,13 @@ function localDataHandler() {
     	
     	var workingDirectory = "";
     	if(testEnvironment == false){
-    		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, Alloy.Globals.User.getUserDir());  
+    		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, Alloy.Globals.User.getUserDir()); 
+    		//Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     	else{
     		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "testDirectory");  
+    		//Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     };
@@ -296,6 +298,8 @@ function localDataHandler() {
             assessmentId: assessmentID,
             questionMap: quesMap
         });
+        
+        Ti.API.info("main question set = "+JSON.stringify(newQuestionSet));
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
@@ -622,6 +626,7 @@ function localDataHandler() {
 
             }
         }
+        Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
         return returnQuestionSet;
     };
 }

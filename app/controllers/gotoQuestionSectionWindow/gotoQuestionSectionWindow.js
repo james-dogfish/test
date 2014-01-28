@@ -34,6 +34,8 @@ animationClose.duration = Alloy.Globals.animationDuration;
 var closeAnimationHandler = function() {
 	closeing= false;
 	$.win.close();
+	$.destroy();
+	//$.trigger('windowFinishedClosing');
 };
 animationClose.addEventListener('complete',closeAnimationHandler);
 

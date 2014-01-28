@@ -187,8 +187,8 @@ var newTestDependentQuestions= function(questionObject){
 				var questionAdded = false;
 				for(var questionIndex=0; questionIndex < questionList.length && questionAdded != true; questionIndex++){
 					
-					
-					if(questionObjectToAdd.order < questionList[questionIndex].order){
+					if(parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)){
+
 						questionObjectToAdd.visable = true;
 						
 						questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
@@ -536,18 +536,18 @@ exports.removeAllSectionsWithAssociatedFileName = function(associatedFileName){
 };
 
 exports.moveToQuestion = function(groupType, questionIndex){
-
+	Ti.API.info("** questionRender moveToQuestion");
 	var sectionList = getAllQuestionSections();
 	for(var sectionIndex=0; sectionIndex < sectionList.length; sectionIndex++){	
 
 		if(sectionList[sectionIndex].groupType == groupType){
 			
 			if(listViewDisplayType == ALL_SECTIONS){
-				$.listView.scrollToItem(sectionIndex, questionIndex);
+				$.listView.scrollToItem(sectionIndex, questionIndex, {animated: false, position: Titanium.UI.iPhone.ListViewScrollPosition.TOP});
 			}
 			else if(listViewDisplayType == SINGLE_SECTIONS){
 				setSelectedSectionForSingleSections(sectionIndex);
-				$.listView.scrollToItem(sectionIndex, questionIndex);
+				$.listView.scrollToItem(sectionIndex, questionIndex, {animated: false, position: Titanium.UI.iPhone.ListViewScrollPosition.TOP});
 			}
 			
 			selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
@@ -1118,7 +1118,10 @@ Ti.App.addEventListener("setEntireSectionTemplate", function(e){
 var selectQuestion = function(newQuestionSelected){
 	var sectionList = getAllQuestionSections();
 
+	Ti.API.info("** questionRender selectQuestion");
+	
 	if(questionSelected != null){
+		Ti.API.info("questionSelected title = "+questionSelected.title.text);
 		var questionRef = findQuestionsRef(sectionList, questionSelected.name);
 		if(questionRef != null){
 			questionRef.question.headerView = {backgroundColor : "#eee"};
@@ -1135,6 +1138,7 @@ var selectQuestion = function(newQuestionSelected){
 	
 	questionSelected= newQuestionSelected;
 	
+	Ti.API.info("new questionSelected title = "+questionSelected.title.text);
 	
 	var questionRef = findQuestionsRef(sectionList, questionSelected.name);
 	if(questionRef != null){
