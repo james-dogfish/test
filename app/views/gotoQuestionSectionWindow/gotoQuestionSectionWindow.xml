@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="win">
+	<Window id="win" exitOnClose="true">
 		<View id="background" onClick="closeWindowCallBack"/>
 		<View id="gotoDisplayView">
 			<Button id="firstUnanswered" class="gotoButton" onClick="firstUnansweredClick">First Unanswered</Button>

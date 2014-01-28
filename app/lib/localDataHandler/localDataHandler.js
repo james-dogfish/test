@@ -626,6 +626,7 @@ function localDataHandler() {
 
             }
         }
+        Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
         return returnQuestionSet;
     };
 }

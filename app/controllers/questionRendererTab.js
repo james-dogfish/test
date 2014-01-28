@@ -59,6 +59,60 @@ var createPastCensus = function (pastCensusData) {
     $.questionListView.appendSectionsToAssessment(censusData);
 };
 
+var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
+
+gotoQuestionSectionWindow.on("goToQuestion", function (data) {
+    $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
+});
+gotoQuestionSectionWindow.on("createCensus", function (data) {
+    activityIndicator.show();
+
+    createCensus();
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    activityIndicator.hide();
+});
+gotoQuestionSectionWindow.on("addPastCensus", function (e) {
+    //alert("addPastCensus back = "+JSON.stringify(e));
+    activityIndicator.show();
+
+    //createCensus();
+    createPastCensus(e.questionList);
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    activityIndicator.hide();
+});
+gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
+     currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+     currentAssessmentObject.censusDesktopComplete = true;
+     localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+     
+});
+gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
+    $.questionListView.goToFirstUnanswered();
+});
+gotoQuestionSectionWindow.on("goToLastPositiond", function (data) {
+    $.questionListView.goToLastPositiond();
+});
+gotoQuestionSectionWindow.on("deletePage", function (e) {
+    //alert("delete associatedFileName = "+e.associatedFileName);
+    activityIndicator.show();
+
+    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
+        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+        $.questionListView.setAssessment(sectionList, currentAssessmentObject);
+        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+    }
+
+    activityIndicator.hide();
+});
+
+gotoQuestionSectionWindow.destroy();
+
+gotoQuestionSectionWindow.on("windowFinishedClosing", function (data) {
+    //gotoQuestionSectionWindow.destroy();
+});
+
 
 // Setting up menu item for home screen
 var openMenu = function () {
@@ -114,8 +168,9 @@ var openMenu = function () {
             userSettings.open();
         } else if (e.row.id === 2) {
             // GoTo screen
-            var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
+            gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
 
+			/*
             gotoQuestionSectionWindow.on("goToQuestion", function (data) {
                 $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
             });
@@ -161,6 +216,11 @@ var openMenu = function () {
 
                 activityIndicator.hide();
             });
+            
+            gotoQuestionSectionWindow.on("windowFinishedClosing", function (data) {
+                //gotoQuestionSectionWindow.destroy();
+            });
+            */
 
 
             gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
