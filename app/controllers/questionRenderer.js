@@ -82,6 +82,7 @@ var setQuestionToMandatory = function(questionObject){
 
 var newTestIfVisable = function(questionObject){
 
+	
 	for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
 		var parentQuestion = newFindQuestionObject(questionObject.renderValue[renderValueIndex].question.name, questionObject.renderValue[renderValueIndex].question.groupType);
 		if(parentQuestion == null)continue;
