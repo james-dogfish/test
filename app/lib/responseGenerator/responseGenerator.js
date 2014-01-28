@@ -230,6 +230,12 @@ function responseGenerator() {
     		Alloy.Globals.aIndicator.hide();
     		return;
     	}*/
+    	
+    	var Util = require('core/Util');        
+	    var newAssessmentForPDF = localDataHandler.createAssessmentPDFResponse(assObj);
+	    Util.emailNotes(newAssessmentForPDF);
+        return;   
+                    
     	var sectionListAss = localDataHandler.getMainRiskAssessmentQuestions(assObj);
         var sectionListCen = localDataHandler.getAllCensusesOrTrains(assObj, 0);
         var sectionListTra = localDataHandler.getAllCensusesOrTrains(assObj, 1);
@@ -293,6 +299,13 @@ function responseGenerator() {
                     var assessmentForPDF = JSON.stringify(
                         localDataHandler.createAssessmentPDFResponse(assObj)
                     );
+                    var Util = require('core/Util');
+                    
+                    var newAssessmentForPDF = localDataHandler.createAssessmentPDFResponse(assObj);
+                    Util.emailNotes(newAssessmentForPDF);
+                    
+                    
+                    
                     Ti.API.info("assessmentForPDF >> "+assessmentForPDF);
 					
 					if (assObj.isSubmitted === false) {
