@@ -1,23 +1,33 @@
-
+//GLOBALS
 Alloy.Globals.User = require('core/User');
 var User = Alloy.Globals.User;
-
 var Util = require('core/Util');
 Alloy.Measurement = require('alloy/measurement');
+
 var localParser = require('parser/localParser');
 localParser = new localParser();
-
-//GLOBALS
-Alloy.Globals.Soap = require('core/Soap');
-Alloy.Globals.isDebugOn = true;
-Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 Alloy.Globals.localParser = localParser;
 
+Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
+Alloy.Globals.Soap = require('core/Soap');
+//END OF GLOBALS
+
+/**************************************************************
+ * getValidator: returns an instance of Validator
+ **************************************************************/
 var getValidator = function() {
 	var Validator = require('validator/Validator');
 	Alloy.Globals.validator = Validator;
 };
 
+/*************************************************************
+ * startup: - Downloads app help + cheatsheet.
+ * 			- Initialises the validator by calling getValidator
+ * 			- Creates the mainView.
+ * 			- Checks if user has prefs and shows settings view
+ * 			  if not.
+ * 
+ *************************************************************/
 var startup = function() {
 	//only downloads if not already downloaded before.
 	Util.downloadAppHelp();
@@ -42,8 +52,9 @@ var startup = function() {
 		userSettings.open();
 		//return false;
 	}
-
 };
+
+
 Ti.App.addEventListener('fireStartup', startup);
 
 if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
@@ -55,6 +66,6 @@ if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 	//show login screen
 	Alloy.createController('startup').getView().open();
 }
-//alert(L('test'));
+
 /*RUN our Unit Tests Here*/
 require('tests_runner').run();

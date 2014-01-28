@@ -16,7 +16,6 @@ exports.setAssessment = function (assessmentObject) {
 
     currentAssessmentObject = assessmentObject;
     var sectionList = localDataHandler.openAssessment(assessmentObject);
-    //alert("setAss->currentAssessmentObject: "+JSON.stringify(currentAssessmentObject));
     $.questionListView.setAssessment(sectionList, assessmentObject);
 
     activityIndicator.hide();
@@ -169,63 +168,8 @@ var openMenu = function () {
         } else if (e.row.id === 2) {
             // GoTo screen
             gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
-
-			/*
-            gotoQuestionSectionWindow.on("goToQuestion", function (data) {
-                $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
-            });
-            gotoQuestionSectionWindow.on("createCensus", function (data) {
-                activityIndicator.show();
-
-                createCensus();
-                gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-                activityIndicator.hide();
-            });
-            gotoQuestionSectionWindow.on("addPastCensus", function (e) {
-                //alert("addPastCensus back = "+JSON.stringify(e));
-                activityIndicator.show();
-
-                //createCensus();
-                createPastCensus(e.questionList);
-                gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-                activityIndicator.hide();
-            });
-            gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
-                 currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
-                 currentAssessmentObject.censusDesktopComplete = true;
-                 localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
-                 
-            });
-            gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
-                $.questionListView.goToFirstUnanswered();
-            });
-            gotoQuestionSectionWindow.on("goToLastPositiond", function (data) {
-                $.questionListView.goToLastPositiond();
-            });
-            gotoQuestionSectionWindow.on("deletePage", function (e) {
-                //alert("delete associatedFileName = "+e.associatedFileName);
-                activityIndicator.show();
-
-                if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
-                    var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
-                    $.questionListView.setAssessment(sectionList, currentAssessmentObject);
-                    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-                }
-
-                activityIndicator.hide();
-            });
-            
-            gotoQuestionSectionWindow.on("windowFinishedClosing", function (data) {
-                //gotoQuestionSectionWindow.destroy();
-            });
-            */
-
-
             gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
             gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
 
             gotoQuestionSectionWindow.show();
 

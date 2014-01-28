@@ -18,28 +18,10 @@ if (pWidth > pHeight) {
 
 exports.show = function(routeList,callbackfunction){
 	doneCallbackfunction = callbackfunction;
-	/*	var routeList = [
-		{ 
-			title : "route one",
-			value : 1
-		},
-		{ 
-			title : "route two",
-			value : 2
-		},
-		{ 
-			title : "route three",
-			value : 3
-		},
-		{ 
-			title : "route four",
-			value : 4
-		}
-	];*/
+
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
-		data.push(Ti.UI.createPickerRow({title: routeList[i].title/*, value : routeList[i].value*/ }
-		));
+		data.push(Ti.UI.createPickerRow({title: routeList[i].title}));
 	}
 	
 	$.pickerView.add(data);
@@ -48,8 +30,6 @@ exports.show = function(routeList,callbackfunction){
 	currentValue = routeList[0];
 	
 	$.win.open();
-	
-	//selectedRoute
 };
 
 function pickerChange(e){
@@ -64,6 +44,5 @@ function doneButtonClick(e){
 	
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
-	doneCallbackfunction(currentValue);
-	
+	doneCallbackfunction(currentValue);	
 };

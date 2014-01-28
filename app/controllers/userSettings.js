@@ -6,9 +6,6 @@ var User = require('core/User'),
 
 var userPreferences = User.getPreferences();
 
-
-
-
 // Set these values to the app now
 $.name.value = userPreferences.name;
 $.mobile.value = userPreferences.mobile;
@@ -19,7 +16,6 @@ if (arguments && arguments[0] && arguments[0].message) {
 	// Show a message now
 	Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
 }
-
 
 var blurAllFields = function() {
 	$.name.blur();
