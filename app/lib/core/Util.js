@@ -133,7 +133,7 @@ function _Util() {
 
 
     //cmsUrl = 'http://localhost:8888/nwr';
-    cmsUrl = 'http://nwrcrossings.co.uk';
+    cmsUrl = 'http://dogfishdata.com/alcrm_cms';
     cheatSheetUrl = 'http://www.pdf995.com/samples/pdf.pdf';
     templateFiles = ['abcl.json', 'ahb.json', 'aocl.json', 'barrow.json', 'fp.json', 'fpmwl.json', 'fps.json', 'mcb.json', 'mcbcctv.json', 'mcg.json', 'oc.json', 'uwc.json', 'uwcmwl.json', 'uwct.json'];
     crossingTypes = ['abcl', 'ahb', 'aocl', 'barrow', 'fp', 'fpmwl', 'fps', 'mcb', 'mcbcctv', 'mcg', 'oc', 'uwc', 'uwcmwl', 'uwct'];
@@ -390,23 +390,19 @@ function _Util() {
     | Emails assessment and question notes to the user
     |---------------------------------------------------------------------------------
     */
-    self.emailNotes = function (subject, assessmentNotes, questionNotes, archiveInfo) {
+    self.emailNotes = function (payload) {
         var User = require('core/User');
         var userEmail = User.getEmail();
+        Ti.API.info("userEmail = "+userEmail);
+        
         if (userEmail === '') {
             return false;
         }
 
-        var message = 'Assessment Notes \n';
-        message += assessmentNotes + '\n \n';
-        message += 'Question Notes';
-        message += questionNotes;
-
         var params = {
             email: userEmail,
-            subject: subject,
-            message: message,
-            archived: JSON.stringify(archiveInfo)
+            //message: message,
+            archived: JSON.stringify(payload)
         };
         Ti.API.info(params.archived);
 
