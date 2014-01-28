@@ -19,6 +19,33 @@ var detailSearchTab = $.detailSearchTab;
 
 var curAssObj = null;
 
+/*
+var xmlTestFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "testFiles/test_question_set.xml");
+var xmltext = xmlTestFile.read().text;
+var JASON_question_list = Alloy.Globals.localParser.getQuestions(xmltext);
+
+var interpreterModule2 = require('interpreter/interpreterModule2');
+var interpretedQuestions = interpreterModule2.interpret(JASON_question_list, {
+    associatedFileName: "mainQuestionsfileName.JSON",
+    pageName: "Risk Assessment",
+    pageID: 0,
+    pageType: "riskAssessment",
+    assessmentId: "1111111111",
+    questionMap: []
+});
+
+Ti.API.info("interpretedQuestions = "+JSON.stringify(interpretedQuestions));
+
+var interpretedTestFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "testFiles/test_question_set_interpreted.json");
+var interpretedTestText = interpretedTestFile.read().text;
+var interpretedTest = JSON.parse(interpretedTestText);
+
+Ti.API.info("compare question sets ="+(JSON.stringify(interpretedQuestions) === JSON.stringify(interpretedTest)));
+*/
+
+
+
+
 /*	
 var selectRouteWindow = Alloy.createController('selectRouteWindow');
 selectRouteWindow.show(function(selectedRoute){
@@ -200,6 +227,7 @@ masterSearchTab.on("RefreshButtonClick", function (e) {
 });
 
 function parseTrainData(xml_text) {
+	
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         var localParser = require('parser/localParser');
         var interpreter = require('interpreter/interpreterModule2');
@@ -258,14 +286,15 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
        		 
        		 	if (crosAns !== null || typeof crosAns !== 'undefined') {
         			var crossingAnswers = localParser.getQuestions(crosAns);
-        			for(var i = 0; i< crossingAnswers.detailedData.length; i++)
+        			Ti.API.info("crossingAnswers ==> "+JSON.stringify(crossingAnswers));
+        			for(var i = 0; i< crossingAnswers[0].detailedData.length; i++)
         			{
-        				if(typeof crossingAnswers.detailedData[i]["ns7:parameterValue"] !== "undefined" &&
-        					typeof crossingAnswers.detailedData[i]["ns7:parameterName"] !== "undefined")
+        				if(typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" &&
+        					typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined")
         				{
         					
-							quesMap[crossingAnswers.detailedData[i]["ns7:parameterName"]["#text"]] = {
-                					value: crossingAnswers.detailedData[i]["ns7:parameterValue"]["#text"]
+							quesMap[crossingAnswers[0].detailedData[i]["ns7:parameterName"]["#text"]] = {
+                					value: crossingAnswers[0].detailedData[i]["ns7:parameterValue"]["#text"]
            					 };
         				}
         				

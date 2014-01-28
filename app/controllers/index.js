@@ -57,4 +57,4 @@ if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 }
 //alert(L('test'));
 /*RUN our Unit Tests Here*/
-// require('tests_runner').run();
+require('tests_runner').run();

@@ -36,7 +36,14 @@ function localParser() {
         if (typeof questions === "undefined") {
             questions = [];
         }
+        else if(!(questions instanceof Array)){
+        	questions=  [questions];
+        }
+        
+        	
         return questions;
+        
+        
     };
 
     self.getQuestionText = function (question) {
@@ -174,12 +181,12 @@ function localParser() {
             renderValue = [];
         }
         else if(renderValue instanceof Array){
-        	Ti.API.info("renderValue = "+JSON.stringify(renderValue));
+        	//Ti.API.info("renderValue = "+JSON.stringify(renderValue));
         	return renderValue;
         }
         else{
         	return [renderValue];
-        	Ti.API.info("renderValue = "+JSON.stringify(renderValue));
+        	//Ti.API.info("renderValue = "+JSON.stringify(renderValue));
         }
         return renderValue;
     };
