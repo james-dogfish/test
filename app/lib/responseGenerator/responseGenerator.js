@@ -215,7 +215,7 @@ function responseGenerator() {
             "<ass:CreateAssessmentRequest>" +
             "<ass:assessment>" +
             "<ass1:crossingID>" + crossingID + "</ass1:crossingID>" +
-            "<ass1:assNotes>" + assNotes + "</ass1:assNotes>";
+            "<ass1:notes>" + assNotes + "</ass1:notes>";
         //"<ass1:detailId>" + detailID + "</ass1:detailId>" + dateNode +
         riskData +
             "</ass:assessment>" +
