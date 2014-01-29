@@ -213,6 +213,9 @@ var openMenu = function () {
             title: 'Help',
             id: 3
         }, {
+            title: 'Table Lock',
+            id: 7
+        },{
             title: 'Save & Exit',
             id: 6
         }/*{
@@ -264,6 +267,16 @@ var openMenu = function () {
 				localDataHandler.updateQuestionCount(currentAssessmentObject);
 			}
 		    $.trigger("saveAndExitClick");
+        } else if(e.row.id === 7)
+        {
+        	$.questionListView.setCanScroll(false);
+        	alert($.questionListView.canScroll);
+        	
+        	if($.questionListView.canScroll === true){
+        		$.questionListView.setCanScroll(false);
+        	}else{
+        		//$.questionListView.setCanScroll(true);
+        	}
         }
     });
 };

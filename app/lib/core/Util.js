@@ -81,10 +81,10 @@ function _Util() {
     |---------------------------------------------------------------------------------
     */
 
-    self.downloadAppHelp = function (callback) {
+    self.downloadConfig = function (callback) {
         if (self.phoneConnected()) {
             var fileName = 'apphelp.json';
-            self.downloadFileConditionally(cmsUrl + '/data/apphelp.json', docsFolder + fileName, function (c) {
+            self.downloadFileConditionally(cmsUrl + '/data/config.json', docsFolder + fileName, function (c) {
                 // get last modified date
                 var lastModified = c.getResponseHeader('Last-Modified');
                 var previousDate = Ti.App.Properties.getString('helpLastModified', '');
@@ -94,6 +94,7 @@ function _Util() {
 
             }, function (data, client) {
                 Ti.App.Properties.setString('helpContent', data.help);
+                Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
                 Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
                     callback();

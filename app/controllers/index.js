@@ -30,7 +30,7 @@ var getValidator = function() {
  *************************************************************/
 var startup = function() {
 	//only downloads if not already downloaded before.
-	Util.downloadAppHelp();
+	Util.downloadConfig();
 
 	//only downloads if not already downloaded before.
 	Util.downloadCheatSheet();
