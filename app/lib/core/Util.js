@@ -95,6 +95,7 @@ function _Util() {
             }, function (data, client) {
                 Ti.App.Properties.setString('helpContent', data.help);
                 Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
+                Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
                 Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
                     callback();
