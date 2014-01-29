@@ -26,8 +26,8 @@ exports.clear = function () {
 };
 
 
-function backButtonClick(e) {
-    $.trigger("BackButtonClick");
+function saveAndExitClick(e) {
+    $.trigger("saveAndExitClick");
 }
 
 var createCensus = function () {

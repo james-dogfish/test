@@ -7,7 +7,6 @@
 				<Button class="systemButton" id="menuButton" title="Menu" onSingletap="openMenu" right="10" />
 			</Toolbar>
 			<TableView id="tableVeiw" onClick="onRowClick" onDelete="onDeleteRow">
-				<SearchBar id="searchBar"/>
 			</TableView>
 		</Window>
 	</Tab>
