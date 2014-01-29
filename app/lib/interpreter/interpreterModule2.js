@@ -432,17 +432,17 @@ function interpreterModule2() {
                 var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
 
                 //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
-                if (questionObject.name == "I_COLLECTOR_NAME") {
+                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
                     questionObject.value = [userPreferences.name];
                     questionObject.displayValue = {
                         value: userPreferences.name
                     };
-                } else if (questionObject.name == "PHONE_NUMBER") {
+                } else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
                     questionObject.value = [userPreferences.mobile];
                     questionObject.displayValue = {
                         value: userPreferences.mobile
                     };
-                } else if (questionObject.name == "EMAIL_ADDRESS") {
+                } else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
                     questionObject.value = [userPreferences.email];
                     questionObject.displayValue = {
                         value: userPreferences.email
@@ -451,6 +451,8 @@ function interpreterModule2() {
                else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
                 	questionObject.template = "censusStartTimerTemplate";
                }
+               
+               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
                else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
                			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
                			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 

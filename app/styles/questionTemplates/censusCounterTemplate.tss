@@ -3,10 +3,16 @@
 	height: Ti.UI.SIZE,
 	bottom : "10dp"
 },
+"#mainView" : {
+	layout : "horizontal",
+	horizontalWrap : false,
+	top: "5dp",
+	bottom : "10dp"
+},
 "#valueTextField" : {
-	width: "49%",
+	width: "18%",
 	height: "50dp",
-	left : "0.5%",
+	left : "1%",
 	right : "0dp",
 	clearButtonMode : true,
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
@@ -17,10 +23,10 @@
 	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 	keyboardType : Titanium.UI.KEYBOARD_NUMBER_PAD
 },
-".additionButton" : {
-	width: "12%",
+".additionOneButton" : {
+	width: "15%",
 	height: "50dp",
-	left : "0.5%",
+	left : "1%",
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
 	borderRadius: 5,
 	borderWidth : 2,
@@ -28,14 +34,33 @@
 	borderColor : "#aaa",
 	backgroundColor: '#eee'
 },
-"#mainView" : {
-	layout : "horizontal",
-	horizontalWrap : false
+".additionFiveButton" : {
+	width: "23%",
+	height: "50dp",
+	left : "1%",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	borderRadius: 5,
+	borderWidth : 2,
+	color : "#000",
+	borderColor : "#aaa",
+	backgroundColor: '#eee'
+},
+"#questionTitle" : {
+	top: 0,
+	bottom : 0,
+	height: Ti.UI.FILL,
+	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER
 },
 "#header" : {
-	width : "48%",
+	width : "38%",
+	height: "50dp",
+	right : 0,
+	top: 0,
+	bottom : 0
 },
 "#questionView" : {
-	width : "49%",
-	left : 0
+	width : "60%",
+	left : 0,
+	top: 0,
+	bottom : 0
 }

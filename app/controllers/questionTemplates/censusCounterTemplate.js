@@ -31,6 +31,7 @@ function onNotesClick(e){
 
 
 function onTextFieldFocus(e){
+	e.source.blur();
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
@@ -78,6 +79,7 @@ function onTextField1Blur(e){
        
     item.questionResponse = questionResponse;
 	
+	/*
 	Ti.App.fireEvent("questionValueChange", {
 		item : item,
 		name : item.name,
@@ -86,6 +88,10 @@ function onTextField1Blur(e){
 		value : item.value,
 		responseObject : questionResponse
 	}); 
+	*/
+	
+	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+    
 };
 
 var addValue = function(additionValue, e){
@@ -93,17 +99,14 @@ var addValue = function(additionValue, e){
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
 	
-	/*
-	Ti.App.fireEvent("questionSelected", {
-		questionObject : item
-	});
-	*/
-	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	var intValue = 0;
 	if(item.value[0] != ""){
 		intValue = parseInt(item.value[0]);
+	}
+	if(isNaN(intValue)){
+		intValue =0;
 	}
 	
 	intValue= (intValue + additionValue);
@@ -111,6 +114,8 @@ var addValue = function(additionValue, e){
 		intValue = 0;
 	}
 	item.value[0] = ""+intValue;
+	
+	//alert("value = "+item.value[0]);
 	
 	
 	item.displayValue = {value : item.value[0]};
@@ -143,7 +148,7 @@ var addValue = function(additionValue, e){
 };
 
 function minusFive(e){
-	var item = section.getItemAt(e.itemIndex);
+	var item = e.section.getItemAt(e.itemIndex);
 	if(item.readOnly == true){
 		return;
 	}
@@ -151,7 +156,7 @@ function minusFive(e){
 };
 
 function minusOne(e){
-	var item = section.getItemAt(e.itemIndex);
+	var item = e.section.getItemAt(e.itemIndex);
 	if(item.readOnly == true){
 		return;
 	}
@@ -159,7 +164,7 @@ function minusOne(e){
 };
 
 function addOne(e){
-	var item = section.getItemAt(e.itemIndex);
+	var item = e.section.getItemAt(e.itemIndex);
 	if(item.readOnly == true){
 		return;
 	}
@@ -167,7 +172,7 @@ function addOne(e){
 };
 
 function addFive(e){
-	var item = section.getItemAt(e.itemIndex);
+	var item = e.section.getItemAt(e.itemIndex);
 	if(item.readOnly == true){
 		return;
 	}

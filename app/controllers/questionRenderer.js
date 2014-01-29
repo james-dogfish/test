@@ -19,19 +19,21 @@ var SINGLE_SECTIONS = 2;
 var currentSingleSectionIndex = 0;
 var listViewDisplayType = ALL_SECTIONS;
 
-var findQuestionsRef = function (sectionList, questionName) {
+var findQuestionsRef = function (sectionList, questionName, groupType) {
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-
-        for (var itemIndex = 0; itemIndex < sectionList[sectionIndex].getItems().length; itemIndex++) {
-            var itemsList = sectionList[sectionIndex].getItems();
-            if (itemsList[itemIndex].name == questionName) {
-                return {
-                    questionIndex: itemIndex,
-                    question: itemsList[itemIndex],
-                    section: sectionList[sectionIndex]
-                };
-            }
-        }
+		
+		if(sectionList[sectionIndex].groupType == groupType){
+			var itemsList = sectionList[sectionIndex].getItems();
+	        for (var itemIndex = 0; itemIndex < itemsList.length; itemIndex++) {
+	            if (itemsList[itemIndex].name == questionName) {
+	                return {
+	                    questionIndex: itemIndex,
+	                    question: itemsList[itemIndex],
+	                    section: sectionList[sectionIndex]
+	                };
+	            }
+	        }
+       }
     }
     //alert("not found " +questionName);
     return null;
@@ -110,7 +112,7 @@ var newFindQuestionObject = function (questionName, groupType) {
 };
 
 var newTestDependentQuestions = function (questionObject) {
-
+	
     var addToSectionMap = [];
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
@@ -624,7 +626,6 @@ exports.goToFirstUnanswered = function () {
             }
         }
     }
-
 };
 
 exports.goToLastPositiond = function () {
@@ -670,9 +671,7 @@ exports.getGoToContentsDetails = function () {
     return sectionContentsDetailsList;
 };
 
-/*var questionValueChange = function(item, name, value){
-	//alert("value = "+value);
-};*/
+
 
 
 var getAllQuestionSections = function () {
@@ -940,7 +939,7 @@ var questionValueChange = function (e) {
 
         var sectionList = getAllQuestionSections();
 
-        var questionTitleRef = findQuestionsRef(sectionList, "0I_ASSESSMENT_TITLE");
+        var questionTitleRef = findQuestionsRef(sectionList, "0I_ASSESSMENT_TITLE", "0Collector");
 
         if (questionTitleRef !== null) {
             if (typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null) {
@@ -978,6 +977,7 @@ var questionValueChange = function (e) {
     e.questionObject = validateEntireQuestion(e.questionObject);
 
     if (e.section != null) {
+    	//alert("updateItemAt");
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 
@@ -987,6 +987,7 @@ var questionValueChange = function (e) {
     //testIfQuestionsNeedToBeRemoved(e.questionObject);
     //testIfQuestionsNeedToBeAdded(e.questionObject);
     newTestDependentQuestions(e.questionObject);
+ 
 
     return e.questionObject;
 };
@@ -1134,7 +1135,7 @@ var selectQuestion = function (newQuestionSelected) {
 
     if (questionSelected != null) {
         Ti.API.info("questionSelected title = " + questionSelected.title.text);
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name);
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
             questionRef.question.headerView = {
                 backgroundColor: "#eee"
@@ -1154,7 +1155,7 @@ var selectQuestion = function (newQuestionSelected) {
 
     Ti.API.info("new questionSelected title = " + questionSelected.title.text);
 
-    var questionRef = findQuestionsRef(sectionList, questionSelected.name);
+    var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
     if (questionRef != null) {
         questionRef.question.headerView = {
             backgroundColor: "#A1F7B6"

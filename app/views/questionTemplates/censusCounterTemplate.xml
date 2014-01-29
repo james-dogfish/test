@@ -7,12 +7,12 @@
 			</View>
 			
 			<View id="questionView" class="questionView">
-				<Button class="additionButton" onClick="minusFive">-5</Button>
-				<Button class="additionButton" onClick="minusOne">-1</Button>
+				<Button class="additionFiveButton" onClick="minusFive">-5</Button>
+				<Button class="additionOneButton" onClick="minusOne">-1</Button>
 				
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextField1Blur" onFocus="onTextFieldFocus" />
-				<Button class="additionButton" onClick="addOne">+1</Button>
-				<Button class="additionButton" onClick="addFive">+5</Button>
+				<Button class="additionOneButton" onClick="addOne">+1</Button>
+				<Button class="additionFiveButton" onClick="addFive">+5</Button>
 			</View>
 		</View>
     </ItemTemplate>
