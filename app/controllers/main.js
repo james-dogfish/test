@@ -81,7 +81,7 @@ var openMenu = function () {
         }, {
             title: 'Help',
             id: 3
-        }, /*{
+        } /*{
             title: 'Commit All Completed',
             id: 4
         }, {
@@ -256,7 +256,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
 	
     Alloy.Globals.currentCrossingName = crossingDetail.name;
     Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
-    Alloy.Globals.aIndicator.show("Loading...");
+    Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
     
     var assData2 = [];
     var riskMap = {};

@@ -212,7 +212,10 @@ var openMenu = function () {
         }, {
             title: 'Help',
             id: 3
-        }, /*{
+        }, {
+            title: 'Save & Exit',
+            id: 6
+        }/*{
             title: 'Cheat Sheet',
             id: 4
         }, {
@@ -255,6 +258,12 @@ var openMenu = function () {
             loginView = Alloy.createController('index').getView();
             loginView.open();
             User.logOut();
+        } else if(e.row.id === 6){
+        	if(currentAssessmentObject !== null)
+			{
+				localDataHandler.updateQuestionCount(currentAssessmentObject);
+			}
+		    $.trigger("saveAndExitClick");
         }
     });
 };
