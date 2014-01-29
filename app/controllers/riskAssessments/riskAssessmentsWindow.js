@@ -67,7 +67,6 @@ var openMenu = function() {
 			appHelp.open();
 		} else if (e.row.id === 4) {
 			// Commit all assessments
-			Alloy.Globals.aIndicator.show("Committing...");
 			var responseGenerator = require('responseGenerator/responseGenerator');
 			responseGenerator  = new responseGenerator();
 			responseGenerator.commitAllCompleted();

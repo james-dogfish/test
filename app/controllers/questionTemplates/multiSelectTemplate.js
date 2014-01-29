@@ -61,7 +61,7 @@ function multiSelectButtonClicked(e){
 			values = values+"<ques:values>"+returnValue.valueList[i]+"</ques:values>";
 		}
 		var questionResponse =
-	        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values;
+	        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values + "<ques:notes>"+item.notes+"</ques:notes>";
 	        
 	    item.questionResponse = questionResponse;
 	    

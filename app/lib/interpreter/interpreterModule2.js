@@ -59,7 +59,7 @@ function interpreterModule2() {
         }, //{backgroundImage: 'images/questionSelectedNote.png'}
         notes: "",
         selected: false,
-        value: [""], // a list of all values set for this question
+        value: [], // a list of all values set for this question
         renderValue: [], // a list of condtions if the question is visable
         selections: [], // a list of possible values for the question
         validation: {},
@@ -221,7 +221,7 @@ function interpreterModule2() {
             notes: "",
             selected: false,
 
-            value: [""], // a list of all values set for this question
+            value: new Array(), // a list of all values set for this question
             renderValue: questionRenderValues, // a list of condtions if the question is visable
             selections: questionSelections, // a list of possible values for the question
             validation: questionValidation,

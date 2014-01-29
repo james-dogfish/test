@@ -27,6 +27,10 @@ exports.clear = function () {
 
 
 function saveAndExitClick(e) {
+	if(currentAssessmentObject !== null)
+	{
+		localDataHandler.updateQuestionCount(currentAssessmentObject);
+	}
     $.trigger("saveAndExitClick");
 }
 

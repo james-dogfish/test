@@ -582,13 +582,71 @@ function localDataHandler() {
        
         return returnQuestionSet;
     };
+    
+    self.updateQuestionCount = function (assessmentObject) {
+    	var returnQuestionSet = [];
+    	assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
+        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
+        if (assessmentFile.exists()) {
+            var assessment = JSON.parse(assessmentFile.read().text);
+            returnQuestionSet = returnQuestionSet.concat(assessment);
+            //Ti.API.info("returnQuestionSet >> " + JSON.stringify(returnQuestionSet));
+            var mandatoryCount = 0;
+            var answeredCount = 0;
+            for(var returnQuestionSetIndex = 0; returnQuestionSetIndex < returnQuestionSet.length; returnQuestionSetIndex++)
+            {
+            	if(returnQuestionSet[returnQuestionSetIndex].alcrmGroupType === "CrossingGeneral")
+            	{
+            		continue;
+            	}else{
+            		//get the questionList
+            		var questionList = returnQuestionSet[returnQuestionSetIndex].questionList;
+            		for(var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++)
+            		{
+            			//Count the Mandatory
+	            		if(questionList[questionListIndex].mandatory == true ||
+	            			 questionList[questionListIndex].mandatory == "true"){
+	            			mandatoryCount++;
+	            		}
+	            		
+	            		//Count the Answered
+            			if(typeof questionList[questionListIndex].value !== "undefined")
+            			{		
+	            			if(questionList[questionListIndex].value instanceof Array)
+	            			{            				
+	            				if(questionList[questionListIndex].value.length >= 1)
+	            				{
+	            					if(questionList[questionListIndex].value[0].trim().length > 0)
+		            				{
+		            					//alert("value0="+questionList[questionListIndex].value[0]);
+		            					answeredCount++;
+		            				}
+	            				}	
+	            			}else{ // if it's not an Array
+	            				if(questionList[questionListIndex].value.trim().length > 0)
+		            			{
+		            					answeredCount++;
+		            			}
+	            			}
+	            		}//end check for undefined
+            		}//end inner for loop
+            	}//end if
+            }//end outer for loop
+            
+            //update the ass obj
+            assessmentObject.questionCount = mandatoryCount;
+            assessmentObject.questionsCompleted = answeredCount;
+        }
+        
+        return assessmentObject;
+    };
 
     self.openAssessment = function (assessmentObject) {
     	
     	//alert(Alloy.Globals.User.getLogin().username);
 		 //var curUserDir = Alloy.Globals.User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
+		
         var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
@@ -596,8 +654,7 @@ function localDataHandler() {
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
-
-
+	
         var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
         if (assessmentFile.exists()) {
             var assessment = JSON.parse(assessmentFile.read().text);
