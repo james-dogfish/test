@@ -42,6 +42,11 @@ function dateButton1Clicked(e){
 	*/
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
+	
 	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
 		//section.updateItemAt(e.itemIndex, item);
@@ -103,6 +108,11 @@ function dateButton2Clicked(e){
 	}); 
 	*/
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
 	
 	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
 		item.displayValue2 = {value : dateString};

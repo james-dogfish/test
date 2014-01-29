@@ -209,6 +209,7 @@ function interpreterModule2() {
             alcrmQuestionID: Alloy.Globals.localParser.getQuestionName(question),
             alcrmGroupType: Alloy.Globals.localParser.getQuestionGroup(question),
             visable: questionVisable,
+            readOnly : false,
             order: Alloy.Globals.localParser.getQuestionOrder(question),
             associatedFileName: passObject.associatedFileName, // file the question is in
             questionResponse: null,
@@ -402,6 +403,7 @@ function interpreterModule2() {
             if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
                 var newRow = {
                     isAQuestion: false,
+                    readOnly : false,
                     template: "setEntireSectionTemplate",
 
                     title: {
@@ -460,6 +462,12 @@ function interpreterModule2() {
                			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
                 	questionObject.template = "censusCounterTemplate";
                }
+               
+            	
+               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
+                	questionObject.readOnly = true;
+               }
+               
                 
                 for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
                 	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
@@ -504,7 +512,6 @@ function interpreterModule2() {
         self.sectionHeaderList.sort(function (a, b) {
             return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
         });
-
     };
 
     self.interpret = function (allQuestions, passObject) {
