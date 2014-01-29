@@ -142,8 +142,19 @@ function _User() {
         },
         
         getUserDir: function () {
-          // return Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
-          return Ti.App.Properties.getString('userKeychain').replace(/ /g,'');
+        	
+        	var userDir = null;
+        	
+        	if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
+        	{
+        		if(Ti.App.Properties.getString('userKeychain') !== null)
+        		{
+        			userDir = Ti.App.Properties.getString('userKeychain').replace(/ /g,'');
+        		}
+        	}
+        	
+        	return userDir;
+          
         },
 
         	/*
@@ -164,20 +175,26 @@ function _User() {
 		     	userSingleView: object.singleView
 		     };
 		     
-             
-             	var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
-				Ti.API.info("Created User Directory: " + UserDir.createDirectory());
-				Ti.API.info('UserDir ' + UserDir);
-				var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
-				
-				newFile.createFile();
-				//newFile.write(JSON.stringify(UserObj));
-				if (newFile.exists()){
-					//newFile.deleteFile();
-					
-				    newFile.write(JSON.stringify(UserObj));
-				    Ti.API.info('userFile: '+newFile.read());
-				}    
+             	if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
+	        	{
+	        		if(Ti.App.Properties.getString('userKeychain') !== null)
+	        		{
+	        			var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
+						Ti.API.info("Created User Directory: " + UserDir.createDirectory());
+						Ti.API.info('UserDir ' + UserDir);
+						var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
+						
+						newFile.createFile();
+						//newFile.write(JSON.stringify(UserObj));
+						if (newFile.exists()){
+							//newFile.deleteFile();
+							
+						    newFile.write(JSON.stringify(UserObj));
+						    Ti.API.info('userFile: '+newFile.read());
+						}
+	        		}
+	        	}
+             	    
 		     //userPrefs.write(JSON.stringify(UserObj));			    
 		},
 
@@ -188,25 +205,36 @@ function _User() {
                 email: Ti.App.Properties.getString('userEmail', ''),
                 singleView: Ti.App.Properties.getBool('userSingleView', false)
             };*/
-            var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
-            var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
-            //alert(UserDir.nativePath);
-			 if (!UserFile.exists()) {
-		          return {};
-		     } 
-    		//alert(UserFile.read().text);
-    		var UserObj = JSON.parse(UserFile.read().text);
-    		
-            return {
-            	name: UserObj.userName,
-            	mobile: UserObj.userMobile,
-            	email:UserObj.userEmail,
-            	singleView:UserObj.userSingleView
-            };
+           if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
+        	{
+        		if(Ti.App.Properties.getString('userKeychain') !== null)
+        		{
+        			var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
+		            var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
+		            //alert(UserDir.nativePath);
+					 if (!UserFile.exists()) {
+				          return {};
+				     } 
+		    		//alert(UserFile.read().text);
+		    		var UserObj = JSON.parse(UserFile.read().text);
+		    		
+		            return {
+		            	name: UserObj.userName,
+		            	mobile: UserObj.userMobile,
+		            	email:UserObj.userEmail,
+		            	singleView:UserObj.userSingleView
+		            };
+        		}
+        	}
+            return;
         },
 
         hasPreferences: function () {
             var prefHash = this.getPreferences();
+            if(typeof prefHash === "undefined" || prefHash == null)
+            {
+            	return false;
+            }
             //alert(JSON.stringify(prefHash));
             if (prefHash.name && prefHash.mobile && prefHash.email) {
                 return true;
@@ -269,6 +297,7 @@ function _User() {
             Ti.App.Properties.removeProperty('loginKeychain');
              Ti.App.Properties.removeProperty('userKeychain');
               Ti.App.Properties.removeProperty('passKeychain');
+              Ti.App.Properties.removeProperty('LCM_ROUTE');
            // userKeychain.reset();
            // passKeychain.reset();
             //this = null;

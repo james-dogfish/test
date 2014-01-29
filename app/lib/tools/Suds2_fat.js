@@ -161,7 +161,7 @@ var SudsClient = function(_options) {
       _callback.call(this, xmlDomFromString(this.responseText));
     };
     xhr.onerror = function(e) {
-      Ti.API.error('SUDS - Error' + this.responseText);
+      Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       var errXml = new XMLTools(xmlDomFromString(this.responseText));
       var errObj = JSON.stringify(errXml.toObject());

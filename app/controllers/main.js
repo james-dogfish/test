@@ -72,22 +72,22 @@ var openMenu = function () {
             width: 250,
             height: Ti.UI.SIZE
         }),
-        data = [{
+        data = [/*{
             title: 'Settings',
             id: 1
-        }, {
+        }, */{
             title: 'GoTo',
             id: 2
         }, {
             title: 'Help',
             id: 3
-        }, {
+        }, /*{
             title: 'Commit All Completed',
             id: 4
         }, {
             title: 'Logout',
             id: 5
-        }];
+        }*/];
 
     menuTable.setData(data);
 
@@ -130,11 +130,10 @@ var openMenu = function () {
             // Making table clickable!
             //$.searchTable.loading = false;
             // Log a user out
-
+			User.logOut();
             Alloy.Globals.tabGroup.close();
             loginView = Alloy.createController('index').getView();
-            loginView.open();
-            User.logOut();
+            loginView.open();      
         }
     });
 };

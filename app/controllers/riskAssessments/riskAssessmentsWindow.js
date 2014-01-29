@@ -1,3 +1,4 @@
+var User = require('core/User');
 // Trying out fontawesome
 var fontawesome = require('tools/fonts/IconicFont').IconicFont({
 	font: 'tools/fonts/FontAwesome',
@@ -16,7 +17,7 @@ var activeAssessments = [];
 var openMenu = function() {
 
 	// Check whether settings are filled 
-	if (!Alloy.Globals.User.hasPreferences()) {
+	if (!User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message: true
@@ -78,12 +79,12 @@ var openMenu = function() {
 			//$.searchTable.loading = false;
 			// Log a user out
 			
+			User.logOut();
 			Alloy.Globals.tabGroup.close();
-			loginView = Alloy.createController('index').getView();
+			Alloy.createController('index').getView().open();
+			/*loginView = Alloy.createController('index').getView();
 			loginView.open();
-			Alloy.Globals.User.logOut();
-			//Alloy.Globals.User = null;
-			Ti.API.info("User object after logging out = "+JSON.stringify(User));
+			alert("here");*/
 		}
 	});
 };

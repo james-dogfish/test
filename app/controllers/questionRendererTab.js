@@ -203,22 +203,22 @@ var openMenu = function () {
             width: 250,
             height: Ti.UI.SIZE
         }),
-        data = [{
+        data = [/*{
             title: 'Settings',
             id: 1
-        }, {
+        }, */{
             title: 'GoTo',
             id: 2
         }, {
             title: 'Help',
             id: 3
-        }, {
+        }, /*{
             title: 'Cheat Sheet',
             id: 4
         }, {
             title: 'Logout',
             id: 5
-        }];
+        }*/];
 
     menuTable.setData(data);
 
