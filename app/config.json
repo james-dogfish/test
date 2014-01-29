@@ -1,5 +1,5 @@
 {
-	"global": {"debug":false,"stagedRollOut":true}, 
+	"global": {"debug":false,"stagedRollOut":false}, 
 	"env:development": {}, 
 	"env:test": {}, 
 	"env:production": {}, 
