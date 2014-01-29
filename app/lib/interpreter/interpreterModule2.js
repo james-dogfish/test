@@ -85,6 +85,16 @@ function interpreterModule2() {
         mandatoryDependenciesList : [],
         headerView: {}
     };
+    
+    var getSectionDisplayName = function(question){
+    	
+    	var displayName = question.firstTab["#text"];
+    	if(typeof question.secondTab !== "undefined"){
+    		displayName = question.secondTab["#text"];
+    	}
+    	
+    	return displayName;
+    };
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
 
@@ -328,8 +338,9 @@ function interpreterModule2() {
         }
 
         var newSectionHeader = {
-            title: alcrmGroupType,
+            title: getSectionDisplayName(question),
             groupType: groupType,
+            //displayName :getSectionDisplayName(question), 
             alcrmGroupType: alcrmGroupType,
             pageName: passObject.pageName,
             pageType: passObject.pageType,
@@ -398,8 +409,6 @@ function interpreterModule2() {
 
     var postInterpretSettings = function (passObject) {
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
-
-
             if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
                 var newRow = {
                     isAQuestion: false,
