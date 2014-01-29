@@ -640,7 +640,7 @@ exports.getGoToContentsDetails = function () {
 
         var newSectionContents = {
             questionList: [],
-            title: sectionList[sectionIndex].alcrmGroupType,
+            title: sectionList[sectionIndex].title,
             associatedFileName: sectionList[sectionIndex].associatedFileName,
             pageName: sectionList[sectionIndex].pageName,
             pageType: sectionList[sectionIndex].pageType,
