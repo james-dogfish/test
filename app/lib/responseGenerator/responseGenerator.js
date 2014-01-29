@@ -2,6 +2,7 @@ function responseGenerator() {
     var self = this;
 	var localDataHandler = require('localDataHandler/localDataHandler');
     var isDebugOn = require('alloy').CFG.debug;
+    var Util = require('core/Util');
     
     self.toXml = function (v, name, ind) {
         var xml = "";
@@ -114,7 +115,7 @@ function responseGenerator() {
 
     self.buildCensusResponse = function (censusList, crossingID, detailID) {
         var censusData = "";
-
+		
         for (var censusListIndex = 0; censusListIndex < censusList.length; censusListIndex++) {
             var sectionList = censusList[censusListIndex];
             for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
@@ -125,11 +126,11 @@ function responseGenerator() {
                     var questionType = questionList[questionIndex].type;
                     if (questionResponse != null) {
                         if (questionType === "multiSelect") {
-                            censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+                            censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse) + "</cen1:censusData>";
                         } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                            censusData = censusData + '<cen1:censusData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</cen1:censusData>";
+                            censusData = censusData + '<cen1:censusData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse) + "</cen1:censusData>";
                         } else {
-                            censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+                            censusData = censusData + "<cen1:censusData>" + Util.escapeXML(questionResponse) + "</cen1:censusData>";
                         }
                     }
                 }
@@ -162,11 +163,11 @@ function responseGenerator() {
                     var questionType = questionList[questionIndex].type;
                     if (questionResponse != null) {
                         if (questionType === "multiSelect") {
-                            trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+                            trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
                         } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                            trainData = trainData + '<tra1:detailedData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</tra1:detailedData>";
+                            trainData = trainData + '<tra1:detailedData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
                         } else {
-                            trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
+                            trainData = trainData + "<tra1:detailedData>" + Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
                         }
                     }
                 }
@@ -198,11 +199,11 @@ function responseGenerator() {
 
                 if (questionResponse != null) {
                     if (questionType === "multiSelect") {
-                        riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+                        riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse)  + "</ass1:riskData>";
                     } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                        riskData = riskData + '<ass1:riskData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + "</ass1:riskData>";
+                        riskData = riskData + '<ass1:riskData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse)  + "</ass1:riskData>";
                     } else {
-                        riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
+                        riskData = riskData + "<ass1:riskData>" + Util.escapeXML(questionResponse) + "</ass1:riskData>";
                     }
                 }
 
@@ -215,7 +216,7 @@ function responseGenerator() {
             "<ass:CreateAssessmentRequest>" +
             "<ass:assessment>" +
             "<ass1:crossingID>" + crossingID + "</ass1:crossingID>" +
-            "<ass1:notes>" + assNotes + "</ass1:notes>";
+            "<ass1:notes>" + Util.escapeXML(assNotes) + "</ass1:notes>";
         //"<ass1:detailId>" + detailID + "</ass1:detailId>" + dateNode +
         riskData +
             "</ass:assessment>" +
