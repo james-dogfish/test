@@ -11,6 +11,10 @@ function selectButtonClicked(e){
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
+	if(item.readOnly == true){
+		
+		return;
+	}
 	
 	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};

@@ -8,6 +8,11 @@ function selectButtonClicked(e){
 		groupType : item.groupType
 	}); 
 	
+	var item = section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		return;
+	}
+	
 	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.displayValue];

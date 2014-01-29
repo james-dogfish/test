@@ -39,6 +39,11 @@ function multiSelectButtonClicked(e){
 	*/
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
+	
 	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, closeCallBack : function(returnValue){
 		
 		/*

@@ -37,8 +37,12 @@ function onTextFieldFocus(e){
 		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
+	if(item.readOnly == true){
+		e.source.blur();
+	}
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item
@@ -52,7 +56,10 @@ function onTextField1Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 	
-
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
 	
 	var intValue =0;
 	intValue = parseInt(e.value);
@@ -136,17 +143,33 @@ var addValue = function(additionValue, e){
 };
 
 function minusFive(e){
+	var item = section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		return;
+	}
 	var newValue = addValue(-5, e);
 };
 
 function minusOne(e){
+	var item = section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		return;
+	}
 	var newValue = addValue(-1, e);
 };
 
 function addOne(e){
+	var item = section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		return;
+	}
 	var newValue = addValue(+1, e);
 };
 
 function addFive(e){
+	var item = section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		return;
+	}
 	var newValue = addValue(+5, e);
 };

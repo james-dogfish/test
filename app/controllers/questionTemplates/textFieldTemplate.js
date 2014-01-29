@@ -8,9 +8,26 @@ function onTextFieldBlur(e){
 		//alert("in textFieldTemplate.onTextFieldBlur item was undefined");
 		return;
 	}
+	
+	if(item.readOnly == true){
+		e.section.updateItemAt(e.itemIndex, item);
+		return;
+	}
+	
+
 	var section = e.section; 
 	item.displayValue = {value : e.value};
 	item.value = [e.value];
+	
+	var questionResponse = 
+   "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
+   "<ques:parameterValue>"+e.value+"</ques:parameterValue>"+
+   "<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
+
+    item.questionResponse = questionResponse;
+    
+    item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	
 	
 	/*
 	var responseObject = [
@@ -31,14 +48,7 @@ function onTextFieldBlur(e){
 	
 	section.updateItemAt(e.itemIndex, item);
 	
-	var questionResponse = 
-       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-       "<ques:parameterValue>"+e.value+"</ques:parameterValue>"+
-       "<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
-    
-    item.questionResponse = questionResponse;
-    
-    item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	
 
 /*
 	Ti.App.fireEvent("questionValueChange", {
@@ -84,14 +94,24 @@ function onNotesClick(e){
 };
 
 function onTextFieldFocus(e){
-	
+	//alert("onTextFieldFocus");
 	var item = e.section.getItemAt(e.itemIndex);
+	if(item.readOnly == true){
+		e.source.blur();
+	}
 	if(typeof item === "undefined"){
 		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
+	/*
+	if(item.readOnly == true){
+		e.source.blur();
+		//item.displayValue.editable = false;
+		e.section.updateItemAt(e.itemIndex, item);
+	}
+	*/
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item

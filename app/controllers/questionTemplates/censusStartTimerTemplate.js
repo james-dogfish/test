@@ -38,7 +38,13 @@ function onTextFieldBlur(e){
 
 function onStartButtonClick(e){
 	var question = e.section.getItemAt(e.itemIndex);
+	
 	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+	
+	if(question.readOnly == true){
+		e.section.updateItemAt(e.itemIndex, question);
+		return;
+	}
 	
 	Ti.App.fireEvent("startCensesTimer", {
 		question : question,

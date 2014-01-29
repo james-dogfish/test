@@ -695,8 +695,6 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
     $.backButton.visible = (sectionsIndex > 0);
     $.nextButton.visible = (sectionsIndex < (allSections.length - 1));
 
-
-
     $.listView.setSections(newSectionList);
 };
 
