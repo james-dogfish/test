@@ -37,6 +37,9 @@ function onTextFieldFocus(e){
 		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
+	if(item.readOnly == true){
+		e.source.blur();
+	}
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item
@@ -50,6 +53,12 @@ function onTextFieldFocus(e){
 function onTextField1Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
+	
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
+	
 	item.displayValue = {value : e.value};
 	
 	//var test = validateValue(e.value, item.type, item.jsonObject);
@@ -100,6 +109,13 @@ function onTextField1Blur(e){
 function onTextField2Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
+	
+	
+	
+	if(item.readOnly == true){
+		section.updateItemAt(e.itemIndex, item);
+		return;
+	}
 	item.displayValue2 = {value : e.value};
 	
 	//var test = validateValue(e.value, item.type, item.jsonObject);
