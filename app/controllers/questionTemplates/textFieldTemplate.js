@@ -96,11 +96,13 @@ function onNotesClick(e){
 function onTextFieldFocus(e){
 	//alert("onTextFieldFocus");
 	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		e.source.blur();
-	}
+	
 	if(typeof item === "undefined"){
 		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
+		return;
+	}
+	if(item.readOnly == true){
+		e.source.blur();
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
