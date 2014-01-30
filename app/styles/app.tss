@@ -79,13 +79,12 @@
 	backgroundColor: '#eee'
 },
 ".systemButton" : {
-	width : 55,
+	width :Ti.UI.SIZE,
 	height : 30,
 	borderRadius:6,
     borderWidth:1,
     borderColor:'#151d21',
-    font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
-    color: '#fefefe',
+    
 	backgroundGradient : {
         type : 'linear',
         startPoint : {
@@ -100,4 +99,13 @@
     },
     backgroundColor: 'transparent',
     backgroundImage: 'none'
+},
+".systemButtonText" : {
+	width :Ti.UI.SIZE,
+	height :Ti.UI.FILL,
+	left : "10dp",
+	right : "10dp",
+	font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+    color: '#fefefe',
+	
 }
