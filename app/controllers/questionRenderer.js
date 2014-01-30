@@ -994,6 +994,17 @@ var questionValueChange = function (e) {
 };
 exports.questionValueChange = questionValueChange;
 
+var toggleScrollLock = function()
+{
+	if($.listView.canScroll === true){
+    	$.listView.setCanScroll(false);
+    }else{
+        $.listView.setCanScroll(true);
+    }
+};
+
+exports.toggleScrollLock = toggleScrollLock;
+
 function footerTextButtonClick(e) {
     Alloy.createController("questionDialogs/userNotesDialog", {
         notes: currentAssessmentObject.notes,

@@ -269,14 +269,7 @@ var openMenu = function () {
 		    $.trigger("saveAndExitClick");
         } else if(e.row.id === 7)
         {
-        	$.questionListView.setCanScroll(false);
-        	alert($.questionListView.canScroll);
-        	
-        	if($.questionListView.canScroll === true){
-        		$.questionListView.setCanScroll(false);
-        	}else{
-        		//$.questionListView.setCanScroll(true);
-        	}
+        	$.questionListView.toggleScrollLock();
         }
     });
 };

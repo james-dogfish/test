@@ -59,7 +59,7 @@ Ti.App.addEventListener('fireStartup', startup);
 
 if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
-		//Alloy.Globals.Util.showAlert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
+		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}
 	Ti.App.fireEvent('fireStartup');
 } else {
