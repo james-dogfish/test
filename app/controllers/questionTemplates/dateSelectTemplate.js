@@ -6,9 +6,6 @@ function onNotesClick(e){
 	//{backgroundImage: 'images/questionSelectedNote.png'},
 	
 	
-	if(item.alcrmQuestionID == "CENSUS_DATE"){
-		
-	}
 	
 	
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
@@ -42,7 +39,7 @@ function dateButtonClicked(e){
 		questionObject : item
 	}); 
 	*/
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);
@@ -50,7 +47,16 @@ function dateButtonClicked(e){
 	}
 	
 	
-	Alloy.createController("questionDialogs/modalDatePicker", {closeCallBack : function(dateString){
+	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	
+	var timeLimit =false;
+	if(item.alcrmQuestionID == "CENSUS_DATE"){
+		timeLimit= true;
+	}
+	
+	
+	Alloy.createController("questionDialogs/modalDatePicker", {timeLimit : timeLimit, closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
 		item.value = dateString;
 		section.updateItemAt(e.itemIndex, item);
