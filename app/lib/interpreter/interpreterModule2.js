@@ -97,11 +97,13 @@ function interpreterModule2() {
     	return displayName;
     };
     
-    var createCensusDateQuestion = function(passObject){
+    var createCensusDateQuestion = function(passObject, section){
     	return  {
 	        isAQuestion: true,
 	        template: "dateTemplate", // this is the template used to show the question in the list view
 	        type: "date", // this is the alcrem question type
+	        groupType: section.groupType,
+	        alcrmGroupType: section.alcrmGroupType,
 	        name: passObject.pageID +"CENSUS_DATE", // this is the id of the question
 	        alcrmQuestionID: "CENSUS_DATE",
 	        visable: true,
@@ -594,7 +596,7 @@ function interpreterModule2() {
                 self.sectionHeaderList[sectionIndex].questionList.unshift(newRow); //adds row to front of the list
             }
             else if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "CensusGeneral"){
-            	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject));
+            	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject, self.sectionHeaderList[sectionIndex]));
             }
             
             

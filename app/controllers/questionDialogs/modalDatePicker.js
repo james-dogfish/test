@@ -2,6 +2,9 @@ var args = arguments[0] || {};
 
 var date = new Date();
 
+var moment = require('alloy/moment');
+
+
 
 var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
@@ -32,6 +35,15 @@ var dateToString = function(date){
     var year = date.getFullYear();
     return day + "-" + month + "-" + year;
 };
+
+
+if(typeof args.timeLimit !== "undefined"){
+	if(args.timeLimit == true){
+		
+		$.datePicker.setMinDate(moment().subtract('days', 30).toDate());
+		$.datePicker.setMaxDate(new Date());
+	}
+}
 
 var closeWindow = function(){
 	args.closeCallBack(dateToString(date));
