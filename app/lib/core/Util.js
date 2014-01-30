@@ -84,7 +84,7 @@ function _Util() {
     self.downloadConfig = function (callback) {
         if (self.phoneConnected()) {
             var fileName = 'apphelp.json';
-            self.downloadFileConditionally(cmsUrl + '/data/config.json', docsFolder + fileName, function (c) {
+            self.downloadFileConditionally(cmsUrl + '/data/appconfig.json', docsFolder + fileName, function (c) {
                 // get last modified date
                 var lastModified = c.getResponseHeader('Last-Modified');
                 var previousDate = Ti.App.Properties.getString('helpLastModified', '');

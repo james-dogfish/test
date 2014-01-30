@@ -267,46 +267,76 @@ function responseGenerator() {
 	        var Util = require('core/Util');
 	        var newAssessmentForPDF = localDataHandler.createAssessmentPDFResponse(assObj);
 	        Util.emailNotes(newAssessmentForPDF);
-	
-	        //COMMIT CENSUS
-	            Alloy.Globals.Soap.createCensus(xmlCensusRequest,
-	                function (xmlDoc) {
-	                	//Ti.API.info('4activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
-	                    var XMLTools = require("tools/XMLTools");
-	                    var xml = new XMLTools(xmlDoc);
-	                    var response = JSON.stringify(xml.toObject());
-	                    
-					    	 
-	                    //Ti.API.info('createCensusRequest Success response >> ' + response);
-	                    //Ti.API.info('activeAssessments[assessmentIndex]='+JSON.stringify(activeAssessments[assessmentIndex]));
-	                    if (assObj.isSubmitted === false) {
-	                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
-			                    function (xmlDoc) {
-			                        var XMLTools = require("tools/XMLTools");
-			                        var xml = new XMLTools(xmlDoc);
-			                        var response = JSON.stringify(xml.toObject());
-			                        
-			                        assObj.alcrmStatus = "sent";
-									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-									
-			                        Ti.API.info('createAssessment Success response >> ' + response);
-			                        Alloy.Globals.aIndicator.hide();
-			                    },function(){});
-	                    }else{
-	                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
-			                    function (xmlDoc) {
-			                        var XMLTools = require("tools/XMLTools");
-			                        var xml = new XMLTools(xmlDoc);
-			                        var response = JSON.stringify(xml.toObject());
-									
-									assObj.alcrmStatus = "sent";
-									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-									
-			                        Ti.API.info('createAssessment Success response >> ' + response);
-			                        Alloy.Globals.aIndicator.hide();
-			                    },function(){});
-	                    }
-	                }, function (xmlDoc) {}); //END OF COMMIT CENSUS  
+			
+			if(assObj.censusDesktopComplete == false){
+			        //COMMIT CENSUS
+			            Alloy.Globals.Soap.createCensus(xmlCensusRequest,
+			                function (xmlDoc) {
+			                	//Ti.API.info('4activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
+			                    var XMLTools = require("tools/XMLTools");
+			                    var xml = new XMLTools(xmlDoc);
+			                    var response = JSON.stringify(xml.toObject());
+			                    
+							    	 
+			                    //Ti.API.info('createCensusRequest Success response >> ' + response);
+			                    //Ti.API.info('activeAssessments[assessmentIndex]='+JSON.stringify(activeAssessments[assessmentIndex]));
+			                    if (assObj.isSubmitted === false) {
+			                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
+					                    function (xmlDoc) {
+					                        var XMLTools = require("tools/XMLTools");
+					                        var xml = new XMLTools(xmlDoc);
+					                        var response = JSON.stringify(xml.toObject());
+					                        
+					                        assObj.alcrmStatus = "sent";
+											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											
+					                        Ti.API.info('createAssessment Success response >> ' + response);
+					                        Alloy.Globals.aIndicator.hide();
+					                    },function(){});
+			                    }else{
+			                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
+					                    function (xmlDoc) {
+					                        var XMLTools = require("tools/XMLTools");
+					                        var xml = new XMLTools(xmlDoc);
+					                        var response = JSON.stringify(xml.toObject());
+											
+											assObj.alcrmStatus = "sent";
+											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											
+					                        Ti.API.info('createAssessment Success response >> ' + response);
+					                        Alloy.Globals.aIndicator.hide();
+					                    },function(){});
+			                    }
+			                }, function (xmlDoc) {}); //END OF COMMIT CENSUS  
+			    }else{
+			    			if (assObj.isSubmitted === false) {
+			                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
+					                    function (xmlDoc) {
+					                        var XMLTools = require("tools/XMLTools");
+					                        var xml = new XMLTools(xmlDoc);
+					                        var response = JSON.stringify(xml.toObject());
+					                        
+					                        assObj.alcrmStatus = "sent";
+											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											
+					                        Ti.API.info('createAssessment Success response >> ' + response);
+					                        Alloy.Globals.aIndicator.hide();
+					                    },function(){});
+			                    }else{
+			                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
+					                    function (xmlDoc) {
+					                        var XMLTools = require("tools/XMLTools");
+					                        var xml = new XMLTools(xmlDoc);
+					                        var response = JSON.stringify(xml.toObject());
+											
+											assObj.alcrmStatus = "sent";
+											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											
+					                        Ti.API.info('createAssessment Success response >> ' + response);
+					                        Alloy.Globals.aIndicator.hide();
+					                    },function(){});
+			                    }
+			    }
 	
 	            //COMMIT TRAIN INFO
 	            Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest,
