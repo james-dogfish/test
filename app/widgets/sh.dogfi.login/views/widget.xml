@@ -6,9 +6,9 @@
 				<Label id="loginLabel" text="Login"/>
 				<ImageView id="nrLogo" />
 				<!-- <Label id="userLabel" text="Username"/> -->
-				<TextField id="userField" hintText="Username" />
+				<TextField id="userField" hintText="Username" value="Admin User" />
 				<!-- <Label id="passLabel" text="Password" /> -->
-				<TextField id="passField" hintText="Password" onReturn="doLogin"/>
+				<TextField id="passField" hintText="Password" value="WrksdhfsiuYY45" onReturn="doLogin"/>
 				<Button id="loginButton" onClick="doLogin">Login</Button>
 			</View>
 		</ScrollView>
