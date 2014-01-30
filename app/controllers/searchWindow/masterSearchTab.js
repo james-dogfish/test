@@ -19,13 +19,22 @@ function onRowClick(e){
 
 exports.setData = function() {
 	var loggedInUser = User.getLogin();
-	/*if(localDataHandler.loadCachedCrossingSearch().length !== 0)
+	crossingData = localDataHandler.loadCachedCrossingSearch();
+	if(crossingData.length !== 0)
 	{
 		Alloy.Globals.aIndicator.show("Loading...",50000);
-			$.tableView.setData(localDataHandler.loadCachedCrossingSearch());
+		$.tableView.setData([]);
+
+		var data = [];
+				                //alert(JSON.stringify(results[0]));
+		for(var i=0; i < crossingData.length; i++){
+			Ti.API.info(JSON.stringify(crossingData[i]));
+			data.push(Alloy.createController("searchWindow/masterSearchTableRow",crossingData[i]).getView());
+		}
+		$.tableView.setData(data);
 		Alloy.Globals.aIndicator.hide();
 		return;
-	}*/ //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
+	} //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
 	
 	
 	if($.tableView.data.length === 0){ 
@@ -92,7 +101,7 @@ exports.setData = function() {
 				                for(var i=0; i < crossingData.length; i++){
 									data.push(Alloy.createController("searchWindow/masterSearchTableRow",crossingData[i]).getView());
 								}
-								localDataHandler.cacheCrossingSearch(data);
+								localDataHandler.cacheCrossingSearch(crossingData);
 								$.tableView.setData(data);
 								Alloy.Globals.aIndicator.hide();
 							}

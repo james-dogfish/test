@@ -38,6 +38,7 @@ function localDataHandler() {
 		 //alert("curUserDir = "+curUserDir.nativePath);
         var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
         crossingsFile.write(JSON.stringify(payload));
+        Ti.API.info("====Caching: ===="+JSON.stringify(payload));
         return true;
     };
     
