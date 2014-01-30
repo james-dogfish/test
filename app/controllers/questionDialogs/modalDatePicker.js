@@ -39,14 +39,6 @@ var dateToString = function(date){
 
 if(typeof args.timeLimit !== "undefined"){
 	if(args.timeLimit == true){
-		/*
-		var today = new Date();
-		var minDate = new Date (today.getYear(), today.getMonth(), (today.getDate()-30) );
-		var minDate = datePicker.minDate = moment().subtract('days', 30).toDate();
-
-		Ti.API.info("today = "+dateToString(today));
-		Ti.API.info("- 30 days = "+dateToString(minDate));
-		*/
 		
 		$.datePicker.setMinDate(moment().subtract('days', 30).toDate());
 		$.datePicker.setMaxDate(new Date());
