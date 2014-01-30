@@ -168,17 +168,39 @@ gotoQuestionSectionWindow.on("deletePage", function (e) {
 });
 */
 
+
 Ti.App.addEventListener("deletePage", function (e) {
-	Ti.API.info("gotoQuestionSectionWindow : deletePage");
-	activityIndicator.show();
-
-    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
-        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
-        $.questionListView.setAssessment(sectionList, currentAssessmentObject);
-        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-    }
-
-    activityIndicator.hide();
+	
+	var deletingRow = e;
+  
+  var alertYesNo = Titanium.UI.createAlertDialog({
+    message: L('delete_census'),
+    buttonNames: ['Yes','No']
+  });
+ 
+  alertYesNo.addEventListener('click', function(e) {
+    if (e.index == 0) { 
+      /*
+       * YES was clicked.
+       */
+      	Ti.API.info("gotoQuestionSectionWindow : deletePage");
+	    activityIndicator.show();
+	
+	    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
+	        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+	        $.questionListView.setAssessment(sectionList, currentAssessmentObject);
+	        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+	    }
+	
+	    activityIndicator.hide();
+    } else if (e.index == 1) { 
+     
+    }	 
+  });
+ 
+  alertYesNo.show();
+  
+	
 });
 
 
