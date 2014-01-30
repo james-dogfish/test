@@ -36,6 +36,12 @@ function saveAndExitClick(e) {
 
 var createCensus = function () {
     currentAssessmentObject;
+    currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    if( currentAssessmentObject.censusQuestionsfileNameList.length >= 2 )
+    {
+    	alert(L('max_census'));
+    	return;
+    }
     var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
     //var censusDataInterpreted = interpreter.interpret(censusData);
     $.questionListView.appendSectionsToAssessment(censusData);
@@ -43,6 +49,12 @@ var createCensus = function () {
 
 var createPastCensus = function (pastCensusData) {
     currentAssessmentObject;
+    currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    if( currentAssessmentObject.censusQuestionsfileNameList.length >= 2 )
+    {
+    	alert(L('max_census'));
+    	return;
+    }
     Ti.API.info("pastCensusData >> " + JSON.stringify(pastCensusData));
     var cenMap = [];
     for (var t = 0; t < pastCensusData.length; t++) {
