@@ -14,7 +14,7 @@
 				<TextField class='textField' id='email' />
 				<Label class='label' text="Single Section View" />
 				<Switch id='sectionSwitch' value='false' />
-				<Button id='saveButton' title='Save' onClick='saveSettings' />
+				<Button id='saveButton' title='Save' onClick='saveSettings' backgroundImage="/images/red-back.jpg" />
 			</View>
 		</ScrollView>
 	</Window>
