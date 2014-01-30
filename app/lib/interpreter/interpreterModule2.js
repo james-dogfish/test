@@ -2,6 +2,7 @@ function interpreterModule2() {
 
     //self.QUESTION_ROW_TYPE = "question";
     //self.NON_QUESTION_ROW_TYPE = "NonQuestion";
+    var Styles = require('styles/styles');
 
     var self = this;
     self.sectionHeaderList = [];
@@ -95,6 +96,63 @@ function interpreterModule2() {
     	
     	return displayName;
     };
+    
+    var createCensusDateQuestion = function(passObject){
+    	return  {
+	        isAQuestion: true,
+	        template: "dateTemplate", // this is the template used to show the question in the list view
+	        type: "date", // this is the alcrem question type
+	        name: passObject.pageID +"CENSUS_DATE", // this is the id of the question
+	        alcrmQuestionID: "CENSUS_DATE",
+	        visable: true,
+	        order: "1",
+	        associatedFileName: passObject.associatedFileName, // file the question is in
+	
+	        assessmentId: passObject.assessmentId,
+	
+	        notesBackground: {
+	            backgroundImage: 'images/questionNote.png'
+	        }, //{backgroundImage: 'images/questionSelectedNote.png'}
+	        notes: "",
+	        selected: false,
+	        value: [], // a list of all values set for this question
+	        renderValue: [], // a list of condtions if the question is visable
+	        selections: [], // a list of possible values for the question
+	        validation: {
+	            validationTest: false,
+	            min: null,
+	            max: null,
+	            minLenght: null,
+	            maxLenght: null,
+	            format: null,
+	            mandatory: false,
+	            conditionalMandatory: []
+	        },
+	        mandatory : true, //can be changed at run time with conditionalMandatory
+			subsectionTitle : null,
+	        title: {
+	            text: "Date of Census"
+	        }, // the title text for this question
+	        displayValue: {
+	            value: ""
+	        },
+	        displayValue2: {
+	            value: ""
+	        },
+	
+	        questionResponse: null,
+	
+	        errorMessageVisable: false,
+	        questionErrorMessageView: {},
+	        questionErrorMessage: {},
+	
+	        renderDependencyList: [],
+	        mandatoryDependenciesList : [],
+	        headerView: {}
+    	};
+    	
+    };
+
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
 
@@ -430,6 +488,7 @@ function interpreterModule2() {
             isAQuestion: false,
             readOnly : false,
             template: "subsectionHeaderTemplate",
+            headerView : Styles["headerViewSubsection"],
             title: {
                 text: title
             },
@@ -534,6 +593,11 @@ function interpreterModule2() {
                 };
                 self.sectionHeaderList[sectionIndex].questionList.unshift(newRow); //adds row to front of the list
             }
+            else if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "CensusGeneral"){
+            	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject));
+            }
+            
+            
 
 
             for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
@@ -579,7 +643,7 @@ function interpreterModule2() {
             	
                else if(questionObject.alcrmGroupType == "CrossingGeneral") {
                 	questionObject.readOnly = true;
-                	questionObject.headerView = {backgroundColor: "#E8C974"};
+                	questionObject.headerView = Styles["headerViewReadOnly"];
                }
                
                 

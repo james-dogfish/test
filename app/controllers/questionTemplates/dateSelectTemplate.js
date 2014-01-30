@@ -6,6 +6,11 @@ function onNotesClick(e){
 	//{backgroundImage: 'images/questionSelectedNote.png'},
 	
 	
+	if(item.alcrmQuestionID == "CENSUS_DATE"){
+		
+	}
+	
+	
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
 		
 		if(notes != ""){

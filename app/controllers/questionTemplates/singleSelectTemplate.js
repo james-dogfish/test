@@ -8,13 +8,13 @@ function selectButtonClicked(e){
 		questionObject : item
 	}); 
 	*/
-	
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	
+
 	if(item.readOnly == true){
 		
 		return;
 	}
+	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
