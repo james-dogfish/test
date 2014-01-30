@@ -376,6 +376,39 @@ function localDataHandler() {
 
         return [];
     };
+    
+    self.checkIfCensusIsDone = function (assessmentObject) {
+    	
+    	var censusDone = true;
+		var censusQuestions = [];
+		
+        for (var i = 0; i < assessmentObject.censusQuestionsfileNameList.length; i++) {
+            var censusQuestionFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.censusQuestionsfileNameList[i]);
+
+            if (censusQuestionFile.exists()) {
+                censusQuestions.push(
+                    JSON.parse(censusQuestionFile.read().text)
+                );
+            }
+        }
+        
+        for(var i = 0; i < censusQuestions.length; i++)
+        {
+        	var questionList = censusQuestions[i].questionList;
+        	for(var t = 0; t < questionList.length; t++)
+        	{
+        		if(questionList[t].isAQuestion == true)
+        		{
+        			if(questionList[t].value == [])
+        			{
+        				Ti.API.error("ANDY to sort ROW Stuff ? You must complete the census questions. Change this to yes/no.");
+        				return;
+        			}
+        			
+        		}
+        	}
+        }
+    };
 
     self.createAssessmentPDFResponse = function (assessmentObject) {
     		 
