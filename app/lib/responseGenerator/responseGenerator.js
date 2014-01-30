@@ -115,7 +115,8 @@ function responseGenerator() {
 
     self.buildCensusResponse = function (censusList, crossingID, detailID) {
         var censusData = "";
-		
+		var censusDate = "";
+	
         for (var censusListIndex = 0; censusListIndex < censusList.length; censusListIndex++) {
             var sectionList = censusList[censusListIndex];
             for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
@@ -124,6 +125,14 @@ function responseGenerator() {
                     var questionResponse = questionList[questionIndex].questionResponse;
 
                     var questionType = questionList[questionIndex].type;
+                    
+                    if(questionList[questionIndex].isAQuestion == true && censusDate === "")
+                    {
+                    	if(questionList[questionIndex].alcrmQuestionID == "CENSUS_DATE")
+                    	{
+                    		censusDate = questionList[questionIndex].value[0];
+                    	}  	
+                    }
                     if (questionResponse != null) {
                         if (questionType === "multiSelect") {
                             censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Util.escapeXML(questionResponse) + "</cen1:censusData>";
@@ -136,12 +145,15 @@ function responseGenerator() {
                 }
             }
         }
-
+        
+        var numbers = censusDate.match(/\d+/g); 
+		var dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
+		
         var xmlRequest =
             "<cen:CreateCensusRequest>" +
             "<cen:census>" +
             "<cen1:crossingId>" + crossingID + "</cen1:crossingId>" +
-            "<cen1:censusDate>" + new Date().toISOString() + "</cen1:censusDate>" +
+            "<cen1:censusDate>" + dateToPost.toISOString() + "</cen1:censusDate>" +
             censusData +
             "</cen:census>" +
             "</cen:CreateCensusRequest>";
@@ -227,7 +239,9 @@ function responseGenerator() {
     
     self.submitAss = function(assObj)
     {     
-    	
+    	 var sectionListCen = localDataHandler.getAllCensusesOrTrains(assObj, 0);
+
+	        var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
     	if(!(isDebugOn) && assObj.questionCount !== assObj.questionsCompleted)
     	{
     		return;
