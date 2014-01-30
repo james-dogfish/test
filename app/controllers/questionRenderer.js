@@ -1,5 +1,6 @@
 //REQUIRES
 var Validator = require('validator/Validator');
+var Styles = require('styles/styles');
 var localDataHandler = require('localDataHandler/localDataHandler');
 var User = require('core/User');
 //END OF REQUIRES
@@ -1138,10 +1139,9 @@ var selectQuestion = function (newQuestionSelected) {
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	
-            questionRef.question.headerView = {
-                backgroundColor: "#eee"
-            };
+            //questionRef.question.headerView = {backgroundColor: "#eee"};
             
+            questionRef.question.headerView = Styles["headerViewDefult"];
            	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
     		
             questionRef.question.selected = false;
@@ -1161,9 +1161,9 @@ var selectQuestion = function (newQuestionSelected) {
 
     var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
     if (questionRef != null) {
-        questionRef.question.headerView = {
-            backgroundColor: "#A1F7B6"
-        };
+        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
+        questionRef.question.headerView = Styles["headerViewSelected"];
+        
         questionRef.question.selected = true;
         questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
         newQuestionSelected = questionRef.question;

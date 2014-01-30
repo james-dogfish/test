@@ -39,6 +39,7 @@ function onTextFieldFocus(e){
 	}
 	if(item.readOnly == true){
 		e.source.blur();
+		return;
 	}
 	/*
 	Ti.App.fireEvent("questionSelected", {
