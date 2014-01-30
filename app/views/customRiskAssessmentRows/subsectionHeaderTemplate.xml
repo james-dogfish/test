@@ -1,0 +1,9 @@
+<Alloy>
+	<ItemTemplate id="subsectionHeaderTemplate" name="subsectionHeaderTemplate" class="basicTemplate">
+        <View id="mainView" class="viewGroup">
+			<View id="header" class="headerView">
+				<Label id="questionTitle" bindId="title" class="questionTitle" />
+			</View>
+		</View>
+    </ItemTemplate>
+</Alloy>

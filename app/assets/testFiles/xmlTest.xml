@@ -9,7 +9,7 @@
 		<ns6:GetQuestionsResponse xmlns:ns5="http://questions.beans.alcrm.networkrail.icon.com" xmlns:ns6="http://com/icon/networkrail/alcrm/questions">
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_TAKER</ns5:parameterName>
-				<ns5:order>111</ns5:order>
+				<ns5:order>1501</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Census Taker</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -24,7 +24,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
-				<ns5:order>112</ns5:order>
+				<ns5:order>1502</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Type</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -57,7 +57,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_START</ns5:parameterName>
-				<ns5:order>113</ns5:order>
+				<ns5:order>1503</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Start Time</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -87,7 +87,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_END</ns5:parameterName>
-				<ns5:order>114</ns5:order>
+				<ns5:order>1504</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>End Time</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -117,7 +117,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_QUICK_START</ns5:parameterName>
-				<ns5:order>115</ns5:order>
+				<ns5:order>1505</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Start Time</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -141,7 +141,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_DURATION</ns5:parameterName>
-				<ns5:order>116</ns5:order>
+				<ns5:order>1506</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Census Duration</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -162,7 +162,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_BASIS_ESTIMATE_PASSIVE</ns5:parameterName>
-				<ns5:order>118</ns5:order>
+				<ns5:order>1508</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Basis for estimate</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -196,7 +196,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_NOTES</ns5:parameterName>
-				<ns5:order>119</ns5:order>
+				<ns5:order>1509</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Notes</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -211,7 +211,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_OPERAT_TIME</ns5:parameterName>
-				<ns5:order>120</ns5:order>
+				<ns5:order>1510</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Duration of time that trains run</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -226,7 +226,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_PROP</ns5:parameterName>
-				<ns5:order>121</ns5:order>
+				<ns5:order>1511</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Proportion of year that this census applies to</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -241,7 +241,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CENSUS_PROP_NOTES</ns5:parameterName>
-				<ns5:order>122</ns5:order>
+				<ns5:order>1512</ns5:order>
 				<ns5:group>CensusGeneral</ns5:group>
 				<ns5:text>Please provide reasons for this (if applicable)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -256,62 +256,62 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_HIGHWAY_STANDARDS</ns5:parameterName>
-				<ns5:order>123</ns5:order>
+				<ns5:order>1513</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Has the crossing acquired public status by use and is the road maintained to public highway standards (select  that apply)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>multiSelect</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
 					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
 				</ns5:validation>
 				<ns5:selections>
-					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
-					<ns5:value>613</ns5:value>
-					<ns5:displayValue>The crossing leads from a public road</ns5:displayValue>
+					<ns5:name>I_HGV_EST</ns5:name>
+					<ns5:value>6326</ns5:value>
+					<ns5:displayValue>WEEKLY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
-					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
-					<ns5:value>614</ns5:value>
-					<ns5:displayValue>There are highway signs directing traffic across the crossing</ns5:displayValue>
+					<ns5:name>I_HGV_EST</ns5:name>
+					<ns5:value>6327</ns5:value>
+					<ns5:displayValue>FEW</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
-					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
-					<ns5:value>615</ns5:value>
-					<ns5:displayValue>There is local signage promoting an attraction across the crossing e.g. national trust brown signage etc.</ns5:displayValue>
+					<ns5:name>I_HGV_EST</ns5:name>
+					<ns5:value>6328</ns5:value>
+					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_VULN_PEDS</ns5:parameterName>
-				<ns5:order>125</ns5:order>
+				<ns5:order>1515</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Is there a higher than usual number of vulnerable people (e.g. elderly, children, disabled, deaf, vision impaired, those with learning difficulties)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>true</ns5:mandatory>
 					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
 				</ns5:validation>
 				<ns5:selections>
-					<ns5:name>I_VULN_PEDS</ns5:name>
-					<ns5:value>490</ns5:value>
-					<ns5:displayValue>YES</ns5:displayValue>
+					<ns5:name>I_VIS_PERM</ns5:name>
+					<ns5:value>487</ns5:value>
+					<ns5:displayValue>POOR</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
-					<ns5:name>I_VULN_PEDS</ns5:name>
-					<ns5:value>491</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
+					<ns5:name>I_VIS_TEMP</ns5:name>
+					<ns5:value>488</ns5:value>
+					<ns5:displayValue>YES</ns5:displayValue>
 				</ns5:selections>
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_VULN_PEDS_NOTES</ns5:parameterName>
-				<ns5:order>126</ns5:order>
+				<ns5:order>1516</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>If Yes Please Describe</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>alphanumeric</ns5:type>
 				<ns5:validation>
 					<ns5:minLength>0</ns5:minLength>
@@ -326,34 +326,34 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_IRREG_USERS</ns5:parameterName>
-				<ns5:order>127</ns5:order>
+				<ns5:order>1517</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Is there a high number of irregular users (e.g. ramblers, yachting visitors to marina)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>true</ns5:mandatory>
 					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
 				</ns5:validation>
 				<ns5:selections>
-					<ns5:name>I_IRREG_USERS</ns5:name>
-					<ns5:value>6020</ns5:value>
-					<ns5:displayValue>YES</ns5:displayValue>
+					<ns5:name>I_HOOF_EST</ns5:name>
+					<ns5:value>6350</ns5:value>
+					<ns5:displayValue>WEEKLY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
-					<ns5:name>I_IRREG_USERS</ns5:name>
-					<ns5:value>6021</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
+					<ns5:name>I_HOOF_EST</ns5:name>
+					<ns5:value>6351</ns5:value>
+					<ns5:displayValue>FEW</ns5:displayValue>
 				</ns5:selections>
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_IRREG_USERS_NOTES</ns5:parameterName>
-				<ns5:order>128</ns5:order>
+				<ns5:order>1518</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>If Yes Please Describe</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>alphanumeric</ns5:type>
 				<ns5:validation>
 					<ns5:minLength>0</ns5:minLength>
@@ -362,17 +362,17 @@
 					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
 					<ns5:conditionalMandatory>
 						<ns5:parameterName>I_IRREG_USERS</ns5:parameterName>
-						<ns5:parameterValue>6020</ns5:parameterValue>
+						<ns5:parameterValue>6241</ns5:parameterValue>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CROSSING_ENVIRONMENT</ns5:parameterName>
-				<ns5:order>130</ns5:order>
+				<ns5:order>1520</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Crossing provides access between</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -406,11 +406,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CROSSING_ENVIRONMENT_NOTES</ns5:parameterName>
-				<ns5:order>131</ns5:order>
+				<ns5:order>1521</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>If applicable, please provide further details</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>alphanumeric</ns5:type>
 				<ns5:validation>
 					<ns5:minLength>0</ns5:minLength>
@@ -421,34 +421,34 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_NIGHT_USER</ns5:parameterName>
-				<ns5:order>132</ns5:order>
+				<ns5:order>1522</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Does the crossing have a high number of users during night/dusk? (e.g. near public house, fishing location, dog walkers and joggers)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
 					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
 				</ns5:validation>
 				<ns5:selections>
-					<ns5:name>I_YES_NO</ns5:name>
-					<ns5:value>608</ns5:value>
-					<ns5:displayValue>YES</ns5:displayValue>
+					<ns5:name>I_WHEEL</ns5:name>
+					<ns5:value>4</ns5:value>
+					<ns5:displayValue>wheel</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
-					<ns5:name>I_YES_NO</ns5:name>
-					<ns5:value>609</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
+					<ns5:name>I_WHEEL</ns5:name>
+					<ns5:value>5</ns5:value>
+					<ns5:displayValue>hand</ns5:displayValue>
 				</ns5:selections>
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_NIGHT_USER_NOTES</ns5:parameterName>
-				<ns5:order>133</ns5:order>
+				<ns5:order>1523</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>If Yes Please Describe</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>alphanumeric</ns5:type>
 				<ns5:validation>
 					<ns5:minLength>0</ns5:minLength>
@@ -463,11 +463,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_NIGHT_USER_PERCENTAGE</ns5:parameterName>
-				<ns5:order>134</ns5:order>
+				<ns5:order>1524</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>Estimate the percentage of users who use the crossing between 2300 and 0700.</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>3</ns5:maxLength>
@@ -477,11 +477,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_UWC_PED_FOOT_PERCENTAGE</ns5:parameterName>
-				<ns5:order>135</ns5:order>
+				<ns5:order>1525</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>For UWC which have an adjacent private footpath crossing.  What is the proportion of pedestrian users using the Footpath gates/stiles</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>3</ns5:maxLength>
@@ -491,11 +491,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_UWC_PED_VEH_PERCENTAGE</ns5:parameterName>
-				<ns5:order>136</ns5:order>
+				<ns5:order>1526</ns5:order>
 				<ns5:group>CensusEnvironment</ns5:group>
 				<ns5:text>For UWC which have an adjacent private footpath crossing.  What is the proportion of pedestrian users using the UWC vehicular gates (This excludes vehicle Users in Pedestrian Mode)</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Environment</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>3</ns5:maxLength>
@@ -505,7 +505,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CAR_COUNT</ns5:parameterName>
-				<ns5:order>137</ns5:order>
+				<ns5:order>1527</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Cars</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -543,7 +543,7 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_LOR_COUNT</ns5:parameterName>
-				<ns5:order>138</ns5:order>
+				<ns5:order>1528</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Vans / Sm Lorries</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
@@ -581,11 +581,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_BUS_COUNT</ns5:parameterName>
-				<ns5:order>139</ns5:order>
+				<ns5:order>1529</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Buses</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -619,11 +619,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_HGV_COUNT</ns5:parameterName>
-				<ns5:order>140</ns5:order>
+				<ns5:order>1530</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>HGVs</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -657,11 +657,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_PED_COUNT</ns5:parameterName>
-				<ns5:order>141</ns5:order>
+				<ns5:order>1531</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Pedal / Motor Cycles</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -695,11 +695,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CYC_COUNT</ns5:parameterName>
-				<ns5:order>142</ns5:order>
+				<ns5:order>1532</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Pedestrians</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -733,11 +733,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_HOOF_COUNT</ns5:parameterName>
-				<ns5:order>143</ns5:order>
+				<ns5:order>1533</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Horses / Riders</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -771,11 +771,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_EQUESTRIAN_COUNT</ns5:parameterName>
-				<ns5:order>144</ns5:order>
+				<ns5:order>1534</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Animals on the hoof</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -809,11 +809,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_TRACTOR_COUNT</ns5:parameterName>
-				<ns5:order>145</ns5:order>
+				<ns5:order>1535</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Tractors / Farm Vehicles</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>numeric</ns5:type>
 				<ns5:validation>
 					<ns5:maxLength>6</ns5:maxLength>
@@ -845,92 +845,13 @@
 					<ns5:parameterValue>745</ns5:parameterValue>
 				</ns5:renderValue>
 			</ns6:questions>
-<ns6:questions>
-	<ns5:parameterName>I_CAR_EST</ns5:parameterName>
-	<ns5:order>146</ns5:order>
-	<ns5:group>CensusUsage</ns5:group>
-	<ns5:text>Cars</ns5:text>
-	<ns5:firstTab>Census</ns5:firstTab>
-	<ns5:secondTab>General</ns5:secondTab>
-	<ns5:type>radio</ns5:type>
-	<ns5:validation>
-		<ns5:mandatory>false</ns5:mandatory>
-		<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
-		<ns5:conditionalMandatory>
-			<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
-		</ns5:conditionalMandatory>
-	</ns5:validation>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>400</ns5:value>
-		<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>401</ns5:value>
-		<ns5:displayValue>WEEKLY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>402</ns5:value>
-		<ns5:displayValue>FEW</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>403</ns5:value>
-		<ns5:displayValue>NO</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>564</ns5:value>
-		<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>565</ns5:value>
-		<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6078</ns5:value>
-		<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6079</ns5:value>
-		<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6080</ns5:value>
-		<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6081</ns5:value>
-		<ns5:displayValue>WEEKLY</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6082</ns5:value>
-		<ns5:displayValue>FEW</ns5:displayValue>
-	</ns5:selections>
-	<ns5:selections>
-		<ns5:name>I_CAR_EST</ns5:name>
-		<ns5:value>6083</ns5:value>
-		<ns5:displayValue>NO</ns5:displayValue>
-	</ns5:selections>
-	<ns5:renderValue>
-		<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
-	</ns5:renderValue>
-</ns6:questions>
 			<ns6:questions>
-				<ns5:parameterName>I_LOR_EST</ns5:parameterName>
-				<ns5:order>147</ns5:order>
+				<ns5:parameterName>I_CAR_EST</ns5:parameterName>
+				<ns5:order>1536</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
-				<ns5:text>Vans / Sm Lorries</ns5:text>
+				<ns5:text>Cars</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -939,6 +860,100 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>400</ns5:value>
+					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>401</ns5:value>
+					<ns5:displayValue>WEEKLY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>402</ns5:value>
+					<ns5:displayValue>FEW</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>403</ns5:value>
+					<ns5:displayValue>NO</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>564</ns5:value>
+					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>565</ns5:value>
+					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6299</ns5:value>
+					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6300</ns5:value>
+					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6301</ns5:value>
+					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6302</ns5:value>
+					<ns5:displayValue>WEEKLY</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6303</ns5:value>
+					<ns5:displayValue>FEW</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CAR_EST</ns5:name>
+					<ns5:value>6304</ns5:value>
+					<ns5:displayValue>NO</ns5:displayValue>
+				</ns5:selections>
+				<ns5:renderValue>
+					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
+				</ns5:renderValue>
+			</ns6:questions>
+			<ns6:questions>
+				<ns5:parameterName>I_LOR_EST</ns5:parameterName>
+				<ns5:order>1537</ns5:order>
+				<ns5:group>CensusUsage</ns5:group>
+				<ns5:text>Vans / Sm Lorries</ns5:text>
+				<ns5:firstTab>Census</ns5:firstTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
+				<ns5:type>radio</ns5:type>
+				<ns5:validation>
+					<ns5:mandatory>false</ns5:mandatory>
+					<ns5:matchAllMandatoryRestrictions>false</ns5:matchAllMandatoryRestrictions>
+					<ns5:conditionalMandatory>
+						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
+					</ns5:conditionalMandatory>
+				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_LOCATION_AT_STATION</ns5:name>
+					<ns5:value>431</ns5:value>
+					<ns5:displayValue>AT STATION</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_LOCATION_AT_STATION</ns5:name>
+					<ns5:value>432</ns5:value>
+					<ns5:displayValue>STATION CAN BE SEEN FROM CROSSING</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_LOCATION_AT_STATION</ns5:name>
+					<ns5:value>433</ns5:value>
+					<ns5:displayValue>NOT WITHIN SIGHT</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_LOR_EST</ns5:name>
 					<ns5:value>434</ns5:value>
@@ -971,33 +986,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6086</ns5:value>
+					<ns5:value>6307</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6087</ns5:value>
+					<ns5:value>6308</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6088</ns5:value>
+					<ns5:value>6309</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6089</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6090</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_LOR_EST</ns5:name>
-					<ns5:value>6091</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1005,11 +1005,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_BUS_EST</ns5:parameterName>
-				<ns5:order>148</ns5:order>
+				<ns5:order>1538</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Buses</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1050,32 +1050,32 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6094</ns5:value>
+					<ns5:value>6315</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6095</ns5:value>
+					<ns5:value>6316</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6096</ns5:value>
+					<ns5:value>6317</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6097</ns5:value>
+					<ns5:value>6318</ns5:value>
 					<ns5:displayValue>WEEKLY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6098</ns5:value>
+					<ns5:value>6319</ns5:value>
 					<ns5:displayValue>FEW</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_BUS_EST</ns5:name>
-					<ns5:value>6099</ns5:value>
+					<ns5:value>6320</ns5:value>
 					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
@@ -1084,11 +1084,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_HGV_EST</ns5:parameterName>
-				<ns5:order>149</ns5:order>
+				<ns5:order>1539</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>HGVs</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1097,6 +1097,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_GATES_PASS</ns5:name>
+					<ns5:value>420</ns5:value>
+					<ns5:displayValue>ALWAYS CLOSED</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_GATES_PASS</ns5:name>
+					<ns5:value>421</ns5:value>
+					<ns5:displayValue>OCCASIONALLY LEFT OPEN</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_GATES_PASS</ns5:name>
+					<ns5:value>422</ns5:value>
+					<ns5:displayValue>OFTEN OR ALWAYS LEFT OPEN</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HGV_EST</ns5:name>
 					<ns5:value>423</ns5:value>
@@ -1129,33 +1144,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6102</ns5:value>
+					<ns5:value>6323</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6103</ns5:value>
+					<ns5:value>6324</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6104</ns5:value>
+					<ns5:value>6325</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6105</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6106</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HGV_EST</ns5:name>
-					<ns5:value>6107</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1163,11 +1163,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_PED_EST</ns5:parameterName>
-				<ns5:order>150</ns5:order>
+				<ns5:order>1540</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Pedal / Motor Cycles</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1176,6 +1176,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_OVERRIDE_ABUSE</ns5:name>
+					<ns5:value>6216</ns5:value>
+					<ns5:displayValue>YES</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_OVERRIDE_ABUSE</ns5:name>
+					<ns5:value>6217</ns5:value>
+					<ns5:displayValue>NO</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_OVERRIDE_ABUSE</ns5:name>
+					<ns5:value>6218</ns5:value>
+					<ns5:displayValue>NO VALUE</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_PED_EST</ns5:name>
 					<ns5:value>457</ns5:value>
@@ -1208,33 +1223,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6110</ns5:value>
+					<ns5:value>6331</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6111</ns5:value>
+					<ns5:value>6332</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6112</ns5:value>
+					<ns5:value>6333</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6113</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6114</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_PED_EST</ns5:name>
-					<ns5:value>6115</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1242,11 +1242,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_CYC_EST</ns5:parameterName>
-				<ns5:order>151</ns5:order>
+				<ns5:order>1541</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Pedestrians</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1255,6 +1255,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_CROSSING_TYPE</ns5:name>
+					<ns5:value>7</ns5:value>
+					<ns5:displayValue>FPX</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CROSSING_TYPE</ns5:name>
+					<ns5:value>8</ns5:value>
+					<ns5:displayValue>UWB</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_CROSSING_TYPE</ns5:name>
+					<ns5:value>9</ns5:value>
+					<ns5:displayValue>UWC</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_CYC_EST</ns5:name>
 					<ns5:value>406</ns5:value>
@@ -1287,33 +1302,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6118</ns5:value>
+					<ns5:value>6339</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6119</ns5:value>
+					<ns5:value>6340</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6120</ns5:value>
+					<ns5:value>6341</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6121</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6122</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_CYC_EST</ns5:name>
-					<ns5:value>6123</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1321,11 +1321,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_HOOF_EST</ns5:parameterName>
-				<ns5:order>152</ns5:order>
+				<ns5:order>1542</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Horses / Riders</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1334,6 +1334,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
+					<ns5:value>613</ns5:value>
+					<ns5:displayValue>The crossing leads from a public road</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
+					<ns5:value>614</ns5:value>
+					<ns5:displayValue>There are highway signs directing traffic across the crossing</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_HIGHWAY_STANDARDS</ns5:name>
+					<ns5:value>615</ns5:value>
+					<ns5:displayValue>There is local signage promoting an attraction across the crossing e.g. national trust brown signage etc.</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HOOF_EST</ns5:name>
 					<ns5:value>427</ns5:value>
@@ -1366,33 +1381,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6126</ns5:value>
+					<ns5:value>6347</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6127</ns5:value>
+					<ns5:value>6348</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6128</ns5:value>
+					<ns5:value>6349</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6129</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6130</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_HOOF_EST</ns5:name>
-					<ns5:value>6131</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1400,11 +1400,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_EQUESTRIAN_EST</ns5:parameterName>
-				<ns5:order>153</ns5:order>
+				<ns5:order>1543</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Animals on the hoof</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1413,6 +1413,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_ELR</ns5:name>
+					<ns5:value>97</ns5:value>
+					<ns5:displayValue>WBS2</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_ELR</ns5:name>
+					<ns5:value>98</ns5:value>
+					<ns5:displayValue>NAB</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_ELR</ns5:name>
+					<ns5:value>99</ns5:value>
+					<ns5:displayValue>WSB</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
 					<ns5:value>410</ns5:value>
@@ -1445,33 +1460,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6134</ns5:value>
+					<ns5:value>6355</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6135</ns5:value>
+					<ns5:value>6356</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6136</ns5:value>
+					<ns5:value>6357</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6137</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6138</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_EQUESTRIAN_EST</ns5:name>
-					<ns5:value>6139</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
@@ -1479,11 +1479,11 @@
 			</ns6:questions>
 			<ns6:questions>
 				<ns5:parameterName>I_TRACTOR_EST</ns5:parameterName>
-				<ns5:order>154</ns5:order>
+				<ns5:order>1544</ns5:order>
 				<ns5:group>CensusUsage</ns5:group>
 				<ns5:text>Tractors / Farm Vehicles</ns5:text>
 				<ns5:firstTab>Census</ns5:firstTab>
-				<ns5:secondTab>General</ns5:secondTab>
+				<ns5:secondTab>Usage</ns5:secondTab>
 				<ns5:type>radio</ns5:type>
 				<ns5:validation>
 					<ns5:mandatory>false</ns5:mandatory>
@@ -1492,6 +1492,21 @@
 						<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>
 					</ns5:conditionalMandatory>
 				</ns5:validation>
+				<ns5:selections>
+					<ns5:name>I_TERRITORY</ns5:name>
+					<ns5:value>TRAINING4</ns5:value>
+					<ns5:displayValue>TRAINING4</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_TERRITORY</ns5:name>
+					<ns5:value>TRAINING5</ns5:value>
+					<ns5:displayValue>TRAINING5</ns5:displayValue>
+				</ns5:selections>
+				<ns5:selections>
+					<ns5:name>I_TERRITORY</ns5:name>
+					<ns5:value>WESTERN</ns5:value>
+					<ns5:displayValue>WESTERN</ns5:displayValue>
+				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_TRACTOR_EST</ns5:name>
 					<ns5:value>463</ns5:value>
@@ -1524,33 +1539,18 @@
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6142</ns5:value>
+					<ns5:value>6363</ns5:value>
 					<ns5:displayValue>SIX TO NINE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6143</ns5:value>
+					<ns5:value>6364</ns5:value>
 					<ns5:displayValue>THREE TO FIVE DAILY</ns5:displayValue>
 				</ns5:selections>
 				<ns5:selections>
 					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6144</ns5:value>
+					<ns5:value>6365</ns5:value>
 					<ns5:displayValue>ONCE OR TWICE DAILY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6145</ns5:value>
-					<ns5:displayValue>WEEKLY</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6146</ns5:value>
-					<ns5:displayValue>FEW</ns5:displayValue>
-				</ns5:selections>
-				<ns5:selections>
-					<ns5:name>I_TRACTOR_EST</ns5:name>
-					<ns5:value>6147</ns5:value>
-					<ns5:displayValue>NO</ns5:displayValue>
 				</ns5:selections>
 				<ns5:renderValue>
 					<ns5:parameterName>I_CENSUS_TYPE</ns5:parameterName>

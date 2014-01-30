@@ -1137,9 +1137,13 @@ var selectQuestion = function (newQuestionSelected) {
         Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
+        	
             questionRef.question.headerView = {
                 backgroundColor: "#eee"
             };
+            
+           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
+    		
             questionRef.question.selected = false;
             questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 

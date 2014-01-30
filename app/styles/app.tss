@@ -18,6 +18,17 @@
 	borderColor : "#000",
 	backgroundColor: '#eee'
 },
+".headerViewDefult" : {
+	backgroundColor: "#eee"
+},
+".headerViewReadOnly" : {
+	backgroundColor: "#E8C974"
+},
+".headerViewSelected" : {
+	backgroundColor: "#A1F7B6"
+},
+
+
 ".questionTitle" : {
 	width: "90%",
 	height: Ti.UI.SIZE,
