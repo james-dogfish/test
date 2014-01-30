@@ -8,5 +8,6 @@
     <string name="no_help_content">No help content available!</string>
     <string name="census_has_finished">Census has finished</string>
     <string name="census">Census</string>
-    
+    <string name="no_connectivity_title">WARNING</string>
+    <string name="no_connectivity_body">Your device is not online</string>
 </resources>

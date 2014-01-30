@@ -131,6 +131,18 @@ var SudsClient = function(_options) {
   };
 
   function invokeService(_soapAction, _body, _callback, _failure, _header) {
+  	
+  	//CHECK FOR CONNECTIVITY
+  	if(!Titanium.Network.online){
+     		var alertDialog = Titanium.UI.createAlertDialog({
+              title: L('no_connectivity_title'),
+              message: L('no_connectivity_body'),
+              buttonNames: ['OK']
+            });
+            alertDialog.show();
+            
+            return;
+	}
 
     //Build request body 
     var body = _body;

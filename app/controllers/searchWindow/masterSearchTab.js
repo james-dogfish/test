@@ -17,10 +17,10 @@ function onRowClick(e){
 	$.trigger("crossingSelected",crossingData[e.index]);
 };
 
-exports.setData = function() {
+exports.setData = function(shouldRefresh) {
 	var loggedInUser = User.getLogin();
 	crossingData = localDataHandler.loadCachedCrossingSearch();
-	if(crossingData.length !== 0)
+	if(crossingData.length !== 0 && shouldRefresh == false)
 	{
 		Alloy.Globals.aIndicator.show("Loading...",50000);
 		$.tableView.setData([]);

@@ -48,7 +48,7 @@ function toggleSearch() {
 
 
     $.tabGroup.setActiveTab(masterSearchTab.getView());
-    masterSearchTab.setData();
+    masterSearchTab.setData(false);
 }
 
 // Setting up menu item for home screen
@@ -158,7 +158,7 @@ masterSearchTab.on("BackButtonClick", function (e) {
 });
 
 masterSearchTab.on("RefreshButtonClick", function (e) {
-    masterSearchTab.setData();
+    masterSearchTab.setData(true);
 });
 
 function parseTrainData(xml_text) {
