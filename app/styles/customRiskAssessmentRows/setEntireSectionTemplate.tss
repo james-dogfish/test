@@ -16,7 +16,6 @@
 },
 "#header" : {
 	width : "78%",
-	height: "50dp",
 	left : "1%",
 	right : "1%",
 	top: "0",

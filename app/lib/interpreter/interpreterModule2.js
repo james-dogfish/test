@@ -64,7 +64,7 @@ function interpreterModule2() {
         selections: [], // a list of possible values for the question
         validation: {},
         mandatory : false, //can be changed at run time with conditionalMandatory
-
+		subsectionTitle : null,
         title: {
             text: ""
         }, // the title text for this question
@@ -237,6 +237,8 @@ function interpreterModule2() {
             selections: questionSelections, // a list of possible values for the question
             validation: questionValidation,
             mandatory : isMandatory, //can be changed at run time with conditionalMandatory
+            
+            subsectionTitle : Alloy.Globals.localParser.getTableRowText(question),
 
             title: {
                 text: Alloy.Globals.localParser.getQuestionText(question)
@@ -406,6 +408,106 @@ function interpreterModule2() {
             }
         }
     };
+    
+    
+   	var addQuestionToSubsectionList = function(subSectionList, question){
+   		
+   		for(var i=0; i< subSectionList.length; i++){
+   			if(subSectionList[i].title == question.subsectionTitle){
+   				subSectionList[i].questionList.push(question);
+   				return subSectionList;
+   			}
+   		}
+   		
+   		var newSubsection = {title : question.subsectionTitle, questionList : [], order : question.order};
+   		newSubsection.questionList.push(question);
+   		subSectionList.push(newSubsection);
+   		return subSectionList;
+   	};
+   	
+   	var createSubsectionHeader = function(title){
+   		return {
+            isAQuestion: false,
+            readOnly : false,
+            template: "subsectionHeaderTemplate",
+            title: {
+                text: title
+            },
+            visable: true,
+            name: "",
+            questionToChangeTemplate: "singleSelectTemplate",
+            selections: [{
+                displayValue: "Yes",
+                value: 1
+            }, {
+                displayValue: "No",
+                value: 0
+            }],
+            renderValue: []
+        };
+   	};
+   	
+   	var addSubsectionsBackIntoQuestionList = function(questionList, subSectionList){
+   		
+                
+   		var subSectionIndex =0;
+   		var newQuestionList = [];
+   		for (var questionIndex = 0; questionIndex < questionList.length && subSectionIndex < subSectionList.length; questionIndex++) {
+   			if (questionList[questionIndex].subsectionTitle != null){
+   				continue;
+   			}
+   			else if (typeof questionList[questionIndex].order === "undefined"){
+   				newQuestionList.push(questionList[questionIndex]);
+   			}
+     		else if(parseInt(subSectionList[subSectionIndex].order) < parseInt(questionList[questionIndex].order)){
+     			
+     			newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
+     			
+     			//subsectionHeaderTemplate
+     			for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+     				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
+     			}
+     			subSectionIndex++;
+     		}
+     	}
+     	
+     	for(subSectionIndex; subSectionIndex < subSectionList.length; subSectionIndex++){
+     		
+			newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
+     			
+     		for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+ 				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
+ 			}
+ 			subSectionIndex++;
+     	}
+     	
+     	return newQuestionList;
+   	};
+    
+    
+    
+     var addSubsections = function () {
+     	for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
+     		if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Sighting") {
+     			
+     			//var newQuestionList = [];
+     			var subSectionList = [];
+     			
+     			var oldQuestionList = self.sectionHeaderList[sectionIndex].questionList;
+     			for (var questionIndex = 0; questionIndex < oldQuestionList.length; questionIndex++) {
+     				
+     				if(oldQuestionList[questionIndex].subsectionTitle != null){
+     					//newQuestionList.push(oldQuestionList[questionIndex]);
+     					addQuestionToSubsectionList(subSectionList, oldQuestionList[questionIndex]);
+     				}
+   
+     				
+     			}
+     			
+     			self.sectionHeaderList[sectionIndex].questionList = addSubsectionsBackIntoQuestionList(oldQuestionList, subSectionList);
+     		}
+     	}
+     };
 
     var postInterpretSettings = function (passObject) {
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
@@ -477,6 +579,7 @@ function interpreterModule2() {
             	
                else if(questionObject.alcrmGroupType == "CrossingGeneral") {
                 	questionObject.readOnly = true;
+                	questionObject.headerView = {backgroundColor: "#E8C974"};
                }
                
                 
@@ -508,6 +611,8 @@ function interpreterModule2() {
                 self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
             }
         }
+        
+        addSubsections();
     };
 
     var sortQuestionsByOrder = function () {

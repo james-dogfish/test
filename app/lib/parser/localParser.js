@@ -201,6 +201,16 @@ function localParser() {
     	}
         return render_value_tag.parameterValue["#text"];
     };
+    
+    self.getTableRowText = function (question) {
+    	if (typeof question.tableDetails === "undefined") {
+    		return null;
+    	}
+    	else if (typeof question.tableDetails.rowText === "undefined") {
+    		return null;
+    	}
+        return question.tableDetails.rowText["#text"];
+    };
 
 }
 
