@@ -101,7 +101,7 @@ var SudsClient = function(_options) {
     headerBegin: '<soap:Header>',
     headerNode: 'head',
     headerEnd: '</soap:Header>',
-    timeout: 40000,
+    timeout: 150000,
     includeNS: true,
     emptyHeader: '',
     addTargetSchema: false,
@@ -169,11 +169,12 @@ var SudsClient = function(_options) {
     //POST XML document to service endpoint
     var xhr = getXHR();
     xhr.onload = function() {
-      Ti.API.info('SUDS - Success');
+     // //Ti.API.info('SUDS - Success');
+       //Alloy.Globals.aIndicator.hide();
       _callback.call(this, xmlDomFromString(this.responseText));
     };
     xhr.onerror = function(e) {
-      //Ti.API.info('SUDS - Error' + this.responseText);
+      ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       //var XMLTools = require("tools/XMLTools");
       var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
@@ -267,9 +268,9 @@ var SudsClient = function(_options) {
     if (config.authorization !== undefined) {
       xhr.setRequestHeader('Authorization', 'Basic ' + config.authorization);
     }
-    Ti.API.info('SUDS - Soap call sent to >> ' + config.endpoint);
+    //Ti.API.info('SUDS - Soap call sent to >> ' + config.endpoint);
     //alert('SUDS - Soap call sent to >> ' + config.endpoint);
-    Ti.API.info('SUDS - Sending data >> ' + sendXML);
+    //Ti.API.info('SUDS - Sending data >> ' + sendXML);
     //alert('SUDS - Sending data >> ' + sendXML);
     xhr.send(sendXML);
   };

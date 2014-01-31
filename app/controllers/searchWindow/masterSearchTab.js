@@ -28,7 +28,7 @@ exports.setData = function(shouldRefresh) {
 		var data = [];
 				                //alert(JSON.stringify(results[0]));
 		for(var i=0; i < crossingData.length; i++){
-			Ti.API.info(JSON.stringify(crossingData[i]));
+			//Ti.API.info(JSON.stringify(crossingData[i]));
 			data.push(Alloy.createController("searchWindow/masterSearchTableRow",crossingData[i]).getView());
 		}
 		$.tableView.setData(data);
@@ -67,7 +67,7 @@ exports.setData = function(shouldRefresh) {
 			                }else{
 				                for(var i=0; i<results.length; i++)
 				                {
-				                	//Ti.API.info("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
+				                	////Ti.API.info("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
 				                	
 
 									var crossingDetailsSearchResult = results[i]["ns6:crossingDetailsSearchResult"];
@@ -77,11 +77,11 @@ exports.setData = function(shouldRefresh) {
 				                		type = "undefined";
 				                	}
 				                	else if(crossingDetailsSearchResult instanceof Array){
-				                		//Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
+				                		////Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
 				                		var type = crossingDetailsSearchResult[0]["ns6:type"];
 				                	}
 				                	else{
-				                		//Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
+				                		////Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
 				                		var type = crossingDetailsSearchResult["ns6:type"];
 				                	}
 				                	

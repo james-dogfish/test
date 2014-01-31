@@ -22,12 +22,12 @@ function localDataHandler() {
     	var workingDirectory = "";
     	if(testEnvironment == false){
     		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, User.getUserDir()); 
-    		//Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
+    		////Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     	else{
     		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "testDirectory");  
-    		//Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
+    		////Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     };
@@ -38,7 +38,7 @@ function localDataHandler() {
 		 //alert("curUserDir = "+curUserDir.nativePath);
         var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
         crossingsFile.write(JSON.stringify(payload));
-        Ti.API.info("====Caching: ===="+JSON.stringify(payload));
+        //Ti.API.info("====Caching: ===="+JSON.stringify(payload));
         return true;
     };
     
@@ -46,11 +46,11 @@ function localDataHandler() {
     {
     	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
     	//crossingsFile.deleteFile(); 
-    	//Ti.API.info("Deleted Cached Crossings File");
+    	////Ti.API.info("Deleted Cached Crossings File");
     	if (crossingsFile.exists()) 
     	{ 
     		crossingsFile.deleteFile(); 
-    		Ti.API.info("Deleted Cached Crossings File");
+    		//Ti.API.info("Deleted Cached Crossings File");
     	}
     	
     };
@@ -118,9 +118,9 @@ function localDataHandler() {
 		var refToSaveAssessmentIndex = null;
 		for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 		{
-			//Ti.API.info("question = "+ JSON.stringify(question));
-			//Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
-			//Ti.API.info("question.assesmentId = "+ question.assessmentId);
+			////Ti.API.info("question = "+ JSON.stringify(question));
+			////Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
+			////Ti.API.info("question.assesmentId = "+ question.assessmentId);
 
 			if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
 			{
@@ -313,7 +313,7 @@ function localDataHandler() {
             questionMap: quesMap
         });
         
-        Ti.API.info("main question set = "+JSON.stringify(newQuestionSet));
+        ////Ti.API.info("main question set = "+JSON.stringify(newQuestionSet));
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
@@ -360,9 +360,9 @@ function localDataHandler() {
                 var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID + "CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newCensusFileName);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
-			//	Ti.API.info("============================");
-				//Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
-				//Ti.API.info("============================");
+			//	//Ti.API.info("============================");
+				////Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
+				////Ti.API.info("============================");
                 //new interpreterModule
               
                 var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
@@ -637,7 +637,7 @@ function localDataHandler() {
         if (assessmentFile.exists()) {
             var assessment = JSON.parse(assessmentFile.read().text);
             returnQuestionSet = returnQuestionSet.concat(assessment);
-            //Ti.API.info("returnQuestionSet >> " + JSON.stringify(returnQuestionSet));
+            ////Ti.API.info("returnQuestionSet >> " + JSON.stringify(returnQuestionSet));
             var mandatoryCount = 0;
             var answeredCount = 0;
             for(var returnQuestionSetIndex = 0; returnQuestionSetIndex < returnQuestionSet.length; returnQuestionSetIndex++)
@@ -726,7 +726,7 @@ function localDataHandler() {
 
             }
         }
-        Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
+        ////Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
         return returnQuestionSet;
     };
 }
