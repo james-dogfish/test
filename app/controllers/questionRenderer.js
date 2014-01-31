@@ -1149,16 +1149,17 @@ var selectQuestion = function (newQuestionSelected) {
         Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-        	
+        	if(questionRef.question.readOnly == false){
             //questionRef.question.headerView = {backgroundColor: "#eee"};
             
-            questionRef.question.headerView = Styles["headerViewDefult"];
-           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
-    		
-            questionRef.question.selected = false;
-            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	            questionRef.question.headerView = Styles["headerViewDefult"];
+	           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
+	    		
+	            questionRef.question.selected = false;
+	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 
-            localDataHandler.updateQuestion(questionRef.question);
+	            localDataHandler.updateQuestion(questionRef.question);
+           }
         }
     }
 
@@ -1172,13 +1173,15 @@ var selectQuestion = function (newQuestionSelected) {
 
     var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
     if (questionRef != null) {
-        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
-        questionRef.question.headerView = Styles["headerViewSelected"];
-        
-        questionRef.question.selected = true;
-        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-        newQuestionSelected = questionRef.question;
-        localDataHandler.updateQuestion(questionRef.question);
+    	if(questionRef.question.readOnly == false){
+	        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
+	        questionRef.question.headerView = Styles["headerViewSelected"];
+	        
+	        questionRef.question.selected = true;
+	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	        newQuestionSelected = questionRef.question;
+	        localDataHandler.updateQuestion(questionRef.question);
+	       }
     }
 
     return newQuestionSelected;
