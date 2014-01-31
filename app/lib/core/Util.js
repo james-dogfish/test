@@ -83,7 +83,7 @@ function _Util() {
 
     self.downloadConfig = function (callback) {
         if (self.phoneConnected()) {
-            var fileName = 'apphelp.json';
+            var fileName = 'appconfig.json';
             self.downloadFileConditionally(cmsUrl + '/data/appconfig.json', docsFolder + fileName, function (c) {
                 // get last modified date
                 var lastModified = c.getResponseHeader('Last-Modified');
@@ -101,6 +101,16 @@ function _Util() {
                     callback();
                 }
             });
+        }else{  
+       		var file = Ti.Filesystem.getFile("appconfig.json");
+       		var data = JSON.parse(file.read().text);
+       		 	Ti.App.Properties.setString('helpContent', data.help);
+                Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
+                Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
+                //Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
+                if (callback) {
+                    callback();
+                }
         }
     };
 

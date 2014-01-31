@@ -1,0 +1,39 @@
+{
+	"help": "#LOCALTESTThis is a header\n*This is a paragraph\n\n#This is anotherheader\n*help text example paragraph replace this\n\n#another title\n*another paragraph\n",
+	"routes": [
+		"SCOTLAND",
+		"EAST_MIDLANDS"
+	],
+	"censusCounterQuestions": [
+		"I_CAR_COUNT",
+		"I_LOR_COUNT",
+		"I_BUS_COUNT",
+		"I_HGV_COUNT",
+		"I_PED_COUNT",
+		"I_CYC_COUNT",
+		"I_HOOF_COUNT",
+		"I_EQUESTRIAN_COUNT",
+		"I_TRACTOR_COUNT"
+	],
+	"hiddenSections": [
+		"CrossingLayout"
+	],
+	"hiddenQuestions": [
+		"I_CROSSING_AREA",
+		"I_CROSSING_GRID_REF",
+		"I_CROSSING_LOC_RAIL",
+		"I_CROSSING_STRATEGIC_ROUTE",
+		"I_CROSSING_HIGHWAY",
+		"I_CROSSING_SIGNALBOX",
+		"I_CROSSING_LOC_MILES",
+		"I_CROSSING_LOC_YARDS",
+		"I_CROSSING_LOC_CHAINS",
+		"I_CROSSING_ELLIPSE_UID",
+		"I_CROSSING_PUBLIC_UID",
+		"I_CROSSING_VALUE_MAP",
+		"CROSSING_STATUS",
+		"I_CROSSING_SLEEPING_DOG",
+		"I_CROSSING_OVERALL_STATUS",
+		"I_CROSSING_NETWORK_RAIL_ID"
+	]	
+}
