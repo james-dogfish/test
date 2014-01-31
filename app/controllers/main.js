@@ -248,7 +248,10 @@ try{
             return;
         }
         //var localDataHandler = require('localDataHandler/localDataHandler');
-        curAssObj = localDataHandler.addNewAssessment(crossingQuestions.concat(questionsData), Alloy.Globals.currentCrossingName, detaildID, crossingID, quesMap);
+        //curAssObj = localDataHandler.addNewAssessment(crossingQuestions.concat(questionsData), Alloy.Globals.currentCrossingName, detaildID, crossingID, quesMap);
+        
+        curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
+        localDataHandler.addNewCoreQuestionToAssessment(curAssObj, crossingQuestions, quesMap);
 
 
     } else {
