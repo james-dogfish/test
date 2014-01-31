@@ -1063,7 +1063,34 @@ function footerNotesButtonClick(e) {
 };
 
 function footerHelpButtonClick(e) {
-
+	
+	if (questionSelected != null) {
+        //Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+        if (questionRef != null) {
+        	
+        	if(questionRef.question.help != ""){
+        		alert(questionRef.question.help);
+        	}
+        	else{
+        		//alert(questionRef.question.help);
+        	}
+        	/*
+        	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionRef.question.notes, title : "Question Notes",closeCallBack : function(notes){
+				if(notes != ""){
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+					questionRef.question.notes = notes; 
+				}
+				else{
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
+					questionRef.question.notes = ""; 
+				}
+				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+				localDataHandler.updateQuestion(questionRef.question);
+			}});
+			*/
+        }
+    }
 };
 
 //Ti.App.addEventListener("questionValueChange", questionValueChange);

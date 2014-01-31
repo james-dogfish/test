@@ -49,6 +49,20 @@ function localParser() {
     self.getQuestionText = function (question) {
         return question.text["#text"];
     };
+    
+    self.getHelpText = function (question) {
+    	if(typeof question.help !=="undefined"){
+    		return question.help["#text"];
+    	}
+        return "";
+    };
+    
+    self.getNotesText = function (question) {
+    	if(typeof question.notes !=="undefined"){
+    		return question.notes["#text"];
+    	}
+        return "";
+    };
 
     self.getQuestionName = function (question) {
         return question.parameterName["#text"];
