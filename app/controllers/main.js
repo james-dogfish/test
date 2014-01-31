@@ -160,7 +160,7 @@ masterSearchTab.on("RefreshButtonClick", function (e) {
     masterSearchTab.setData(true);
 });
 
-function parseTrainData(xml_text) {
+function parseTrainData(xml_text, curAssObj) {
 try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         //var localParser = require('parser/localParser');
@@ -185,7 +185,7 @@ try{
 }
 };
 
-function parseCensusData(xml_text) {
+function parseCensusData(xml_text, curAssObj) {
 try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         //var localParser = require('parser/localParser');
@@ -250,9 +250,9 @@ try{
         //var localDataHandler = require('localDataHandler/localDataHandler');
         //curAssObj = localDataHandler.addNewAssessment(crossingQuestions.concat(questionsData), Alloy.Globals.currentCrossingName, detaildID, crossingID, quesMap);
         
-        curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
+        var curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
         localDataHandler.addNewCoreQuestionToAssessment(curAssObj, crossingQuestions, quesMap);
-
+		return curAssObj;
 
     } else {
         alert(L('no_data'));
@@ -289,7 +289,7 @@ try{
                     var riskMap = [];
                     //var XMLTools = require("tools/XMLTools");
                     XMLTools.setDoc(xmlDocCrossAns);
-                    var crossObj = JSON.stringify(XMLTools.toObject());
+                    //var crossObj = JSON.stringify(XMLTools.toObject());
 
                     //get Assessment Question Set
                     Alloy.Globals.Soap.getQuestionsRequest({
@@ -300,30 +300,31 @@ try{
                             var riskMap = [];
                             //var XMLTools = require("tools/XMLTools");
                             XMLTools.setDoc(xmlDocAss);
-                            var assObj = JSON.stringify(XMLTools.toObject());
-                            Ti.API.info("assObj >>> "+assObj);
+                            var assObj = XMLTools.toObject();
+                            //Ti.API.info("assObj >>> "+assObj);
+                            var curAssObj = parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
                             if (typeof curAssObj === "undefined") {
                                 alert(L('no_data'));
                                 Alloy.Globals.aIndicator.hide();
                                 return;
                             } else {
-                                parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
-
                                 //get Census Question Set
                                 Alloy.Globals.Soap.getQuestionsRequest({
                                         crossingId: crossingDetail.id,
                                         groupType: "Census"
                                     },
                                     function (xmlDoc) {
-                                        parseCensusData(xmlDoc, curAssObj);
-                                        
+                                    	if(typeof curAssObj !== "undefined")
+                                        	parseCensusData(xmlDoc, curAssObj);
+                                        //alert("after parsedcensusdata");
                                         //get Train Question Set
 		                                Alloy.Globals.Soap.getQuestionsRequest({
 		                                        crossingId: crossingDetail.id,
 		                                        groupType: "Train"
 		                                    },
 		                                    function (xmlDoc) {
-		                                        parseTrainData(xmlDoc, curAssObj);
+		                                    	if(typeof curAssObj !== "undefined")
+		                                        	parseTrainData(xmlDoc, curAssObj);
 		                                        //var localDataHandler = require('localDataHandler/localDataHandler');
 
 		                                        if (typeof curAssObj === "undefined") {
@@ -355,6 +356,7 @@ try{
                     //end of get Question Request Failure function
                 }, function () {});
         }, function () {});
+ 
 }catch(e){
 	Alloy.Globals.aIndicator.hide();
 }      
