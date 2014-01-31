@@ -152,6 +152,20 @@ function _Util() {
         Alloy.createController('selectRouteWindow').getView().open();
     };
 
+	self.convertDate = function(date){
+	    var date = date.match(/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})/);
+	    if(date == null){
+	        return false;   
+	    }else{
+	        var dateObj = {
+	            dateFormat1 : date[3] + '.' + date[2] + '.' + date[1],
+	            dateFormat2 : date[1] + '-' + date[2] + '-' + date[3],
+	            dateFormat3 : date[3] + '/' + date[2] + '/' + date[1],
+	            time : date[4] + ':' + date[5] + ':' + date[6],
+	        };
+	        return dateObj;
+	    }
+	};
 
     
     /*

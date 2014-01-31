@@ -80,6 +80,7 @@ var openMenu = function() {
 			// Log a user out
 			
 			User.logOut();
+			localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
 			Alloy.createController('index').getView().open();
 			/*loginView = Alloy.createController('index').getView();

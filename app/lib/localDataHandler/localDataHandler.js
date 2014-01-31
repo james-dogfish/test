@@ -42,11 +42,24 @@ function localDataHandler() {
         return true;
     };
     
+    self.clearCachedCrossing = function()
+    {
+    	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
+    	//crossingsFile.deleteFile(); 
+    	//Ti.API.info("Deleted Cached Crossings File");
+    	if (crossingsFile.exists()) 
+    	{ 
+    		crossingsFile.deleteFile(); 
+    		Ti.API.info("Deleted Cached Crossings File");
+    	}
+    	
+    };
+    
     self.loadCachedCrossingSearch = function()
     {
     	//var curUserDir = User.getUserDir();
 		// alert("curUserDir = "+curUserDir.nativePath);
-        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "crossingsSearch.json");
+        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  +"crossingsSearch.json");
         if (crossingsFile.exists()) {
             crossingsFileContents = crossingsFile.read().text;
             return JSON.parse(crossingsFileContents);

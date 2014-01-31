@@ -46,7 +46,7 @@ Alloy.Globals.Soap.searchCensus(
          	if(typeof pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"] !== "undefined"){
          		pastCensuses = pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"];
          	}
-         	alert(pastCensuses.length);
+         	//alert(pastCensuses.length);
          	if(pastCensuses.length === 0)
          	{
          		alert("Sorry there are no past censuses. Please create a new census and try again.");
@@ -56,8 +56,9 @@ Alloy.Globals.Soap.searchCensus(
          	
          	for(var pastCensuesIndex = 0; pastCensuesIndex < pastCensuses.length; pastCensuses++)
          	{
+         		//alert(JSON.stringify(pastCensuses[pastCensuesIndex]));
          		valueList.push({
-         			displayValue : "Census "+pastCensuses[pastCensuesIndex]["ns5:censusId"], value : pastCensuses[pastCensuesIndex]["ns5:censusId"], questionList: pastCensuses[pastCensuesIndex]["ns5:censusData"]
+         			displayValue : "Census "+Util.convertDate(pastCensuses[pastCensuesIndex]["ns5:censusDate"]).dateFormat3, value : pastCensuses[pastCensuesIndex]["ns5:censusId"], questionList: pastCensuses[pastCensuesIndex]["ns5:censusData"]
          		});
          		
          	}
