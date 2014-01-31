@@ -3,7 +3,6 @@ var User = require('core/User');
 var Util = require('core/Util');
 var localDataHandler = require('localDataHandler/localDataHandler');
 var interpreterModule = require('interpreter/interpreterModule2');
-var XMLTools = require("tools/XMLTools");
 //END OF REQUIRES
 
 var loginView;
@@ -209,15 +208,15 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
         localParser = new localParser();
         var quesMap = [];
         var questionsData = localParser.getQuestions(xml_text);
-        Ti.API.info("questionsData ==> " + JSON.stringify(questionsData));
+        //Ti.API.info("questionsData ==> " + JSON.stringify(questionsData));
 
         if (crosQues !== null || typeof crosQues !== 'undefined') {
             var crossingQuestions = localParser.getQuestions(crosQues);
-            Ti.API.info("crossingQuestions ==> " + JSON.stringify(crossingQuestions));
+            //Ti.API.info("crossingQuestions ==> " + JSON.stringify(crossingQuestions));
 
             if (crosAns !== null || typeof crosAns !== 'undefined') {
                 var crossingAnswers = localParser.getQuestions(crosAns);
-                Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
+                //Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
                 for (var i = 0; i < crossingAnswers[0].detailedData.length; i++) {
                     if (typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" &&
                         typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined") {
@@ -228,7 +227,7 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
                     }
 
                 }
-                Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
+                //Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
             }
         }
 
@@ -271,6 +270,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                 },
                 function (xmlDocCrossAns) {
                     var riskMap = [];
+                    var XMLTools = require("tools/XMLTools");
                     var xml2 = new XMLTools(xmlDocCrossAns);
                     var crossObj = JSON.stringify(xml2.toObject());
 
@@ -281,6 +281,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                         },
                         function (xmlDoc) {
                             var riskMap = [];
+                            var XMLTools = require("tools/XMLTools");
                             var xml2 = new XMLTools(xmlDoc);
                             var assObj = JSON.stringify(xml2.toObject());
                             //Ti.API.info("assObj >>> "+assObj);

@@ -231,10 +231,7 @@ var SudsClient = function(_options) {
 	          break;
 	 
 	          //This will never be reached, if you specified cancel for index 1
-	          case 1: Alloy.Globals.aIndicator.hide(); return;
-	          break;
-	 
-	          default: Alloy.Globals.aIndicator.hide(); return;
+	          case 1: Alloy.Globals.aIndicator.hide(); 
 	          break;
 	 
 	      }
