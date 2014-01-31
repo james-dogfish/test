@@ -43,8 +43,8 @@ var SudsClient = function(_options) {
   //Parse a string and create an XML DOM object
 
   function xmlDomFromString(_xml) {
-    var Util = require('core/Util'),
-      xmlDoc;
+    //var Util = require('core/Util'),
+      var xmlDoc;
     try {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
@@ -175,8 +175,8 @@ var SudsClient = function(_options) {
     xhr.onerror = function(e) {
       //Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
-      var XMLTools = require("tools/XMLTools");
-      var errXml = new XMLTools(xmlDomFromString(this.responseText));
+      //var XMLTools = require("tools/XMLTools");
+      var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
       var errObj = JSON.stringify(errXml.toObject());
       
       Alloy.Globals.aIndicator.hide();

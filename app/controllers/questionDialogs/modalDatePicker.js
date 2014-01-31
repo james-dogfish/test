@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 
 var date = new Date();
 
-var moment = require('alloy/moment');
+//var moment = require('alloy/moment');
 
 
 

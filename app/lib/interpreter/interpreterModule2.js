@@ -2,14 +2,14 @@ function interpreterModule2() {
 
     //self.QUESTION_ROW_TYPE = "question";
     //self.NON_QUESTION_ROW_TYPE = "NonQuestion";
-    var Styles = require('styles/styles');
+    //var Styles = require('styles/styles');
 
     var self = this;
     self.sectionHeaderList = [];
     
     var questionMap = [];
     
-    var User = require('core/User');
+    //var User = require('core/User');
     var userPreferences = User.getPreferences();
 
 
@@ -158,8 +158,8 @@ function interpreterModule2() {
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
 
-		var questionName = passObject.pageID + Alloy.Globals.localParser.getQuestionName(question);
-        var type = Alloy.Globals.localParser.getQuestionType(question);
+		var questionName = passObject.pageID + localParser.getQuestionName(question);
+        var type = localParser.getQuestionType(question);
         var templateType = "";
         if (type in ui_types_map) {
             templateType = ui_types_map[type];
@@ -169,7 +169,7 @@ function interpreterModule2() {
         }
 
         questionRenderValues = [];
-        var allRenderValues = Alloy.Globals.localParser.getRenderValue(question);
+        var allRenderValues = localParser.getRenderValue(question);
         var questionVisable = true;
 
         if (allRenderValues.length != 0) {
@@ -177,8 +177,8 @@ function interpreterModule2() {
         }
         for (var i = 0; i < allRenderValues.length; i++) {
 
-            dependencieName = passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]);
-            dependencieValue = Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i]);
+            dependencieName = passObject.pageID + localParser.getRenderValueParamName(allRenderValues[i]);
+            dependencieValue = localParser.getRenderValueParamValue(allRenderValues[i]);
 
             if (typeof renderDependenciesMap[dependencieName] === "undefined") {
                 renderDependenciesMap[dependencieName] = [];
@@ -194,11 +194,11 @@ function interpreterModule2() {
         }
 
         questionSelections = [];
-        var allSelections = Alloy.Globals.localParser.getAllSelections(question);
+        var allSelections = localParser.getAllSelections(question);
         for (var i = 0; i < allSelections.length; i++) {
             questionSelections.push({
-                displayValue: Alloy.Globals.localParser.getSelectionDisplayValue(allSelections[i]),
-                value: Alloy.Globals.localParser.getSelectionValue(allSelections[i])
+                displayValue: localParser.getSelectionDisplayValue(allSelections[i]),
+                value: localParser.getSelectionValue(allSelections[i])
             });
         }
 
@@ -216,7 +216,7 @@ function interpreterModule2() {
         };
 
 
-        var validation = Alloy.Globals.localParser.getValidation(question);
+        var validation = localParser.getValidation(question);
         var isMandatory = false;
 
         if (typeof validation !== "undefined") {
@@ -230,7 +230,7 @@ function interpreterModule2() {
                 }
             }
 
-            var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
+            var conditionalMandatory = localParser.getConditionalMandatory(validation);
             for (var i = 0; i < conditionalMandatory.length; i++) {
 
 				var dependencieName = passObject.pageID +conditionalMandatory[i].name;
@@ -275,12 +275,12 @@ function interpreterModule2() {
             template: templateType, // this is the template used to show the question in the list view
             type: type,
             groupType: sectionGroupType,
-            name: passObject.pageID + Alloy.Globals.localParser.getQuestionName(question),
-            alcrmQuestionID: Alloy.Globals.localParser.getQuestionName(question),
-            alcrmGroupType: Alloy.Globals.localParser.getQuestionGroup(question),
+            name: passObject.pageID + localParser.getQuestionName(question),
+            alcrmQuestionID: localParser.getQuestionName(question),
+            alcrmGroupType: localParser.getQuestionGroup(question),
             visable: questionVisable,
             readOnly : false,
-            order: Alloy.Globals.localParser.getQuestionOrder(question),
+            order: localParser.getQuestionOrder(question),
             associatedFileName: passObject.associatedFileName, // file the question is in
             questionResponse: null,
 
@@ -298,10 +298,10 @@ function interpreterModule2() {
             validation: questionValidation,
             mandatory : isMandatory, //can be changed at run time with conditionalMandatory
             
-            subsectionTitle : Alloy.Globals.localParser.getTableRowText(question),
+            subsectionTitle : localParser.getTableRowText(question),
 
             title: {
-                text: Alloy.Globals.localParser.getQuestionText(question)
+                text: localParser.getQuestionText(question)
             }, // the title text for this question
             displayValue: {
                 value: ""
@@ -384,7 +384,7 @@ function interpreterModule2() {
 
     var addQuestionToSectionHeader = function (question, passObject, assessmentId) {
 
-        var alcrmGroupType = Alloy.Globals.localParser.getQuestionGroup(question);
+        var alcrmGroupType = localParser.getQuestionGroup(question);
         var groupType = passObject.pageID + alcrmGroupType;
 
 
@@ -699,13 +699,23 @@ function interpreterModule2() {
     self.interpret = function (allQuestions, passObject) {
         self.sectionHeaderList = [];
         self.questionMap = [];
-
+        questionMap = [];
+		renderDependenciesMap = [];
+   		mandatoryDependenciesMap = [];
+    
         for (var i = 0; i < allQuestions.length; i++) {
             addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
         }
+        
         lookQuestionDependencies();
         sortQuestionsByOrder();
         postInterpretSettings(passObject);
+        
+        renderDependenciesMap = [];
+    	self.questionMap = [];
+    	questionMap = [];
+   		mandatoryDependenciesMap = [];
+   		
         return self.sectionHeaderList;
     };
 

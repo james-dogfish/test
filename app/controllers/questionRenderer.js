@@ -1,8 +1,8 @@
 //REQUIRES
-var Validator = require('validator/Validator');
-var Styles = require('styles/styles');
-var localDataHandler = require('localDataHandler/localDataHandler');
-var User = require('core/User');
+//var Validator = require('validator/Validator');
+//var Styles = require('styles/styles');
+//var localDataHandler = require('localDataHandler/localDataHandler');
+//var User = require('core/User');
 //END OF REQUIRES
 
 var userPreferences = User.getPreferences();

@@ -1,53 +1,13 @@
 function responseGenerator() {
     var self = this;
-	var localDataHandler = require('localDataHandler/localDataHandler');
-    var isDebugOn = require('alloy').CFG.debug;
-    var Util = require('core/Util');
+	//var localDataHandler = require('localDataHandler/localDataHandler');
+    //var isDebugOn = require('alloy').CFG.debug;
+    //var Util = require('core/Util');
     
-    self.toXml = function (v, name, ind) {
-        var xml = "";
-        if (v instanceof Array) {
-            for (var i = 0, n = v.length; i < n; i++)
-                xml += self.toXml(v[i], name, ind + "");
-        } else if (typeof (v) == "object") {
-            var hasChild = false;
-            xml += ind + "<" + name;
-            for (var m in v) {
-                if (m.charAt(0) == "@")
-                    xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
-                else
-                    hasChild = true;
-            }
-            xml += hasChild ? ">\n" : "/>";
-            if (hasChild) {
-                for (var m in v) {
-                    if (m == "#text")
-                        xml += v[m];
-                    else if (m == "#cdata")
-                        xml += "<![CDATA[" + v[m] + "]]>";
-                    else if (m.charAt(0) != "@")
-                        xml += self.toXml(v[m], m, ind + "\t");
-                }
-                xml += (xml.charAt(xml.length - 1) == "\n" ? ind : "") + "</" + name + ">\n";
-            }
-        } else { // added special-character transform, but this needs to be better handled [micmath]
-            xml += ind + "<" + name + ">" + v.toString().replace(/</g, '&lt;').replace(/&/g, '&amp;') + "</" + name + ">\n";
-        }
-        return xml;
-    };
-    self.convert = function (o) {
-
-        xml = "";
-
-        for (var m in o) {
-            xml += self.toXml(o[m], m, "");
-        }
-
-        return xml;
-    };
+    
 
     //the structure of this will probably change (slightly) once we have know exactly what to post back.
-    self.generateResponse = function (all_questions) {
+   /* self.generateResponse = function (all_questions) {
         var header = "<xml>";
         var body = "";
         for (var i = 0; i < all_questions.length; i++) {
@@ -96,7 +56,7 @@ function responseGenerator() {
             body += "<question>" + self.convert(question) + "</question>";
         }
         var footer = "</xml>";
-    };
+    };*/
 
     var testIfAssessmentIsComplete = function (questionList) {
         var mandatoryQuestionCount = 0;
@@ -145,9 +105,13 @@ function responseGenerator() {
                 }
             }
         }
-        
-        var numbers = censusDate.match(/\d+/g); 
-		var dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
+         var numbers = "";
+         var dateToPost = "";
+        if(censusDate != null)
+        {
+        	numbers = censusDate.match(/\d+/g); 
+        	dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
+        }
 		
         var xmlRequest =
             "<cen:CreateCensusRequest>" +
@@ -264,7 +228,7 @@ function responseGenerator() {
 	        var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes);
 			//Ti.API.info('3activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
 	       
-	        var Util = require('core/Util');
+	        //var Util = require('core/Util');
 	        var newAssessmentForPDF = localDataHandler.createAssessmentPDFResponse(assObj);
 	        Util.emailNotes(newAssessmentForPDF);
 			
@@ -273,9 +237,9 @@ function responseGenerator() {
 			            Alloy.Globals.Soap.createCensus(xmlCensusRequest,
 			                function (xmlDoc) {
 			                	//Ti.API.info('4activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
-			                    var XMLTools = require("tools/XMLTools");
-			                    var xml = new XMLTools(xmlDoc);
-			                    var response = JSON.stringify(xml.toObject());
+			                    //var XMLTools = require("tools/XMLTools");
+			                    XMLTools.setDoc(xmlDoc);
+			                    var response = JSON.stringify(XMLTools.toObject());
 			                    
 							    	 
 			                    //Ti.API.info('createCensusRequest Success response >> ' + response);
@@ -283,9 +247,9 @@ function responseGenerator() {
 			                    if (assObj.isSubmitted === false) {
 			                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
 					                    function (xmlDoc) {
-					                        var XMLTools = require("tools/XMLTools");
-					                        var xml = new XMLTools(xmlDoc);
-					                        var response = JSON.stringify(xml.toObject());
+					                        //var XMLTools = require("tools/XMLTools");
+					                        XMLTools.setDoc(xmlDoc);
+					                        var response = JSON.stringify(XMLTools.toObject());
 					                        
 					                        assObj.alcrmStatus = "sent";
 											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -296,9 +260,9 @@ function responseGenerator() {
 			                    }else{
 			                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
 					                    function (xmlDoc) {
-					                        var XMLTools = require("tools/XMLTools");
-					                        var xml = new XMLTools(xmlDoc);
-					                        var response = JSON.stringify(xml.toObject());
+					                        //var XMLTools = require("tools/XMLTools");
+					                        XMLTools.setDoc(xmlDoc);
+					                        var response = JSON.stringify(XMLTools.toObject());
 											
 											assObj.alcrmStatus = "sent";
 											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -312,9 +276,9 @@ function responseGenerator() {
 			    			if (assObj.isSubmitted === false) {
 			                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
 					                    function (xmlDoc) {
-					                        var XMLTools = require("tools/XMLTools");
-					                        var xml = new XMLTools(xmlDoc);
-					                        var response = JSON.stringify(xml.toObject());
+					                        //var XMLTools = require("tools/XMLTools");
+					                        XMLTools.setDoc(xmlDoc);
+					                        var response = JSON.stringify(XMLTools.toObject());
 					                        
 					                        assObj.alcrmStatus = "sent";
 											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -325,9 +289,9 @@ function responseGenerator() {
 			                    }else{
 			                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
 					                    function (xmlDoc) {
-					                        var XMLTools = require("tools/XMLTools");
-					                        var xml = new XMLTools(xmlDoc);
-					                        var response = JSON.stringify(xml.toObject());
+					                        //var XMLTools = require("tools/XMLTools");
+					                        XMLTools.setDoc(xmlDoc);
+					                        var response = JSON.stringify(XMLTools.toObject());
 											
 											assObj.alcrmStatus = "sent";
 											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -341,17 +305,17 @@ function responseGenerator() {
 	            //COMMIT TRAIN INFO
 	            Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest,
 	                function (xmlDoc) {
-	                    var XMLTools = require("tools/XMLTools");
-	                    var xml = new XMLTools(xmlDoc);
-	                    var response = JSON.stringify(xml.toObject());
+	                    //var XMLTools = require("tools/XMLTools");
+	                    XMLTools.setDoc(xmlDoc);
+	                    var response = JSON.stringify(XMLTools.toObject());
 						Ti.API.info('createTrainGroupRequest Success response >> ' + response);
 						
 						if (assObj.isSubmitted === false) {
 	                    	 Alloy.Globals.Soap.createAssessment(xmlRequest,
 			                    function (xmlDoc) {
-			                        var XMLTools = require("tools/XMLTools");
-			                        var xml = new XMLTools(xmlDoc);
-			                        var response = JSON.stringify(xml.toObject());
+			                        //var XMLTools = require("tools/XMLTools");
+			                        XMLTools.setDoc(xmlDoc);
+			                        var response = JSON.stringify(XMLTools.toObject());
 									
 									assObj.alcrmStatus = "sent";
 									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -362,9 +326,9 @@ function responseGenerator() {
 	                    }else{
 	                    	 Alloy.Globals.Soap.updateAssessment(xmlRequest,
 			                    function (xmlDoc) {
-			                        var XMLTools = require("tools/XMLTools");
-			                        var xml = new XMLTools(xmlDoc);
-			                        var response = JSON.stringify(xml.toObject());
+			                        //var XMLTools = require("tools/XMLTools");
+			                        XMLTools.setDoc(xmlDoc);
+			                        var response = JSON.stringify(XMLTools.toObject());
 			
 									assObj.alcrmStatus = "sent";
 									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
@@ -387,4 +351,4 @@ function responseGenerator() {
 	};
 }
 
-module.exports = responseGenerator;
+module.exports = new responseGenerator();

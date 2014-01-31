@@ -31,9 +31,9 @@ Alloy.Globals.Soap.searchCensus(
 		crossingId:assessmentObject.crossingID
 	},
 	function(xmlDoc){
-		 var XMLTools = require("tools/XMLTools");
-         var xml2 = new XMLTools(xmlDoc);
-         var responseObj = JSON.stringify(xml2.toObject());
+		 //var XMLTools = require("tools/XMLTools");
+         XMLTools.setDoc(xmlDoc);
+         var responseObj = JSON.stringify(XMLTools.toObject());
          if(typeof responseObj === "undefined")
          {
          	alert(L("no_data"));

@@ -393,7 +393,7 @@ function _Util() {
     |---------------------------------------------------------------------------------
     */
     self.emailNotes = function (payload) {
-        var User = require('core/User');
+        //var User = require('core/User');
         var userEmail = User.getEmail();
         Ti.API.info("userEmail = "+userEmail);
         
@@ -466,8 +466,8 @@ function _Util() {
         var toSendLength = toSend.length;
 
         if (toSendLength !== 0) {
-            var Soap = require('core/Soap'),
-                User = require('core/User'),
+            var //Soap = require('core/Soap'),
+                //User = require('core/User'),
                 userDetails = User.getLogin();
             username = userDetails.username,
             password = userDetails.password,
@@ -483,10 +483,10 @@ function _Util() {
                         arg3: password
                     }, function (xmlDoc) {
                         // Success Callback
-                        var XMLTools = require("tools/XMLTools");
-                        var xml = new XMLTools(xmlDoc);
+                        //var XMLTools = require("tools/XMLTools");
+                        XMLTools.setDoc(xmlDoc);
                         //docElement.getElementsByTagName('coreType')
-                        Ti.API.info(xml.toJSON());
+                        Ti.API.info(XMLTools.toJSON());
                         self.showAlert(toSend[i - 1].crossingName + ' submitted to ALCRM successfully! \n Assessment and Question notes have been emailed to you.');
                         // email stuff
                         var subject = 'Risk Assessment Notes for ' + toSend[i - 1].crossingName,

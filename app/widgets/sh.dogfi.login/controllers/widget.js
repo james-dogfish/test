@@ -1,7 +1,7 @@
 // Get orientation on load to assign right bg image
 // get max width and height
-var User = Alloy.Globals.User; //require('core/User');
-var Util = require('core/Util');
+//var User = Alloy.Globals.User; //require('core/User');
+//var Util = require('core/Util');
 
 Util.downloadConfig();
 
@@ -87,8 +87,8 @@ function doLogin() {
                 name: user
             },
             function (xmlDoc) {
-            	var XMLTools = require("tools/XMLTools");
-                var xml = new XMLTools(xmlDoc);
+            	//var XMLTools = require("tools/XMLTools");
+                var xml = XMLTools.setDoc(xmlDoc);
                 //docElement.getElementsByTagName('coreType')
 
                 //alert('Login success response >> ' + xml.toJSON());
@@ -168,10 +168,10 @@ function doLogin() {
             },
             function (xmlDoc) {
                 // Debugging response here
-                var XMLTools = require("tools/XMLTools");
-                var xml = new XMLTools(xmlDoc);
+                //var XMLTools = require("tools/XMLTools");
+                var xml = XMLTools.setDoc(xmlDoc);
                 //docElement.getElementsByTagName('coreType')
-                Ti.API.info('Login error response >> ' + xml.toJSON());
+                Ti.API.info('Login error response >> ' + XMLTools.toJSON());
                 Alloy.Globals.aIndicator.hide();
                 $.loginButton.touchEnabled = true;
 

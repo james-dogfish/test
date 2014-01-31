@@ -1,4 +1,4 @@
-var User = require('core/User');
+//var User = require('core/User');
 // Trying out fontawesome
 var fontawesome = require('tools/fonts/IconicFont').IconicFont({
 	font: 'tools/fonts/FontAwesome',
@@ -9,7 +9,7 @@ Alloy.Globals.fontawesome = {
 	fontfamily: fontawesome.fontfamily()
 };
 
-var localDataHandler = require('localDataHandler/localDataHandler');
+//var localDataHandler = require('localDataHandler/localDataHandler');
 
 var activeAssessments = [];
 
@@ -26,7 +26,7 @@ var openMenu = function() {
 		return false;
 	}
 
-	var Ui = require('core/Ui'),
+	//var Ui = require('core/Ui'),
 	popOver = Ui.renderPopOver({
 		width: 250
 	}),
@@ -68,8 +68,8 @@ var openMenu = function() {
 			appHelp.open();
 		} else if (e.row.id === 4) {
 			// Commit all assessments
-			var responseGenerator = require('responseGenerator/responseGenerator');
-			responseGenerator  = new responseGenerator();
+			//var responseGenerator = require('responseGenerator/responseGenerator');
+			//responseGenerator  = new responseGenerator();
 			responseGenerator.commitAllCompleted();
 		} else if (e.row.id === 5) {
 			// Reset the searching table 
