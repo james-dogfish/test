@@ -301,7 +301,7 @@ try{
                             //var XMLTools = require("tools/XMLTools");
                             XMLTools.setDoc(xmlDocAss);
                             var assObj = JSON.stringify(XMLTools.toObject());
-                            //Ti.API.info("assObj >>> "+assObj);
+                            Ti.API.info("assObj >>> "+assObj);
                             if (typeof curAssObj === "undefined") {
                                 alert(L('no_data'));
                                 Alloy.Globals.aIndicator.hide();
@@ -325,16 +325,16 @@ try{
 		                                    function (xmlDoc) {
 		                                        parseTrainData(xmlDoc, curAssObj);
 		                                        //var localDataHandler = require('localDataHandler/localDataHandler');
-		                                        
-		                                        //DO THIS 3 TIMES Because as far we know they need 3 train info groups
-		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-		
+
 		                                        if (typeof curAssObj === "undefined") {
 		                                            alert(L('no_data'));
 		
 		                                        } else {
+		                                        	//DO THIS 3 TIMES Because as far we know they need 3 train info groups
+			                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+			                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+			                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+			                                        
 		                                            riskAssessmentsTab.loadRiskAssessments();
 		                                            questionRendererTab.setAssessment(curAssObj);
 		                                            $.tabGroup.setActiveTab(questionRendererTab.getView());
