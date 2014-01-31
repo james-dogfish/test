@@ -302,7 +302,7 @@ try{
                             XMLTools.setDoc(xmlDocAss);
                             var assObj = JSON.stringify(XMLTools.toObject());
                             //Ti.API.info("assObj >>> "+assObj);
-                            if (typeof assObj === "undefined") {
+                            if (typeof curAssObj === "undefined") {
                                 alert(L('no_data'));
                                 Alloy.Globals.aIndicator.hide();
                                 return;
@@ -315,7 +315,7 @@ try{
                                         groupType: "Census"
                                     },
                                     function (xmlDoc) {
-                                        parseCensusData(xmlDoc, assObj);
+                                        parseCensusData(xmlDoc, curAssObj);
                                         
                                         //get Train Question Set
 		                                Alloy.Globals.Soap.getQuestionsRequest({
@@ -323,7 +323,7 @@ try{
 		                                        groupType: "Train"
 		                                    },
 		                                    function (xmlDoc) {
-		                                        parseTrainData(xmlDoc, assObj);
+		                                        parseTrainData(xmlDoc, curAssObj);
 		                                        //var localDataHandler = require('localDataHandler/localDataHandler');
 		                                        
 		                                        //DO THIS 3 TIMES Because as far we know they need 3 train info groups
