@@ -161,7 +161,7 @@ masterSearchTab.on("RefreshButtonClick", function (e) {
 });
 
 function parseTrainData(xml_text) {
-
+try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         //var localParser = require('parser/localParser');
         //var interpreter = require('interpreter/interpreterModule2');
@@ -179,9 +179,14 @@ function parseTrainData(xml_text) {
         alert(L('no_data'));
 
     }
+}catch(e)
+{
+	Alloy.Globals.aIndicator.hide();
+}
 };
 
 function parseCensusData(xml_text) {
+try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         //var localParser = require('parser/localParser');
         //var interpreter = require('interpreter/interpreterModule2');
@@ -199,10 +204,15 @@ function parseCensusData(xml_text) {
         alert(L('no_data'));
 
     }
+}catch(e)
+{
+	Alloy.Globals.aIndicator.hide();
+}
 };
 
 function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) {
 
+try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
         //var localParser = require('parser/localParser');
         ////localParser = new localParser();
@@ -245,6 +255,9 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
         alert(L('no_data'));
 
     }
+}catch(e){
+	Alloy.Globals.aIndicator.hide();
+}
 };
 
 detailSearchTab.on("BackButtonClick", function (e) {
@@ -252,7 +265,8 @@ detailSearchTab.on("BackButtonClick", function (e) {
 });
 
 masterSearchTab.on("crossingSelected", function (crossingDetail) {
-	
+try{
+
     Alloy.Globals.currentCrossingName = crossingDetail.name;
     Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
     Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
@@ -299,43 +313,48 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                                     },
                                     function (xmlDoc) {
                                         parseCensusData(xmlDoc, assObj);
+                                        
+                                        //get Train Question Set
+		                                Alloy.Globals.Soap.getQuestionsRequest({
+		                                        crossingId: crossingDetail.id,
+		                                        groupType: "Train"
+		                                    },
+		                                    function (xmlDoc) {
+		                                        parseTrainData(xmlDoc, assObj);
+		                                        //var localDataHandler = require('localDataHandler/localDataHandler');
+		
+		                                        //DO THIS 3 TIMES Because as far we know they need 3 train info groups
+		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+		                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+		
+		                                        if (typeof curAssObj === "undefined") {
+		                                            alert(L('no_data'));
+		
+		                                        } else {
+		                                            riskAssessmentsTab.loadRiskAssessments();
+		                                            questionRendererTab.setAssessment(curAssObj);
+		                                            $.tabGroup.setActiveTab(questionRendererTab.getView());
+		                                        }
+		                                        Alloy.Globals.aIndicator.hide();
+		                                    },
+		                                    function (xmlDoc) {});
+		                                	//end of get Train Question Set
 
                                     },
                                     function (xmlDoc) {});
                                 //end of get census question set
 
-                                //get Train Question Set
-                                Alloy.Globals.Soap.getQuestionsRequest({
-                                        crossingId: crossingDetail.id,
-                                        groupType: "Train"
-                                    },
-                                    function (xmlDoc) {
-                                        parseTrainData(xmlDoc, assObj);
-                                        //var localDataHandler = require('localDataHandler/localDataHandler');
-
-                                        //DO THIS 3 TIMES Because as far we know they need 3 train info groups
-                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-
-                                        if (typeof curAssObj === "undefined") {
-                                            alert(L('no_data'));
-
-                                        } else {
-                                            riskAssessmentsTab.loadRiskAssessments();
-                                            questionRendererTab.setAssessment(curAssObj);
-                                            $.tabGroup.setActiveTab(questionRendererTab.getView());
-                                        }
-                                        Alloy.Globals.aIndicator.hide();
-                                    },
-                                    function (xmlDoc) {});
-                                //end of get Train Question Set
+                                
                             }
                         }, //end of get Question Request Success function
                         function (xmlDoc) {});
                     //end of get Question Request Failure function
                 }, function () {});
         }, function () {});
+}catch(e){
+	Alloy.Globals.aIndicator.hide();
+}      
 });
 
 questionRendererTab.on("saveAndExitClick", function (e) {
