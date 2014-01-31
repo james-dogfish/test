@@ -322,6 +322,11 @@ function interpreterModule2() {
             headerView: {}
         };
         
+        if(passObject.readOnly == true){
+	        questionObject.readOnly = true;
+	        questionObject.headerView = Styles["headerViewReadOnly"];
+	    }
+        
         questionObject = questionSetPastVariables(questionObject, questionMap);
         
         self.questionMap[questionObject.name] = questionObject;
@@ -651,11 +656,12 @@ function interpreterModule2() {
                }
                */
                
-            	
+            	/*
                else if(questionObject.alcrmGroupType == "CrossingGeneral") {
                 	questionObject.readOnly = true;
                 	questionObject.headerView = Styles["headerViewReadOnly"];
                }
+               */
                
                
                for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){

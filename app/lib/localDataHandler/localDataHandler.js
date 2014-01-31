@@ -274,6 +274,7 @@ function localDataHandler() {
             versionID: INDEX_FILE_VERSION_NUM,
             assessmentID: assessmentID,
             mainQuestionsfileName: assessmentID + "mainQuestions.json",
+            coreQuestionsFileName : null,
 
             censusQuestionsfileNameList: [],
             censusLastPageID: 1,
@@ -309,6 +310,7 @@ function localDataHandler() {
             pageName: "Risk Assessment",
             pageID: 0,
             pageType: "riskAssessment",
+            readOnly: false,
             assessmentId: assessmentID,
             questionMap: quesMap
         });
@@ -350,6 +352,49 @@ function localDataHandler() {
         }
         return false;
     };
+    
+    self.addNewCoreQuestionToAssessment = function (assessmentObject, JASON_question_list, questionMap) {
+    	
+    	//alert(User.getLogin().username);
+		 //var curUserDir = User.getUserDir();
+		 //alert("curUserDir = "+curUserDir.nativePath);
+		 
+        var savedAssessments = self.getAllSavedAssessments();
+
+        for (var i = 0; i < savedAssessments.length; i++) {
+
+            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+
+                var newCoreQuestionsFileName = assessmentObject.assessmentID +"CoreQuestions.json";
+                
+                var newCoreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newCoreQuestionsFileName);
+                savedAssessments[i].coreQuestionsFileName = newCoreQuestionsFileName;
+
+              
+                var newCoreQuestionSet = interpreter.interpret(JASON_question_list, {
+                    associatedFileName: newCoreQuestionsFileName,
+                    pageName: "Core Question Details",
+                    pageID: 0,
+                    pageType: "coreQuestion",
+                    readOnly: true,
+                    assessmentId: assessmentObject.assessmentID,
+                    questionMap: questionMap
+                });
+
+                newCoreQuestionsFile.write(
+                    JSON.stringify(
+                        newCoreQuestionSet
+                    )
+                );
+
+                self.updateSavedAssessments(savedAssessments);
+
+                return newCoreQuestionSet;
+            }
+        }
+
+        return [];
+    };
 
     self.addNewCensusToAssessment = function (assessmentObject, censusMap) {
     	
@@ -376,6 +421,7 @@ function localDataHandler() {
                     pageName: "Census " + savedAssessments[i].censusLastPageID,
                     pageID: savedAssessments[i].censusLastPageID,
                     pageType: "census",
+                    readOnly: false,
                     assessmentId: assessmentObject.assessmentID,
                     questionMap: censusMap
                 });
@@ -491,6 +537,7 @@ function localDataHandler() {
                     pageName: "Train Info " + savedAssessments[i].trainGroupLastPageID,
                     pageID: savedAssessments[i].trainGroupLastPageID,
                     pageType: "trainInfo",
+                    readOnly: false,
                     questionMap: []
                 });
 
@@ -707,6 +754,16 @@ function localDataHandler() {
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
+        
+        //coreQuestionsFileName
+        alert("assessmentObject.coreQuestionsFileName = "+assessmentObject.coreQuestionsFileName);
+        if(assessmentObject.coreQuestionsFileName != null){
+        	var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.coreQuestionsFileName);
+	        if (coreQuestionsFile.exists()) {
+	            var coreQuestions = JSON.parse(coreQuestionsFile.read().text);
+	            returnQuestionSet = returnQuestionSet.concat(coreQuestions);
+	        }
+        }
 	
         var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
         if (assessmentFile.exists()) {

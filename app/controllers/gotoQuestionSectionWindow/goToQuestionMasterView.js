@@ -40,6 +40,9 @@ var addSectionToPageList= function(section){
 	else if(section.pageType == "trainInfo"){
 		newPage.template = "masterRowTemplate";
 	}
+	else if(section.pageType == "coreQuestion"){
+		newPage.template = "masterRowTemplate";
+	}
 	
 	newPage.sectionList.push(section);
 	pageList.push(newPage);
