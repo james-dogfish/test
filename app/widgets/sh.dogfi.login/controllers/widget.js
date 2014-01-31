@@ -30,9 +30,9 @@ function doLogin() {
 	//Ti.App.fireEvent('doLoginEvent2');
 	var offlineLogin = false;
 	Alloy.Globals.aIndicator.show('Logging in...');
-    if (User.activeUser() && !Util.phoneConnected()) {
+    if (!Titanium.Network.online && User.activeUser()) {
         offlineLogin = true;
-    } else if (!Util.phoneConnected()) {
+    } else if (!Titanium.Network.online) {
         Util.showAlert('Please make sure that you are connected to the Internet');
         return false;
     }
@@ -62,16 +62,18 @@ function doLogin() {
 			
             if (offlineAttempt) {
                 //$.window.close();
-
+				
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
 
                 }
+                Alloy.Globals.aIndicator.hide();
                 Ti.App.fireEvent('closeLoginWin');
 				Ti.App.fireEvent('fireStartup');//startup();
             
             } else {
+            	Alloy.Globals.aIndicator.hide();
                 Util.showAlert("Sorry but your username or password is incorrect, Please try again.");
             }
             return;

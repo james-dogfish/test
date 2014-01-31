@@ -297,9 +297,9 @@ function _User() {
 			|---------------------------------------------------------------------------------
 			*/
         logOut: function () {
-            Ti.App.Properties.removeProperty('loginKeychain');
-             Ti.App.Properties.removeProperty('userKeychain');
-              Ti.App.Properties.removeProperty('passKeychain');
+              Ti.App.Properties.removeProperty('loginKeychain');
+              //Ti.App.Properties.removeProperty('userKeychain');
+              //Ti.App.Properties.removeProperty('passKeychain');
               Ti.App.Properties.removeProperty('LCM_ROUTE');
            // userKeychain.reset();
            // passKeychain.reset();
@@ -307,7 +307,7 @@ function _User() {
         },
 
         offlineLogin: function (data) {
-            if (data.username == userKeychain && data.password == passKeychain) {
+            if (data.username == Ti.App.Properties.getString('userKeychain') && data.password == Ti.App.Properties.getString('passKeychain')) {
                 return true;
             } else {
                 return false;
@@ -315,7 +315,7 @@ function _User() {
         },
 
         activeUser: function () {
-            return (userKeychain) ? true : false;
+            return (Ti.App.Properties.getString('userKeychain')) ? true : false;
         }
     };
 
