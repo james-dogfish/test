@@ -258,7 +258,7 @@ function localDataHandler() {
 		//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
+	  try{
         var savedAssessments = self.getAllSavedAssessments();
 
         var mandatoryQuestionCount = 0;
@@ -317,9 +317,14 @@ function localDataHandler() {
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
+      }catch(e){
+      	 Alloy.Globals.aIndicator.hide();
+      	 return;
+      }
     };
 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
+    	Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -333,6 +338,7 @@ function localDataHandler() {
     };
 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
+    	Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {

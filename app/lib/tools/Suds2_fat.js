@@ -177,10 +177,12 @@ var SudsClient = function(_options) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       //var XMLTools = require("tools/XMLTools");
+      try{
+      Alloy.Globals.aIndicator.hide();
       var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
       var errObj = JSON.stringify(errXml.toObject());
       
-      Alloy.Globals.aIndicator.hide();
+      
       
       var error_object = JSON.parse(errObj);
       var error_code = null;
@@ -239,7 +241,9 @@ var SudsClient = function(_options) {
 	      }
 		}); 
 		alert.show();
-
+	}catch(e){
+		Alloy.Globals.aIndicator.hide();
+	}
     
     };
     xhr.setTimeout(config.timeout);

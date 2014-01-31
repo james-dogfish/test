@@ -75,6 +75,9 @@ exports.setData = function(shouldRefresh) {
 				                	if (typeof crossingDetailsSearchResult === "undefined") {
 				                		
 				                		type = "undefined";
+				                		alert("crossingDetailSearchResult is undefined");
+				                		Alloy.Globals.aIndicator.hide();
+				                		return;
 				                	}
 				                	else if(crossingDetailsSearchResult instanceof Array){
 				                		////Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
