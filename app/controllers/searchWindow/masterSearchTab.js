@@ -1,6 +1,6 @@
 
 var crossingData = [];
-var localDataHandler = require('localDataHandler/localDataHandler');				
+//var localDataHandler = require('localDataHandler/localDataHandler');				
 
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
@@ -52,16 +52,16 @@ exports.setData = function(shouldRefresh) {
 						includeDeleted:false
 					},
 					function(xmlDoc){
-							var XMLTools = require("tools/XMLTools");
-			                var xml = new XMLTools(xmlDoc);
-			                var crossingsObject = JSON.stringify(xml.toObject());
+							//var XMLTools = require("tools/XMLTools");
+			                XMLTools.setDoc(xmlDoc);
+			                var crossingsObject = JSON.stringify(XMLTools.toObject());
 			                
 			                var data = JSON.parse(crossingsObject);
 			                var results = data["soapenv:Body"]["ns9:AdvancedSearchResponse"]["ns9:searchResults"];
 			                if(typeof results === undefined || results === "undefined")
 			                {
 			                	Alloy.Globals.aIndicator.hide();
-			                	var Util = require('core/Util');
+			                	//var Util = require('core/Util');
 								Util.showAlert(L('no_results'));
 								
 			                }else{
@@ -107,8 +107,8 @@ exports.setData = function(shouldRefresh) {
 							}
 					},
 					function(xmlDoc){
-						    var XMLTools = require("tools/XMLTools");
-			                var xml = new XMLTools(xmlDoc);
+						    //var XMLTools = require("tools/XMLTools");
+			                XMLTools.setDoc(xmlDoc);
 			                Alloy.Globals.aIndicator.hide();
 			                //alert('searchCrossingRequest Error response >> ' + xml.toJSON());
 					});

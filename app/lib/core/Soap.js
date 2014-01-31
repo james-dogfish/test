@@ -21,9 +21,9 @@ var _Soap = function () {
         suds;
 
 
-    var XMLTools = require('tools/XMLTools'),
-        User = require('core/User'),
-        Util = require('core/Util');
+   // var XMLTools = require('tools/XMLTools'),
+     //   User = require('core/User'),
+      //  Util = require('core/Util');
 
     targetNS = 'http://com/icon/networkrail/alcrm/',
     loginUrl = 'http://server.iconsolutions.com/alcrm3/adminService/admin.wsdl',

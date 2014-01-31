@@ -1,22 +1,22 @@
 //GLOBALS
-Alloy.Globals.User = require('core/User');
-var User = Alloy.Globals.User;
-var Util = require('core/Util');
-Alloy.Measurement = require('alloy/measurement');
+//User = require('core/User');
+//var User = User;
+//var Util = require('core/Util');
+//Alloy.Measurement = require('alloy/measurement');
 
-var localParser = require('parser/localParser');
-localParser = new localParser();
-Alloy.Globals.localParser = localParser;
+//var localParser = require('parser/localParser');
+//localParser = new localParser();
+//Alloy.Globals.localParser = localParser;
 
-Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
-Alloy.Globals.Soap = require('core/Soap');
+//Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
+//Alloy.Globals.Soap = require('core/Soap');
 //END OF GLOBALS
 
 /**************************************************************
  * getValidator: returns an instance of Validator
  **************************************************************/
 var getValidator = function() {
-	var Validator = require('validator/Validator');
+	//var Validator = require('validator/Validator');
 	Alloy.Globals.validator = Validator;
 };
 
@@ -44,7 +44,7 @@ var startup = function() {
 	mainView.open();
 
 	// Check whether settings are filled
-	if (!Alloy.Globals.User.hasPreferences()) {
+	if (!User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message : true
@@ -57,7 +57,7 @@ var startup = function() {
 
 Ti.App.addEventListener('fireStartup', startup);
 
-if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
+if (User.isLoggedIn() && !User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}

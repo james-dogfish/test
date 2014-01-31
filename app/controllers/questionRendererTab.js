@@ -1,7 +1,7 @@
-var User = require('core/User');
+//var User = require('core/User');
 var currentAssessmentObject = null;
-var localDataHandler = require('localDataHandler/localDataHandler');
-var interpreter = require('interpreter/interpreterModule2');
+//var localDataHandler = require('localDataHandler/localDataHandler');
+//var interpreter = require('interpreter/interpreterModule2');
 var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
 
 Alloy.Globals.questionRenderer = $.questionListView;
@@ -228,7 +228,7 @@ var openMenu = function () {
         return false;
     }
 
-    var Ui = require('core/Ui'),
+    //var Ui = require('core/Ui'),
         popOver = Ui.renderPopOver({
             width: 250
         }),

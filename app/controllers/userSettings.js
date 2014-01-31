@@ -1,8 +1,8 @@
 // Will save user details to the app
 // Load User library 
-var User = require('core/User'),
-	Validator = require('validator/Validator'),
-	Util = require('core/Util');
+//var User = require('core/User'),
+	//Validator = require('validator/Validator'),
+	//Util = require('core/Util');
 
 var userPreferences = User.getPreferences();
 

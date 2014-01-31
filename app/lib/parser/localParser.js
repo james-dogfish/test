@@ -4,8 +4,8 @@ function localParser() {
     self.parse = function (xml_text) {
         var doc = null;
         if (xml_text) {
-            var XMLTools = require('tools/XMLTools');
-            XMLTools = new XMLTools(xml_text);
+            //var XMLTools = require('tools/XMLTools');
+            XMLTools.setDoc(xml_text);
 
             doc = XMLTools.xmlToJson(XMLTools.getDocument());
         } else {
@@ -72,7 +72,7 @@ function localParser() {
     	
     };
     self.getQuestionMandatory = function (question) {
-        var validation = Alloy.Globals.localParser.getValidation(question);
+        var validation = self.getValidation(question);
         if (typeof validation !== "undefined") {
             var mandatory = validation.mandatory;
             if (typeof mandatory !== "undefined") {
@@ -214,4 +214,4 @@ function localParser() {
 
 }
 
-module.exports = localParser;
+module.exports = new localParser;

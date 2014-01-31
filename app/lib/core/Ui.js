@@ -431,7 +431,7 @@ function _Ui() {
 
 					answerContainer.add(startCensus);
 
-					var User = require('core/User');
+					//var User = require('core/User');
 
 					var timerOverlay = Ti.UI.createView({
 						width: '100%',

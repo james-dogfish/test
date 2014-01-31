@@ -2,7 +2,7 @@
 function _User() {
 
     var /*keychain = require('com.obscure.keychain'),*/
-        moment = require('alloy/moment'),
+        //moment = require('alloy/moment'),
         userKeychain = null; // = keychain.createKeychainItem('User'),
         passKeychain = null; // = keychain.createKeychainItem('Pass'),
         loginKeychain = null; // = keychain.createKeychainItem("LoggedIn");
@@ -40,8 +40,8 @@ function _User() {
             return Number(moment().diff(lastLogin, 'days'));
         },
         isLoginExpired: function () {
-            var moment = require('alloy/moment'),
-                today = moment(),
+            //var moment = require('alloy/moment'),
+               var today = moment(),
                 todayFormatted = today.format('YYYY-MM-DD');
             var lastLogin = Ti.App.Properties.getString('lastLogin', todayFormatted);
             if (Number(moment().diff(lastLogin, 'days') >= 14)) {

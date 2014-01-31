@@ -1,8 +1,8 @@
 //REQUIRES
-var User = require('core/User');
-var Util = require('core/Util');
-var localDataHandler = require('localDataHandler/localDataHandler');
-var interpreterModule = require('interpreter/interpreterModule2');
+//var User = require('core/User');
+//var Util = require('core/Util');
+//var localDataHandler = require('localDataHandler/localDataHandler');
+//var interpreterModule = require('interpreter/interpreterModule2');
 //END OF REQUIRES
 
 var loginView;
@@ -63,7 +63,7 @@ var openMenu = function () {
         return false;
     }
 
-    var Ui = require('core/Ui'),
+    //var Ui = require('core/Ui'),
         popOver = Ui.renderPopOver({
             width: 250
         }),
@@ -118,8 +118,8 @@ var openMenu = function () {
         } else if (e.row.id === 4) {
             // Commit all assessments
             //Alloy.Globals.Util.submitCompletedAssessments();
-            var responseGenerator = require('responseGenerator/responseGenerator');
-            responseGenerator = new responseGenerator();
+            //var responseGenerator = require('responseGenerator/responseGenerator');
+           // responseGenerator = new responseGenerator();
             responseGenerator.commitAllCompleted();
 
         } else if (e.row.id === 5) {
@@ -163,16 +163,16 @@ masterSearchTab.on("RefreshButtonClick", function (e) {
 function parseTrainData(xml_text) {
 
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        var localParser = require('parser/localParser');
-        var interpreter = require('interpreter/interpreterModule2');
-        localParser = new localParser();
+        //var localParser = require('parser/localParser');
+        //var interpreter = require('interpreter/interpreterModule2');
+        //var //localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
         if (typeof data === "undefined") {
             alert(L('no_data'));
             return;
         }
-        var localDataHandler = require('localDataHandler/localDataHandler');
+        //var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
 
     } else {
@@ -183,16 +183,16 @@ function parseTrainData(xml_text) {
 
 function parseCensusData(xml_text) {
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        var localParser = require('parser/localParser');
-        var interpreter = require('interpreter/interpreterModule2');
-        localParser = new localParser();
+        //var localParser = require('parser/localParser');
+        //var interpreter = require('interpreter/interpreterModule2');
+        ////localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
         if (typeof data === "undefined") {
             alert(L('no_data'));
             return;
         }
-        var localDataHandler = require('localDataHandler/localDataHandler');
+        //var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
 
     } else {
@@ -204,8 +204,8 @@ function parseCensusData(xml_text) {
 function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) {
 
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        var localParser = require('parser/localParser');
-        localParser = new localParser();
+        //var localParser = require('parser/localParser');
+        ////localParser = new localParser();
         var quesMap = [];
         var questionsData = localParser.getQuestions(xml_text);
         //Ti.API.info("questionsData ==> " + JSON.stringify(questionsData));
@@ -237,7 +237,7 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
             Alloy.Globals.aIndicator.hide();
             return;
         }
-        var localDataHandler = require('localDataHandler/localDataHandler');
+        //var localDataHandler = require('localDataHandler/localDataHandler');
         curAssObj = localDataHandler.addNewAssessment(crossingQuestions.concat(questionsData), Alloy.Globals.currentCrossingName, detaildID, crossingID, quesMap);
 
 
@@ -270,9 +270,9 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                 },
                 function (xmlDocCrossAns) {
                     var riskMap = [];
-                    var XMLTools = require("tools/XMLTools");
-                    var xml2 = new XMLTools(xmlDocCrossAns);
-                    var crossObj = JSON.stringify(xml2.toObject());
+                    //var XMLTools = require("tools/XMLTools");
+                    XMLTools.setDoc(xmlDocCrossAns);
+                    var crossObj = JSON.stringify(XMLTools.toObject());
 
                     //get Assessment Question Set
                     Alloy.Globals.Soap.getQuestionsRequest({
@@ -281,9 +281,9 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                         },
                         function (xmlDoc) {
                             var riskMap = [];
-                            var XMLTools = require("tools/XMLTools");
-                            var xml2 = new XMLTools(xmlDoc);
-                            var assObj = JSON.stringify(xml2.toObject());
+                            //var XMLTools = require("tools/XMLTools");
+                            XMLTools.setDoc(xmlDoc);
+                            var assObj = JSON.stringify(XMLTools.toObject());
                             //Ti.API.info("assObj >>> "+assObj);
                             if (typeof assObj === "undefined") {
                                 alert(L('no_data'));
@@ -311,7 +311,7 @@ masterSearchTab.on("crossingSelected", function (crossingDetail) {
                                     },
                                     function (xmlDoc) {
                                         parseTrainData(xmlDoc, assObj);
-                                        var localDataHandler = require('localDataHandler/localDataHandler');
+                                        //var localDataHandler = require('localDataHandler/localDataHandler');
 
                                         //DO THIS 3 TIMES Because as far we know they need 3 train info groups
                                         localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
