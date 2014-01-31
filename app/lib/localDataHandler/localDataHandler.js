@@ -756,7 +756,7 @@ function localDataHandler() {
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
         
         //coreQuestionsFileName
-        alert("assessmentObject.coreQuestionsFileName = "+assessmentObject.coreQuestionsFileName);
+        //alert("assessmentObject.coreQuestionsFileName = "+assessmentObject.coreQuestionsFileName);
         if(assessmentObject.coreQuestionsFileName != null){
         	var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.coreQuestionsFileName);
 	        if (coreQuestionsFile.exists()) {
