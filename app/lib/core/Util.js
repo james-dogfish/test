@@ -96,6 +96,10 @@ function _Util() {
                 Ti.App.Properties.setString('helpContent', data.help);
                 Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
                 Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
+                Ti.App.Properties.setString('hiddenSections', JSON.stringify(data.hiddenSections));
+                Ti.App.Properties.setString('hiddenQuestions', JSON.stringify(data.hiddenQuestions));
+                Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
+                
                 Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
                     callback();
@@ -107,6 +111,9 @@ function _Util() {
        		 	Ti.App.Properties.setString('helpContent', data.help);
                 Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
                 Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
+                Ti.App.Properties.setString('hiddenSections', JSON.stringify(data.hiddenSections));
+                Ti.App.Properties.setString('hiddenQuestions', JSON.stringify(data.hiddenQuestions));
+                Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
                 //Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
                 if (callback) {
                     callback();
