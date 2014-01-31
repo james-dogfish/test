@@ -32,13 +32,14 @@ exports.setData = function(shouldRefresh) {
 			data.push(Alloy.createController("searchWindow/masterSearchTableRow",crossingData[i]).getView());
 		}
 		$.tableView.setData(data);
+		data = null;
 		Alloy.Globals.aIndicator.hide();
 		return;
 	} //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
 	
 	
 	if($.tableView.data.length === 0){ 
-		Alloy.Globals.aIndicator.show("Loading...",50000);
+		Alloy.Globals.aIndicator.show("Loading...");
 		 crossingData = [];
 				 Alloy.Globals.Soap.searchCrossingRequest(
 					{
@@ -96,7 +97,7 @@ exports.setData = function(shouldRefresh) {
 				                		}
 				                	}
 				                	
-				                	
+				                	crossingDetailsSearchResult = null;
 				                	
 				                	//alert("stop");
 				                	crossingData.push({
@@ -114,14 +115,10 @@ exports.setData = function(shouldRefresh) {
 								}
 								localDataHandler.cacheCrossingSearch(crossingData);
 								$.tableView.setData(data);
+								data = null;
 								Alloy.Globals.aIndicator.hide();
 							}
 					},
-					function(xmlDoc){
-						    //var XMLTools = require("tools/XMLTools");
-			                XMLTools.setDoc(xmlDoc);
-			                Alloy.Globals.aIndicator.hide();
-			                //alert('searchCrossingRequest Error response >> ' + xml.toJSON());
-					});
+					function(xmlDoc){});
 	}
 };

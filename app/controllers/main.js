@@ -269,13 +269,16 @@ detailSearchTab.on("BackButtonClick", function (e) {
 
 masterSearchTab.on("crossingSelected", function (crossingDetail) {
 try{
-
-    Alloy.Globals.currentCrossingName = crossingDetail.name;
-    Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
-    Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
-    
-    var assData2 = [];
-    var riskMap = {};
+	
+	if(typeof crossingDetail != "undefined"){
+		if(crossingDetail != "null"){
+    		Alloy.Globals.currentCrossingName = crossingDetail.name;
+    		Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
+    		Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
+    	}
+    }else{
+    	return;
+    }
     
     Alloy.Globals.Soap.getQuestionsRequest({
             crossingId: crossingDetail.id,

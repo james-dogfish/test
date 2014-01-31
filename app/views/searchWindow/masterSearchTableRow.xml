@@ -1,5 +1,5 @@
 <Alloy>
-	<TableViewRow id="crossingRow">
+	<TableViewRow id="crossingRow" className="crossingRowClass">
         <View id="viewGroup">
         	<Label id="crossingName"/>
         	<Label id="crossingElr"/>
