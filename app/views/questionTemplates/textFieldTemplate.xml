@@ -11,6 +11,11 @@
 			</View>
 			
 			<View class="questionView">
+				<!--
+				<View id="valueTextFieldContainer" class="inputFieldContainer" >
+					<TextArea  id="valueTextField" class="inputFieldView" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" />
+				</View>
+				-->
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" />
 			</View>
 		</View>

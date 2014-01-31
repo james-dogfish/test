@@ -38,3 +38,4 @@
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 }
+
