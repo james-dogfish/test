@@ -69,23 +69,31 @@ exports.setData = function(shouldRefresh) {
 				                {
 				                	////Ti.API.info("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
 				                	
-
+									//Ti.API.info(JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
 									var crossingDetailsSearchResult = results[i]["ns6:crossingDetailsSearchResult"];
 									var type = "";
 				                	if (typeof crossingDetailsSearchResult === "undefined") {
-				                		
-				                		type = "undefined";
-				                		alert("crossingDetailSearchResult is undefined");
-				                		Alloy.Globals.aIndicator.hide();
-				                		return;
+				                		continue; //SKIP IT.
+				                		//type = "undefined";
+				                		//Alloy.Globals.aIndicator.hide();
+				                		//return;
 				                	}
-				                	else if(crossingDetailsSearchResult instanceof Array){
+				                	if(crossingDetailsSearchResult instanceof Array){
 				                		////Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
-				                		var type = crossingDetailsSearchResult[0]["ns6:type"];
+				                		var type = "N/A";
+				                		if(typeof crossingDetailsSearchResult[0]["ns6:type"] !=="undefined")
+				                		{
+				                			type = crossingDetailsSearchResult[0]["ns6:type"];
+				                		}
+				                		
 				                	}
 				                	else{
 				                		////Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
-				                		var type = crossingDetailsSearchResult["ns6:type"];
+				                		var type = "N/A";
+				                		if(typeof crossingDetailsSearchResult !=="undefined")
+				                		{
+				                			type = crossingDetailsSearchResult["ns6:type"];
+				                		}
 				                	}
 				                	
 				                	
