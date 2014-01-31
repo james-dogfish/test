@@ -52,6 +52,7 @@ var closeWindow = function(){
 };
 
 function onBackgroundClick(e){
+	args.closeWithNoValueCallBack();
 	$.modalBackgorund.animate(animationClose);
 	$.background.animate(animationFadeOut);
 }

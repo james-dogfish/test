@@ -31,7 +31,7 @@ function onNotesClick(e){
 
 
 function onTextFieldFocus(e){
-	e.source.blur();
+	//e.source.blur();
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
@@ -62,14 +62,13 @@ function onTextField1Blur(e){
 		return;
 	}
 	
-	var intValue =0;
-	intValue = parseInt(e.value);
+	var intValue =parseInt(e.value);
 	if(isNaN(intValue)){
 		intValue =0;
 	}
 	
 	//currentValue = ""+intValue;
-	item.value[0] = intValue;
+	item.value[0] = ""+intValue;
 	item.displayValue = {value : item.value[0]};
 	
 	var questionResponse =
@@ -101,10 +100,7 @@ var addValue = function(additionValue, e){
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
-	var intValue = 0;
-	if(item.value[0] != ""){
-		intValue = parseInt(item.value[0]);
-	}
+	var intValue = intValue = parseInt(item.value[0]);
 	if(isNaN(intValue)){
 		intValue =0;
 	}

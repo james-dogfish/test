@@ -6,6 +6,10 @@
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
 			
+			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
+				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
+			</View>
+			
 			<View class="questionView">	
 				<!--
 				<View id="inputContaner1" class="inputField">

@@ -55,7 +55,13 @@ function selectButtonClicked(e){
 			responseObject : questionResponse
 		}); 
 		*/
-	}});
+	}, 
+	closeWithNoValueCallBack : function(){
+		
+		Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	}
+	
+	});
 };
 
 function onNotesClick(e){

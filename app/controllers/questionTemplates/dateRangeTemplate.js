@@ -95,7 +95,12 @@ function dateButton1Clicked(e){
 			responseObject : questionResponse
 		}); 
 		*/
-	}});
+	}, 
+	closeWithNoValueCallBack : function(){
+		
+		Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	}
+	});
 };
 
 function dateButton2Clicked(e){
@@ -162,5 +167,10 @@ function dateButton2Clicked(e){
 			responseObject : questionResponse
 		}); 
 		*/
-	}});
+	}, 
+	closeWithNoValueCallBack : function(){
+		
+		Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	}
+	});
 };

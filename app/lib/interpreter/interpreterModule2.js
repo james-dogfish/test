@@ -59,6 +59,7 @@ function interpreterModule2() {
             backgroundImage: 'images/questionNote.png'
         }, //{backgroundImage: 'images/questionSelectedNote.png'}
         notes: "",
+        help : "",
         selected: false,
         value: [], // a list of all values set for this question
         renderValue: [], // a list of condtions if the question is visable
@@ -116,8 +117,9 @@ function interpreterModule2() {
 	            backgroundImage: 'images/questionNote.png'
 	        }, //{backgroundImage: 'images/questionSelectedNote.png'}
 	        notes: "",
+	        help : "",
 	        selected: false,
-	        value: [], // a list of all values set for this question
+	        value: [""], // a list of all values set for this question
 	        renderValue: [], // a list of condtions if the question is visable
 	        selections: [], // a list of possible values for the question
 	        validation: {
@@ -289,10 +291,11 @@ function interpreterModule2() {
             notesBackground: {
                 backgroundImage: 'images/questionNote.png'
             }, //{backgroundImage: 'images/questionSelectedNote.png'}
-            notes: "",
+            notes: localParser.getNotesText(question),
+            help : localParser.getHelpText(question),
             selected: false,
 
-            value: new Array(), // a list of all values set for this question
+            value: [""], // a list of all values set for this question
             renderValue: questionRenderValues, // a list of condtions if the question is visable
             selections: questionSelections, // a list of possible values for the question
             validation: questionValidation,
@@ -571,6 +574,10 @@ function interpreterModule2() {
      };
 
     var postInterpretSettings = function (passObject) {
+    	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
+    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
+    	
+    	
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
             if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
                 var newRow = {
@@ -601,7 +608,7 @@ function interpreterModule2() {
             
             
 
-
+			
             for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
 
                 if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
@@ -629,6 +636,7 @@ function interpreterModule2() {
                 	questionObject.template = "censusStartTimerTemplate";
                }
                
+               /*
                //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
                else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
                			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
@@ -641,11 +649,19 @@ function interpreterModule2() {
                			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
                 	questionObject.template = "censusCounterTemplate";
                }
+               */
                
             	
                else if(questionObject.alcrmGroupType == "CrossingGeneral") {
                 	questionObject.readOnly = true;
                 	questionObject.headerView = Styles["headerViewReadOnly"];
+               }
+               
+               
+               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
+               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
+               			questionObject.template = "censusCounterTemplate";
+               		}
                }
                
                 

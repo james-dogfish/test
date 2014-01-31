@@ -593,10 +593,18 @@ var moveToQuestionByName = function (questionName, groupType) {
 
 
             else if (listViewDisplayType == ALL_SECTIONS) {
-                $.listView.scrollToItem(sectionIndex, questionIndex);
+                //$.listView.scrollToItem(sectionIndex, questionIndex);
+                $.listView.scrollToItem(sectionIndex, questionIndex, {
+                    animated: false,
+                    position: Titanium.UI.iPhone.ListViewScrollPosition.TOP
+                });
             } else if (listViewDisplayType == SINGLE_SECTIONS) {
                 setSelectedSectionForSingleSections(sectionIndex);
-                $.listView.scrollToItem(sectionIndex, questionIndex);
+                //$.listView.scrollToItem(sectionIndex, questionIndex);
+                $.listView.scrollToItem(sectionIndex, questionIndex, {
+                    animated: false,
+                    position: Titanium.UI.iPhone.ListViewScrollPosition.TOP
+                });
             }
             selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
 
@@ -618,10 +626,19 @@ exports.goToFirstUnanswered = function () {
                 selectQuestion(questionList[questionIndex]);
 
                 if (listViewDisplayType == ALL_SECTIONS) {
-                    $.listView.scrollToItem(sectionIndex, questionIndex);
+                    //$.listView.scrollToItem(sectionIndex, questionIndex);
+                    $.listView.scrollToItem(sectionIndex, questionIndex, {
+                    animated: false,
+                    position: Titanium.UI.iPhone.ListViewScrollPosition.TOP
+                });
+                
                 } else if (listViewDisplayType == SINGLE_SECTIONS) {
                     setSelectedSectionForSingleSections(sectionIndex);
-                    $.listView.scrollToItem(sectionIndex, questionIndex);
+                    //$.listView.scrollToItem(sectionIndex, questionIndex);
+                    $.listView.scrollToItem(sectionIndex, questionIndex, {
+	                    animated: false,
+	                    position: Titanium.UI.iPhone.ListViewScrollPosition.TOP
+	                });
                 }
                 return;
             }
@@ -738,6 +755,8 @@ var validateSingleQuestionValue = function (value, questionObject) {
         isValid: true,
         outPutMessage: ""
     };
+    
+    
 
     //var validation = Alloy.Globals.localParser.getValidation(questionObject);
     var dataType = questionObject.type;
@@ -745,7 +764,9 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (value == "") {
+    	
         if (questionObject.validation.mandatory == true) {
+
             returnObject.isValid = false;
             returnObject.outPutMessage = "This question is mandatory";
             return returnObject;
@@ -872,7 +893,6 @@ var setQuestionError = function (isValid, message, questionObject) {
             text: ""
         };
     }
-
     return questionObject;
     //section.updateItemAt(questionIndex, questionObject);
 };
@@ -883,12 +903,15 @@ var validateEntireQuestion = function (questionObject) {
     //alert(JSON.stringify(questionObject));
 
     //var questionObject = valueChangeObject.item;
+    
 
     var valueList = questionObject.value;
     validateResponse = {
         isValid: true,
         outPutMessage: ""
     };
+    
+    
 
     for (var valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
         validateResponse = validateSingleQuestionValue(valueList[valueIndex], questionObject);
@@ -1018,39 +1041,56 @@ function footerTextButtonClick(e) {
 
 function footerNotesButtonClick(e) {
 
-    //$.censusFooterView.toggleOpen();
-
-
-    /*
-	var questionObject = debugFindQuestions(allSections, questionSelected.name);
-	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionObject.question.notes, closeCallBack : function(notes){
-		
-		questionObject.question.notes  = notes;
-		
-		if(notes != ""){
-			questionObject.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-			questionObject.question.notes = notes; 
-		}
-		else{
-			questionObject.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
-			questionObject.question.notes = ""; 
-		}
-		// {questionIndex : itemIndex, question : itemsList[itemIndex], section : sectionList[sectionIndex]};
-		questionObject.section.updateItemAt(questionObject.questionIndex, questionObject.question);
-		
-		Ti.App.fireEvent("notesAdded", {
-			item : questionObject.question,
-			itemIndex : questionObject.itemIndex,
-			groupType : questionObject.question.groupType,
-			notes : notes
-		});
-	}});
-	*/
+	if (questionSelected != null) {
+        //Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+        if (questionRef != null) {
+        	
+        	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionRef.question.notes, title : "Question Notes",closeCallBack : function(notes){
+				if(notes != ""){
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+					questionRef.question.notes = notes; 
+				}
+				else{
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
+					questionRef.question.notes = ""; 
+				}
+				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+				localDataHandler.updateQuestion(questionRef.question);
+			}});
+        }
+    }
 };
 
 function footerHelpButtonClick(e) {
-
+	
+	if (questionSelected != null) {
+        //Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+        if (questionRef != null) {
+        	
+        	if(questionRef.question.help != ""){
+        		alert(questionRef.question.help);
+        	}
+        	else{
+        		//alert(questionRef.question.help);
+        	}
+        	/*
+        	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionRef.question.notes, title : "Question Notes",closeCallBack : function(notes){
+				if(notes != ""){
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+					questionRef.question.notes = notes; 
+				}
+				else{
+					questionRef.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
+					questionRef.question.notes = ""; 
+				}
+				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+				localDataHandler.updateQuestion(questionRef.question);
+			}});
+			*/
+        }
+    }
 };
 
 //Ti.App.addEventListener("questionValueChange", questionValueChange);
@@ -1149,16 +1189,17 @@ var selectQuestion = function (newQuestionSelected) {
         Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-        	
+        	if(questionRef.question.readOnly == false){
             //questionRef.question.headerView = {backgroundColor: "#eee"};
             
-            questionRef.question.headerView = Styles["headerViewDefult"];
-           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
-    		
-            questionRef.question.selected = false;
-            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	            questionRef.question.headerView = Styles["headerViewDefult"];
+	           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
+	    		
+	            questionRef.question.selected = false;
+	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 
-            localDataHandler.updateQuestion(questionRef.question);
+	            localDataHandler.updateQuestion(questionRef.question);
+           }
         }
     }
 
@@ -1172,13 +1213,15 @@ var selectQuestion = function (newQuestionSelected) {
 
     var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
     if (questionRef != null) {
-        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
-        questionRef.question.headerView = Styles["headerViewSelected"];
-        
-        questionRef.question.selected = true;
-        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-        newQuestionSelected = questionRef.question;
-        localDataHandler.updateQuestion(questionRef.question);
+    	if(questionRef.question.readOnly == false){
+	        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
+	        questionRef.question.headerView = Styles["headerViewSelected"];
+	        
+	        questionRef.question.selected = true;
+	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	        newQuestionSelected = questionRef.question;
+	        localDataHandler.updateQuestion(questionRef.question);
+	       }
     }
 
     return newQuestionSelected;

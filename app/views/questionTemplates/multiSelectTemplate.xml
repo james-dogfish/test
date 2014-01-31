@@ -5,11 +5,20 @@
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
+			
+			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
+				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
+			</View>
 		
 			<View class="questionView">
 				<!--
 				<View id="multiSelectInputContaner" class="inputField">
 					<Label id="multiSelectTextField" bindId="displayValue"/>
+				</View>
+				-->
+				<!--
+				<View id="multiSelectTextFieldContainer" class="inputFieldContainer" >
+					<TextArea  id="multiSelectTextField" class="inputFieldView" bindId="displayValue" onClick="multiSelectButtonClicked"/>
 				</View>
 				-->
 				<TextField id="multiSelectTextField" class="inputField" bindId="displayValue" onClick="multiSelectButtonClicked"/>

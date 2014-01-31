@@ -85,5 +85,10 @@ function multiSelectButtonClicked(e){
 		}); 
 		*/
 		
-	}});
+	}, 
+	closeWithNoValueCallBack : function(){
+		
+		Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	}
+	});
 };
