@@ -134,6 +134,7 @@ var SudsClient = function(_options) {
   	
   	//CHECK FOR CONNECTIVITY
   	if(!Titanium.Network.online){
+  			Alloy.Globals.aIndicator.hide();
      		var alertDialog = Titanium.UI.createAlertDialog({
               title: L('no_connectivity_title'),
               message: L('no_connectivity_body'),

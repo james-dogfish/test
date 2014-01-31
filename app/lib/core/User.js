@@ -217,7 +217,10 @@ function _User() {
 				     } 
 		    		//alert(UserFile.read().text);
 		    		var UserObj = JSON.parse(UserFile.read().text);
-		    		
+		    		if(UserObj.userSingleView === "" || UserObj.userSingleView === null)
+		    		{
+		    			UserObj.userSingleView = false;
+		    		}
 		            return {
 		            	name: UserObj.userName,
 		            	mobile: UserObj.userMobile,
