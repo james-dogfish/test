@@ -236,10 +236,10 @@ var openMenu = function () {
             width: 250,
             height: Ti.UI.SIZE
         }),
-        data = [/*{
-            title: 'Settings',
-            id: 1
-        }, */{
+        data = [{
+            title: 'GoTo',
+            id: 2
+        },{
             title: 'Help',
             id: 3
         }, {
@@ -255,14 +255,14 @@ var openMenu = function () {
             title: 'Logout',
             id: 5
         }*/];
-    var userPreferences = Alloy.Globals.User.getPreferences();
+    /*var userPreferences = Alloy.Globals.User.getPreferences();
 	if(userPreferences.singleView == false || userPreferences.singleView == "false")
 	{
 	   data.push({
             title: 'GoTo',
             id: 2
        });
-	}
+	}*/
 	   
     menuTable.setData(data);
 

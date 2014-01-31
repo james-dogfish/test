@@ -9,7 +9,6 @@
  * License: http://www.apache.org/licenses/LICENSE-2.0.html
  * Source: http://github.com/kwhinnery/Suds
  */
-var XMLTools = require("tools/XMLTools");
 var retry_counter = 0;
 var SudsClient = function(_options) {
 
@@ -174,11 +173,13 @@ var SudsClient = function(_options) {
       _callback.call(this, xmlDomFromString(this.responseText));
     };
     xhr.onerror = function(e) {
-      Ti.API.info('SUDS - Error' + this.responseText);
+      //Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
+      var XMLTools = require("tools/XMLTools");
       var errXml = new XMLTools(xmlDomFromString(this.responseText));
       var errObj = JSON.stringify(errXml.toObject());
       
+      Alloy.Globals.aIndicator.hide();
       
       var error_object = JSON.parse(errObj);
       var error_code = null;
