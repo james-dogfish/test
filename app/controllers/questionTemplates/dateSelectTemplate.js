@@ -26,7 +26,8 @@ function onNotesClick(e){
 			groupType : item.groupType,
 			notes : notes
 		});
-	}});
+	}
+	});
 };
 
 
@@ -99,6 +100,10 @@ function dateButtonClicked(e){
 			responseObject : questionResponse
 		}); 
 		*/
+	}, 
+	closeWithNoValueCallBack : function(){
+		
+		Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	}});
 };
 

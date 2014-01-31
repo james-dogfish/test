@@ -6,6 +6,10 @@
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
 			
+			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
+				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
+			</View>
+			
 			<View class="questionView">
 				<TextField id="valueTextFieldOne" class="inputField" bindId="displayValue" onBlur="onTextField1Blur" onFocus="onTextFieldFocus" />
 				<TextField id="valueTextFieldTwo" class="inputField" bindId="displayValue2" onBlur="onTextField2Blur" onFocus="onTextFieldFocus" />

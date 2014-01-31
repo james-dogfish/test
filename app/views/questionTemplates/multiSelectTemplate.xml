@@ -5,6 +5,10 @@
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
+			
+			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
+				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
+			</View>
 		
 			<View class="questionView">
 				<!--
