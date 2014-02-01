@@ -738,6 +738,7 @@ function interpreterModule2() {
     	questionMap = [];
    		mandatoryDependenciesMap = [];
    		
+   		
         return self.sectionHeaderList;
     };
 

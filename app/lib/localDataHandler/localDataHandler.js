@@ -4,7 +4,7 @@
 var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
 var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
 var versionID;
-var INDEX_FILE_VERSION_NUM = 7;
+var INDEX_FILE_VERSION_NUM = 8;
 
 function localDataHandler() {
     var self = this;
@@ -36,10 +36,14 @@ function localDataHandler() {
     {
     	//var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
-        crossingsFile.write(JSON.stringify(payload));
+		try{
+       	 	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
+        	crossingsFile.write(JSON.stringify(payload));
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       }
         //Ti.API.info("====Caching: ===="+JSON.stringify(payload));
-        return true;
+        //return true;
     };
     
     self.clearCachedCrossing = function()
@@ -59,13 +63,17 @@ function localDataHandler() {
     {
     	//var curUserDir = User.getUserDir();
 		// alert("curUserDir = "+curUserDir.nativePath);
-        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  +"crossingsSearch.json");
-        if (crossingsFile.exists()) {
-            crossingsFileContents = crossingsFile.read().text;
-            return JSON.parse(crossingsFileContents);
-        } else {
-            return [];
-        }
+		try{
+	        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  +"crossingsSearch.json");
+	        if (crossingsFile.exists()) {
+	            crossingsFileContents = crossingsFile.read().text;
+	            return JSON.parse(crossingsFileContents);
+	        } else {
+	            return [];
+	        }
+	    }catch(e){
+	    	return[];
+	    }
     };
    
     self.clearAllSavedAssessments = function () {
@@ -326,6 +334,7 @@ function localDataHandler() {
     };
 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
+    	try{
     	Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -337,9 +346,14 @@ function localDataHandler() {
             }
         }
         return false;
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       		return false;
+       }
     };
 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
+    	try{
     	Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -351,6 +365,10 @@ function localDataHandler() {
             }
         }
         return false;
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       		return false;
+       }
     };
     
     self.addNewCoreQuestionToAssessment = function (assessmentObject, JASON_question_list, questionMap) {
@@ -401,7 +419,7 @@ function localDataHandler() {
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
+		try{
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -440,6 +458,11 @@ function localDataHandler() {
         }
 
         return [];
+       }catch(e)
+       {
+       	Alloy.Globals.aIndicator.hide();
+       	return[];
+       }
     };
     
     self.checkIfCensusIsDone = function (assessmentObject) {
@@ -519,7 +542,7 @@ function localDataHandler() {
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
+		try{ 
 		 
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -553,6 +576,9 @@ function localDataHandler() {
                 return newTrainInfoQuestionSet;
             }
         }
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       }
 
 
     };
@@ -638,7 +664,7 @@ function localDataHandler() {
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-
+		try{
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
 
         for (var i = 0; i < assessmentObject.censusQuestionsfileNameList.length; i++) {
@@ -654,6 +680,9 @@ function localDataHandler() {
         }
 
         return false;
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       }
 
     };
 	
@@ -662,8 +691,8 @@ function localDataHandler() {
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		 
-        var returnQuestionSet = [];
+		try{
+		var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
             alert("assessment file format is out of date, continued use of this assessment may cause errors");
@@ -681,9 +710,13 @@ function localDataHandler() {
 
        
         return returnQuestionSet;
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       }
     };
     
     self.updateQuestionCount = function (assessmentObject) {
+    	try{
     	var returnQuestionSet = [];
     	assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
         var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
@@ -739,6 +772,9 @@ function localDataHandler() {
         }
         
         return assessmentObject;
+        }catch(e){
+        	Alloy.Globals.aIndicator.hide();
+        }
     };
 
     self.openAssessment = function (assessmentObject) {
@@ -746,7 +782,7 @@ function localDataHandler() {
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		
+		try{
         var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
@@ -791,6 +827,9 @@ function localDataHandler() {
         }
         ////Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
         return returnQuestionSet;
+       }catch(e){
+       		Alloy.Globals.aIndicator.hide();
+       }
     };
 }
 
