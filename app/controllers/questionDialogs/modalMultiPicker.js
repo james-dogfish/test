@@ -2,11 +2,18 @@ var args = arguments[0] || {};
 
 var data = [];
 for(var i=0;i<args.valueList.length;i++){
+	var isSelected = false;
+	for(var valuesSelectedIndex=0; valuesSelectedIndex < args.valuesSelected.length; valuesSelectedIndex++){
+		if(args.valueList[i].value == args.valuesSelected[valuesSelectedIndex]){
+			isSelected = true;
+		}
+	}
+	
 	data.push(Ti.UI.createTableViewRow({
 		title: args.valueList[i].displayValue, 
 		value : args.valueList[i].value, 
 		tintColor:'#008FD5',
-		hasCheck : false}));
+		hasCheck : isSelected}));
 }
 
 $.tableView.setData(data);

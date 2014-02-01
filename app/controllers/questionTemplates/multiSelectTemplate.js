@@ -46,7 +46,7 @@ function multiSelectButtonClicked(e){
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
-	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, closeCallBack : function(returnValue){
+	Alloy.createController("questionDialogs/modalMultiPicker", {valueList : item.selections, valuesSelected : item.value, closeCallBack : function(returnValue){
 		
 		/*
 		var returnValue = {
