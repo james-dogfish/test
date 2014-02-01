@@ -311,11 +311,10 @@ function localDataHandler() {
         var newAssessmentFileName = newAssessment.mainQuestionsfileName;
         var newAssessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newAssessmentFileName);
 
-
         //new interpreterModule
         var newQuestionSet = interpreter.interpret(JASON_question_list, {
             associatedFileName: newAssessment.mainQuestionsfileName,
-            pageName: "Risk Assessment",
+            pageName: L("page_risk_assessment_name"),
             pageID: 0,
             pageType: "riskAssessment",
             readOnly: false,
@@ -391,7 +390,7 @@ function localDataHandler() {
               
                 var newCoreQuestionSet = interpreter.interpret(JASON_question_list, {
                     associatedFileName: newCoreQuestionsFileName,
-                    pageName: "Core Question Details",
+                    pageName: L("page_core_question_name"),
                     pageID: 0,
                     pageType: "coreQuestion",
                     readOnly: true,
@@ -436,7 +435,7 @@ function localDataHandler() {
               
                 var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
-                    pageName: "Census " + savedAssessments[i].censusLastPageID,
+                    pageName: L("page_census_name")+" " + savedAssessments[i].censusLastPageID,
                     pageID: savedAssessments[i].censusLastPageID,
                     pageType: "census",
                     readOnly: false,
@@ -557,7 +556,7 @@ function localDataHandler() {
                 //new interpreterModule
                 var newTrainInfoQuestionSet = interpreter.interpret(savedAssessments[i].defaultTrainInfoQuestions, {
                     associatedFileName: newTrainGroupFileName,
-                    pageName: "Train Info " + savedAssessments[i].trainGroupLastPageID,
+                    pageName: L("page_train_info_name")+" " + savedAssessments[i].trainGroupLastPageID,
                     pageID: savedAssessments[i].trainGroupLastPageID,
                     pageType: "trainInfo",
                     readOnly: false,

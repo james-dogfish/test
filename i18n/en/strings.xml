@@ -12,4 +12,21 @@
     <string name="census">Census</string>
     <string name="no_connectivity_title">WARNING</string>
     <string name="no_connectivity_body">Your device is not online</string>
+    
+    <string name="mandatory_error_text">This question is mandatory</string>
+    <string name="numeric_error_text">Must be a numeric Value eg 4</string>
+    <string name="decimal_error_text">Must be a decimal Value eg 1.0</string>
+    <string name="min_error_text">value must be greater than</string>
+    <string name="max_error_text">value must be less than</string>
+    <string name="minLength_error_text">value cannot have less than</string>
+    <string name="maxLength_error_text">value cannot have more than</string>
+    <string name="format_error_text">value must be in the format</string>
+    <string name="duration_error_text">"you must enter a value to start the census</string>
+    
+    <string name="page_risk_assessment_name">Risk Assessment</string>
+    <string name="page_core_question_name">Core Question Details</string>
+    <string name="page_census_name">Census</string>
+    <string name="page_train_info_name">Train Info</string>
+    
+
 </resources>
