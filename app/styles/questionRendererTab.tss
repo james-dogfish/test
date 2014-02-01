@@ -1,0 +1,6 @@
+"#toolbar": {
+	top:Alloy.Globals.Styles.windowTop,
+	borderTop:"true",
+	borderBottom:"true",
+	barColor:"#084f6f"
+},
