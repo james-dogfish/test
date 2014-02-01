@@ -1,10 +1,10 @@
 "#listView" : {
 	top : 0,
-	bottom : "60dp",
-	separatorStyle : Ti.UI.iPhone.ListViewSeparatorStyle.NONE
+	separatorStyle : Ti.UI.iPhone.ListViewSeparatorStyle.NONE,
+	height: Ti.UI.FILL
 },
 "#container" : {
-	top : 65,
+	top : 0,
 	width: Ti.UI.FILL,
 	height: Ti.UI.FILL,
 },

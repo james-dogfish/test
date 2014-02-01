@@ -1,6 +1,6 @@
 <Alloy>
 	<Tab title="questionsTab" active="false">
-		<Window id="window" tabBarHidden="true" navBarHidden="true">
+		<Window id="window" tabBarHidden="true" navBarHidden="true" layout="vertical">
 			<Toolbar id="toolbar" platform="ios">
 				<Button class="systemButton" onClick="saveAndExitClick" left="10">
 					<Label class="systemButtonText" text="Save And Exit" onClick="saveAndExitClick" />
