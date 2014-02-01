@@ -13,11 +13,12 @@
 	},
 	color : '#ffffff'	
 },
-"#tableView" : {
-	filterAttribute : "filter"
-},
+"#listView" : {
+	//searchText : "name"
+}
+/*
 "#searchBar" : {
-	barColor:'#000', 
+	barColor:'#f00', 
     height:43,
     top:0,
-}
+}*/
