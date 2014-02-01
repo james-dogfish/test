@@ -768,7 +768,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
         if (questionObject.validation.mandatory == true) {
 
             returnObject.isValid = false;
-            returnObject.outPutMessage = "This question is mandatory";
+            returnObject.outPutMessage = L("mandatory_error_text");
             return returnObject;
         } else {
 
@@ -785,7 +785,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
                     for (var testValueIndex = 0; testValueIndex < testValue.length; testValueIndex++) {
                         if (conditionalMandatory[i].value == testValue[testValueIndex]) {
                             returnObject.isValid = false;
-                            returnObject.outPutMessage = "This question is mandatory";
+                            returnObject.outPutMessage = L("mandatory_error_text");;
                             return returnObject;
                         }
                     }
@@ -805,14 +805,14 @@ var validateSingleQuestionValue = function (value, questionObject) {
         var test = Validator.isNumber(value, false);
         if (test == false) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "Most be a numeric Value eg 4";
+            returnObject.outPutMessage = L(numeric_error_text);
             return returnObject;
         }
     } else if (dataType == "decimal" || dataType == "decimalRange") {
         var test = Validator.isDecimal(value);
         if (test == false) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "Most be a decimal Value eg 1.0";
+            returnObject.outPutMessage = L("decimal_error_text");
             return returnObject;
         }
     }
@@ -826,7 +826,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     if (questionObject.validation.min != null) {
         if (parseInt(value) < parseInt(questionObject.validation.min)) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "value most be greater than " + questionObject.validation.min;
+            returnObject.outPutMessage = L("min_error_text") +" "+  questionObject.validation.min;
             return returnObject;
         }
     }
@@ -834,7 +834,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     if (questionObject.validation.max != null) {
         if (parseInt(value) > parseInt(questionObject.validation.max)) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "value most be less than " + questionObject.validation.max;
+            returnObject.outPutMessage = L("max_error_text") +" "+ questionObject.validation.max;
             return returnObject;
         }
     }
@@ -842,7 +842,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     if (questionObject.validation.minLength != null) {
         if (value.length < parseInt(questionObject.validation.minLength)) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "value cannot have less than " + questionObject.validation.minLength + " characters";
+            returnObject.outPutMessage = L("minLength_error_text") +" "+  questionObject.validation.minLength + " characters";
             return returnObject;
         }
     }
@@ -851,7 +851,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     if (questionObject.validation.maxLength != null) {
         if (value.length > parseInt(questionObject.validation.maxLength)) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "value cannot have more than " + questionObject.validation.maxLength + " characters";
+            returnObject.outPutMessage = L("maxLength_error_text") +" "+  questionObject.validation.maxLength + " characters";
             return returnObject;
         }
     }
@@ -860,7 +860,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     if (questionObject.validation.format != null) {
         if (Validator.isValidFormat(value) == false) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = "value most be in the format " + questionObject.validation.format;
+            returnObject.outPutMessage = L("format_error_text") +" "+ questionObject.validation.format;
             return returnObject;
         }
     }
@@ -1117,7 +1117,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
 
         if (questionRef.question.value[0] == "") {
 
-            questionRef.question = setQuestionError(false, "you most enter a value to start the census", questionRef.question);
+            questionRef.question = setQuestionError(false, L("duration_error_text"), questionRef.question);
             questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
             localDataHandler.updateQuestion(questionRef.question);
         } else {

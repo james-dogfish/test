@@ -16,6 +16,11 @@ function interpreterModule2() {
     var renderDependenciesMap = [];
     
     var mandatoryDependenciesMap = [];
+    
+    var hiddenQuestionsMap = [];
+    var hiddenSectionsMap = [];
+
+
 
     var ui_types_map = {};
     ui_types_map["date"] = "dateTemplate";
@@ -169,6 +174,14 @@ function interpreterModule2() {
             //alert("question_type_key " + question_type_key);
             return null;
         }
+        
+        if(localParser.getQuestionName(question) in hiddenQuestionsMap){
+        	return null;
+        }
+        
+        
+        
+        
 
         questionRenderValues = [];
         var allRenderValues = localParser.getRenderValue(question);
@@ -584,7 +597,11 @@ function interpreterModule2() {
     	
     	
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
-            if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
+        	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
+        		self.sectionHeaderList.splice(sectionIndex, 1);
+        		sectionIndex = sectionIndex - 1;
+        	}
+            else if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
                 var newRow = {
                     isAQuestion: false,
                     readOnly : false,
@@ -717,8 +734,36 @@ function interpreterModule2() {
             return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
         });
     };
+    
+    var readAppconfig = function(){
+    	var appconfig= [];
+    	var appconfigFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "appconfig.json");
+    	if (appconfigFile.exists()) {
+    		appconfig = JSON.parse(appconfigFile.read().text);
+    		
+    		if("hiddenQuestions" in appconfig){
+    			
+    			hiddenQuestionsMap = [];
+    			for(var i=0; i< appconfig["hiddenQuestions"].length; i++){
+    				Ti.API.info("appconfig" + appconfig["hiddenQuestions"][i]);
+    				hiddenQuestionsMap[appconfig["hiddenQuestions"][i]] = true;
+    			}
+        	}
+        	
+        	if("hiddenSections" in appconfig){
+    			hiddenSectionsMap = [];
+    			for(var i=0; i< appconfig["hiddenSections"].length; i++){
+    				Ti.API.info("appconfig" + appconfig["hiddenSections"][i]);
+    				hiddenSectionsMap[appconfig["hiddenSections"][i]] = true;
+    			}
+        	}
+        }
+    };
 
     self.interpret = function (allQuestions, passObject) {
+    	
+		//readAppconfig();
+
     	try{
 	        self.sectionHeaderList = [];
 	        self.questionMap = [];
