@@ -719,27 +719,32 @@ function interpreterModule2() {
     };
 
     self.interpret = function (allQuestions, passObject) {
-        self.sectionHeaderList = [];
-        self.questionMap = [];
-        questionMap = [];
-		renderDependenciesMap = [];
-   		mandatoryDependenciesMap = [];
+    	try{
+	        self.sectionHeaderList = [];
+	        self.questionMap = [];
+	        questionMap = [];
+			renderDependenciesMap = [];
+	   		mandatoryDependenciesMap = [];
     
-        for (var i = 0; i < allQuestions.length; i++) {
-            addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
-        }
-        
-        lookQuestionDependencies();
-        sortQuestionsByOrder();
-        postInterpretSettings(passObject);
-        
-        renderDependenciesMap = [];
-    	self.questionMap = [];
-    	questionMap = [];
-   		mandatoryDependenciesMap = [];
-   		
-   		
-        return self.sectionHeaderList;
+	        for (var i = 0; i < allQuestions.length; i++) {
+	            addQuestionToSectionHeader(allQuestions[i], passObject, passObject.assessmentId);
+	        }
+	        
+	        lookQuestionDependencies();
+	        sortQuestionsByOrder();
+	        postInterpretSettings(passObject);
+	        
+	        renderDependenciesMap = [];
+	    	self.questionMap = [];
+	    	questionMap = [];
+	   		mandatoryDependenciesMap = [];
+	   		
+	   		
+	        return self.sectionHeaderList;
+	    }catch(e){
+	    	Alloy.Globals.aIndicator.hide();
+	    	return [];
+	    }
     };
 
 }
