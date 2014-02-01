@@ -1,11 +1,9 @@
 <Alloy>
-	<TableViewRow id="crossingRow" className="crossingRowClass">
+	<ItemTemplate id="crossingRow" name="crossingRow">
         <View id="viewGroup">
-        	<Label id="crossingName"/>
-        	<Label id="crossingElr"/>
-        	
-        	<Label id="crossingType"/>
-        	
+        	<Label id="crossingName" bindId="crossingName"/>
+        	<Label id="crossingElr" bindId="crossingElr"/>    	
+        	<Label id="crossingType" bindId="crossingType"/>       	
 		</View>
-    </TableViewRow>
+    </ItemTemplate>
 </Alloy>

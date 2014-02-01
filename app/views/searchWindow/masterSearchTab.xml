@@ -22,9 +22,20 @@
 				</Button>
 				<Label id="appTitle"/>
 			</Toolbar>
+			<!-->
 			<TableView id="tableView" onClick="onRowClick">
 				<SearchBar id="searchBar"/>
 			</TableView>
+			-->
+			<ListView id="listView" onItemclick="onRowClick">
+		
+				<SearchBar id="search" barColor="#000" showCancel="true" height="43" top="0" />
+		
+				<Templates>
+		       		<Require src="searchWindow/masterSearchTableRow" type="view"/>
+		       	</Templates>
+				<ListSection id="listSection"/>
+			</ListView>
 		</Window>
 	</Tab>
 </Alloy>
