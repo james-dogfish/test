@@ -24,7 +24,7 @@
     <string name="duration_error_text">"you must enter a value to start the census</string>
     
     <string name="page_risk_assessment_name">Risk Assessment</string>
-    <string name="page_core_question_name">Core Question Details</string>
+    <string name="page_core_question_name">Core Crossing Details</string>
     <string name="page_census_name">Census</string>
     <string name="page_train_info_name">Train Info</string>
     

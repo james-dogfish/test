@@ -5,7 +5,7 @@
 			<Button id="firstUnanswered" class="gotoButton" onClick="firstUnansweredClick">First Unanswered</Button>
 			<Button id="resumeLastPosition" class="gotoButton" onClick="resumeLastPositionClick">Resume Last Position</Button>
 			<Button id="createCensus" class="gotoButton" onClick="createCensusClick">Create Census</Button>
-			
+			<View class="ruler" />
 			<View id="contaierView">
 				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>
 				 <Require id="detailView" src="gotoQuestionSectionWindow/goToQuestionDetailView" type="view"/>  
