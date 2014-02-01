@@ -374,7 +374,6 @@ function localDataHandler() {
     	
     	//alert(User.getLogin().username);
 		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		 
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -814,6 +813,7 @@ function localDataHandler() {
                 returnQuestionSet = returnQuestionSet.concat(trainGroupQuestions);
             }
         }
+        
 
         for (var i = 0; i < assessmentObject.censusQuestionsfileNameList.length; i++) {
             var censusQuestionFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.censusQuestionsfileNameList[i]);
