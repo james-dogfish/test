@@ -65,5 +65,22 @@
 "#saveButton": {
 	top: 15,
 	width: 125,
-	height: 35
+	height: 35,
+	borderRadius:6,
+    borderWidth:1,
+    borderColor:'#151d21',
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#456473', '#052f43']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
 }
