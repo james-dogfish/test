@@ -5,6 +5,12 @@
     statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
 	layout: 'vertical',
 },
+"#toolbar": {
+	top:Alloy.Globals.Styles.windowTop,
+	borderTop:"true",
+	borderBottom:"true",
+	barColor:"#084f6f"
+},
 "#appTitle" : {
 	text : "My Risk Assessments",
 	font : {
