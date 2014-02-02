@@ -83,9 +83,6 @@ var openMenu = function() {
 			localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
 			Alloy.createController('index').getView().open();
-			/*loginView = Alloy.createController('index').getView();
-			loginView.open();
-			alert("here");*/
 		}
 	});
 };

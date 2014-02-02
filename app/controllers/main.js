@@ -8,7 +8,7 @@
 
 // Set current tab globally so that other windows can be opened
 //Alloy.Globals.currentTab = $.tab1;
-//$.tabGroup = $.tabGroup;
+Alloy.Globals.tabGroup = $.tabGroup;
 //Alloy.Globals.questionRendererTab = questionRendererTab;
 
 //var Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
