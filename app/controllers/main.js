@@ -130,6 +130,7 @@ var openMenu = function () {
             // Log a user out
 			User.logOut();
             $.tabGroup.close();
+            $.destroy;
             Alloy.createController('index').getView().open();
             loginView.open();      
         }

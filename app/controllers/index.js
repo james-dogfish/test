@@ -29,6 +29,8 @@ var getValidator = function() {
  * 
  *************************************************************/
 var startup = function() {
+	Ti.API.info("startup is fired");
+	Ti.App.fireEvent('closeLoginWin');
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();
 
@@ -36,13 +38,13 @@ var startup = function() {
 	Util.downloadCheatSheet();
 
 	Util.showDebugAlert("DEBUG ALERTS IS ON");
-	Alloy.Globals.aIndicator.show('Starting up...');
+	//Alloy.Globals.aIndicator.show('Starting up...');
 	getValidator();
 
-	Alloy.Globals.aIndicator.hide();
+	//Alloy.Globals.aIndicator.hide();
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
-
+	mainView = null;
 	// Check whether settings are filled
 	if (!User.hasPreferences()) {
 		// Open setting screen

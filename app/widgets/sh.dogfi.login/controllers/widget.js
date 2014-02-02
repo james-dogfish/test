@@ -61,16 +61,17 @@ function doLogin() {
             });
 			
             if (offlineAttempt) {
-                //$.window.close();
-				
+               // $.window.close();
+				$.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
 
                 }
-                Alloy.Globals.aIndicator.hide();
-                Ti.App.fireEvent('closeLoginWin');
+                
+                //Ti.App.fireEvent('closeLoginWin');
 				Ti.App.fireEvent('fireStartup');//startup();
+				return;
             
             } else {
             	Alloy.Globals.aIndicator.hide();
@@ -114,7 +115,7 @@ function doLogin() {
                             // Success callback
                             // Shows the home screen now
                            // $.window.close();
-                           Ti.App.fireEvent('closeLoginWin');
+                           //Ti.App.fireEvent('closeLoginWin');
                            var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
                             
                            if(typeof route == 'string' && isStagedRollOutOn == false) {

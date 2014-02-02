@@ -78,11 +78,11 @@ var openMenu = function() {
 			// Making table clickable!
 			//$.searchTable.loading = false;
 			// Log a user out
-			
 			User.logOut();
 			localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
-			Alloy.createController('index').getView().open();
+			$.destroy;
+			Alloy.createController('startup').getView().open();
 		}
 	});
 };

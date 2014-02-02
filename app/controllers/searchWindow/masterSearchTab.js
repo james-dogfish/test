@@ -105,8 +105,6 @@ var setData = function(shouldRefresh) {
 				                		}
 				                	}
 				                	
-				                	crossingDetailsSearchResult = null;
-				                	
 				                	//alert("stop");
 				                	/*
 				                	crossingData.push({
