@@ -3,7 +3,6 @@ var listViewData = [];
 //var crossingData = [];
 //var localDataHandler = require('localDataHandler/localDataHandler');		
 
-
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
 }
@@ -12,7 +11,7 @@ function refreshButtonClick(e) {
 	listViewData = [];
 	$.listSection.setItems(listViewData);
 	setData(true);
-	listViewData = null;
+	//listViewData = null;
 }
 
 
@@ -22,7 +21,6 @@ function onRowClick(e){
 };
 
 var setData = function(shouldRefresh) {
-	var loggedInUser = User.getLogin();
 	var savedListViewData = localDataHandler.loadCachedCrossingSearch();
 	if(savedListViewData.length !== 0 && shouldRefresh == false)
 	{

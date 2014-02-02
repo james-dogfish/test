@@ -263,10 +263,6 @@ try{
 }
 };
 
-$.detailSearchTab.on("BackButtonClick", function (e) {
-    $.tabGroup.setActiveTab($.masterSearchTab.getView());
-});
-
 $.masterSearchTab.on("crossingSelected", function (crossingDetail) {
 try{
 	

@@ -3,7 +3,6 @@
 			<Require id="riskAssessmentsTab" src="riskAssessments/riskAssessmentsWindow" type="view"/>
 			<Require id="questionRendererTab" src="questionRendererTab" type="view"/>
 			<Require id="masterSearchTab" src="searchWindow/masterSearchTab" type="view"/>
-			<Require id="detailSearchTab" src="searchWindow/detailSearchTab" type="view"/>
 			<!--
 			<Window id="home" tabBarHidden="true" navBarHidden="true" onFocus="windowFocused">
 				<View id="container">
