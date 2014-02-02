@@ -4,7 +4,6 @@
 //var Util = require('core/Util');
 
 Util.downloadConfig();
-
 var pWidth = Ti.Platform.displayCaps.platformWidth,
 	pHeight = Ti.Platform.displayCaps.platformHeight;
 
@@ -70,7 +69,8 @@ function doLogin() {
                 }
                 
                 //Ti.App.fireEvent('closeLoginWin');
-				Ti.App.fireEvent('fireStartup');//startup();
+				//Ti.App.fireEvent('fireStartup');//startup();
+				theIndex.startup();
 				return;
             
             } else {
@@ -120,7 +120,8 @@ function doLogin() {
                             
                            if(typeof route == 'string' && isStagedRollOutOn == false) {
                             	Ti.App.Properties.setString('SelectedRoute', route);
-  								Ti.App.fireEvent('fireStartup');
+  								//Ti.App.fireEvent('fireStartup');
+  								theIndex.startup();
 							}else if(isStagedRollOutOn == true){
 								var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
 								var rollOutRoutes = [];
@@ -131,12 +132,14 @@ function doLogin() {
 									});
 								}
 	                       		Alloy.createController('selectRouteWindow').show(rollOutRoutes,function(){
-	                            	Ti.App.fireEvent('fireStartup');
+	                            	//Ti.App.fireEvent('fireStartup');
+	                            	theIndex.startup();
 	                            });
 	                        }else{
 	                            Alloy.createController('selectRouteWindow').show(route,function(){
 	                            	$.destroy;
-	                            	Ti.App.fireEvent('fireStartup');
+	                            	//Ti.App.fireEvent('fireStartup');
+	                            	theIndex.startup();
 	                            });
 	                       }
 	                     

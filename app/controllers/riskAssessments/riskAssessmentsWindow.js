@@ -82,7 +82,7 @@ var openMenu = function() {
 			localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
 			$.destroy;
-			Alloy.createController('startup').getView().open();
+			loginWin.getView().open();
 		}
 	});
 };
