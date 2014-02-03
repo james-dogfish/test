@@ -2,8 +2,7 @@
 	exitOnClose : true
 },
 "#background" : {
-	backgroundColor:"#000",
-	opacity : 0.5
+	backgroundColor:"#000"
 },
 "#modalBackgorund" : {
 	width: "50%",

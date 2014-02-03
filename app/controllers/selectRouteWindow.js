@@ -41,8 +41,11 @@ function pickerChange(e){
 
 function doneButtonClick(e){
 	$.win.close();
-	loginWin.closeLoginWin();
+	//loginWin.closeLoginWin();
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
 	doneCallbackfunction(currentValue);	
+	var mainView = Alloy.createController('main').getView();
+	mainView.open();
+	mainView = null;
 };

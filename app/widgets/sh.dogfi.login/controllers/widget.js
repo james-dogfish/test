@@ -70,6 +70,7 @@ function doLogin() {
                 
                 //Ti.App.fireEvent('closeLoginWin');
 				//Ti.App.fireEvent('fireStartup');//startup();
+				loginWin.closeLoginWin();
 				theIndex.startup();
 				return;
             
@@ -116,6 +117,7 @@ function doLogin() {
                             // Shows the home screen now
                            // $.window.close();
                            //Ti.App.fireEvent('closeLoginWin');
+                           loginWin.closeLoginWin();
                            var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
                             
                            if(typeof route == 'string' && isStagedRollOutOn == false) {
@@ -137,7 +139,7 @@ function doLogin() {
 	                            });
 	                        }else{
 	                            Alloy.createController('selectRouteWindow').show(route,function(){
-	                            	$.destroy;
+	                            	//$.destroy;
 	                            	//Ti.App.fireEvent('fireStartup');
 	                            	theIndex.startup();
 	                            });

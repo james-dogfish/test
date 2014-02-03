@@ -1,5 +1,4 @@
 <Alloy>
 	<Window id="window" navBarHidden="true">
-		<Require type="widget" src="sh.dogfi.login" id="dfl"/>
 	</Window>
 </Alloy>
