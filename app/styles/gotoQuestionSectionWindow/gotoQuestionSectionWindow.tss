@@ -9,18 +9,43 @@
 	height  : Ti.UI.FILL
 },
 "#gotoDisplayView" : {
-	backgroundColor:"#fff",
+	backgroundColor:"#084f6f",
 	height  : Ti.UI.FILL,
 	left : "-400dp",
-	top : "70dp",
+	top : "65dp",
 	layout : "vertical"
 },
 ".gotoButton" : {
 	height  : Ti.UI.SIZE,
-	width  : Ti.UI.FILL,
-	left : "20dp",
-	right : "20dp",
-	bottom : "10dp"
+	width : 280,
+    top: 10,
+    bottom: 5,
+    height : 40,
+    borderRadius:6,
+    borderWidth:1,
+    borderColor:'#151d21',
+    font:{fontSize:15,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+    color: '#fefefe',
+    backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#0a526c', '#0d6790']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
+},
+".ruler": {
+	height: 1,
+	width: Ti.UI.FILL,
+	backgroundColor: "#06354a",
+	top: 8
 }
 
 

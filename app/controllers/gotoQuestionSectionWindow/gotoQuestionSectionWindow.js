@@ -155,3 +155,10 @@ $.detailView.on("moveToMaster", function(){
 	$.masterView.MoveToOpen(true);
 	$.detailView.MoveToClose(true);
 });
+
+// IOS 7 styling
+if(Util.isIOS7Plus()) {
+	$.gotoDisplayView.top = "65";
+} else {
+	$.gotoDisplayView.top = "45";
+}

@@ -30,11 +30,7 @@ var getValidator = function() {
  *************************************************************/
 var startup = function() {
 	Ti.API.info("startup is fired");
-<<<<<<< HEAD
 	//Alloy.Globals.loginWindow.close();
-=======
-	// loginWin.closeLoginWin();
->>>>>>> 56d8a6135b50e7c580fa8f5bbea236b387302de1
 	//Ti.App.removeEventListener('fireStartup');
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();

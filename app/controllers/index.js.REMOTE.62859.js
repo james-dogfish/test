@@ -30,11 +30,7 @@ var getValidator = function() {
  *************************************************************/
 var startup = function() {
 	Ti.API.info("startup is fired");
-<<<<<<< HEAD
-	//Alloy.Globals.loginWindow.close();
-=======
 	// loginWin.closeLoginWin();
->>>>>>> 56d8a6135b50e7c580fa8f5bbea236b387302de1
 	//Ti.App.removeEventListener('fireStartup');
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();
@@ -46,6 +42,7 @@ var startup = function() {
 	//Alloy.Globals.aIndicator.show('Starting up...');
 	getValidator();
 
+	//Alloy.Globals.aIndicator.hide();
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
 	mainView = null;
@@ -68,8 +65,6 @@ if (User.isLoggedIn() && !User.isLoginExpired()) {
 	}
 	//Ti.App.fireEvent('fireStartup');
 	startup();
-		//Alloy.Globals.aIndicator.hide();
-
 } else {
 	//show login screen
 	Alloy.createController('startup').getView().open();
