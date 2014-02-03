@@ -1,22 +1,7 @@
-//GLOBALS
-//User = require('core/User');
-//var User = User;
-//var Util = require('core/Util');
-//Alloy.Measurement = require('alloy/measurement');
-
-//var localParser = require('parser/localParser');
-//localParser = new localParser();
-//Alloy.Globals.localParser = localParser;
-
-//Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
-//Alloy.Globals.Soap = require('core/Soap');
-//END OF GLOBALS
-
 /**************************************************************
  * getValidator: returns an instance of Validator
  **************************************************************/
 var getValidator = function() {
-	//var Validator = require('validator/Validator');
 	Alloy.Globals.validator = Validator;
 };
 
@@ -30,7 +15,7 @@ var getValidator = function() {
  *************************************************************/
 var startup = function() {
 	Ti.API.info("startup is fired");
-	//Ti.App.removeEventListener('fireStartup');
+	
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();
 
@@ -38,12 +23,13 @@ var startup = function() {
 	Util.downloadCheatSheet();
 
 	Util.showDebugAlert("DEBUG ALERTS IS ON");
-	//Alloy.Globals.aIndicator.show('Starting up...');
+	
 	getValidator();
 
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
 	mainView = null;
+	
 	// Check whether settings are filled
 	if (!User.hasPreferences()) {
 		// Open setting screen
@@ -51,20 +37,14 @@ var startup = function() {
 			message : true
 		}).getView();
 		userSettings.open();
-		//return false;
 	}
 };
-
-//Ti.App.addEventListener('fireStartup', startup);
 
 if (User.isLoggedIn() && !User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}
-	//Ti.App.fireEvent('fireStartup');
 	startup();
-		//Alloy.Globals.aIndicator.hide();
-
 } else {
 	//show login screen
 	Alloy.createController('startup').getView().open();
