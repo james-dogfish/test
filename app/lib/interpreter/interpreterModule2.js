@@ -93,16 +93,31 @@ function interpreterModule2() {
         headerView: {}
     };
     
-    var getSectionDisplayName = function(question){
+    var getSectionDisplayName = function(question, passObject){
     	
     	var displayName = "N/A";
+    	
+    	if(passObject.pageType == "riskAssessment"){
+    		
+    		if(typeof question.firstTab !== "undefined")
+	    	{
+	    		displayName = question.firstTab["#text"];
+	    		
+	    	}
+	    	if(typeof question.secondTab !== "undefined"){
+    		
+	    		displayName = displayName + question.secondTab["#text"];
+	    	}
+	    	return displayName;
+    	}
     	
     	if(typeof question.firstTab !== "undefined")
     	{
     		displayName = question.firstTab["#text"];
     		
     	}
-    	else if(typeof question.secondTab !== "undefined"){
+    	
+    	if(typeof question.secondTab !== "undefined"){
     		
     		displayName = question.secondTab["#text"];
     	}
@@ -171,7 +186,7 @@ function interpreterModule2() {
 
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
-		
+    	
 		var questionName = passObject.pageID + localParser.getQuestionName(question);
         var type = localParser.getQuestionType(question);
         var templateType = "";
@@ -426,7 +441,7 @@ function interpreterModule2() {
         }
 
         var newSectionHeader = {
-            title: getSectionDisplayName(question),
+            title: getSectionDisplayName(question ,passObject),
             groupType: groupType,
             //displayName :getSectionDisplayName(question), 
             alcrmGroupType: alcrmGroupType,
