@@ -14,6 +14,8 @@ function localDataHandler() {
     	testEnvironment = isTesting;
     };
     
+    
+    //will get the Directory all files will be read from, this is ether the users Directory or the test Directory
     self.getWorkingDirectory = function(){
     	
     	var workingDirectory = "";
@@ -27,6 +29,7 @@ function localDataHandler() {
     	}
     };
     
+    //saves the CrossingSearch results so you do not need to make repeated requestes
     self.cacheCrossingSearch = function(payload)
     {
 	   try{
@@ -66,6 +69,8 @@ function localDataHandler() {
 	    }
     };
    
+   
+   //will clear all assessments for the working Directory. this will delete all files related to each assessments
     self.clearAllSavedAssessments = function () {	
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         var savedAssessments = [];
@@ -83,6 +88,7 @@ function localDataHandler() {
         indexFile.write(JSON.stringify([]));
     };
 
+	//get all assessments for the working Directory.  
     self.getAllSavedAssessments = function () {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         if (indexFile.exists()) {
@@ -93,12 +99,15 @@ function localDataHandler() {
         }
     };
 
+	//will update all the assessments detailed in savedAssessments.
+	//must NOT be used to delete assessments
     self.updateSavedAssessments = function (savedAssessments) {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         indexFile.write(JSON.stringify(savedAssessments));
         return true;
     };
 
+	//will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function (question) {
 		var savedAssessments = self.getAllSavedAssessments();
 		var refToSaveAssessmentIndex = null;
@@ -161,6 +170,7 @@ function localDataHandler() {
         return false;
     };
 
+	//will update a assessment with the same assessmentID as the assessmentObject passed
     self.updateSingleAssessmentIndexEntry = function (assessmentObject) {
     	
         var savedAssessments = self.getAllSavedAssessments();
@@ -173,6 +183,7 @@ function localDataHandler() {
         self.updateSavedAssessments(savedAssessments);
     };
     
+    //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject passed
     self.getMostUpTodateAssessmentObject = function (assessmentObject) {
         var savedAssessments = self.getAllSavedAssessments();
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -182,36 +193,6 @@ function localDataHandler() {
             }
         }
         return assessmentObject;
-    };
-
-    self.updateQuestionWithUserNotes = function (fileName, question) {
-        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + fileName);
-        if (assessmentFile.exists()) {
-
-            var sectionList = JSON.parse(assessmentFile.read().text);
-            var questionFound = false;
-
-            for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true; sectionIndex++) {
-
-                if (sectionList[sectionIndex].groupType == question.groupType) {
-                    var questionList = sectionList[sectionIndex].questionList;
-
-                    for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true; questionIndex++) {
-
-                        if (sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
-                            sectionList[sectionIndex].questionList[questionIndex] = question;
-                            questionFound = true;
-                        }
-                    }
-                }
-            }
-
-            assessmentFile.write(JSON.stringify(sectionList));
-
-            return true;
-        }
-        alert("ERROR - assessmentFile does not exists");
-        return false;
     };
     
     self.setAssessmentCompleted = function(assessmentObject)
