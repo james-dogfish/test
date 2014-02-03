@@ -16,15 +16,16 @@ var activeAssessments = [];
 // Setting up menu item for home screen
 var openMenu = function() {
 
+	
 	// Check whether settings are filled 
-	if (!User.hasPreferences()) {
+	/*if (!User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message: true
 		}).getView();
 		userSettings.open();
 		return false;
-	}
+	}*/
 
 	//var Ui = require('core/Ui'),
 	popOver = Ui.renderPopOver({

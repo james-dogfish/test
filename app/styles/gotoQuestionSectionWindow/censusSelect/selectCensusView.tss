@@ -20,6 +20,7 @@
 "#doneButton" : {
 	width : Ti.UI.SIZE,
 	height : Ti.UI.SIZE,
+	left: "10dp",
 	right : "10dp",
 	title : "Done",
 	color : "#fff"

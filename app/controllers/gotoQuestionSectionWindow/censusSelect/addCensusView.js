@@ -103,3 +103,33 @@ function pickerChange(e){
 	};
 };
 
+// Styling on ios6 
+if (!Util.isIOS7Plus()) {
+   $.doneButton.width = 65;
+   $.doneButton.height = 30;
+   $.doneButton.left = 10;
+   $.doneButton.right = 10;
+   $.doneButton.borderRadius = 6;
+   $.doneButton.borderWidth = 1;
+   $.doneButton.borderColor = '#151d21';
+   $.doneButton.font = {
+      fontSize: 15,
+      fontWeight: 'bold',
+      fontFamily: 'Helvetica Neue'
+   };
+   $.doneButton.color = '#fefefe';
+   $.doneButton.backgroundGradient = {
+      type: 'linear',
+      startPoint: {
+         x: '100%',
+         y: '0%'
+      },
+      endPoint: {
+         x: '100%',
+         y: '100%'
+      },
+      colors: ['#0a526c', '#0d6790']
+   };
+   $.doneButton.backgroundColor = 'transparent';
+   $.doneButton.backgroundImage = 'none';
+}

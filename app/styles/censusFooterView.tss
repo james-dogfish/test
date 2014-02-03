@@ -16,7 +16,7 @@
 	height : Ti.UI.SIZE,
 },
 "#timerDisplayContainer" : {
-	top : "10dp",
+	top : 0,
 	left : "10dp",
 	width: "200dp",
 	height : "40dp",

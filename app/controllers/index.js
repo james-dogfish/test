@@ -29,6 +29,9 @@ var startup = function() {
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
 	mainView = null;
+
+
+	//masterSearchTab = null;
 	
 	// Check whether settings are filled
 	if (!User.hasPreferences()) {
@@ -38,6 +41,7 @@ var startup = function() {
 		}).getView();
 		userSettings.open();
 	}
+	
 };
 
 if (User.isLoggedIn() && !User.isLoginExpired()) {

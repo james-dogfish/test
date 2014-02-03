@@ -187,278 +187,288 @@ function interpreterModule2() {
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
     	
-		var questionName = passObject.pageID + localParser.getQuestionName(question);
-        var type = localParser.getQuestionType(question);
-        var templateType = "";
-        if (type in ui_types_map) {
-            templateType = ui_types_map[type];
-        } else {
-            Ti.API.info("questionNull type =" + type);
-            return null;
-        }
-        
-        if(localParser.getQuestionName(question) in hiddenQuestionsMap){
-        	Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
-        	return null;
-        }
-        
-        questionRenderValues = [];
-        var allRenderValues = localParser.getRenderValue(question);
-        var questionVisable = true;
-
-        if (allRenderValues.length != 0) {
-            questionVisable = false;
-        }
-        
-        for (var i = 0; i < allRenderValues.length; i++) {
-
-            dependencieName = passObject.pageID + localParser.getRenderValueParamName(allRenderValues[i]);
-            dependencieValue = localParser.getRenderValueParamValue(allRenderValues[i]);
-
-            if (typeof renderDependenciesMap[dependencieName] === "undefined") {
-                renderDependenciesMap[dependencieName] = [];
-            }
-            renderDependenciesMap[dependencieName].push(questionName);
-			
-
-            questionRenderValues.push({
-            	question : {name : dependencieName, groupType : ""},
-                //name: dependencieName,
-                value: dependencieValue
-            });
-        }
-
-        questionSelections = [];
-        var allSelections = localParser.getAllSelections(question);
-        for (var i = 0; i < allSelections.length; i++) {
-            questionSelections.push({
-                displayValue: localParser.getSelectionDisplayValue(allSelections[i]),
-                value: localParser.getSelectionValue(allSelections[i])
-            });
-        }
-
-
-
-        var questionValidation = {
-            validationTest: false,
-            min: null,
-            max: null,
-            minLenght: null,
-            maxLenght: null,
-            format: null,
-            mandatory: false,
-            conditionalMandatory: []
-        };
-
-
-        var validation = localParser.getValidation(question);
-        var isMandatory = false;
-
-        if (typeof validation !== "undefined") {
-            questionValidation.validationTest = true;
-
-            var mandatory = validation.mandatory;
-            if (typeof mandatory !== "undefined") {
-                if (mandatory["#text"] == "true") {
-                    questionValidation.mandatory = true;
-                    isMandatory = true;
-                }
-            }
-
-            var conditionalMandatory = localParser.getConditionalMandatory(validation);
-            for (var i = 0; i < conditionalMandatory.length; i++) {
-
-				var dependencieName = passObject.pageID +conditionalMandatory[i].name;
-                questionValidation.conditionalMandatory.push({
-                    //name: conditionalMandatory[i].name,
-                    question : {name : dependencieName, groupType : ""},
-                    value: conditionalMandatory[i].value
-                });
-                
-                if (typeof mandatoryDependenciesMap[dependencieName] === "undefined") {
-	                mandatoryDependenciesMap[dependencieName] = [];
+    	try{
+			var questionName = passObject.pageID + localParser.getQuestionName(question);
+	        var type = localParser.getQuestionType(question);
+	        var templateType = "";
+	        if (type in ui_types_map) {
+	            templateType = ui_types_map[type];
+	        } else {
+	            Ti.API.info("questionNull type =" + type);
+	            return null;
+	        }
+	        
+	        if(localParser.getQuestionName(question) in hiddenQuestionsMap){
+	        	Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
+	        	return null;
+	        }
+	        
+	        questionRenderValues = [];
+	        var allRenderValues = localParser.getRenderValue(question);
+	        var questionVisable = true;
+	
+	        if (allRenderValues.length != 0) {
+	            questionVisable = false;
+	        }
+	        
+	        for (var i = 0; i < allRenderValues.length; i++) {
+	
+	            dependencieName = passObject.pageID + localParser.getRenderValueParamName(allRenderValues[i]);
+	            dependencieValue = localParser.getRenderValueParamValue(allRenderValues[i]);
+	
+	            if (typeof renderDependenciesMap[dependencieName] === "undefined") {
+	                renderDependenciesMap[dependencieName] = [];
 	            }
-                mandatoryDependenciesMap[dependencieName].push(questionName);
-                
-            }
-
-            if (typeof validation.min !== "undefined") {
-                questionValidation.min = parseInt(validation.min["#text"]);
-            }
-
-            if (typeof validation.max !== "undefined") {
-                questionValidation.max = parseInt(validation.max["#text"]);
-            }
-
-            if (typeof validation.minLenght !== "undefined") {
-                questionValidation.max = validation.minLenght(minLenght["#text"]);
-            }
-
-            if (typeof validation.maxLenght !== "undefined") {
-                questionValidation.maxLenght = parseInt(validation.maxLenght["#text"]);
-            }
-
-            if (typeof validation.format !== "undefined") {
-                questionValidation.format = validation.format["#text"];
-            }
-        }
-
-
-
-        var questionObject = {
-            isAQuestion: true,
-            template: templateType, // this is the template used to show the question in the list view
-            type: type,
-            groupType: sectionGroupType,
-            name: passObject.pageID + localParser.getQuestionName(question),
-            alcrmQuestionID: localParser.getQuestionName(question),
-            alcrmGroupType: localParser.getQuestionGroup(question),
-            visable: questionVisable,
-            readOnly : false,
-            order: localParser.getQuestionOrder(question),
-            associatedFileName: passObject.associatedFileName, // file the question is in
-            questionResponse: null,
-
-            assessmentId: assessmentId,
-
-            notesBackground: {
-                backgroundImage: 'images/questionNote.png'
-            }, //{backgroundImage: 'images/questionSelectedNote.png'}
-            notes: localParser.getNotesText(question),
-            help : localParser.getHelpText(question),
-            selected: false,
-
-            value: [""], // a list of all values set for this question
-            renderValue: questionRenderValues, // a list of condtions if the question is visable
-            selections: questionSelections, // a list of possible values for the question
-            validation: questionValidation,
-            mandatory : isMandatory, //can be changed at run time with conditionalMandatory
-            
-            subsectionTitle : localParser.getTableRowText(question),
-
-            title: {
-                text: localParser.getQuestionText(question)
-            }, // the title text for this question
-            displayValue: {
-                value: ""
-            },
-            displayValue2: {
-                value: ""
-            },
-
-            errorMessageVisable: false,
-            questionErrorMessageView: {},
-            questionErrorMessage: {},
-
-            renderDependencyList: [],
-            mandatoryDependenciesList : [],
-            headerView: {}
-        };
-        
-        if(passObject.readOnly == true){
-	        questionObject.readOnly = true;
-	        questionObject.headerView = Styles["headerViewReadOnly"];
+	            renderDependenciesMap[dependencieName].push(questionName);
+				
+	
+	            questionRenderValues.push({
+	            	question : {name : dependencieName, groupType : ""},
+	                //name: dependencieName,
+	                value: dependencieValue
+	            });
+	        }
+	
+	        questionSelections = [];
+	        var allSelections = localParser.getAllSelections(question);
+	        for (var i = 0; i < allSelections.length; i++) {
+	            questionSelections.push({
+	                displayValue: localParser.getSelectionDisplayValue(allSelections[i]),
+	                value: localParser.getSelectionValue(allSelections[i])
+	            });
+	        }
+	
+	
+	
+	        var questionValidation = {
+	            validationTest: false,
+	            min: null,
+	            max: null,
+	            minLenght: null,
+	            maxLenght: null,
+	            format: null,
+	            mandatory: false,
+	            conditionalMandatory: []
+	        };
+	
+	
+	        var validation = localParser.getValidation(question);
+	        var isMandatory = false;
+	
+	        if (typeof validation !== "undefined") {
+	            questionValidation.validationTest = true;
+	
+	            var mandatory = validation.mandatory;
+	            if (typeof mandatory !== "undefined") {
+	                if (mandatory["#text"] == "true") {
+	                    questionValidation.mandatory = true;
+	                    isMandatory = true;
+	                }
+	            }
+	
+	            var conditionalMandatory = localParser.getConditionalMandatory(validation);
+	            for (var i = 0; i < conditionalMandatory.length; i++) {
+	
+					var dependencieName = passObject.pageID +conditionalMandatory[i].name;
+	                questionValidation.conditionalMandatory.push({
+	                    //name: conditionalMandatory[i].name,
+	                    question : {name : dependencieName, groupType : ""},
+	                    value: conditionalMandatory[i].value
+	                });
+	                
+	                if (typeof mandatoryDependenciesMap[dependencieName] === "undefined") {
+		                mandatoryDependenciesMap[dependencieName] = [];
+		            }
+	                mandatoryDependenciesMap[dependencieName].push(questionName);
+	                
+	            }
+	
+	            if (typeof validation.min !== "undefined") {
+	                questionValidation.min = parseInt(validation.min["#text"]);
+	            }
+	
+	            if (typeof validation.max !== "undefined") {
+	                questionValidation.max = parseInt(validation.max["#text"]);
+	            }
+	
+	            if (typeof validation.minLenght !== "undefined") {
+	                questionValidation.max = validation.minLenght(minLenght["#text"]);
+	            }
+	
+	            if (typeof validation.maxLenght !== "undefined") {
+	                questionValidation.maxLenght = parseInt(validation.maxLenght["#text"]);
+	            }
+	
+	            if (typeof validation.format !== "undefined") {
+	                questionValidation.format = validation.format["#text"];
+	            }
+	        }
+	
+	
+	
+	        var questionObject = {
+	            isAQuestion: true,
+	            template: templateType, // this is the template used to show the question in the list view
+	            type: type,
+	            groupType: sectionGroupType,
+	            name: passObject.pageID + localParser.getQuestionName(question),
+	            alcrmQuestionID: localParser.getQuestionName(question),
+	            alcrmGroupType: localParser.getQuestionGroup(question),
+	            visable: questionVisable,
+	            readOnly : false,
+	            order: localParser.getQuestionOrder(question),
+	            associatedFileName: passObject.associatedFileName, // file the question is in
+	            questionResponse: null,
+	
+	            assessmentId: assessmentId,
+	
+	            notesBackground: {
+	                backgroundImage: 'images/questionNote.png'
+	            }, //{backgroundImage: 'images/questionSelectedNote.png'}
+	            notes: localParser.getNotesText(question),
+	            help : localParser.getHelpText(question),
+	            selected: false,
+	
+	            value: [""], // a list of all values set for this question
+	            renderValue: questionRenderValues, // a list of condtions if the question is visable
+	            selections: questionSelections, // a list of possible values for the question
+	            validation: questionValidation,
+	            mandatory : isMandatory, //can be changed at run time with conditionalMandatory
+	            
+	            subsectionTitle : localParser.getTableRowText(question),
+	
+	            title: {
+	                text: localParser.getQuestionText(question)
+	            }, // the title text for this question
+	            displayValue: {
+	                value: ""
+	            },
+	            displayValue2: {
+	                value: ""
+	            },
+	
+	            errorMessageVisable: false,
+	            questionErrorMessageView: {},
+	            questionErrorMessage: {},
+	
+	            renderDependencyList: [],
+	            mandatoryDependenciesList : [],
+	            headerView: {}
+	        };
+	        
+	        if(passObject.readOnly == true){
+		        questionObject.readOnly = true;
+		        questionObject.headerView = Styles["headerViewReadOnly"];
+		    }
+	        
+	        questionObject = questionSetPastVariables(questionObject, questionMap);
+	        
+	        self.questionMap[questionObject.name] = questionObject;
+	     	return questionObject;
+	    }catch(e){
+	    	Ti.API.info("Exception in createQuestionObject >> "+JSON.stringify(e));
+	    	return null;
 	    }
-        
-        questionObject = questionSetPastVariables(questionObject, questionMap);
-        
-        self.questionMap[questionObject.name] = questionObject;
-        
-        return questionObject;
     };
 
     var questionSetPastVariables = function (questionObject, questionMap) {
-    	//alert("questionSetPastVariables called");
-    	//Ti.API.info("MAP="+questionMap);
-        if (questionObject.alcrmQuestionID in questionMap) {
-        	//Ti.API.info("inside first if stat");
-            if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
-            	//alert("questionSetPastvariables >> " + JSON.stringify(questionMap[questionObject.alcrmQuestionID]));
-            	//Ti.API.info("name="+ questionObject.alcrmQuestionID + ", " + "value="+questionMap[questionObject.alcrmQuestionID].value);
-            	
-                questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
-                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
-
-            } else if (questionObject.template === "singleSelectTemplate") {
-                questionObject.displayValue.value = "value=" + questionMap[questionObject.alcrmQuestionID].value;
-                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
-
-                for (var i = 0; i < questionObject.selections.length; i++) {
-                    if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value) {
-                        questionObject.displayValue.value = questionObject.selections[i].displayValue;
-                        break;
-                    }
-                }
-            } else if (questionObject.template === "multiSelectTemplate") {
-                questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
-                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
-
-                var temp = "";
-
-                for (var t = 0; t < questionMap[questionObject.alcrmQuestionID].value.length; t++) {
-                    for (var i = 0; i < questionObject.selections.length; i++) {
-                        if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value[t]) {
-                            if (temp === "") {
-                                temp = questionObject.selections[i].displayValue;
-                            } else {
-                                temp += ", " + questionObject.selections[i].displayValue;
-                            }
-
-                        }
-                    }
-                }
-
-                questionObject.displayValue.value = temp;
-            } else if (questionObject.template === "rangeFieldTemplate" || questionObject.template === "dateRangeTemplate") {
-                if (typeof questionMap[questionObject.alcrmQuestionID].value !== "undefined" &&
-                    questionMap[questionObject.alcrmQuestionID].value instanceof Array) {
-                    if (questionMap[questionObject.alcrmQuestionID].value.length >= 2) {
-                        questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value[0];
-                        questionObject.displayValue2.value = questionMap[questionObject.alcrmQuestionID].value[1];
-                    }
-                }
-            }
-
-        }
-        return questionObject;
+    	
+    	try{
+	        if (questionObject.alcrmQuestionID in questionMap) {
+	            if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
+	            	            	
+	                questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
+	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
+	
+	            } else if (questionObject.template === "singleSelectTemplate") {
+	                questionObject.displayValue.value = "value=" + questionMap[questionObject.alcrmQuestionID].value;
+	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
+	
+	                for (var i = 0; i < questionObject.selections.length; i++) {
+	                    if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value) {
+	                        questionObject.displayValue.value = questionObject.selections[i].displayValue;
+	                        break;
+	                    }
+	                }
+	            } else if (questionObject.template === "multiSelectTemplate") {
+	                questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
+	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
+	
+	                var temp = "";
+	
+	                for (var t = 0; t < questionMap[questionObject.alcrmQuestionID].value.length; t++) {
+	                    for (var i = 0; i < questionObject.selections.length; i++) {
+	                        if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value[t]) {
+	                            if (temp === "") {
+	                                temp = questionObject.selections[i].displayValue;
+	                            } else {
+	                                temp += ", " + questionObject.selections[i].displayValue;
+	                            }
+	
+	                        }
+	                    }
+	                }
+	
+	                questionObject.displayValue.value = temp;
+	            } else if (questionObject.template === "rangeFieldTemplate" || questionObject.template === "dateRangeTemplate") {
+	                if (typeof questionMap[questionObject.alcrmQuestionID].value !== "undefined" &&
+	                    questionMap[questionObject.alcrmQuestionID].value instanceof Array) {
+	                    if (questionMap[questionObject.alcrmQuestionID].value.length >= 2) {
+	                        questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value[0];
+	                        questionObject.displayValue2.value = questionMap[questionObject.alcrmQuestionID].value[1];
+	                    }
+	                }
+	            }
+	
+	        }
+	        return questionObject;
+		}catch(e){
+			Ti.API.info("Exception in createQuestionObject >> "+JSON.stringify(e));
+			return questionObject;
+		}
     };
 
     var addQuestionToSectionHeader = function (question, passObject, assessmentId) {
 
-        var alcrmGroupType = localParser.getQuestionGroup(question);
-        var groupType = passObject.pageID + alcrmGroupType;
-
-
-        for (var i = 0; i < self.sectionHeaderList.length; i++) {
-            if (groupType == self.sectionHeaderList[i].groupType) {
-                var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId, passObject.questionMap);
-
-                if (newQuestionObject != null) {
-                    self.sectionHeaderList[i].questionList.push(newQuestionObject);
-                }
-                return;
-            }
-        }
-
-        var newSectionHeader = {
-            title: getSectionDisplayName(question ,passObject),
-            groupType: groupType,
-            //displayName :getSectionDisplayName(question), 
-            alcrmGroupType: alcrmGroupType,
-            pageName: passObject.pageName,
-            pageType: passObject.pageType,
-            associatedFileName: passObject.associatedFileName,
-            questionList: []
-        };
-        var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId, passObject.questionMap);
-        if (newQuestionObject != null) {
-            newSectionHeader.questionList.push(newQuestionObject);
-        }
-        self.sectionHeaderList.push(newSectionHeader);
+		try{
+	        var alcrmGroupType = localParser.getQuestionGroup(question);
+	        var groupType = passObject.pageID + alcrmGroupType;
+	
+	
+	        for (var i = 0; i < self.sectionHeaderList.length; i++) {
+	            if (groupType == self.sectionHeaderList[i].groupType) {
+	                var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId, passObject.questionMap);
+	
+	                if (newQuestionObject != null) {
+	                    self.sectionHeaderList[i].questionList.push(newQuestionObject);
+	                }
+	                return;
+	            }
+	        }
+	
+	        var newSectionHeader = {
+	            title: getSectionDisplayName(question ,passObject),
+	            groupType: groupType,
+	            //displayName :getSectionDisplayName(question), 
+	            alcrmGroupType: alcrmGroupType,
+	            pageName: passObject.pageName,
+	            pageType: passObject.pageType,
+	            associatedFileName: passObject.associatedFileName,
+	            questionList: []
+	        };
+	        var newQuestionObject = createQuestionObject(question, passObject, groupType, assessmentId, passObject.questionMap);
+	        if (newQuestionObject != null) {
+	            newSectionHeader.questionList.push(newQuestionObject);
+	        }
+	        self.sectionHeaderList.push(newSectionHeader);
+	     }catch(e){
+	     	Ti.API.info("Exception in addQuestionToSectionHeader >> "+JSON.stringify(e));
+	     	return null;
+	     }
     };
 
     var lookQuestionDependencies = function () {
-
+      try{
 
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
             for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
@@ -508,6 +518,10 @@ function interpreterModule2() {
 
             }
         }
+        
+       }catch(e){
+       		Ti.API.info("Exception in lookQuestionDependencies >> "+JSON.stringify(e));
+       }
     };
     
     
@@ -614,8 +628,7 @@ function interpreterModule2() {
     var postInterpretSettings = function (passObject) {
     	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
     	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
-    	
-    	
+    		
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
         	
         	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
@@ -648,9 +661,7 @@ function interpreterModule2() {
             }
             else if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "CensusGeneral"){
             	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject, self.sectionHeaderList[sectionIndex]));
-            }
-            
-            
+            }  
 
 			
             for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
