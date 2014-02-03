@@ -38,6 +38,17 @@ var startup = function() {
 		}).getView();
 		userSettings.open();
 	}
+	
+	var masterSearchTab = Alloy.createController('searchWindow/masterSearchTab');
+	//CHECK FOR CONNECTIVITY
+  	if(Titanium.Network.online){
+		masterSearchTab.setData(true);
+		masterSearchTab = null;
+	}else{
+		masterSearchTab.setData(false);
+		masterSearchTab = null;
+	}
+	
 };
 
 if (User.isLoggedIn() && !User.isLoginExpired()) {

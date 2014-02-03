@@ -37,7 +37,7 @@ exports.setData = function(shouldRefresh) {
 	
 	
 	if($.tableView.data.length === 0){ 
-		Alloy.Globals.aIndicator.show("Loading...",50000);
+		Alloy.Globals.aIndicator.show("Downloading Crossings...",50000);
 		 crossingData = [];
 				 Alloy.Globals.Soap.searchCrossingRequest(
 					{
