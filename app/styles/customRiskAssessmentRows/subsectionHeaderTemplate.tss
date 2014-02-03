@@ -1,6 +1,7 @@
 "#subsectionHeaderTemplate" : {
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
+	
 	bottom : "10dp"
 },
 "#mainView" : {
@@ -11,7 +12,7 @@
 	width : "98%",
 	left : "1%",
 	right : "1%",
-	top: "0",
+	top: "20dp",
 	borderColor : "#000",
 	backgroundColor: '#A9DDEE'
 }

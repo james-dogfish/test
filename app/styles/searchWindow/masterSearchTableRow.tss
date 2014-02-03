@@ -16,6 +16,7 @@
 	font: {fontFamily:'Helvetica Neue', fontSize:"25sp", fontWeight:'normal'},
 	color: '#000000'
 },
+
 "#crossingElr" : {
 	width : Ti.UI.FILL,
 	height: "20dp",
