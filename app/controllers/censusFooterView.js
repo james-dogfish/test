@@ -16,24 +16,35 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 	return {
 		totalSec: seconds,
 		timer:this.timer,
+		
 		set: function(seconds) {
 			this.totalSec = seconds;
-			this.time = convertSecondsToTimeObject(this.totalSec);
+			//this.time = convertSecondsToTimeObject(this.totalSec);
 			return this;
 		},
 		start: function() {
 			var self = this;
+			
+			
+			Alloy.Globals.survey = {
+				lastUpdate: moment(),
+				duration: moment.duration(this.totalSec * 1000, 'milliseconds'),
+				interval: 1000
+			};
+			
+			
 			this.timer = setInterval( function() {
 
 				if (self.totalSec) {
-					self.totalSec--;
-				
 					
-					self.time = convertSecondsToTimeObject(self.totalSec);
-					//Ti.API.info("self.totalSec" + self.totalSec+ ", time = "+JSON.stringify(self.time));
-
+					var timeNow = moment();
+					var milliSecondDiff = timeNow.diff(Alloy.Globals.survey.lastUpdate, 'milliseconds');
+					var newDuration = Number(Alloy.Globals.survey.duration) - Number(milliSecondDiff);
+					Alloy.Globals.survey.duration = moment.duration(newDuration, 'milliseconds');
 				
-					fn_tick(self.time);
+					fn_tick(moment(Alloy.Globals.survey.duration.asMilliseconds()).format('mm:ss'));
+					
+					Alloy.Globals.survey.lastUpdate = timeNow;
 				}
 				else {
 					self.stop();
@@ -71,8 +82,8 @@ function leftPad(number, targetLength) {
     return output;
 }
 
-var ticCallBack = function(time){
-	$.timerDisplay.text = leftPad(time.h, 2)+":"+leftPad(time.m, 2)+":"+leftPad(time.s, 2);
+var ticCallBack = function(timeString){
+	$.timerDisplay.text = timeString;
 };
 
 var finishCallBack = function(){

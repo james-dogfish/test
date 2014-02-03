@@ -1121,6 +1121,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
             questionRef.question = setQuestionError(false, L("duration_error_text"), questionRef.question);
             questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
             localDataHandler.updateQuestion(questionRef.question);
+            return false;
         } else {
 
             var timerDuration = parseInt(questionRef.question.value[0]) * 60;
@@ -1128,6 +1129,34 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
             $.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
         }
     }
+    else{
+    	return false;
+    }
+    
+    var questionRef = findQuestionByAssociatedFileName("I_CENSUS_QUICK_START", question.associatedFileName);
+    if (questionRef != null) {
+    	var timeString = moment().format("HH:mm");
+    	questionRef.question.displayValue.value = timeString;
+    	questionRef.question.value[0] = timeString;
+    	
+    	var questionResponse = 
+		   "<ques:parameterName>"+questionRef.question.alcrmQuestionID+"</ques:parameterName>"+ 
+		   "<ques:parameterValue>"+timeString+"</ques:parameterValue>"+
+		   "<ques:notes>"+questionRef.question.notes+"</ques:notes>";
+		questionRef.question.questionResponse = questionResponse;
+		
+		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+        localDataHandler.updateQuestion(questionRef.question);
+    }
+    else{
+    	return false;
+    }
+    return true;
+    
+    //moment().format("HH:mm");
+    
+    
+    
 });
 
 $.censusFooterView.on("goToCensus", function (e) {

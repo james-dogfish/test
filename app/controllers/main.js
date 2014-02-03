@@ -1,25 +1,13 @@
-//REQUIRES
-//var User = require('core/User');
-//var Util = require('core/Util');
-//var localDataHandler = require('localDataHandler/localDataHandler');
-//var interpreterModule = require('interpreter/interpreterModule2');
-//END OF REQUIRES
-//var loginView;
-
 // Set current tab globally so that other windows can be opened
-//Alloy.Globals.currentTab = $.tab1;
 Alloy.Globals.tabGroup = $.tabGroup;
-//Alloy.Globals.questionRendererTab = questionRendererTab;
 
-//var Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
-//var riskAssessmentsTab = $.riskAssessmentsTab;
-//var questionRendererTab = $.questionRendererTab;
-//var masterSearchTab = $.masterSearchTab;
-//var detailSearchTab = $.detailSearchTab;
+//the current assessment object
 var curAssObj = null;
 
 /////////////////////////////////////////////////////////////////////////Window specific Functions below/////////////////////////////////////////////////////////////////////////
-
+/*******************************************************************************
+ * toggleSearch: this function is fired when a user taps on the "Search" button
+ *******************************************************************************/
 function toggleSearch() {
 
     if (!User.hasPreferences()) {
@@ -44,23 +32,25 @@ function toggleSearch() {
 
     }
 
-
     $.tabGroup.setActiveTab($.masterSearchTab.getView());
     $.masterSearchTab.setData(false);
 }
 
-// Setting up menu item for home screen
+
+/*******************************************************************************
+ * openMenu: this function sets up menu item for home screen
+ *******************************************************************************/
 var openMenu = function () {
 
     // Check whether settings are filled 
-    if (!User.hasPreferences()) {
+    /*if (!User.hasPreferences()) {
         // Open setting screen
         var userSettings = Alloy.createController('userSettings', {
             message: true
         }).getView();
         userSettings.open();
         return false;
-    }
+    }*/
 
     //var Ui = require('core/Ui'),
         popOver = Ui.renderPopOver({
@@ -111,23 +101,10 @@ var openMenu = function () {
             gotoQuestionSectionWindow.show();
 
         } else if (e.row.id === 3) {
-            // Help screen 
-            //var appHelp = Alloy.createController('appHelp').getView();
-            //appHelp.open();
+			//do nothing
         } else if (e.row.id === 4) {
-            // Commit all assessments
-            //Alloy.Globals.Util.submitCompletedAssessments();
-            //var responseGenerator = require('responseGenerator/responseGenerator');
-           // responseGenerator = new responseGenerator();
             responseGenerator.commitAllCompleted();
-
         } else if (e.row.id === 5) {
-            // Reset the searching table 
-            //$.searchTable.visible = false;
-            //$.searchButton.title = 'Search';
-            // Making table clickable!
-            //$.searchTable.loading = false;
-            // Log a user out
 			User.logOut();
             $.tabGroup.close();
             $.destroy;
@@ -137,42 +114,59 @@ var openMenu = function () {
     });
 };
 
+/** here we load the risk assessments **/
 $.riskAssessmentsTab.loadRiskAssessments();
+
+/*************************************************************
+ * openRiskAssessment: 
+ * 			- clear the questionRenderTab
+ * 			- set the active tab to the questionrendertab view
+ * 			- set the assessment to the passed assessment object
+ * params: 
+ * 			-e: the selected risk assessment object
+ *************************************************************/
 
 $.riskAssessmentsTab.on("openRiskAssessment", function (e) {
     $.questionRendererTab.clear();
     $.tabGroup.setActiveTab($.questionRendererTab.getView());
 
-    //Alloy.Globals.aIndicator.show();
-
-    //questionRendererTab.setAssessment(interpreterModule.interpret(assessment), e.assessmentObject);
     $.questionRendererTab.setAssessment(e.assessmentObject);
-    //Alloy.Globals.aIndicator.hide();
 });
 
+/** here we call toggleSearch (see above) **/
 $.riskAssessmentsTab.on("openSearchTab", toggleSearch);
 
+/** set the active tab to riskAssessmentTab when tapping on back button **/
 $.masterSearchTab.on("BackButtonClick", function (e) {
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
 
+/** call masterSearchData controller setData function here **/
 $.masterSearchTab.on("RefreshButtonClick", function (e) {
     $.masterSearchTab.setData(true);
 });
 
+/*************************************************************
+ * parseTrainData: 
+ * 			- call the parser to parse the xml_text
+ * 			- do some sanity check on the parser output
+ * 			- call the localDataHandler to add default train
+ * 			  info questions
+ * params:
+ * 			- xml_text: the xml text returned by the webservice
+ * 			            call.
+ * 			- curAssObj: the current assessment object.
+ * 
+ *************************************************************/
 function parseTrainData(xml_text, curAssObj) {
 try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        //var localParser = require('parser/localParser');
-        //var interpreter = require('interpreter/interpreterModule2');
-        //var //localParser = new localParser();
 
         var data = localParser.getQuestions(xml_text);
         if (typeof data === "undefined") {
             alert(L('no_data'));
             return;
         }
-        //var localDataHandler = require('localDataHandler/localDataHandler');
         var censusData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
 
     } else {
@@ -185,19 +179,28 @@ try{
 }
 };
 
+/*************************************************************
+ * parseCensusData: 
+ * 			- call the parser to parse the xml_text
+ * 			- do some sanity check on the parser output
+ * 			- call the localDataHandler to add default census
+ * 			  questions
+ * params:
+ * 			- xml_text: the xml text returned by the webservice
+ * 			            call.
+ * 			- curAssObj: the current assessment object.
+ * 
+ *************************************************************/
 function parseCensusData(xml_text, curAssObj) {
 try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        //var localParser = require('parser/localParser');
-        //var interpreter = require('interpreter/interpreterModule2');
-        ////localParser = new localParser();
-
+       
         var data = localParser.getQuestions(xml_text);
         if (typeof data === "undefined") {
             alert(L('no_data'));
             return;
         }
-        //var localDataHandler = require('localDataHandler/localDataHandler');
+        
         var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
 
     } else {
@@ -210,23 +213,42 @@ try{
 }
 };
 
+/*************************************************************
+ * parseData: 
+ * 			- call the parser to parse the xml_text, crosQues,
+ * 			  crosAns.
+ *  		- map the crosAns to crosQues to prepoluate the 
+ * 			  crosQues.
+ * 			- call localDataHandler to add new assessment 
+ * 		      (create a new file on disk).
+ * 			- call the localDataHandler to core questions to 
+ * 			  the assessment.
+ * params:
+ * 			- xml_text: the xml text returned by the webservice
+ * 			            call.
+ * 			- crosQues: the xml text returned by the webservice
+ * 			            call to retrieve crossing questions.
+ * 			- crossAns: the xml text returned by the webservice
+ * 						call to retrieve the crossings questions
+ * 						answers.
+ * 			- detailID: used here to fulfill addNewAssessment interface
+ * 			- crossingID: as above
+ * 			- riskMap: 	  as above
+ * 
+ *************************************************************/
 function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) {
 
 try{
     if (xml_text !== null || typeof xml_text !== 'undefined') {
-        //var localParser = require('parser/localParser');
-        ////localParser = new localParser();
+
         var quesMap = [];
         var questionsData = localParser.getQuestions(xml_text);
-        //Ti.API.info("questionsData ==> " + JSON.stringify(questionsData));
 
         if (crosQues !== null || typeof crosQues !== 'undefined') {
             var crossingQuestions = localParser.getQuestions(crosQues);
-            //Ti.API.info("crossingQuestions ==> " + JSON.stringify(crossingQuestions));
 
             if (crosAns !== null || typeof crosAns !== 'undefined') {
                 var crossingAnswers = localParser.getQuestions(crosAns);
-                //Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
                 for (var i = 0; i < crossingAnswers[0].detailedData.length; i++) {
                     if (typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" &&
                         typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined") {
@@ -237,18 +259,14 @@ try{
                     }
 
                 }
-                //Ti.API.info("crossingAnswers ==> " + JSON.stringify(crossingAnswers));
             }
         }
-
 
         if (typeof questionsData === "undefined") {
             alert(L('no_data'));
             Alloy.Globals.aIndicator.hide();
             return;
         }
-        //var localDataHandler = require('localDataHandler/localDataHandler');
-        //curAssObj = localDataHandler.addNewAssessment(crossingQuestions.concat(questionsData), Alloy.Globals.currentCrossingName, detaildID, crossingID, quesMap);
         
         var curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
         localDataHandler.addNewCoreQuestionToAssessment(curAssObj, crossingQuestions, quesMap);
@@ -263,6 +281,19 @@ try{
 }
 };
 
+/*************************************************************
+ * crossingSelected: 
+ * 			- calls the SOAP client to deal with requests.
+ * 			- get the asssessment question set
+ * 			- get the crossing question set
+ * 			- get the census question set (used for default)
+ * 			- get the train info question set (used for default)
+ * 			- sets the current assessment object and opens the 
+ * 			  question renderer tab to display the RA form.
+ * params:
+ * 			- crossingDetail: the crossing selected object.
+ * 
+ *************************************************************/
 $.masterSearchTab.on("crossingSelected", function (crossingDetail) {
 try{
 	
@@ -286,9 +317,7 @@ try{
                 },
                 function (xmlDocCrossAns) {
                     var riskMap = [];
-                    //var XMLTools = require("tools/XMLTools");
                     XMLTools.setDoc(xmlDocCrossAns);
-                    //var crossObj = JSON.stringify(XMLTools.toObject());
 
                     //get Assessment Question Set
                     Alloy.Globals.Soap.getQuestionsRequest({
@@ -297,10 +326,10 @@ try{
                         },
                         function (xmlDocAss) {
                             var riskMap = [];
-                            //var XMLTools = require("tools/XMLTools");
+
                             XMLTools.setDoc(xmlDocAss);
                             var assObj = XMLTools.toObject();
-                            //Ti.API.info("assObj >>> "+assObj);
+                            
                             var curAssObj = parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/ 0, crossingDetail.id, riskMap);
                             if (typeof curAssObj === "undefined") {
                                 alert(L('no_data'));
@@ -315,7 +344,7 @@ try{
                                     function (xmlDoc) {
                                     	if(typeof curAssObj !== "undefined")
                                         	parseCensusData(xmlDoc, curAssObj);
-                                        //alert("after parsedcensusdata");
+
                                         //get Train Question Set
 		                                Alloy.Globals.Soap.getQuestionsRequest({
 		                                        crossingId: crossingDetail.id,
@@ -324,7 +353,6 @@ try{
 		                                    function (xmlDoc) {
 		                                    	if(typeof curAssObj !== "undefined")
 		                                        	parseTrainData(xmlDoc, curAssObj);
-		                                        //var localDataHandler = require('localDataHandler/localDataHandler');
 
 		                                        if (typeof curAssObj === "undefined") {
 		                                            alert(L('no_data'));
@@ -343,12 +371,9 @@ try{
 		                                    },
 		                                    function (xmlDoc) {});
 		                                	//end of get Train Question Set
-
                                     },
                                     function (xmlDoc) {});
-                                //end of get census question set
-
-                                
+                                //end of get census question set                 
                             }
                         }, //end of get Question Request Success function
                         function (xmlDoc) {});
@@ -361,8 +386,11 @@ try{
 }      
 });
 
+/** laod the risk assessments then switch tab **/
 $.questionRendererTab.on("saveAndExitClick", function (e) {
     $.riskAssessmentsTab.loadRiskAssessments();
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
+
+/** call the openMenu function above **/
 $.questionRendererTab.on("openMenu", openMenu);

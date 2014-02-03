@@ -18,12 +18,7 @@ function onNotesClick(e){
 		}
 		e.section.updateItemAt(e.itemIndex, item);
 		
-		Ti.App.fireEvent("notesAdded", {
-			item : item,
-			itemIndex : e.itemIndex,
-			groupType : item.groupType,
-			notes : notes
-		});
+		localDataHandler.updateQuestion(item);
 	}});
 };
 

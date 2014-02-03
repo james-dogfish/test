@@ -1,41 +1,37 @@
-/*
- *
- */
-var CENSUS = 0; //GLOBAL DEFINE FOR ANDY
-var TRAINS = 1; //GLOBAL DEFINE FOR ANDY
-var versionID;
 var INDEX_FILE_VERSION_NUM = 8;
 
+/*************************************************************
+ * localDataHandler: 
+ * 			- deals with the lifetime of local files used to
+ * 			- store/retrieve/manage data locally
+ *************************************************************/
 function localDataHandler() {
     var self = this;
     
     var testEnvironment = false;
-	
-    //var interpreter = require('interpreter/interpreter');
     
     self.setTestEnvironment = function(isTesting){
     	testEnvironment = isTesting;
     };
     
+    
+    //will get the Directory all files will be read from, this is ether the users Directory or the test Directory
     self.getWorkingDirectory = function(){
     	
     	var workingDirectory = "";
     	if(testEnvironment == false){
     		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, User.getUserDir()); 
-    		////Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     	else{
     		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "testDirectory");  
-    		////Ti.API.info("workingDirectory.nativePath = "+workingDirectory.nativePath);
     		return workingDirectory.nativePath;
     	}
     };
     
+    //saves the CrossingSearch results so you do not need to make repeated requestes
     self.cacheCrossingSearch = function(payload)
     {
-    	//var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 	   try{
        	 	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
         	crossingsFile.write(JSON.stringify(payload));
@@ -43,28 +39,22 @@ function localDataHandler() {
        }catch(e){
        		Alloy.Globals.aIndicator.hide();
        }
-        //Ti.API.info("====Caching: ===="+JSON.stringify(payload));
-        //return true;
     };
     
     self.clearCachedCrossing = function()
     {
     	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
-    	//crossingsFile.deleteFile(); 
-    	////Ti.API.info("Deleted Cached Crossings File");
+
     	if (crossingsFile.exists()) 
     	{ 
     		crossingsFile.deleteFile(); 
     		crossingsFile = null;
-    		//Ti.API.info("Deleted Cached Crossings File");
     	}
     	
     };
     
     self.loadCachedCrossingSearch = function()
     {
-    	//var curUserDir = User.getUserDir();
-		// alert("curUserDir = "+curUserDir.nativePath);
 		try{
 	        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  +"crossingsSearch.json");
 	        if (crossingsFile.exists()) {
@@ -79,11 +69,9 @@ function localDataHandler() {
 	    }
     };
    
-    self.clearAllSavedAssessments = function () {
-    	 //alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
-	
+   
+   //will clear all assessments for the working Directory. this will delete all files related to each assessments
+    self.clearAllSavedAssessments = function () {	
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         var savedAssessments = [];
         if (!indexFile.exists()) {
@@ -100,9 +88,8 @@ function localDataHandler() {
         indexFile.write(JSON.stringify([]));
     };
 
+	//get all assessments for the working Directory.  
     self.getAllSavedAssessments = function () {
-		 //var curUserDir = User.getUserDir();
-		// alert("curUserDir = "+curUserDir.nativePath);
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         if (indexFile.exists()) {
             indexFileContents = indexFile.read().text;
@@ -112,27 +99,20 @@ function localDataHandler() {
         }
     };
 
+	//will update all the saved assessments detailed with savedAssessments.
+	//must NOT be used to delete assessments
     self.updateSavedAssessments = function (savedAssessments) {
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
         indexFile.write(JSON.stringify(savedAssessments));
         return true;
     };
 
+	//will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function (question) {
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		var savedAssessments = self.getAllSavedAssessments();
 		var refToSaveAssessmentIndex = null;
 		for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 		{
-			////Ti.API.info("question = "+ JSON.stringify(question));
-			////Ti.API.info("savedAssessments[savedAssementIndex].assessmentID = "+ savedAssessments[savedAssementIndex].assessmentID);
-			////Ti.API.info("question.assesmentId = "+ question.assessmentId);
-
 			if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
 			{
 				refToSaveAssessmentIndex = savedAssementIndex;
@@ -166,22 +146,17 @@ function localDataHandler() {
                             		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
                             	}
                             	
-                            	
                             }
                                       
                             sectionList[sectionIndex].questionList[questionIndex] = question;
                             questionFound = true;
-                        }
-              
-                        
+                        } 
                     }
                 }
-                
-                
             }
 
             if (questionFound == false) {
-                //alert("updateQuestion : question not found ");
+                Ti.API.info("updateQuestion : question not found ");
             }
 
 			self.updateSavedAssessments(savedAssessments);
@@ -195,6 +170,7 @@ function localDataHandler() {
         return false;
     };
 
+	//will update a assessment with the same assessmentID as the assessmentObject passed
     self.updateSingleAssessmentIndexEntry = function (assessmentObject) {
     	
         var savedAssessments = self.getAllSavedAssessments();
@@ -207,6 +183,7 @@ function localDataHandler() {
         self.updateSavedAssessments(savedAssessments);
     };
     
+    //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject.assessmentID passed
     self.getMostUpTodateAssessmentObject = function (assessmentObject) {
         var savedAssessments = self.getAllSavedAssessments();
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -217,46 +194,14 @@ function localDataHandler() {
         }
         return assessmentObject;
     };
-
-    self.updateQuestionWithUserNotes = function (fileName, question) {
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
-        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + fileName);
-        if (assessmentFile.exists()) {
-
-            var sectionList = JSON.parse(assessmentFile.read().text);
-            var questionFound = false;
-
-            for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true; sectionIndex++) {
-
-                if (sectionList[sectionIndex].groupType == question.groupType) {
-                    var questionList = sectionList[sectionIndex].questionList;
-
-                    for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true; questionIndex++) {
-
-                        if (sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
-                            sectionList[sectionIndex].questionList[questionIndex] = question;
-                            questionFound = true;
-                        }
-                    }
-                }
-            }
-
-            assessmentFile.write(JSON.stringify(sectionList));
-
-            return true;
-        }
-        alert("ERROR - assessmentFile does not exists");
-        return false;
-    };
     
+    //changes the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+    //to say that it has been submitted
     self.setAssessmentCompleted = function(assessmentObject)
     {
     	 var savedAssessments = self.getAllSavedAssessments();
-
+    	 
          for (var i = 0; i < savedAssessments.length; i++) {
-
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
             	savedAssessments[i].isSubmitted = true;
             	self.updateSavedAssessments(savedAssessments);
@@ -265,10 +210,8 @@ function localDataHandler() {
          }    
     };
     
+    //creates a new assessment in the working Directory with the passed variables 
     self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, quesMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
-		//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 	  try{
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -329,8 +272,6 @@ function localDataHandler() {
         });
         Ti.API.info("after calling interpret");
         Ti.API.info("newQuestionSet >> " + JSON.stringify(newQuestionSet));
-        
-        ////Ti.API.info("main question set = "+JSON.stringify(newQuestionSet));
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
@@ -340,6 +281,7 @@ function localDataHandler() {
       }
     };
 
+	//addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
     	try{
     	Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
@@ -359,6 +301,7 @@ function localDataHandler() {
        }
     };
 
+	//addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
     	try{
     	Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
@@ -378,11 +321,8 @@ function localDataHandler() {
        }
     };
     
+    //adds a core question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addNewCoreQuestionToAssessment = function (assessmentObject, JASON_question_list, questionMap) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -420,11 +360,10 @@ function localDataHandler() {
         return [];
     };
 
+	//adds a new Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+	//the new Census uses the saved default Census Questions set for this assessment
     self.addNewCensusToAssessment = function (assessmentObject, censusMap) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
+ 
 		try{
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -435,11 +374,7 @@ function localDataHandler() {
                 var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID + "CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newCensusFileName);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
-			//	//Ti.API.info("============================");
-				////Ti.API.info(JSON.stringify(savedAssessments[i].defaultCensusQuestions));
-				////Ti.API.info("============================");
-                //new interpreterModule
-              
+
                 var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
                     pageName: L("page_census_name")+" " + savedAssessments[i].censusLastPageID,
@@ -471,6 +406,7 @@ function localDataHandler() {
        }
     };
     
+   //check if census is done for an assessment that matches the assessmentID as the assessmentObject passed 
     self.checkIfCensusIsDone = function (assessmentObject) {
     	
     	var censusDone = true;
@@ -504,6 +440,8 @@ function localDataHandler() {
         }
     };
 
+
+	//creates an object needed from the saved assessment that is needed by the server to create a PDF doc
     self.createAssessmentPDFResponse = function (assessmentObject) {
     		 
         var returnQuestionObj = {
@@ -512,7 +450,6 @@ function localDataHandler() {
             individualCensusList: [],
             individualTrainList: []
         };
-
 
         var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
 
@@ -543,22 +480,18 @@ function localDataHandler() {
     };
 
 
+	//adds a new train group question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+	//the new TrainGroup uses the saved default TrainGroup Questions set for this assessment
     self.addNewTrainGroupToAssessment = function (assessmentObject, trainGroupMap) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		try{ 
 		 
         var savedAssessments = self.getAllSavedAssessments();
-
 
         for (var i = 0; i < savedAssessments.length; i++) {
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
                 var newTrainGroupFileName = assessmentObject.assessmentID + savedAssessments[i].trainGroupLastPageID + "TrainGroupQuestions.json";
                 var newTrainGroupFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newTrainGroupFileName);
                 savedAssessments[i].trainGroupQuestionsfileNameList.push(newTrainGroupFileName);
-
 
                 //new interpreterModule
                 var newTrainInfoQuestionSet = interpreter.interpret(savedAssessments[i].defaultTrainInfoQuestions, {
@@ -589,12 +522,10 @@ function localDataHandler() {
 
     };
 
+
+	//deletes all local content for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.removeAssessment = function (assessmentObject) {
     	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
-
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -612,10 +543,7 @@ function localDataHandler() {
 		             	coreQuestionsFile.deleteFile();
 		             }
                 }
-                
-               
 
-                //delete savedAssessments[i];
                 savedAssessments.splice(i, 1);
 
                 self.updateSavedAssessments(savedAssessments);
@@ -626,13 +554,9 @@ function localDataHandler() {
         return false;
     };
 
-
+	//Censuses Or Trains questions sets for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.getAllCensusesOrTrains = function (assessmentObject, type) {
     	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
-
         var getAllData = [];
 
         switch (type) {
@@ -674,12 +598,8 @@ function localDataHandler() {
 
 
     
-
+	//deletes a file attached to an assessment 
     self.deleteAssociatedFileNameFromAssessment = function (assessmentObject, associatedFileName) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		try{
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
 
@@ -702,11 +622,8 @@ function localDataHandler() {
 
     };
 	
+	//get the main question set for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
 	self.getMainRiskAssessmentQuestions = function (assessmentObject) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		try{
 		var returnQuestionSet = [];
 
@@ -723,14 +640,13 @@ function localDataHandler() {
             returnQuestionSet = returnQuestionSet.concat(assessment);
         }
 
-
-       
         return returnQuestionSet;
        }catch(e){
        		Alloy.Globals.aIndicator.hide();
        }
     };
     
+    //updates the number of answers mandatory questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
     self.updateQuestionCount = function (assessmentObject) {
     	try{
     	var returnQuestionSet = [];
@@ -793,11 +709,9 @@ function localDataHandler() {
         }
     };
 
+
+	//gets all questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
     self.openAssessment = function (assessmentObject) {
-    	
-    	//alert(User.getLogin().username);
-		 //var curUserDir = User.getUserDir();
-		 //alert("curUserDir = "+curUserDir.nativePath);
 		try{
         var returnQuestionSet = [];
 
@@ -806,9 +720,7 @@ function localDataHandler() {
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
-        
-        //coreQuestionsFileName
-        //alert("assessmentObject.coreQuestionsFileName = "+assessmentObject.coreQuestionsFileName);
+
         if(assessmentObject.coreQuestionsFileName != null){
         	var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.coreQuestionsFileName);
 	        if (coreQuestionsFile.exists()) {
@@ -842,7 +754,6 @@ function localDataHandler() {
 
             }
         }
-        ////Ti.API.info("complete returnQuestionSet = "+JSON.stringify(returnQuestionSet));
         return returnQuestionSet;
        }catch(e){
        		Alloy.Globals.aIndicator.hide();
