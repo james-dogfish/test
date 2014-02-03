@@ -23,11 +23,23 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 		},
 		start: function() {
 			var self = this;
+			
+			/*
+			Alloy.Globals.survey = {
+				lastUpdate: moment(),
+				duration: moment.duration(seconds * 1000, 'milliseconds'),
+				interval: 1000
+			};
+			*/
+			
 			this.timer = setInterval( function() {
 
 				if (self.totalSec) {
+					
+					//var timeNow = moment();
 					self.totalSec--;
 				
+					Alloy.Globals.survey.currentTime = 
 					
 					self.time = convertSecondsToTimeObject(self.totalSec);
 					//Ti.API.info("self.totalSec" + self.totalSec+ ", time = "+JSON.stringify(self.time));

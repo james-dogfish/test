@@ -1,4 +1,16 @@
 <Alloy>
+	<TableViewRow id="crossingRow">
+        <View id="viewGroup">
+        	<Label id="crossingName"/>
+        	<Label id="crossingElr"/>
+        	
+        	<Label id="crossingType"/>
+        	
+		</View>
+    </TableViewRow>
+</Alloy>
+
+<!--<Alloy>
 	<ItemTemplate id="crossingRow" name="crossingRow">
         <View id="viewGroup">
         	<Label id="crossingName" bindId="crossingName"/>
@@ -6,4 +18,4 @@
         	<Label id="crossingType" bindId="crossingType"/>       	
 		</View>
     </ItemTemplate>
-</Alloy>
+</Alloy>-->
