@@ -40,29 +40,10 @@ var startup = function() {
 			message : true
 		}).getView();
 		userSettings.open();
-		downloadCrossings();
-	}else{
-		downloadCrossings();
 	}
-	
 	
 };
 
-function downloadCrossings() {
-	var masterSearchTab = Alloy.createController('searchWindow/masterSearchTab');
-	var aIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
-	Alloy.Globals.aIndicator = aIndicator;
-	//CHECK FOR CONNECTIVITY
-  	if(Titanium.Network.online){
-  		aIndicator.show("Please wait...");
-		masterSearchTab.setData(true);
-		aIndicator.hide();
-	}else{
-		aIndicator.show("Please wait...");
-		masterSearchTab.setData(false);
-		aIndicator.hide();
-	}
-};
 if (User.isLoggedIn() && !User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
