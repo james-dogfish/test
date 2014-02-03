@@ -16,6 +16,9 @@
 "#listView" : {
 	//searchText : "name"
 },
+"#tableView" : {
+	filterAttribute : "filter"
+},
 "#toolbar": {
 	top:Alloy.Globals.Styles.windowTop,
 	borderTop:"true",
