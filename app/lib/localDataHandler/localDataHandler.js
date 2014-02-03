@@ -99,7 +99,7 @@ function localDataHandler() {
         }
     };
 
-	//will update all the assessments detailed in savedAssessments.
+	//will update all the saved assessments detailed with savedAssessments.
 	//must NOT be used to delete assessments
     self.updateSavedAssessments = function (savedAssessments) {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "assessmentIndex.json");
@@ -183,7 +183,7 @@ function localDataHandler() {
         self.updateSavedAssessments(savedAssessments);
     };
     
-    //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject passed
+    //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject.assessmentID passed
     self.getMostUpTodateAssessmentObject = function (assessmentObject) {
         var savedAssessments = self.getAllSavedAssessments();
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -195,6 +195,8 @@ function localDataHandler() {
         return assessmentObject;
     };
     
+    //changes the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+    //to say that it has been submitted
     self.setAssessmentCompleted = function(assessmentObject)
     {
     	 var savedAssessments = self.getAllSavedAssessments();
@@ -208,6 +210,7 @@ function localDataHandler() {
          }    
     };
     
+    //creates a new assessment in the working Directory with the passed variables 
     self.addNewAssessment = function (JASON_question_list, crossingName, detailID, crossingID, quesMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
 	  try{
         var savedAssessments = self.getAllSavedAssessments();
@@ -278,6 +281,7 @@ function localDataHandler() {
       }
     };
 
+	//addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
     	try{
     	Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
@@ -297,6 +301,7 @@ function localDataHandler() {
        }
     };
 
+	//addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
     	try{
     	Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
@@ -316,6 +321,7 @@ function localDataHandler() {
        }
     };
     
+    //adds a core question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addNewCoreQuestionToAssessment = function (assessmentObject, JASON_question_list, questionMap) {
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -354,6 +360,8 @@ function localDataHandler() {
         return [];
     };
 
+	//adds a new Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+	//the new Census uses the saved default Census Questions set for this assessment
     self.addNewCensusToAssessment = function (assessmentObject, censusMap) {
  
 		try{
@@ -398,6 +406,7 @@ function localDataHandler() {
        }
     };
     
+   //check if census is done for an assessment that matches the assessmentID as the assessmentObject passed 
     self.checkIfCensusIsDone = function (assessmentObject) {
     	
     	var censusDone = true;
@@ -431,6 +440,8 @@ function localDataHandler() {
         }
     };
 
+
+	//creates an object needed from the saved assessment that is needed by the server to create a PDF doc
     self.createAssessmentPDFResponse = function (assessmentObject) {
     		 
         var returnQuestionObj = {
@@ -469,6 +480,8 @@ function localDataHandler() {
     };
 
 
+	//adds a new train group question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+	//the new TrainGroup uses the saved default TrainGroup Questions set for this assessment
     self.addNewTrainGroupToAssessment = function (assessmentObject, trainGroupMap) {
 		try{ 
 		 
@@ -509,6 +522,8 @@ function localDataHandler() {
 
     };
 
+
+	//deletes all local content for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.removeAssessment = function (assessmentObject) {
     	
         var savedAssessments = self.getAllSavedAssessments();
@@ -539,7 +554,7 @@ function localDataHandler() {
         return false;
     };
 
-
+	//Censuses Or Trains questions sets for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.getAllCensusesOrTrains = function (assessmentObject, type) {
     	
         var getAllData = [];
@@ -583,7 +598,7 @@ function localDataHandler() {
 
 
     
-
+	//deletes a file attached to an assessment 
     self.deleteAssociatedFileNameFromAssessment = function (assessmentObject, associatedFileName) {
 		try{
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -607,6 +622,7 @@ function localDataHandler() {
 
     };
 	
+	//get the main question set for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
 	self.getMainRiskAssessmentQuestions = function (assessmentObject) {
 		try{
 		var returnQuestionSet = [];
@@ -630,6 +646,7 @@ function localDataHandler() {
        }
     };
     
+    //updates the number of answers mandatory questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
     self.updateQuestionCount = function (assessmentObject) {
     	try{
     	var returnQuestionSet = [];
@@ -692,6 +709,8 @@ function localDataHandler() {
         }
     };
 
+
+	//gets all questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
     self.openAssessment = function (assessmentObject) {
 		try{
         var returnQuestionSet = [];
