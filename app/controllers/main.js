@@ -165,7 +165,9 @@ function parseTrainData(xml_text, curAssObj) {
 				alert(L('no_data'));
 				return;
 			}
-			var censusData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
+			var trainData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
+			trainData = null;
+			censusData = null;
 
 		} else {
 			alert(L('no_data'));
@@ -199,6 +201,8 @@ function parseCensusData(xml_text, curAssObj) {
 			}
 
 			var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
+			xml_text = null;
+			censusData = null;
 
 		} else {
 			alert(L('no_data'));
@@ -287,6 +291,77 @@ function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) 
 	}
 };
 
+
+function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID){
+	try {
+		var questionsData = localParser.getQuestions(xml_text);
+		var  assessmentObject = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
+		questionsData = null;
+		xml_text = null;
+		
+		return assessmentObject;
+	}
+	catch(e) {
+		Ti.API.error("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e));
+		Alloy.Globals.aIndicator.hide();
+		return null;
+	}
+	
+};
+
+function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns){
+	try {
+		if(assessmentObject == null){
+			Ti.API.info("assessmentObject == null ");
+			return false;
+		}
+		
+
+		var crossingQuestions = localParser.getQuestions(crosQues);
+
+		var quesMap = [];
+		var crossingAnswers = localParser.getQuestions(crosAns);
+		
+		if ( typeof crossingAnswers !== "undefined") {
+			if ( typeof crossingAnswers[0] !== "undefined") {
+				if ( typeof crossingAnswers[0].detailedData !== "undefined") {
+					for (var i = 0; i < crossingAnswers[0].detailedData.length; i++) {
+						if (typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" && typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined") {
+	
+							quesMap[crossingAnswers[0].detailedData[i]["ns7:parameterName"]["#text"]] = {
+								value : crossingAnswers[0].detailedData[i]["ns7:parameterValue"]["#text"]
+							};
+						}
+					}
+				}
+			}
+			else{
+				Ti.API.info("typeof crossingAnswers[0] == undefined");
+				return false;
+			}
+		}
+		else{
+			Ti.API.info("typeof crossingAnswers == undefined");
+			return false;
+		}
+		
+		
+			
+		localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
+		
+		quesMap = null;
+		crossingQuestions = null;
+			
+		return true;
+		
+	}
+	catch(e) {
+		Ti.API.error("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e));
+		Alloy.Globals.aIndicator.hide();
+	}
+	
+}
+
 function getCrossingQuestionSet(crossingDetail) {
 	Alloy.Globals.Soap.getQuestionsRequest({
 		crossingId : crossingDetail.id,
@@ -365,24 +440,45 @@ var buildAssessment = function(crossingDetail) {
 		return false;
 	}
 
-	var riskMap = [];
-	var curAssObj = parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/0, crossingDetail.id, riskMap);
-	Ti.API.info("curAssObj >> " + JSON.stringify(curAssObj));
+	//var riskMap = [];
+	//var curAssObj = parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/0, crossingDetail.id, riskMap);
+	
+	var assessmentObject = createAssessmentWithMainQuestionSet(xmlDocAss, 0, crossingDetail.id);
+	xmlDocAss = null;
+	
+	if(assessmentObject == null){
+		Ti.API.info("in main.js buildAssessment >> assessmentObject == null");
+		return;
+	}
+	
+	var returnValue = addCoreQuestionSetToAssessment(assessmentObject, xmlDocCrossQues, xmlDocCrossAns);
+	xmlDocCrossQues = null;
+	xmlDocCrossAns = null;
+	if(returnValue == false){
+		Ti.API.info("in main.js addCoreQuestionSetToAssessment >> did not create");
+		return;
+	}
+	
+	
+	//Ti.API.info("curAssObj >> " + JSON.stringify(curAssObj));
 
-	if ( typeof curAssObj === "undefined") {
+	if ( typeof assessmentObject === "undefined") {
 		alert(L('no_data'));
 		Alloy.Globals.aIndicator.hide();
 		return;
 	} else {
-		parseCensusData(xmlDocCensus, curAssObj);
-		parseTrainData(xmlDocTrain, curAssObj);
+		parseCensusData(xmlDocCensus, assessmentObject);
+		xmlDocCensus = null;
+		
+		parseTrainData(xmlDocTrain, assessmentObject);
+		xmlDocTrain = null;
 
-		localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-		localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
-		localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
+		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 
 		$.riskAssessmentsTab.loadRiskAssessments();
-		$.questionRendererTab.setAssessment(curAssObj);
+		$.questionRendererTab.setAssessment(assessmentObject);
 		$.tabGroup.setActiveTab($.questionRendererTab.getView());
 
 		Alloy.Globals.aIndicator.hide();
