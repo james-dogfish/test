@@ -27,6 +27,9 @@ Ti.Gesture.addEventListener('orientationchange', changeBg);
 
 function doLogin() {
 	//Ti.App.fireEvent('doLoginEvent2');
+	var theIndex = Alloy.createController('index');
+	var loginWin = Alloy.createController('startup');
+	
 	var offlineLogin = false;
 	Alloy.Globals.aIndicator.show('Logging in...');
     if (!Titanium.Network.online && User.activeUser()) {
