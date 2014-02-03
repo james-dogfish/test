@@ -49,7 +49,6 @@ if (User.isLoggedIn() && !User.isLoginExpired()) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}
 	startup();
-	downloadCrossings();
 } else {
 	//show login screen
 	Alloy.createController('startup').getView().open();
