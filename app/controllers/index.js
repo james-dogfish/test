@@ -30,7 +30,7 @@ var getValidator = function() {
  *************************************************************/
 var startup = function() {
 	Ti.API.info("startup is fired");
-	loginWin.closeLoginWin();
+	// loginWin.closeLoginWin();
 	//Ti.App.removeEventListener('fireStartup');
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();
