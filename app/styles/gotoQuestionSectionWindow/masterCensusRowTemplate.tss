@@ -24,6 +24,7 @@
 	borderRadius: 5,
 	borderWidth : 1,
 	backgroundColor  : "#D11313",
+	backgroundImage: 'none'
 }
 
 
