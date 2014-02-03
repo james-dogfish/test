@@ -30,15 +30,6 @@ var startup = function() {
 	mainView.open();
 	mainView = null;
 	
-	// Check whether settings are filled
-	if (!User.hasPreferences()) {
-		// Open setting screen
-		var userSettings = Alloy.createController('userSettings', {
-			message : true
-		}).getView();
-		userSettings.open();
-	}
-	
 	var masterSearchTab = Alloy.createController('searchWindow/masterSearchTab');
 	//CHECK FOR CONNECTIVITY
   	if(Titanium.Network.online){
@@ -47,6 +38,15 @@ var startup = function() {
 	}else{
 		masterSearchTab.setData(false);
 		masterSearchTab = null;
+	}
+	
+	// Check whether settings are filled
+	if (!User.hasPreferences()) {
+		// Open setting screen
+		var userSettings = Alloy.createController('userSettings', {
+			message : true
+		}).getView();
+		userSettings.open();
 	}
 	
 };
