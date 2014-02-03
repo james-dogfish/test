@@ -106,7 +106,7 @@ function interpreterModule2() {
 	    	}
 	    	if(typeof question.secondTab !== "undefined"){
     		
-	    		displayName = displayName + question.secondTab["#text"];
+	    		displayName = displayName + " "+ question.secondTab["#text"];
 	    	}
 	    	return displayName;
     	}
