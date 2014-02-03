@@ -1,5 +1,8 @@
 "#win" : {
-	exitOnClose : true
+	barColor: '#000',
+	barTint : '#000',
+	top : 20, //Alloy.Globals.windowTop,
+	statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
 },
 "#background" : {
 	backgroundColor:"#000"

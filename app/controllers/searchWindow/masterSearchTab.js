@@ -120,8 +120,8 @@ var setData = function(shouldRefresh) {
 				                		name: results[i]["ns6:name"],
 				                		searchableText : results[i]["ns6:name"],
 				                	});
-				                	crossingDetailsSearchResult = null;
-				                	type = null;
+				                	//crossingDetailsSearchResult = null;
+				                	//type = null;
 				                }
 				               /*
 				                var data = [];
@@ -138,10 +138,6 @@ var setData = function(shouldRefresh) {
 								$.listSection.setItems(listViewData);
 								Alloy.Globals.aIndicator.hide();
 							}
-							crossingsObject = null;
-							data = null;
-							results = null;
-							//
 					},
 					function(xmlDoc){});
 	}

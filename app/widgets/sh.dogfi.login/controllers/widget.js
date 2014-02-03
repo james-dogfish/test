@@ -73,8 +73,9 @@ function doLogin() {
                 
                 //Ti.App.fireEvent('closeLoginWin');
 				//Ti.App.fireEvent('fireStartup');//startup();
-				loginWin.closeLoginWin();
+				//loginWin.closeLoginWin();
 				theIndex.startup();
+				loginWin.closeLoginWin();
 				return;
             
             } else {
@@ -120,13 +121,14 @@ function doLogin() {
                             // Shows the home screen now
                            // $.window.close();
                            //Ti.App.fireEvent('closeLoginWin');
-                           loginWin.closeLoginWin();
+                           
                            var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
                             
                            if(typeof route == 'string' && isStagedRollOutOn == false) {
                             	Ti.App.Properties.setString('SelectedRoute', route);
   								//Ti.App.fireEvent('fireStartup');
   								theIndex.startup();
+  								loginWin.closeLoginWin();
 							}else if(isStagedRollOutOn == true){
 								var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
 								var rollOutRoutes = [];
@@ -139,12 +141,14 @@ function doLogin() {
 	                       		Alloy.createController('selectRouteWindow').show(rollOutRoutes,function(){
 	                            	//Ti.App.fireEvent('fireStartup');
 	                            	theIndex.startup();
+	                            	loginWin.closeLoginWin();
 	                            });
 	                        }else{
 	                            Alloy.createController('selectRouteWindow').show(route,function(){
 	                            	//$.destroy;
 	                            	//Ti.App.fireEvent('fireStartup');
 	                            	theIndex.startup();
+	                            	loginWin.closeLoginWin();
 	                            });
 	                       }
 	                     
