@@ -6,6 +6,7 @@
 	opacity: 0.5	
 },
 "#loginWin": {
+	top:Alloy.Globals.windowTop
 },
 "#loginView": {
 	width : 400,

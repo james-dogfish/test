@@ -1,7 +1,7 @@
 "#window" : {
 	barColor: '#000',
     barTint : '#000',
-    top : Alloy.Globals.windowTop,
+    top : 0,
     statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
 	layout: 'vertical',
 },

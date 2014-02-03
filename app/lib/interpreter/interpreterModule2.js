@@ -95,8 +95,15 @@ function interpreterModule2() {
     
     var getSectionDisplayName = function(question){
     	
-    	var displayName = question.firstTab["#text"];
-    	if(typeof question.secondTab !== "undefined"){
+    	var displayName = "N/A";
+    	
+    	if(typeof question.firstTab !== "undefined")
+    	{
+    		displayName = question.firstTab["#text"];
+    		
+    	}
+    	else if(typeof question.secondTab !== "undefined"){
+    		
     		displayName = question.secondTab["#text"];
     	}
     	
@@ -164,25 +171,22 @@ function interpreterModule2() {
 
 
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
-
+		
 		var questionName = passObject.pageID + localParser.getQuestionName(question);
         var type = localParser.getQuestionType(question);
         var templateType = "";
         if (type in ui_types_map) {
             templateType = ui_types_map[type];
         } else {
-            //alert("question_type_key " + question_type_key);
+            Ti.API.info("questionNull type =" + type);
             return null;
         }
         
         if(localParser.getQuestionName(question) in hiddenQuestionsMap){
+        	Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
         	return null;
         }
         
-        
-        
-        
-
         questionRenderValues = [];
         var allRenderValues = localParser.getRenderValue(question);
         var questionVisable = true;
@@ -190,6 +194,7 @@ function interpreterModule2() {
         if (allRenderValues.length != 0) {
             questionVisable = false;
         }
+        
         for (var i = 0; i < allRenderValues.length; i++) {
 
             dependencieName = passObject.pageID + localParser.getRenderValueParamName(allRenderValues[i]);
@@ -597,7 +602,9 @@ function interpreterModule2() {
     	
     	
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
+        	
         	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
+        		Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
         		self.sectionHeaderList.splice(sectionIndex, 1);
         		sectionIndex = sectionIndex - 1;
         	}
@@ -788,6 +795,7 @@ function interpreterModule2() {
 	        return self.sectionHeaderList;
 	    }catch(e){
 	    	Alloy.Globals.aIndicator.hide();
+	    	Ti.API.info("Interpreter.interpret has an exception: "+JSON.stringify(e));
 	    	return [];
 	    }
     };

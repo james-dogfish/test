@@ -314,6 +314,9 @@ function localDataHandler() {
         var newAssessmentFileName = newAssessment.mainQuestionsfileName;
         var newAssessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newAssessmentFileName);
 
+		Ti.API.info("before calling interpret");
+		Ti.API.info(JSON.stringify(JASON_question_list));
+		
         //new interpreterModule
         var newQuestionSet = interpreter.interpret(JASON_question_list, {
             associatedFileName: newAssessment.mainQuestionsfileName,
@@ -324,6 +327,8 @@ function localDataHandler() {
             assessmentId: assessmentID,
             questionMap: quesMap
         });
+        Ti.API.info("after calling interpret");
+        Ti.API.info("newQuestionSet >> " + JSON.stringify(newQuestionSet));
         
         ////Ti.API.info("main question set = "+JSON.stringify(newQuestionSet));
 
@@ -599,6 +604,16 @@ function localDataHandler() {
                 if (mainQuestionsfile.exists()) {
                     mainQuestionsfile.deleteFile();
                 }
+                
+                if(assessmentObject.coreQuestionsFileName !== null)
+                {
+                	 var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.coreQuestionsFileName);
+		             if (coreQuestionsFile.exists()) {
+		             	coreQuestionsFile.deleteFile();
+		             }
+                }
+                
+               
 
                 //delete savedAssessments[i];
                 savedAssessments.splice(i, 1);
