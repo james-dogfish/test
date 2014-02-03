@@ -2,8 +2,9 @@
 var currentAssessmentObject = null;
 //var localDataHandler = require('localDataHandler/localDataHandler');
 //var interpreter = require('interpreter/interpreterModule2');
-var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
+//var aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
 
+Alloy.Globals.questionRenderer = null;
 Alloy.Globals.questionRenderer = $.questionListView;
 
 exports.getAssessment = function () {
@@ -11,13 +12,13 @@ exports.getAssessment = function () {
 };
 
 exports.setAssessment = function (assessmentObject) {
-    activityIndicator.show();
+    Alloy.Globals.aIndicator.show();
 
     currentAssessmentObject = assessmentObject;
     var sectionList = localDataHandler.openAssessment(assessmentObject);
     $.questionListView.setAssessment(sectionList, assessmentObject);
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 };
 
 exports.clear = function () {
@@ -90,45 +91,45 @@ Ti.App.addEventListener("goToQuestion", function (e) {
 /*
 gotoQuestionSectionWindow.on("createCensus", function (data) {
 	Ti.API.info("gotoQuestionSectionWindow : createCensus");
-    activityIndicator.show();
+    Alloy.Globals.aIndicator.show();
 	
     createCensus();
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 });
 */
 
 Ti.App.addEventListener("createCensus", function (e) {
 	
-    activityIndicator.show();
+    Alloy.Globals.aIndicator.show();
     createCensus();
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 });
 
 /*
 gotoQuestionSectionWindow.on("addPastCensus", function (e) {
     //alert("addPastCensus back = "+JSON.stringify(e));
-    activityIndicator.show();
+    Alloy.Globals.aIndicator.show();
 
     //createCensus();
     createPastCensus(e.questionList);
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 });
 */
 
 Ti.App.addEventListener("addPastCensus", function (e) {
-	activityIndicator.show();
+	Alloy.Globals.aIndicator.show();
 
     //createCensus();
     createPastCensus(e.questionList);
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 });
 
 /*
@@ -167,7 +168,7 @@ Ti.App.addEventListener("goToLastPositiond", function (e) {
 /*
 gotoQuestionSectionWindow.on("deletePage", function (e) {
     //alert("delete associatedFileName = "+e.associatedFileName);
-    activityIndicator.show();
+    Alloy.Globals.aIndicator.show();
 
     if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
         var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
@@ -175,7 +176,7 @@ gotoQuestionSectionWindow.on("deletePage", function (e) {
         gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
     }
 
-    activityIndicator.hide();
+    Alloy.Globals.aIndicator.hide();
 });
 */
 
@@ -195,7 +196,7 @@ Ti.App.addEventListener("deletePage", function (e) {
        * YES was clicked.
        */
       	Ti.API.info("gotoQuestionSectionWindow : deletePage");
-	    activityIndicator.show();
+	    Alloy.Globals.aIndicator.show();
 	
 	    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
 	        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
@@ -203,7 +204,7 @@ Ti.App.addEventListener("deletePage", function (e) {
 	        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 	    }
 	
-	    activityIndicator.hide();
+	    Alloy.Globals.aIndicator.hide();
     } else if (e.index == 1) { 
      
     }	 

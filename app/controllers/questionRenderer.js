@@ -5,7 +5,7 @@
 //var User = require('core/User');
 //END OF REQUIRES
 
-var userPreferences = User.getPreferences();
+//var userPreferences = User.getPreferences();
 var hiddenQuestions = [];
 var allSections = [];
 var currentAssessmentObject = null;
@@ -511,9 +511,10 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
     $.listView.setSections(sectionList);
 
 
-    userPreferences = User.getPreferences();
+    var userPreferences = User.getPreferences();
     setListViewDisplayTypeToSingleSections(userPreferences.singleView);
-
+	userPreferences = null;
+	
     setupSelectedQuestion();
     //setup questionSelected to be the first question
 

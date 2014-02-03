@@ -3,20 +3,6 @@ var listViewData = [];
 //var crossingData = [];
 //var localDataHandler = require('localDataHandler/localDataHandler');		
 
-
-//if($.listView.searchView	)
-Ti.API.info("listView searchView1 = "+JSON.stringify($.listView.searchView));
-/*
-if (typeof $.listView.searchView === "undefined") {
-	$.listView.searchView = Titanium.UI.createSearchBar({
-	    barColor:'#000', 
-	    showCancel:true,
-	    height:43,
-	    top:0,
-	});
-}
-*/
-
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
 }
@@ -25,6 +11,7 @@ function refreshButtonClick(e) {
 	listViewData = [];
 	$.listSection.setItems(listViewData);
 	setData(true);
+	//listViewData = null;
 }
 
 
@@ -34,14 +21,13 @@ function onRowClick(e){
 };
 
 var setData = function(shouldRefresh) {
-	var loggedInUser = User.getLogin();
 	var savedListViewData = localDataHandler.loadCachedCrossingSearch();
 	if(savedListViewData.length !== 0 && shouldRefresh == false)
 	{
 		Alloy.Globals.aIndicator.show("Loading...",50000);
 		listViewData = savedListViewData;
 		$.listSection.setItems(listViewData);
-		
+		//listViewData = null;
 		/*
 		var data = [];
 				                //alert(JSON.stringify(results[0]));
@@ -117,8 +103,6 @@ var setData = function(shouldRefresh) {
 				                		}
 				                	}
 				                	
-				                	crossingDetailsSearchResult = null;
-				                	
 				                	//alert("stop");
 				                	/*
 				                	crossingData.push({
@@ -136,7 +120,8 @@ var setData = function(shouldRefresh) {
 				                		name: results[i]["ns6:name"],
 				                		searchableText : results[i]["ns6:name"],
 				                	});
-				                	
+				                	crossingDetailsSearchResult = null;
+				                	type = null;
 				                }
 				               /*
 				                var data = [];
@@ -148,11 +133,15 @@ var setData = function(shouldRefresh) {
 								$.tableView.setData(data);
 								data = null;
 								*/
-								Ti.API.info("listViewData.length = "+listViewData.length);
+								//Ti.API.info("listViewData.length = "+listViewData.length);
 								localDataHandler.cacheCrossingSearch(listViewData);
 								$.listSection.setItems(listViewData);
 								Alloy.Globals.aIndicator.hide();
 							}
+							crossingsObject = null;
+							data = null;
+							results = null;
+							//
 					},
 					function(xmlDoc){});
 	}

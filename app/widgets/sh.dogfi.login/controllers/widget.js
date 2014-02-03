@@ -4,7 +4,6 @@
 //var Util = require('core/Util');
 
 Util.downloadConfig();
-
 var pWidth = Ti.Platform.displayCaps.platformWidth,
 	pHeight = Ti.Platform.displayCaps.platformHeight;
 
@@ -61,16 +60,18 @@ function doLogin() {
             });
 			
             if (offlineAttempt) {
-                //$.window.close();
-				
+               // $.window.close();
+				$.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
 
                 }
-                Alloy.Globals.aIndicator.hide();
-                Ti.App.fireEvent('closeLoginWin');
-				Ti.App.fireEvent('fireStartup');//startup();
+                
+                //Ti.App.fireEvent('closeLoginWin');
+				//Ti.App.fireEvent('fireStartup');//startup();
+				theIndex.startup();
+				return;
             
             } else {
             	Alloy.Globals.aIndicator.hide();
@@ -114,12 +115,13 @@ function doLogin() {
                             // Success callback
                             // Shows the home screen now
                            // $.window.close();
-                           Ti.App.fireEvent('closeLoginWin');
+                           //Ti.App.fireEvent('closeLoginWin');
                            var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
                             
                            if(typeof route == 'string' && isStagedRollOutOn == false) {
                             	Ti.App.Properties.setString('SelectedRoute', route);
-  								Ti.App.fireEvent('fireStartup');
+  								//Ti.App.fireEvent('fireStartup');
+  								theIndex.startup();
 							}else if(isStagedRollOutOn == true){
 								var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
 								var rollOutRoutes = [];
@@ -130,12 +132,14 @@ function doLogin() {
 									});
 								}
 	                       		Alloy.createController('selectRouteWindow').show(rollOutRoutes,function(){
-	                            	Ti.App.fireEvent('fireStartup');
+	                            	//Ti.App.fireEvent('fireStartup');
+	                            	theIndex.startup();
 	                            });
 	                        }else{
 	                            Alloy.createController('selectRouteWindow').show(route,function(){
 	                            	$.destroy;
-	                            	Ti.App.fireEvent('fireStartup');
+	                            	//Ti.App.fireEvent('fireStartup');
+	                            	theIndex.startup();
 	                            });
 	                       }
 	                     

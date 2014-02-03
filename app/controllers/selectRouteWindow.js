@@ -41,7 +41,7 @@ function pickerChange(e){
 
 function doneButtonClick(e){
 	$.win.close();
-	
+	loginWin.closeLoginWin();
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
 	doneCallbackfunction(currentValue);	

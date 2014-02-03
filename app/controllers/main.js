@@ -4,19 +4,18 @@
 //var localDataHandler = require('localDataHandler/localDataHandler');
 //var interpreterModule = require('interpreter/interpreterModule2');
 //END OF REQUIRES
-
-var loginView;
+//var loginView;
 
 // Set current tab globally so that other windows can be opened
-Alloy.Globals.currentTab = $.tab1;
+//Alloy.Globals.currentTab = $.tab1;
 Alloy.Globals.tabGroup = $.tabGroup;
-Alloy.Globals.questionRendererTab = questionRendererTab;
+//Alloy.Globals.questionRendererTab = questionRendererTab;
 
-var activityIndicator = Alloy.createController('userNotificationWindows/activityIndicatorDialog');
-var riskAssessmentsTab = $.riskAssessmentsTab;
-var questionRendererTab = $.questionRendererTab;
-var masterSearchTab = $.masterSearchTab;
-var detailSearchTab = $.detailSearchTab;
+//var Alloy.Globals.aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
+//var riskAssessmentsTab = $.riskAssessmentsTab;
+//var questionRendererTab = $.questionRendererTab;
+//var masterSearchTab = $.masterSearchTab;
+//var detailSearchTab = $.detailSearchTab;
 var curAssObj = null;
 
 /////////////////////////////////////////////////////////////////////////Window specific Functions below/////////////////////////////////////////////////////////////////////////
@@ -36,7 +35,7 @@ function toggleSearch() {
         /*
 		// Check to make sure all route templates are fully downloaded
 		Util.slideNotify($.home, 0, 'Please wait while all the files required for your route are downloaded!');
-		//activityIndicator.show('Please wait while all the files required for your route are downloaded!');
+		//Alloy.Globals.aIndicator.show('Please wait while all the files required for your route are downloaded!');
 		// Download template files now
 		Util.downloadAllRouteTemplates(function() {
 			Util.slideNotify($.home, null, null, true);
@@ -46,8 +45,8 @@ function toggleSearch() {
     }
 
 
-    $.tabGroup.setActiveTab(masterSearchTab.getView());
-    masterSearchTab.setData(false);
+    $.tabGroup.setActiveTab($.masterSearchTab.getView());
+    $.masterSearchTab.setData(false);
 }
 
 // Setting up menu item for home screen
@@ -130,34 +129,35 @@ var openMenu = function () {
             //$.searchTable.loading = false;
             // Log a user out
 			User.logOut();
-            Alloy.Globals.tabGroup.close();
-            loginView = Alloy.createController('index').getView();
+            $.tabGroup.close();
+            $.destroy;
+            Alloy.createController('index').getView().open();
             loginView.open();      
         }
     });
 };
 
-riskAssessmentsTab.loadRiskAssessments();
+$.riskAssessmentsTab.loadRiskAssessments();
 
-riskAssessmentsTab.on("openRiskAssessment", function (e) {
-    questionRendererTab.clear();
+$.riskAssessmentsTab.on("openRiskAssessment", function (e) {
+    $.questionRendererTab.clear();
     $.tabGroup.setActiveTab($.questionRendererTab.getView());
 
-    //activityIndicator.show();
+    //Alloy.Globals.aIndicator.show();
 
     //questionRendererTab.setAssessment(interpreterModule.interpret(assessment), e.assessmentObject);
-    questionRendererTab.setAssessment(e.assessmentObject);
-    //activityIndicator.hide();
+    $.questionRendererTab.setAssessment(e.assessmentObject);
+    //Alloy.Globals.aIndicator.hide();
 });
 
-riskAssessmentsTab.on("openSearchTab", toggleSearch);
+$.riskAssessmentsTab.on("openSearchTab", toggleSearch);
 
-masterSearchTab.on("BackButtonClick", function (e) {
+$.masterSearchTab.on("BackButtonClick", function (e) {
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
 
-masterSearchTab.on("RefreshButtonClick", function (e) {
-    masterSearchTab.setData(true);
+$.masterSearchTab.on("RefreshButtonClick", function (e) {
+    $.masterSearchTab.setData(true);
 });
 
 function parseTrainData(xml_text, curAssObj) {
@@ -263,11 +263,7 @@ try{
 }
 };
 
-detailSearchTab.on("BackButtonClick", function (e) {
-    $.tabGroup.setActiveTab(masterSearchTab.getView());
-});
-
-masterSearchTab.on("crossingSelected", function (crossingDetail) {
+$.masterSearchTab.on("crossingSelected", function (crossingDetail) {
 try{
 	
 	if(typeof crossingDetail != "undefined"){
@@ -339,9 +335,9 @@ try{
 			                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
 			                                        localDataHandler.addNewTrainGroupToAssessment(curAssObj, []);
 			                                        
-		                                            riskAssessmentsTab.loadRiskAssessments();
-		                                            questionRendererTab.setAssessment(curAssObj);
-		                                            $.tabGroup.setActiveTab(questionRendererTab.getView());
+		                                            $.riskAssessmentsTab.loadRiskAssessments();
+		                                            $.questionRendererTab.setAssessment(curAssObj);
+		                                            $.tabGroup.setActiveTab($.questionRendererTab.getView());
 		                                        }
 		                                        Alloy.Globals.aIndicator.hide();
 		                                    },
@@ -365,8 +361,8 @@ try{
 }      
 });
 
-questionRendererTab.on("saveAndExitClick", function (e) {
-    riskAssessmentsTab.loadRiskAssessments();
+$.questionRendererTab.on("saveAndExitClick", function (e) {
+    $.riskAssessmentsTab.loadRiskAssessments();
     $.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
-questionRendererTab.on("openMenu", openMenu);
+$.questionRendererTab.on("openMenu", openMenu);

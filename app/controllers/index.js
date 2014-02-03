@@ -29,6 +29,9 @@ var getValidator = function() {
  * 
  *************************************************************/
 var startup = function() {
+	Ti.API.info("startup is fired");
+	loginWin.closeLoginWin();
+	//Ti.App.removeEventListener('fireStartup');
 	//only downloads if not already downloaded before.
 	Util.downloadConfig();
 
@@ -36,13 +39,13 @@ var startup = function() {
 	Util.downloadCheatSheet();
 
 	Util.showDebugAlert("DEBUG ALERTS IS ON");
-	Alloy.Globals.aIndicator.show('Starting up...');
+	//Alloy.Globals.aIndicator.show('Starting up...');
 	getValidator();
 
-	Alloy.Globals.aIndicator.hide();
+	//Alloy.Globals.aIndicator.hide();
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
-
+	mainView = null;
 	// Check whether settings are filled
 	if (!User.hasPreferences()) {
 		// Open setting screen
@@ -54,18 +57,19 @@ var startup = function() {
 	}
 };
 
-
-Ti.App.addEventListener('fireStartup', startup);
+//Ti.App.addEventListener('fireStartup', startup);
 
 if (User.isLoggedIn() && !User.isLoginExpired()) {
 	if (User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}
-	Ti.App.fireEvent('fireStartup');
+	//Ti.App.fireEvent('fireStartup');
+	startup();
 } else {
 	//show login screen
 	Alloy.createController('startup').getView().open();
 }
 
+exports.startup = startup;
 /*RUN our Unit Tests Here*/
 //require('tests_runner').run();

@@ -36,9 +36,10 @@ function localDataHandler() {
     {
     	//var curUserDir = User.getUserDir();
 		 //alert("curUserDir = "+curUserDir.nativePath);
-		try{
+	   try{
        	 	var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
         	crossingsFile.write(JSON.stringify(payload));
+        	crossingsFile = null;
        }catch(e){
        		Alloy.Globals.aIndicator.hide();
        }
@@ -54,6 +55,7 @@ function localDataHandler() {
     	if (crossingsFile.exists()) 
     	{ 
     		crossingsFile.deleteFile(); 
+    		crossingsFile = null;
     		//Ti.API.info("Deleted Cached Crossings File");
     	}
     	
@@ -67,6 +69,7 @@ function localDataHandler() {
 	        var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  +"crossingsSearch.json");
 	        if (crossingsFile.exists()) {
 	            crossingsFileContents = crossingsFile.read().text;
+	            crossingsFile = null;
 	            return JSON.parse(crossingsFileContents);
 	        } else {
 	            return [];
