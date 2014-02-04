@@ -44,7 +44,7 @@ var SudsClient = function(_options) {
 
   function xmlDomFromString(_xml) {
     //var Util = require('core/Util'),
-      var xmlDoc;
+    var xmlDoc;
     try {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
@@ -52,7 +52,7 @@ var SudsClient = function(_options) {
       Util.log('Invalid server response received from ALCRM. Please retry! LOG -' + e);
       return false;
     }
-    if(xmlDoc) {
+    if (xmlDoc) {
       return xmlDoc;
     }
 
@@ -130,24 +130,24 @@ var SudsClient = function(_options) {
   };
 
   function invokeService(_soapAction, _body, _callback, _failure, _header) {
-  	
-  	//CHECK FOR CONNECTIVITY
-  	if(!Titanium.Network.online){
-  			Alloy.Globals.aIndicator.hide();
-     		var alertDialog = Titanium.UI.createAlertDialog({
-              title: L('no_connectivity_title'),
-              message: L('no_connectivity_body'),
-              buttonNames: ['OK']
-            });
-            alertDialog.show();
-            
-            return;
-	}
+
+    //CHECK FOR CONNECTIVITY
+    if (!Titanium.Network.online) {
+      Alloy.Globals.aIndicator.hide();
+      var alertDialog = Titanium.UI.createAlertDialog({
+        title: L('no_connectivity_title'),
+        message: L('no_connectivity_body'),
+        buttonNames: ['OK']
+      });
+      alertDialog.show();
+
+      return;
+    }
 
     //Build request body 
     var body = _body;
     var header = _options.headerContent;
-	
+
     //Allow straight string input for XML body - if not, build from object
 
     if (typeof body !== 'string') {
@@ -169,88 +169,87 @@ var SudsClient = function(_options) {
     //POST XML document to service endpoint
     var xhr = getXHR();
     xhr.onload = function() {
-     // //Ti.API.info('SUDS - Success');
-       //Alloy.Globals.aIndicator.hide();
+      // //Ti.API.info('SUDS - Success');
+      //Alloy.Globals.aIndicator.hide();
       _callback.call(this, xmlDomFromString(this.responseText));
     };
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       //var XMLTools = require("tools/XMLTools");
-      try{
-      Alloy.Globals.aIndicator.hide();
-      var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
-      var errObj = JSON.stringify(errXml.toObject());
-      
-      
-      
-      var error_object = JSON.parse(errObj);
-      var error_code = null;
-      var error_message = null;
-      var error_stacktrace = null;
-      if(typeof error_object === "undefined" || 
-      	typeof error_object["soapenv:Body"] === "undefined" ||
-      	typeof error_object["soapenv:Body"]["soapenv:Fault"] === "undefined" ||
-      	typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] === "undefined")
-      {
-      		error_code = "0";
-      		error_message = JSON.stringify(error_object);
-      		error_stacktrace = "";
-      		if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] !=="undefined")
-      		{
-      			error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"] + ". ";
-      			error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-      			if(typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"] !=="undefined")
-      			{
-      				error_message += error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"];
-      			}
-      			
-      		}
-      }else{
-  
-      		error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-      		error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
-      		error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+      try {
+        Alloy.Globals.aIndicator.hide();
+        var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
+        var errObj = JSON.stringify(errXml.toObject());
+
+
+
+        var error_object = JSON.parse(errObj);
+        var error_code = null;
+        var error_message = null;
+        var error_stacktrace = null;
+        if (typeof error_object === "undefined" ||
+          typeof error_object["soapenv:Body"] === "undefined" ||
+          typeof error_object["soapenv:Body"]["soapenv:Fault"] === "undefined" ||
+          typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] === "undefined") {
+          error_code = "0";
+          error_message = JSON.stringify(error_object);
+          error_stacktrace = "";
+          if (typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] !== "undefined") {
+            error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"] + ". ";
+            error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+            if (typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"] !== "undefined") {
+              error_message += error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"];
+            }
+
+          }
+        } else {
+
+          error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
+          error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
+          error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
+        }
+
+        var alert = Titanium.UI.createAlertDialog({
+          title: 'Error: ' + error_code,
+          message: error_message + "\n\nWould you like to retry?",
+          buttonNames: ['Yes', 'No'],
+          cancel: 1,
+          stackTrace: error_stacktrace
+        });
+
+        alert.addEventListener('click', function(e) {
+          //Clicked cancel, first check is for iphone, second for android
+          if (e.cancel === e.index || e.cancel === true) {
+            Alloy.Globals.aIndicator.hide();
+            return;
+          }
+
+          //now you can use parameter e to switch/case
+
+          switch (e.index) {
+            case 0:
+              invokeService(_soapAction, _body, _callback, _failure, _header);
+              break;
+
+              //This will never be reached, if you specified cancel for index 1
+            case 1:
+              Alloy.Globals.aIndicator.hide();
+              break;
+
+          }
+        });
+        alert.show();
+      } catch (e) {
+        Alloy.Globals.aIndicator.hide();
       }
-      
-      var alert = Titanium.UI.createAlertDialog({
-	  	title: 'Error: '+error_code,
-		message: error_message + "\n\nWould you like to retry?",
-		buttonNames: ['Yes', 'No'],
-		cancel: 1,
-		stackTrace: error_stacktrace
-	  });
-	  
-	  alert.addEventListener('click', function(e) {
-		   //Clicked cancel, first check is for iphone, second for android
-	       if (e.cancel === e.index || e.cancel === true) {
-	       	  Alloy.Globals.aIndicator.hide();
-	          return;
-	       }
- 
-           //now you can use parameter e to switch/case
- 
-	       switch (e.index) {
-	          case 0: invokeService(_soapAction, _body, _callback, _failure, _header);
-	          break;
-	 
-	          //This will never be reached, if you specified cancel for index 1
-	          case 1: Alloy.Globals.aIndicator.hide(); 
-	          break;
-	 
-	      }
-		}); 
-		alert.show();
-	}catch(e){
-		Alloy.Globals.aIndicator.hide();
-	}
-    
+
     };
     xhr.setTimeout(config.timeout);
     var sendXML = '';
     if (!header) {
       sendXML = config.xmlDeclaration + config.envelopeBegin + config.bodyBegin + body + config.bodyEnd + config.envelopeEnd;
-    
+
 
     } else {
       //Allow straight string input for XML body - if not, build from object
