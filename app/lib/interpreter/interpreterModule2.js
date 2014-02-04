@@ -101,25 +101,25 @@ function interpreterModule2() {
     		
     		if(typeof question.firstTab !== "undefined")
 	    	{
-	    		displayName = question.firstTab["#text"];
+	    		displayName = question.firstTab;
 	    		
 	    	}
 	    	if(typeof question.secondTab !== "undefined"){
     		
-	    		displayName = displayName + " "+ question.secondTab["#text"];
+	    		displayName = displayName + " "+ question.secondTab;
 	    	}
 	    	return displayName;
     	}
     	
     	if(typeof question.firstTab !== "undefined")
     	{
-    		displayName = question.firstTab["#text"];
+    		displayName = question.firstTab;
     		
     	}
     	
     	if(typeof question.secondTab !== "undefined"){
     		
-    		displayName = question.secondTab["#text"];
+    		displayName = question.secondTab;
     	}
     	
     	return displayName;
@@ -260,7 +260,7 @@ function interpreterModule2() {
 	
 	            var mandatory = validation.mandatory;
 	            if (typeof mandatory !== "undefined") {
-	                if (mandatory["#text"] == "true") {
+	                if (mandatory == "true") {
 	                    questionValidation.mandatory = true;
 	                    isMandatory = true;
 	                }
@@ -284,23 +284,23 @@ function interpreterModule2() {
 	            }
 	
 	            if (typeof validation.min !== "undefined") {
-	                questionValidation.min = parseInt(validation.min["#text"]);
+	                questionValidation.min = parseInt(validation.min);
 	            }
 	
 	            if (typeof validation.max !== "undefined") {
-	                questionValidation.max = parseInt(validation.max["#text"]);
+	                questionValidation.max = parseInt(validation.max);
 	            }
 	
 	            if (typeof validation.minLenght !== "undefined") {
-	                questionValidation.max = validation.minLenght(minLenght["#text"]);
+	                questionValidation.max = validation.minLenght(minLenght);
 	            }
 	
 	            if (typeof validation.maxLenght !== "undefined") {
-	                questionValidation.maxLenght = parseInt(validation.maxLenght["#text"]);
+	                questionValidation.maxLenght = parseInt(validation.maxLenght);
 	            }
 	
 	            if (typeof validation.format !== "undefined") {
-	                questionValidation.format = validation.format["#text"];
+	                questionValidation.format = validation.format;
 	            }
 	        }
 	

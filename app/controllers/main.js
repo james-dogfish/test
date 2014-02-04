@@ -3,7 +3,7 @@ Alloy.Globals.tabGroup = $.tabGroup;
 
 //the current assessment object
 var curAssObj = null;
-var xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, xmlDocCensus, xmlDocTrain = null;
+var JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, JSONDocCensus, JSONDocTrain = null;
 
 /////////////////////////////////////////////////////////////////////////Window specific Functions below/////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
@@ -105,7 +105,7 @@ var openMenu = function() {
 		} else if (e.row.id === 5) {
 			User.logOut();
 			$.tabGroup.close();
-			$.destroy
+			$.destroy();
 			Alloy.createController('index').getView().open();
 			loginView.open();
 		}
@@ -213,153 +213,60 @@ function parseCensusData(xml_text, curAssObj) {
 	}
 };
 
-/*************************************************************
- * parseData:
- * 			- call the parser to parse the xml_text, crosQues,
- * 			  crosAns.
- *  		- map the crosAns to crosQues to prepoluate the
- * 			  crosQues.
- * 			- call localDataHandler to add new assessment
- * 		      (create a new file on disk).
- * 			- call the localDataHandler to core questions to
- * 			  the assessment.
- * params:
- * 			- xml_text: the xml text returned by the webservice
- * 			            call.
- * 			- crosQues: the xml text returned by the webservice
- * 			            call to retrieve crossing questions.
- * 			- crossAns: the xml text returned by the webservice
- * 						call to retrieve the crossings questions
- * 						answers.
- * 			- detailID: used here to fulfill addNewAssessment interface
- * 			- crossingID: as above
- * 			- riskMap: 	  as above
- *
- *************************************************************/
-function parseData(xml_text, crosQues, crosAns, detaildID, crossingID, riskMap) {
-
-	try {
-		if (xml_text !== null || typeof xml_text !== 'undefined') {
-
-			var quesMap = [];
-			var questionsData = localParser.getQuestions(xml_text);
-
-			if (crosQues !== null || typeof crosQues !== 'undefined') {
-				var crossingQuestions = localParser.getQuestions(crosQues);
-
-				if (crosAns !== null || typeof crosAns !== 'undefined') {
-					var crossingAnswers = localParser.getQuestions(crosAns);
-					Ti.API.info("crossingAnswers >> " + JSON.stringify(crossingAnswers));
-
-					if ( typeof crossingAnswers !== "undefined") {
-						if ( typeof crossingAnswers[0] !== "undefined") {
-							if ( typeof crossingAnswers[0].detailedData !== "undefined") {
-								for (var i = 0; i < crossingAnswers[0].detailedData.length; i++) {
-									if (typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" && typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined") {
-
-										quesMap[crossingAnswers[0].detailedData[i]["ns7:parameterName"]["#text"]] = {
-											value : crossingAnswers[0].detailedData[i]["ns7:parameterValue"]["#text"]
-										};
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-
-			if ( typeof questionsData === "undefined") {
-				alert(L('no_data'));
-				Alloy.Globals.aIndicator.hide();
-				return;
-			}
-			Ti.API.info("questionsData >> " + JSON.stringify(questionsData));
-			Ti.API.info("Alloy.Globals.currentCrossingName >> " + Alloy.Globals.currentCrossingName);
-			Ti.API.info("detaildID >> " + detaildID);
-			Ti.API.info("crossingID >> " + crossingID);
-			var curAssObj = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
-			localDataHandler.addNewCoreQuestionToAssessment(curAssObj, crossingQuestions, quesMap);
-			return curAssObj;
-
-		} else {
-			alert(L('no_data'));
-
-		}
-	} catch(e) {
-		Ti.API.error("Exception occured in parseData " + JSON.stringify(e));
-		Alloy.Globals.aIndicator.hide();
-	}
-};
-
-
-function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID){
+function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 	try {
 		var questionsData = localParser.getQuestions(xml_text);
-		var  assessmentObject = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
+		var assessmentObject = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
 		questionsData = null;
 		xml_text = null;
-		
+
 		return assessmentObject;
-	}
-	catch(e) {
+	} catch(e) {
 		Ti.API.error("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e));
 		Alloy.Globals.aIndicator.hide();
 		return null;
 	}
-	
+
 };
 
-function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns){
+function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 	try {
-		if(assessmentObject == null){
+		if (assessmentObject == null) {
 			Ti.API.info("assessmentObject == null ");
 			return false;
 		}
-		
 
 		var crossingQuestions = localParser.getQuestions(crosQues);
 
 		var quesMap = [];
 		var crossingAnswers = localParser.getQuestions(crosAns);
-		
+		Ti.API.info("crossingAnswers ======= > "+JSON.stringify(crossingAnswers));
 		if ( typeof crossingAnswers !== "undefined") {
-			if ( typeof crossingAnswers[0] !== "undefined") {
-				if ( typeof crossingAnswers[0].detailedData !== "undefined") {
-					for (var i = 0; i < crossingAnswers[0].detailedData.length; i++) {
-						if (typeof crossingAnswers[0].detailedData[i]["ns7:parameterValue"] !== "undefined" && typeof crossingAnswers[0].detailedData[i]["ns7:parameterName"] !== "undefined") {
-	
-							quesMap[crossingAnswers[0].detailedData[i]["ns7:parameterName"]["#text"]] = {
-								value : crossingAnswers[0].detailedData[i]["ns7:parameterValue"]["#text"]
+					for (var i = 0; i < crossingAnswers.length; i++) {
+						if ( typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
+
+							quesMap[crossingAnswers[i].parameterName] = {
+								value : crossingAnswers[i].parameterValue
 							};
 						}
 					}
-				}
-			}
-			else{
-				Ti.API.info("typeof crossingAnswers[0] == undefined");
-				return false;
-			}
-		}
-		else{
+		} else {
 			Ti.API.info("typeof crossingAnswers == undefined");
 			return false;
 		}
-		
-		
-			
+
 		localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
-		
+
 		quesMap = null;
 		crossingQuestions = null;
-			
+
 		return true;
-		
-	}
-	catch(e) {
-		Ti.API.error("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e));
+
+	} catch(e) {
+		Ti.API.error("Exception occured in addCoreQuestionSetToAssessment " + JSON.stringify(e));
 		Alloy.Globals.aIndicator.hide();
 	}
-	
+
 }
 
 function getCrossingQuestionSet(crossingDetail) {
@@ -367,9 +274,22 @@ function getCrossingQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Crossing"
 	}, function(xmlDoc) {
-		xmlDocCrossQues = xmlDoc;
-		buildAssessment(crossingDetail);
-		Ti.API.info(" === getCrossingQuestionSet DONE === ");
+		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+	
+				// Check whether JSON structure exits before attempting to grab results
+				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest', 'questions')) {
+					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
+					JSONDocCrossQues = data;
+					buildAssessment(crossingDetail);
+					Ti.API.info(" === getCrossingQuestionSet DONE === ");
+				//}
+			}
+		);	
+		//end of convertJSON
+		
 	}, function(xmlDoc) {
 		Ti.API.info("getCrossingQuestionSet failed");
 	});
@@ -377,12 +297,25 @@ function getCrossingQuestionSet(crossingDetail) {
 
 function getCrossingQuestionAnswersSet(crossingDetail) {
 
-	Alloy.Globals.Soap.getQuestionsRequest({
-		crossingId : crossingDetail.id,
+	Alloy.Globals.Soap.getCrossingRequest({
+		crossingId : crossingDetail.id
 	}, function(xmlDoc) {
-		xmlDocCrossAns = xmlDoc;
-		buildAssessment(crossingDetail);
-		Ti.API.info(" === getCrossingQuestionAnswersSet DONE === ");
+		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+	
+				// Check whether JSON structure exits before attempting to grab results
+				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest','questions')) {
+					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
+					JSONDocCrossAns = data;
+					buildAssessment(crossingDetail);
+					Ti.API.info(" === getCrossingQuestionAnswersSet DONE === ");
+				//}
+			}
+		);	
+		//end of convertJSON
+		
 	}, function(xmlDoc) {
 		Ti.API.info("getCrossingQuestionSet failed");
 	});
@@ -393,9 +326,22 @@ function getAssessmentQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Assessment"
 	}, function(xmlDoc) {
-		xmlDocAss = xmlDoc;
-		buildAssessment(crossingDetail);
-		Ti.API.info(" === getAssessmentQuestionSet DONE === ");
+		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+	
+				// Check whether JSON structure exits before attempting to grab results
+				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
+					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
+					JSONDocAss = data;
+					buildAssessment(crossingDetail);
+					Ti.API.info(" === getAssessmentQuestionSet DONE === ");
+				//}
+			}
+		);	
+		//end of convertJSON
+
 	}, function(xmlDoc) {
 		Ti.API.info("getAssessmentQuestionSet failed");
 	});
@@ -406,9 +352,22 @@ function getCensusQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Census"
 	}, function(xmlDoc) {
-		xmlDocCensus = xmlDoc;
-		buildAssessment(crossingDetail);
-		Ti.API.info(" === getCensusQuestionSet DONE === ");
+		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+	
+				// Check whether JSON structure exits before attempting to grab results
+				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
+					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
+					JSONDocCensus = data;
+					buildAssessment(crossingDetail);
+					Ti.API.info(" === getCensusQuestionSet DONE === ");
+				//}
+			}
+		);	
+		//end of convertJSON
+		
 	}, function(xmlDoc) {
 		Ti.API.info("getCensusQuestionSet failed");
 	});
@@ -419,9 +378,22 @@ function getTrainInfoQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Train"
 	}, function(xmlDoc) {
-		xmlDocTrain = xmlDoc;
-		buildAssessment(crossingDetail);
-		Ti.API.info(" === getTrainInfoQuestionSet DONE === ");
+		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+	
+				// Check whether JSON structure exits before attempting to grab results
+				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
+					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
+					JSONDocTrain = data;
+					buildAssessment(crossingDetail);
+					Ti.API.info(" === getTrainInfoQuestionSet DONE === ");
+				//}
+			}
+		);	
+		//end of convertJSON
+
 	}, function(xmlDoc) {
 		Ti.API.info("getTrainInfoQuestionSet failed");
 	});
@@ -429,37 +401,36 @@ function getTrainInfoQuestionSet(crossingDetail) {
 
 var buildAssessment = function(crossingDetail) {
 	Ti.API.info("============== DEBUG ==============");
-	Ti.API.info("xmlDocAss = " + (xmlDocAss !== null && typeof xmlDocAss !== "undefined"));
-	Ti.API.info("xmlDocCrossQues = " + (xmlDocCrossQues !== null && typeof xmlDocCrossQues !== "undefined"));
-	Ti.API.info("xmlDocCrossAns = " + (xmlDocCrossAns !== null && typeof xmlDocCrossAns !== "undefined"));
-	Ti.API.info("xmlDocCensus = " + (xmlDocCensus !== null && typeof xmlDocCensus !== "undefined"));
-	Ti.API.info("xmlDocTrain = " + (xmlDocTrain !== null && typeof xmlDocTrain !== "undefined"));
+	Ti.API.info("JSONDocAss = " + (JSONDocAss !== null && typeof JSONDocAss !== "undefined"));
+	Ti.API.info("JSONDocCrossQues = " + (JSONDocCrossQues !== null && typeof JSONDocCrossQues !== "undefined"));
+	Ti.API.info("JSONDocCrossAns = " + (JSONDocCrossAns !== null && typeof JSONDocCrossAns !== "undefined"));
+	Ti.API.info("JSONDocCensus = " + (JSONDocCensus !== null && typeof JSONDocCensus !== "undefined"));
+	Ti.API.info("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"));
 	Ti.API.info("============== END OF DEBUG ==============");
 
-	if (xmlDocAss == null || xmlDocCrossQues == null || xmlDocCrossAns == null || xmlDocCensus == null || xmlDocTrain == null) {
+	if (JSONDocAss == null || JSONDocCrossQues == null || JSONDocCrossAns == null || JSONDocCensus == null || JSONDocTrain == null) {
 		return false;
 	}
 
 	//var riskMap = [];
-	//var curAssObj = parseData(xmlDocAss, xmlDocCrossQues, xmlDocCrossAns, /*crossingDetail.detailId*/0, crossingDetail.id, riskMap);
-	
-	var assessmentObject = createAssessmentWithMainQuestionSet(xmlDocAss, 0, crossingDetail.id);
-	xmlDocAss = null;
-	
-	if(assessmentObject == null){
+	//var curAssObj = parseData(JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, /*crossingDetail.detailId*/0, crossingDetail.id, riskMap);
+
+	var assessmentObject = createAssessmentWithMainQuestionSet(JSONDocAss, 0, crossingDetail.id);
+	JSONDocAss = null;
+
+	if (assessmentObject == null) {
 		Ti.API.info("in main.js buildAssessment >> assessmentObject == null");
 		return;
 	}
-	
-	var returnValue = addCoreQuestionSetToAssessment(assessmentObject, xmlDocCrossQues, xmlDocCrossAns);
-	xmlDocCrossQues = null;
-	xmlDocCrossAns = null;
-	if(returnValue == false){
+
+	var returnValue = addCoreQuestionSetToAssessment(assessmentObject, JSONDocCrossQues, JSONDocCrossAns);
+	JSONDocCrossQues = null;
+	JSONDocCrossAns = null;
+	if (returnValue == false) {
 		Ti.API.info("in main.js addCoreQuestionSetToAssessment >> did not create");
 		return;
 	}
-	
-	
+
 	//Ti.API.info("curAssObj >> " + JSON.stringify(curAssObj));
 
 	if ( typeof assessmentObject === "undefined") {
@@ -467,11 +438,11 @@ var buildAssessment = function(crossingDetail) {
 		Alloy.Globals.aIndicator.hide();
 		return;
 	} else {
-		parseCensusData(xmlDocCensus, assessmentObject);
-		xmlDocCensus = null;
-		
-		parseTrainData(xmlDocTrain, assessmentObject);
-		xmlDocTrain = null;
+		parseCensusData(JSONDocCensus, assessmentObject);
+		JSONDocCensus = null;
+
+		parseTrainData(JSONDocTrain, assessmentObject);
+		JSONDocTrain = null;
 
 		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
@@ -511,11 +482,11 @@ $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
 			return;
 		}
 
-		xmlDocAss = null;
-		xmlDocCrossQues = null;
-		xmlDocCrossAns = null;
-		xmlDocCensus = null;
-		xmlDocTrain = null;
+		JSONDocAss = null;
+		JSONDocCrossQues = null;
+		JSONDocCrossAns = null;
+		JSONDocCensus = null;
+		JSONDocTrain = null;
 
 		getCrossingQuestionSet(crossingDetail);
 		getAssessmentQuestionSet(crossingDetail);
@@ -535,4 +506,4 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 });
 
 /** call the openMenu function above **/
-$.questionRendererTab.on("openMenu", openMenu); 
+$.questionRendererTab.on("openMenu", openMenu);
