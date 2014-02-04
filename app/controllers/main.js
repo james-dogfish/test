@@ -312,7 +312,6 @@ function getAssessmentQuestionSet(crossingDetail) {
 		
 				JSONDocAss = data;
 				buildAssessment(crossingDetail);
-				Ti.API.info(" === getAssessmentQuestionSet DONE === ");
 			}
 		);	
 		//end of convertJSON
@@ -365,13 +364,13 @@ function getTrainInfoQuestionSet(crossingDetail) {
 };
 
 var buildAssessment = function(crossingDetail) {
-	/*Ti.API.info("============== DEBUG ==============");
+	Ti.API.info("============== DEBUG ==============");
 	Ti.API.info("JSONDocAss = " + (JSONDocAss !== null && typeof JSONDocAss !== "undefined"));
 	Ti.API.info("JSONDocCrossQues = " + (JSONDocCrossQues !== null && typeof JSONDocCrossQues !== "undefined"));
 	Ti.API.info("JSONDocCrossAns = " + (JSONDocCrossAns !== null && typeof JSONDocCrossAns !== "undefined"));
 	Ti.API.info("JSONDocCensus = " + (JSONDocCensus !== null && typeof JSONDocCensus !== "undefined"));
 	Ti.API.info("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"));
-	Ti.API.info("============== END OF DEBUG ==============");*/
+	Ti.API.info("============== END OF DEBUG ==============");
 
 	if (JSONDocAss == null || JSONDocCrossQues == null || JSONDocCrossAns == null || JSONDocCensus == null || JSONDocTrain == null) {
 		return false;
