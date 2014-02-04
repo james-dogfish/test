@@ -616,13 +616,17 @@ var moveToQuestionByName = function (questionName, groupType) {
 
 exports.goToFirstUnanswered = function () {
     //alert("goToFirstUnanswered");
+    //Ti.API.info("goToFirstUnanswered");
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+    	
+    	if(sectionList[sectionIndex].pageType == "coreQuestion")continue;
+    	
         var questionList = sectionList[sectionIndex].getItems();
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
             if (questionList[questionIndex].value[0] == "") {
 
-                //alert("unanswered question name = "+questionList[questionIndex].name);
+                //Ti.API.info("unanswered question name = "+questionList[questionIndex].name);
 
                 selectQuestion(questionList[questionIndex]);
 

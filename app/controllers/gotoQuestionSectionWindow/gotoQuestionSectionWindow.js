@@ -66,7 +66,8 @@ exports.hide = hide;
 
 function firstUnansweredClick(e){
 	hide();
-	$.trigger('goToFirstUnanswered');
+	//$.trigger('goToFirstUnanswered');
+	Ti.App.fireEvent("goToFirstUnanswered", {});
 };
 
 function resumeLastPositionClick(e){
