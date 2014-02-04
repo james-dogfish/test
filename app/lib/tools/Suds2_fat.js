@@ -131,18 +131,7 @@ var SudsClient = function(_options) {
 
   function invokeService(_soapAction, _body, _callback, _failure, _header) {
 
-    //CHECK FOR CONNECTIVITY
-    if (!Titanium.Network.online) {
-      Alloy.Globals.aIndicator.hide();
-      var alertDialog = Titanium.UI.createAlertDialog({
-        title: L('no_connectivity_title'),
-        message: L('no_connectivity_body'),
-        buttonNames: ['OK']
-      });
-      alertDialog.show();
-	   Alloy.Globals.aIndicator.hide();
-      return;
-    }
+    
 
     //Build request body 
     var body = _body;
@@ -178,7 +167,20 @@ var SudsClient = function(_options) {
       //_failure.call(this, xmlDomFromString(this.responseText));
       //var XMLTools = require("tools/XMLTools");
       try {
-        Alloy.Globals.aIndicator.hide();
+      	Alloy.Globals.aIndicator.hide();
+      	//CHECK FOR CONNECTIVITY
+	    if (!Titanium.Network.online) {
+	      Alloy.Globals.aIndicator.hide();
+	      var alertDialog = Titanium.UI.createAlertDialog({
+	        title: L('no_connectivity_title'),
+	        message: L('no_connectivity_body'),
+	        buttonNames: ['OK']
+	      });
+	      alertDialog.show();
+		   Alloy.Globals.aIndicator.hide();
+	      return;
+	    }
+        
         var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
         var errObj = JSON.stringify(errXml.toObject());
 

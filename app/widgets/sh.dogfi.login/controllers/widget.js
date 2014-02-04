@@ -26,6 +26,18 @@ var changeBg = function(e) {
 Ti.Gesture.addEventListener('orientationchange', changeBg);
 
 function doLogin() {
+	
+	if (!Titanium.Network.online) {
+	      Alloy.Globals.aIndicator.hide();
+	      var alertDialog = Titanium.UI.createAlertDialog({
+	        title: L('no_connectivity_title'),
+	        message: L('no_connectivity_body'),
+	        buttonNames: ['OK']
+	      });
+	      alertDialog.show();
+	      return;
+	}
+	    
 	//Ti.App.fireEvent('doLoginEvent2');
 	var theIndex = Alloy.createController('index');
 	var loginWin = Alloy.createController('startup');
