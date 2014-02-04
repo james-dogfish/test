@@ -140,7 +140,7 @@ var SudsClient = function(_options) {
         buttonNames: ['OK']
       });
       alertDialog.show();
-
+	   Alloy.Globals.aIndicator.hide();
       return;
     }
 
