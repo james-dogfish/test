@@ -1,5 +1,6 @@
 <Alloy>
 	<ItemTemplate id="detailRowQuestionTemplate" name="detailRowQuestionTemplate">
 		<Label id="title" bindId="questionTitle" onClick="onClickCallBack"/>
+		<View id="colouredBox" bindId="colouredBox"/>
 	</ItemTemplate>
 </Alloy>

@@ -35,7 +35,12 @@ var addSectionToPageList= function(section){
 		newPage.template = "masterRowTemplate";
 	}
 	else if(section.pageType == "census"){
-		newPage.template = "masterCensusRowTemplate";
+		if(section.pageID == "1" || section.pageID == 1){
+			newPage.template = "masterRowTemplate";
+		}
+		else{
+			newPage.template = "masterCensusRowTemplate";
+		}
 	}
 	else if(section.pageType == "trainInfo"){
 		newPage.template = "masterRowTemplate";

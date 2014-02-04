@@ -12,6 +12,16 @@ module.exports =  {
 	},
 	"headerViewSubsection" : {
 		backgroundColor: "#A9DDEE"
-	}
+	},
+	"goToMandatoryColouredBox_answered" : {
+		backgroundColor: "#0f0"
+	},
+	"goToMandatoryColouredBox_unanswered" : {
+		backgroundColor: "#f00"
+	},
+	"goToMandatoryColouredBox_nonMandatory" : {
+		
+	},
+	
 };
 
