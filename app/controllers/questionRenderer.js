@@ -444,6 +444,7 @@ var buildQuestionSections = function (JASON_sectionList) {
         newQuestionsSection.associatedFileName = JASON_sectionList[i].associatedFileName;
         newQuestionsSection.pageName = JASON_sectionList[i].pageName;
         newQuestionsSection.pageType = JASON_sectionList[i].pageType;
+       	newQuestionsSection.pageID= JASON_sectionList[i].pageID;
         newQuestionsSection.setItems(JASON_sectionList[i].questionList);
         newSectionList.push(newQuestionsSection);
     }
