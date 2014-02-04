@@ -301,24 +301,24 @@ function getCrossingQuestionAnswersSet(crossingDetail) {
 };
 
 function getAssessmentQuestionSet(crossingDetail) {
-	Alloy.Globals.Soap.getQuestionsRequest({
-		crossingId : crossingDetail.id,
-		groupType : "Assessment"
-	}, function(xmlDoc) {
-		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
-			function(data) {
-				// callback
-				var data = JSON.parse(data);
-		
-				JSONDocAss = data;
-				buildAssessment(crossingDetail);
-			}
-		);	
-		//end of convertJSON
-
-	}, function(xmlDoc) {
-		Ti.API.info("getAssessmentQuestionSet failed");
-	});
+		Alloy.Globals.Soap.getQuestionsRequest({
+			crossingId : crossingDetail.id,
+			groupType : "Assessment"
+		}, function(xmlDoc) {
+			Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+				function(data) {
+					// callback
+					var data = JSON.parse(data);
+			
+					JSONDocAss = data;
+					buildAssessment(crossingDetail);
+				}
+			);	
+			//end of convertJSON
+	
+		}, function(xmlDoc) {
+			Ti.API.info("getAssessmentQuestionSet failed");
+		});
 };
 
 function getCensusQuestionSet(crossingDetail) {

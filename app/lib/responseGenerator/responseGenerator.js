@@ -110,7 +110,8 @@ function responseGenerator() {
         if(censusDate != null)
         {
         	numbers = censusDate.match(/\d+/g); 
-        	dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
+        	if(numbers !== null)
+        		dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
         }
 		
         var xmlRequest =
@@ -208,6 +209,7 @@ function responseGenerator() {
 	        var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
     	if(!(isDebugOn) && assObj.questionCount !== assObj.questionsCompleted)
     	{
+    		alert("There are currently no risk assessments to submit");
     		return;
     	}else{
     		Alloy.Globals.aIndicator.show("Committing...");
