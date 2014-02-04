@@ -1,101 +1,13 @@
 {
-	"notes": "",
-	"notesBackground": {
-		"backgroundImage": "images/questionNote.png"
-	},
-	"associatedFileName": "1390915695096mainQuestions.json",
-	"displayValue": {
-		"value": "Other (e.g. ORR) Please State..."
-	},
+	"parameterName": "ABUSE_STATEMENT_AUTO",
+	"order": "712",
+	"group": "Misuse",
+	"text": "The chance of a vehicle user deliberately abusing the crossing is estimated to be {1}, which has been overwritten to be {2}. This is based on the following input: approach speeds of {3}, warning times reported of {4}, Abuse mitigation of {5}, RSF Reported Auto of {6}. You may adjust this estimate ONLY if you are sure that other factors exist that have not been modelled such as a particularly fast approach road which may result in ziz-zag or running the lights.",
+	"firstTab": "Misuse",
+	"helpText": "ABUSE_STATEMENT_AUTO Help",
+	"notesText": "ABUSE_STATEMENT_AUTO Notes",
 	"validation": {
-		"conditionalMandatory": [],
-		"min": null,
-		"maxLenght": null,
-		"format": null,
-		"mandatory": false,
-		"minLenght": null,
-		"max": null,
-		"validationTest": true
-	},
-	"displayValue2": {
-		"value": ""
-	},
-	"alcrmGroupType": "RiskAssessmentInfo",
-	"name": "0I_STAKEHOLDER_INFO",
-	"order": "9",
-	"type": "multiSelect",
-	"errorMessageVisable": false,
-	"mandatory": false,
-	"questionErrorMessageView": {
-		"top": "0dp",
-		"height": "0dp"
-	},
-	"visable": true,
-	"selections": [
-		{
-			"value": "837",
-			"displayValue": "Authorised User"
-		}, {
-			"value": "838",
-			"displayValue": "Local Business"
-		}, {
-			"value": "839",
-			"displayValue": "Local Community Group (e.g. Ramblers Association, Equestrians, Cyclists) Please State..."
-		}, {
-			"value": "840",
-			"displayValue": "Local Resident"
-		}, {
-			"value": "841",
-			"displayValue": "Highway Authority/Local Authority"
-		}, {
-			"value": "842",
-			"displayValue": "Planning Authority"
-		}, {
-			"value": "843",
-			"displayValue": "Internal Stakeholder (e.g. Signaller, MOM, LOM) Please State..."
-		}, {
-			"value": "844",
-			"displayValue": "Train Operator"
-		}, {
-			"value": "845",
-			"displayValue": "Police (BTP/Home Office Force)"
-		}, {
-			"value": "846",
-			"displayValue": "School"
-		}, {
-			"value": "847",
-			"displayValue": "Other (e.g. ORR) Please State..."
-		}
-	],
-	"groupType": "0RiskAssessmentInfo",
-	"alcrmQuestionID": "I_STAKEHOLDER_INFO",
-	"selected": true,
-	"assessmentId": 1390915695096,
-	"questionErrorMessage": {
-		"text": ""
-	},
-	"headerView": {
-		"backgroundColor": "#A1F7B6"
-	},
-	"isAQuestion": true,
-	"renderValue": [],
-	"title": {
-		"text": "Which Key Stakeholder(s) have been engaged with during the risk assessment?"
-	},
-	"value": ["Other (e.g. ORR) Please State..."],
-	"renderDependencyList": [
-		{
-			"name": "0STAKEHOLDER_INFO_COMMUNITY",
-			"groupType": "0RiskAssessmentInfo"
-		}, {
-			"name": "0STAKEHOLDER_INFO_INTERNAL",
-			"groupType": "0RiskAssessmentInfo"
-		}, {
-			"name": "0STAKEHOLDER_INFO_OTHER",
-			"groupType": "0RiskAssessmentInfo"
-		}
-	],
-	"template": "multiSelectTemplate",
-	"questionResponse": "<ques:parameterName>I_STAKEHOLDER_INFO</ques:parameterName><ques:values>847</ques:values>",
-	"mandatoryDependenciesList": []
+		"mandatory": "false",
+		"matchAllMandatoryRestrictions": "false"
+	}
 }

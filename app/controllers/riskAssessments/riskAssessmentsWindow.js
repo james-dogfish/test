@@ -72,6 +72,8 @@ var openMenu = function() {
 			//var responseGenerator = require('responseGenerator/responseGenerator');
 			//responseGenerator  = new responseGenerator();
 			responseGenerator.commitAllCompleted();
+			
+			
 		} else if (e.row.id === 5) {
 			// Reset the searching table 
 			//$.searchTable.visible = false;
@@ -150,13 +152,24 @@ exports.loadRiskAssessments = function() {
 	
 	activeAssessments = localDataHandler.getAllSavedAssessments();
 		
-	var data = [];	
+	var data = [];
+	var dataControllersList = [];	
 	for(var i=0; i < activeAssessments.length; i++){
-		data.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",
-			{
+		dataControllersList.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",{
 				thisRA: activeAssessments[i],
 				fontawesome: fontawesome
-			}).getView());
+			}));
+			
+			
+		data.push(dataControllersList[i].getView());
+		
+			
+		if(i == 1){
+			dataControllersList[i].commitResponse(1);
+		}
+		else if(i == 2){
+			dataControllersList[i].commitResponse(2);
+		}
 	}
 	$.tableVeiw.setData(data);
 	

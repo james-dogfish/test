@@ -22,5 +22,35 @@ if (arguments && arguments[0]) {
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Not Sent';
 	}
+	
+	
 
 }
+
+
+exports.commitResponse = function (commitResponseCode) {
+	//icon-times icon-check
+	
+	//has been summited no change
+	if(commitResponseCode == 0){
+		$.commitResponse.height = 0;
+	}
+	//submited with out errer
+	else if(commitResponseCode == 1){
+		Ti.API.info("commitResponseCode = 1");
+		$.commitResponseView.height = Ti.UI.SIZE;
+		$.commitResponseView.backgroundColor = "#DBFFE1";
+		$.commitIcon.text = fontawesome.icon('icon-ok');
+		$.commitIcon.color = "#0f0"; 
+		$.commitStatusLabel.text = "Commit Succeed";
+	}
+	//not submited risk assessment not complete
+	else if(commitResponseCode == 2){
+		Ti.API.info("commitResponseCode = 2");
+		$.commitResponseView.height = Ti.UI.SIZE;
+		$.commitResponseView.backgroundColor = "#FFDBE0";
+		$.commitIcon.text = fontawesome.icon('icon-remove');
+		$.commitIcon.color = "#f00"; 
+		$.commitStatusLabel.text = "Commit Failed : Assessment Not finsihed ";
+	}
+};
