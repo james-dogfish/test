@@ -17,7 +17,7 @@
 				</View>
 				-->
 				<TextField id="selectTextField" class="inputField" bindId="displayValue" onClick="selectButtonClicked"/>
-				<Button id="selectButton" class="inputButton" onClick="selectButtonClicked">Select</Button>
+				<Button id="selectButton" class="inputButton" bindId="btnSelect" onClick="selectButtonClicked">Select</Button>
 			</View>
 			
 		</View>
