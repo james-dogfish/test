@@ -378,7 +378,7 @@ function localDataHandler() {
 
                 var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
-                    pageName: L("page_census_name")+" " + scensusPageNum,
+                    pageName: L("page_census_name")+" " + censusPageNum,
                     pageID: censusPageNum,
                     pageType: "census",
                     readOnly: false,
@@ -403,6 +403,7 @@ function localDataHandler() {
        }catch(e)
        {
        	Alloy.Globals.aIndicator.hide();
+       	Ti.API.info("exception addNewCensusToAssessment >> - "+JSON.stringify(e));
        	return[];
        }
     };

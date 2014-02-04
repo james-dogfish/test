@@ -26,15 +26,15 @@ function localParser() {
 	};
 
 	self.getHelpText = function(question) {
-		if ( typeof question.help !== "undefined") {
-			return question.help;
+		if ( typeof question.helpText !== "undefined") {
+			return question.helpText;
 		}
 		return "";
 	};
 
 	self.getNotesText = function(question) {
-		if ( typeof question.notes !== "undefined") {
-			return question.notes;
+		if ( typeof question.notesText !== "undefined") {
+			return question.notesText;
 		}
 		return "";
 	};
