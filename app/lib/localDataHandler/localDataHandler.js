@@ -37,6 +37,7 @@ function localDataHandler() {
         	crossingsFile.write(JSON.stringify(payload));
         	crossingsFile = null;
        }catch(e){
+       	
        		Alloy.Globals.aIndicator.hide();
        }
     };
@@ -172,27 +173,38 @@ function localDataHandler() {
 
 	//will update a assessment with the same assessmentID as the assessmentObject passed
     self.updateSingleAssessmentIndexEntry = function (assessmentObject) {
-    	
-        var savedAssessments = self.getAllSavedAssessments();
-
-        for (var i = 0; i < savedAssessments.length; i++) {
-            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-                savedAssessments[i] = assessmentObject;
-            }
-        }
-        self.updateSavedAssessments(savedAssessments);
+    	try{
+	        var savedAssessments = self.getAllSavedAssessments();
+	
+	        for (var i = 0; i < savedAssessments.length; i++) {
+	            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+	                savedAssessments[i] = assessmentObject;
+	            }
+	        }
+	        self.updateSavedAssessments(savedAssessments);
+	    }catch(e){
+	    	alert("Exception in updateSingleAssessmentIndexEntry. Error details: "+JSON.stringify(e));
+	    	Alloy.Globals.aIndicator.hide();
+	    	return;
+	    }
     };
     
     //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject.assessmentID passed
     self.getMostUpTodateAssessmentObject = function (assessmentObject) {
-        var savedAssessments = self.getAllSavedAssessments();
-        for (var i = 0; i < savedAssessments.length; i++) {
-            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
-                assessmentObject = savedAssessments[i];
-                break;
-            }
-        }
-        return assessmentObject;
+    	try{
+	        var savedAssessments = self.getAllSavedAssessments();
+	        for (var i = 0; i < savedAssessments.length; i++) {
+	            if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+	                assessmentObject = savedAssessments[i];
+	                break;
+	            }
+	        }
+	        return assessmentObject;
+	    }catch(e){
+	    	alert("Exception in getMostUpTodateAssessmentObject. Error details: "+JSON.stringify(e));
+	    	Alloy.Globals.aIndicator.hide();
+	    	return;
+	    }
     };
     
     //changes the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
@@ -276,6 +288,7 @@ function localDataHandler() {
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
       }catch(e){
+      	 alert("Exception in addNewAssessment. Error details: "+JSON.stringify(e));
       	 Alloy.Globals.aIndicator.hide();
       	 return;
       }
@@ -296,6 +309,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
+       		alert("Exception occured in addDefaultCensus. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -316,6 +330,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
+       		alert("Exception occured in addDefaultTrainInfo. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -323,6 +338,7 @@ function localDataHandler() {
     
     //adds a core question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addNewCoreQuestionToAssessment = function (assessmentObject, JASON_question_list, questionMap) {
+    	try{
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -358,6 +374,11 @@ function localDataHandler() {
         }
 
         return [];
+       }catch(e){
+       		alert("Exception occured in addNewCoreQuestionToAssessment. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.aIndicator.hide();
+       		return [];
+       }
     };
 
 	//adds a new Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
@@ -518,6 +539,7 @@ function localDataHandler() {
             }
         }
        }catch(e){
+       		alert("Exception occured in addNewTrainGroupToAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -558,7 +580,7 @@ function localDataHandler() {
 
 	//Censuses Or Trains questions sets for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.getAllCensusesOrTrains = function (assessmentObject, type) {
-    	
+    	try{
         var getAllData = [];
 
         switch (type) {
@@ -596,6 +618,10 @@ function localDataHandler() {
         }
 
         return getAllData;
+        }catch(e){
+        	alert("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.aIndicator.hide();
+        }
     };
 
 
@@ -619,6 +645,7 @@ function localDataHandler() {
 
         return false;
        }catch(e){
+       		alert("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -644,6 +671,7 @@ function localDataHandler() {
 
         return returnQuestionSet;
        }catch(e){
+       		alert("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };
@@ -707,6 +735,7 @@ function localDataHandler() {
         
         return assessmentObject;
         }catch(e){
+        	alert("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e));
         	Alloy.Globals.aIndicator.hide();
         }
     };

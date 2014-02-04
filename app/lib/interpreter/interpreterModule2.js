@@ -423,7 +423,7 @@ function interpreterModule2() {
 	        }
 	        return questionObject;
 		}catch(e){
-			Ti.API.info("Exception in createQuestionObject >> "+JSON.stringify(e));
+			alert("Exception in questionSetPastVariables >> "+JSON.stringify(e));
 			return questionObject;
 		}
     };
@@ -463,7 +463,7 @@ function interpreterModule2() {
 	        }
 	        self.sectionHeaderList.push(newSectionHeader);
 	     }catch(e){
-	     	Ti.API.info("Exception in addQuestionToSectionHeader >> "+JSON.stringify(e));
+	     	alert("Exception in addQuestionToSectionHeader >> "+JSON.stringify(e));
 	     	return null;
 	     }
     };
@@ -521,7 +521,7 @@ function interpreterModule2() {
         }
         
        }catch(e){
-       		Ti.API.info("Exception in lookQuestionDependencies >> "+JSON.stringify(e));
+       		alert("Exception in lookQuestionDependencies >> "+JSON.stringify(e));
        }
     };
     
@@ -829,7 +829,7 @@ function interpreterModule2() {
 	        return self.sectionHeaderList;
 	    }catch(e){
 	    	Alloy.Globals.aIndicator.hide();
-	    	Ti.API.info("Interpreter.interpret has an exception: "+JSON.stringify(e));
+	    	alert("Interpreter.interpret has an exception: "+JSON.stringify(e));
 	    	return [];
 	    }
     };
