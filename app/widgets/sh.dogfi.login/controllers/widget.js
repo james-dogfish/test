@@ -27,16 +27,7 @@ Ti.Gesture.addEventListener('orientationchange', changeBg);
 
 function doLogin() {
 	
-	if (!Titanium.Network.online) {
-	      Alloy.Globals.aIndicator.hide();
-	      var alertDialog = Titanium.UI.createAlertDialog({
-	        title: L('no_connectivity_title'),
-	        message: L('no_connectivity_body'),
-	        buttonNames: ['OK']
-	      });
-	      alertDialog.show();
-	      return;
-	}
+	
 	    
 	//Ti.App.fireEvent('doLoginEvent2');
 	var theIndex = Alloy.createController('index');
@@ -47,9 +38,21 @@ function doLogin() {
     if (!Titanium.Network.online && User.activeUser()) {
         offlineLogin = true;
     } else if (!Titanium.Network.online) {
+    	Alloy.Globals.aIndicator.hide();
         Util.showAlert('Please make sure that you are connected to the Internet');
         return false;
     }
+    
+    if (!Titanium.Network.online && !offlineLogin) {
+	      Alloy.Globals.aIndicator.hide();
+	      var alertDialog = Titanium.UI.createAlertDialog({
+	        title: L('no_connectivity_title'),
+	        message: L('no_connectivity_body'),
+	        buttonNames: ['OK']
+	      });
+	      alertDialog.show();
+	      return;
+	}
 
     var loginError = function (message) {
         // Performs an animation and displays an error message
