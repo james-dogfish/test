@@ -164,12 +164,12 @@ exports.loadRiskAssessments = function() {
 		data.push(dataControllersList[i].getView());
 		
 			
-		if(i == 1){
+		/*if(i == 1){
 			dataControllersList[i].commitResponse(1);
 		}
 		else if(i == 2){
 			dataControllersList[i].commitResponse(2);
-		}
+		}*/
 	}
 	$.tableVeiw.setData(data);
 	

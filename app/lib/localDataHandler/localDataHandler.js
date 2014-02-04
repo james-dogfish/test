@@ -731,11 +731,13 @@ function localDataHandler() {
 	        }
         }
 	
-        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
-        if (assessmentFile.exists()) {
-            var assessment = JSON.parse(assessmentFile.read().text);
-            returnQuestionSet = returnQuestionSet.concat(assessment);
-        }
+		if(assessmentObject.mainQuestionsfileName != null){
+	        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
+	        if (assessmentFile.exists()) {
+	            var assessment = JSON.parse(assessmentFile.read().text);
+	            returnQuestionSet = returnQuestionSet.concat(assessment);
+	        }
+	    }
 
 
         for (var i = 0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++) {
@@ -758,6 +760,7 @@ function localDataHandler() {
         }
         return returnQuestionSet;
        }catch(e){
+       		alert("An exception occured in openAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };

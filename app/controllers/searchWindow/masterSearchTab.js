@@ -1,4 +1,4 @@
-var crossingData = [];
+var crossingData;
 //var localDataHandler = require('localDataHandler/localDataHandler');				
 
 function backButtonClick(e) {
@@ -13,11 +13,12 @@ function refreshButtonClick(e) {
 
 
 function onRowClick(e) {
+	alert(JSON.stringify(crossingData[e.index]));
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 
 exports.setData = function(shouldRefresh) {
-	var loggedInUser = User.getLogin();
+	
 	crossingData = localDataHandler.loadCachedCrossingSearch();
 	if (crossingData.length !== 0 && shouldRefresh == false) {
 		Alloy.Globals.aIndicator.show("Loading...", 50000);
@@ -36,8 +37,8 @@ exports.setData = function(shouldRefresh) {
 
 
 	if ($.tableView.data.length === 0) {
-		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
 		crossingData = [];
+		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
 		Alloy.Globals.Soap.searchCrossingRequest({
 				searchCriteria: {
 					'com:searchCriteria': {
@@ -104,25 +105,14 @@ exports.setData = function(shouldRefresh) {
 						for (var i = 0; i < crossingData.length; i++) {
 							data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
 						}
-						// localDataHandler.cacheCrossingSearch(crossingData);
+						localDataHandler.cacheCrossingSearch(crossingData);
 						$.tableView.setData(data);
 						Alloy.Globals.aIndicator.hide();
 
 					});
 
-
-				//var XMLTools = require("tools/XMLTools");
-				// XMLTools.setDoc(xmlDoc);
-				// var crossingsObject = JSON.stringify(XMLTools.toObject());
-
-
 			},
-			function(xmlDoc) {
-				//var XMLTools = require("tools/XMLTools");
-				XMLTools.setDoc(xmlDoc);
-				Alloy.Globals.aIndicator.hide();
-				//alert('searchCrossingRequest Error response >> ' + xml.toJSON());
-			});
+			function(xmlDoc) {});
 	}
 };
 

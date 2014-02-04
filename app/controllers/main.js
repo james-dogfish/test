@@ -429,7 +429,7 @@ var buildAssessment = function(crossingDetail) {
  *
  *************************************************************/
 $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
-	try {
+	//try {
 
 		if ( typeof crossingDetail != "undefined") {
 			if (crossingDetail != "null") {
@@ -453,9 +453,9 @@ $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
 		getCensusQuestionSet(crossingDetail);
 		getTrainInfoQuestionSet(crossingDetail);
 
-	} catch(e) {
-		Alloy.Globals.aIndicator.hide();
-	}
+	//} catch(e) {
+	//	Alloy.Globals.aIndicator.hide();
+	//}
 });
 
 /** laod the risk assessments then switch tab **/
