@@ -667,6 +667,7 @@ exports.getGoToContentsDetails = function () {
             associatedFileName: sectionList[sectionIndex].associatedFileName,
             pageName: sectionList[sectionIndex].pageName,
             pageType: sectionList[sectionIndex].pageType,
+            pageID : sectionList[sectionIndex].pageID,
             sectionIndex: sectionIndex,
             groupType: sectionList[sectionIndex].groupType
         };
@@ -684,7 +685,9 @@ exports.getGoToContentsDetails = function () {
 
             var newQuestionDetails = {
                 title: questionsList[questionIndex].title.text,
-                questionIndex: questionIndex
+                questionIndex: questionIndex,
+                mandatory: questionsList[questionIndex].mandatory,
+                firstValue: questionsList[questionIndex].value[0]
             };
 
             newSectionContents.questionList.push(newQuestionDetails);

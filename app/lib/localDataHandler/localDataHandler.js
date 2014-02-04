@@ -231,7 +231,7 @@ function localDataHandler() {
             coreQuestionsFileName : null,
 
             censusQuestionsfileNameList: [],
-            censusLastPageID: 1,
+            //censusLastPageID: 1,
             trainGroupQuestionsfileNameList: [],
             trainGroupLastPageID: 1,
             crossingName: crossingName,
@@ -371,14 +371,15 @@ function localDataHandler() {
 
             if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
 
-                var newCensusFileName = assessmentObject.assessmentID + savedAssessments[i].censusLastPageID + "CensusQuestions.json";
+				var censusPageNum = savedAssessments[i].censusQuestionsfileNameList.length +1;
+                var newCensusFileName = assessmentObject.assessmentID + censusPageNum + "CensusQuestions.json";
                 var newCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newCensusFileName);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
 
                 var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
-                    pageName: L("page_census_name")+" " + savedAssessments[i].censusLastPageID,
-                    pageID: savedAssessments[i].censusLastPageID,
+                    pageName: L("page_census_name")+" " + scensusPageNum,
+                    pageID: censusPageNum,
                     pageType: "census",
                     readOnly: false,
                     assessmentId: assessmentObject.assessmentID,
@@ -391,7 +392,7 @@ function localDataHandler() {
                     )
                 );
 
-                savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
+                //savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
                 self.updateSavedAssessments(savedAssessments);
 
                 return newCensusQuestionSet;

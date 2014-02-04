@@ -9,5 +9,12 @@
 	wordWrap : false,
 	minimumFontSize : "18dp",
 	left : "20dp"
+},
+'#colouredBox' : {
+	width : "20dp",
+	height : "20dp",
+	right : "10dp",
 }
+
+
 
