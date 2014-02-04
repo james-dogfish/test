@@ -15,5 +15,10 @@
 			<Label id="alcrmStatus" class="titleText">ALCRM </Label>
 			<Label id="alcrmStatusLabel" class="labelText"/>
 		</View>
+		<View id="commitResponseView" class="view">
+			<Label id="commitIcon" class="icon" />
+			<Label id="commitStatus" class="titleText">Commit </Label>
+			<Label id="commitStatusLabel" class="labelText"/>
+		</View>
 	</TableViewRow>
 </Alloy>

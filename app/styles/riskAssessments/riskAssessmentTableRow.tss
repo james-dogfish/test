@@ -6,17 +6,17 @@
 	touchEnabled : true
 },
 ".view": {
-	layout: 'horizontal',
-	left: 0,
-	top: 2,
-	bottom: 2,
-	width: Ti.UI.SIZE,
+	//layout: 'horizontal',
+	left: "10dp",
+	bottom: "7dp",
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE
 },
 ".icon": {
 	height: Ti.UI.SIZE,
-	left: 10,
-	top: 10,
+	left: "10dp",
+	top: "5dp",
+	bottom : "5dp",
 	font: {
 		fontSize: 20,
 		fontFamily: Alloy.Globals.fontawesome.fontfamily
@@ -24,8 +24,9 @@
 },
 ".titleText": {
 	height: Ti.UI.SIZE,
-	left: 10,
-	top: 10,
+	left: "45dp",
+	top: "5dp",
+	bottom : "5dp",
 	font: {
 		fontSize: 18,
 		fontFamily: 'Arial',
@@ -34,14 +35,16 @@
 },
 ".labelText": {
 	height: Ti.UI.SIZE,
-	left: 15,
-	top: 7,
+	left: "200dp",
+	top: "5dp",
+	bottom : "5dp",
 	font: {
 		fontSize: 20,
 		fontFamily: 'Arial'
 	},
 	color: '#989696'
 },
+/*
 "#statusView" : {
 	bottom : 10
 },
@@ -60,4 +63,8 @@
 "#alcrmStatusLabel" : {
 	left : 80,
 	top : 2
+},
+*/
+"#commitResponseView" : { 
+	height : 0
 }

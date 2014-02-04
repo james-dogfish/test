@@ -194,12 +194,12 @@ function interpreterModule2() {
 	        if (type in ui_types_map) {
 	            templateType = ui_types_map[type];
 	        } else {
-	            Ti.API.info("questionNull type =" + type);
+	            Ti.API.info("questionNull type =" + type+", question = "+JSON.stringify(question));
 	            return null;
 	        }
 	        
 	        if(localParser.getQuestionName(question) in hiddenQuestionsMap){
-	        	Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
+	        	//Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
 	        	return null;
 	        }
 	        
@@ -633,7 +633,7 @@ function interpreterModule2() {
         for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
         	
         	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
-        		Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
+        		//Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
         		self.sectionHeaderList.splice(sectionIndex, 1);
         		sectionIndex = sectionIndex - 1;
         	}
@@ -771,7 +771,12 @@ function interpreterModule2() {
     
     var readAppconfig = function(){
     	var appconfig= [];
-    	var appconfigFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + "appconfig.json");
+    	hiddenQuestionsMap = [];
+    	hiddenSectionsMap = [];
+ 	
+    	
+    	
+    	var appconfigFile = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "appconfig.json");
     	if (appconfigFile.exists()) {
     		appconfig = JSON.parse(appconfigFile.read().text);
     		
@@ -779,7 +784,6 @@ function interpreterModule2() {
     			
     			hiddenQuestionsMap = [];
     			for(var i=0; i< appconfig["hiddenQuestions"].length; i++){
-    				Ti.API.info("appconfig" + appconfig["hiddenQuestions"][i]);
     				hiddenQuestionsMap[appconfig["hiddenQuestions"][i]] = true;
     			}
         	}
@@ -787,18 +791,21 @@ function interpreterModule2() {
         	if("hiddenSections" in appconfig){
     			hiddenSectionsMap = [];
     			for(var i=0; i< appconfig["hiddenSections"].length; i++){
-    				Ti.API.info("appconfig" + appconfig["hiddenSections"][i]);
     				hiddenSectionsMap[appconfig["hiddenSections"][i]] = true;
     			}
         	}
+        }
+        else{
+        	Ti.API.info("interpreterModule2.js in readAppconfig() file not found : "+Titanium.Filesystem.applicationDataDirectory  + "appconfig.json");
         }
     };
 
     self.interpret = function (allQuestions, passObject) {
     	
-		//readAppconfig();
 
     	try{
+    		readAppconfig();
+
 	        self.sectionHeaderList = [];
 	        self.questionMap = [];
 	        questionMap = [];
