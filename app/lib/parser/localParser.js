@@ -1,217 +1,195 @@
 function localParser() {
-    var self = this;
+	var self = this;
 
-    self.getQuestions = function (JSONPayload) {
-    	 var questions = null;
-    	 /*Ti.API.info("************************");
-    	 Ti.API.info(self.parse(xml_text));
-    	 Ti.API.info("************************");*/
-    	 //JSONPayload.response.Envelope.Body.GetQuestionsResponse;
-    	 
-    	if(typeof JSONPayload.response.Envelope.Body.GetQuestionsResponse !== "undefined")
-    	{
-    		questions = JSONPayload.response.Envelope.Body.GetQuestionsResponse.questions;	
-    	}
-    	
-    	if(typeof JSONPayload.response.Envelope.Body.GetCrossingResponse !== "undefined")
-    	{
-    		Ti.API.info("JSONPayload === >"+JSON.stringify(JSONPayload));
-    		questions = JSONPayload.response.Envelope.Body.GetCrossingResponse.crossing.detailedData;
-    	}
-       
-        if (typeof questions === "undefined" || questions === null) {
-            questions = [];
-        }
-        else if(!(questions instanceof Array)){
-        	questions=  [questions];
-        }
-        
-        	
-        return questions;
-        
-        
-    };
+	self.getQuestions = function(JSONPayload) {
+		var questions = null;
 
-    self.getQuestionText = function (question) {
-        return question.text;
-    };
-    
-    self.getHelpText = function (question) {
-    	if(typeof question.help !=="undefined"){
-    		return question.help;
-    	}
-        return "";
-    };
-    
-    self.getNotesText = function (question) {
-    	if(typeof question.notes !=="undefined"){
-    		return question.notes;
-    	}
-        return "";
-    };
+		if ( typeof JSONPayload.response.Envelope.Body.GetQuestionsResponse !== "undefined") {
+			questions = JSONPayload.response.Envelope.Body.GetQuestionsResponse.questions;
+		}
 
-    self.getQuestionName = function (question) {
-        return question.parameterName;
-    };
+		if ( typeof JSONPayload.response.Envelope.Body.GetCrossingResponse !== "undefined") {
+			questions = JSONPayload.response.Envelope.Body.GetCrossingResponse.crossing.detailedData;
+		}
 
-    self.getQuestionDisplayGroup = function (question) {
-        return question.displayGroup;
-    };
+		if ( typeof questions === "undefined" || questions === null) {
+			questions = [];
+		} else if (!( questions instanceof Array)) {
+			questions = [questions];
+		}
 
-    self.getQuestionOrder = function (question) {
-        return question.order;
-    };
+		return questions;
+	};
 
-    self.getQuestionGroup = function (question) {
-    	if(typeof question !=="undefined")
-    	{
-    		//alert("self.getQuestionGroup >> " + JSON.stringify(question));
-       		return question.group;
-    	}
-    	return "";
-    	
-    };
-    self.getQuestionMandatory = function (question) {
-        var validation = self.getValidation(question);
-        if (typeof validation !== "undefined") {
-            var mandatory = validation.mandatory;
-            if (typeof mandatory !== "undefined") {
-                if (mandatory == "true") {
-                    return true;
-                }
-            }
-        }
-        return false;
+	self.getQuestionText = function(question) {
+		return question.text;
+	};
 
-    };
+	self.getHelpText = function(question) {
+		if ( typeof question.help !== "undefined") {
+			return question.help;
+		}
+		return "";
+	};
 
-    self.getUserResponse = function (question) {
-        var questionResponse = question.userResponse;
-        if (typeof questionResponse === "undefined") {
-            return null;
-        } else return questionResponse;
-    };
+	self.getNotesText = function(question) {
+		if ( typeof question.notes !== "undefined") {
+			return question.notes;
+		}
+		return "";
+	};
 
+	self.getQuestionName = function(question) {
+		return question.parameterName;
+	};
 
-    self.getValidation = function (question) {
-        return question.validation;
-    };
+	self.getQuestionDisplayGroup = function(question) {
+		return question.displayGroup;
+	};
 
-    self.getConditionalMandatory = function (validation) {
+	self.getQuestionOrder = function(question) {
+		return question.order;
+	};
 
-        if (typeof validation === "undefined") {
-            return [];
-        }
-        var conditionalMandatory = validation.conditionalMandatory;
-        if (typeof conditionalMandatory === "undefined") {
-            return [];
-        }
-        else if(!(conditionalMandatory instanceof Array)){
+	self.getQuestionGroup = function(question) {
+		if ( typeof question !== "undefined") {
+			return question.group;
+		}
+		return "";
+
+	};
+	self.getQuestionMandatory = function(question) {
+		var validation = self.getValidation(question);
+		if ( typeof validation !== "undefined") {
+			var mandatory = validation.mandatory;
+			if ( typeof mandatory !== "undefined") {
+				if (mandatory == "true") {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	};
+
+	self.getUserResponse = function(question) {
+		var questionResponse = question.userResponse;
+		if ( typeof questionResponse === "undefined") {
+			return null;
+		} else
+			return questionResponse;
+	};
+
+	self.getValidation = function(question) {
+		return question.validation;
+	};
+
+	self.getConditionalMandatory = function(validation) {
+
+		if ( typeof validation === "undefined") {
+			return [];
+		}
+		var conditionalMandatory = validation.conditionalMandatory;
+		if ( typeof conditionalMandatory === "undefined") {
+			return [];
+		} else if (!( conditionalMandatory instanceof Array)) {
 			conditionalMandatory = [conditionalMandatory];
-        }
+		}
 
-        var returnList = [];
-        for (var i = 0; i < conditionalMandatory.length; i++) {
-            var parameterValue = conditionalMandatory[i].parameterValue;
-            if (typeof parameterValue === "undefined") {
-                parameterValue = null;
-            } else {
-                parameterValue = parameterValue;
-            }
+		var returnList = [];
+		for (var i = 0; i < conditionalMandatory.length; i++) {
+			var parameterValue = conditionalMandatory[i].parameterValue;
+			if ( typeof parameterValue === "undefined") {
+				parameterValue = null;
+			} else {
+				parameterValue = parameterValue;
+			}
 
-            returnList.push({
-                name: conditionalMandatory[i].parameterName,
-                value: parameterValue
-            });
-        }
-        return returnList;
-        
-       
-    };
+			returnList.push({
+				name : conditionalMandatory[i].parameterName,
+				value : parameterValue
+			});
+		}
+		return returnList;
 
-    self.getValidationFormat = function (question) {
-        return question.validation.format;
-    };
+	};
 
-    self.isValidationMandatory = function (question) {
-        return question.validation.mandatory;
-    };
+	self.getValidationFormat = function(question) {
+		return question.validation.format;
+	};
 
-    //get by "type" || by "group"
-    self.getBy = function (doc, bytag, value) {
-        var all_questions = [];
-        for (var i = 0; i < doc.length; i++) {
-            var question = doc.item(i);
-            if (question.bytag.text === value) {
-                all_questions.push(question);
-            }
-        }
+	self.isValidationMandatory = function(question) {
+		return question.validation.mandatory;
+	};
 
-        return all_questions;
-    };
+	//get by "type" || by "group"
+	self.getBy = function(doc, bytag, value) {
+		var all_questions = [];
+		for (var i = 0; i < doc.length; i++) {
+			var question = doc.item(i);
+			if (question.bytag.text === value) {
+				all_questions.push(question);
+			}
+		}
 
-    self.getAllSelections = function (question) {
-        var selections = question.selections;
-        if (typeof selections === "undefined") {
-            selections = [];
-        }
-        return selections;
-    };
+		return all_questions;
+	};
 
-    self.getQuestionType = function (question) {
-        return question.type;
-    };
+	self.getAllSelections = function(question) {
+		var selections = question.selections;
+		if ( typeof selections === "undefined") {
+			selections = [];
+		}
+		return selections;
+	};
 
-    self.getSelectionName = function (selection_tag) {
-        return selection_tag.name;
-    };
-    self.getSelectionDisplayValue = function (selection_tag) {
-        return selection_tag.displayValue;
-    };
+	self.getQuestionType = function(question) {
+		return question.type;
+	};
 
+	self.getSelectionName = function(selection_tag) {
+		return selection_tag.name;
+	};
+	self.getSelectionDisplayValue = function(selection_tag) {
+		return selection_tag.displayValue;
+	};
 
+	self.getSelectionValue = function(selection_tag) {
+		return selection_tag.value;
+	};
 
-    self.getSelectionValue = function (selection_tag) {
-        return selection_tag.value;
-    };
+	self.getRenderValue = function(question) {
+		var renderValue = question.renderValue;
+		if ( typeof renderValue === "undefined") {
+			renderValue = [];
+		} else if ( renderValue instanceof Array) {
+			return renderValue;
+		} else {
+			return [renderValue];
+		}
+		return renderValue;
+	};
 
-    self.getRenderValue = function (question) {
-        var renderValue = question.renderValue;
-        if (typeof renderValue === "undefined") {
-            renderValue = [];
-        }
-        else if(renderValue instanceof Array){
-        	//Ti.API.info("renderValue = "+JSON.stringify(renderValue));
-        	return renderValue;
-        }
-        else{
-        	return [renderValue];
-        	//Ti.API.info("renderValue = "+JSON.stringify(renderValue));
-        }
-        return renderValue;
-    };
+	self.getRenderValueParamName = function(render_value_tag) {
+		return render_value_tag.parameterName;
+	};
 
-    self.getRenderValueParamName = function (render_value_tag) {
-        return render_value_tag.parameterName;
-    };
+	self.getRenderValueParamValue = function(render_value_tag) {
+		if ( typeof render_value_tag.parameterValue === "undefined") {
+			return null;
+		}
+		return render_value_tag.parameterValue;
+	};
 
-    self.getRenderValueParamValue = function (render_value_tag) {
-    	if (typeof render_value_tag.parameterValue === "undefined") {
-    		return null;
-    	}
-        return render_value_tag.parameterValue;
-    };
-    
-    self.getTableRowText = function (question) {
-    	if (typeof question.tableDetails === "undefined") {
-    		return null;
-    	}
-    	else if (typeof question.tableDetails.rowText === "undefined") {
-    		return null;
-    	}
-        return question.tableDetails.rowText;
-    };
+	self.getTableRowText = function(question) {
+		if ( typeof question.tableDetails === "undefined") {
+			return null;
+		} else if ( typeof question.tableDetails.rowText === "undefined") {
+			return null;
+		}
+		return question.tableDetails.rowText;
+	};
 
 }
 
-module.exports = new localParser;
+module.exports = new localParser; 

@@ -40,18 +40,7 @@ function toggleSearch() {
  * openMenu: this function sets up menu item for home screen
  *******************************************************************************/
 var openMenu = function() {
-
-	// Check whether settings are filled
-	/*if (!User.hasPreferences()) {
-	// Open setting screen
-	var userSettings = Alloy.createController('userSettings', {
-	message: true
-	}).getView();
-	userSettings.open();
-	return false;
-	}*/
-
-	//var Ui = require('core/Ui'),
+	
 	popOver = Ui.renderPopOver({
 		width : 250
 	}), menuTable = Ti.UI.createTableView({
@@ -278,14 +267,9 @@ function getCrossingQuestionSet(crossingDetail) {
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-	
-				// Check whether JSON structure exits before attempting to grab results
-				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest', 'questions')) {
-					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
-					JSONDocCrossQues = data;
-					buildAssessment(crossingDetail);
-					Ti.API.info(" === getCrossingQuestionSet DONE === ");
-				//}
+
+				JSONDocCrossQues = data;
+				buildAssessment(crossingDetail);
 			}
 		);	
 		//end of convertJSON
@@ -304,14 +288,9 @@ function getCrossingQuestionAnswersSet(crossingDetail) {
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-	
-				// Check whether JSON structure exits before attempting to grab results
-				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest','questions')) {
-					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
-					JSONDocCrossAns = data;
-					buildAssessment(crossingDetail);
-					Ti.API.info(" === getCrossingQuestionAnswersSet DONE === ");
-				//}
+					
+				JSONDocCrossAns = data;
+				buildAssessment(crossingDetail);
 			}
 		);	
 		//end of convertJSON
@@ -330,14 +309,10 @@ function getAssessmentQuestionSet(crossingDetail) {
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-	
-				// Check whether JSON structure exits before attempting to grab results
-				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
-					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
-					JSONDocAss = data;
-					buildAssessment(crossingDetail);
-					Ti.API.info(" === getAssessmentQuestionSet DONE === ");
-				//}
+		
+				JSONDocAss = data;
+				buildAssessment(crossingDetail);
+				Ti.API.info(" === getAssessmentQuestionSet DONE === ");
 			}
 		);	
 		//end of convertJSON
@@ -357,13 +332,8 @@ function getCensusQuestionSet(crossingDetail) {
 				// callback
 				var data = JSON.parse(data);
 	
-				// Check whether JSON structure exits before attempting to grab results
-				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
-					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
-					JSONDocCensus = data;
-					buildAssessment(crossingDetail);
-					Ti.API.info(" === getCensusQuestionSet DONE === ");
-				//}
+				JSONDocCensus = data;
+				buildAssessment(crossingDetail);
 			}
 		);	
 		//end of convertJSON
@@ -383,13 +353,8 @@ function getTrainInfoQuestionSet(crossingDetail) {
 				// callback
 				var data = JSON.parse(data);
 	
-				// Check whether JSON structure exits before attempting to grab results
-				//if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'GetQuestionsRequest')) {
-					//var results = data.response.Envelope.Body.GetQuestionsRequest;	
-					JSONDocTrain = data;
-					buildAssessment(crossingDetail);
-					Ti.API.info(" === getTrainInfoQuestionSet DONE === ");
-				//}
+				JSONDocTrain = data;
+				buildAssessment(crossingDetail);
 			}
 		);	
 		//end of convertJSON
@@ -400,20 +365,17 @@ function getTrainInfoQuestionSet(crossingDetail) {
 };
 
 var buildAssessment = function(crossingDetail) {
-	Ti.API.info("============== DEBUG ==============");
+	/*Ti.API.info("============== DEBUG ==============");
 	Ti.API.info("JSONDocAss = " + (JSONDocAss !== null && typeof JSONDocAss !== "undefined"));
 	Ti.API.info("JSONDocCrossQues = " + (JSONDocCrossQues !== null && typeof JSONDocCrossQues !== "undefined"));
 	Ti.API.info("JSONDocCrossAns = " + (JSONDocCrossAns !== null && typeof JSONDocCrossAns !== "undefined"));
 	Ti.API.info("JSONDocCensus = " + (JSONDocCensus !== null && typeof JSONDocCensus !== "undefined"));
 	Ti.API.info("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"));
-	Ti.API.info("============== END OF DEBUG ==============");
+	Ti.API.info("============== END OF DEBUG ==============");*/
 
 	if (JSONDocAss == null || JSONDocCrossQues == null || JSONDocCrossAns == null || JSONDocCensus == null || JSONDocTrain == null) {
 		return false;
 	}
-
-	//var riskMap = [];
-	//var curAssObj = parseData(JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, /*crossingDetail.detailId*/0, crossingDetail.id, riskMap);
 
 	var assessmentObject = createAssessmentWithMainQuestionSet(JSONDocAss, 0, crossingDetail.id);
 	JSONDocAss = null;
@@ -430,8 +392,6 @@ var buildAssessment = function(crossingDetail) {
 		Ti.API.info("in main.js addCoreQuestionSetToAssessment >> did not create");
 		return;
 	}
-
-	//Ti.API.info("curAssObj >> " + JSON.stringify(curAssObj));
 
 	if ( typeof assessmentObject === "undefined") {
 		alert(L('no_data'));
