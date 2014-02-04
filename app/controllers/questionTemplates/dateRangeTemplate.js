@@ -28,7 +28,7 @@ function onNotesClick(e){
 function dateButton1Clicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	
+	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	
 	/*
 	Ti.App.fireEvent("questionSelected", {
@@ -48,6 +48,7 @@ function dateButton1Clicked(e){
 		
 		if(item.value.length < 2){
 			item.value[1] = ""; 
+			
 		}
 		
 		item.value[0] = dateString;

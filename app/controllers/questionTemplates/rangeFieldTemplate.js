@@ -49,6 +49,7 @@ function onTextFieldFocus(e){
 function onTextField1Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
+	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);

@@ -117,7 +117,10 @@ var newTestDependentQuestions = function (questionObject) {
     var addToSectionMap = [];
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
-
+			if(typeof hiddenQuestions[questionIndex].name === "undefined")
+			{
+				continue;
+			}
             if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
                 if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
                     if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {

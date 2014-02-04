@@ -2,7 +2,7 @@ function selectButtonClicked(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
-	
+	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item

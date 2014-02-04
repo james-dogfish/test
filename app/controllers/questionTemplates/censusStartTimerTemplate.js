@@ -3,7 +3,7 @@ function onTextFieldBlur(e){
 	
 	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
-	
+	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	/*
 	if(typeof item === "undefined"){
 		alert("in textFieldTemplate.onTextFieldBlur item was undefined");

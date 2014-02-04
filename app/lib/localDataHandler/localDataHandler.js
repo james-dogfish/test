@@ -110,65 +110,72 @@ function localDataHandler() {
 
 	//will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function (question) {
-		var savedAssessments = self.getAllSavedAssessments();
-		var refToSaveAssessmentIndex = null;
-		for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
-		{
-			if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
+    	try{
+			var savedAssessments = self.getAllSavedAssessments();
+			Ti.API.info("savedAssessments >> "+JSON.stringify(savedAssessments));
+			Ti.API.info("savedAssessments length >> "+savedAssessments.length);
+			var refToSaveAssessmentIndex = null;
+			for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 			{
-				refToSaveAssessmentIndex = savedAssementIndex;
-				break;
+				if(savedAssessments[savedAssementIndex].assessmentID === question.assessmentId)
+				{
+					refToSaveAssessmentIndex = savedAssementIndex;
+					break;
+				}
 			}
+	        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + question.associatedFileName);
+	        if (assessmentFile.exists()) {
+	            var sectionList = JSON.parse(assessmentFile.read().text);
+	
+	            var questionFound = false;
+	            for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true; sectionIndex++) {
+	
+	                if (sectionList[sectionIndex].alcrmGroupType == question.alcrmGroupType) {
+	                    var questionList = sectionList[sectionIndex].questionList;
+	
+	                    for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true; questionIndex++) {
+	                        if (sectionList[sectionIndex].questionList[questionIndex] && 
+	                        	sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') && 
+	                        	sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
+	                            
+	                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
+	                            var newQuestion =  question;
+	                            
+	                            if(oldQuestion.validation.mandatory === true && typeof savedAssessments[refToSaveAssessmentIndex] !== "undefined")
+	                            {
+	                            	if(oldQuestion.value[0] === "" && newQuestion.value[0] !== "")
+	                            	{
+	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted++;
+	                            	}else if(oldQuestion.value[0] !== "" && newQuestion.value[0] === "")
+	                            	{
+	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
+	                            	}
+	                            	
+	                            }
+	                                      
+	                            sectionList[sectionIndex].questionList[questionIndex] = question;
+	                            questionFound = true;
+	                        } 
+	                    }
+	                }
+	            }
+	
+	            if (questionFound == false) {
+	                Ti.API.info("updateQuestion : question not found ");
+	            }
+	
+				self.updateSavedAssessments(savedAssessments);
+				
+	            assessmentFile.deleteFile();
+	            assessmentFile.write(JSON.stringify(sectionList));
+	
+	            return true;
+	        }
+	        alert("ERROR - assessmentFile does not exists");
+	        return false;
+		}catch(e){
+			Ti.API.info("An exception occured in updateQuestion. Error Details: "+JSON.stringify(e));
 		}
-        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + question.associatedFileName);
-        if (assessmentFile.exists()) {
-            var sectionList = JSON.parse(assessmentFile.read().text);
-
-            var questionFound = false;
-            for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true; sectionIndex++) {
-
-                if (sectionList[sectionIndex].alcrmGroupType == question.alcrmGroupType) {
-                    var questionList = sectionList[sectionIndex].questionList;
-
-                    for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length && questionFound != true; questionIndex++) {
-                        if (sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
-                            
-                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
-                            var newQuestion =  question;
-                            
-                            if(oldQuestion.validation.mandatory === true)
-                            {
-                            	if(oldQuestion.value[0] === "" && newQuestion.value[0] !== "")
-                            	{
-                            		
-                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted++;
-                            	}else if(oldQuestion.value[0] !== "" && newQuestion.value[0] === "")
-                            	{
-                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
-                            	}
-                            	
-                            }
-                                      
-                            sectionList[sectionIndex].questionList[questionIndex] = question;
-                            questionFound = true;
-                        } 
-                    }
-                }
-            }
-
-            if (questionFound == false) {
-                Ti.API.info("updateQuestion : question not found ");
-            }
-
-			self.updateSavedAssessments(savedAssessments);
-			
-            assessmentFile.deleteFile();
-            assessmentFile.write(JSON.stringify(sectionList));
-
-            return true;
-        }
-        alert("ERROR - assessmentFile does not exists");
-        return false;
     };
 
 	//will update a assessment with the same assessmentID as the assessmentObject passed

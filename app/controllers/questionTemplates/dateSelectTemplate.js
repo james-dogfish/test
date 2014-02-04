@@ -1,6 +1,5 @@
 function onNotesClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
-	
 	//notesBackground : {backgroundImage: 'images/questionNote.png'}
 	//{backgroundImage: 'images/questionNote.png'}
 	//{backgroundImage: 'images/questionSelectedNote.png'},
@@ -29,7 +28,7 @@ function onNotesClick(e){
 function dateButtonClicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	
+	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item
@@ -55,6 +54,8 @@ function dateButtonClicked(e){
 	Alloy.createController("questionDialogs/modalDatePicker", {timeLimit : timeLimit, closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
 		item.value = dateString;
+		
+		
 		section.updateItemAt(e.itemIndex, item);
 		//questionValueChange(item, section, dateString);
 		
