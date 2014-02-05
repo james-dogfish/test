@@ -391,7 +391,7 @@ function interpreterModule2() {
 	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
 	
 	            } else if (questionObject.template === "singleSelectTemplate") {
-	                questionObject.displayValue.value = "value=" + questionMap[questionObject.alcrmQuestionID].value;
+	                questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
 	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
 	
 	                for (var i = 0; i < questionObject.selections.length; i++) {
@@ -405,7 +405,10 @@ function interpreterModule2() {
 	                questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
 	
 	                var temp = "";
-	
+					
+					if(typeof questionMap[questionObject.alcrmQuestionID].value === "undefined" 
+						|| !(questionMap[questionObject.alcrmQuestionID].value instanceof Array)) return questionObject;
+						
 	                for (var t = 0; t < questionMap[questionObject.alcrmQuestionID].value.length; t++) {
 	                    for (var i = 0; i < questionObject.selections.length; i++) {
 	                        if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value[t]) {
