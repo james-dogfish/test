@@ -4,7 +4,7 @@
 			<View id="settingView" layout="vertical">
 				<View id="headingView">
 					<Label class="heading" text="Settings"/>
-					<Button id="closeButton" onClick='saveSettings' backgroundImage="/images/close.png" />
+					<Button id="closeButton" onClick='closeSettings' backgroundImage="/images/close.png" />
 				</View> 
 				<Label class='label' text="Name" />
 				<TextField class='textField' id='name' />

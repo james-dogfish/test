@@ -75,8 +75,13 @@ var saveSettings = function() {
 };
 
 var closeSettings = function() {
-	$.window.close();
-	$.destroy();
+	if(User.hasPreferences())
+	{
+			$.window.close();
+			$.destroy();
+	}else{
+		Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
+	}
 };
 
 exports.open = function() {
