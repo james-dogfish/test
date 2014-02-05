@@ -13,7 +13,6 @@ function refreshButtonClick(e) {
 
 
 function onRowClick(e) {
-	alert(JSON.stringify(crossingData[e.index]));
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 

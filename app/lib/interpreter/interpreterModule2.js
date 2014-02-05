@@ -125,7 +125,7 @@ function interpreterModule2() {
 	    	
 	    	return displayName;
 	    }catch(e){
-	    	alert("Exception occured in getSectionDisplayName. Error Details: "+JSON.stringify(e));
+	    	Ti.API.info("Exception occured in getSectionDisplayName. Error Details: "+JSON.stringify(e));
        		return "";
 	    }
     };
@@ -188,7 +188,7 @@ function interpreterModule2() {
 		        headerView: {}
 	    	};
 	    }catch(e){
-	    	alert("Exception occured in createCensusDateQuestion. Error Details: "+JSON.stringify(e));
+	    	Ti.API.info("Exception occured in createCensusDateQuestion. Error Details: "+JSON.stringify(e));
        		return null;
 	    }
     	
@@ -376,7 +376,7 @@ function interpreterModule2() {
 	        self.questionMap[questionObject.name] = questionObject;
 	     	return questionObject;
 	    }catch(e){
-	    	alert("Exception in createQuestionObject >> "+JSON.stringify(e));
+	    	Ti.API.info("Exception in createQuestionObject >> "+JSON.stringify(e));
 	    	return null;
 	    }
     };
@@ -436,7 +436,7 @@ function interpreterModule2() {
 	        }
 	        return questionObject;
 		}catch(e){
-			alert("Exception in questionSetPastVariables >> "+JSON.stringify(e));
+			Ti.API.info("Exception in questionSetPastVariables >> "+JSON.stringify(e));
 			return questionObject;
 		}
     };
@@ -476,7 +476,7 @@ function interpreterModule2() {
 	        }
 	        self.sectionHeaderList.push(newSectionHeader);
 	     }catch(e){
-	     	alert("Exception in addQuestionToSectionHeader >> "+JSON.stringify(e));
+	     	Ti.API.info("Exception in addQuestionToSectionHeader >> "+JSON.stringify(e));
 	     	return null;
 	     }
     };
@@ -491,7 +491,7 @@ function interpreterModule2() {
 
 				//adds a list of all questions that have a Dependencies on if it is visable based on this question
                 if (typeof renderDependenciesMap[name] !== "undefined") {
-                    //alert(name);
+                    //Ti.API.info(name);
 
 					//creates a list of Dependent question names with no repeated names
                     var questionNameArray = renderDependenciesMap[name];
@@ -534,7 +534,7 @@ function interpreterModule2() {
         }
         
        }catch(e){
-       		alert("Exception in lookQuestionDependencies >> "+JSON.stringify(e));
+       		Ti.API.info("Exception in lookQuestionDependencies >> "+JSON.stringify(e));
        }
     };
     
@@ -577,7 +577,7 @@ function interpreterModule2() {
 	            renderValue: []
 	        };
 		}catch(e){
-			alert("Exception in createSubsectionHeader >> "+JSON.stringify(e));
+			Ti.API.info("Exception in createSubsectionHeader >> "+JSON.stringify(e));
 			return null;
 		}
    	};
@@ -618,7 +618,7 @@ function interpreterModule2() {
 	     	
 	     	return newQuestionList;
 		}catch(e){
-			alert("Exception in addSubsectionsBackIntoQuestionList >> "+JSON.stringify(e));
+			Ti.API.info("Exception in addSubsectionsBackIntoQuestionList >> "+JSON.stringify(e));
 			return [];
 		}
    	};
@@ -648,7 +648,7 @@ function interpreterModule2() {
 	     		}
 	     	}
 	    }catch(e){
-			alert("Exception in addSubsections >> "+JSON.stringify(e));
+			Ti.API.info("Exception in addSubsections >> "+JSON.stringify(e));
 			return [];
 		}
      };
@@ -656,7 +656,7 @@ function interpreterModule2() {
     var postInterpretSettings = function (passObject) {
     	try{
     		var userPreferences = User.getPreferences();
-	    	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
+	    	//Ti.API.info("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
 	    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
 	    		
 	        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
@@ -782,7 +782,7 @@ function interpreterModule2() {
 	        
 	        addSubsections();
 		}catch(e){
-			alert("Exception in postInterpretSettings >> "+JSON.stringify(e));
+			Ti.API.info("Exception in postInterpretSettings >> "+JSON.stringify(e));
 		}
     };
 
@@ -800,7 +800,7 @@ function interpreterModule2() {
 	            return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
 	        });
 	    }catch(e){
-			alert("Exception in sortQuestionsByOrder >> "+JSON.stringify(e));
+			Ti.API.info("Exception in sortQuestionsByOrder >> "+JSON.stringify(e));
 		}
     };
     
@@ -835,7 +835,7 @@ function interpreterModule2() {
 	        	Ti.API.info("interpreterModule2.js in readAppconfig() file not found : "+Titanium.Filesystem.applicationDataDirectory  + "appconfig.json");
 	        }
 		}catch(e){
-			alert("Exception in readAppconfig >> "+JSON.stringify(e));
+			Ti.API.info("Exception in readAppconfig >> "+JSON.stringify(e));
 		}
     };
 
@@ -868,7 +868,7 @@ function interpreterModule2() {
 	        return self.sectionHeaderList;
 	    }catch(e){
 	    	Alloy.Globals.aIndicator.hide();
-	    	alert("Interpreter.interpret has an exception: "+JSON.stringify(e));
+	    	Ti.API.info("Interpreter.interpret has an exception: "+JSON.stringify(e));
 	    	return [];
 	    }
     };

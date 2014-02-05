@@ -171,7 +171,7 @@ function localDataHandler() {
 	
 	            return true;
 	        }
-	        alert("ERROR - assessmentFile does not exists");
+	        Ti.API.info("ERROR - assessmentFile does not exists");
 	        return false;
 		}catch(e){
 			Ti.API.info("An exception occured in updateQuestion. Error Details: "+JSON.stringify(e));
@@ -190,7 +190,7 @@ function localDataHandler() {
 	        }
 	        self.updateSavedAssessments(savedAssessments);
 	    }catch(e){
-	    	alert("Exception in updateSingleAssessmentIndexEntry. Error details: "+JSON.stringify(e));
+	    	Ti.API.info("Exception in updateSingleAssessmentIndexEntry. Error details: "+JSON.stringify(e));
 	    	Alloy.Globals.aIndicator.hide();
 	    	return;
 	    }
@@ -208,7 +208,7 @@ function localDataHandler() {
 	        }
 	        return assessmentObject;
 	    }catch(e){
-	    	alert("Exception in getMostUpTodateAssessmentObject. Error details: "+JSON.stringify(e));
+	    	Ti.API.info("Exception in getMostUpTodateAssessmentObject. Error details: "+JSON.stringify(e));
 	    	Alloy.Globals.aIndicator.hide();
 	    	return;
 	    }
@@ -295,7 +295,7 @@ function localDataHandler() {
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
       }catch(e){
-      	 alert("Exception in addNewAssessment. Error details: "+JSON.stringify(e));
+      	 Ti.API.info("Exception in addNewAssessment. Error details: "+JSON.stringify(e));
       	 Alloy.Globals.aIndicator.hide();
       	 return;
       }
@@ -316,7 +316,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
-       		alert("Exception occured in addDefaultCensus. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in addDefaultCensus. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -337,7 +337,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
-       		alert("Exception occured in addDefaultTrainInfo. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in addDefaultTrainInfo. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -382,7 +382,7 @@ function localDataHandler() {
 
         return [];
        }catch(e){
-       		alert("Exception occured in addNewCoreQuestionToAssessment. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in addNewCoreQuestionToAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        		return [];
        }
@@ -546,7 +546,7 @@ function localDataHandler() {
             }
         }
        }catch(e){
-       		alert("Exception occured in addNewTrainGroupToAssessment. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in addNewTrainGroupToAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -626,7 +626,7 @@ function localDataHandler() {
 
         return getAllData;
         }catch(e){
-        	alert("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e));
+        	Ti.API.info("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
         }
     };
@@ -652,7 +652,7 @@ function localDataHandler() {
 
         return false;
        }catch(e){
-       		alert("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -664,7 +664,7 @@ function localDataHandler() {
 		var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
-            alert("assessment file format is out of date, continued use of this assessment may cause errors");
+            Ti.API.info("assessment file format is out of date, continued use of this assessment may cause errors");
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -678,7 +678,7 @@ function localDataHandler() {
 
         return returnQuestionSet;
        }catch(e){
-       		alert("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };
@@ -720,7 +720,7 @@ function localDataHandler() {
 	            				{
 	            					if(questionList[questionListIndex].value[0].trim().length > 0)
 		            				{
-		            					//alert("value0="+questionList[questionListIndex].value[0]);
+		            					//Ti.API.info("value0="+questionList[questionListIndex].value[0]);
 		            					answeredCount++;
 		            				}
 	            				}	
@@ -742,7 +742,7 @@ function localDataHandler() {
         
         return assessmentObject;
         }catch(e){
-        	alert("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e));
+        	Ti.API.info("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e));
         	Alloy.Globals.aIndicator.hide();
         }
     };
@@ -754,7 +754,7 @@ function localDataHandler() {
         var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
-            alert("assessment file format is out of date, continued use of this assessment may cause errors");
+            Ti.API.info("assessment file format is out of date, continued use of this assessment may cause errors");
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -796,7 +796,7 @@ function localDataHandler() {
         }
         return returnQuestionSet;
        }catch(e){
-       		alert("An exception occured in openAssessment. Error Details: "+JSON.stringify(e));
+       		Ti.API.info("An exception occured in openAssessment. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };
