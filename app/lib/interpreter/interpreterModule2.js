@@ -10,8 +10,8 @@ function interpreterModule2() {
     var questionMap = [];
     
     //var User = require('core/User');
-    var userPreferences = User.getPreferences();
-
+    //var userPreferences = User.getPreferences();
+   
 
     var renderDependenciesMap = [];
     
@@ -655,6 +655,7 @@ function interpreterModule2() {
 
     var postInterpretSettings = function (passObject) {
     	try{
+    		var userPreferences = User.getPreferences();
 	    	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
 	    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
 	    		

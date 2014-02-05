@@ -229,7 +229,7 @@ function _User() {
 		            };
         		}
         	}
-            return;
+            return null;
         },
 
         hasPreferences: function () {
