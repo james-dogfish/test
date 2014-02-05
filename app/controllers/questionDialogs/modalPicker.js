@@ -49,6 +49,12 @@ function rightNavButtonClick(e){
 	closeWindow();
 };
 
+function clearButtonClick(e){
+	args.closeCallBack({title: "", value : ""});
+	$.modalBackgorund.animate(animationClose);
+	$.background.animate(animationFadeOut);
+};
+
 function pickerChange(e){
 	currentValue = {
 		displayValue : $.pickerView.getSelectedRow(null).title,

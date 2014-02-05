@@ -77,6 +77,18 @@ function rightNavButtonClick(e){
 	closeWindow();
 };
 
+function clearButtonClick(e){
+	var returnValue = {
+		displayNameList : [], 
+		valueList : [],
+		singleStringValue : ""
+	};
+
+	args.closeCallBack(returnValue);
+	$.modalBackgorund.animate(animationClose);
+	$.background.animate(animationFadeOut);
+};
+
 function rowClicked(e){
 	if(e.row.hasCheck == true){
 		e.row.hasCheck = false;
