@@ -14,7 +14,7 @@ if (arguments && arguments[0]) {
 	$.statusLabel.text = '(' + (thisRA.questionsCompleted === 0 ? 'New' : (thisRA.questionsCompleted + '/' + thisRA.questionCount)) + ')';
 	if($.statusLabel.text.search('New') === -1)
 	{
-		$.statusLabel.text = $.statusLabel.text + " mandatory questions";
+		$.statusLabel.text = $.statusLabel.text + " Mandatory Questions";
 	}
 	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
 	
