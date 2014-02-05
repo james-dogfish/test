@@ -61,6 +61,13 @@ function rightNavButtonClick(e){
 	closeWindow();
 };
 
+function clearButtonClick(e){
+	args.closeCallBack("");
+	$.modalBackgorund.animate(animationClose);
+	$.background.animate(animationFadeOut);
+};
+
+
 function pickerChange(e){
 	date = e.value;
 }

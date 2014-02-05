@@ -36,7 +36,7 @@ var addSectionToPageList= function(section){
 		name : section.pageName,
 		title : {text : section.pageName}, 
 		sectionList : [],
-		colouredBox : Styles["GoToMandatoryColouredBox_nonMandatory"],
+		colouredBox : Styles["goToMandatoryColouredBox_nonMandatory"],
 		mandatoryQuestions : false,
         unAnsweredMandatoryQuestions : false,  
 		pageType : section.pageType,
