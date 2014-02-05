@@ -95,92 +95,102 @@ function interpreterModule2() {
     
     var getSectionDisplayName = function(question, passObject){
     	
-    	var displayName = "N/A";
-    	
-    	if(passObject.pageType == "riskAssessment"){
-    		
-    		if(typeof question.firstTab !== "undefined")
+    	try{
+	    	var displayName = "N/A";
+	    	
+	    	if(passObject.pageType == "riskAssessment"){
+	    		
+	    		if(typeof question.firstTab !== "undefined")
+		    	{
+		    		displayName = question.firstTab;
+		    		
+		    	}
+		    	if(typeof question.secondTab !== "undefined"){
+	    		
+		    		displayName = displayName + " "+ question.secondTab;
+		    	}
+		    	return displayName;
+	    	}
+	    	
+	    	if(typeof question.firstTab !== "undefined")
 	    	{
 	    		displayName = question.firstTab;
 	    		
 	    	}
+	    	
 	    	if(typeof question.secondTab !== "undefined"){
-    		
-	    		displayName = displayName + " "+ question.secondTab;
+	    		
+	    		displayName = question.secondTab;
 	    	}
+	    	
 	    	return displayName;
-    	}
-    	
-    	if(typeof question.firstTab !== "undefined")
-    	{
-    		displayName = question.firstTab;
-    		
-    	}
-    	
-    	if(typeof question.secondTab !== "undefined"){
-    		
-    		displayName = question.secondTab;
-    	}
-    	
-    	return displayName;
+	    }catch(e){
+	    	alert("Exception occured in getSectionDisplayName. Error Details: "+JSON.stringify(e));
+       		return "";
+	    }
     };
     
     var createCensusDateQuestion = function(passObject, section){
-    	return  {
-	        isAQuestion: true,
-	        template: "dateTemplate", // this is the template used to show the question in the list view
-	        type: "date", // this is the alcrem question type
-	        groupType: section.groupType,
-	        alcrmGroupType: section.alcrmGroupType,
-	        name: passObject.pageID +"CENSUS_DATE", // this is the id of the question
-	        alcrmQuestionID: "CENSUS_DATE",
-	        visable: true,
-	        order: "1",
-	        associatedFileName: passObject.associatedFileName, // file the question is in
-	
-	        assessmentId: passObject.assessmentId,
-	
-	        notesBackground: {
-	            backgroundImage: 'images/questionNote.png'
-	        }, //{backgroundImage: 'images/questionSelectedNote.png'}
-	        notes: "",
-	        help : "",
-	        selected: false,
-	        value: [""], // a list of all values set for this question
-	        renderValue: [], // a list of condtions if the question is visable
-	        selections: [], // a list of possible values for the question
-	        validation: {
-	            validationTest: false,
-	            min: null,
-	            max: null,
-	            minLenght: null,
-	            maxLenght: null,
-	            format: null,
-	            mandatory: false,
-	            conditionalMandatory: []
-	        },
-	        mandatory : true, //can be changed at run time with conditionalMandatory
-			subsectionTitle : null,
-	        title: {
-	            text: "Date of Census"
-	        }, // the title text for this question
-	        displayValue: {
-	            value: ""
-	        },
-	        displayValue2: {
-	            value: ""
-	        },
-	
-	        questionResponse: null,
-	
-	        errorMessageVisable: false,
-	        questionErrorMessageView: {},
-	        questionErrorMessage: {},
-	
-	        renderDependencyList: [],
-	        mandatoryDependenciesList : [],
-	        headerView: {}
-    	};
+    	try{
+	    	return  {
+		        isAQuestion: true,
+		        template: "dateTemplate", // this is the template used to show the question in the list view
+		        type: "date", // this is the alcrem question type
+		        groupType: section.groupType,
+		        alcrmGroupType: section.alcrmGroupType,
+		        name: passObject.pageID +"CENSUS_DATE", // this is the id of the question
+		        alcrmQuestionID: "CENSUS_DATE",
+		        visable: true,
+		        order: "1",
+		        associatedFileName: passObject.associatedFileName, // file the question is in
+		
+		        assessmentId: passObject.assessmentId,
+		
+		        notesBackground: {
+		            backgroundImage: 'images/questionNote.png'
+		        }, //{backgroundImage: 'images/questionSelectedNote.png'}
+		        notes: "",
+		        help : "",
+		        selected: false,
+		        value: [""], // a list of all values set for this question
+		        renderValue: [], // a list of condtions if the question is visable
+		        selections: [], // a list of possible values for the question
+		        validation: {
+		            validationTest: false,
+		            min: null,
+		            max: null,
+		            minLenght: null,
+		            maxLenght: null,
+		            format: null,
+		            mandatory: false,
+		            conditionalMandatory: []
+		        },
+		        mandatory : true, //can be changed at run time with conditionalMandatory
+				subsectionTitle : null,
+		        title: {
+		            text: "Date of Census"
+		        }, // the title text for this question
+		        displayValue: {
+		            value: ""
+		        },
+		        displayValue2: {
+		            value: ""
+		        },
+		
+		        questionResponse: null,
+		
+		        errorMessageVisable: false,
+		        questionErrorMessageView: {},
+		        questionErrorMessage: {},
+		
+		        renderDependencyList: [],
+		        mandatoryDependenciesList : [],
+		        headerView: {}
+	    	};
+	    }catch(e){
+	    	alert("Exception occured in createCensusDateQuestion. Error Details: "+JSON.stringify(e));
+       		return null;
+	    }
     	
     };
 
@@ -366,7 +376,7 @@ function interpreterModule2() {
 	        self.questionMap[questionObject.name] = questionObject;
 	     	return questionObject;
 	    }catch(e){
-	    	Ti.API.info("Exception in createQuestionObject >> "+JSON.stringify(e));
+	    	alert("Exception in createQuestionObject >> "+JSON.stringify(e));
 	    	return null;
 	    }
     };
@@ -542,262 +552,287 @@ function interpreterModule2() {
    	};
    	
    	var createSubsectionHeader = function(title){
-   		return {
-            isAQuestion: false,
-            readOnly : false,
-            template: "subsectionHeaderTemplate",
-            headerView : Styles["headerViewSubsection"],
-            title: {
-                text: title
-            },
-            visable: true,
-            name: "",
-            questionToChangeTemplate: "singleSelectTemplate",
-            selections: [{
-                displayValue: "Yes",
-                value: 1
-            }, {
-                displayValue: "No",
-                value: 0
-            }],
-            renderValue: []
-        };
+   		try{
+	   		return {
+	            isAQuestion: false,
+	            readOnly : false,
+	            template: "subsectionHeaderTemplate",
+	            headerView : Styles["headerViewSubsection"],
+	            title: {
+	                text: title
+	            },
+	            visable: true,
+	            name: "",
+	            questionToChangeTemplate: "singleSelectTemplate",
+	            selections: [{
+	                displayValue: "Yes",
+	                value: 1
+	            }, {
+	                displayValue: "No",
+	                value: 0
+	            }],
+	            renderValue: []
+	        };
+		}catch(e){
+			alert("Exception in createSubsectionHeader >> "+JSON.stringify(e));
+			return null;
+		}
    	};
    	
    	var addSubsectionsBackIntoQuestionList = function(questionList, subSectionList){
    		
-                
-   		var subSectionIndex =0;
-   		var newQuestionList = [];
-   		for (var questionIndex = 0; questionIndex < questionList.length && subSectionIndex < subSectionList.length; questionIndex++) {
-   			if (questionList[questionIndex].subsectionTitle != null){
-   				continue;
-   			}
-   			else if (typeof questionList[questionIndex].order === "undefined"){
-   				newQuestionList.push(questionList[questionIndex]);
-   			}
-     		else if(parseInt(subSectionList[subSectionIndex].order) < parseInt(questionList[questionIndex].order)){
-     			
-     			newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
-     			
-     			//subsectionHeaderTemplate
-     			for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
-     				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
-     			}
-     			subSectionIndex++;
-     		}
-     	}
-     	
-     	for(subSectionIndex; subSectionIndex < subSectionList.length; subSectionIndex++){
-     		
-			newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
-     			
-     		for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
- 				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
- 			}
- 			subSectionIndex++;
-     	}
-     	
-     	return newQuestionList;
+        try{       
+	   		var subSectionIndex =0;
+	   		var newQuestionList = [];
+	   		for (var questionIndex = 0; questionIndex < questionList.length && subSectionIndex < subSectionList.length; questionIndex++) {
+	   			if (questionList[questionIndex].subsectionTitle != null){
+	   				continue;
+	   			}
+	   			else if (typeof questionList[questionIndex].order === "undefined"){
+	   				newQuestionList.push(questionList[questionIndex]);
+	   			}
+	     		else if(parseInt(subSectionList[subSectionIndex].order) < parseInt(questionList[questionIndex].order)){
+	     			
+	     			newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
+	     			
+	     			//subsectionHeaderTemplate
+	     			for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+	     				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
+	     			}
+	     			subSectionIndex++;
+	     		}
+	     	}
+	     	
+	     	for(subSectionIndex; subSectionIndex < subSectionList.length; subSectionIndex++){
+	     		
+				newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
+	     			
+	     		for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+	 				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
+	 			}
+	 			subSectionIndex++;
+	     	}
+	     	
+	     	return newQuestionList;
+		}catch(e){
+			alert("Exception in addSubsectionsBackIntoQuestionList >> "+JSON.stringify(e));
+			return [];
+		}
    	};
     
     
     
      var addSubsections = function () {
-     	for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
-     		if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Sighting") {
-     			
-     			//var newQuestionList = [];
-     			var subSectionList = [];
-     			
-     			var oldQuestionList = self.sectionHeaderList[sectionIndex].questionList;
-     			for (var questionIndex = 0; questionIndex < oldQuestionList.length; questionIndex++) {
-     				
-     				if(oldQuestionList[questionIndex].subsectionTitle != null){
-     					//newQuestionList.push(oldQuestionList[questionIndex]);
-     					addQuestionToSubsectionList(subSectionList, oldQuestionList[questionIndex]);
-     				}
-   
-     				
-     			}
-     			
-     			self.sectionHeaderList[sectionIndex].questionList = addSubsectionsBackIntoQuestionList(oldQuestionList, subSectionList);
-     		}
-     	}
+     	try{
+	     	for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
+	     		if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Sighting") {
+	     			
+	     			//var newQuestionList = [];
+	     			var subSectionList = [];
+	     			
+	     			var oldQuestionList = self.sectionHeaderList[sectionIndex].questionList;
+	     			for (var questionIndex = 0; questionIndex < oldQuestionList.length; questionIndex++) {
+	     				
+	     				if(oldQuestionList[questionIndex].subsectionTitle != null){
+	     					//newQuestionList.push(oldQuestionList[questionIndex]);
+	     					addQuestionToSubsectionList(subSectionList, oldQuestionList[questionIndex]);
+	     				}
+	   
+	     				
+	     			}
+	     			
+	     			self.sectionHeaderList[sectionIndex].questionList = addSubsectionsBackIntoQuestionList(oldQuestionList, subSectionList);
+	     		}
+	     	}
+	    }catch(e){
+			alert("Exception in addSubsections >> "+JSON.stringify(e));
+			return [];
+		}
      };
 
     var postInterpretSettings = function (passObject) {
-    	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
-    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
-    		
-        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
-        	
-        	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
-        		//Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
-        		self.sectionHeaderList.splice(sectionIndex, 1);
-        		sectionIndex = sectionIndex - 1;
-        	}
-            else if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
-                var newRow = {
-                    isAQuestion: false,
-                    readOnly : false,
-                    template: "setEntireSectionTemplate",
-
-                    title: {
-                        text: "Set all photograph questions to"
-                    },
-                    visable: true,
-                    name: "",
-                    questionToChangeTemplate: "singleSelectTemplate",
-                    selections: [{
-                        displayValue: "Yes",
-                        value: 1
-                    }, {
-                        displayValue: "No",
-                        value: 0
-                    }],
-                    renderValue: []
-                };
-                self.sectionHeaderList[sectionIndex].questionList.unshift(newRow); //adds row to front of the list
-            }
-            else if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "CensusGeneral"){
-            	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject, self.sectionHeaderList[sectionIndex]));
-            }  
-
-			
-            for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
-
-                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
-
-                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
-
-                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
-                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
-                    questionObject.value = [userPreferences.name];
-                    questionObject.displayValue = {
-                        value: userPreferences.name
-                    };
-                } else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
-                    questionObject.value = [userPreferences.mobile];
-                    questionObject.displayValue = {
-                        value: userPreferences.mobile
-                    };
-                } else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
-                    questionObject.value = [userPreferences.email];
-                    questionObject.displayValue = {
-                        value: userPreferences.email
-                    };
-                } 
-               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
-                	questionObject.template = "censusStartTimerTemplate";
-               }
-               
-               /*
-               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
-               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
-               			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_HGV_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_PED_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_CYC_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_HOOF_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_EQUESTRIAN_COUNT" || 
-               			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
-                	questionObject.template = "censusCounterTemplate";
-               }
-               */
-               
-            	/*
-               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
-                	questionObject.readOnly = true;
-                	questionObject.headerView = Styles["headerViewReadOnly"];
-               }
-               */
-               
-               
-               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
-               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
-               			questionObject.template = "censusCounterTemplate";
-               		}
-               }
-               
-                
-                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
-                	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
-                		questionObject.renderValue[renderValueIndex].question.groupType = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].groupType;
-                	}
-                	else{
-                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.renderValue[renderValueIndex].question.name);
-                	}
-                }
-                
-                for(var conditionalMandatoryIndex = 0; conditionalMandatoryIndex < questionObject.validation.conditionalMandatory.length; conditionalMandatoryIndex++){
-                	if(questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name in self.questionMap){
-                		
-                		questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.groupType = self.questionMap[questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name].groupType;
-                	}
-                	else{
-                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name);
-                	}
-                }
-                
-                if(questionObject.mandatory == true){
-                	questionObject.title.text = questionObject.title.text + "*";
-                }
-                
-                //validation.conditionalMandatory
-
-                self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
-            }
-        }
-        
-        addSubsections();
+    	try{
+	    	//alert("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
+	    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
+	    		
+	        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
+	        	
+	        	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
+	        		//Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
+	        		self.sectionHeaderList.splice(sectionIndex, 1);
+	        		sectionIndex = sectionIndex - 1;
+	        	}
+	            else if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
+	                var newRow = {
+	                    isAQuestion: false,
+	                    readOnly : false,
+	                    template: "setEntireSectionTemplate",
+	
+	                    title: {
+	                        text: "Set all photograph questions to"
+	                    },
+	                    visable: true,
+	                    name: "",
+	                    questionToChangeTemplate: "singleSelectTemplate",
+	                    selections: [{
+	                        displayValue: "Yes",
+	                        value: 1
+	                    }, {
+	                        displayValue: "No",
+	                        value: 0
+	                    }],
+	                    renderValue: []
+	                };
+	                self.sectionHeaderList[sectionIndex].questionList.unshift(newRow); //adds row to front of the list
+	            }
+	            else if(self.sectionHeaderList[sectionIndex].alcrmGroupType == "CensusGeneral"){
+	            	self.sectionHeaderList[sectionIndex].questionList.unshift(createCensusDateQuestion(passObject, self.sectionHeaderList[sectionIndex]));
+	            }  
+	
+				
+	            for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
+	
+	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
+	
+	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+	
+	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
+	                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
+	                    questionObject.value = [userPreferences.name];
+	                    questionObject.displayValue = {
+	                        value: userPreferences.name
+	                    };
+	                } else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
+	                    questionObject.value = [userPreferences.mobile];
+	                    questionObject.displayValue = {
+	                        value: userPreferences.mobile
+	                    };
+	                } else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
+	                    questionObject.value = [userPreferences.email];
+	                    questionObject.displayValue = {
+	                        value: userPreferences.email
+	                    };
+	                } 
+	               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
+	                	questionObject.template = "censusStartTimerTemplate";
+	               }
+	               
+	               /*
+	               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
+	               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
+	               			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_HGV_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_PED_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_CYC_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_HOOF_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_EQUESTRIAN_COUNT" || 
+	               			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
+	                	questionObject.template = "censusCounterTemplate";
+	               }
+	               */
+	               
+	            	/*
+	               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
+	                	questionObject.readOnly = true;
+	                	questionObject.headerView = Styles["headerViewReadOnly"];
+	               }
+	               */
+	               
+	               
+	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
+	               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
+	               			questionObject.template = "censusCounterTemplate";
+	               		}
+	               }
+	               
+	                
+	                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+	                	if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
+	                		questionObject.renderValue[renderValueIndex].question.groupType = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].groupType;
+	                	}
+	                	else{
+	                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.renderValue[renderValueIndex].question.name);
+	                	}
+	                }
+	                
+	                for(var conditionalMandatoryIndex = 0; conditionalMandatoryIndex < questionObject.validation.conditionalMandatory.length; conditionalMandatoryIndex++){
+	                	if(questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name in self.questionMap){
+	                		
+	                		questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.groupType = self.questionMap[questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name].groupType;
+	                	}
+	                	else{
+	                		Ti.API.info("interpreterModule2 :: NOT FOUND = "+questionObject.validation.conditionalMandatory[conditionalMandatoryIndex].question.name);
+	                	}
+	                }
+	                
+	                if(questionObject.mandatory == true){
+	                	questionObject.title.text = questionObject.title.text + "*";
+	                }
+	                
+	                //validation.conditionalMandatory
+	
+	                self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
+	            }
+	        }
+	        
+	        addSubsections();
+		}catch(e){
+			alert("Exception in postInterpretSettings >> "+JSON.stringify(e));
+		}
     };
 
     var sortQuestionsByOrder = function () {
-
-        //sort the question by order within each section
-        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
-            self.sectionHeaderList[sectionIndex].questionList.sort(function (a, b) {
-                return parseInt(a.order) - parseInt(b.order);
-            });
-        }
-
-        //sort the sections by order of the first question in the section
-        self.sectionHeaderList.sort(function (a, b) {
-            return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
-        });
+		try{
+	        //sort the question by order within each section
+	        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
+	            self.sectionHeaderList[sectionIndex].questionList.sort(function (a, b) {
+	                return parseInt(a.order) - parseInt(b.order);
+	            });
+	        }
+	
+	        //sort the sections by order of the first question in the section
+	        self.sectionHeaderList.sort(function (a, b) {
+	            return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
+	        });
+	    }catch(e){
+			alert("Exception in sortQuestionsByOrder >> "+JSON.stringify(e));
+		}
     };
     
     var readAppconfig = function(){
-    	var appconfig= [];
-    	hiddenQuestionsMap = [];
-    	hiddenSectionsMap = [];
- 	
-    	
-    	
-    	var appconfigFile = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "appconfig.json");
-    	if (appconfigFile.exists()) {
-    		appconfig = JSON.parse(appconfigFile.read().text);
-    		
-    		if("hiddenQuestions" in appconfig){
-    			
-    			hiddenQuestionsMap = [];
-    			for(var i=0; i< appconfig["hiddenQuestions"].length; i++){
-    				hiddenQuestionsMap[appconfig["hiddenQuestions"][i]] = true;
-    			}
-        	}
-        	
-        	if("hiddenSections" in appconfig){
-    			hiddenSectionsMap = [];
-    			for(var i=0; i< appconfig["hiddenSections"].length; i++){
-    				hiddenSectionsMap[appconfig["hiddenSections"][i]] = true;
-    			}
-        	}
-        }
-        else{
-        	Ti.API.info("interpreterModule2.js in readAppconfig() file not found : "+Titanium.Filesystem.applicationDataDirectory  + "appconfig.json");
-        }
+    	try{
+	    	var appconfig= [];
+	    	hiddenQuestionsMap = [];
+	    	hiddenSectionsMap = [];
+	 	
+	    	
+	    	
+	    	var appconfigFile = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "appconfig.json");
+	    	if (appconfigFile.exists()) {
+	    		appconfig = JSON.parse(appconfigFile.read().text);
+	    		
+	    		if("hiddenQuestions" in appconfig){
+	    			
+	    			hiddenQuestionsMap = [];
+	    			for(var i=0; i< appconfig["hiddenQuestions"].length; i++){
+	    				hiddenQuestionsMap[appconfig["hiddenQuestions"][i]] = true;
+	    			}
+	        	}
+	        	
+	        	if("hiddenSections" in appconfig){
+	    			hiddenSectionsMap = [];
+	    			for(var i=0; i< appconfig["hiddenSections"].length; i++){
+	    				hiddenSectionsMap[appconfig["hiddenSections"][i]] = true;
+	    			}
+	        	}
+	        }
+	        else{
+	        	Ti.API.info("interpreterModule2.js in readAppconfig() file not found : "+Titanium.Filesystem.applicationDataDirectory  + "appconfig.json");
+	        }
+		}catch(e){
+			alert("Exception in readAppconfig >> "+JSON.stringify(e));
+		}
     };
 
     self.interpret = function (allQuestions, passObject) {
