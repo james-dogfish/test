@@ -71,7 +71,15 @@ var openMenu = function() {
 			// Commit all assessments
 			//var responseGenerator = require('responseGenerator/responseGenerator');
 			//responseGenerator  = new responseGenerator();
-			responseGenerator.commitAllCompleted();
+			if(User.hasPreferences())
+			{
+				responseGenerator.commitAllCompleted();
+			}else{
+				var userSettings = Alloy.createController('userSettings', {
+					message : true
+				}).getView();
+				userSettings.open();
+			}
 			
 			
 		} else if (e.row.id === 5) {
@@ -239,7 +247,15 @@ function onDeleteRow(e){
 
 
 var openSearchClick = function(e){
-	$.trigger("openSearchTab");
+	if(User.hasPreferences())
+	{
+		$.trigger("openSearchTab");
+	}else{
+		var userSettings = Alloy.createController('userSettings', {
+			message : true
+		}).getView();
+		userSettings.open();
+	}
 };
 
 function onRowClick(e){
