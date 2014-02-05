@@ -10,7 +10,7 @@
 "#title" : {
 	width: Ti.UI.FILL,
 	height : "50dp",
-	left : "40dp",
+	left : "50dp",
 	wordWrap : false,
 	minimumFontSize : "25dp"
 },
@@ -25,6 +25,11 @@
 	borderWidth : 1,
 	backgroundColor  : "#D11313",
 	backgroundImage: 'none'
+},
+'#colouredBox' : {
+	width : "20dp",
+	height : "20dp",
+	left : "20dp",
 }
 
 

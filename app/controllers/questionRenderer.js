@@ -664,6 +664,9 @@ exports.getGoToContentsDetails = function () {
     var sectionContentsDetailsList = [];
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+    	
+    	var mandatoryQuestion = false;
+    	
 
         var newSectionContents = {
             questionList: [],
@@ -672,6 +675,10 @@ exports.getGoToContentsDetails = function () {
             pageName: sectionList[sectionIndex].pageName,
             pageType: sectionList[sectionIndex].pageType,
             pageID : sectionList[sectionIndex].pageID,
+            
+            mandatoryQuestions : false,
+            unAnsweredMandatoryQuestions : false,
+            
             sectionIndex: sectionIndex,
             groupType: sectionList[sectionIndex].groupType
         };
@@ -685,6 +692,13 @@ exports.getGoToContentsDetails = function () {
             if (questionsList[questionIndex].isAQuestion == false) {
                 //alert('isAQuestion == false');
                 continue;
+            }
+            
+            if(questionsList[questionIndex].mandatory == true){
+            	newSectionContents.mandatoryQuestions = true;
+            	if(questionsList[questionIndex].value[0] == ""){
+            		newSectionContents.unAnsweredMandatoryQuestions = true;
+            	}
             }
 
             var newQuestionDetails = {
@@ -817,7 +831,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
         var test = Validator.isNumber(value, false);
         if (test == false) {
             returnObject.isValid = false;
-            returnObject.outPutMessage = L(numeric_error_text);
+            returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
         }
     } else if (dataType == "decimal" || dataType == "decimalRange") {
