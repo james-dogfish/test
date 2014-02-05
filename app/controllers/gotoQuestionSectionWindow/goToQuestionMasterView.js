@@ -17,7 +17,16 @@ animationClose.duration = Alloy.Globals.animationDuration;
 var addSectionToPageList= function(section){
 	
 	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){
-		if(pageList[pageIndex].name == section.pageName){
+		if(pageList[pageIndex].name == section.pageName){     
+            
+			if(section.mandatoryQuestions == true){
+				pageList[pageIndex].mandatoryQuestions = true;
+				pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_answered"];
+				if(section.unAnsweredMandatoryQuestions == true){
+					pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+					pageList[pageIndex].unAnsweredMandatoryQuestions = true;
+				}
+			}
 			pageList[pageIndex].sectionList.push(section);
 			return;
 		}
@@ -26,10 +35,22 @@ var addSectionToPageList= function(section){
 	var newPage = {
 		name : section.pageName,
 		title : {text : section.pageName}, 
-		sectionList : [],  
+		sectionList : [],
+		colouredBox : Styles["GoToMandatoryColouredBox_nonMandatory"],
+		mandatoryQuestions : false,
+        unAnsweredMandatoryQuestions : false,  
 		pageType : section.pageType,
 		associatedFileName : section.associatedFileName
 	};
+	
+	if(section.mandatoryQuestions == true){
+		newPage.mandatoryQuestions = true;
+		newPage.colouredBox = Styles["goToMandatoryColouredBox_answered"];
+		if(section.unAnsweredMandatoryQuestions == true){
+			newPage.colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+			newPage.unAnsweredMandatoryQuestions = true;
+		}
+	}
 	
 	if(section.pageType == "riskAssessment"){
 		newPage.template = "masterRowTemplate";

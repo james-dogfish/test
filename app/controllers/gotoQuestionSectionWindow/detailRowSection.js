@@ -56,8 +56,17 @@ var toggleQuestionVisable = function(e){
 exports.setdata = function(passedSectionDataObject){
 	sectionDataObject = passedSectionDataObject;
 	
-	var sectionHeaderColouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];;
+	var sectionHeaderColouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];
 	
+	var sectionHeaderColouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];
+	if(passedSectionDataObject.mandatoryQuestions == true){
+		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
+		if(passedSectionDataObject.unAnsweredMandatoryQuestions == true){
+			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+		}
+	}
+	
+	/*
 	var questionList = sectionDataObject.questionList;
 	for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
 		if(questionList[questionIndex].mandatory == true){
@@ -67,6 +76,7 @@ exports.setdata = function(passedSectionDataObject){
 			}
 		}
 	}
+	*/
 	
 	groupType = sectionDataObject.groupType;
 	
