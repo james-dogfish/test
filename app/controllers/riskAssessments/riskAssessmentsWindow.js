@@ -9,6 +9,47 @@ Alloy.Globals.fontawesome = {
 	fontfamily: fontawesome.fontfamily()
 };
 
+var assessmentRowControllerList = [];
+
+var getAssessmentRowController = function(assessmentID){
+	var assessmentRow = null;
+	for(var i=0; i < assessmentRowControllerList.length; i++){
+		
+		if(assessmentRowControllerList[i].getAssessmentID() == assessmentID){
+			assessmentRow = assessmentRowControllerList[i];
+			break;
+		}
+	}
+	return assessmentRow;
+};
+
+var clearAllSubmitMessages = function(assessmentID){
+
+	for(var i=0; i < assessmentRowControllerList.length; i++){
+		assessmentRowControllerList[i].clearCommitResponseMessages();
+	}
+
+};
+
+
+Ti.App.addEventListener("assessmentIncomplete", function (e) {
+
+	var assessmentRow = getAssessmentRowController(e.assessmentID);
+	if(assessmentRow != null){
+		assessmentRow.commitResponseAssessmentIncomplete();
+	}
+});
+
+Ti.App.addEventListener("AssessmentSubmitMessage", function (e) {
+	
+	var assessmentRow = getAssessmentRowController(e.assessmentID);
+	if(assessmentRow != null){
+		assessmentRow.commitResponse(e.success);
+	}
+});
+
+
+
 //var localDataHandler = require('localDataHandler/localDataHandler');
 
 var activeAssessments = [];
@@ -73,6 +114,7 @@ var openMenu = function() {
 			//responseGenerator  = new responseGenerator();
 			if(User.hasPreferences())
 			{
+				clearAllSubmitMessages();
 				responseGenerator.commitAllCompleted();
 			}else{
 				var userSettings = Alloy.createController('userSettings', {
@@ -99,85 +141,30 @@ var openMenu = function() {
 };
 
 exports.loadRiskAssessments = function() {
-	/*
-	activeAssessments = Util.getActiveAssessments();
-	if (!activeAssessments && !activeAssessments.length) {
-		return false;
-	}
-	*/
-	
-	/*
-	activeAssessments = [
-			{crossingName : "Golborne", questionsCompleted : 10, questionCount : 10, alcrmStatus : "Sent"},
-			{crossingName : "Power House No.1 (sleeping do)", questionsCompleted : 8, questionCount : 10, alcrmStatus : "not sent"},
-			{crossingName : "Hammerwich", questionsCompleted : 50, questionCount : 100, alcrmStatus : "not sent"},
-			{crossingName : "Twyford No.3", questionsCompleted : 3, questionCount : 20, alcrmStatus : "not sent"}
-		];*/
-		
-	
-	/*
-	localDataHandler.clearAllSavedAssessments();
-	localDataHandler.addNewAssessment(Alloy.Globals.parsedData, "Golborne");
-	localDataHandler.addNewAssessment(Alloy.Globals.parsedData, "Power House No.1 (sleeping do)");
-	localDataHandler.addNewAssessment(Alloy.Globals.parsedData, "Hammerwich");
-	localDataHandler.addNewAssessment(Alloy.Globals.parsedData, "Twyford No.3");
-	*/
-	
-	/*
-	var xml_text = 
-		"<ass:CreateAssessmentRequest>"+
-        "<ass:assessment>"+
-            "<ass1:crossingID>${#TestCase#crossing.id}</ass1:crossingID>"+
-            "<ass1:detailId>${#TestCase#crossing.detailId}</ass1:detailId>"+
-            "<ass1:riskData>"+
-               "<ques:parameterName>I_CONDUCTOR</ques:parameterName>"+
-               "<ques:parameterValue>405</ques:parameterValue>"+
-            "</ass1:riskData>"+
-            "<ass1:riskData>"+
-               "<ques:parameterName>I_CONDUCTOR2</ques:parameterName>"+
-               "<ques:values>604</ques:values>"+
-               "<ques:values>603</ques:values>"+
-            "</ass1:riskData>"+
-           "</ass:assessment>"+
-         "</ass:CreateAssessmentRequest>";
-         
-
-	var XMLTools = require('tools/XMLTools');
-	XMLTools = new XMLTools(xml_text);
-	var jsonObject = XMLTools.xmlToJson(XMLTools.getDocument());
-	
-	Ti.API.info("jsonObject = "+JSON.stringify(jsonObject));
-	
-	var responseGenerator = require('responseGenerator/responseGenerator');
-	responseGenerator = new responseGenerator();
-	
-	responseGenerator.buildAssessmentResponse();
-	*/
-	
-	
-	
-	
 	
 	activeAssessments = localDataHandler.getAllSavedAssessments();
 		
 	var data = [];
-	var dataControllersList = [];	
+	assessmentRowControllerList = [];
+	
+	
 	for(var i=0; i < activeAssessments.length; i++){
-		dataControllersList.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",{
+		assessmentRowControllerList.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",{
 				thisRA: activeAssessments[i],
 				fontawesome: fontawesome
 			}));
 			
 			
-		data.push(dataControllersList[i].getView());
+		data.push(assessmentRowControllerList[i].getView());
 		
 			
-		/*if(i == 1){
-			dataControllersList[i].commitResponse(1);
+		if(i == 1){
+			//assessmentRowControllerList[i].commitResponse(true, "train Info 1");
+			//assessmentRowControllerList[i].commitResponse(true, "train Info 2");
+			//assessmentRowControllerList[i].commitResponse(true, "train Info 3");
+			//assessmentRowControllerList[i].commitResponse(false, "train Info 4");
 		}
-		else if(i == 2){
-			dataControllersList[i].commitResponse(2);
-		}*/
+
 	}
 	$.tableVeiw.setData(data);
 	

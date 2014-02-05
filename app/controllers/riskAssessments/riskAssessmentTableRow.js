@@ -1,7 +1,13 @@
+var assessmentID = null;
+
 if (arguments && arguments[0]) {
+	
+	
 
 	var fontawesome = arguments[0].fontawesome,
 		thisRA = arguments[0].thisRA;
+		
+	assessmentID = thisRA.assessmentID;
 		
 	$.row.filter = thisRA.crossingName;
 	$.row.customData = thisRA;
@@ -27,34 +33,79 @@ if (arguments && arguments[0]) {
 		$.alcrmStatusLabel.text = 'Not Sent';
 	}
 	
-	
-
+	$.commitIcon.text = fontawesome.icon('icon-cloud-upload');
 }
 
 
-exports.commitResponse = function (commitResponseCode) {
-	//icon-times icon-check
+var commitError = false;
+
+var currentCommitMessageView = null;
+
+
+exports.clearCommitResponseMessages = function () {
+	$.commitResponse.height = 0;
+	commitError = false;
 	
-	//has been summited no change
-	if(commitResponseCode == 0){
-		$.commitResponse.height = 0;
+	if(currentCommitMessageView != null){
+		$.commitStatusLabelList.remove(currentCommitMessageView);
 	}
-	//submited with out errer
-	else if(commitResponseCode == 1){
-		Ti.API.info("commitResponseCode = 1");
-		$.commitResponseView.height = Ti.UI.SIZE;
-		$.commitResponseView.backgroundColor = "#DBFFE1";
-		$.commitIcon.text = fontawesome.icon('icon-ok');
-		$.commitIcon.color = "#0f0"; 
-		$.commitStatusLabel.text = "Commit Succeed";
+};
+
+
+exports.getAssessmentID = function(){
+	return assessmentID;
+};
+
+exports.commitResponseAssessmentIncomplete = function(){
+	
+	$.commitResponseView.height = Ti.UI.SIZE;
+	
+	if(currentCommitMessageView != null){
+		$.commitStatusLabelList.remove(currentCommitMessageView);
 	}
-	//not submited risk assessment not complete
-	else if(commitResponseCode == 2){
-		Ti.API.info("commitResponseCode = 2");
-		$.commitResponseView.height = Ti.UI.SIZE;
-		$.commitResponseView.backgroundColor = "#FFDBE0";
-		$.commitIcon.text = fontawesome.icon('icon-remove');
-		$.commitIcon.color = "#f00"; 
-		$.commitStatusLabel.text = "Commit Failed : Assessment Not finsihed ";
+	
+	currentCommitMessageView= Alloy.createController('riskAssessments/commitMessageView',{
+		success : false,
+		message : L("assessmentIncomplete"),
+		fontawesome : fontawesome
+	}).getView();
+	
+	$.commitStatusLabelList.add(currentCommitMessageView);
+};
+
+exports.commitResponse = function (success, pageType) {
+	//icon-times icon-check
+	$.commitResponseView.height = Ti.UI.SIZE;
+	
+	
+	
+	if(success == true && commitError == false){
+
+		if(currentCommitMessageView != null){
+			$.commitStatusLabelList.remove(currentCommitMessageView);
+		}
+	
+		currentCommitMessageView= Alloy.createController('riskAssessments/commitMessageView',{
+			success : true,
+			message : L("assessmentSubmitted"),
+			fontawesome : fontawesome
+		}).getView();
+		$.commitStatusLabelList.add(currentCommitMessageView);
+		
 	}
+	else if(success == false && commitError == false){
+		commitError = true;
+		
+		if(currentCommitMessageView != null){
+			$.commitStatusLabelList.remove(currentCommitMessageView);
+		}
+		
+		currentCommitMessageView= Alloy.createController('riskAssessments/commitMessageView',{
+			success : false,
+			message : L("assessmentFailedSubmit"),
+			fontawesome : fontawesome
+		}).getView();
+		$.commitStatusLabelList.add(currentCommitMessageView);
+		
+	}	
 };

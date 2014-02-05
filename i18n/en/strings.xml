@@ -28,5 +28,9 @@
     <string name="page_census_name">Census</string>
     <string name="page_train_info_name">Train Info</string>
     
+    <string name="assessmentIncomplete">Assessment Incomplete</string>
+    <string name="assessmentSubmitted">Assessment Submitted</string>
+    <string name="assessmentFailedSubmit">Failed to Submit</string>
+    
 
 </resources>
