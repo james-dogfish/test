@@ -12,6 +12,10 @@ if (arguments && arguments[0]) {
 	
 	$.statusIcon.text = fontawesome.icon('icon-time');
 	$.statusLabel.text = '(' + (thisRA.questionsCompleted === 0 ? 'New' : (thisRA.questionsCompleted + '/' + thisRA.questionCount)) + ')';
+	if($.statusLabel.text.search('New') === -1)
+	{
+		$.statusLabel.text = $.statusLabel.text + " mandatory questions";
+	}
 	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
 	
 	if(thisRA.alcrmStatus === 'Sent'){
