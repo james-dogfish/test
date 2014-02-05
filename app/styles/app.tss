@@ -111,7 +111,6 @@
 	borderRadius:6,
     borderWidth:1,
     borderColor:'#151d21',
-    
 	backgroundGradient : {
         type : 'linear',
         startPoint : {

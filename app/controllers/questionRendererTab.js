@@ -214,6 +214,14 @@ Ti.App.addEventListener("deletePage", function(e) {
 
 });
 
+var showGoto = function() {
+    gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
+    gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    gotoQuestionSectionWindow.show();
+};
+
 
 // Setting up menu item for home screen
 var openMenu = function() {
@@ -282,12 +290,7 @@ var openMenu = function() {
             userSettings.open();
         } else if (e.row.id === 2) {
             // GoTo screen
-            gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
-            gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
-            gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-            gotoQuestionSectionWindow.show();
-
+            showGoto();
         } else if (e.row.id === 3) {
             // Help screen 
             var appHelp = Alloy.createController('appHelp').getView();
