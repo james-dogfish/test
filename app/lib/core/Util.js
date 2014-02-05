@@ -2,6 +2,24 @@ function _Util() {
 
 	var self = this, docsFolder, templatesFolder, cmsUrl, cheatSheetUrl, templateFiles, crossingTypes, routeFiles, Alloy = require("alloy");
 	//downloader = require('tools/downloader');
+	
+	self.connectivityChecker = function()
+	{   
+	    //listen for any network changes
+	    Titanium.Network.addEventListener('change', function(e) 
+	    {     
+	        if (e.online)
+	        {
+	            //do nothing   
+	        }   
+	        else
+	        {
+	           Alloy.Globals.aIndicator.hide();
+        	   self.showAlert('Please make sure that you are connected to the Internet');
+        	   return false;    
+	        }    
+	    });
+	};
 
 	self.isIOS7Plus = function() {
 		// iOS-specific test
