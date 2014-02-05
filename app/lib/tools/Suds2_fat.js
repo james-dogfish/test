@@ -176,73 +176,72 @@ var SudsClient = function(_options) {
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
-      //var XMLTools = require("tools/XMLTools");
-      try {
-        
-        var errXml = XMLTools.setDoc(xmlDomFromString(this.responseText));
-        var errObj = JSON.stringify(errXml.toObject());
+      
+        Util.convertJson(Ti.XML.serializeToString(xmlDomFromString(this.responseText)), 
+			function(data) {
+				// callback
+				var error_object = JSON.parse(data);
+				var error_code = null;
+		        var error_message = null;
+		        var error_stacktrace = null;
+		        if (typeof error_object !== "undefined" ||
+		          typeof error_object.response.Envelope.Body !== "undefined" ||
+		          typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
+		          typeof error_object.response.Envelope.Body.Fault.detail !== "undefined") {
+		          error_message = JSON.stringify(error_object);
+		          error_stacktrace = "";
+		          if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined") {
+		            error_message = error_object.response.Envelope.Body.Fault.detail.MESSAGE + ". ";
+		            error_code = error_object.response.Envelope.Body.Fault.detail.CODE;
+		            if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+		              error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
+		            }
+		
+		          }
+		        } else {
+		
+		          error_code = error_object;
+		          error_message = error_object.response.Envelope.Body.Fault.detail.MESSAGE;
+		          error_stacktrace = error_object.response.Envelope.Body.Fault.detail.STACKTRACE;
+		        }
+		
+		        var alert = Titanium.UI.createAlertDialog({
+		          title: 'Error: ' + error_code,
+		          message: error_message + "\n\nWould you like to retry?",
+		          buttonNames: ['Yes', 'No'],
+		          cancel: 1,
+		          stackTrace: error_stacktrace
+		        });
+		
+		        alert.addEventListener('click', function(e) {
+		          //Clicked cancel, first check is for iphone, second for android
+		          if (e.cancel === e.index || e.cancel === true) {
+		            Alloy.Globals.aIndicator.hide();
+		            return;
+		          }
+		
+		          //now you can use parameter e to switch/case
+		
+		          switch (e.index) {
+		            case 0:
+		              invokeService(_soapAction, _body, _callback, _failure, _header);
+		              break;
+		
+		              //This will never be reached, if you specified cancel for index 1
+		            case 1:
+		              Alloy.Globals.aIndicator.hide();
+		              break;
+		
+		          }
+		        });
+		        alert.show();
+			}
+		);	
+		//end of convertJSON
 
-
-
-        var error_object = JSON.parse(errObj);
-        var error_code = null;
-        var error_message = null;
-        var error_stacktrace = null;
-        if (typeof error_object === "undefined" ||
-          typeof error_object["soapenv:Body"] === "undefined" ||
-          typeof error_object["soapenv:Body"]["soapenv:Fault"] === "undefined" ||
-          typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] === "undefined") {
-          error_code = "0";
-          error_message = JSON.stringify(error_object);
-          error_stacktrace = "";
-          if (typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"] !== "undefined") {
-            error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"] + ". ";
-            error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-            if (typeof error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"] !== "undefined") {
-              error_message += error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["ADDITIONAL_DETAIL"];
-            }
-
-          }
-        } else {
-
-          error_code = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["CODE"];
-          error_message = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["MESSAGE"];
-          error_stacktrace = error_object["soapenv:Body"]["soapenv:Fault"]["detail"]["STACKTRACE"];
-        }
-
-        var alert = Titanium.UI.createAlertDialog({
-          title: 'Error: ' + error_code,
-          message: error_message + "\n\nWould you like to retry?",
-          buttonNames: ['Yes', 'No'],
-          cancel: 1,
-          stackTrace: error_stacktrace
-        });
-
-        alert.addEventListener('click', function(e) {
-          //Clicked cancel, first check is for iphone, second for android
-          if (e.cancel === e.index || e.cancel === true) {
-            Alloy.Globals.aIndicator.hide();
-            return;
-          }
-
-          //now you can use parameter e to switch/case
-
-          switch (e.index) {
-            case 0:
-              invokeService(_soapAction, _body, _callback, _failure, _header);
-              break;
-
-              //This will never be reached, if you specified cancel for index 1
-            case 1:
-              Alloy.Globals.aIndicator.hide();
-              break;
-
-          }
-        });
-        alert.show();
-      } catch (e) {
-        Alloy.Globals.aIndicator.hide();
-      }
+      //} catch (e) {
+       // Alloy.Globals.aIndicator.hide();
+      //}
 
     };
     xhr.setTimeout(config.timeout);
