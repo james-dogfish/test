@@ -14,7 +14,7 @@ function showQuestions(){
 		for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
 			
 			//mandatory firstValue
-			var colouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];
+			var colouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
 			if(questionList[questionIndex].mandatory == true){
 				if(questionList[questionIndex].firstValue == ""){
 					colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
@@ -56,27 +56,14 @@ var toggleQuestionVisable = function(e){
 exports.setdata = function(passedSectionDataObject){
 	sectionDataObject = passedSectionDataObject;
 	
-	var sectionHeaderColouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];
-	
-	var sectionHeaderColouredBox = Styles["GoToMandatoryColouredBox_nonMandatory"];
+	var sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
 	if(passedSectionDataObject.mandatoryQuestions == true){
 		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
 		if(passedSectionDataObject.unAnsweredMandatoryQuestions == true){
 			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
 		}
 	}
-	
-	/*
-	var questionList = sectionDataObject.questionList;
-	for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
-		if(questionList[questionIndex].mandatory == true){
-			if(questionList[questionIndex].firstValue == ""){
-				sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
-				break;
-			}
-		}
-	}
-	*/
+
 	
 	groupType = sectionDataObject.groupType;
 	

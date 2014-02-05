@@ -20,7 +20,7 @@ module.exports =  {
 		backgroundColor: "#f00"
 	},
 	"goToMandatoryColouredBox_nonMandatory" : {
-		
+		backgroundColor: "#00f"
 	},
 	
 };
