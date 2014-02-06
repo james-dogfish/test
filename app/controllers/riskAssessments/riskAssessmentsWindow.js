@@ -59,7 +59,7 @@ var openMenu = function() {
 
 	
 	// Check whether settings are filled 
-	/*if (!User.hasPreferences()) {
+	/*if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message: true
@@ -69,7 +69,7 @@ var openMenu = function() {
 	}*/
 
 	//var Ui = require('core/Ui'),
-	popOver = Ui.renderPopOver({
+	popOver = Alloy.Globals.Ui.renderPopOver({
 		width: 250
 	}),
 	menuTable = Ti.UI.createTableView({
@@ -112,7 +112,7 @@ var openMenu = function() {
 			// Commit all assessments
 			//var responseGenerator = require('responseGenerator/responseGenerator');
 			//responseGenerator  = new responseGenerator();
-			if(User.hasPreferences())
+			if(Alloy.Globals.User.hasPreferences())
 			{
 				clearAllSubmitMessages();
 				responseGenerator.commitAllCompleted();
@@ -131,8 +131,8 @@ var openMenu = function() {
 			// Making table clickable!
 			//$.searchTable.loading = false;
 			// Log a user out
-			User.logOut();
-			localDataHandler.clearCachedCrossing();
+			Alloy.Globals.User.logOut();
+			Alloy.Globals.localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
 			$.destroy;
 			Alloy.createController('startup').getView().open();
@@ -142,7 +142,7 @@ var openMenu = function() {
 
 exports.loadRiskAssessments = function() {
 	
-	activeAssessments = localDataHandler.getAllSavedAssessments();
+	activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 		
 	var data = [];
 	assessmentRowControllerList = [];
@@ -182,7 +182,7 @@ confirmDeleteRA.addEventListener('click', function(e) { Titanium.API.info('e = '
 
    switch (e.index) {
       case 0: Titanium.API.info('Clicked button 0 (YES)');
-      		  localDataHandler.removeAssessment(e.rowData.customData);
+      		  Alloy.Globals.localDataHandler.removeAssessment(e.rowData.customData);
       break;
 
       //This will never be reached, if you specified cancel for index 1
@@ -208,12 +208,12 @@ function onDeleteRow(e){
       /*
        * YES was clicked.
        */
-       localDataHandler.removeAssessment(deletingRow.rowData.customData);
+       Alloy.Globals.localDataHandler.removeAssessment(deletingRow.rowData.customData);
     } else if (e.index == 1) { 
       /*
        * Put the row back since it will be removed from the view even if NO is clicked.
        */
-       activeAssessments = localDataHandler.getAllSavedAssessments();
+       activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 		
 		var data = [];	
 		for(var i=0; i < activeAssessments.length; i++){
@@ -234,7 +234,7 @@ function onDeleteRow(e){
 
 
 var openSearchClick = function(e){
-	if(User.hasPreferences())
+	if(Alloy.Globals.User.hasPreferences())
 	{
 		$.trigger("openSearchTab");
 	}else{
@@ -247,10 +247,10 @@ var openSearchClick = function(e){
 
 function onRowClick(e){
 	$.trigger("openRiskAssessment", {assessmentObject : activeAssessments[e.index]});
-	//var assessment = localDataHandler.openAssessment(activeAssessments[e.index].fileName);
+	//var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
 	//Ti.API.info(assessment);
 	/*
-	var assessment = localDataHandler.openAssessment(activeAssessments[e.index].fileName);
+	var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
 	if(assessment.length == 0){
 		return;
 	}

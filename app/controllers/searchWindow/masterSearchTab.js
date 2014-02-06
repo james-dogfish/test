@@ -1,5 +1,5 @@
 var crossingData;
-//var localDataHandler = require('localDataHandler/localDataHandler');				
+//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');				
 
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
@@ -18,7 +18,7 @@ function onRowClick(e) {
 
 exports.setData = function(shouldRefresh) {
 	
-	crossingData = localDataHandler.loadCachedCrossingSearch();
+	crossingData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
 	if (crossingData.length !== 0 && shouldRefresh == false) {
 		Alloy.Globals.aIndicator.show("Loading...", 50000);
 		$.tableView.setData([]);
@@ -52,7 +52,7 @@ exports.setData = function(shouldRefresh) {
 			function(xmlDoc) {
 
 				// Now convert the JSON
-				var convertedJson = Util.convertJson(Ti.XML.serializeToString(xmlDoc),
+				var convertedJson = Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 					function(data) {
 						// callback
 						//alert(data);
@@ -60,7 +60,7 @@ exports.setData = function(shouldRefresh) {
 						var data = JSON.parse(data);
 
 						// Check whether JSON structure exits before attempting to grab results
-						if (Util.checkNested(data, 'response', 'Envelope', 'Body', 'AdvancedSearchResponse', 'searchResults')) {
+						if (Alloy.Globals.Util.checkNested(data, 'response', 'Envelope', 'Body', 'AdvancedSearchResponse', 'searchResults')) {
 							var results = data.response.Envelope.Body.AdvancedSearchResponse.searchResults;
 
 							for (var i = 0; i < results.length; i++) {
@@ -68,17 +68,17 @@ exports.setData = function(shouldRefresh) {
 								var type = "";
 								var crossingDetailsSearchResult;
 
-								if (Util.checkNested(results[i], 'crossingDetailsSearchResult')) {
+								if (Alloy.Globals.Util.checkNested(results[i], 'crossingDetailsSearchResult')) {
 									crossingDetailsSearchResult = results[i]["crossingDetailsSearchResult"];
 									if (crossingDetailsSearchResult instanceof Array) {
 										var type = "N/A";
-										if (Util.checkNested(crossingDetailsSearchResult[0], 'type')) {
+										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult[0], 'type')) {
 											type = crossingDetailsSearchResult[0]["type"];
 										}
 									} else {
 										////Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
 										var type = "N/A";
-										if (Util.checkNested(crossingDetailsSearchResult, 'type')) {
+										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult, 'type')) {
 											type = crossingDetailsSearchResult["type"];
 										}
 									}
@@ -95,8 +95,8 @@ exports.setData = function(shouldRefresh) {
 							}
 						} else {
 							Alloy.Globals.aIndicator.hide();
-							//var Util = require('core/Util');
-							Util.showAlert(L('no_results'));
+							//var Alloy.Globals.Util = require('core/Alloy.Globals.Util');
+							Alloy.Globals.Util.showAlert(L('no_results'));
 						}
 
 						var data = [];
@@ -104,7 +104,7 @@ exports.setData = function(shouldRefresh) {
 						for (var i = 0; i < crossingData.length; i++) {
 							data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
 						}
-						localDataHandler.cacheCrossingSearch(crossingData);
+						Alloy.Globals.localDataHandler.cacheCrossingSearch(crossingData);
 						$.tableView.setData(data);
 						Alloy.Globals.aIndicator.hide();
 
@@ -118,7 +118,7 @@ exports.setData = function(shouldRefresh) {
 /*
 var listViewData = [];
 //var crossingData = [];
-//var localDataHandler = require('localDataHandler/localDataHandler');		
+//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');		
 
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
@@ -138,7 +138,7 @@ function onRowClick(e){
 };
 
 var setData = function(shouldRefresh) {
-	var savedListViewData = localDataHandler.loadCachedCrossingSearch();
+	var savedListViewData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
 	if(savedListViewData.length !== 0 && shouldRefresh == false)
 	{
 		Alloy.Globals.aIndicator.show("Loading...",50000);
@@ -176,8 +176,8 @@ var setData = function(shouldRefresh) {
 			                if(typeof results === undefined || results === "undefined")
 			                {
 			                	Alloy.Globals.aIndicator.hide();
-			                	//var Util = require('core/Util');
-								Util.showAlert(L('no_results'));
+			                	//var Alloy.Globals.Util = require('core/Alloy.Globals.Util');
+								Alloy.Globals.Util.showAlert(L('no_results'));
 								
 			                }else{
 				                for(var i=0; i<results.length; i++)
@@ -226,7 +226,7 @@ var setData = function(shouldRefresh) {
 				                	//type = null;
 				                }
 								//Ti.API.info("listViewData.length = "+listViewData.length);
-								localDataHandler.cacheCrossingSearch(listViewData);
+								Alloy.Globals.localDataHandler.cacheCrossingSearch(listViewData);
 								$.listSection.setItems(listViewData);
 								Alloy.Globals.aIndicator.hide();
 							}

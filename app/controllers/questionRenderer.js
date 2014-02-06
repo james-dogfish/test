@@ -1,11 +1,11 @@
 //REQUIRES
 //var Validator = require('validator/Validator');
-//var Styles = require('styles/styles');
-//var localDataHandler = require('localDataHandler/localDataHandler');
-//var User = require('core/User');
+//var Alloy.Globals.Styles = require('styles/styles');
+//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');
+//var Alloy.Globals.User = require('core/Alloy.Globals.User');
 //END OF REQUIRES
 
-//var userPreferences = User.getPreferences();
+//var userPreferences = Alloy.Globals.User.getPreferences();
 var hiddenQuestions = [];
 var allSections = [];
 var currentAssessmentObject = null;
@@ -168,7 +168,7 @@ var newTestDependentQuestions = function (questionObject) {
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
                     Ti.API.info("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory);
 
-                    localDataHandler.updateQuestion(questionList[questionIndex]);
+                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                     hiddenQuestions.push(questionList[questionIndex]);
                     questionList.splice(questionIndex, 1);
 
@@ -194,7 +194,7 @@ var newTestDependentQuestions = function (questionObject) {
                         questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
                         Ti.API.info("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory);
 
-                        localDataHandler.updateQuestion(questionObjectToAdd);
+                        Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
 
 
                         questionList.splice(questionIndex, 0, questionObjectToAdd);
@@ -209,7 +209,7 @@ var newTestDependentQuestions = function (questionObject) {
                     questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
                     Ti.API.info("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory);
 
-                    localDataHandler.updateQuestion(questionObjectToAdd);
+                    Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
                     questionList.push(questionObjectToAdd);
                     Ti.API.info("added push : " + questionObjectToAdd.name);
                 }
@@ -247,7 +247,7 @@ var newTestDependentQuestions = function (questionObject) {
                     questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
                     Ti.API.info("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory);
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-                    localDataHandler.updateQuestion(questionList[questionIndex]);
+                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                 }
             }
 
@@ -455,30 +455,39 @@ var buildQuestionSections = function (JASON_sectionList) {
 };
 
 var removeHiddenQuestions = function (JASON_sectionList) {
-    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
-        var questionList = JASON_sectionList[sectionIndex].questionList;
-        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-
-            if (questionList[questionIndex].visable == false) {
-                hiddenQuestions.push(questionList[questionIndex]);
-                questionList.splice(questionIndex, 1);
-                questionIndex = questionIndex - 1;
-            }
-        }
-        JASON_sectionList.questionList = questionList;
-    }
-    return JASON_sectionList;
+	try{
+	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
+	        var questionList = JASON_sectionList[sectionIndex].questionList;
+	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+				if(questionList[questionIndex] != null){
+					Ti.API.info("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable));
+		            if (questionList[questionIndex].visable == false) {
+		                hiddenQuestions.push(questionList[questionIndex]);
+		                questionList.splice(questionIndex, 1);
+		                questionIndex = questionIndex - 1;
+		            }
+		       }
+	        }
+	        JASON_sectionList.questionList = questionList;
+	    }
+	    return JASON_sectionList;
+	}catch(e){
+		Ti.API.error("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e));
+		Alloy.Globals.aIndicator.hide();
+	}
 };
 
 var setupSelectedQuestion = function () {
-
+ try{
     for (var sectionIndex = 0; sectionIndex < allSections.length; sectionIndex++) {
         var questionList = allSections[sectionIndex].getItems();
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-            if (questionList[questionIndex].selected == true) {
-                selectQuestion(questionList[questionIndex]);
-                return;
-            }
+        	if(questionList[questionIndex] != null){
+	            if (questionList[questionIndex].selected == true) {
+	                selectQuestion(questionList[questionIndex]);
+	                return;
+	            }
+	        }
         }
     }
 
@@ -491,39 +500,49 @@ var setupSelectedQuestion = function () {
             selectQuestion(questionList[0]);
         }
     }
+ }catch(e){
+ 	Ti.API.error("Exception in setupSelectedQuestion. Error Details: "+JSON.stringify(e));
+	Alloy.Globals.aIndicator.hide();
+ }
 };
 
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
-    currentAssessmentObject = assessmentObject;
-
-    hiddenQuestions = [];
-
-    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
-
-
-    sectionList = buildQuestionSections(JASON_sectionList);
-
-
-    if (Alloy.Globals.isDebugOn == true) {
-        //debugLookUpDependentQuestions(sectionList);
-    }
-
-    allSections = sectionList;
-
-
-    //removeAnyRenderOptionQuestion(data);
-    $.listView.setSections(sectionList);
-
-
-    var userPreferences = User.getPreferences();
-    setListViewDisplayTypeToSingleSections(userPreferences.singleView);
-	userPreferences = null;
+	try{
+		Ti.API.info("setAssessment == "+JSON.stringify(JASON_sectionList));
+	    currentAssessmentObject = assessmentObject;
 	
-    setupSelectedQuestion();
-    //setup questionSelected to be the first question
-
-    // scroll to first item
-    $.listView.scrollToItem(0, 0);
+	    hiddenQuestions = [];
+	
+	    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+	
+	
+	    sectionList = buildQuestionSections(JASON_sectionList);
+	
+	
+	    if (Alloy.Globals.isDebugOn == true) {
+	        //debugLookUpDependentQuestions(sectionList);
+	    }
+	
+	    allSections = sectionList;
+	
+	
+	    //removeAnyRenderOptionQuestion(data);
+	    $.listView.setSections(sectionList);
+	
+	
+	    var userPreferences = Alloy.Globals.User.getPreferences();
+	    setListViewDisplayTypeToSingleSections(userPreferences.singleView);
+		userPreferences = null;
+		
+	    setupSelectedQuestion();
+	    //setup questionSelected to be the first question
+	
+	    // scroll to first item
+	    $.listView.scrollToItem(0, 0);
+	}catch(e){
+		Ti.API.error("Exception in setAssessment. Error Details: "+JSON.stringify(e));
+		Alloy.Globals.aIndicator.hide();
+	}
 };
 
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
@@ -690,6 +709,7 @@ exports.getGoToContentsDetails = function () {
         var questionsList = sectionList[sectionIndex].getItems();
         for (var questionIndex = 0; questionIndex < questionsList.length; questionIndex++) {
 
+			
             if (questionsList[questionIndex].isAQuestion == false) {
                 //alert('isAQuestion == false');
                 continue;
@@ -829,14 +849,14 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (dataType == "numeric" || dataType == "numericRange") {
-        var test = Validator.isNumber(value, false);
+        var test = Alloy.Globals.Validator.isNumber(value, false);
         if (test == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
         }
     } else if (dataType == "decimal" || dataType == "decimalRange") {
-        var test = Validator.isDecimal(value);
+        var test = Alloy.Globals.Validator.isDecimal(value);
         if (test == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("decimal_error_text");
@@ -885,7 +905,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (questionObject.validation.format != null) {
-        if (Validator.isValidFormat(value) == false) {
+        if (Alloy.Globals.Validator.isValidFormat(value) == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("format_error_text") +" "+ questionObject.validation.format;
             return returnObject;
@@ -1046,7 +1066,7 @@ var questionValueChange = function (e) {
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 
-    localDataHandler.updateQuestion(e.questionObject);
+    Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
 
 
     //testIfQuestionsNeedToBeRemoved(e.questionObject);
@@ -1075,7 +1095,7 @@ function footerTextButtonClick(e) {
         title: "Assessment Notes",
         closeCallBack: function (notes) {
             currentAssessmentObject.notes = notes;
-            localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+            Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
         }
     });
 };
@@ -1086,7 +1106,7 @@ function footerNotesButtonClick(e) {
         //Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-            Util.slideNotify(30, questionRef.question.notes, false);
+            Alloy.Globals.Util.slideNotify(30, questionRef.question.notes, false);
         }
     }
 };
@@ -1115,7 +1135,7 @@ function footerHelpButtonClick(e) {
 					questionRef.question.notes = ""; 
 				}
 				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-				localDataHandler.updateQuestion(questionRef.question);
+				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 			}});
 			*/
         }
@@ -1126,11 +1146,11 @@ function footerHelpButtonClick(e) {
 
 Ti.App.addEventListener("notesAdded", function (notesObject) {
 
-    localDataHandler.updateQuestion(
+    Alloy.Globals.localDataHandler.updateQuestion(
         notesObject.item
     );
     /*
-	localDataHandler.updateQuestionWithUserNotes(
+	Alloy.Globals.localDataHandler.updateQuestionWithAlloy.Globals.UserNotes(
 			notesObject.item.associatedFileName,
 			notesObject.item
 		);*/
@@ -1148,7 +1168,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
 
             questionRef.question = setQuestionError(false, L("duration_error_text"), questionRef.question);
             questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-            localDataHandler.updateQuestion(questionRef.question);
+            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
             return false;
         } else {
 
@@ -1163,7 +1183,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
     
     var questionRef = findQuestionByAssociatedFileName("I_CENSUS_QUICK_START", question.associatedFileName);
     if (questionRef != null) {
-    	var timeString = moment().format("HH:mm");
+    	var timeString = Alloy.Globals.moment().format("HH:mm");
     	questionRef.question.displayValue.value = timeString;
     	questionRef.question.value[0] = timeString;
     	
@@ -1174,14 +1194,14 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
 		questionRef.question.questionResponse = questionResponse;
 		
 		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-        localDataHandler.updateQuestion(questionRef.question);
+        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
     }
     else{
     	return false;
     }
     return true;
     
-    //moment().format("HH:mm");
+    //Alloy.Globals.moment().format("HH:mm");
     
     
     
@@ -1250,13 +1270,13 @@ var selectQuestion = function (newQuestionSelected) {
         	if(questionRef.question.readOnly == false){
             //questionRef.question.headerView = {backgroundColor: "#eee"};
             
-	            questionRef.question.headerView = Styles["headerViewDefult"];
+	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];
 	           	//questionRef.question.headerView = $.createStyle({classes: ['headerViewSelected'] ,apiName: 'View'});
 	    		
 	            questionRef.question.selected = false;
 	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 
-	            localDataHandler.updateQuestion(questionRef.question);
+	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
            }
         }
     }
@@ -1273,12 +1293,12 @@ var selectQuestion = function (newQuestionSelected) {
     if (questionRef != null) {
     	if(questionRef.question.readOnly == false){
 	        //questionRef.question.headerView = {backgroundColor: "#A1F7B6"};
-	        questionRef.question.headerView = Styles["headerViewSelected"];
+	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
 	        
 	        questionRef.question.selected = true;
 	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
 	        newQuestionSelected = questionRef.question;
-	        localDataHandler.updateQuestion(questionRef.question);
+	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 	       }
     }
 

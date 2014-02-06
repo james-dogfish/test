@@ -14,23 +14,23 @@ function showQuestions(){
 		for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
 			
 			//mandatory firstValue
-			var colouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
+			var colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_nonMandatory"];
 
 			if(questionList[questionIndex].mandatory == true){
 				if(questionList[questionIndex].firstValue == ""){
-					colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+					colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
 				}
 				else{
-					colouredBox = Styles["goToMandatoryColouredBox_answered"];
+					colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
 				}
 			} else {
 				if(!questionList[questionIndex].firstValue == "") {
-					colouredBox = Styles["goToMandatoryColouredBox_answered"];
+					colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
 				}
 			}
 
 			if(sectionDataObject.pageType==='coreQuestion') {
-				colouredBox = Styles["goToMandatoryColouredBox_n_a"];
+				colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 			}
 			
 			questionRowList.push({
@@ -64,14 +64,14 @@ var toggleQuestionVisable = function(e){
 exports.setdata = function(passedSectionDataObject){
 	sectionDataObject = passedSectionDataObject;
 
-	var sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
+	var sectionHeaderColouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_nonMandatory"];
 	if (passedSectionDataObject.pageType === 'coreQuestion') {
-		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_n_a"];
+		sectionHeaderColouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 	} else {
 		if (passedSectionDataObject.mandatoryQuestions == true) {
-			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
+			sectionHeaderColouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
 			if (passedSectionDataObject.unAnsweredMandatoryQuestions == true) {
-				sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+				sectionHeaderColouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
 			}
 		} else {
 			// TODO - Need to add condition to set style for answered non-mandatory sections

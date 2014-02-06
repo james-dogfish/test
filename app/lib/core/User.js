@@ -301,7 +301,7 @@ function _User() {
               //Ti.App.Properties.removeProperty('userKeychain');
               //Ti.App.Properties.removeProperty('passKeychain');
               Ti.App.Properties.removeProperty('LCM_ROUTE');
-              localDataHandler.clearCachedCrossing();
+              Alloy.Globals.localDataHandler.clearCachedCrossing();
            // userKeychain.reset();
            // passKeychain.reset();
             //this = null;

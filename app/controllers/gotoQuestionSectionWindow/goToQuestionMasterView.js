@@ -21,9 +21,9 @@ var addSectionToPageList= function(section){
             
 			if(section.mandatoryQuestions == true){
 				pageList[pageIndex].mandatoryQuestions = true;
-				pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_answered"];
+				pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
 				if(section.unAnsweredMandatoryQuestions == true){
-					pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+					pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
 					pageList[pageIndex].unAnsweredMandatoryQuestions = true;
 				}
 			}
@@ -36,7 +36,7 @@ var addSectionToPageList= function(section){
 		name : section.pageName,
 		title : {text : section.pageName}, 
 		sectionList : [],
-		colouredBox : Styles["goToMandatoryColouredBox_nonMandatory"],
+		colouredBox : Alloy.Globals.Styles["goToMandatoryColouredBox_nonMandatory"],
 		mandatoryQuestions : false,
         unAnsweredMandatoryQuestions : false,  
 		pageType : section.pageType,
@@ -45,9 +45,9 @@ var addSectionToPageList= function(section){
 	
 	if(section.mandatoryQuestions == true){
 		newPage.mandatoryQuestions = true;
-		newPage.colouredBox = Styles["goToMandatoryColouredBox_answered"];
+		newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
 		if(section.unAnsweredMandatoryQuestions == true){
-			newPage.colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+			newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
 			newPage.unAnsweredMandatoryQuestions = true;
 		}
 	}
@@ -69,7 +69,7 @@ var addSectionToPageList= function(section){
 	}
 	else if(section.pageType == "coreQuestion"){
 		newPage.template = "masterRowTemplate";
-		newPage.colouredBox = Styles["goToMandatoryColouredBox_n_a"];
+		newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 	}
 	
 	newPage.sectionList.push(section);

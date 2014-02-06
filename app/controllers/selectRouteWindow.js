@@ -1,5 +1,4 @@
 var args = arguments[0] || {};
-//var User = require('core/User');
 
 var doneCallbackfunction = null;
 

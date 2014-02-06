@@ -90,7 +90,7 @@ function onNotesClick(e){
 		}
 		e.section.updateItemAt(e.itemIndex, item);
 		
-		localDataHandler.updateQuestion(item);
+		Alloy.Globals.localDataHandler.updateQuestion(item);
 	}});
 };
 

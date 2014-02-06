@@ -11,7 +11,7 @@ var JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, JSONDocCensus, JSONDocTrain =
  *******************************************************************************/
 function toggleSearch() {
 
-	if (!User.hasPreferences()) {
+	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message : true
@@ -19,14 +19,14 @@ function toggleSearch() {
 		userSettings.open();
 	}
 
-	if (!Util.allRouteTemplatesAvailable()) {
+	if (!Alloy.Globals.Util.allRouteTemplatesAvailable()) {
 		/*
 		 // Check to make sure all route templates are fully downloaded
-		 Util.slideNotify($.home, 0, 'Please wait while all the files required for your route are downloaded!');
+		 Alloy.Globals.Util.slideNotify($.home, 0, 'Please wait while all the files required for your route are downloaded!');
 		 //Alloy.Globals.aIndicator.show('Please wait while all the files required for your route are downloaded!');
 		 // Download template files now
-		 Util.downloadAllRouteTemplates(function() {
-		 Util.slideNotify($.home, null, null, true);
+		 Alloy.Globals.Util.downloadAllRouteTemplates(function() {
+		 Alloy.Globals.Util.slideNotify($.home, null, null, true);
 		 });
 		 */
 
@@ -90,9 +90,9 @@ var openMenu = function() {
 		} else if (e.row.id === 3) {
 			//do nothing
 		} else if (e.row.id === 4) {
-			responseGenerator.commitAllCompleted();
+			Alloy.Globals.responseGenerator.commitAllCompleted();
 		} else if (e.row.id === 5) {
-			User.logOut();
+			Alloy.Globals.User.logOut();
 			$.tabGroup.close();
 			$.destroy();
 			Alloy.createController('index').getView().open();
@@ -137,7 +137,7 @@ $.masterSearchTab.on("RefreshButtonClick", function(e) {
  * parseTrainData:
  * 			- call the parser to parse the xml_text
  * 			- do some sanity check on the parser output
- * 			- call the localDataHandler to add default train
+ * 			- call the Alloy.Globals.localDataHandler to add default train
  * 			  info questions
  * params:
  * 			- xml_text: the xml text returned by the webservice
@@ -149,12 +149,12 @@ function parseTrainData(xml_text, curAssObj) {
 	try {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
-			var data = localParser.getQuestions(xml_text);
+			var data = Alloy.Globals.localParser.getQuestions(xml_text);
 			if ( typeof data === "undefined") {
 				alert(L('no_data'));
 				return;
 			}
-			var trainData = localDataHandler.addDefaultTrainInfo(curAssObj, data);
+			var trainData = Alloy.Globals.localDataHandler.addDefaultTrainInfo(curAssObj, data);
 			trainData = null;
 			censusData = null;
 
@@ -171,7 +171,7 @@ function parseTrainData(xml_text, curAssObj) {
  * parseCensusData:
  * 			- call the parser to parse the xml_text
  * 			- do some sanity check on the parser output
- * 			- call the localDataHandler to add default census
+ * 			- call the Alloy.Globals.localDataHandler to add default census
  * 			  questions
  * params:
  * 			- xml_text: the xml text returned by the webservice
@@ -183,13 +183,13 @@ function parseCensusData(xml_text, curAssObj) {
 	try {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
-			var data = localParser.getQuestions(xml_text);
+			var data = Alloy.Globals.localParser.getQuestions(xml_text);
 			if ( typeof data === "undefined") {
 				alert(L('no_data'));
 				return;
 			}
 
-			var censusData = localDataHandler.addDefaultCensus(curAssObj, data);
+			var censusData = Alloy.Globals.localDataHandler.addDefaultCensus(curAssObj, data);
 			xml_text = null;
 			censusData = null;
 
@@ -204,8 +204,8 @@ function parseCensusData(xml_text, curAssObj) {
 
 function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 	try {
-		var questionsData = localParser.getQuestions(xml_text);
-		var assessmentObject = localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
+		var questionsData = Alloy.Globals.localParser.getQuestions(xml_text);
+		var assessmentObject = Alloy.Globals.localDataHandler.addNewAssessment(questionsData, Alloy.Globals.currentCrossingName, detaildID, crossingID, []);
 		questionsData = null;
 		xml_text = null;
 
@@ -225,10 +225,10 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 			return false;
 		}
 
-		var crossingQuestions = localParser.getQuestions(crosQues);
+		var crossingQuestions = Alloy.Globals.localParser.getQuestions(crosQues);
 
 		var quesMap = [];
-		var crossingAnswers = localParser.getQuestions(crosAns);
+		var crossingAnswers = Alloy.Globals.localParser.getQuestions(crosAns);
 		Ti.API.info("crossingAnswers ======= > "+JSON.stringify(crossingAnswers));
 		if ( typeof crossingAnswers !== "undefined") {
 					for (var i = 0; i < crossingAnswers.length; i++) {
@@ -244,7 +244,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 			return false;
 		}
 
-		localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
+		Alloy.Globals.localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
 
 		quesMap = null;
 		crossingQuestions = null;
@@ -263,7 +263,7 @@ function getCrossingQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Crossing"
 	}, function(xmlDoc) {
-		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
@@ -284,7 +284,7 @@ function getCrossingQuestionAnswersSet(crossingDetail) {
 	Alloy.Globals.Soap.getCrossingRequest({
 		crossingId : crossingDetail.id
 	}, function(xmlDoc) {
-		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
@@ -305,7 +305,7 @@ function getAssessmentQuestionSet(crossingDetail) {
 			crossingId : crossingDetail.id,
 			groupType : "Assessment"
 		}, function(xmlDoc) {
-			Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 				function(data) {
 					// callback
 					var data = JSON.parse(data);
@@ -326,7 +326,7 @@ function getCensusQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Census"
 	}, function(xmlDoc) {
-		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
@@ -347,7 +347,7 @@ function getTrainInfoQuestionSet(crossingDetail) {
 		crossingId : crossingDetail.id,
 		groupType : "Train"
 	}, function(xmlDoc) {
-		Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
@@ -403,9 +403,9 @@ var buildAssessment = function(crossingDetail) {
 		parseTrainData(JSONDocTrain, assessmentObject);
 		JSONDocTrain = null;
 
-		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-		localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 
 		$.riskAssessmentsTab.loadRiskAssessments();
 		$.questionRendererTab.setAssessment(assessmentObject);

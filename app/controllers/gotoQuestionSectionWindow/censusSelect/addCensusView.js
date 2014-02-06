@@ -1,5 +1,3 @@
-
-
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "51%";
 animationOpen.duration = Alloy.Globals.animationDuration;
@@ -32,54 +30,55 @@ Alloy.Globals.Soap.searchCensus(
 	},
 	function(xmlDoc){
 		 //var XMLTools = require("tools/XMLTools");
-         XMLTools.setDoc(xmlDoc);
-         var responseObj = JSON.stringify(XMLTools.toObject());
-         if(typeof responseObj === "undefined")
-         {
-         	alert(L("no_data"));
-            Alloy.Globals.aIndicator.hide();
-            return;
-         }else{
-         	//alert(JSON.stringify(responseObj));
-         	var pastCensusObject = JSON.parse(responseObj);
-         	var pastCensuses = [];
-         	if(typeof pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"] !== "undefined"){
-         		pastCensuses = pastCensusObject["soapenv:Body"]["ns7:SearchCensusResponse"]["ns7:census"];
-         	}
-         	//alert(pastCensuses.length);
-         	if(pastCensuses.length === 0)
-         	{
-         		alert("Sorry there are no past censuses. Please create a new census and try again.");
-         		Alloy.Globals.aIndicator.hide();
-         		return;
-         	}
-         	
-         	for(var pastCensuesIndex = 0; pastCensuesIndex < pastCensuses.length; pastCensuses++)
-         	{
-         		//alert(JSON.stringify(pastCensuses[pastCensuesIndex]));
-         		valueList.push({
-         			displayValue : "Census "+Util.convertDate(pastCensuses[pastCensuesIndex]["ns5:censusDate"]).dateFormat3, value : pastCensuses[pastCensuesIndex]["ns5:censusId"], questionList: pastCensuses[pastCensuesIndex]["ns5:censusData"]
-         		});
-         		
-         	}
-         	currentValue = valueList[0];
-			var data = [];
-		    for(var i=0;i<valueList.length;i++){
-					data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value, questionList: valueList[i].questionList}
-					));
+		 Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+			function(data) {
+				// callback
+				var pastCensusObject = JSON.parse(data);
+					 if(typeof pastCensusObject === "undefined")
+			         {
+			         	alert(L("no_data"));
+			         	Alloy.Globals.aIndicator.hide();
+			            return;
+			         }else{
+			         	var pastCensuses = [];
+			         	if(typeof pastCensusObject.response.Envelope.Body.SearchCensusResponse.census !== "undefined"){
+			         		pastCensuses = pastCensusObject.response.Envelope.Body.SearchCensusResponse.census;
+			         	}
+			         	
+			         	if(pastCensuses.length === 0)
+			         	{
+			         		alert("Sorry there are no past censuses. Please create a new census and try again.");
+			         		Alloy.Globals.aIndicator.hide();
+			         		return;
+			         	}
+			         	
+			         	for(var pastCensuesIndex = 0; pastCensuesIndex < pastCensuses.length; pastCensuses++)
+			         	{
+			         		//alert(JSON.stringify(pastCensuses[pastCensuesIndex]));
+			         		valueList.push({
+			         			displayValue : "Census "+Alloy.Globals.Util.convertDate(pastCensuses[pastCensuesIndex].censusDate).dateFormat3, value : pastCensuses[pastCensuesIndex].censusId, questionList: pastCensuses[pastCensuesIndex].censusData
+			         		});
+			         		
+			         	}
+			         	currentValue = valueList[0];
+						var data = [];
+					    for(var i=0;i<valueList.length;i++){
+								data.push(Ti.UI.createPickerRow({title: valueList[i].displayValue, value : valueList[i].value, questionList: valueList[i].questionList}
+								));
+						}
+						
+						$.pickerView.add(data);
+						$.pickerView.selectionIndicator = true;
+						$.pickerView.setSelectedRow(0, 0, true);
+						
+			         	Alloy.Globals.aIndicator.hide();
+			         	
+			         	$.container.animate(animationOpen);
+			         }
 			}
-			
-			$.pickerView.add(data);
-			$.pickerView.selectionIndicator = true;
-			$.pickerView.setSelectedRow(0, 0, true);
-			
-         	Alloy.Globals.aIndicator.hide();
-         	
-         	$.container.animate(animationOpen);
-         }
-	},
-	function(xmlDoc){ /**handled by Suds2_fat error message - so no need to put anything here**/
-	});
+		);	
+		//end of convertJSON
+});
 };
 
 var hide = function(){
@@ -104,7 +103,7 @@ function pickerChange(e){
 };
 
 // Styling on ios6 
-if (!Util.isIOS7Plus()) {
+if (!Alloy.Globals.Util.isIOS7Plus()) {
    $.doneButton.width = 65;
    $.doneButton.height = 30;
    $.doneButton.left = 10;

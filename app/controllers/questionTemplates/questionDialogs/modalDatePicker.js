@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 
 var date = new Date();
 
-//var moment = require('alloy/moment');
+//var Alloy.Globals.moment = require('alloy/Alloy.Globals.moment');
 
 
 
@@ -40,7 +40,7 @@ var dateToString = function(date){
 if(typeof args.timeLimit !== "undefined"){
 	if(args.timeLimit == true){
 		
-		$.datePicker.setMinDate(moment().subtract('days', 30).toDate());
+		$.datePicker.setMinDate(Alloy.Globals.moment().subtract('days', 30).toDate());
 		$.datePicker.setMaxDate(new Date());
 	}
 }

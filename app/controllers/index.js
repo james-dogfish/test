@@ -2,7 +2,7 @@
  * getValidator: returns an instance of Validator
  **************************************************************/
 var getValidator = function() {
-	Alloy.Globals.validator = Validator;
+	Alloy.Globals.validator = Alloy.Globals.Validator;
 };
 
 /*************************************************************
@@ -17,12 +17,12 @@ var startup = function() {
 	Ti.API.info("startup is fired");
 	
 	//only downloads if not already downloaded before.
-	Util.downloadConfig();
+	Alloy.Globals.Util.downloadConfig();
 
 	//only downloads if not already downloaded before.
-	Util.downloadCheatSheet();
+	Alloy.Globals.Util.downloadCheatSheet();
 
-	Util.showDebugAlert("DEBUG ALERTS IS ON");
+	Alloy.Globals.Util.showDebugAlert("DEBUG ALERTS IS ON");
 	
 	getValidator();
 
@@ -34,7 +34,7 @@ var startup = function() {
 	//masterSearchTab = null;
 	
 	// Check whether settings are filled
-	if (!User.hasPreferences()) {
+	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message : true
@@ -44,8 +44,8 @@ var startup = function() {
 	
 };
 
-if (User.isLoggedIn() && !User.isLoginExpired()) {
-	if (User.howLongLeft() >= 10) {
+if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
+	if (Alloy.Globals.User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
 	}
 	startup();

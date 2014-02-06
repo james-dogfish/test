@@ -2,15 +2,15 @@ function interpreterModule2() {
 
     //self.QUESTION_ROW_TYPE = "question";
     //self.NON_QUESTION_ROW_TYPE = "NonQuestion";
-    //var Styles = require('styles/styles');
+    //var Alloy.Globals.Styles = require('styles/styles');
 
     var self = this;
     self.sectionHeaderList = [];
     
     var questionMap = [];
     
-    //var User = require('core/User');
-    //var userPreferences = User.getPreferences();
+    //var Alloy.Globals.User = require('core/Alloy.Globals.User');
+    //var userPreferences = Alloy.Globals.User.getPreferences();
    
 
     var renderDependenciesMap = [];
@@ -198,23 +198,23 @@ function interpreterModule2() {
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
     	
     	try{
-			var questionName = passObject.pageID + localParser.getQuestionName(question);
-	        var type = localParser.getQuestionType(question);
+			var questionName = passObject.pageID + Alloy.Globals.localParser.getQuestionName(question);
+	        var type = Alloy.Globals.localParser.getQuestionType(question);
 	        var templateType = "";
 	        if (type in ui_types_map) {
 	            templateType = ui_types_map[type];
 	        } else {
-	            Ti.API.info("questionNull type =" + type+", question = "+JSON.stringify(question));
+	            //Ti.API.info("questionNull type =" + type+", question = "+JSON.stringify(question));
 	            return null;
 	        }
 	        
-	        if(localParser.getQuestionName(question) in hiddenQuestionsMap){
-	        	//Ti.API.info("localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
+	        if(Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap){
+	        	//Ti.API.info("Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
 	        	return null;
 	        }
 	        
 	        questionRenderValues = [];
-	        var allRenderValues = localParser.getRenderValue(question);
+	        var allRenderValues = Alloy.Globals.localParser.getRenderValue(question);
 	        var questionVisable = true;
 	
 	        if (allRenderValues.length != 0) {
@@ -223,8 +223,8 @@ function interpreterModule2() {
 	        
 	        for (var i = 0; i < allRenderValues.length; i++) {
 	
-	            dependencieName = passObject.pageID + localParser.getRenderValueParamName(allRenderValues[i]);
-	            dependencieValue = localParser.getRenderValueParamValue(allRenderValues[i]);
+	            dependencieName = passObject.pageID + Alloy.Globals.localParser.getRenderValueParamName(allRenderValues[i]);
+	            dependencieValue = Alloy.Globals.localParser.getRenderValueParamValue(allRenderValues[i]);
 	
 	            if (typeof renderDependenciesMap[dependencieName] === "undefined") {
 	                renderDependenciesMap[dependencieName] = [];
@@ -240,11 +240,11 @@ function interpreterModule2() {
 	        }
 	
 	        questionSelections = [];
-	        var allSelections = localParser.getAllSelections(question);
+	        var allSelections = Alloy.Globals.localParser.getAllSelections(question);
 	        for (var i = 0; i < allSelections.length; i++) {
 	            questionSelections.push({
-	                displayValue: localParser.getSelectionDisplayValue(allSelections[i]),
-	                value: localParser.getSelectionValue(allSelections[i])
+	                displayValue: Alloy.Globals.localParser.getSelectionDisplayValue(allSelections[i]),
+	                value: Alloy.Globals.localParser.getSelectionValue(allSelections[i])
 	            });
 	        }
 	
@@ -262,8 +262,8 @@ function interpreterModule2() {
 	        };
 	
 	
-	        var validation = localParser.getValidation(question);
-	        Ti.API.info("VALIDATION OBJECT PASSED = "+JSON.stringify(validation));
+	        var validation = Alloy.Globals.localParser.getValidation(question);
+	        //Ti.API.info("VALIDATION OBJECT PASSED = "+JSON.stringify(validation));
 	        
 	        var isMandatory = false;
 	
@@ -278,7 +278,7 @@ function interpreterModule2() {
 	                }
 	            }
 	
-	            var conditionalMandatory = localParser.getConditionalMandatory(validation);
+	            var conditionalMandatory = Alloy.Globals.localParser.getConditionalMandatory(validation);
 	            for (var i = 0; i < conditionalMandatory.length; i++) {
 	
 					var dependencieName = passObject.pageID +conditionalMandatory[i].name;
@@ -323,12 +323,12 @@ function interpreterModule2() {
 	            template: templateType, // this is the template used to show the question in the list view
 	            type: type,
 	            groupType: sectionGroupType,
-	            name: passObject.pageID + localParser.getQuestionName(question),
-	            alcrmQuestionID: localParser.getQuestionName(question),
-	            alcrmGroupType: localParser.getQuestionGroup(question),
+	            name: passObject.pageID + Alloy.Globals.localParser.getQuestionName(question),
+	            alcrmQuestionID: Alloy.Globals.localParser.getQuestionName(question),
+	            alcrmGroupType: Alloy.Globals.localParser.getQuestionGroup(question),
 	            visable: questionVisable,
 	            readOnly : false,
-	            order: localParser.getQuestionOrder(question),
+	            order: Alloy.Globals.localParser.getQuestionOrder(question),
 	            associatedFileName: passObject.associatedFileName, // file the question is in
 	            questionResponse: null,
 	
@@ -337,8 +337,8 @@ function interpreterModule2() {
 	            notesBackground: {
 	                backgroundImage: 'images/questionNote.png'
 	            }, //{backgroundImage: 'images/questionSelectedNote.png'}
-	            notes: localParser.getNotesText(question),
-	            help : localParser.getHelpText(question),
+	            notes: Alloy.Globals.localParser.getNotesText(question),
+	            help : Alloy.Globals.localParser.getHelpText(question),
 	            selected: false,
 	
 	            value: [""], // a list of all values set for this question
@@ -347,10 +347,10 @@ function interpreterModule2() {
 	            validation: questionValidation,
 	            mandatory : isMandatory, //can be changed at run time with conditionalMandatory
 	            
-	            subsectionTitle : localParser.getTableRowText(question),
+	            subsectionTitle : Alloy.Globals.localParser.getTableRowText(question),
 	
 	            title: {
-	                text: localParser.getQuestionText(question)
+	                text: Alloy.Globals.localParser.getQuestionText(question)
 	            }, // the title text for this question
 	            displayValue: {
 	                value: ""
@@ -370,7 +370,7 @@ function interpreterModule2() {
 	        
 	        if(passObject.readOnly == true){
 		        questionObject.readOnly = true;
-		        questionObject.headerView = Styles["headerViewReadOnly"];
+		        questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 		    }
 	        
 	        questionObject = questionSetPastVariables(questionObject, questionMap);
@@ -446,7 +446,7 @@ function interpreterModule2() {
     var addQuestionToSectionHeader = function (question, passObject, assessmentId) {
 
 		try{
-	        var alcrmGroupType = localParser.getQuestionGroup(question);
+	        var alcrmGroupType = Alloy.Globals.localParser.getQuestionGroup(question);
 	        var groupType = passObject.pageID + alcrmGroupType;
 	
 	
@@ -562,7 +562,7 @@ function interpreterModule2() {
 	            isAQuestion: false,
 	            readOnly : false,
 	            template: "subsectionHeaderTemplate",
-	            headerView : Styles["headerViewSubsection"],
+	            headerView : Alloy.Globals.Styles["headerViewSubsection"],
 	            title: {
 	                text: title
 	            },
@@ -657,7 +657,7 @@ function interpreterModule2() {
 
     var postInterpretSettings = function (passObject) {
     	try{
-    		var userPreferences = User.getPreferences();
+    		var userPreferences = Alloy.Globals.User.getPreferences();
 	    	//Ti.API.info("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
 	    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
 	    		
@@ -697,7 +697,13 @@ function interpreterModule2() {
 	
 				
 	            for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
-	
+					
+					if (self.sectionHeaderList[sectionIndex].questionList[questionIndex] == null){
+						self.sectionHeaderList[sectionIndex].questionList[questionIndex].splice(questionIndex,1);
+						questionIndex--;
+						Ti.API.info("question object is null!!!");
+					};
+					
 	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
 	
 	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
@@ -741,7 +747,7 @@ function interpreterModule2() {
 	            	/*
 	               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
 	                	questionObject.readOnly = true;
-	                	questionObject.headerView = Styles["headerViewReadOnly"];
+	                	questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 	               }
 	               */
 	               
@@ -870,7 +876,8 @@ function interpreterModule2() {
 	        return self.sectionHeaderList;
 	    }catch(e){
 	    	Alloy.Globals.aIndicator.hide();
-	    	Ti.API.info("Interpreter.interpret has an exception: "+JSON.stringify(e));
+	    	Ti.API.info("self.interpret failed");
+	    	Ti.API.error("Interpreter.interpret has an exception: "+JSON.stringify(e));
 	    	return [];
 	    }
     };

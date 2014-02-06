@@ -46,7 +46,7 @@ exports.MoveToClose = function(isAnimated) {
 };
 
 // Styling on ios6 
-if (!Util.isIOS7Plus()) {
+if (!Alloy.Globals.Util.isIOS7Plus()) {
 	$.backButton.width = 80;
 	$.backButton.height = 30;
 	$.backButton.left = 10;

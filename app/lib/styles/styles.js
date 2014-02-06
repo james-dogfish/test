@@ -1,5 +1,6 @@
-
 module.exports =  {
+	
+	//"windowTop" : Alloy.Globals.Util.isIOS7Plus() ? 20 : 0,
 	
 	"headerViewDefult" : {
 		backgroundColor: "#eee"

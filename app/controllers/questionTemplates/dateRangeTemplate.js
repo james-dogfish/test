@@ -20,7 +20,7 @@ function onNotesClick(e){
 		}
 		e.section.updateItemAt(e.itemIndex, item);
 		
-		localDataHandler.updateQuestion(item);
+		Alloy.Globals.localDataHandler.updateQuestion(item);
 	}});
 };
 
@@ -28,7 +28,6 @@ function onNotesClick(e){
 function dateButton1Clicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	
 	/*
 	Ti.App.fireEvent("questionSelected", {

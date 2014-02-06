@@ -59,7 +59,7 @@ function pickerChange(e){
 };
 
 // Styling on ios6 
-if (!Util.isIOS7Plus()) {
+if (!Alloy.Globals.Util.isIOS7Plus()) {
    $.doneButton.width = 65;
    $.doneButton.height = 30;
    $.doneButton.left = 10;

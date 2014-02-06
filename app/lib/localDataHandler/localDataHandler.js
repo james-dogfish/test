@@ -20,7 +20,7 @@ function localDataHandler() {
     	
     	var workingDirectory = "";
     	if(testEnvironment == false){
-    		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, User.getUserDir()); 
+    		workingDirectory = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, Alloy.Globals.User.getUserDir()); 
     		return workingDirectory.nativePath;
     	}
     	else{
@@ -236,7 +236,7 @@ function localDataHandler() {
 
         var mandatoryQuestionCount = 0;
         for (var i = 0; i < JASON_question_list.length; i++) {
-            var isMandatory = localParser.getQuestionMandatory(JASON_question_list[i]);
+            var isMandatory = Alloy.Globals.localParser.getQuestionMandatory(JASON_question_list[i]);
             if (isMandatory == true) {
                 mandatoryQuestionCount++;
             }
@@ -280,7 +280,7 @@ function localDataHandler() {
 		Ti.API.info(JSON.stringify(JASON_question_list));
 		
         //new interpreterModule
-        var newQuestionSet = interpreter.interpret(JASON_question_list, {
+        var newQuestionSet = Alloy.Globals.interpreter.interpret(JASON_question_list, {
             associatedFileName: newAssessment.mainQuestionsfileName,
             pageName: L("page_risk_assessment_name"),
             pageID: 0,
@@ -358,7 +358,7 @@ function localDataHandler() {
                 savedAssessments[i].coreQuestionsFileName = newCoreQuestionsFileName;
 
               
-                var newCoreQuestionSet = interpreter.interpret(JASON_question_list, {
+                var newCoreQuestionSet = Alloy.Globals.interpreter.interpret(JASON_question_list, {
                     associatedFileName: newCoreQuestionsFileName,
                     pageName: L("page_core_question_name"),
                     pageID: 0,
@@ -404,7 +404,7 @@ function localDataHandler() {
                 var newCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newCensusFileName);
                 savedAssessments[i].censusQuestionsfileNameList.push(newCensusFileName);
 
-                var newCensusQuestionSet = interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
+                var newCensusQuestionSet = Alloy.Globals.interpreter.interpret(savedAssessments[i].defaultCensusQuestions, {
                     associatedFileName: newCensusFileName,
                     pageName: L("page_census_name")+" " + censusPageNum,
                     pageID: censusPageNum,
@@ -524,7 +524,7 @@ function localDataHandler() {
                 savedAssessments[i].trainGroupQuestionsfileNameList.push(newTrainGroupFileName);
 
                 //new interpreterModule
-                var newTrainInfoQuestionSet = interpreter.interpret(savedAssessments[i].defaultTrainInfoQuestions, {
+                var newTrainInfoQuestionSet = Alloy.Globals.interpreter.interpret(savedAssessments[i].defaultTrainInfoQuestions, {
                     associatedFileName: newTrainGroupFileName,
                     pageName: L("page_train_info_name")+" " + savedAssessments[i].trainGroupLastPageID,
                     pageID: savedAssessments[i].trainGroupLastPageID,

@@ -1,6 +1,6 @@
-//var User = require('core/User');
+//var Alloy.Globals.User = require('core/Alloy.Globals.User');
 var currentAssessmentObject = null;
-//var localDataHandler = require('localDataHandler/localDataHandler');
+//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');
 //var interpreter = require('interpreter/interpreterModule2');
 //var aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
 
@@ -15,7 +15,7 @@ exports.setAssessment = function(assessmentObject) {
     Alloy.Globals.aIndicator.show();
     $.appTitle.text = assessmentObject.crossingName;
     currentAssessmentObject = assessmentObject;
-    var sectionList = localDataHandler.openAssessment(assessmentObject);
+    var sectionList = Alloy.Globals.localDataHandler.openAssessment(assessmentObject);
     $.questionListView.setAssessment(sectionList, assessmentObject);
     Alloy.Globals.aIndicator.hide();
 };
@@ -28,26 +28,26 @@ exports.clear = function() {
 function saveAndExitClick(e) {
     $.appTitle.text = ''; 
     if (currentAssessmentObject !== null) {
-        localDataHandler.updateQuestionCount(currentAssessmentObject);
+        Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
     }
     $.trigger("saveAndExitClick");
 }
 
 var createCensus = function() {
     currentAssessmentObject;
-    currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
         alert(L('max_census'));
         return;
     }
-    var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
+    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
     //var censusDataInterpreted = interpreter.interpret(censusData);
     $.questionListView.appendSectionsToAssessment(censusData);
 };
 
 var createPastCensus = function(pastCensusData) {
     currentAssessmentObject;
-    currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
         alert(L('max_census'));
         return;
@@ -67,7 +67,7 @@ var createPastCensus = function(pastCensusData) {
         }
     }
 
-    var censusData = localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
+    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
     $.questionListView.appendSectionsToAssessment(censusData);
 };
 
@@ -131,16 +131,16 @@ Ti.App.addEventListener("addPastCensus", function(e) {
 
 /*
 gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
-     currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
      currentAssessmentObject.censusDesktopComplete = true;
-     localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
 });
 */
 
 Ti.App.addEventListener("censusDesktopComplete", function(e) {
-    currentAssessmentObject = localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
-    localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+    Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
 });
 
 /*
@@ -167,8 +167,8 @@ gotoQuestionSectionWindow.on("deletePage", function (e) {
     //alert("delete associatedFileName = "+e.associatedFileName);
     Alloy.Globals.aIndicator.show();
 
-    if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
-        var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+    if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
+        var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
         $.questionListView.setAssessment(sectionList, currentAssessmentObject);
         gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
     }
@@ -195,8 +195,8 @@ Ti.App.addEventListener("deletePage", function(e) {
             Ti.API.info("gotoQuestionSectionWindow : deletePage");
             Alloy.Globals.aIndicator.show();
 
-            if (localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
-                var sectionList = localDataHandler.openAssessment(currentAssessmentObject);
+            if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
+                var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
                 $.questionListView.setAssessment(sectionList, currentAssessmentObject);
                 gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
             }
@@ -225,7 +225,7 @@ var showGoto = function() {
 var openMenu = function() {
 
     // Check whether settings are filled 
-    if (!User.hasPreferences()) {
+    if (!Alloy.Globals.User.hasPreferences()) {
         // Open setting screen
         var userSettings = Alloy.createController('userSettings', {
             message: true
@@ -235,7 +235,7 @@ var openMenu = function() {
     }
 
     //var Ui = require('core/Ui'),
-    popOver = Ui.renderPopOver({
+    popOver = Alloy.Globals.Ui.renderPopOver({
         width: 250
     }),
     menuTable = Ti.UI.createTableView({
@@ -263,7 +263,7 @@ var openMenu = function() {
             id: 5
         }*/
     ];
-    /*var userPreferences = Alloy.Globals.User.getPreferences();
+    /*var userPreferences = Alloy.Globals.Alloy.Globals.User.getPreferences();
 	if(userPreferences.singleView == false || userPreferences.singleView == "false")
 	{
 	   data.push({
@@ -301,10 +301,10 @@ var openMenu = function() {
             Alloy.Globals.tabGroup.close();
             loginView = Alloy.createController('index').getView();
             loginView.open();
-            User.logOut();
+            Alloy.Globals.User.logOut();
         } else if (e.row.id === 6) {
             if (currentAssessmentObject !== null) {
-                localDataHandler.updateQuestionCount(currentAssessmentObject);
+                Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             }
             $.trigger("saveAndExitClick");
         } else if (e.row.id === 7) {

@@ -3,37 +3,7 @@ function onTextFieldBlur(e){
 	
 	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
-	/*
-	if(typeof item === "undefined"){
-		alert("in textFieldTemplate.onTextFieldBlur item was undefined");
-		return;
-	}
-	var section = e.section; 
-	item.displayValue = {value : e.value};
-	item.value = [e.value];
-	
-	var responseObject = 
-	"<ass1:riskData>"+
-       "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-       "<ques:parameterValue>"+e.value+"</ques:parameterValue>"+
-    "</ass1:riskData>";
-    
-    
 
-	Ti.App.fireEvent("questionValueChange", {
-		item : item,
-		name : item.name,
-		itemIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : [e.value],
-		responseObject : responseObject
-	}); 
-	
-	*/
-	
-		
-	//section.updateItemAt(e.itemIndex, item);
 };
 
 function onStartButtonClick(e){
@@ -81,7 +51,7 @@ function onNotesClick(e){
 		}
 		e.section.updateItemAt(e.itemIndex, item);
 		
-		localDataHandler.updateQuestion(item);
+		Alloy.Globals.localDataHandler.updateQuestion(item);
 	}});
 };
 

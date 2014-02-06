@@ -20,7 +20,7 @@ function onNotesClick(e){
 		}
 		e.section.updateItemAt(e.itemIndex, item);
 		
-		localDataHandler.updateQuestion(item);
+		Alloy.Globals.localDataHandler.updateQuestion(item);
 	}});
 };
 
@@ -49,7 +49,6 @@ function onTextFieldFocus(e){
 function onTextField1Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);

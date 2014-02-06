@@ -436,8 +436,8 @@ function _Util() {
 	 |---------------------------------------------------------------------------------
 	 */
 	self.emailNotes = function(payload) {
-		//var User = require('core/User');
-		var userEmail = User.getEmail();
+		//var Alloy.Globals.User = require('core/Alloy.Globals.User');
+		var userEmail = Alloy.Globals.User.getEmail();
 		Ti.API.info("userEmail = " + userEmail);
 
 		if (userEmail === '') {
@@ -587,8 +587,8 @@ function _Util() {
 
 		if (toSendLength !== 0) {
 			var //Soap = require('core/Soap'),
-			//User = require('core/User'),
-			userDetails = User.getLogin();
+			//Alloy.Globals.User = require('core/Alloy.Globals.User'),
+			userDetails = Alloy.Globals.User.getLogin();
 			username = userDetails.username, password = userDetails.password, i = toSendLength;
 			while (i !== 0) {
 				// Creating function scope so that alert messages will pick up crossing name
@@ -644,11 +644,11 @@ function _Util() {
 							try {
 								faultString = xmlDoc.documentElement.getElementsByTagName('faultstring').item(0).text;
 							} catch (e) {
-								Util.showAlert('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + e.message);
-								Util.log('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + JSON.stringify(e));
+								Alloy.Globals.Util.showAlert('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + e.message);
+								Alloy.Globals.Util.log('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + JSON.stringify(e));
 							}
 							if (faultString) {
-								Util.showAlert('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. \n Error details - ' + faultString);
+								Alloy.Globals.Util.showAlert('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. \n Error details - ' + faultString);
 							}
 						}
 

@@ -1,10 +1,10 @@
 // Will save user details to the app
-// Load User library 
-//var User = require('core/User'),
+// Load Alloy.Globals.User library 
+//var Alloy.Globals.User = require('core/Alloy.Globals.User'),
 	//Validator = require('validator/Validator'),
-	//Util = require('core/Util');
+	//Alloy.Globals.Util = require('core/Alloy.Globals.Util');
 
-var userPreferences = User.getPreferences();
+var userPreferences = Alloy.Globals.User.getPreferences();
 
 // Set these values to the app now
 $.name.value = userPreferences.name;
@@ -14,7 +14,7 @@ $.sectionSwitch.value = userPreferences.singleView;
 
 if (arguments && arguments[0] && arguments[0].message) {
 	// Show a message now
-	Util.slideNotify(0, 'Please provide this information before proceeding. Thanks!');
+	Alloy.Globals.Util.slideNotify(0, 'Please provide this information before proceeding. Thanks!');
 }
 
 var blurAllFields = function() {
@@ -27,33 +27,33 @@ var saveSettings = function() {
 	blurAllFields();
 
 	if(!$.name.value) {
-		Util.slideNotify(0, 'Please provide a valid name.');
+		Alloy.Globals.Util.slideNotify(0, 'Please provide a valid name.');
 		//alert('Please provide a valid name.');
 		return false;
 	}
 
-	if(!Validator.isValidText($.name.value, 50)) {
-		Util.slideNotify(0, 'Please enter a name that is less than 50 characters.');
+	if(!Alloy.Globals.Validator.isValidText($.name.value, 50)) {
+		Alloy.Globals.Util.slideNotify(0, 'Please enter a name that is less than 50 characters.');
 		//alert('Please enter a name that is less than 50 characters.');
 		return false;
 	}
 
-	if(!Validator.isNumber($.mobile.value, 15)) {
+	if(!Alloy.Globals.Validator.isNumber($.mobile.value, 15)) {
 		//alert('Please enter a valid mobile number.');
-		Util.slideNotify(0, 'Please enter a valid mobile number.');
+		Alloy.Globals.Util.slideNotify(0, 'Please enter a valid mobile number.');
 		return false;
 	}
 
 	// Doing validation checks
-	if (!Validator.isEmail($.email.value)) {
+	if (!Alloy.Globals.Validator.isEmail($.email.value)) {
 		//alert('Please provide a valid email address.');
-		Util.slideNotify(0, 'Please provide a valid email address.');
+		Alloy.Globals.Util.slideNotify(0, 'Please provide a valid email address.');
 		return false;
 	} 
 
-	if(!Validator.isValidText($.email.value, 254)) {
+	if(!Alloy.Globals.Validator.isValidText($.email.value, 254)) {
 		//alert('Please enter an email address that is less than 254 characters.');
-		Util.slideNotify(0, 'Please enter an email address that is less than 254 characters.');
+		Alloy.Globals.Util.slideNotify(0, 'Please enter an email address that is less than 254 characters.');
 		return false;
 	}
 
@@ -64,9 +64,9 @@ var saveSettings = function() {
 		email: $.email.value,
 		singleView: $.sectionSwitch.value
 	};
-	User.setPreferences(settingsObj);
+	Alloy.Globals.User.setPreferences(settingsObj);
 
-	Util.slideNotify(0, '', true); // hide any open settings errors
+	Alloy.Globals.Util.slideNotify(0, '', true); // hide any open settings errors
 	
 	Ti.App.fireEvent("singleViewChange", {
 			isSingleView : $.sectionSwitch.value
@@ -77,14 +77,14 @@ var saveSettings = function() {
 };
 
 var closeSettings = function() {
-	//if(User.hasPreferences())
+	//if(Alloy.Globals.User.hasPreferences())
 	//{
 			
 			$.window.close();
 			$.destroy();
 
 	//}else{
-	//	Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
+	//	Alloy.Globals.Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
 	//}
 };
 

@@ -42,7 +42,7 @@ var _Soap = function () {
 		*/
 
         login: function (args, success, failure, pwd) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: loginUrl,
                 targetNamespace: targetNS + 'admin',
@@ -78,7 +78,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         searchCrossingRequest: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: crossingUrl,
                 targetNamespace: targetNS + 'crossing',
@@ -107,7 +107,7 @@ var _Soap = function () {
         },
         
          getCrossingRequest: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: crossingUrl,
                 targetNamespace: targetNS + 'crossing',
@@ -141,7 +141,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         getAssessment: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: assessmentUrl,
                 targetNamespace: targetNS + 'assessment',
@@ -170,7 +170,7 @@ var _Soap = function () {
         },
 
         searchAssessment: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: assessmentUrl,
                 targetNamespace: targetNS + 'assessment',
@@ -199,7 +199,7 @@ var _Soap = function () {
         },
 
         copyAssessment: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: assessmentUrl,
                 targetNamespace: targetNS + 'assessment',
@@ -228,7 +228,7 @@ var _Soap = function () {
         },
 
         createAssessment: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: assessmentUrl,
                 targetNamespace: targetNS + 'assessment',
@@ -257,7 +257,7 @@ var _Soap = function () {
         },
         
         updateAssessment: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: assessmentUrl,
                 targetNamespace: targetNS + 'assessment',
@@ -292,7 +292,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         getQuestionsRequest: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: questionsUrl,
                 targetNamespace: targetNS + 'questions',
@@ -327,7 +327,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         getQuestionsResponse: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: questionsUrl,
                 targetNamespace: targetNS + 'questions',
@@ -361,7 +361,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         getCensus: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: censusUrl,
                 targetNamespace: targetNS + 'census',
@@ -390,7 +390,7 @@ var _Soap = function () {
         },
 
         createCensus: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: censusUrl,
                 targetNamespace: targetNS + 'census',
@@ -419,7 +419,7 @@ var _Soap = function () {
         },
         
         searchCensus: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: censusUrl,
                 targetNamespace: targetNS + 'census',
@@ -454,7 +454,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
         getTrainGroupRequest: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: trainUrl,
                 targetNamespace: targetNS + 'train',
@@ -483,7 +483,7 @@ var _Soap = function () {
         },
 
         createTrainGroupRequest: function (args, success, failure) {
-            var userPass = User.getLogin();
+            var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: trainUrl,
                 targetNamespace: targetNS + 'train',
