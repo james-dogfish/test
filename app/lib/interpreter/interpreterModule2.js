@@ -782,8 +782,6 @@ function interpreterModule2() {
 	               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
 	                	questionObject.template = "censusStartTimerTemplate";
 	               }
-	               
-<<<<<<< HEAD
 	               /*
 	               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
 	               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
@@ -805,9 +803,6 @@ function interpreterModule2() {
 	                	questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 	               }
 	               */
-	               
-=======
->>>>>>> f41884a4b93e92de1f4fc61c488b6f5509dece43
 	               
 	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
 	               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
