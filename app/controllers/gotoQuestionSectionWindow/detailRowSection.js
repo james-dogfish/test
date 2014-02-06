@@ -63,12 +63,16 @@ var toggleQuestionVisable = function(e){
 
 exports.setdata = function(passedSectionDataObject){
 	sectionDataObject = passedSectionDataObject;
-	
+
 	var sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
-	if(passedSectionDataObject.mandatoryQuestions == true){
-		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
-		if(passedSectionDataObject.unAnsweredMandatoryQuestions == true){
-			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+	if (passedSectionDataObject.pageType === 'coreQuestion') {
+		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_n_a"];
+	} else {
+		if (passedSectionDataObject.mandatoryQuestions == true) {
+			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
+			if (passedSectionDataObject.unAnsweredMandatoryQuestions == true) {
+				sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+			}
 		}
 	}
 

@@ -69,6 +69,7 @@ var addSectionToPageList= function(section){
 	}
 	else if(section.pageType == "coreQuestion"){
 		newPage.template = "masterRowTemplate";
+		newPage.colouredBox = Styles["goToMandatoryColouredBox_n_a"];
 	}
 	
 	newPage.sectionList.push(section);
