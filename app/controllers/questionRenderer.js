@@ -1001,7 +1001,11 @@ var questionValueChange = function (e) {
         var sectionList = getAllQuestionSections();
 
         var questionTitleRef = findQuestionsRef(sectionList, "0I_ASSESSMENT_TITLE", "0Collector");
-
+		
+		if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
+			questionTitleRef.question = e.questionObject;
+		}
+		
         if (questionTitleRef !== null) {
             if (typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null) {
                 if (Ti.App.Properties.getString("LastAssDate").trim() !== "") {
