@@ -6,6 +6,6 @@
 		</View>
 		<Button class="selectButton" onClick="createCensusClick">Create Census</Button>
 		<Button class="selectButton" onClick="addCensusClick">Select from past censuses</Button>
-		<Button class="selectButton" onClick="censusDesktopCompleteClick">ALCRM Desktop Complete</Button>
+		<Button class="selectButton" onClick="censusDesktopCompleteClick">Complete via ALCRM Desktop</Button>
 	</View>
 </Alloy>
