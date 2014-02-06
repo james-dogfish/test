@@ -1,9 +1,14 @@
+function onTextFieldChange(e){
+	var item = e.section.getItemAt(e.itemIndex);
+	item.value[0] = e.value;
+	
+	Alloy.Globals.questionRenderer.questionRealTimeValidation({questionObject : item, questionIndex : e.itemIndex, section : e.section});
+};
+
 function onTextFieldBlur(e){
 	//Alloy.createController("userNotificationWindows/activityIndicatorDialog").show(); 
 	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
-	
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	
 	if(typeof item === "undefined"){
 		//alert("in textFieldTemplate.onTextFieldBlur item was undefined");
@@ -92,7 +97,6 @@ function onNotesClick(e){
 function onTextFieldFocus(e){
 	//alert("onTextFieldFocus");
 	var item = e.section.getItemAt(e.itemIndex);
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
 	if(typeof item === "undefined"){
 		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;

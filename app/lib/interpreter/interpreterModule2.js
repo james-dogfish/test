@@ -159,8 +159,8 @@ function interpreterModule2() {
 		            validationTest: false,
 		            min: null,
 		            max: null,
-		            minLenght: null,
-		            maxLenght: null,
+		            minLength: null,
+		            maxLength: null,
 		            format: null,
 		            mandatory: false,
 		            conditionalMandatory: []
@@ -254,8 +254,8 @@ function interpreterModule2() {
 	            validationTest: false,
 	            min: null,
 	            max: null,
-	            minLenght: null,
-	            maxLenght: null,
+	            minLength: null,
+	            maxLength: null,
 	            format: null,
 	            mandatory: false,
 	            conditionalMandatory: []
@@ -263,6 +263,8 @@ function interpreterModule2() {
 	
 	
 	        var validation = localParser.getValidation(question);
+	        Ti.API.info("VALIDATION OBJECT PASSED = "+JSON.stringify(validation));
+	        
 	        var isMandatory = false;
 	
 	        if (typeof validation !== "undefined") {
@@ -301,12 +303,12 @@ function interpreterModule2() {
 	                questionValidation.max = parseInt(validation.max);
 	            }
 	
-	            if (typeof validation.minLenght !== "undefined") {
-	                questionValidation.max = validation.minLenght(minLenght);
+	            if (typeof validation.minLength !== "undefined") {
+	                questionValidation.minLength = parseInt(validation.minLength);
 	            }
 	
-	            if (typeof validation.maxLenght !== "undefined") {
-	                questionValidation.maxLenght = parseInt(validation.maxLenght);
+	            if (typeof validation.maxLength !== "undefined") {
+	                questionValidation.maxLength = parseInt(validation.maxLength);
 	            }
 	
 	            if (typeof validation.format !== "undefined") {

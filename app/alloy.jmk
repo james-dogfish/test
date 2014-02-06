@@ -23,8 +23,10 @@ task("post:compile", function(event, logger) {
         toRemove: [
             'onTextFieldBlur ? $.__views.valueTextField.addEventListener("blur", onTextFieldBlur) : __defers["$.__views.valueTextField!blur!onTextFieldBlur"] = true;',
             'onTextFieldFocus ? $.__views.valueTextField.addEventListener("focus", onTextFieldFocus) : __defers["$.__views.valueTextField!focus!onTextFieldFocus"] = true;',
+            'onTextFieldChange ? $.__views.valueTextField.addEventListener("change", onTextFieldChange) : __defers["$.__views.valueTextField!change!onTextFieldChange"] = true;',
             '__defers["$.__views.valueTextField!blur!onTextFieldBlur"] && $.__views.valueTextField.addEventListener("blur", onTextFieldBlur);',
-            '__defers["$.__views.valueTextField!focus!onTextFieldFocus"] && $.__views.valueTextField.addEventListener("focus", onTextFieldFocus);'
+            '__defers["$.__views.valueTextField!focus!onTextFieldFocus"] && $.__views.valueTextField.addEventListener("focus", onTextFieldFocus);',
+            '__defers["$.__views.valueTextField!change!onTextFieldChange"] && $.__views.valueTextField.addEventListener("change", onTextFieldChange);'
         ]
     }, {
         file: 'multiSelectTemplate',

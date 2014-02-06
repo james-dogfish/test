@@ -1,5 +1,6 @@
 "#window": {
-	backgroundColor: "transparent"	
+	backgroundColor: "transparent",
+	statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "#container": {
 	backgroundColor: "transparent",

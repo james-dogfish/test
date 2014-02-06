@@ -1,24 +1,20 @@
 function _Util() {
 
-	var self = this, docsFolder, templatesFolder, cmsUrl, cheatSheetUrl, templateFiles, crossingTypes, routeFiles, Alloy = require("alloy");
+	var self = this,
+		docsFolder, templatesFolder, cmsUrl, cheatSheetUrl, templateFiles, crossingTypes, routeFiles, Alloy = require("alloy");
 	//downloader = require('tools/downloader');
-	
-	self.connectivityChecker = function()
-	{   
-	    //listen for any network changes
-	    Titanium.Network.addEventListener('change', function(e) 
-	    {     
-	        if (e.online)
-	        {
-	            //do nothing   
-	        }   
-	        else
-	        {
-	           Alloy.Globals.aIndicator.hide();
-        	   self.showAlert('Please make sure that you are connected to the Internet');
-        	   return false;    
-	        }    
-	    });
+
+	self.connectivityChecker = function() {
+		//listen for any network changes
+		Titanium.Network.addEventListener('change', function(e) {
+			if (e.online) {
+				//do nothing   
+			} else {
+				Alloy.Globals.aIndicator.hide();
+				self.showAlert('Please make sure that you are connected to the Internet');
+				return false;
+			}
+		});
 	};
 
 	self.isIOS7Plus = function() {
@@ -49,7 +45,7 @@ function _Util() {
 
 		Ti.API.info('Downloading file at ' + url + ' to ' + localFile);
 		var c = Ti.Network.createHTTPClient({
-			onload : function() {
+			onload: function() {
 
 				if (localFile) {
 					var f = Ti.Filesystem.getFile(localFile);
@@ -62,10 +58,10 @@ function _Util() {
 					callback(JSON.parse(this.responseData));
 				}
 			},
-			onerror : function(e) {
+			onerror: function(e) {
 				self.log('There has been an error downloading file ' + e.error);
 			},
-			timeout : 40000
+			timeout: 40000
 		});
 
 		c.open('GET', url);
@@ -77,7 +73,7 @@ function _Util() {
 
 		Ti.API.info('Downloading file at ' + url + ' to ' + localFile);
 		var c = Ti.Network.createHTTPClient({
-			onload : function() {
+			onload: function() {
 				if (condition(c)) {
 					if (localFile) {
 						var f = Ti.Filesystem.getFile(localFile);
@@ -91,10 +87,10 @@ function _Util() {
 					}
 				}
 			},
-			onerror : function(e) {
+			onerror: function(e) {
 				self.log('There has been an error downloading file ' + e.error);
 			},
-			timeout : 40000
+			timeout: 40000
 		});
 
 		c.open('GET', url);
@@ -195,10 +191,10 @@ function _Util() {
 			return false;
 		} else {
 			var dateObj = {
-				dateFormat1 : date[3] + '.' + date[2] + '.' + date[1],
-				dateFormat2 : date[1] + '-' + date[2] + '-' + date[3],
-				dateFormat3 : date[3] + '/' + date[2] + '/' + date[1],
-				time : date[4] + ':' + date[5] + ':' + date[6],
+				dateFormat1: date[3] + '.' + date[2] + '.' + date[1],
+				dateFormat2: date[1] + '-' + date[2] + '-' + date[3],
+				dateFormat3: date[3] + '/' + date[2] + '/' + date[1],
+				time: date[4] + ':' + date[5] + ':' + date[6],
 			};
 			return dateObj;
 		}
@@ -302,7 +298,7 @@ function _Util() {
 	 */
 	self.getAssessment = function(crossingType) {
 		var crossingType = crossingType.toLowerCase().trim();
-		for (var i in crossingTypes) {// Note crossingTypes is global var declared above
+		for (var i in crossingTypes) { // Note crossingTypes is global var declared above
 			if (crossingTypes[i] === crossingType) {
 				// Try and get the file locally
 				var localFile = Ti.Filesystem.getFile(docsFolder + '/templates/' + templateFiles[i]);
@@ -381,19 +377,22 @@ function _Util() {
 	 |---------------------------------------------------------------------------------
 	 */
 	self.getActiveAssessments = function() {
-		var assessmentsFolder = Ti.Filesystem.getFile(docsFolder, 'assessments'), dirFiles = assessmentsFolder.getDirectoryListing(), outputObj = [];
+		var assessmentsFolder = Ti.Filesystem.getFile(docsFolder, 'assessments'),
+			dirFiles = assessmentsFolder.getDirectoryListing(),
+			outputObj = [];
 		if (!dirFiles) {
 			return false;
 		}
 		for (var i = 0; i < dirFiles.length; i++) {
 			// Get all the json files
 			if (dirFiles[i].indexOf('json') !== -1) {
-				var file = Ti.Filesystem.getFile(docsFolder + '/assessments/' + dirFiles[i]), data = JSON.parse(file.read());
+				var file = Ti.Filesystem.getFile(docsFolder + '/assessments/' + dirFiles[i]),
+					data = JSON.parse(file.read());
 				timestamp = file.modificationTimestamp();
 
 				outputObj.push({
-					data : data,
-					timeStamp : timestamp
+					data: data,
+					timeStamp: timestamp
 				});
 
 				file = null;
@@ -419,11 +418,11 @@ function _Util() {
 	self.escapeXML = function(s) {
 		// From https://gist.github.com/panzi/1857360
 		var XML_CHAR_MAP = {
-			'<' : '&lt;',
-			'>' : '&gt;',
-			'&' : '&amp;',
-			'"' : '&quot;',
-			"'" : '&apos;'
+			'<': '&lt;',
+			'>': '&gt;',
+			'&': '&amp;',
+			'"': '&quot;',
+			"'": '&apos;'
 		};
 
 		return s.replace(/[<>&"']/g, function(ch) {
@@ -446,20 +445,20 @@ function _Util() {
 		}
 
 		var params = {
-			email : userEmail,
+			email: userEmail,
 			//message: message,
-			archived : JSON.stringify(payload)
+			archived: JSON.stringify(payload)
 		};
 		Ti.API.info(params.archived);
 
 		var c = Ti.Network.createHTTPClient({
-			onload : function() {
+			onload: function() {
 				self.log('Assessment and Question Notes emailed successfully');
 			},
-			onerror : function(e) {
+			onerror: function(e) {
 				self.log('Error emailing Assessment and Question Notes');
 			},
-			timeout : 40000
+			timeout: 40000
 		});
 
 		c.open('POST', cmsUrl + '/api/email.php');
@@ -472,7 +471,8 @@ function _Util() {
 	 |---------------------------------------------------------------------------------
 	 */
 	self.checkNested = function(obj /*, level1, level2, ... levelN*/ ) {
-		var args = Array.prototype.slice.call(arguments), obj = args.shift();
+		var args = Array.prototype.slice.call(arguments),
+			obj = args.shift();
 
 		for (var i = 0; i < args.length; i++) {
 			if (!obj.hasOwnProperty(args[i])) {
@@ -485,8 +485,8 @@ function _Util() {
 
 	self.retryJson = function(payload, callback) {
 		var alertYesNo = Titanium.UI.createAlertDialog({
-			message : 'An error occured, would you like to retry?',
-			buttonNames : ['Yes', 'No']
+			message: 'An error occured, would you like to retry?',
+			buttonNames: ['Yes', 'No']
 		});
 
 		alertYesNo.addEventListener('click', function(e) {
@@ -514,11 +514,11 @@ function _Util() {
 	self.convertJson = function(payload, callback) {
 
 		var params = {
-			xmlContent : payload
+			xmlContent: payload
 		};
 
 		var c = Ti.Network.createHTTPClient({
-			onload : function(e) {
+			onload: function(e) {
 				var response = this.responseText;
 				if (response === 'error') {
 					//alert('Error converting xml');
@@ -531,11 +531,11 @@ function _Util() {
 					}
 				}
 			},
-			onerror : function(e) {
+			onerror: function(e) {
 				// alert('Error converting xml');
 				self.retryJson(payload, callback);
 			},
-			timeout : 60000
+			timeout: 60000
 		});
 
 		c.open('POST', cmsUrl + '/api/xmlConvertor.php');
@@ -560,7 +560,8 @@ function _Util() {
 		for (var i = 0; i < activeAssessments.length; i++) {
 			var ra = activeAssessments[i];
 			if (ra.completed === ra.questionCount) {
-				var Helper = require('core/Ra'), Helper = new Helper();
+				var Helper = require('core/Ra'),
+					Helper = new Helper();
 				Helper.setAssessment(ra.assessment);
 				Helper.setQuestionNotes(ra.questionNotes);
 				Helper.setAssessmentTitleInfo(ra.crossingDetail, ra.initDate);
@@ -568,14 +569,14 @@ function _Util() {
 				// Shouldn't submit if already sent
 				if (ra.alcrmStatus !== 'Sent') {
 					toSend.push({
-						fileName : ra.fileName,
-						crossingDetail : ra.crossingDetail,
-						crossingName : ra.crossingName,
-						xmlToSend : Helper.buildXMLAnswer(),
-						questionNotes : Helper.buildQuestionNotes(),
-						assessmentNotes : ra.assessmentNotes,
-						archiveInformation : Helper.buildArchiveArray(),
-						alcrmStatus : ra.alcrmStatus
+						fileName: ra.fileName,
+						crossingDetail: ra.crossingDetail,
+						crossingName: ra.crossingName,
+						xmlToSend: Helper.buildXMLAnswer(),
+						questionNotes: Helper.buildQuestionNotes(),
+						assessmentNotes: ra.assessmentNotes,
+						archiveInformation: Helper.buildArchiveArray(),
+						alcrmStatus: ra.alcrmStatus
 					});
 				}
 
@@ -585,7 +586,7 @@ function _Util() {
 		var toSendLength = toSend.length;
 
 		if (toSendLength !== 0) {
-			var//Soap = require('core/Soap'),
+			var //Soap = require('core/Soap'),
 			//User = require('core/User'),
 			userDetails = User.getLogin();
 			username = userDetails.username, password = userDetails.password, i = toSendLength;
@@ -594,10 +595,10 @@ function _Util() {
 				(function(i) {
 
 					Soap.createAssessment({
-						arg0 : toSend[i - 1].xmlToSend,
-						arg1 : toSend[i - 1].crossingDetail,
-						arg2 : username,
-						arg3 : password
+						arg0: toSend[i - 1].xmlToSend,
+						arg1: toSend[i - 1].crossingDetail,
+						arg2: username,
+						arg3: password
 					}, function(xmlDoc) {
 						// Success Callback
 						//var XMLTools = require("tools/XMLTools");
@@ -606,7 +607,10 @@ function _Util() {
 						Ti.API.info(XMLTools.toJSON());
 						self.showAlert(toSend[i - 1].crossingName + ' submitted to ALCRM successfully! \n Assessment and Question notes have been emailed to you.');
 						// email stuff
-						var subject = 'Risk Assessment Notes for ' + toSend[i - 1].crossingName, assessmentNotes = toSend[i - 1].assessmentNotes || 'No assessment notes found', questionNotes = toSend[i - 1].questionNotes || '\n No question notes found', archivedInfo = toSend[i - 1].archiveInformation || null;
+						var subject = 'Risk Assessment Notes for ' + toSend[i - 1].crossingName,
+							assessmentNotes = toSend[i - 1].assessmentNotes || 'No assessment notes found',
+							questionNotes = toSend[i - 1].questionNotes || '\n No question notes found',
+							archivedInfo = toSend[i - 1].archiveInformation || null;
 
 						self.emailNotes(subject, assessmentNotes, questionNotes, archivedInfo);
 						// Email notes
@@ -621,7 +625,7 @@ function _Util() {
 
 						// Now save this file
 						that.saveFile(fileName, 'assessments', JSON.stringify(data, function(key, val) {
-							if ( typeof val == "object") {
+							if (typeof val == "object") {
 								if (seen.indexOf(val) >= 0) {
 									return;
 								}
@@ -668,7 +672,8 @@ function _Util() {
 	 |---------------------------------------------------------------------------------
 	 */
 	self.blurAllTextFields = function(table) {
-		var tableSections = table.data, tableSectionLength = tableSections.length;
+		var tableSections = table.data,
+			tableSectionLength = tableSections.length;
 
 		// First iterate through all table sections
 
@@ -730,9 +735,9 @@ function _Util() {
 	self.getFont = function(size, bold) {
 
 		return {
-			fontFamily : "HelveticaNeue-Light",
-			fontSize : size,
-			fontWeight : bold ? "Bold" : "Normal"
+			fontFamily: "HelveticaNeue-Light",
+			fontSize: size,
+			fontWeight: bold ? "Bold" : "Normal"
 		};
 
 	};
@@ -747,9 +752,9 @@ function _Util() {
 
 	self.showAlert = function(message, callback) {
 		var alert = Titanium.UI.createAlertDialog({
-			title : 'Network Rail',
-			message : message,
-			buttonNames : callback ? ['OK', 'Cancel'] : ['OK']
+			title: 'Network Rail',
+			message: message,
+			buttonNames: callback ? ['OK', 'Cancel'] : ['OK']
 		});
 
 		if (callback) {
@@ -762,8 +767,7 @@ function _Util() {
 
 	// Returns a new object with the prototype of the old one
 	self.objectify = function(o) {
-		var F = function() {
-		};
+		var F = function() {};
 		F.prototype = o;
 		return new F();
 	};
@@ -771,11 +775,15 @@ function _Util() {
 	self.sliderVisible = false;
 	// tracks if slider is currently visible on screen
 	self.sliderProxy = null;
-	self.slideNotify = function(win, bottom, message, hideAll) {
+	self.slideNotify = function(bottom, message, hideAll) {
 		/*
 		 * Function will show a notifier that slides in
 		 */
-
+		var win = Ti.UI.createWindow({
+			bottom: bottom,
+			statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT,
+			height: 300
+		});
 		var completedAnimation = function() {
 			var newAnimation = Ti.UI.createAnimation();
 			newAnimation.duration = 200;
@@ -787,50 +795,49 @@ function _Util() {
 				win.remove(sliderView);
 				noConnectionText = null;
 				sliderView = null;
+				self.sliderVisible = false;
+				self.sliderProxy = false;
+				win.close();
 			});
 
 			newAnimation.animate(sliderView);
+			
 		};
 
-		if ((self.sliderVisible === true || hideAll) && self.sliderProxy) {
-			win.remove(self.sliderProxy);
-			self.sliderVisible = false;
-			self.sliderProxy = null;
-		}
-
-		if (hideAll) {
-			return false;
+		if (self.sliderVisible || hideAll) {
+			self.sliderProxy.fireEvent('click');
+			return;
 		}
 
 		var sliderView = Ti.UI.createView({
-			width : Ti.UI.FILL,
-			height : Ti.UI.SIZE,
-			zIndex : 9999,
-			backgroundGradient : {
-				type : 'linear',
-				startPoint : {
-					x : '100%',
-					y : '0%'
+			width: Ti.UI.FILL,
+			height: Ti.UI.SIZE,
+			zIndex: 9999,
+			backgroundGradient: {
+				type: 'linear',
+				startPoint: {
+					x: '100%',
+					y: '0%'
 				},
-				endPoint : {
-					x : '100%',
-					y : '100%'
+				endPoint: {
+					x: '100%',
+					y: '100%'
 				},
-				colors : ['#b11616', '#871d1d']
+				colors: ['#b11616', '#871d1d']
 			},
-			bottom : bottom ? bottom : 0,
-			opacity : 0,
-			left : -50
+			bottom: bottom ? bottom : 0,
+			opacity: 0,
+			left: -50
 		});
 
 		var noConnectionText = Ti.UI.createLabel({
-			text : message,
-			color : '#ffffff',
-			font : self.getFont(18, 1),
-			top : 5,
-			bottom : 5,
-			height : Ti.UI.SIZE,
-			textAlign : 'center'
+			text: message,
+			color: '#ffffff',
+			font: self.getFont(18, 1),
+			top: 5,
+			bottom: 5,
+			height: Ti.UI.SIZE,
+			textAlign: 'center'
 		});
 
 		sliderView.add(noConnectionText);
@@ -845,16 +852,16 @@ function _Util() {
 			newAnimation.duration = 100;
 			newAnimation.left = 0;
 			newAnimation.backgroundGradient = {
-				type : 'linear',
-				startPoint : {
-					x : '0%',
-					y : '50%'
+				type: 'linear',
+				startPoint: {
+					x: '0%',
+					y: '50%'
 				},
-				endPoint : {
-					x : '100%',
-					y : '50%'
+				endPoint: {
+					x: '100%',
+					y: '50%'
 				},
-				colors : ['#282828', '#1d1c1c']
+				colors: ['#282828', '#1d1c1c']
 			};
 			sliderView.animate(newAnimation);
 			animation.removeEventListener('complete', animationHandler);
@@ -872,6 +879,7 @@ function _Util() {
 		setTimeout(completedAnimation, 10000);
 
 		win.add(sliderView);
+		win.open();
 	};
 
 	/*
@@ -881,7 +889,9 @@ function _Util() {
 	 */
 	self.traverseTable = function(table, level, toExecute) {
 
-		var tableSections = table.data, tableSectionLength = tableSections.length, sectionCounter = 0;
+		var tableSections = table.data,
+			tableSectionLength = tableSections.length,
+			sectionCounter = 0;
 		// Will record the section you are in
 
 		// First iterate through all table sections
@@ -908,4 +918,4 @@ function _Util() {
 
 };
 
-module.exports = new _Util(); 
+module.exports = new _Util();

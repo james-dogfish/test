@@ -522,7 +522,8 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
     setupSelectedQuestion();
     //setup questionSelected to be the first question
 
-
+    // scroll to first item
+    $.listView.scrollToItem(0, 0);
 };
 
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
@@ -866,7 +867,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     }
 
     if (questionObject.validation.minLength != null) {
-        if (value.length < parseInt(questionObject.validation.minLength)) {
+        if (value.length <= parseInt(questionObject.validation.minLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("minLength_error_text") +" "+  questionObject.validation.minLength + " characters";
             return returnObject;
@@ -875,7 +876,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (questionObject.validation.maxLength != null) {
-        if (value.length > parseInt(questionObject.validation.maxLength)) {
+        if (value.length >= parseInt(questionObject.validation.maxLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("maxLength_error_text") +" "+  questionObject.validation.maxLength + " characters";
             return returnObject;
@@ -983,6 +984,16 @@ function moveSectionNextClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
 
+var questionRealTimeValidation = function(e)
+{
+	 e.questionObject = validateEntireQuestion(e.questionObject);
+	 if (e.section != null) {
+    	//alert("updateItemAt");
+        e.section.updateItemAt(e.questionIndex, e.questionObject);
+    }
+};
+exports.questionRealTimeValidation = questionRealTimeValidation;
+
 var questionValueChange = function (e) {
 
     if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
@@ -1067,23 +1078,11 @@ function footerTextButtonClick(e) {
 
 function footerNotesButtonClick(e) {
 
-	if (questionSelected != null) {
+    if (questionSelected != null) {
         //Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-        	
-        	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionRef.question.notes, title : "Question Notes",closeCallBack : function(notes){
-				if(notes != ""){
-					questionRef.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-					questionRef.question.notes = notes; 
-				}
-				else{
-					questionRef.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
-					questionRef.question.notes = ""; 
-				}
-				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-				localDataHandler.updateQuestion(questionRef.question);
-			}});
+            Util.slideNotify(30, questionRef.question.notes, false);
         }
     }
 };

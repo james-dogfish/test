@@ -15,6 +15,7 @@ function showQuestions(){
 			
 			//mandatory firstValue
 			var colouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
+
 			if(questionList[questionIndex].mandatory == true){
 				if(questionList[questionIndex].firstValue == ""){
 					colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
@@ -22,8 +23,15 @@ function showQuestions(){
 				else{
 					colouredBox = Styles["goToMandatoryColouredBox_answered"];
 				}
+			} else {
+				if(!questionList[questionIndex].firstValue == "") {
+					colouredBox = Styles["goToMandatoryColouredBox_answered"];
+				}
 			}
 
+			if(sectionDataObject.pageType==='coreQuestion') {
+				colouredBox = Styles["goToMandatoryColouredBox_n_a"];
+			}
 			
 			questionRowList.push({
 				template : "detailRowQuestionTemplate", 
@@ -55,12 +63,18 @@ var toggleQuestionVisable = function(e){
 
 exports.setdata = function(passedSectionDataObject){
 	sectionDataObject = passedSectionDataObject;
-	
+
 	var sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_nonMandatory"];
-	if(passedSectionDataObject.mandatoryQuestions == true){
-		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
-		if(passedSectionDataObject.unAnsweredMandatoryQuestions == true){
-			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+	if (passedSectionDataObject.pageType === 'coreQuestion') {
+		sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_n_a"];
+	} else {
+		if (passedSectionDataObject.mandatoryQuestions == true) {
+			sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_answered"];
+			if (passedSectionDataObject.unAnsweredMandatoryQuestions == true) {
+				sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+			}
+		} else {
+			// TODO - Need to add condition to set style for answered non-mandatory sections
 		}
 	}
 

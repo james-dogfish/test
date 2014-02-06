@@ -14,7 +14,7 @@ $.sectionSwitch.value = userPreferences.singleView;
 
 if (arguments && arguments[0] && arguments[0].message) {
 	// Show a message now
-	Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
+	Util.slideNotify(0, 'Please provide this information before proceeding. Thanks!');
 }
 
 var blurAllFields = function() {
@@ -27,33 +27,33 @@ var saveSettings = function() {
 	blurAllFields();
 
 	if(!$.name.value) {
-		Util.slideNotify($.window, 0, 'Please provide a valid name.');
+		Util.slideNotify(0, 'Please provide a valid name.');
 		//alert('Please provide a valid name.');
 		return false;
 	}
 
 	if(!Validator.isValidText($.name.value, 50)) {
-		Util.slideNotify($.window, 0, 'Please enter a name that is less than 50 characters.');
+		Util.slideNotify(0, 'Please enter a name that is less than 50 characters.');
 		//alert('Please enter a name that is less than 50 characters.');
 		return false;
 	}
 
 	if(!Validator.isNumber($.mobile.value, 15)) {
 		//alert('Please enter a valid mobile number.');
-		Util.slideNotify($.window, 0, 'Please enter a valid mobile number.');
+		Util.slideNotify(0, 'Please enter a valid mobile number.');
 		return false;
 	}
 
 	// Doing validation checks
 	if (!Validator.isEmail($.email.value)) {
 		//alert('Please provide a valid email address.');
-		Util.slideNotify($.window, 0, 'Please provide a valid email address.');
+		Util.slideNotify(0, 'Please provide a valid email address.');
 		return false;
 	} 
 
 	if(!Validator.isValidText($.email.value, 254)) {
 		//alert('Please enter an email address that is less than 254 characters.');
-		Util.slideNotify($.window, 0, 'Please enter an email address that is less than 254 characters.');
+		Util.slideNotify(0, 'Please enter an email address that is less than 254 characters.');
 		return false;
 	}
 
@@ -65,6 +65,8 @@ var saveSettings = function() {
 		singleView: $.sectionSwitch.value
 	};
 	User.setPreferences(settingsObj);
+
+	Util.slideNotify(0, '', true); // hide any open settings errors
 	
 	Ti.App.fireEvent("singleViewChange", {
 			isSingleView : $.sectionSwitch.value
@@ -77,8 +79,10 @@ var saveSettings = function() {
 var closeSettings = function() {
 	//if(User.hasPreferences())
 	//{
+			
 			$.window.close();
 			$.destroy();
+
 	//}else{
 	//	Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
 	//}
