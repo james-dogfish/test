@@ -138,6 +138,7 @@ function localDataHandler() {
 	                        	sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') && 
 	                        	sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
 	                            
+	                            /*
 	                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
 	                            var newQuestion =  question;
 	                            
@@ -152,6 +153,7 @@ function localDataHandler() {
 	                            	}
 	                            	
 	                            }
+	                           */
 	                                      
 	                            sectionList[sectionIndex].questionList[questionIndex] = question;
 	                            questionFound = true;
@@ -705,6 +707,7 @@ function localDataHandler() {
             		var questionList = returnQuestionSet[returnQuestionSetIndex].questionList;
             		for(var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++)
             		{
+            			Ti.API.info("updateQuestionCount name = "+ questionList[questionListIndex].name);
             			//Count the Mandatory
 	            		if(questionList[questionListIndex].mandatory == true ||
 	            			 questionList[questionListIndex].mandatory == "true"){
@@ -739,7 +742,7 @@ function localDataHandler() {
             assessmentObject.questionCount = mandatoryCount;
             assessmentObject.questionsCompleted = answeredCount;
         }
-        
+        self.updateSingleAssessmentIndexEntry(assessmentObject);
         return assessmentObject;
         }catch(e){
         	Ti.API.info("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e));
