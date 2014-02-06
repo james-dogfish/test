@@ -15,44 +15,7 @@ function selectButtonClicked(e){
 	}
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	if(item.displayValue.value !== "" && e.bindId !== "btnSelect")
-	{
-		 var alert = Titanium.UI.createAlertDialog({
-          title: 'Confirm',
-          message: 'Would you like to re-set your answer?',
-          buttonNames: ['Yes', 'No'],
-          cancel: 1
-        });
-
-        alert.addEventListener('click', function(e) {
-          //Clicked cancel, first check is for iphone, second for android
-          if (e.cancel === e.index || e.cancel === true) {
-            Alloy.Globals.aIndicator.hide();
-            return;
-          }
-
-          //now you can use parameter e to switch/case
-
-          switch (e.index) {
-            case 0:
-             item.displayValue = {value : ""};
-			 item.value = [""];
-			 section.updateItemAt(e.itemIndex, item);
-			 item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-              //showPicker(curE);
-              break;
-
-              //This will never be reached, if you specified cancel for index 1
-            case 1:
-              Alloy.Globals.aIndicator.hide();
-              break;
-
-          }
-        });
-        alert.show();
-	}else{
-		showPicker(curE);
-	}
+	showPicker(curE);
 	
 };
 
