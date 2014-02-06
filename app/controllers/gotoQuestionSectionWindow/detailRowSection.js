@@ -29,17 +29,17 @@ function showQuestions(){
 				}
 			}
 
-			var toPush = {
+			if(sectionDataObject.pageType==='coreQuestion') {
+				colouredBox = Styles["goToMandatoryColouredBox_n_a"];
+			}
+			
+			questionRowList.push({
 				template : "detailRowQuestionTemplate", 
 				groupType : groupType,
 				questionTitle : {text : questionList[questionIndex].title}, 
-				questionIndex : questionList[questionIndex].questionIndex
-			};
-			
-			if(sectionDataObject.pageType!=='coreQuestion') {
-				toPush.colouredBox = colouredBox;
-			}
-			questionRowList.push(toPush);
+				questionIndex : questionList[questionIndex].questionIndex,
+				colouredBox : colouredBox
+			});
 		}
 	}
 	$.section.setItems(questionRowList);

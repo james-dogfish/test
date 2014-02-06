@@ -22,6 +22,8 @@ module.exports =  {
 	"goToMandatoryColouredBox_nonMandatory" : {
 		backgroundColor: "#e17c1a"
 	},
-	
+	"goToMandatoryColouredBox_n_a" : {
+		backgroundColor: "none"
+	}
 };
 
