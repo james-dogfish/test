@@ -482,6 +482,53 @@ function interpreterModule2() {
 	     	return null;
 	     }
     };
+    var testIfQuestionMandatory = function(questionObject){
+    	
+		var conditionalMandatoryList = questionObject.validation.conditionalMandatory;
+    	for(var conditionalMandatoryIndex =0 ; conditionalMandatoryIndex < conditionalMandatoryList.length; conditionalMandatoryIndex++){
+    		
+    		if(conditionalMandatoryList[conditionalMandatoryIndex].question.name in self.questionMap){
+
+    			var questionValues = self.questionMap[conditionalMandatoryList[conditionalMandatoryIndex].question.name].value;
+    			
+    			for(var questionValuesIndex = 0;questionValuesIndex < questionValues.length; questionValuesIndex++){
+    				if(questionValues[questionValuesIndex] == conditionalMandatoryList[conditionalMandatoryIndex].value){
+    					
+    					mandatory = true;
+    					
+				        if (questionObject.title.text.slice(-1) != "*") {
+				            questionObject.title.text = questionObject.title.text + "*";
+				        }
+					    
+    					return questionObject;
+    				}
+    			}
+    		}
+    	}
+    	
+    	return questionObject;
+    };
+    
+    var testIfQuestionVisable = function(questionObject){
+    	
+    	
+    	for(var renderValueIndex =0 ; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+    		
+    		if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
+    			var questionValues = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].value;
+    			
+    			for(var questionValuesIndex = 0;questionValuesIndex < questionValues.length; questionValuesIndex++){
+    				if(questionValues[questionValuesIndex] == questionObject.renderValue[renderValueIndex].value){
+    					
+    					questionObject.visable = true;
+    					return questionObject;
+    				}
+    			}
+    		}
+    	}
+    	
+    	return questionObject;
+    };
 
     var lookQuestionDependencies = function () {
       try{
@@ -506,9 +553,10 @@ function interpreterModule2() {
                     for(var i=0; i< questionNameArray.length; i++){
                     	if(questionNameArray[i] in self.questionMap){
                     		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : self.questionMap[questionNameArray[i]].groupType});
+                    		
                     	}
                     }
-                    
+
                     self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = renderDependenciesQuestionList;
                 }
                 
@@ -699,8 +747,14 @@ function interpreterModule2() {
 	            for (var questionIndex = 0; questionIndex < self.sectionHeaderList[sectionIndex].questionList.length; questionIndex++) {
 	
 	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
+	                
+	                
 	
 	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+	                
+	                questionObject =  testIfQuestionVisable(questionObject);
+	                questionObject =  testIfQuestionMandatory(questionObject);
+                    
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
 	                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
@@ -722,28 +776,6 @@ function interpreterModule2() {
 	               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
 	                	questionObject.template = "censusStartTimerTemplate";
 	               }
-	               
-	               /*
-	               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
-	               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
-	               			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_HGV_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_PED_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_CYC_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_HOOF_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_EQUESTRIAN_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
-	                	questionObject.template = "censusCounterTemplate";
-	               }
-	               */
-	               
-	            	/*
-	               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
-	                	questionObject.readOnly = true;
-	                	questionObject.headerView = Styles["headerViewReadOnly"];
-	               }
-	               */
 	               
 	               
 	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
