@@ -13,12 +13,10 @@ exports.getAssessment = function() {
 
 exports.setAssessment = function(assessmentObject) {
     Alloy.Globals.aIndicator.show();
-
     $.appTitle.text = assessmentObject.crossingName;
     currentAssessmentObject = assessmentObject;
     var sectionList = localDataHandler.openAssessment(assessmentObject);
     $.questionListView.setAssessment(sectionList, assessmentObject);
-
     Alloy.Globals.aIndicator.hide();
 };
 
@@ -28,7 +26,7 @@ exports.clear = function() {
 
 
 function saveAndExitClick(e) {
-    $.appTitle.text = '';
+    $.appTitle.text = ''; 
     if (currentAssessmentObject !== null) {
         localDataHandler.updateQuestionCount(currentAssessmentObject);
     }

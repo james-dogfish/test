@@ -522,7 +522,8 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
     setupSelectedQuestion();
     //setup questionSelected to be the first question
 
-
+    // scroll to first item
+    $.listView.scrollToItem(0, 0);
 };
 
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
