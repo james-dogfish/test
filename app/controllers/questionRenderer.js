@@ -1068,23 +1068,11 @@ function footerTextButtonClick(e) {
 
 function footerNotesButtonClick(e) {
 
-	if (questionSelected != null) {
+    if (questionSelected != null) {
         //Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-        	
-        	Alloy.createController("questionDialogs/userNotesDialog", {notes : questionRef.question.notes, title : "Question Notes",closeCallBack : function(notes){
-				if(notes != ""){
-					questionRef.question.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-					questionRef.question.notes = notes; 
-				}
-				else{
-					questionRef.question.notesBackground = {backgroundImage: 'images/questionNote.png'};
-					questionRef.question.notes = ""; 
-				}
-				questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-				localDataHandler.updateQuestion(questionRef.question);
-			}});
+            Util.slideNotify(30, questionRef.question.notes, false);
         }
     }
 };
