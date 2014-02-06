@@ -482,6 +482,53 @@ function interpreterModule2() {
 	     	return null;
 	     }
     };
+    var testIfQuestionMandatory = function(questionObject){
+    	
+		var conditionalMandatoryList = questionObject.validation.conditionalMandatory;
+    	for(var conditionalMandatoryIndex =0 ; conditionalMandatoryIndex < conditionalMandatoryList.length; conditionalMandatoryIndex++){
+    		
+    		if(conditionalMandatoryList[conditionalMandatoryIndex].question.name in self.questionMap){
+
+    			var questionValues = self.questionMap[conditionalMandatoryList[conditionalMandatoryIndex].question.name].value;
+    			
+    			for(var questionValuesIndex = 0;questionValuesIndex < questionValues.length; questionValuesIndex++){
+    				if(questionValues[questionValuesIndex] == conditionalMandatoryList[conditionalMandatoryIndex].value){
+    					
+    					mandatory = true;
+    					
+				        if (questionObject.title.text.slice(-1) != "*") {
+				            questionObject.title.text = questionObject.title.text + "*";
+				        }
+					    
+    					return questionObject;
+    				}
+    			}
+    		}
+    	}
+    	
+    	return questionObject;
+    };
+    
+    var testIfQuestionVisable = function(questionObject){
+    	
+    	
+    	for(var renderValueIndex =0 ; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
+    		
+    		if(questionObject.renderValue[renderValueIndex].question.name in self.questionMap){
+    			var questionValues = self.questionMap[questionObject.renderValue[renderValueIndex].question.name].value;
+    			
+    			for(var questionValuesIndex = 0;questionValuesIndex < questionValues.length; questionValuesIndex++){
+    				if(questionValues[questionValuesIndex] == questionObject.renderValue[renderValueIndex].value){
+    					
+    					questionObject.visable = true;
+    					return questionObject;
+    				}
+    			}
+    		}
+    	}
+    	
+    	return questionObject;
+    };
 
     var lookQuestionDependencies = function () {
       try{
@@ -506,9 +553,10 @@ function interpreterModule2() {
                     for(var i=0; i< questionNameArray.length; i++){
                     	if(questionNameArray[i] in self.questionMap){
                     		renderDependenciesQuestionList.push({name : questionNameArray[i],  groupType : self.questionMap[questionNameArray[i]].groupType});
+                    		
                     	}
                     }
-                    
+
                     self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = renderDependenciesQuestionList;
                 }
                 
@@ -705,8 +753,14 @@ function interpreterModule2() {
 					};
 					
 	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
+	                
+	                
 	
 	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+	                
+	                questionObject =  testIfQuestionVisable(questionObject);
+	                questionObject =  testIfQuestionMandatory(questionObject);
+                    
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
 	                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
@@ -729,6 +783,7 @@ function interpreterModule2() {
 	                	questionObject.template = "censusStartTimerTemplate";
 	               }
 	               
+<<<<<<< HEAD
 	               /*
 	               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
 	               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
@@ -751,6 +806,8 @@ function interpreterModule2() {
 	               }
 	               */
 	               
+=======
+>>>>>>> f41884a4b93e92de1f4fc61c488b6f5509dece43
 	               
 	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
 	               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
