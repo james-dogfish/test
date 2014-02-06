@@ -3,4 +3,22 @@
 	borderTop:"true",
 	borderBottom:"true",
 	barColor:"#084f6f"
+},
+"#window": {
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+},
+"#appTitle" : {
+	text : "",
+	font : {
+		fontSize : 20,
+		fontWeight : 'bold'
+	},
+	color : '#ffffff'	
+},
+".goto": {
+	left: 10,
+	right: 10
+},
+".save": {
+	left: 80
 }

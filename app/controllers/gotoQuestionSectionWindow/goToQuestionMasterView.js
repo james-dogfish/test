@@ -15,7 +15,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 
 
 var addSectionToPageList= function(section){
-	
+
 	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){
 		if(pageList[pageIndex].name == section.pageName){     
             
@@ -69,6 +69,7 @@ var addSectionToPageList= function(section){
 	}
 	else if(section.pageType == "coreQuestion"){
 		newPage.template = "masterRowTemplate";
+		newPage.colouredBox = Styles["goToMandatoryColouredBox_n_a"];
 	}
 	
 	newPage.sectionList.push(section);

@@ -2,9 +2,12 @@
 	<Tab title="questionsTab" active="false">
 		<Window id="window" tabBarHidden="true" navBarHidden="true" layout="vertical">
 			<Toolbar id="toolbar" platform="ios">
-				<Button class="systemButton" onClick="saveAndExitClick" left="10">
-					<Label class="systemButtonText" text="Save And Exit" onClick="saveAndExitClick" />
+				<Button class="systemButton goto" onClick="showGoto">
+					<Label class="systemButtonText" text="Go To" onClick="showGoto" />
 				</Button>
+				<!-- <Button class="systemButton save" onClick="saveAndExitClick">
+					<Label class="systemButtonText" text="Save And Exit" onClick="saveAndExitClick" />
+				</Button> -->
 				<Label id="appTitle"/>
 				<Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" >
 					<Label class="systemButtonText" text="Menu" onClick="openMenu" />
