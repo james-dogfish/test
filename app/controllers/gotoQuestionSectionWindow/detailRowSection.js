@@ -22,6 +22,10 @@ function showQuestions(){
 				else{
 					colouredBox = Styles["goToMandatoryColouredBox_answered"];
 				}
+			} else {
+				if(!questionList[questionIndex].firstValue == "") {
+					colouredBox = Styles["goToMandatoryColouredBox_answered"];
+				}
 			}
 
 			

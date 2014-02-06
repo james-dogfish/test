@@ -15,7 +15,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 
 
 var addSectionToPageList= function(section){
-	
+
 	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){
 		if(pageList[pageIndex].name == section.pageName){     
             

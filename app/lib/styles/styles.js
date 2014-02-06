@@ -14,13 +14,13 @@ module.exports =  {
 		backgroundColor: "#A9DDEE"
 	},
 	"goToMandatoryColouredBox_answered" : {
-		backgroundColor: "#0f0"
+		backgroundColor: "#1ec21e"
 	},
 	"goToMandatoryColouredBox_unanswered" : {
-		backgroundColor: "#f00"
+		backgroundColor: "#c01212"
 	},
 	"goToMandatoryColouredBox_nonMandatory" : {
-		backgroundColor: "#00f"
+		backgroundColor: "#e17c1a"
 	},
 	
 };
