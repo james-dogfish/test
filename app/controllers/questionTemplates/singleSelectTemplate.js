@@ -1,8 +1,7 @@
 function selectButtonClicked(e){
-	var curE = e;
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
-	e.source.clearButtonMode = Titanium.UI.INPUT_BUTTONMODE_ONBLUR;
+
 	/*
 	Ti.App.fireEvent("questionSelected", {
 		questionObject : item
@@ -15,8 +14,7 @@ function selectButtonClicked(e){
 	}
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	showPicker(curE);
-	
+	showPicker(e);
 };
 
 function showPicker(e)

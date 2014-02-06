@@ -867,7 +867,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     }
 
     if (questionObject.validation.minLength != null) {
-        if (value.length < parseInt(questionObject.validation.minLength)) {
+        if (value.length <= parseInt(questionObject.validation.minLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("minLength_error_text") +" "+  questionObject.validation.minLength + " characters";
             return returnObject;
@@ -876,7 +876,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (questionObject.validation.maxLength != null) {
-        if (value.length > parseInt(questionObject.validation.maxLength)) {
+        if (value.length >= parseInt(questionObject.validation.maxLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("maxLength_error_text") +" "+  questionObject.validation.maxLength + " characters";
             return returnObject;
@@ -983,6 +983,16 @@ function moveSectionBackClick(e) {
 function moveSectionNextClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
+
+var questionRealTimeValidation = function(e)
+{
+	 e.questionObject = validateEntireQuestion(e.questionObject);
+	 if (e.section != null) {
+    	//alert("updateItemAt");
+        e.section.updateItemAt(e.questionIndex, e.questionObject);
+    }
+};
+exports.questionRealTimeValidation = questionRealTimeValidation;
 
 var questionValueChange = function (e) {
 

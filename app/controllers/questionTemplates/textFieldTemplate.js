@@ -1,3 +1,10 @@
+function onTextFieldChange(e){
+	var item = e.section.getItemAt(e.itemIndex);
+	item.value[0] = e.value;
+	
+	Alloy.Globals.questionRenderer.questionRealTimeValidation({questionObject : item, questionIndex : e.itemIndex, section : e.section});
+};
+
 function onTextFieldBlur(e){
 	//Alloy.createController("userNotificationWindows/activityIndicatorDialog").show(); 
 	//alert("e.itemIndex : "+e.itemIndex);
