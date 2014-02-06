@@ -45,9 +45,7 @@ var addSectionToPageList= function(section){
 	
 	if(section.mandatoryQuestions == true){
 		newPage.mandatoryQuestions = true;
-		newPage.colouredBox = Styles["goToMandatoryColouredBox_answered"];
 		if(section.unAnsweredMandatoryQuestions == true){
-			newPage.colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
 			newPage.unAnsweredMandatoryQuestions = true;
 		}
 	}
@@ -86,6 +84,16 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 	for(var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++){	
 		addSectionToPageList(sectionList[sectionListIndex]);
 	}
+	
+	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){	
+		if(pageList[pageIndex].mandatoryQuestions == true){
+			pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_answered"];
+			if(pageList[pageIndex].unAnsweredMandatoryQuestions == true){
+				pageList[pageIndex].colouredBox = Styles["goToMandatoryColouredBox_unanswered"];
+			}
+		}
+	}
+	
 	$.section.setItems(pageList);
 };
 
