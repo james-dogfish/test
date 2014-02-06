@@ -73,6 +73,8 @@ exports.setdata = function(passedSectionDataObject){
 			if (passedSectionDataObject.unAnsweredMandatoryQuestions == true) {
 				sectionHeaderColouredBox = Styles["goToMandatoryColouredBox_unanswered"];
 			}
+		} else {
+			// TODO - Need to add condition to set style for answered non-mandatory sections
 		}
 	}
 
