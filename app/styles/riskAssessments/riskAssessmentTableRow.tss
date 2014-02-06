@@ -67,4 +67,11 @@
 */
 "#commitResponseView" : { 
 	height : 0
+},
+"#commitStatusLabelList" : { 
+	height: Ti.UI.SIZE,
+	left: "200dp",
+	top: "5dp",
+	bottom : "5dp",
+	layout: 'vertical',
 }

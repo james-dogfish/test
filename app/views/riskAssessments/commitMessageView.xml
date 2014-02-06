@@ -1,0 +1,6 @@
+<Alloy>
+	<View id="container">
+		<Label id="commitIcon" />
+		<Label id="commitStatusLabel">Commit </Label>
+	</View>
+</Alloy>
