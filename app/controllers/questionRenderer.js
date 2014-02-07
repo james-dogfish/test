@@ -115,6 +115,9 @@ var newFindQuestionObject = function (questionName, groupType) {
 var newTestDependentQuestions = function (questionObject) {
 	
     var addToSectionMap = [];
+    
+    Ti.API.info("addToSectionMap hiddenQuestions = "+JSON.stringify(hiddenQuestions));
+    
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
 			if(typeof hiddenQuestions[questionIndex].name === "undefined")
@@ -122,11 +125,14 @@ var newTestDependentQuestions = function (questionObject) {
 				continue;
 			}
             if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
+            	
                 if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
+                	
                     if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {
+                    	
                         addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
                     }
-
+					Ti.API.info("addToSectionMap question name = "+hiddenQuestions[questionIndex].name);
                     addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
                     hiddenQuestions.splice(questionIndex, 1);
                     questionIndex--;
@@ -510,7 +516,7 @@ var setupSelectedQuestion = function () {
 
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
-		Ti.API.info("setAssessment == "+JSON.stringify(JASON_sectionList));
+		//Ti.API.info("setAssessment == "+JSON.stringify(JASON_sectionList));
 	    currentAssessmentObject = assessmentObject;
 	
 	    hiddenQuestions = [];
@@ -1080,6 +1086,7 @@ var questionValueChange = function (e) {
 
     //testIfQuestionsNeedToBeRemoved(e.questionObject);
     //testIfQuestionsNeedToBeAdded(e.questionObject);
+    Ti.API.info("questionRender question name = "+e.questionObject.name);
     newTestDependentQuestions(e.questionObject);
  
 

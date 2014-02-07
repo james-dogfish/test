@@ -35,21 +35,22 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 			
 			this.timer = setInterval( function() {
 
-				if (self.totalSec) {
 					
-					var timeNow = moment();
-					var milliSecondDiff = timeNow.diff(Alloy.Globals.survey.lastUpdate, 'milliseconds');
-					var newDuration = Number(Alloy.Globals.survey.duration) - Number(milliSecondDiff);
-					Alloy.Globals.survey.duration = moment.duration(newDuration, 'milliseconds');
+				var timeNow = moment();
+				var milliSecondDiff = timeNow.diff(Alloy.Globals.survey.lastUpdate, 'milliseconds');
+				var newDuration = Number(Alloy.Globals.survey.duration) - Number(milliSecondDiff);
+				Alloy.Globals.survey.duration = moment.duration(newDuration, 'milliseconds');
 				
-					fn_tick(moment(Alloy.Globals.survey.duration.asMilliseconds()).format('mm:ss'));
-					
-					Alloy.Globals.survey.lastUpdate = timeNow;
-				}
-				else {
+				if(Alloy.Globals.survey.duration.asMilliseconds() < 0){
 					self.stop();
 					fn_end();
 				}
+				else{
+			
+					fn_tick(moment(Alloy.Globals.survey.duration.asMilliseconds()).format('mm:ss'));
+					Alloy.Globals.survey.lastUpdate = timeNow;
+				}
+		
 				}, 1000);
 				
 			return this;

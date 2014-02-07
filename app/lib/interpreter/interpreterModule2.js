@@ -20,7 +20,7 @@ function interpreterModule2() {
     var removedSectionsMap = [];
 	var removedQuestionsMap = [];
 	var hiddenQuestionsMap = [];
-
+	var censusCounterQuestionMap = [];
 
 
     var ui_types_map = {};
@@ -712,7 +712,7 @@ function interpreterModule2() {
     	try{
     		var userPreferences = Alloy.Globals.User.getPreferences();
 	    	//Ti.API.info("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'));
-	    	var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
+	    	//var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
 	    		
 	        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
 	        	
@@ -762,6 +762,9 @@ function interpreterModule2() {
 	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID in hiddenQuestionsMap){
 	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].visable = false;
 	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = [];
+	                }
+	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID in censusCounterQuestionMap){
+	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "censusCounterTemplate";
 	                }
 	                
 	                
@@ -814,11 +817,14 @@ function interpreterModule2() {
 	               }
 	               */
 	               
+	               /*
 	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
 	               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
 	               			questionObject.template = "censusCounterTemplate";
 	               		}
 	               }
+	               */
+	               
 	               
 	                
 	                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){
@@ -894,9 +900,19 @@ function interpreterModule2() {
     		var hiddenQuestions = Ti.App.Properties.getList("hiddenQuestions", []);
     		Ti.API.info("hiddenQuestions = "+JSON.stringify(hiddenQuestions));
     		hiddenQuestionsMap = [];
-			for(var i=0; i< hiddenQuestionsMap.length; i++){
+			for(var i=0; i< hiddenQuestions.length; i++){
 				hiddenQuestionsMap[hiddenQuestions[i]] = true;
 			}
+			
+			var censusCounterQuestions = Ti.App.Properties.getList("censusCounterQuestions", []);
+    		Ti.API.info("censusCounterQuestions = "+JSON.stringify(censusCounterQuestions));
+    		censusCounterQuestionMap = [];
+			for(var i=0; i< censusCounterQuestions.length; i++){
+				censusCounterQuestionMap[censusCounterQuestions[i]] = true;
+			}
+			
+			
+			
     };
     
 

@@ -1,4155 +1,2693 @@
-{
-	"response": {
-		"Envelope": {
-			"Header": {
-				"versionInfo": {
-					"version": "0.1",
-					"module": "Questions"
-				}
-			},
-			"Body": {
-				"GetQuestionsResponse": {
-					"questions": [{
-						"parameterName": "LAST_ASSESSMENT_DATE",
-						"order": "1",
-						"group": "Collector",
-						"text": "Assessment Date",
-						"firstTab": "Collector",
-						"helpText": "LAST_ASSESSMENT_DATE Help",
-						"notesText": "LAST_ASSESSMENT_DATE Notes",
-						"type": "date",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ASSESSMENT_TITLE",
-						"order": "2",
-						"group": "Collector",
-						"text": "Assessment Title",
-						"firstTab": "Collector",
-						"helpText": "I_ASSESSMENT_TITLE Help",
-						"notesText": "I_ASSESSMENT_TITLE Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "200",
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_COLLECTOR_NAME",
-						"order": "3",
-						"group": "Collector",
-						"text": "Collector Name",
-						"firstTab": "Collector",
-						"helpText": "I_COLLECTOR_NAME Help",
-						"notesText": "I_COLLECTOR_NAME Notes",
-						"type": "alpha",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "50",
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "PHONE_NUMBER",
-						"order": "4",
-						"group": "Collector",
-						"text": "Collector Phone Number",
-						"firstTab": "Collector",
-						"helpText": "PHONE_NUMBER Help",
-						"notesText": "PHONE_NUMBER Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "15",
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "EMAIL_ADDRESS",
-						"order": "5",
-						"group": "Collector",
-						"text": "Collector Email",
-						"firstTab": "Collector",
-						"helpText": "EMAIL_ADDRESS Help",
-						"notesText": "EMAIL_ADDRESS Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "254",
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLANNED_OR_REACTIVE",
-						"order": "6",
-						"group": "Collector",
-						"text": "Is the Assessment Planned\/Reactive or Other?",
-						"firstTab": "Collector",
-						"helpText": "I_PLANNED_OR_REACTIVE Help",
-						"notesText": "I_PLANNED_OR_REACTIVE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_PED_EST",
-							"value": "8199",
-							"displayValue": "WEEKLY"
-						}, {
-							"name": "I_PED_EST",
-							"value": "8200",
-							"displayValue": "FEW"
-						}, {
-							"name": "I_PED_EST",
-							"value": "8201",
-							"displayValue": "NO"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLANNED_OR_REACTIVE_NOTES",
-						"order": "7",
-						"group": "Collector",
-						"text": "If other please state..",
-						"firstTab": "Collector",
-						"helpText": "I_PLANNED_OR_REACTIVE_NOTES Help",
-						"notesText": "I_PLANNED_OR_REACTIVE_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "200",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_PLANNED_OR_REACTIVE",
-							"parameterValue": "853"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STAKEHOLDER_INFO",
-						"order": "101",
-						"group": "RiskAssessmentInfo",
-						"text": "Which Key Stakeholder(s) have been engaged with during the risk assessment?",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "I_STAKEHOLDER_INFO Help",
-						"notesText": "I_STAKEHOLDER_INFO Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SLEEPING_DOG_CRITERIA",
-							"value": "610",
-							"displayValue": "There is no trace of a crossing at or in the vicinity of the mileage shown for the crossing.There is no trace of a crossing at or in the vicinity of the mileage shown for the crossing."
-						}, {
-							"name": "I_SLEEPING_DOG_CRITERIA",
-							"value": "611",
-							"displayValue": "The fence lines are complete on both sides of the line but there is no evidence that the crossing is used."
-						}, {
-							"name": "I_SLEEPING_DOG_CRITERIA",
-							"value": "612",
-							"displayValue": "The fence lines are broken but there is no stile or gate provision and there is no evidence of persons crossing the line."
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "837",
-							"displayValue": "Authorised User"
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "838",
-							"displayValue": "Local Business"
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "839",
-							"displayValue": "Local Community Group (e.g. Ramblers Association, Equestrians, Cyclists) Please State..."
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "840",
-							"displayValue": "Local Resident"
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "841",
-							"displayValue": "Highway Authority\/Local Authority"
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "842",
-							"displayValue": "Planning Authority"
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "843",
-							"displayValue": "Internal Stakeholder (e.g. Signaller, MOM, LOM) Please State..."
-						}, {
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "844",
-							"displayValue": "Train Operator"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "STAKEHOLDER_INFO_COMMUNITY",
-						"order": "102",
-						"group": "RiskAssessmentInfo",
-						"text": "Local Community Group (e.g. Ramblers Association, Equestrians, Cyclists) Please State...",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "STAKEHOLDER_INFO_COMMUNITY Help",
-						"notesText": "STAKEHOLDER_INFO_COMMUNITY Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_INFO",
-							"parameterValue": "839"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "STAKEHOLDER_INFO_INTERNAL",
-						"order": "103",
-						"group": "RiskAssessmentInfo",
-						"text": "Internal Stakeholder (e.g. Signer, MOM, LOM) Please State...",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "STAKEHOLDER_INFO_INTERNAL Help",
-						"notesText": "STAKEHOLDER_INFO_INTERNAL Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_INFO",
-							"parameterValue": "843"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "STAKEHOLDER_INFO_OTHER",
-						"order": "104",
-						"group": "RiskAssessmentInfo",
-						"text": "Other (e.g. ORR) Please State...",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "STAKEHOLDER_INFO_OTHER Help",
-						"notesText": "STAKEHOLDER_INFO_OTHER Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_INFO",
-							"parameterValue": "847"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STAKEHOLDER_USER_ATTENDED",
-						"order": "105",
-						"group": "RiskAssessmentInfo",
-						"text": "Did the key stakeholder(s) attend the Risk Assessment?",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "I_STAKEHOLDER_USER_ATTENDED Help",
-						"notesText": "I_STAKEHOLDER_USER_ATTENDED Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_STAKEHOLDER_INFO",
-							"value": "847",
-							"displayValue": "Other (e.g. ORR) Please State..."
-						}, {
-							"name": "I_STAKEHOLDER_USER_ATTENDED",
-							"value": "792",
-							"displayValue": "Yes"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SELECTED_STAKEHOLDER_INFO",
-						"order": "106",
-						"group": "RiskAssessmentInfo",
-						"text": "If yes who attended?",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "I_SELECTED_STAKEHOLDER_INFO Help",
-						"notesText": "I_SELECTED_STAKEHOLDER_INFO Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_ROUTE",
-							"value": "WALES",
-							"displayValue": "WALES"
-						}, {
-							"name": "I_ROUTE",
-							"value": "WESSEX",
-							"displayValue": "WESSEX"
-						}, {
-							"name": "I_ROUTE",
-							"value": "WESTERN",
-							"displayValue": "WESTERN"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "861",
-							"displayValue": "Authorised User"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "862",
-							"displayValue": "Local Business"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "863",
-							"displayValue": "Local Community Group"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "864",
-							"displayValue": "Local Resident"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "865",
-							"displayValue": "Highway Authority\/Local Authority"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "866",
-							"displayValue": "Planning Authority"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "867",
-							"displayValue": "Internal Stakeholder"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "868",
-							"displayValue": "Train Operator"
-						}],
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_USER_ATTENDED",
-							"parameterValue": "790"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STAKEHOLDER_USER_REASON",
-						"order": "107",
-						"group": "RiskAssessmentInfo",
-						"text": "If no why did they not attend?",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "I_STAKEHOLDER_USER_REASON Help",
-						"notesText": "I_STAKEHOLDER_USER_REASON Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_STAKEHOLDER_USER_ATTENDED",
-							"value": "793",
-							"displayValue": "No"
-						}, {
-							"name": "I_STAKEHOLDER_USER_ENGAGED",
-							"value": "790",
-							"displayValue": "Yes"
-						}, {
-							"name": "I_STAKEHOLDER_USER_ENGAGED",
-							"value": "791",
-							"displayValue": "No"
-						}, {
-							"name": "I_STAKEHOLDER_USER_REASON",
-							"value": "794",
-							"displayValue": "Not available on that date?"
-						}],
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_USER_ATTENDED",
-							"parameterValue": "791"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "NOT_REQUIRED_REASON",
-						"order": "108",
-						"group": "RiskAssessmentInfo",
-						"text": "Please state why they are not required to attend:",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "NOT_REQUIRED_REASON Help",
-						"notesText": "NOT_REQUIRED_REASON Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_USER_REASON",
-							"parameterValue": "796"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "OTHER_REASON",
-						"order": "109",
-						"group": "RiskAssessmentInfo",
-						"text": "Please state other reason why they did not attend:",
-						"firstTab": "Risk Assessment Info",
-						"helpText": "OTHER_REASON Help",
-						"notesText": "OTHER_REASON Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_STAKEHOLDER_USER_REASON",
-							"parameterValue": "797"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CCIL",
-						"order": "201",
-						"group": "ReferenceSource",
-						"text": "CCIL",
-						"firstTab": "Reference Source",
-						"helpText": "I_CCIL Help",
-						"notesText": "I_CCIL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CCIL_NOTES",
-						"order": "202",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_CCIL_NOTES Help",
-						"notesText": "I_CCIL_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_CCIL",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SMIS",
-						"order": "203",
-						"group": "ReferenceSource",
-						"text": "SMIS",
-						"firstTab": "Reference Source",
-						"helpText": "I_SMIS Help",
-						"notesText": "I_SMIS Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SMIS_NOTES",
-						"order": "204",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_SMIS_NOTES Help",
-						"notesText": "I_SMIS_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_SMIS",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OMNI",
-						"order": "205",
-						"group": "ReferenceSource",
-						"text": "Omni Surveyor",
-						"firstTab": "Reference Source",
-						"helpText": "I_OMNI Help",
-						"notesText": "I_OMNI Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OMNI_NOTES",
-						"order": "206",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_OMNI_NOTES Help",
-						"notesText": "I_OMNI_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_OMNI",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_GI_PORTAL",
-						"order": "207",
-						"group": "ReferenceSource",
-						"text": "GI Portal",
-						"firstTab": "Reference Source",
-						"helpText": "I_GI_PORTAL Help",
-						"notesText": "I_GI_PORTAL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_GI_PORTAL_NOTES",
-						"order": "208",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_GI_PORTAL_NOTES Help",
-						"notesText": "I_GI_PORTAL_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_GI_PORTAL",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CCTV",
-						"order": "209",
-						"group": "ReferenceSource",
-						"text": "CCTV (e.g. MCB-CCTV, covert equipment, local authority cameras)",
-						"firstTab": "Reference Source",
-						"helpText": "I_CCTV Help",
-						"notesText": "I_CCTV Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CCTV_NOTES",
-						"order": "210",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_CCTV_NOTES Help",
-						"notesText": "I_CCTV_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_CCTV",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CENSUS_COUNTER",
-						"order": "211",
-						"group": "ReferenceSource",
-						"text": "Census Counter (e.g. pressure pads, wildlife cameras, traffic surveys)",
-						"firstTab": "Reference Source",
-						"helpText": "I_CENSUS_COUNTER Help",
-						"notesText": "I_CENSUS_COUNTER Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CENSUS_COUNTER_NOTES",
-						"order": "212",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_CENSUS_COUNTER_NOTES Help",
-						"notesText": "I_CENSUS_COUNTER_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_CENSUS_COUNTER",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OCCURANCE_LOG",
-						"order": "213",
-						"group": "ReferenceSource",
-						"text": "Level Crossing Occurrence Log",
-						"firstTab": "Reference Source",
-						"helpText": "I_OCCURANCE_LOG Help",
-						"notesText": "I_OCCURANCE_LOG Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OCCURANCE_LOG_NOTES",
-						"order": "214",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_OCCURANCE_LOG_NOTES Help",
-						"notesText": "I_OCCURANCE_LOG_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_OCCURANCE_LOG",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_KEEPER_RECORD",
-						"order": "215",
-						"group": "ReferenceSource",
-						"text": "Crossing Attendant\/Keepers Records",
-						"firstTab": "Reference Source",
-						"helpText": "I_KEEPER_RECORD Help",
-						"notesText": "I_KEEPER_RECORD Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_KEEPER_RECORD_NOTES",
-						"order": "216",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_KEEPER_RECORD_NOTES Help",
-						"notesText": "I_KEEPER_RECORD_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_KEEPER_RECORD",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VISITOR_LOG",
-						"order": "217",
-						"group": "ReferenceSource",
-						"text": "Authorised User Site Visitor Log Book (e.g. Business, Farmer)",
-						"firstTab": "Reference Source",
-						"helpText": "I_VISITOR_LOG Help",
-						"notesText": "I_VISITOR_LOG Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VISITOR_LOG_NOTES",
-						"order": "218",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_VISITOR_LOG_NOTES Help",
-						"notesText": "I_VISITOR_LOG_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_VISITOR_LOG",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ENFORCEMENT_CAMERA",
-						"order": "219",
-						"group": "ReferenceSource",
-						"text": "Enforcement Cameras (e.g. static camera equipment, mobile enforcement vehicles)",
-						"firstTab": "Reference Source",
-						"helpText": "I_ENFORCEMENT_CAMERA Help",
-						"notesText": "I_ENFORCEMENT_CAMERA Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ENFORCEMENT_CAMERA_NOTES",
-						"order": "220",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_ENFORCEMENT_CAMERA_NOTES Help",
-						"notesText": "I_ENFORCEMENT_CAMERA_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_ENFORCEMENT_CAMERA",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VOICE_RECORDER",
-						"order": "221",
-						"group": "ReferenceSource",
-						"text": "Signal Box Voice Recorders",
-						"firstTab": "Reference Source",
-						"helpText": "I_VOICE_RECORDER Help",
-						"notesText": "I_VOICE_RECORDER Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VOICE_RECORDER_NOTES",
-						"order": "222",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_VOICE_RECORDER_NOTES Help",
-						"notesText": "I_VOICE_RECORDER_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_VOICE_RECORDER",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OTHER_REFERENCE",
-						"order": "223",
-						"group": "ReferenceSource",
-						"text": "Other?",
-						"firstTab": "Reference Source",
-						"helpText": "I_OTHER_REFERENCE Help",
-						"notesText": "I_OTHER_REFERENCE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OTHER_REFERENCE_NOTES",
-						"order": "224",
-						"group": "ReferenceSource",
-						"text": "Provide Details:",
-						"firstTab": "Reference Source",
-						"helpText": "I_OTHER_REFERENCE_NOTES Help",
-						"notesText": "I_OTHER_REFERENCE_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_OTHER_REFERENCE",
-								"parameterValue": "608"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_REFERENCE_NONE",
-						"order": "225",
-						"group": "ReferenceSource",
-						"text": "If none of these sources have been used, please state why (mandatory):",
-						"firstTab": "Reference Source",
-						"helpText": "I_REFERENCE_NONE Help",
-						"notesText": "I_REFERENCE_NONE Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "true",
-							"conditionalMandatory": [{
-								"parameterName": "I_CCIL",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_SMIS",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_OMNI",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_GI_PORTAL",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_CENSUS_COUNTER",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_OCCURANCE_LOG",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_VISITOR_LOG",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_ENFORCEMENT_CAMERA",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_VOICE_RECORDER",
-								"parameterValue": "609"
-							}, {
-								"parameterName": "I_OTHER_REFERENCE",
-								"parameterValue": "609"
-							}]
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_REFERENCE_DETAILS",
-						"order": "226",
-						"group": "ReferenceSource",
-						"text": "Please provide details of the information gathered:",
-						"firstTab": "Reference Source",
-						"helpText": "I_REFERENCE_DETAILS Help",
-						"notesText": "I_REFERENCE_DETAILS Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1024",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UPSIDE_APPROACH",
-						"order": "301",
-						"group": "Photograph",
-						"text": "Up side crossing approach",
-						"firstTab": "Photographs",
-						"helpText": "I_UPSIDE_APPROACH Help",
-						"notesText": "I_UPSIDE_APPROACH Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UPSIDE_ACROSS",
-						"order": "302",
-						"group": "Photograph",
-						"text": "Up side looking across crossing",
-						"firstTab": "Photographs",
-						"helpText": "I_UPSIDE_ACROSS Help",
-						"notesText": "I_UPSIDE_ACROSS Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UPSIDE_UP_DIRECTION",
-						"order": "303",
-						"group": "Photograph",
-						"text": "Up side looking toward up direction train approach",
-						"firstTab": "Photographs",
-						"helpText": "I_UPSIDE_UP_DIRECTION Help",
-						"notesText": "I_UPSIDE_UP_DIRECTION Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UPSIDE_DOWN_DIRECTION",
-						"order": "304",
-						"group": "Photograph",
-						"text": "Up side looking toward down direction train approach",
-						"firstTab": "Photographs",
-						"helpText": "I_UPSIDE_DOWN_DIRECTION Help",
-						"notesText": "I_UPSIDE_DOWN_DIRECTION Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWNSIDE_APPROACH",
-						"order": "305",
-						"group": "Photograph",
-						"text": "Down side crossing approach",
-						"firstTab": "Photographs",
-						"helpText": "I_DOWNSIDE_APPROACH Help",
-						"notesText": "I_DOWNSIDE_APPROACH Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWNSIDE_ACROSS",
-						"order": "306",
-						"group": "Photograph",
-						"text": "Down side looking across crossing",
-						"firstTab": "Photographs",
-						"helpText": "I_DOWNSIDE_ACROSS Help",
-						"notesText": "I_DOWNSIDE_ACROSS Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWNSIDE_UPDIRECTION",
-						"order": "307",
-						"group": "Photograph",
-						"text": "Down side looking toward up direction train approach",
-						"firstTab": "Photographs",
-						"helpText": "I_DOWNSIDE_UPDIRECTION Help",
-						"notesText": "I_DOWNSIDE_UPDIRECTION Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWNSIDE_DOWN_DIRECTION",
-						"order": "308",
-						"group": "Photograph",
-						"text": "Down side looking toward down direction train approach",
-						"firstTab": "Photographs",
-						"helpText": "I_DOWNSIDE_DOWN_DIRECTION Help",
-						"notesText": "I_DOWNSIDE_DOWN_DIRECTION Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CROSSING_EQUIPMENT",
-						"order": "309",
-						"group": "Photograph",
-						"text": "Signs\/lights\/crossing equipment on both up and down sides",
-						"firstTab": "Photographs",
-						"helpText": "I_CROSSING_EQUIPMENT Help",
-						"notesText": "I_CROSSING_EQUIPMENT Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PHOTOGRAPH_NOTES",
-						"order": "310",
-						"group": "Photograph",
-						"text": "Photograph Notes",
-						"firstTab": "Photographs",
-						"helpText": "I_PHOTOGRAPH_NOTES Help",
-						"notesText": "I_PHOTOGRAPH_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CONDUCTOR",
-						"order": "401",
-						"group": "EnvironmentGeneral",
-						"text": "Is power to the line supplied by conductor rail",
-						"firstTab": "Environment",
-						"secondTab": "General",
-						"helpText": "I_CONDUCTOR Help",
-						"notesText": "I_CONDUCTOR Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_CONDUCTOR",
-							"value": "404",
-							"displayValue": "YES"
-						}, {
-							"name": "I_CONDUCTOR",
-							"value": "405",
-							"displayValue": "NO"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OHLE",
-						"order": "402",
-						"group": "EnvironmentGeneral",
-						"text": "Is power supplied by OHLE",
-						"firstTab": "Environment",
-						"secondTab": "General",
-						"helpText": "I_OHLE Help",
-						"notesText": "I_OHLE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_NUM_TRACKS",
-							"value": "448",
-							"displayValue": "4"
-						}, {
-							"name": "I_NUM_TRACKS",
-							"value": "449",
-							"displayValue": "5"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_POINTS_UP",
-						"order": "403",
-						"group": "EnvironmentUp",
-						"text": "Distance to a set of points",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_POINTS_UP Help",
-						"notesText": "I_POINTS_UP Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CROSSING_UP",
-						"order": "404",
-						"group": "EnvironmentUp",
-						"text": "Distance to another crossing",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_CROSSING_UP Help",
-						"notesText": "I_CROSSING_UP Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CUTTING_UP",
-						"order": "405",
-						"group": "EnvironmentUp",
-						"text": "Distance to a cutting",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_CUTTING_UP Help",
-						"notesText": "I_CUTTING_UP Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_UP_L",
-						"order": "406",
-						"group": "EnvironmentUp",
-						"text": "Distance to a platform (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_PLATFORM_UP_L Help",
-						"notesText": "I_PLATFORM_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_UP_W_L",
-						"order": "407",
-						"group": "EnvironmentUp",
-						"text": "Distance to a platform (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_PLATFORM_UP_W_L Help",
-						"notesText": "I_PLATFORM_UP_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_UP_W_R",
-						"order": "408",
-						"group": "EnvironmentUp",
-						"text": "Distance to a platform (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_PLATFORM_UP_W_R Help",
-						"notesText": "I_PLATFORM_UP_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_UP_R",
-						"order": "409",
-						"group": "EnvironmentUp",
-						"text": "Distance to a platform (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_PLATFORM_UP_R Help",
-						"notesText": "I_PLATFORM_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_UP_L",
-						"order": "410",
-						"group": "EnvironmentUp",
-						"text": "Distance to a tunnel or overbridge (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_TUNNEL_UP_L Help",
-						"notesText": "I_TUNNEL_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_UP_W_L",
-						"order": "411",
-						"group": "EnvironmentUp",
-						"text": "Distance to a tunnel or overbridge (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_TUNNEL_UP_W_L Help",
-						"notesText": "I_TUNNEL_UP_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_UP_W_R",
-						"order": "412",
-						"group": "EnvironmentUp",
-						"text": "Distance to a tunnel or overbridge (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_TUNNEL_UP_W_R Help",
-						"notesText": "I_TUNNEL_UP_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_UP_R",
-						"order": "413",
-						"group": "EnvironmentUp",
-						"text": "Distance to a tunnel or overbridge (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_TUNNEL_UP_R Help",
-						"notesText": "I_TUNNEL_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_UP_L",
-						"order": "414",
-						"group": "EnvironmentUp",
-						"text": "Distance to a underbridge (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_UNDERBRIDGE_UP_L Help",
-						"notesText": "I_UNDERBRIDGE_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_UP_W_L",
-						"order": "415",
-						"group": "EnvironmentUp",
-						"text": "Distance to a underbridge (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_UNDERBRIDGE_UP_W_L Help",
-						"notesText": "I_UNDERBRIDGE_UP_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_UP_W_R",
-						"order": "416",
-						"group": "EnvironmentUp",
-						"text": "Distance to a underbridge (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_UNDERBRIDGE_UP_W_R Help",
-						"notesText": "I_UNDERBRIDGE_UP_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_UP_R",
-						"order": "417",
-						"group": "EnvironmentUp",
-						"text": "Distance to a underbridge (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_UNDERBRIDGE_UP_R Help",
-						"notesText": "I_UNDERBRIDGE_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WATER_UP_L",
-						"order": "418",
-						"group": "EnvironmentUp",
-						"text": "Distance to a body of water (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_WATER_UP_L Help",
-						"notesText": "I_WATER_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Water",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WATER_UP_R",
-						"order": "419",
-						"group": "EnvironmentUp",
-						"text": "Distance to a body of water (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_WATER_UP_R Help",
-						"notesText": "I_WATER_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Water",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_BUILDING_UP_L",
-						"order": "420",
-						"group": "EnvironmentUp",
-						"text": "Distance to a building (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_BUILDING_UP_L Help",
-						"notesText": "I_BUILDING_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Building",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_BUILDING_UP_R",
-						"order": "421",
-						"group": "EnvironmentUp",
-						"text": "Distance to a building (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_BUILDING_UP_R Help",
-						"notesText": "I_BUILDING_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Building",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STEEPDROP_UP_L",
-						"order": "422",
-						"group": "EnvironmentUp",
-						"text": "Distance to a steep drop (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_STEEPDROP_UP_L Help",
-						"notesText": "I_STEEPDROP_UP_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Steep Drop",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STEEPDROP_UP_R",
-						"order": "423",
-						"group": "EnvironmentUp",
-						"text": "Distance to a steep drop (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_STEEPDROP_UP_R Help",
-						"notesText": "I_STEEPDROP_UP_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "UP_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Steep Drop",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OTHER_UP",
-						"order": "424",
-						"group": "EnvironmentUp",
-						"text": "Are there any other hazards",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_OTHER_UP Help",
-						"notesText": "I_OTHER_UP Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_OHLE",
-							"value": "452",
-							"displayValue": "NO"
-						}, {
-							"name": "I_OTHER_DOWN",
-							"value": "453",
-							"displayValue": "YES"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_NOTES_UP",
-						"order": "425",
-						"group": "EnvironmentUp",
-						"text": "If Yes Please Describe",
-						"firstTab": "Environment",
-						"secondTab": "Up",
-						"helpText": "I_NOTES_UP Help",
-						"notesText": "I_NOTES_UP Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_OTHER_UP",
-								"parameterValue": "455"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_POINTS_DOWN",
-						"order": "426",
-						"group": "EnvironmentDown",
-						"text": "Distance to a set of points",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_POINTS_DOWN Help",
-						"notesText": "I_POINTS_DOWN Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CROSSING_DOWN",
-						"order": "427",
-						"group": "EnvironmentDown",
-						"text": "Distance to another crossing",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_CROSSING_DOWN Help",
-						"notesText": "I_CROSSING_DOWN Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CUTTING_DOWN",
-						"order": "428",
-						"group": "EnvironmentDown",
-						"text": "Distance to a cutting",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_CUTTING_DOWN Help",
-						"notesText": "I_CUTTING_DOWN Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_DOWN_L",
-						"order": "429",
-						"group": "EnvironmentDown",
-						"text": "Distance to a platform (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_PLATFORM_DOWN_L Help",
-						"notesText": "I_PLATFORM_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_DOWN_W_L",
-						"order": "430",
-						"group": "EnvironmentDown",
-						"text": "Distance to a platform (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_PLATFORM_DOWN_W_L Help",
-						"notesText": "I_PLATFORM_DOWN_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_DOWN_W_R",
-						"order": "431",
-						"group": "EnvironmentDown",
-						"text": "Distance to a platform (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_PLATFORM_DOWN_W_R Help",
-						"notesText": "I_PLATFORM_DOWN_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PLATFORM_DOWN_R",
-						"order": "432",
-						"group": "EnvironmentDown",
-						"text": "Distance to a platform (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_PLATFORM_DOWN_R Help",
-						"notesText": "I_PLATFORM_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Platform",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_DOWN_L",
-						"order": "433",
-						"group": "EnvironmentDown",
-						"text": "Distance to a tunnel or overbridge (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_TUNNEL_DOWN_L Help",
-						"notesText": "I_TUNNEL_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_DOWN_W_L",
-						"order": "434",
-						"group": "EnvironmentDown",
-						"text": "Distance to a tunnel or overbridge (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_TUNNEL_DOWN_W_L Help",
-						"notesText": "I_TUNNEL_DOWN_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_DOWN_W_R",
-						"order": "435",
-						"group": "EnvironmentDown",
-						"text": "Distance to a tunnel or overbridge (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_TUNNEL_DOWN_W_R Help",
-						"notesText": "I_TUNNEL_DOWN_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TUNNEL_DOWN_R",
-						"order": "436",
-						"group": "EnvironmentDown",
-						"text": "Distance to a tunnel or overbridge (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_TUNNEL_DOWN_R Help",
-						"notesText": "I_TUNNEL_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "A Tunnel or Overbridge",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_DOWN_L",
-						"order": "437",
-						"group": "EnvironmentDown",
-						"text": "Distance to a underbridge (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_UNDERBRIDGE_DOWN_L Help",
-						"notesText": "I_UNDERBRIDGE_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_DOWN_W_L",
-						"order": "438",
-						"group": "EnvironmentDown",
-						"text": "Distance to a underbridge (Within 2m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_UNDERBRIDGE_DOWN_W_L Help",
-						"notesText": "I_UNDERBRIDGE_DOWN_W_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 2 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_DOWN_W_R",
-						"order": "439",
-						"group": "EnvironmentDown",
-						"text": "Distance to a underbridge (Within 2m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_UNDERBRIDGE_DOWN_W_R Help",
-						"notesText": "I_UNDERBRIDGE_DOWN_W_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 2 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UNDERBRIDGE_DOWN_R",
-						"order": "440",
-						"group": "EnvironmentDown",
-						"text": "Distance to a underbridge (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_UNDERBRIDGE_DOWN_R Help",
-						"notesText": "I_UNDERBRIDGE_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_1",
-							"tableText": "Distance To:",
-							"rowText": "An underbridge",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WATER_DOWN_L",
-						"order": "441",
-						"group": "EnvironmentDown",
-						"text": "Distance to a body of water (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_WATER_DOWN_L Help",
-						"notesText": "I_WATER_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Water",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WATER_DOWN_R",
-						"order": "442",
-						"group": "EnvironmentDown",
-						"text": "Distance to a body of water (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_WATER_DOWN_R Help",
-						"notesText": "I_WATER_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Water",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_BUILDING_DOWN_L",
-						"order": "443",
-						"group": "EnvironmentDown",
-						"text": "Distance to a building (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_BUILDING_DOWN_L Help",
-						"notesText": "I_BUILDING_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Building",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_BUILDING_DOWN_R",
-						"order": "444",
-						"group": "EnvironmentDown",
-						"text": "Distance to a building (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_BUILDING_DOWN_R Help",
-						"notesText": "I_BUILDING_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Building",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STEEPDROP_DOWN_L",
-						"order": "445",
-						"group": "EnvironmentDown",
-						"text": "Distance to a steep drop (Within 20m of track Left)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_STEEPDROP_DOWN_L Help",
-						"notesText": "I_STEEPDROP_DOWN_L Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Steep Drop",
-							"columnText": "Within 20 m of track Left"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STEEPDROP_DOWN_R",
-						"order": "446",
-						"group": "EnvironmentDown",
-						"text": "Distance to a steep drop (Within 20m of track Right)",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_STEEPDROP_DOWN_R Help",
-						"notesText": "I_STEEPDROP_DOWN_R Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "700",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "DOWN_DISTANCE_2",
-							"tableText": "Distance To:",
-							"rowText": "Steep Drop",
-							"columnText": "Within 20 m of track Right"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OTHER_DOWN",
-						"order": "447",
-						"group": "EnvironmentDown",
-						"text": "Are there any other hazards",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_OTHER_DOWN Help",
-						"notesText": "I_OTHER_DOWN Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_NUM_TRACKS",
-							"value": "450",
-							"displayValue": "6"
-						}, {
-							"name": "I_OHLE",
-							"value": "451",
-							"displayValue": "YES"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_NOTES_DOWN",
-						"order": "448",
-						"group": "EnvironmentDown",
-						"text": "If Yes Please Describe",
-						"firstTab": "Environment",
-						"secondTab": "Down",
-						"helpText": "I_NOTES_DOWN Help",
-						"notesText": "I_NOTES_DOWN Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false",
-							"conditionalMandatory": {
-								"parameterName": "I_OTHER_DOWN",
-								"parameterValue": "453"
-							}
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRAIN_DOWN_LINE_SPEED",
-						"order": "501",
-						"group": "Sighting",
-						"text": "Down Line Speed",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_TRAIN_DOWN_LINE_SPEED Help",
-						"notesText": "I_TRAIN_DOWN_LINE_SPEED Notes",
-						"type": "numeric",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRAIN_UP_LINE_SPEED",
-						"order": "502",
-						"group": "Sighting",
-						"text": "Up Line Speed",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_TRAIN_UP_LINE_SPEED Help",
-						"notesText": "I_TRAIN_UP_LINE_SPEED Notes",
-						"type": "numeric",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_MIN_SIGHT_DIST_REQ_UU",
-						"order": "503",
-						"group": "Sighting",
-						"text": "Up side looking toward up direction train approach minimum Sighting Distance Required",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_MIN_SIGHT_DIST_REQ_UU Help",
-						"notesText": "I_MIN_SIGHT_DIST_REQ_UU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward up direction train approach",
-							"columnText": "minimum Sighting Distance Required"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_MIT_UU",
-						"order": "504",
-						"group": "Sighting",
-						"text": "Up side looking toward up direction train approach Deficient Sighting Time Mitigated",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_MIT_UU Help",
-						"notesText": "I_SIGHT_DIST_MIT_UU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward up direction train approach",
-							"columnText": "Deficient Sighting Time Mitigated"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_NOTES_UU",
-						"order": "505",
-						"group": "Sighting",
-						"text": "Up side looking toward up direction train approach Notes",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_NOTES_UU Help",
-						"notesText": "I_SIGHT_DIST_NOTES_UU Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward up direction train approach",
-							"columnText": "Notes"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_UU",
-						"order": "506",
-						"group": "Sighting",
-						"text": "Up side looking toward up direction train approach Measured Sighting Distance",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_UU Help",
-						"notesText": "I_SIGHT_DIST_UU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward up direction train approach",
-							"columnText": "Measured Sighting Distance"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_TO_POINT_UU",
-						"order": "507",
-						"group": "Sighting",
-						"text": "Up side looking toward up direction train approach Sighting Distance Measured to Point",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_TO_POINT_UU Help",
-						"notesText": "I_SIGHT_DIST_TO_POINT_UU Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward up direction train approach",
-							"columnText": "Sighting Distance Measured to Point"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_MIN_SIGHT_DIST_REQ_UD",
-						"order": "508",
-						"group": "Sighting",
-						"text": "Up side looking toward down direction train approach minimum Sighting Distance Required",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_MIN_SIGHT_DIST_REQ_UD Help",
-						"notesText": "I_MIN_SIGHT_DIST_REQ_UD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward down direction train approach",
-							"columnText": "minimum Sighting Distance Required"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_MIT_UD",
-						"order": "509",
-						"group": "Sighting",
-						"text": "Up side looking toward down direction train approach Deficient Sighting Time Mitigated",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_MIT_UD Help",
-						"notesText": "I_SIGHT_DIST_MIT_UD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward down direction train approach",
-							"columnText": "Deficient Sighting Time Mitigated"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_NOTES_UD",
-						"order": "510",
-						"group": "Sighting",
-						"text": "Up side looking toward down direction train approach Notes",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_NOTES_UD Help",
-						"notesText": "I_SIGHT_DIST_NOTES_UD Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward down direction train approach",
-							"columnText": "Notes"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_UD",
-						"order": "511",
-						"group": "Sighting",
-						"text": "Up side looking toward down direction train approach Measured Sighting Distance",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_UD Help",
-						"notesText": "I_SIGHT_DIST_UD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward down direction train approach",
-							"columnText": "Measured Sighting Distance"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_TO_POINT_UD",
-						"order": "512",
-						"group": "Sighting",
-						"text": "Up side looking toward down direction train approach Sighting Distance Measured to Point",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_TO_POINT_UD Help",
-						"notesText": "I_SIGHT_DIST_TO_POINT_UD Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Up side looking toward down direction train approach",
-							"columnText": "Sighting Distance Measured to Point"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_MIN_SIGHT_DIST_REQ_DU",
-						"order": "513",
-						"group": "Sighting",
-						"text": "Down side looking toward up direction train approach minimum Sighting Distance Required",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_MIN_SIGHT_DIST_REQ_DU Help",
-						"notesText": "I_MIN_SIGHT_DIST_REQ_DU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward up direction train approach",
-							"columnText": "minimum Sighting Distance Required"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_MIT_DU",
-						"order": "514",
-						"group": "Sighting",
-						"text": "Down side looking toward up direction train approach Deficient Sighting Time Mitigated",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_MIT_DU Help",
-						"notesText": "I_SIGHT_DIST_MIT_DU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward up direction train approach",
-							"columnText": "Deficient Sighting Time Mitigated"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_NOTES_DU",
-						"order": "515",
-						"group": "Sighting",
-						"text": "Down side looking toward up direction train approach Notes",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_NOTES_DU Help",
-						"notesText": "I_SIGHT_DIST_NOTES_DU Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward up direction train approach",
-							"columnText": "Notes"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_DU",
-						"order": "516",
-						"group": "Sighting",
-						"text": "Down side looking toward up direction train approach Measured Sighting Distance",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_DU Help",
-						"notesText": "I_SIGHT_DIST_DU Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward up direction train approach",
-							"columnText": "Measured Sighting Distance"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_TO_POINT_DU",
-						"order": "517",
-						"group": "Sighting",
-						"text": "Down side looking toward up direction train approach Sighting Distance Measured to Point",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_TO_POINT_DU Help",
-						"notesText": "I_SIGHT_DIST_TO_POINT_DU Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward up direction train approach",
-							"columnText": "Sighting Distance Measured to Point"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_MIN_SIGHT_DIST_REQ_DD",
-						"order": "518",
-						"group": "Sighting",
-						"text": "Down side looking toward down direction train approach minimum Sighting Distance Required",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_MIN_SIGHT_DIST_REQ_DD Help",
-						"notesText": "I_MIN_SIGHT_DIST_REQ_DD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward down direction",
-							"columnText": "minimum Sighting Distance Required"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_MIT_DD",
-						"order": "519",
-						"group": "Sighting",
-						"text": "Down side looking toward down direction train approach Deficient Sighting Time Mitigated",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_MIT_DD Help",
-						"notesText": "I_SIGHT_DIST_MIT_DD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward down direction",
-							"columnText": "Deficient Sighting Time Mitigated"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_NOTES_DD",
-						"order": "520",
-						"group": "Sighting",
-						"text": "Down side looking toward down direction train approach Notes",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_NOTES_DD Help",
-						"notesText": "I_SIGHT_DIST_NOTES_DD Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward down direction",
-							"columnText": "Notes"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_DD",
-						"order": "521",
-						"group": "Sighting",
-						"text": "Down side looking toward down direction train approach Measured Sighting Distance",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_DD Help",
-						"notesText": "I_SIGHT_DIST_DD Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward down direction",
-							"columnText": "Measured Sighting Distance"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_DIST_TO_POINT_DD",
-						"order": "522",
-						"group": "Sighting",
-						"text": "Down side looking toward down direction train approach Sighting Distance Measured to Point",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_DIST_TO_POINT_DD Help",
-						"notesText": "I_SIGHT_DIST_TO_POINT_DD Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"tableDetails": {
-							"tableName": "train approach",
-							"tableText": "Sighting distances from decision point (m)",
-							"rowText": "Down side looking toward down direction",
-							"columnText": "Sighting Distance Measured to Point"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_LIMIT_UP",
-						"order": "523",
-						"group": "Sighting",
-						"text": "What limits the sighting up",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_LIMIT_UP Help",
-						"notesText": "I_SIGHT_LIMIT_UP Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "869",
-							"displayValue": "Police (BTP\/Home Office Force)"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "870",
-							"displayValue": "School"
-						}, {
-							"name": "I_SELECTED_STAKEHOLDER_INFO",
-							"value": "871",
-							"displayValue": "Other (e.g. ORR)"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "24",
-							"displayValue": "Nothing - vanishing point"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "25",
-							"displayValue": "Track curvature"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "26",
-							"displayValue": "Permanent structure (Building\/Wall etc)"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "27",
-							"displayValue": "Signage\/Crossing equipment"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_LIMIT_DOWN",
-						"order": "524",
-						"group": "Sighting",
-						"text": "What limits the sighting down",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_LIMIT_DOWN Help",
-						"notesText": "I_SIGHT_LIMIT_DOWN Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SIGHTING_LIMITS",
-							"value": "28",
-							"displayValue": "Vegetation"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "29",
-							"displayValue": "Bad weather on the day"
-						}, {
-							"name": "I_SIGHTING_LIMITS",
-							"value": "30",
-							"displayValue": "Other"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "31",
-							"displayValue": "Nothing - vanishing point"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "32",
-							"displayValue": "Track curvature"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "33",
-							"displayValue": "Permanent structure (Building\/Wall etc)"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "34",
-							"displayValue": "Signage\/Crossing equipment"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_MEASURE_UP",
-						"order": "525",
-						"group": "Sighting",
-						"text": "How was the sighting measured up",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_MEASURE_UP Help",
-						"notesText": "I_SIGHT_MEASURE_UP Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "35",
-							"displayValue": "Vegetation"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "36",
-							"displayValue": "Bad weather on the day"
-						}, {
-							"name": "I_SIGHTING_LIMITS_DOWN",
-							"value": "37",
-							"displayValue": "Other"
-						}, {
-							"name": "I_SIGHTING_MEASURE",
-							"value": "38",
-							"displayValue": "Range finder"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_MEASURE_DOWN",
-						"order": "526",
-						"group": "Sighting",
-						"text": "How was the sighting measured down",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_MEASURE_DOWN Help",
-						"notesText": "I_SIGHT_MEASURE_DOWN Notes",
-						"type": "multiSelect",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SIGHTING_MEASURE",
-							"value": "39",
-							"displayValue": "Using known references"
-						}, {
-							"name": "I_SIGHTING_MEASURE",
-							"value": "40",
-							"displayValue": "Using a marker at a known distance"
-						}, {
-							"name": "I_SIGHTING_MEASURE",
-							"value": "41",
-							"displayValue": "Using a wheel"
-						}, {
-							"name": "I_SIGHTING_MEASURE_DOWN",
-							"value": "42",
-							"displayValue": "Range finder"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UPLINE_DECISION_POINT",
-						"order": "527",
-						"group": "Sighting",
-						"text": "What distance is the decision point from the nearest running rail in the up direction?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_UPLINE_DECISION_POINT Help",
-						"notesText": "I_UPLINE_DECISION_POINT Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWNLINE_DECISION_POINT",
-						"order": "528",
-						"group": "Sighting",
-						"text": "What distance is the decision point from the nearest running rail in the down direction?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_DOWNLINE_DECISION_POINT Help",
-						"notesText": "I_DOWNLINE_DECISION_POINT Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DISTANCE_DECISION_POINT_UP",
-						"order": "529",
-						"group": "Sighting",
-						"text": "What is the distance of crossing from decision point to 2m past furthest rail (m) in the up direction?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_DISTANCE_DECISION_POINT_UP Help",
-						"notesText": "I_DISTANCE_DECISION_POINT_UP Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DISTANCE_DECISION_POINT_DOWN",
-						"order": "530",
-						"group": "Sighting",
-						"text": "What is the distance of crossing from decision point to 2m past furthest rail (m) in the down direction?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_DISTANCE_DECISION_POINT_DOWN Help",
-						"notesText": "I_DISTANCE_DECISION_POINT_DOWN Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UP_DECISION_DESCRIPTION",
-						"order": "531",
-						"group": "Sighting",
-						"text": "Describe where you measured the decision point from in the up direction ?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_UP_DECISION_DESCRIPTION Help",
-						"notesText": "I_UP_DECISION_DESCRIPTION Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DOWN_DECISION_DESCRIPTION",
-						"order": "532",
-						"group": "Sighting",
-						"text": "Describe where you measured the decision point from in the down direction?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_DOWN_DECISION_DESCRIPTION Help",
-						"notesText": "I_DOWN_DECISION_DESCRIPTION Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DECISION_POINT_NOTES",
-						"order": "533",
-						"group": "Sighting",
-						"text": "Notes on sighting and decision point<",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_DECISION_POINT_NOTES Help",
-						"notesText": "I_DECISION_POINT_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHTING_OBSTRUCTIONS",
-						"order": "534",
-						"group": "Sighting",
-						"text": "Are there any obstructions that could make it difficult to observe trains (e.g. posts, scrap,redundant structures, equipment cabinets, signage etc) If yes add note of type and issue in  Notes on how to improve sighting  below.",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHTING_OBSTRUCTIONS Help",
-						"notesText": "I_SIGHTING_OBSTRUCTIONS Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_OTHER_VISIBILITY_ISSUES",
-						"order": "535",
-						"group": "Sighting",
-						"text": "Are there any other visibility issues at this crossing at certain times of the year (e.g. foliage growth)?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_OTHER_VISIBILITY_ISSUES Help",
-						"notesText": "I_OTHER_VISIBILITY_ISSUES Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_IMPROVE_SIGHTING",
-						"order": "536",
-						"group": "Sighting",
-						"text": "Is there any action to improve sighting",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_IMPROVE_SIGHTING Help",
-						"notesText": "I_IMPROVE_SIGHTING Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_IMPROVE_SIGHTING_NOTES",
-						"order": "537",
-						"group": "Sighting",
-						"text": "Notes on how to improve sighting",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_IMPROVE_SIGHTING_NOTES Help",
-						"notesText": "I_IMPROVE_SIGHTING_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WHISTLE_BOARD_UP",
-						"order": "538",
-						"group": "Sighting",
-						"text": "Are there whistle boards on the up line in the rear of the crossing",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_WHISTLE_BOARD_UP Help",
-						"notesText": "I_WHISTLE_BOARD_UP Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WHISTLE_BOARD_UP_DISTANCE",
-						"order": "539",
-						"group": "Sighting",
-						"text": "If yes, what is the distance (in m) to them?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_WHISTLE_BOARD_UP_DISTANCE Help",
-						"notesText": "I_WHISTLE_BOARD_UP_DISTANCE Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WHISTLE_BOARD_DOWN",
-						"order": "540",
-						"group": "Sighting",
-						"text": "Are there whistle boards on the down line in the rear of the crossing",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_WHISTLE_BOARD_DOWN Help",
-						"notesText": "I_WHISTLE_BOARD_DOWN Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WHISTLE_BOARD_DOWN_DISTANCE",
-						"order": "541",
-						"group": "Sighting",
-						"text": "If yes, what is the distance (in m) to them?",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_WHISTLE_BOARD_DOWN_DISTANCE Help",
-						"notesText": "I_WHISTLE_BOARD_DOWN_DISTANCE Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_WHISTLE_BOARD_NOTES",
-						"order": "542",
-						"group": "Sighting",
-						"text": "Notes on whistle boards including distance from crossing",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_WHISTLE_BOARD_NOTES Help",
-						"notesText": "I_WHISTLE_BOARD_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGHT_MEASURE_NOTES",
-						"order": "543",
-						"group": "Sighting",
-						"text": "Please provide any futher information that may be of use",
-						"firstTab": "Train",
-						"secondTab": "Sighting",
-						"helpText": "I_SIGHT_MEASURE_NOTES Help",
-						"notesText": "I_SIGHT_MEASURE_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DEV_NEAR_CROSSING",
-						"order": "614",
-						"group": "Approach",
-						"text": "Has there been or is there planned or apparent any development near the crossing which may lead to a change or increase in use such as a housing estate or change in farming practice",
-						"firstTab": "Approach",
-						"helpText": "I_DEV_NEAR_CROSSING Help",
-						"notesText": "I_DEV_NEAR_CROSSING Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DEV_NEAR_CROSSING_NOTES",
-						"order": "615",
-						"group": "Approach",
-						"text": "Notes on new developments",
-						"firstTab": "Approach",
-						"helpText": "I_DEV_NEAR_CROSSING_NOTES Help",
-						"notesText": "I_DEV_NEAR_CROSSING_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ADJACENT_SOURCES",
-						"order": "616",
-						"group": "Approach",
-						"text": "Are there any adjacent sources of light\/noise (e.g. Road, Industrial Site, Airport) that could affect the crossing users ability to see or hear an approaching train?  (If yes note type and issue in Notes section.)",
-						"firstTab": "Approach",
-						"helpText": "I_ADJACENT_SOURCES Help",
-						"notesText": "I_ADJACENT_SOURCES Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGN_LOCATION",
-						"order": "620",
-						"group": "Approach",
-						"text": "Are the signs for the crossing located?  (If not directly on the route a crossing user would use, make note in Notes section.)",
-						"firstTab": "Approach",
-						"helpText": "I_SIGN_LOCATION Help",
-						"notesText": "I_SIGN_LOCATION Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_SIGHTING_MEASURE_DOWN",
-							"value": "43",
-							"displayValue": "Using known references"
-						}, {
-							"name": "I_SIGHTING_MEASURE_DOWN",
-							"value": "44",
-							"displayValue": "Using a marker at a known distance"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGN_POSITION_VISIBLE",
-						"order": "621",
-						"group": "Approach",
-						"text": "Are the signs at the crossing positioned so as to be clearly visible for crossing users on a direct route over the crossing?  (If no, note type of signs and any issue in Notes section.)",
-						"firstTab": "Approach",
-						"helpText": "I_SIGN_POSITION_VISIBLE Help",
-						"notesText": "I_SIGN_POSITION_VISIBLE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SIGN_VISIBLE_NIGHT",
-						"order": "622",
-						"group": "Approach",
-						"text": "Are the signs for the crossing clearly visible during night\/dusk?  (If not visible make note in Notes section.)",
-						"firstTab": "Approach",
-						"helpText": "I_SIGN_VISIBLE_NIGHT Help",
-						"notesText": "I_SIGN_VISIBLE_NIGHT Notes",
-						"type": "radio",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_APPROACH_CROSSING_NOTES",
-						"order": "623",
-						"group": "Approach",
-						"text": "Crossing approach notes",
-						"firstTab": "Approach",
-						"helpText": "I_APPROACH_CROSSING_NOTES Help",
-						"notesText": "I_APPROACH_CROSSING_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRAFFIC_UTIL_NOTES",
-						"order": "624",
-						"group": "Approach",
-						"text": "Notes on traffic utilisation",
-						"firstTab": "Approach",
-						"helpText": "I_TRAFFIC_UTIL_NOTES Help",
-						"notesText": "I_TRAFFIC_UTIL_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ADHESION_TEMP_UWC",
-						"order": "625",
-						"group": "Approach",
-						"text": "Is ice, mud, loose material or flood water a known problem at certain times",
-						"firstTab": "Approach",
-						"helpText": "I_ADHESION_TEMP_UWC Help",
-						"notesText": "I_ADHESION_TEMP_UWC Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_ADHESION_TEMP",
-							"value": "385",
-							"displayValue": "YES"
-						}, {
-							"name": "I_ADHESION_TEMP",
-							"value": "386",
-							"displayValue": "NO"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ADHESION_TEMP_NOTES_UWC",
-						"order": "626",
-						"group": "Approach",
-						"text": "If yes, please describe",
-						"firstTab": "Approach",
-						"helpText": "I_ADHESION_TEMP_NOTES_UWC Help",
-						"notesText": "I_ADHESION_TEMP_NOTES_UWC Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ADHESION_PERM_UWC",
-						"order": "627",
-						"group": "Approach",
-						"text": "What is the road surface type?",
-						"firstTab": "Approach",
-						"helpText": "I_ADHESION_PERM_UWC Help",
-						"notesText": "I_ADHESION_PERM_UWC Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_ADHESION_PERM",
-							"value": "383",
-							"displayValue": "YES"
-						}, {
-							"name": "I_ADHESION_PERM",
-							"value": "384",
-							"displayValue": "NO"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VIS_TEMP_UWC",
-						"order": "628",
-						"group": "Approach",
-						"text": "Are there other known visibility problems at the crossing at certain times of the year (e.g. fog or foliage)",
-						"firstTab": "Approach",
-						"helpText": "I_VIS_TEMP_UWC Help",
-						"notesText": "I_VIS_TEMP_UWC Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_VIS_PERM",
-							"value": "485",
-							"displayValue": "EXCELLENT"
-						}, {
-							"name": "I_VIS_PERM",
-							"value": "486",
-							"displayValue": "GOOD"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VIS_TEMP_NOTES_UWC",
-						"order": "629",
-						"group": "Approach",
-						"text": "If yes, please describe",
-						"firstTab": "Approach",
-						"helpText": "I_VIS_TEMP_NOTES_UWC Help",
-						"notesText": "I_VIS_TEMP_NOTES_UWC Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_USER_ABUSE",
-						"order": "701",
-						"group": "Misuse",
-						"text": "Has there been any user abuse of the crossing in the last year",
-						"firstTab": "Misuse",
-						"helpText": "I_USER_ABUSE Help",
-						"notesText": "I_USER_ABUSE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_USER_ABUSE_MITIGATION",
-						"order": "702",
-						"group": "Misuse",
-						"text": "Provide any additional information, such as history of abuse, effect of any mitigation measures that have been installed",
-						"firstTab": "Misuse",
-						"helpText": "I_USER_ABUSE_MITIGATION Help",
-						"notesText": "I_USER_ABUSE_MITIGATION Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_GATES_PASS",
-						"order": "713",
-						"group": "Misuse",
-						"text": "Are the gates \/ barriers left open at the crossing",
-						"firstTab": "Misuse",
-						"helpText": "I_GATES_PASS Help",
-						"notesText": "I_GATES_PASS Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_GATES_DEL",
-							"value": "417",
-							"displayValue": "CLOSED"
-						}, {
-							"name": "I_GATES_DEL",
-							"value": "418",
-							"displayValue": "OCCASIONALLY"
-						}, {
-							"name": "I_GATES_DEL",
-							"value": "419",
-							"displayValue": "OPEN"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SPEED_RESTRICT",
-						"order": "714",
-						"group": "Misuse",
-						"text": "Are there any other operational disruptions due to the misuse of the crossing (e.g. for UWCTs are speed restrictions put in place in the event of phone misuse)",
-						"firstTab": "Misuse",
-						"helpText": "I_SPEED_RESTRICT Help",
-						"notesText": "I_SPEED_RESTRICT Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SPEED_RESTRICT_NOTES",
-						"order": "715",
-						"group": "Misuse",
-						"text": "If yes please give details",
-						"firstTab": "Misuse",
-						"helpText": "I_SPEED_RESTRICT_NOTES Help",
-						"notesText": "I_SPEED_RESTRICT_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DECKING_UWC",
-						"order": "716",
-						"group": "Misuse",
-						"text": "What is the type of crossing surface? (Tick which on applies)",
-						"firstTab": "Misuse",
-						"helpText": "I_DECKING_UWC Help",
-						"notesText": "I_DECKING_UWC Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_DECKING_SURFACE",
-							"value": "779",
-							"displayValue": "Concrete"
-						}, {
-							"name": "I_DECKING_SURFACE",
-							"value": "780",
-							"displayValue": "Rubber"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DECKING_SURFACE",
-						"order": "717",
-						"group": "Misuse",
-						"text": "Type of decking enter either Timber, Concrete, Rubber or Other (describe):",
-						"firstTab": "Misuse",
-						"helpText": "I_DECKING_SURFACE Help",
-						"notesText": "I_DECKING_SURFACE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_CYC_EST",
-							"value": "8191",
-							"displayValue": "WEEKLY"
-						}, {
-							"name": "I_CYC_EST",
-							"value": "8192",
-							"displayValue": "FEW"
-						}, {
-							"name": "I_CYC_EST",
-							"value": "8193",
-							"displayValue": "NO"
-						}, {
-							"name": "I_DECKING_SURFACE",
-							"value": "778",
-							"displayValue": "Timber"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_SURFACE_OTHER",
-						"order": "718",
-						"group": "Misuse",
-						"text": "Type of decking Other (describe):",
-						"firstTab": "Misuse",
-						"helpText": "I_SURFACE_OTHER Help",
-						"notesText": "I_SURFACE_OTHER Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"renderValue": {
-							"parameterName": "I_DECKING_SURFACE",
-							"parameterValue": "781"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DECKING_WIDE_ENOUGH",
-						"order": "719",
-						"group": "Misuse",
-						"text": "Is the decking wide enough for all user types?",
-						"firstTab": "Misuse",
-						"helpText": "I_DECKING_WIDE_ENOUGH Help",
-						"notesText": "I_DECKING_WIDE_ENOUGH Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_DECKING_NON_SLIP",
-						"order": "720",
-						"group": "Misuse",
-						"text": "Does the decking have a non slip surface?",
-						"firstTab": "Misuse",
-						"helpText": "I_DECKING_NON_SLIP Help",
-						"notesText": "I_DECKING_NON_SLIP Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VEH_TRAV_PED",
-						"order": "721",
-						"group": "Misuse",
-						"text": "What is the traverse time from decision point to 2M past the further rail (s) for Pedestrians",
-						"firstTab": "Misuse",
-						"helpText": "I_VEH_TRAV_PED Help",
-						"notesText": "I_VEH_TRAV_PED Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_VEH_TRAV_TIME",
-						"order": "722",
-						"group": "Misuse",
-						"text": "What is the traverse time from decision point to 2M past the further rail (s) for Vehicles?",
-						"firstTab": "Misuse",
-						"helpText": "I_VEH_TRAV_TIME Help",
-						"notesText": "I_VEH_TRAV_TIME Notes",
-						"type": "decimal",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRAV_TIME_FIFTY_PERCENT",
-						"order": "723",
-						"group": "Misuse",
-						"text": "Has the traverse time been increased by 50% due to vulnerable users using the crossing?",
-						"firstTab": "Misuse",
-						"helpText": "I_TRAV_TIME_FIFTY_PERCENT Help",
-						"notesText": "I_TRAV_TIME_FIFTY_PERCENT Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRAVERSE_NOTES",
-						"order": "724",
-						"group": "Misuse",
-						"text": "Notes on traverse time",
-						"firstTab": "Misuse",
-						"helpText": "I_TRAVERSE_NOTES Help",
-						"notesText": "I_TRAVERSE_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STUCK_UWC",
-						"order": "725",
-						"group": "Misuse",
-						"text": "Is there a risk of a vehicle getting stuck on the crossing (consider the crossing surface and the type of vehicles that use the crossing)",
-						"firstTab": "Misuse",
-						"helpText": "I_STUCK_UWC Help",
-						"notesText": "I_STUCK_UWC Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_STAKEHOLDER_USER_REASON",
-							"value": "795",
-							"displayValue": "They did not respond to the invite?"
-						}, {
-							"name": "I_STAKEHOLDER_USER_REASON",
-							"value": "796",
-							"displayValue": "Not required"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STUCK_UWC_NOTES",
-						"order": "726",
-						"group": "Misuse",
-						"text": "If yes, please give details",
-						"firstTab": "Misuse",
-						"helpText": "I_STUCK_UWC_NOTES Help",
-						"notesText": "I_STUCK_UWC_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UWCT_PHONE",
-						"order": "727",
-						"group": "Misuse",
-						"text": "Are the telephones used",
-						"firstTab": "Misuse",
-						"helpText": "I_UWCT_PHONE Help",
-						"notesText": "I_UWCT_PHONE Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_TRACTOR_EST",
-							"value": "8225",
-							"displayValue": "NO"
-						}, {
-							"name": "I_TRAIN_TYPE",
-							"value": "22",
-							"displayValue": "Freight"
-						}, {
-							"name": "I_TRAIN_TYPE",
-							"value": "23",
-							"displayValue": "Passenger"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UWCT_PHONE_NOTES",
-						"order": "728",
-						"group": "Misuse",
-						"text": "If yes, please give details",
-						"firstTab": "Misuse",
-						"helpText": "I_UWCT_PHONE_NOTES Help",
-						"notesText": "I_UWCT_PHONE_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UWCT_PHONE_LEVEL",
-						"order": "729",
-						"group": "Misuse",
-						"text": "Has the level of telephone use been confirmed with the signaller who controls the crossing",
-						"firstTab": "Misuse",
-						"helpText": "I_UWCT_PHONE_LEVEL Help",
-						"notesText": "I_UWCT_PHONE_LEVEL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_WHEEL",
-							"value": "4",
-							"displayValue": "wheel"
-						}, {
-							"name": "I_WHEEL",
-							"value": "5",
-							"displayValue": "hand"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_UWC_2TRAINS_NONMWL",
-						"order": "732",
-						"group": "Misuse",
-						"text": "How often does a second train pass the crossing within 20 seconds of the first train",
-						"firstTab": "Misuse",
-						"helpText": "I_UWC_2TRAINS_NONMWL Help",
-						"notesText": "I_UWC_2TRAINS_NONMWL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_UWCT_PHONE",
-							"value": "472",
-							"displayValue": "RARELY"
-						}, {
-							"name": "I_UWCT_PHONE",
-							"value": "473",
-							"displayValue": "SOMETIMES"
-						}, {
-							"name": "I_UWCT_PHONE",
-							"value": "474",
-							"displayValue": "ALWAYS"
-						}, {
-							"name": "I_UWC_2TRAINS",
-							"value": "467",
-							"displayValue": "USUALLY"
-						}, {
-							"name": "I_UWC_2TRAINS",
-							"value": "468",
-							"displayValue": "OFTEN"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_2TRAINS_VIEW_NONMWL",
-						"order": "733",
-						"group": "Misuse",
-						"text": "What is the chance that a second approaching train would not be seen until the first train has passed",
-						"firstTab": "Misuse",
-						"helpText": "I_2TRAINS_VIEW_NONMWL Help",
-						"notesText": "I_2TRAINS_VIEW_NONMWL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_2TRAINS_VIEW",
-							"value": "376",
-							"displayValue": "IMPOSSIBLE"
-						}, {
-							"name": "I_2TRAINS_VIEW",
-							"value": "377",
-							"displayValue": "LIKELY"
-						}, {
-							"name": "I_2TRAINS_VIEW",
-							"value": "378",
-							"displayValue": "POSSIBLE"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_MITIGATION_NOTES",
-						"order": "901",
-						"group": "Mitigation",
-						"text": "Reasons for Mitigation",
-						"firstTab": "Mitigation",
-						"helpText": "I_MITIGATION_NOTES Help",
-						"notesText": "I_MITIGATION_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CAR_MITIGATION",
-						"order": "902",
-						"group": "Mitigation",
-						"text": "Percentage Cars Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_CAR_MITIGATION Help",
-						"notesText": "I_CAR_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_LOR_MITIGATION",
-						"order": "903",
-						"group": "Mitigation",
-						"text": "Percentage Vans \/ Small Lorries Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_LOR_MITIGATION Help",
-						"notesText": "I_LOR_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_BUS_MITIGATION",
-						"order": "904",
-						"group": "Mitigation",
-						"text": "Percentage Buses Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_BUS_MITIGATION Help",
-						"notesText": "I_BUS_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_HGV_MITIGATION",
-						"order": "905",
-						"group": "Mitigation",
-						"text": "Percentage HGVs Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_HGV_MITIGATION Help",
-						"notesText": "I_HGV_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_CYC_MITIGATION",
-						"order": "906",
-						"group": "Mitigation",
-						"text": "Percentage Pedal \/ Motor Cycles Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_CYC_MITIGATION Help",
-						"notesText": "I_CYC_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PED_MITIGATION",
-						"order": "907",
-						"group": "Mitigation",
-						"text": "Percentage Pedestrians Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_PED_MITIGATION Help",
-						"notesText": "I_PED_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_EQUESTRIAN_MITIGATION",
-						"order": "908",
-						"group": "Mitigation",
-						"text": "Percentage Horses \/ Riders Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_EQUESTRIAN_MITIGATION Help",
-						"notesText": "I_EQUESTRIAN_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_HOOF_MITIGATION",
-						"order": "909",
-						"group": "Mitigation",
-						"text": "Percentage Horses \/ Riders Reduction",
-						"firstTab": "Mitigation",
-						"helpText": "I_HOOF_MITIGATION Help",
-						"notesText": "I_HOOF_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TRA_MITIGATION",
-						"order": "910",
-						"group": "Mitigation",
-						"text": "Percentage Tractors \/ Farm Vehicles Percentage",
-						"firstTab": "Mitigation",
-						"helpText": "I_TRA_MITIGATION Help",
-						"notesText": "I_TRA_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_PASS_MITIGATION",
-						"order": "911",
-						"group": "Mitigation",
-						"text": "Train Passengers",
-						"firstTab": "Mitigation",
-						"helpText": "I_PASS_MITIGATION Help",
-						"notesText": "I_PASS_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_STAFF_MITIGATION",
-						"order": "912",
-						"group": "Mitigation",
-						"text": "Train Staff",
-						"firstTab": "Mitigation",
-						"helpText": "I_STAFF_MITIGATION Help",
-						"notesText": "I_STAFF_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_TOTAL_MITIGATION",
-						"order": "913",
-						"group": "Mitigation",
-						"text": "Apply one value to all user types",
-						"firstTab": "Mitigation",
-						"helpText": "I_TOTAL_MITIGATION Help",
-						"notesText": "I_TOTAL_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}]
-				}
+[
+	{
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0Collector",
+		"name": "0I_PLANNED_OR_REACTIVE_NOTES",
+		"alcrmQuestionID": "I_PLANNED_OR_REACTIVE_NOTES",
+		"alcrmGroupType": "Collector",
+		"visable": false,
+		"readOnly": false,
+		"order": "7",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_PLANNED_OR_REACTIVE_NOTES Notes",
+		"help": "I_PLANNED_OR_REACTIVE_NOTES Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_PLANNED_OR_REACTIVE",
+					"groupType": ""
+				},
+				"value": "853"
 			}
-		}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 200,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "If other please state.."
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0STAKEHOLDER_INFO_COMMUNITY",
+		"alcrmQuestionID": "STAKEHOLDER_INFO_COMMUNITY",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "102",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "STAKEHOLDER_INFO_COMMUNITY Notes",
+		"help": "STAKEHOLDER_INFO_COMMUNITY Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_INFO",
+					"groupType": ""
+				},
+				"value": "839"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1024,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Local Community Group (e.g. Ramblers Association, Equestrians, Cyclists) Please State..."
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0STAKEHOLDER_INFO_INTERNAL",
+		"alcrmQuestionID": "STAKEHOLDER_INFO_INTERNAL",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "103",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "STAKEHOLDER_INFO_INTERNAL Notes",
+		"help": "STAKEHOLDER_INFO_INTERNAL Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_INFO",
+					"groupType": ""
+				},
+				"value": "843"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1024,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Internal Stakeholder (e.g. Signer, MOM, LOM) Please State..."
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0STAKEHOLDER_INFO_OTHER",
+		"alcrmQuestionID": "STAKEHOLDER_INFO_OTHER",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "104",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "STAKEHOLDER_INFO_OTHER Notes",
+		"help": "STAKEHOLDER_INFO_OTHER Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_INFO",
+					"groupType": ""
+				},
+				"value": "847"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1024,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Other (e.g. ORR) Please State..."
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "multiSelectTemplate",
+		"type": "multiSelect",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0I_SELECTED_STAKEHOLDER_INFO",
+		"alcrmQuestionID": "I_SELECTED_STAKEHOLDER_INFO",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "106",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_SELECTED_STAKEHOLDER_INFO Notes",
+		"help": "I_SELECTED_STAKEHOLDER_INFO Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_USER_ATTENDED",
+					"groupType": ""
+				},
+				"value": "790"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "Authorised User",
+				"value": "861"
+			}, {
+				"displayValue": "Local Business",
+				"value": "862"
+			}, {
+				"displayValue": "Local Community Group",
+				"value": "863"
+			}, {
+				"displayValue": "Local Resident",
+				"value": "864"
+			}, {
+				"displayValue": "Highway Authority/Local Authority",
+				"value": "865"
+			}, {
+				"displayValue": "Planning Authority",
+				"value": "866"
+			}, {
+				"displayValue": "Internal Stakeholder",
+				"value": "867"
+			}, {
+				"displayValue": "Train Operator",
+				"value": "868"
+			}, {
+				"displayValue": "Police (BTP/Home Office Force)",
+				"value": "869"
+			}, {
+				"displayValue": "School",
+				"value": "870"
+			}, {
+				"displayValue": "Other (e.g. ORR)",
+				"value": "871"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "If yes who attended?"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0I_STAKEHOLDER_USER_REASON",
+		"alcrmQuestionID": "I_STAKEHOLDER_USER_REASON",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "107",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_STAKEHOLDER_USER_REASON Notes",
+		"help": "I_STAKEHOLDER_USER_REASON Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_USER_ATTENDED",
+					"groupType": ""
+				},
+				"value": "791"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "Not available on that date?",
+				"value": "794"
+			}, {
+				"displayValue": "They did not respond to the invite?",
+				"value": "795"
+			}, {
+				"displayValue": "Not required",
+				"value": "796"
+			}, {
+				"displayValue": "Other",
+				"value": "797"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "If no why did they not attend?"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [
+			{
+				"name": "0NOT_REQUIRED_REASON",
+				"groupType": "0RiskAssessmentInfo"
+			}, {
+				"name": "0OTHER_REASON",
+				"groupType": "0RiskAssessmentInfo"
+			}
+		],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0NOT_REQUIRED_REASON",
+		"alcrmQuestionID": "NOT_REQUIRED_REASON",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "108",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "NOT_REQUIRED_REASON Notes",
+		"help": "NOT_REQUIRED_REASON Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_USER_REASON",
+					"groupType": ""
+				},
+				"value": "796"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1024,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Please state why they are not required to attend:"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0RiskAssessmentInfo",
+		"name": "0OTHER_REASON",
+		"alcrmQuestionID": "OTHER_REASON",
+		"alcrmGroupType": "RiskAssessmentInfo",
+		"visable": false,
+		"readOnly": false,
+		"order": "109",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "OTHER_REASON Notes",
+		"help": "OTHER_REASON Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_STAKEHOLDER_USER_REASON",
+					"groupType": ""
+				},
+				"value": "797"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1024,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Please state other reason why they did not attend:"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "0Misuse",
+		"name": "0I_SURFACE_OTHER",
+		"alcrmQuestionID": "I_SURFACE_OTHER",
+		"alcrmGroupType": "Misuse",
+		"visable": false,
+		"readOnly": false,
+		"order": "718",
+		"associatedFileName": "1391789659449mainQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_SURFACE_OTHER Notes",
+		"help": "I_SURFACE_OTHER Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "0I_DECKING_SURFACE",
+					"groupType": ""
+				},
+				"value": "781"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 0,
+			"maxLength": 1500,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": []
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Type of decking Other (describe):"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "1CensusGeneral",
+		"name": "1I_CENSUS_START",
+		"alcrmQuestionID": "I_CENSUS_START",
+		"alcrmGroupType": "CensusGeneral",
+		"visable": false,
+		"readOnly": false,
+		"order": "1503",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CENSUS_START Notes",
+		"help": "I_CENSUS_START Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 5,
+			"maxLength": 5,
+			"format": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Start Time"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "1CensusGeneral",
+		"name": "1I_CENSUS_END",
+		"alcrmQuestionID": "I_CENSUS_END",
+		"alcrmGroupType": "CensusGeneral",
+		"visable": false,
+		"readOnly": false,
+		"order": "1504",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CENSUS_END Notes",
+		"help": "I_CENSUS_END Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 5,
+			"maxLength": 5,
+			"format": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "End Time"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "alphanumeric",
+		"groupType": "1CensusGeneral",
+		"name": "1I_CENSUS_QUICK_START",
+		"alcrmQuestionID": "I_CENSUS_QUICK_START",
+		"alcrmGroupType": "CensusGeneral",
+		"visable": false,
+		"readOnly": false,
+		"order": "1505",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CENSUS_QUICK_START Notes",
+		"help": "I_CENSUS_QUICK_START Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": 5,
+			"maxLength": 5,
+			"format": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Start Time"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusGeneral",
+		"name": "1I_DURATION",
+		"alcrmQuestionID": "I_DURATION",
+		"alcrmGroupType": "CensusGeneral",
+		"visable": false,
+		"readOnly": false,
+		"order": "1506",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_DURATION Notes",
+		"help": "I_DURATION Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Census Duration"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "multiSelectTemplate",
+		"type": "multiSelect",
+		"groupType": "1CensusGeneral",
+		"name": "1I_BASIS_ESTIMATE_PASSIVE",
+		"alcrmQuestionID": "I_BASIS_ESTIMATE_PASSIVE",
+		"alcrmGroupType": "CensusGeneral",
+		"visable": false,
+		"readOnly": false,
+		"order": "1508",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_BASIS_ESTIMATE_PASSIVE Notes",
+		"help": "I_BASIS_ESTIMATE_PASSIVE Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "Interview with crossing owner",
+				"value": "605"
+			}, {
+				"displayValue": "Interview with crossing users",
+				"value": "606"
+			}, {
+				"displayValue": "Appearance of crossing",
+				"value": "607"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": null
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Basis for estimate"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_CAR_COUNT",
+		"alcrmQuestionID": "I_CAR_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1527",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CAR_COUNT Notes",
+		"help": "I_CAR_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Cars"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_LOR_COUNT",
+		"alcrmQuestionID": "I_LOR_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1528",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_LOR_COUNT Notes",
+		"help": "I_LOR_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Vans / Sm Lorries"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_BUS_COUNT",
+		"alcrmQuestionID": "I_BUS_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1529",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_BUS_COUNT Notes",
+		"help": "I_BUS_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Buses"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_HGV_COUNT",
+		"alcrmQuestionID": "I_HGV_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1530",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_HGV_COUNT Notes",
+		"help": "I_HGV_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "HGVs"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_CYC_COUNT",
+		"alcrmQuestionID": "I_CYC_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1531",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CYC_COUNT Notes",
+		"help": "I_CYC_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Pedal / Motor Cycles"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_PED_COUNT",
+		"alcrmQuestionID": "I_PED_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1532",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_PED_COUNT Notes",
+		"help": "I_PED_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Pedestrians"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_HOOF_COUNT",
+		"alcrmQuestionID": "I_HOOF_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1533",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_HOOF_COUNT Notes",
+		"help": "I_HOOF_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Horses / Riders"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_EQUESTRIAN_COUNT",
+		"alcrmQuestionID": "I_EQUESTRIAN_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1534",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_EQUESTRIAN_COUNT Notes",
+		"help": "I_EQUESTRIAN_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Animals on the hoof"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "textFieldTemplate",
+		"type": "numeric",
+		"groupType": "1CensusUsage",
+		"name": "1I_TRACTOR_COUNT",
+		"alcrmQuestionID": "I_TRACTOR_COUNT",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1535",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_TRACTOR_COUNT Notes",
+		"help": "I_TRACTOR_COUNT Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "19"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "20"
+			}, {
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "745"
+			}
+		],
+		"selections": [],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": 6,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "19"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "20"
+				}, {
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "745"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Tractors / Farm Vehicles"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_CAR_EST",
+		"alcrmQuestionID": "I_CAR_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1536",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CAR_EST Notes",
+		"help": "I_CAR_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "400"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "401"
+			}, {
+				"displayValue": "FEW",
+				"value": "402"
+			}, {
+				"displayValue": "NO",
+				"value": "403"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "564"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "565"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8156"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8157"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8158"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8159"
+			}, {
+				"displayValue": "FEW",
+				"value": "8160"
+			}, {
+				"displayValue": "NO",
+				"value": "8161"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Cars"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_LOR_EST",
+		"alcrmQuestionID": "I_LOR_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1537",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_LOR_EST Notes",
+		"help": "I_LOR_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "434"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "435"
+			}, {
+				"displayValue": "FEW",
+				"value": "436"
+			}, {
+				"displayValue": "NO",
+				"value": "437"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "574"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "575"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8164"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8165"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8166"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8167"
+			}, {
+				"displayValue": "FEW",
+				"value": "8168"
+			}, {
+				"displayValue": "NO",
+				"value": "8169"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Vans / Sm Lorries"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_BUS_EST",
+		"alcrmQuestionID": "I_BUS_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1538",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_BUS_EST Notes",
+		"help": "I_BUS_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "396"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "397"
+			}, {
+				"displayValue": "FEW",
+				"value": "398"
+			}, {
+				"displayValue": "NO",
+				"value": "399"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "562"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "563"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8172"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8173"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8174"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8175"
+			}, {
+				"displayValue": "FEW",
+				"value": "8176"
+			}, {
+				"displayValue": "NO",
+				"value": "8177"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Buses"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_HGV_EST",
+		"alcrmQuestionID": "I_HGV_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1539",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_HGV_EST Notes",
+		"help": "I_HGV_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "423"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "424"
+			}, {
+				"displayValue": "FEW",
+				"value": "425"
+			}, {
+				"displayValue": "NO",
+				"value": "426"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "570"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "571"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8180"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8181"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8182"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8183"
+			}, {
+				"displayValue": "FEW",
+				"value": "8184"
+			}, {
+				"displayValue": "NO",
+				"value": "8185"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "HGVs"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_CYC_EST",
+		"alcrmQuestionID": "I_CYC_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1540",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_CYC_EST Notes",
+		"help": "I_CYC_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "406"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "407"
+			}, {
+				"displayValue": "FEW",
+				"value": "408"
+			}, {
+				"displayValue": "NO",
+				"value": "409"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "566"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "567"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8188"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8189"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8190"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8191"
+			}, {
+				"displayValue": "FEW",
+				"value": "8192"
+			}, {
+				"displayValue": "NO",
+				"value": "8193"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Pedal / Motor Cycles"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_PED_EST",
+		"alcrmQuestionID": "I_PED_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1541",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_PED_EST Notes",
+		"help": "I_PED_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "457"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "458"
+			}, {
+				"displayValue": "FEW",
+				"value": "459"
+			}, {
+				"displayValue": "NO",
+				"value": "460"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "576"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "577"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8196"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8197"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8198"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8199"
+			}, {
+				"displayValue": "FEW",
+				"value": "8200"
+			}, {
+				"displayValue": "NO",
+				"value": "8201"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Pedestrians"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_HOOF_EST",
+		"alcrmQuestionID": "I_HOOF_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1542",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_HOOF_EST Notes",
+		"help": "I_HOOF_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "427"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "428"
+			}, {
+				"displayValue": "FEW",
+				"value": "429"
+			}, {
+				"displayValue": "NO",
+				"value": "430"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "572"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "573"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8204"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8205"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8206"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8207"
+			}, {
+				"displayValue": "FEW",
+				"value": "8208"
+			}, {
+				"displayValue": "NO",
+				"value": "8209"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Horses / Riders"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_EQUESTRIAN_EST",
+		"alcrmQuestionID": "I_EQUESTRIAN_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1543",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_EQUESTRIAN_EST Notes",
+		"help": "I_EQUESTRIAN_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "410"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "411"
+			}, {
+				"displayValue": "FEW",
+				"value": "412"
+			}, {
+				"displayValue": "NO",
+				"value": "413"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "568"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "569"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8212"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8213"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8214"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8215"
+			}, {
+				"displayValue": "FEW",
+				"value": "8216"
+			}, {
+				"displayValue": "NO",
+				"value": "8217"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Animals on the hoof"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
+	}, {
+		"isAQuestion": true,
+		"template": "singleSelectTemplate",
+		"type": "radio",
+		"groupType": "1CensusUsage",
+		"name": "1I_TRACTOR_EST",
+		"alcrmQuestionID": "I_TRACTOR_EST",
+		"alcrmGroupType": "CensusUsage",
+		"visable": false,
+		"readOnly": false,
+		"order": "1544",
+		"associatedFileName": "1391789659450CensusQuestions.json",
+		"questionResponse": null,
+		"assessmentId": 1391789659449,
+		"notesBackground": {
+			"backgroundImage": "images/questionNote.png"
+		},
+		"notes": "I_TRACTOR_EST Notes",
+		"help": "I_TRACTOR_EST Help",
+		"selected": false,
+		"value": [""],
+		"renderValue": [
+			{
+				"question": {
+					"name": "1I_CENSUS_TYPE",
+					"groupType": ""
+				},
+				"value": "21"
+			}
+		],
+		"selections": [
+			{
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "463"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "464"
+			}, {
+				"displayValue": "FEW",
+				"value": "465"
+			}, {
+				"displayValue": "NO",
+				"value": "466"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "578"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "579"
+			}, {
+				"displayValue": "SIX TO NINE DAILY",
+				"value": "8220"
+			}, {
+				"displayValue": "THREE TO FIVE DAILY",
+				"value": "8221"
+			}, {
+				"displayValue": "ONCE OR TWICE DAILY",
+				"value": "8222"
+			}, {
+				"displayValue": "WEEKLY",
+				"value": "8223"
+			}, {
+				"displayValue": "FEW",
+				"value": "8224"
+			}, {
+				"displayValue": "NO",
+				"value": "8225"
+			}
+		],
+		"validation": {
+			"validationTest": true,
+			"min": null,
+			"max": null,
+			"minLength": null,
+			"maxLength": null,
+			"format": null,
+			"mandatory": false,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "1I_CENSUS_TYPE",
+						"groupType": ""
+					},
+					"value": "21"
+				}
+			]
+		},
+		"mandatory": false,
+		"subsectionTitle": null,
+		"title": {
+			"text": "Tractors / Farm Vehicles"
+		},
+		"displayValue": {
+			"value": ""
+		},
+		"displayValue2": {
+			"value": ""
+		},
+		"errorMessageVisable": false,
+		"questionErrorMessageView": {},
+		"questionErrorMessage": {},
+		"renderDependencyList": [],
+		"mandatoryDependenciesList": [],
+		"headerView": {}
 	}
-}
+]
