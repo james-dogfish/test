@@ -96,11 +96,11 @@ function responseGenerator() {
                     }
                     if (questionResponse != null) {
                         if (questionType === "multiSelect") {
-                            censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse) + "</cen1:censusData>";
+                            censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
                         } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                            censusData = censusData + '<cen1:censusData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse) + "</cen1:censusData>";
+                            censusData = censusData + '<cen1:censusData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
                         } else {
-                            censusData = censusData + "<cen1:censusData>" + Alloy.Globals.Util.escapeXML(questionResponse) + "</cen1:censusData>";
+                            censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
                         }
                     }
                 }
@@ -144,11 +144,11 @@ function responseGenerator() {
                     var questionType = questionList[questionIndex].type;
                     if (questionResponse != null) {
                         if (questionType === "multiSelect") {
-                            trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
+                            trainData = trainData + '<tra1:detailedData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse  + '</tra1:detailedData>';
                         } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                            trainData = trainData + '<tra1:detailedData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
+                            trainData = trainData + '<tra1:detailedData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse  + '</tra1:detailedData>';
                         } else {
-                            trainData = trainData + "<tra1:detailedData>" + Alloy.Globals.Util.escapeXML(questionResponse)  + "</tra1:detailedData>";
+                            trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
                         }
                     }
                 }
@@ -180,11 +180,11 @@ function responseGenerator() {
 
                 if (questionResponse != null) {
                     if (questionType === "multiSelect") {
-                        riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse)  + "</ass1:riskData>";
+                        riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse  + '</ass1:riskData>';
                     } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
-                        riskData = riskData + '<ass1:riskData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + Alloy.Globals.Util.escapeXML(questionResponse)  + "</ass1:riskData>";
+                        riskData = riskData + '<ass1:riskData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</ass1:riskData>';
                     } else {
-                        riskData = riskData + "<ass1:riskData>" + Alloy.Globals.Util.escapeXML(questionResponse) + "</ass1:riskData>";
+                        riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
                     }
                 }
 
