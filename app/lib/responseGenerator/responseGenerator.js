@@ -208,10 +208,10 @@ function responseGenerator() {
     
     self.submitAss = function(assObj)
     {     
-    	 var sectionListCen = localDataHandler.getAllCensusesOrTrains(assObj, 0);
+    	 var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 
 	        var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
-    	if(!(isDebugOn) && assObj.questionCount !== assObj.questionsCompleted)
+    	if(!(Alloy.Globals.isDebugOn) && assObj.questionCount !== assObj.questionsCompleted)
     	{
     		Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,responseCode: 2});
     		noneToSubmit++;
@@ -225,9 +225,9 @@ function responseGenerator() {
 		    Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
 	        return;   */
 	                    
-	    	var sectionListAss = localDataHandler.getMainRiskAssessmentQuestions(assObj);
-	        var sectionListCen = localDataHandler.getAllCensusesOrTrains(assObj, 0);
-	        var sectionListTra = localDataHandler.getAllCensusesOrTrains(assObj, 1);
+	    	var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
+	        var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
+	        var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
 	        
 	        var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
 	        //Ti.API.info('1activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
@@ -237,7 +237,7 @@ function responseGenerator() {
 			//Ti.API.info('3activeAssessments['+assessmentIndex+']='+JSON.stringify(activeAssessments[assessmentIndex]));
 	       
 	        //var Util = require('core/Util');
-	        var newAssessmentForPDF = localDataHandler.createAssessmentPDFResponse(assObj);
+	        var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
 	        Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
 			
 			if(assObj.censusDesktopComplete == false){
@@ -260,7 +260,7 @@ function responseGenerator() {
 					                        //var response = JSON.stringify(XMLTools.toObject());
 					                        
 					                        assObj.alcrmStatus = "sent";
-											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 											Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 												
 											
@@ -277,7 +277,7 @@ function responseGenerator() {
 					                        //var response = JSON.stringify(XMLTools.toObject());
 											
 											assObj.alcrmStatus = "sent";
-											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 											Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 					                        //Ti.API.info('createAssessment Success response >> ' + response);
 					                        Alloy.Globals.aIndicator.hide();
@@ -297,7 +297,7 @@ function responseGenerator() {
 					                        //var response = JSON.stringify(XMLTools.toObject());
 					                        
 					                        assObj.alcrmStatus = "sent";
-											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 											Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 					                        //Ti.API.info('createAssessment Success response >> ' + response);
 					                        Alloy.Globals.aIndicator.hide();
@@ -312,7 +312,7 @@ function responseGenerator() {
 					                        //var response = JSON.stringify(XMLTools.toObject());
 											
 											assObj.alcrmStatus = "sent";
-											localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+											Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 											Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 					                        //Ti.API.info('createAssessment Success response >> ' + response);
 					                        Alloy.Globals.aIndicator.hide();
@@ -339,7 +339,7 @@ function responseGenerator() {
 			                        //var response = JSON.stringify(XMLTools.toObject());
 									
 									assObj.alcrmStatus = "sent";
-									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+									Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 									Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 			                        //Ti.API.info('createAssessment Success response >> ' + response);
 			                        Alloy.Globals.aIndicator.hide();
@@ -354,7 +354,7 @@ function responseGenerator() {
 			                        //var response = JSON.stringify(XMLTools.toObject());
 			
 									assObj.alcrmStatus = "sent";
-									localDataHandler.updateSingleAssessmentIndexEntry(assObj);
+									Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 									Ti.App.fireEvent('AssessmentSubmitMessage',{assessmentID: assObj.assessmentId,success: true});
 			                        //Ti.API.info('createAssessment Success response >> ' + response);
 			                        Alloy.Globals.aIndicator.hide();
@@ -369,7 +369,7 @@ function responseGenerator() {
     };//end of test1
 
     self.commitAllCompleted = function () {
-    	var activeAssessments = localDataHandler.getAllSavedAssessments();
+    	var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
     	
         Ti.API.info('activeAssessments='+JSON.stringify(activeAssessments));
         
