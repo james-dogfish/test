@@ -24,7 +24,7 @@ function interpreterModule2() {
 
 
     var ui_types_map = {};
-    ui_types_map["date"] = "minuteHourTimeTemplate";
+    ui_types_map["date"] = "dateTemplate";
     ui_types_map["alpha"] = "textFieldTemplate";
     ui_types_map["radio"] = "singleSelectTemplate";
     ui_types_map["select"] = "singleSelectTemplate";
@@ -767,6 +767,10 @@ function interpreterModule2() {
 	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "censusCounterTemplate";
 	                }
 	                
+	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID == "I_DURATION"){
+	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "minuteHourTimeTemplate";
+	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].type = "timerPicker";
+	                }
 	                
 	
 	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];

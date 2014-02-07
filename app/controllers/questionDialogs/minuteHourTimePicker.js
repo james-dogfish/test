@@ -62,8 +62,9 @@ var closeWindow = function(){
 	var stringValue = ""+currentValue.h+":"+currentValue.m;
 	args.closeCallBack({
 		displayValue : stringValue,
-		value : stringValue
+		value : parseInt(currentValue.h)*60 + parseInt(currentValue.m)
 	});
+	Ti.API.info("minuteHourTimeTemplate minutes = "+parseInt(currentValue.h)*60 + parseInt(currentValue.m));
 	$.modalBackgorund.animate(animationClose);
 	$.background.animate(animationFadeOut);
 };

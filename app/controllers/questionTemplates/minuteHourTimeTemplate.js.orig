@@ -21,7 +21,7 @@ function showPicker(e)
 {
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
-	Alloy.createController("questionDialogs/modalPicker", {currentValue : item.value[0], valueList : item.selections, closeCallBack : function(data){
+	Alloy.createController("questionDialogs/minuteHourTimePicker", {closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.value];
 		section.updateItemAt(e.itemIndex, item);
@@ -31,8 +31,13 @@ function showPicker(e)
 		
 		var questionResponse = 
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
+<<<<<<< HEAD
 	       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
 	       //"<ques:notes>"+item.notes+"</ques:notes>";
+=======
+	       "<ques:parameterValue>"+data.displayValue+"</ques:parameterValue>"+
+	       "<ques:notes>"+item.notes+"</ques:notes>";
+>>>>>>> c332ea07ac6a60598d3ed33a36ffac7aa4fac9c9
 	       
 	    item.questionResponse = questionResponse;
 	

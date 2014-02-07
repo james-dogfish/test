@@ -140,10 +140,33 @@ function localDataHandler() {
 	                        if (sectionList[sectionIndex].questionList[questionIndex] && 
 	                        	sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') && 
 	                        	sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
+<<<<<<< HEAD
         
 	                           // sectionList[sectionIndex].questionList[questionIndex] = question;
 	                            foundIndex = questionIndex;
 	                            foundSectionIndex = sectionIndex;
+=======
+	                            
+	                            /*
+	                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
+	                            var newQuestion =  question;
+	                            
+	                            if(oldQuestion.validation.mandatory === true && typeof savedAssessments[refToSaveAssessmentIndex] !== "undefined")
+	                            {
+	                            	if(oldQuestion.value[0] === "" && newQuestion.value[0] !== "")
+	                            	{
+	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted++;
+	                            	}else if(oldQuestion.value[0] !== "" && newQuestion.value[0] === "")
+	                            	{
+	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
+	                            	}
+	                            	
+	                            }
+	                           */
+	                          //Ti.API.info("localDataHandle question value = "+question.value[0]);
+	                                      
+	                            sectionList[sectionIndex].questionList[questionIndex] = question;
+>>>>>>> c332ea07ac6a60598d3ed33a36ffac7aa4fac9c9
 	                            questionFound = true;
 	                        } 
 	                    }
@@ -671,7 +694,7 @@ function localDataHandler() {
 
         return returnQuestionSet;
        }catch(e){
-       		Ti.API.info("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
+       		alert("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };
