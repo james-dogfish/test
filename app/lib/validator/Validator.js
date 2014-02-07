@@ -56,18 +56,9 @@ function _Validator() {
 	
 	this.isValidFormat = function(inputFormat)
 	{
-		var validFormats = ["hh:mm","hh:mm:ss","dd-mm-yyyy","dd-mm-yy"];
-		
-		var isValid = false;
-		
-		validFormats.forEach(function(format){
-			if(inputFormat.toLowerCase() === format)
-			{
-				isValid = true;
-			}
-		});
-		
-		return isValid;
+		var re=/^0[0-9]|1[0-9]|2[0-3]:[0-5][0-9]$/;
+
+		return re.test(inputFormat);
 	};
 
 	return this;

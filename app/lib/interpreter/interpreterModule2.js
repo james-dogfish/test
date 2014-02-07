@@ -138,8 +138,8 @@ function interpreterModule2() {
 		        type: "date", // this is the alcrem question type
 		        groupType: section.groupType,
 		        alcrmGroupType: section.alcrmGroupType,
-		        name: passObject.pageID +"CENSUS_DATE", // this is the id of the question
-		        alcrmQuestionID: "CENSUS_DATE",
+		        name: passObject.pageID +"I_CENSUS_DATE", // this is the id of the question
+		        alcrmQuestionID: "I_CENSUS_DATE",
 		        visable: true,
 		        order: "1",
 		        associatedFileName: passObject.associatedFileName, // file the question is in
