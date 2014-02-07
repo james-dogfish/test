@@ -84,9 +84,17 @@ function responseGenerator() {
 			var sectionList = censusList[censusListIndex];
 			for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
 				var questionList = sectionList[sectionListIndex].questionList;
+				//alert("questionList[2]"+JSON.stringify(questionList[2]));
 				for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+					
+					/*if it's not a question - we skip it - CONTACT ANDY.*/
+					if (questionList[questionIndex].isAQuestion == false) continue;
+					
+					
 					var questionResponse = questionList[questionIndex].questionResponse;
-
+					
+					
+					//Ti.API.error("Census questionList[questionIndex] = "+JSON.stringify(questionList[questionIndex]));
 					var questionType = questionList[questionIndex].type;
 
 					if (questionList[questionIndex].isAQuestion == true && censusDate === "") {
@@ -95,14 +103,24 @@ function responseGenerator() {
 							continue;
 						}
 					}
+					//Ti.API.error("questionResponse ====== >"+JSON.stringify(questionResponse));
+					var tempFix = JSON.stringify(questionResponse);
+					tempFix = tempFix.replace("<ass1:riskData>","").replace("</ass1:riskData>","").replace("1I_","I_");
+					questionResponse = JSON.parse(tempFix);
+					
 					if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
 						if (questionType === "multiSelect") {
 							censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
-						} else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
+						} 
+						else if(questionType === "numeric"){
+							censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
+						}
+						else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
 							censusData = censusData + '<cen1:censusData xsi:type="ques:' + questionType + '" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
 						} else {
 							censusData = censusData + "<cen1:censusData>" + questionResponse + "</cen1:censusData>";
 						}
+						
 					}
 				}
 			}
@@ -110,7 +128,7 @@ function responseGenerator() {
 			var numbers = "";
 			var dateToPost = "";
 			if (censusDate != null) {
-				alert("DEBUG CensusDate= " + censusDate);
+				//alert("DEBUG CensusDate= " + censusDate);
 				numbers = censusDate.match(/\d+/g);
 				if (numbers !== null) {
 					dateToPost = new Date(numbers[2], numbers[0] - 1, numbers[1]);
@@ -163,7 +181,7 @@ function responseGenerator() {
 				var questionResponse = questionList[questionIndex].questionResponse;
 
 				var questionType = questionList[questionIndex].type;
-
+				Ti.API.error("assquestionResponse =>"+JSON.stringify(questionResponse));
 				if (questionResponse != null) {
 					if (questionType === "multiSelect") {
 						riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</ass1:riskData>';
@@ -213,10 +231,10 @@ function responseGenerator() {
 	};
 
 	self.submitAss = function(assObj) {
-		var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
+		//var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 
-		var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
-		if (!(Alloy.Globals.isDebugOn) && assObj.questionCount !== assObj.questionsCompleted) {
+		//var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
+		/*if (!(Alloy.Globals.isDebugOn) && assObj.questionCount !== assObj.questionsCompleted) {
 			Ti.App.fireEvent('AssessmentSubmitMessage', {
 				assessmentID : assObj.assessmentId,
 				responseCode : 2
@@ -224,13 +242,13 @@ function responseGenerator() {
 			noneToSubmit++;
 			Ti.API.info("noneToSubmit = " + noneToSubmit);
 			return;
-		} else {
+		} else {*/
 			Alloy.Globals.aIndicator.show("Committing...");
-
 			var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
 			var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 			var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
-
+			Ti.API.error("sectionListAss >> "+JSON.stringify(sectionListAss));
+			//return;
 			var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
 			var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
 
@@ -250,7 +268,7 @@ function responseGenerator() {
 
 							Alloy.Globals.censusIDs.push(censusId);
 							Alloy.Globals.censusDates.push(censusDate);
-							if (Alloy.Globals.censusIDs.length === (xmlCensusRequest.length - 1)) {
+							if (Alloy.Globals.censusIDs.length === xmlCensusRequest.length) {
 								self.doAssessment(assObj, sectionListAss);
 							}
 						});
@@ -282,7 +300,7 @@ function responseGenerator() {
 						var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 						Ti.API.info("trainId=" + trainId);
 						Alloy.Globals.trainIDs.push(trainId);
-						if (Alloy.Globals.trainIDs.length === (xmlTrainRequest.length - 1)) {
+						if (Alloy.Globals.trainIDs.length === 3) {
 							self.doAssessment(assObj, sectionListAss);
 						}
 
@@ -297,7 +315,7 @@ function responseGenerator() {
 
 			}//end for loop
 
-		}
+		//}
 	};
 	//end of test1
 
@@ -359,8 +377,6 @@ function responseGenerator() {
 
 		for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
 			self.submitAss(activeAssessments[assessmentIndex]);
-			//Alloy.Globals.trainIDs = [];
-			//Alloy.Globals.censusIDs = [];
 		}
 		if (noneToSubmit === activeAssessments.length) {
 			alert("There are currently no risk assessments to submit");

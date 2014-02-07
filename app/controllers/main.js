@@ -407,9 +407,16 @@ var buildAssessment = function(crossingDetail) {
 		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 
-		$.riskAssessmentsTab.loadRiskAssessments();
-		$.questionRendererTab.setAssessment(assessmentObject);
-		$.tabGroup.setActiveTab($.questionRendererTab.getView());
+		
+		if(typeof assessmentObject !== "undefined")
+		{
+			if(assessmentObject !== null && assessmentObject !== []){
+				$.riskAssessmentsTab.loadRiskAssessments();
+				$.questionRendererTab.setAssessment(assessmentObject);
+				$.tabGroup.setActiveTab($.questionRendererTab.getView());
+			}
+		}
+		
 
 		Alloy.Globals.aIndicator.hide();
 	}

@@ -84,8 +84,8 @@ function onTextField1Blur(e){
 	var questionResponse = 
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
        "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
-       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
-       "<ques:notes>"+item.notes+"</ques:notes>";
+       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
+       //"<ques:notes>"+item.notes+"</ques:notes>";
        
     item.questionResponse = questionResponse;
     
@@ -141,8 +141,8 @@ function onTextField2Blur(e){
 	var questionResponse = 
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
        "<ques:lowValue>"+currentValue[0]+"</ques:lowValue>"+
-       "<ques:highValue>"+currentValue[2]+"</ques:highValue>"+
-       "<ques:notes>"+item.notes+"</ques:notes>";
+       "<ques:highValue>"+currentValue[2]+"</ques:highValue>";
+       //"<ques:notes>"+item.notes+"</ques:notes>";
 
 	item.questionResponse = questionResponse;
 	

@@ -70,8 +70,8 @@ function onTextField1Blur(e){
 	
 	var questionResponse =
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>"+
-       "<ques:notes>"+item.notes+"</ques:notes>";
+       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
+      // "<ques:notes>"+item.notes+"</ques:notes>";
        
     item.questionResponse = questionResponse;
 	
@@ -117,10 +117,9 @@ var addValue = function(additionValue, e){
 	//section.updateItemAt(questionObject.itemIndex, item);
 	
 	var questionResponse = 
-	"<ass1:riskData>"+
        "<ques:parameterName>"+item.name+"</ques:parameterName>"+
-       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>"+
-    "</ass1:riskData>";
+       "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
+    //alert("questionResponse object in template = "+JSON.stringify(questionResponse));
     
     item.questionResponse = questionResponse;
     

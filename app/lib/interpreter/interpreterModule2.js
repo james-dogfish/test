@@ -189,7 +189,7 @@ function interpreterModule2() {
 		        headerView: {}
 	    	};
 	    }catch(e){
-	    	Ti.API.info("Exception occured in createCensusDateQuestion. Error Details: "+JSON.stringify(e));
+	    	alert("Exception occured in createCensusDateQuestion. Error Details: "+JSON.stringify(e));
        		return null;
 	    }
     	

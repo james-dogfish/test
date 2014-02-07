@@ -27,8 +27,8 @@ function onTextFieldBlur(e){
 	
 	var questionResponse = 
    "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-   "<ques:parameterValue>"+e.value+"</ques:parameterValue>"+
-   "<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
+   "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
+   //"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 
     item.questionResponse = questionResponse;
     

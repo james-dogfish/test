@@ -1085,6 +1085,8 @@ var questionValueChange = function (e) {
                 "<ques:parameterName>" + questionTitleRef.question.alcrmQuestionID + "</ques:parameterName>" +
                 "<ques:parameterValue>" + questionTitleRef.question.displayValue.value + "</ques:parameterValue>";
 
+			alert("In questionValueChange - questionResponse = "+JSON.stringify(questionResponse));
+			
             questionTitleRef.question.questionResponse = questionResponse;
 
             questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex, questionTitleRef.question);
@@ -1095,14 +1097,14 @@ var questionValueChange = function (e) {
         }
 
     }
-
+	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
     if (e.section != null) {
     	//alert("updateItemAt");
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
-
+	alert("In questionValueChange - e.questionObject = "+JSON.stringify(e.questionObject));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
 
 

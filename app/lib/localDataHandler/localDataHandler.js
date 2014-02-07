@@ -110,6 +110,7 @@ function localDataHandler() {
 
 	//will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function (question) {
+    	Ti.API.error("updateQuestion is Called");
     	try{
 			var savedAssessments = self.getAllSavedAssessments();
 			//Ti.API.info("savedAssessments >> "+JSON.stringify(savedAssessments));
@@ -128,6 +129,8 @@ function localDataHandler() {
 	            var sectionList = JSON.parse(assessmentFile.read().text);
 	
 	            var questionFound = false;
+	            var foundIndex = null;
+	            var foundSectionIndex = null;
 	            for (var sectionIndex = 0; sectionIndex < sectionList.length && questionFound != true; sectionIndex++) {
 	
 	                if (sectionList[sectionIndex].alcrmGroupType == question.alcrmGroupType) {
@@ -137,25 +140,10 @@ function localDataHandler() {
 	                        if (sectionList[sectionIndex].questionList[questionIndex] && 
 	                        	sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') && 
 	                        	sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
-	                            
-	                            /*
-	                            var oldQuestion =  sectionList[sectionIndex].questionList[questionIndex];
-	                            var newQuestion =  question;
-	                            
-	                            if(oldQuestion.validation.mandatory === true && typeof savedAssessments[refToSaveAssessmentIndex] !== "undefined")
-	                            {
-	                            	if(oldQuestion.value[0] === "" && newQuestion.value[0] !== "")
-	                            	{
-	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted++;
-	                            	}else if(oldQuestion.value[0] !== "" && newQuestion.value[0] === "")
-	                            	{
-	                            		savedAssessments[refToSaveAssessmentIndex].questionsCompleted--;
-	                            	}
-	                            	
-	                            }
-	                           */
-	                                      
-	                            sectionList[sectionIndex].questionList[questionIndex] = question;
+        
+	                           // sectionList[sectionIndex].questionList[questionIndex] = question;
+	                            foundIndex = questionIndex;
+	                            foundSectionIndex = sectionIndex;
 	                            questionFound = true;
 	                        } 
 	                    }
@@ -164,6 +152,9 @@ function localDataHandler() {
 	
 	            if (questionFound == false) {
 	                Ti.API.info("updateQuestion : question not found ");
+	            }else{
+	            	sectionList[foundSectionIndex].questionList[foundIndex] = question;
+	            	//alert("updateQuestion - localDataHandler >> "+JSON.stringify(question));
 	            }
 	
 				self.updateSavedAssessments(savedAssessments);
@@ -599,7 +590,7 @@ function localDataHandler() {
                 //read each file here
                 var currentCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + censusQuestionsfileNameList[i]);
                 if (!currentCensusFile.exists) {
-                    //Ti.API.error("Line 352 localDataHandler.js - cant open currentCensusfile " + censusQuestionsfileNameList[i]);
+                    Ti.API.error("getAllCensusesOrTrains - cant open currentCensusfile " + censusQuestionsfileNameList[i]);
                 } else {
                     var currentContents = currentCensusFile.read().text;
                     getAllData.push(
@@ -614,7 +605,7 @@ function localDataHandler() {
                 //read each file here
                 var currentTrainFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + trainGroupQuestionsfileNameList[i]);
                 if (!currentTrainFile.exists) {
-                    //Ti.API.error("Line 367 localDataHandler.js - cant open currentTrainfile " + trainGroupQuestionsfileNameList[i]);
+                    Ti.API.error("getAllCensusesOrTrains - cant open currentTrainFile " + trainGroupQuestionsfileNameList[i]);
                 } else {
                     var currentContents = currentTrainFile.read().text;
                     getAllData.push(
@@ -625,7 +616,7 @@ function localDataHandler() {
             break;
 
         }
-
+		Ti.API.error("getAllCensusesOrTrains returns => "+JSON.stringify(getAllData));
         return getAllData;
         }catch(e){
         	Ti.API.info("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e));
@@ -680,7 +671,7 @@ function localDataHandler() {
 
         return returnQuestionSet;
        }catch(e){
-       		Ti.API.info("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
+       		alert("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
        		Alloy.Globals.aIndicator.hide();
        }
     };

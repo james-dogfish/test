@@ -71,8 +71,8 @@ function dateButton1Clicked(e){
 		var questionResponse = 
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 	       "<ques:lowValue>"+item.value[0]+"</ques:lowValue>"+
-	       "<ques:highValue>"+item.value[2]+"</ques:highValue>"+
-	       "<ques:notes>"+item.notes+"</ques:notes>";
+	       "<ques:highValue>"+item.value[2]+"</ques:highValue>";
+	       //"<ques:notes>"+item.notes+"</ques:notes>";
 	       
 	    item.questionResponse = questionResponse;
 	
@@ -140,12 +140,12 @@ function dateButton2Clicked(e){
 		*/
 		
 		var questionResponse = 
-		"<ass1:riskData>"+
+		//"<ass1:riskData>"+
 	       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 	       "<ques:lowValue>"+item.value[0]+"</ques:lowValue>"+
 	       "<ques:highValue>"+item.value[2]+"</ques:highValue>"+
-	       "<ques:notes>"+item.notes+"</ques:notes>"+
-	    "</ass1:riskData>";
+	       "<ques:notes>"+item.notes+"</ques:notes>";
+	    //"</ass1:riskData>";
 	    
 	   item.questionResponse = questionResponse;
 		
