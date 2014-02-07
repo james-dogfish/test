@@ -15,7 +15,7 @@ $.pickerView.add(data);
 $.pickerView.selectionIndicator = true;
 $.pickerView.setSelectedRow(0, 0, true);
 
-if(args.currentValue != ""){
+if(args.currentValue != "" || typeof args.currentValue === "undefined"){
 	for(var i=0;i<args.valueList.length;i++){
 		if(args.valueList[i].value == args.currentValue){
 			$.pickerView.setSelectedRow(0, i, true);
