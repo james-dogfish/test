@@ -278,8 +278,8 @@ function localDataHandler() {
         var newAssessmentFileName = newAssessment.mainQuestionsfileName;
         var newAssessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newAssessmentFileName);
 
-		Ti.API.info("before calling interpret");
-		Ti.API.info(JSON.stringify(JASON_question_list));
+		//Ti.API.info("before calling interpret");
+		//Ti.API.info(JSON.stringify(JASON_question_list));
 		
         //new interpreterModule
         var newQuestionSet = Alloy.Globals.interpreter.interpret(JASON_question_list, {
@@ -291,8 +291,8 @@ function localDataHandler() {
             assessmentId: assessmentID,
             questionMap: quesMap
         });
-        Ti.API.info("after calling interpret");
-        Ti.API.info("newQuestionSet >> " + JSON.stringify(newQuestionSet));
+        //Ti.API.info("after calling interpret");
+        //Ti.API.info("newQuestionSet >> " + JSON.stringify(newQuestionSet));
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
@@ -306,7 +306,7 @@ function localDataHandler() {
 	//addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
     	try{
-    	Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
+    	//Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -327,7 +327,7 @@ function localDataHandler() {
 	//addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
     	try{
-    	Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
+    	//Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -707,7 +707,7 @@ function localDataHandler() {
             		var questionList = returnQuestionSet[returnQuestionSetIndex].questionList;
             		for(var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++)
             		{
-            			Ti.API.info("updateQuestionCount name = "+ questionList[questionListIndex].name);
+            			//Ti.API.info("updateQuestionCount name = "+ questionList[questionListIndex].name);
             			//Count the Mandatory
 	            		if(questionList[questionListIndex].mandatory == true ||
 	            			 questionList[questionListIndex].mandatory == "true"){
@@ -774,7 +774,7 @@ function localDataHandler() {
 	        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
 	        if (assessmentFile.exists()) {
 	            var assessment = JSON.parse(assessmentFile.read().text);
-	            Ti.API.info("mainQuestionsfileName = "+JSON.stringify(assessment));
+	            //Ti.API.info("mainQuestionsfileName = "+JSON.stringify(assessment));
 	            returnQuestionSet = returnQuestionSet.concat(assessment);
 	        }
 	    }
