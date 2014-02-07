@@ -807,7 +807,13 @@ function _Util() {
 		};
 
 		if (self.sliderVisible || hideAll) {
-			self.sliderProxy.fireEvent('click');
+			try {
+				self.sliderProxy.fireEvent('click');
+			} catch (e) {
+				Ti.API.info('Error with slider click' + JSON.stringify(e));
+				self.sliderVisible = false;
+			}
+			
 			return;
 		}
 
