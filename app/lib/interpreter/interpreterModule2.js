@@ -17,13 +17,14 @@ function interpreterModule2() {
     
     var mandatoryDependenciesMap = [];
     
-    var hiddenQuestionsMap = [];
-    var hiddenSectionsMap = [];
+    var removedSectionsMap = [];
+	var removedQuestionsMap = [];
+	var hiddenQuestionsMap = [];
 
 
 
     var ui_types_map = {};
-    ui_types_map["date"] = "dateTemplate";
+    ui_types_map["date"] = "minuteHourTimeTemplate";
     ui_types_map["alpha"] = "textFieldTemplate";
     ui_types_map["radio"] = "singleSelectTemplate";
     ui_types_map["select"] = "singleSelectTemplate";
@@ -208,10 +209,14 @@ function interpreterModule2() {
 	            return null;
 	        }
 	        
-	        if(Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap){
+	        if(Alloy.Globals.localParser.getQuestionName(question) in removedQuestionsMap){
 	        	//Ti.API.info("Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap TRUE");
 	        	return null;
 	        }
+	        
+	        
+	        
+	        
 	        
 	        questionRenderValues = [];
 	        var allRenderValues = Alloy.Globals.localParser.getRenderValue(question);
@@ -711,7 +716,7 @@ function interpreterModule2() {
 	    		
 	        for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
 	        	
-	        	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap){
+	        	if(self.sectionHeaderList[sectionIndex].alcrmGroupType in removedSectionsMap){
 	        		//Ti.API.info("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE");
 	        		self.sectionHeaderList.splice(sectionIndex, 1);
 	        		sectionIndex = sectionIndex - 1;
@@ -753,6 +758,11 @@ function interpreterModule2() {
 					};
 					
 	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
+	                
+	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID in hiddenQuestionsMap){
+	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].visable = false;
+	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = [];
+	                }
 	                
 	                
 	
@@ -864,46 +874,40 @@ function interpreterModule2() {
 		}
     };
     
+    
     var readAppconfig = function(){
-    	try{
-	    	var appconfig= [];
-	    	hiddenQuestionsMap = [];
-	    	hiddenSectionsMap = [];
-	 	
-	    	
-	    	
-	    	var appconfigFile = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "appconfig.json");
-	    	if (appconfigFile.exists()) {
-	    		appconfig = JSON.parse(appconfigFile.read().text);
-	    		
-	    		if("hiddenQuestions" in appconfig){
-	    			
-	    			hiddenQuestionsMap = [];
-	    			for(var i=0; i< appconfig["hiddenQuestions"].length; i++){
-	    				hiddenQuestionsMap[appconfig["hiddenQuestions"][i]] = true;
-	    			}
-	        	}
-	        	
-	        	if("hiddenSections" in appconfig){
-	    			hiddenSectionsMap = [];
-	    			for(var i=0; i< appconfig["hiddenSections"].length; i++){
-	    				hiddenSectionsMap[appconfig["hiddenSections"][i]] = true;
-	    			}
-	        	}
-	        }
-	        else{
-	        	Ti.API.info("interpreterModule2.js in readAppconfig() file not found : "+Titanium.Filesystem.applicationDataDirectory  + "appconfig.json");
-	        }
-		}catch(e){
-			Ti.API.info("Exception in readAppconfig >> "+JSON.stringify(e));
-		}
+
+	    	var removedSections = Ti.App.Properties.getList("removedSections", []);
+	    	Ti.API.info("removedSections = "+JSON.stringify(removedSections));
+	    	removedSectionsMap = [];
+			for(var i=0; i< removedSections.length; i++){
+				removedSectionsMap[removedSections[i]] = true;
+			}
+			
+    		var removedQuestions = Ti.App.Properties.getList("removedQuestions", []);
+    		Ti.API.info("removedQuestions = "+JSON.stringify(removedQuestions));
+    		removedQuestionsMap = [];
+			for(var i=0; i< removedQuestions.length; i++){
+				removedQuestionsMap[removedQuestions[i]] = true;
+			}
+    		
+    		var hiddenQuestions = Ti.App.Properties.getList("hiddenQuestions", []);
+    		Ti.API.info("hiddenQuestions = "+JSON.stringify(hiddenQuestions));
+    		hiddenQuestionsMap = [];
+			for(var i=0; i< hiddenQuestionsMap.length; i++){
+				hiddenQuestionsMap[hiddenQuestions[i]] = true;
+			}
     };
+    
 
     self.interpret = function (allQuestions, passObject) {
     	
 
     	try{
     		readAppconfig();
+    		
+    		
+	    	
 
 	        self.sectionHeaderList = [];
 	        self.questionMap = [];

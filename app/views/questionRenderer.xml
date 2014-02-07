@@ -12,6 +12,8 @@
 	           <Require src="questionTemplates/censusStartTimerTemplate" type="view"/>  
 	           <Require src="customRiskAssessmentRows/setEntireSectionTemplate" type="view"/>  
 	           <Require src="customRiskAssessmentRows/subsectionHeaderTemplate" type="view"/>  
+	           <Require src="questionTemplates/minuteHourTimeTemplate" type="view"/>
+	           
 	           
 	        </Templates>
 		</ListView>
