@@ -1,6 +1,7 @@
 "#detailRowHeaderTemplate" : {
 	width: Ti.UI.FILL,
 	height : "40dp",
+	backgroundColor : "#E4E9EB"
 	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "#title" : {
@@ -8,12 +9,13 @@
 	height : "20dp",
 	wordWrap : false,
 	minimumFontSize : "18dp",
-	left : "20dp"
+	left : "40dp"
 },
 '#colouredBox' : {
+	borderRadius : "10dp",
 	width : "20dp",
 	height : "20dp",
-	right : "10dp",
+	left : "10dp",
 }
 
 

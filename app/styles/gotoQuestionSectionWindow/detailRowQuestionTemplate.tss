@@ -6,13 +6,14 @@
 "#title" : {
 	width: Ti.UI.FILL,
 	height : "20dp",
-	left : "50dp",
+	left : "60dp",
 	wordWrap : false,
 	minimumFontSize : "18dp"
 },
 '#colouredBox' : {
+	borderRadius : "10dp",
 	width : "20dp",
 	height : "20dp",
-	left : "20dp",
+	left : "30dp",
 }
 

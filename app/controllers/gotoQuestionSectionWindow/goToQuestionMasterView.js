@@ -19,14 +19,16 @@ var addSectionToPageList= function(section){
 	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){
 		if(pageList[pageIndex].name == section.pageName){     
             
+            if(section.allMandatoryQuestionsAnswered == false){
+            	pageList[pageIndex].allMandatoryQuestionsAnswered = false;
+            }
+            if(section.allQuestionsAnswered == false){
+            	pageList[pageIndex].allQuestionsAnswered = false;
+            }
 			if(section.mandatoryQuestions == true){
 				pageList[pageIndex].mandatoryQuestions = true;
-				pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
-				if(section.unAnsweredMandatoryQuestions == true){
-					pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
-					pageList[pageIndex].unAnsweredMandatoryQuestions = true;
-				}
 			}
+			
 			pageList[pageIndex].sectionList.push(section);
 			return;
 		}
@@ -37,18 +39,25 @@ var addSectionToPageList= function(section){
 		title : {text : section.pageName}, 
 		sectionList : [],
 		colouredBox : Alloy.Globals.Styles["goToMandatoryColouredBox_nonMandatory"],
+		
 		mandatoryQuestions : false,
-        unAnsweredMandatoryQuestions : false,  
+        allQuestionsAnswered : true,  
+        allMandatoryQuestionsAnswered : true,
+        coreQuestionType : false,
+        
 		pageType : section.pageType,
 		associatedFileName : section.associatedFileName
 	};
 	
-	if(section.mandatoryQuestions == true){
-		newPage.mandatoryQuestions = true;
-		if(section.unAnsweredMandatoryQuestions == true){
-			newPage.unAnsweredMandatoryQuestions = true;
-		}
-	}
+	if(section.allMandatoryQuestionsAnswered == false){
+            	newPage.allMandatoryQuestionsAnswered = false;
+            }
+            if(section.allQuestionsAnswered == false){
+            	newPage.allQuestionsAnswered = false;
+            }
+			if(section.mandatoryQuestions == true){
+				newPage.mandatoryQuestions = true;
+			}
 	
 	if(section.pageType == "riskAssessment"){
 		newPage.template = "masterRowTemplate";
@@ -67,7 +76,8 @@ var addSectionToPageList= function(section){
 	}
 	else if(section.pageType == "coreQuestion"){
 		newPage.template = "masterRowTemplate";
-		newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
+		coreQuestionType = true;
+		//newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 	}
 	
 	newPage.sectionList.push(section);
@@ -86,11 +96,23 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 	}
 	
 	for(var pageIndex = 0; pageIndex < pageList.length; pageIndex++){	
-		if(pageList[pageIndex].mandatoryQuestions == true){
-			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_answered"];
-			if(pageList[pageIndex].unAnsweredMandatoryQuestions == true){
-				pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_unanswered"];
+		
+		if(pageList[pageIndex].coreQuestionType == true){
+			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
+		}
+		else if(pageList[pageIndex].mandatoryQuestions == true){
+			if(pageList[pageIndex].allMandatoryQuestionsAnswered == true){
+				pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_answered"];
 			}
+			else{
+				pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
+			}
+		}
+		else if(pageList[pageIndex].allQuestionsAnswered == true){
+			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_answered"];
+		}
+		else{
+			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_non_mandatory"];
 		}
 	}
 	
