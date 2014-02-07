@@ -21,7 +21,7 @@ function showPicker(e)
 {
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
-	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
+	Alloy.createController("questionDialogs/modalPicker", {currentValue : item.value[0], valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.value];
 		section.updateItemAt(e.itemIndex, item);

@@ -24,7 +24,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 		},
 		start: function() {
 			var self = this;
-			
+			Ti.API.info("censusFooterView seconds = "+this.totalSec);
 			
 			Alloy.Globals.survey = {
 				lastUpdate: moment(),
@@ -40,6 +40,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 				var milliSecondDiff = timeNow.diff(Alloy.Globals.survey.lastUpdate, 'milliseconds');
 				var newDuration = Number(Alloy.Globals.survey.duration) - Number(milliSecondDiff);
 				Alloy.Globals.survey.duration = moment.duration(newDuration, 'milliseconds');
+				Ti.API.info("censusFooterView milliseconds = "+Alloy.Globals.survey.duration.asMilliseconds());
 				
 				if(Alloy.Globals.survey.duration.asMilliseconds() < 0){
 					self.stop();
@@ -47,7 +48,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 				}
 				else{
 			
-					fn_tick(moment(Alloy.Globals.survey.duration.asMilliseconds()).format('mm:ss'));
+					fn_tick(moment(Alloy.Globals.survey.duration.asMilliseconds()).format('HH:mm:ss'));
 					Alloy.Globals.survey.lastUpdate = timeNow;
 				}
 		

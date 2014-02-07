@@ -1103,6 +1103,7 @@ var questionValueChange = function (e) {
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 
+	//Ti.API.info("question value = "+e.questionObject.value[0]);
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
 
 
@@ -1211,6 +1212,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
         } else {
 
             var timerDuration = parseInt(questionRef.question.value[0]) * 60;
+            
             Ti.API.info("timerDuration = " + timerDuration + ", text = " + questionRef.question.value[0]);
             $.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
         }

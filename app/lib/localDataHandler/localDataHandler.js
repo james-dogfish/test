@@ -154,6 +154,7 @@ function localDataHandler() {
 	                            	
 	                            }
 	                           */
+	                          //Ti.API.info("localDataHandle question value = "+question.value[0]);
 	                                      
 	                            sectionList[sectionIndex].questionList[questionIndex] = question;
 	                            questionFound = true;
