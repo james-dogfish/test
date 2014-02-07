@@ -5,6 +5,8 @@
 //var Alloy.Globals.User = require('core/Alloy.Globals.User');
 //END OF REQUIRES
 
+Alloy.Globals.currentlyFocusedTF = null; // Will store the currently focused textfield
+
 //var userPreferences = Alloy.Globals.User.getPreferences();
 var hiddenQuestions = [];
 var allSections = [];
@@ -1015,6 +1017,13 @@ var questionRealTimeValidation = function(e)
 exports.questionRealTimeValidation = questionRealTimeValidation;
 
 var questionValueChange = function (e) {
+
+    // Blur the currently focused TF
+    try {
+        Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+    } catch (e) {
+        Ti.API.info('Cannot blur textfield' + JSON.stringify(e));
+    }
 
     if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
 
