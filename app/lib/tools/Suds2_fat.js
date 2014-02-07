@@ -200,12 +200,12 @@ var SudsClient = function(_options) {
 		            }
 		
 		          }
-		        } else {
+		        } /*else {
 		
 		          error_code = error_object;
 		          error_message = error_object.response.Envelope.Body.Fault.detail.MESSAGE;
 		          error_stacktrace = error_object.response.Envelope.Body.Fault.detail.STACKTRACE;
-		        }
+		        }*/
 		
 		        var alert = Titanium.UI.createAlertDialog({
 		          title: 'Error: ' + error_code,
