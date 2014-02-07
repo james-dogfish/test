@@ -118,9 +118,10 @@ function _Util() {
 			}, function(data, client) {
 				Ti.App.Properties.setString('helpContent', data.help);
 				Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
-				Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
-				Ti.App.Properties.setString('hiddenSections', JSON.stringify(data.hiddenSections));
-				Ti.App.Properties.setString('hiddenQuestions', JSON.stringify(data.hiddenQuestions));
+				Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);
+				Ti.App.Properties.setList('removedSections', data.hiddenSections);
+				Ti.App.Properties.setList('removedQuestions', data.hiddenQuestions);
+				Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
 				Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
 
 				Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
@@ -133,9 +134,10 @@ function _Util() {
 			var data = JSON.parse(file.read().text);
 			Ti.App.Properties.setString('helpContent', data.help);
 			Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
-			Ti.App.Properties.setString('censusCounterQuestions', JSON.stringify(data.censusCounterQuestions));
-			Ti.App.Properties.setString('hiddenSections', JSON.stringify(data.hiddenSections));
-			Ti.App.Properties.setString('hiddenQuestions', JSON.stringify(data.hiddenQuestions));
+			Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);
+			Ti.App.Properties.setList('removedSections', data.removedSections);
+			Ti.App.Properties.setList('removedQuestions', data.removedQuestions);
+			Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
 			Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
 			//Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
 			if (callback) {
@@ -171,8 +173,8 @@ function _Util() {
 		}
 	};
 
-	//cmsUrl = 'http://localhost:8888/nwr';
-	cmsUrl = 'http://dogfishdata.com/alcrm_cms';
+	cmsUrl = 'http://95.138.166.94/alcrm_cms';
+	//cmsUrl = 'http://dogfishdata.com/alcrm_cms';
 	cheatSheetUrl = 'http://www.pdf995.com/samples/pdf.pdf';
 	templateFiles = ['abcl.json', 'ahb.json', 'aocl.json', 'barrow.json', 'fp.json', 'fpmwl.json', 'fps.json', 'mcb.json', 'mcbcctv.json', 'mcg.json', 'oc.json', 'uwc.json', 'uwcmwl.json', 'uwct.json'];
 	crossingTypes = ['abcl', 'ahb', 'aocl', 'barrow', 'fp', 'fpmwl', 'fps', 'mcb', 'mcbcctv', 'mcg', 'oc', 'uwc', 'uwcmwl', 'uwct'];

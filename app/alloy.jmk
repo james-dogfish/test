@@ -47,6 +47,12 @@ task("post:compile", function(event, logger) {
             '__defers["$.__views.selectTextField!click!selectButtonClicked"] && $.__views.selectTextField.addEventListener("click", selectButtonClicked);'
         ]
     }, {
+        file: 'minuteHourTimeTemplate',
+        toRemove: [
+            'selectButtonClicked ? $.__views.selectTextField.addEventListener("click", selectButtonClicked) : __defers["$.__views.selectTextField!click!selectButtonClicked"] = true;',
+            '__defers["$.__views.selectTextField!click!selectButtonClicked"] && $.__views.selectTextField.addEventListener("click", selectButtonClicked);'
+        ]
+    }, {
         file: 'rangeFieldTemplate',
         toRemove: [
             'onTextField1Blur ? $.__views.valueTextFieldOne.addEventListener("blur", onTextField1Blur) : __defers["$.__views.valueTextFieldOne!blur!onTextField1Blur"] = true;',

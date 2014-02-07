@@ -2,8 +2,8 @@
 	<ItemTemplate id="pageRow" name="masterCensusRowTemplate">
 		<View id="container">
 			<View id="colouredBox" bindId="colouredBox"/>
-			<Label id="title" bindId="title" onClick="onClickCallBack"/>
-			<Button id="deleteButton" onClick="deleteButtonClick">Delete</Button>
+			<Label id="title" bindId="title" onSingletap="onClickCallBack"/>
+			<Button id="deleteButton" onSingletap="deleteButtonClick">Delete</Button>
 		</View>
 	</ItemTemplate>
 </Alloy>

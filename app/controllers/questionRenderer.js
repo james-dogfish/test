@@ -457,10 +457,12 @@ var buildQuestionSections = function (JASON_sectionList) {
 var removeHiddenQuestions = function (JASON_sectionList) {
 	try{
 	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
+	    	
+	    	//Ti.API.info("mainQuestionsfileName = "+JSON.stringify(JASON_sectionList[sectionIndex]));
 	        var questionList = JASON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 				if(questionList[questionIndex] != null){
-					Ti.API.info("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable));
+					//Ti.API.info("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable));
 		            if (questionList[questionIndex].visable == false) {
 		                hiddenQuestions.push(questionList[questionIndex]);
 		                questionList.splice(questionIndex, 1);
@@ -697,7 +699,8 @@ exports.getGoToContentsDetails = function () {
             pageID : sectionList[sectionIndex].pageID,
             
             mandatoryQuestions : false,
-            unAnsweredMandatoryQuestions : false,
+            allMandatoryQuestionsAnswered : true,
+            allQuestionsAnswered : true,
             
             sectionIndex: sectionIndex,
             groupType: sectionList[sectionIndex].groupType
@@ -718,7 +721,13 @@ exports.getGoToContentsDetails = function () {
             if(questionsList[questionIndex].mandatory == true){
             	newSectionContents.mandatoryQuestions = true;
             	if(questionsList[questionIndex].value[0] == ""){
-            		newSectionContents.unAnsweredMandatoryQuestions = true;
+            		newSectionContents.allMandatoryQuestionsAnswered = false;
+            		newSectionContents.allQuestionsAnswered = false;
+            	}
+            }
+            else{
+            	if(questionsList[questionIndex].value[0] == ""){
+            		newSectionContents.allQuestionsAnswered = false;
             	}
             }
 

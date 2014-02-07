@@ -1,0 +1,41 @@
+"#minuteHourTimeTemplate" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	bottom : "10dp"
+},
+/*
+"#selectInputContaner" : {
+	width: "80%",
+	left : "0dp",
+	right : "5dp",
+	height: "50dp",
+},
+
+"#selectTextField" : {
+	width: Ti.UI.FILL,
+	left : "10dp",
+	height: Ti.UI.FILL,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+*/
+"#selectTextField" : {
+	width: "79%",
+	left : "0dp",
+	right : "1%",
+	height: "50dp",
+	enabled: false,
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	color: '#000000',
+	textAlign: 'Left',
+	paddingLeft : "10dp"
+},
+"#selectButton" : {
+	width : Ti.UI.FILL,
+	height: "50dp",
+	right: "0dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+}
