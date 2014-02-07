@@ -26,6 +26,9 @@ function onNotesClick(e){
 
 
 function onTextFieldFocus(e){
+
+	Alloy.Globals.currentlyFocusedTF = e.source;
+	
 	//e.source.blur();
 	
 	var item = e.section.getItemAt(e.itemIndex);
