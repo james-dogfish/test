@@ -112,8 +112,8 @@ function localDataHandler() {
     self.updateQuestion = function (question) {
     	try{
 			var savedAssessments = self.getAllSavedAssessments();
-			Ti.API.info("savedAssessments >> "+JSON.stringify(savedAssessments));
-			Ti.API.info("savedAssessments length >> "+savedAssessments.length);
+			//Ti.API.info("savedAssessments >> "+JSON.stringify(savedAssessments));
+			//Ti.API.info("savedAssessments length >> "+savedAssessments.length);
 			var refToSaveAssessmentIndex = null;
 			for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 			{
@@ -774,6 +774,7 @@ function localDataHandler() {
 	        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
 	        if (assessmentFile.exists()) {
 	            var assessment = JSON.parse(assessmentFile.read().text);
+	            Ti.API.info("mainQuestionsfileName = "+JSON.stringify(assessment));
 	            returnQuestionSet = returnQuestionSet.concat(assessment);
 	        }
 	    }

@@ -14,13 +14,13 @@ module.exports =  {
 	"headerViewSubsection" : {
 		backgroundColor: "#A9DDEE"
 	},
-	"goToMandatoryColouredBox_answered" : {
+	"goToColouredBox_answered" : {
 		backgroundColor: "#1ec21e"
 	},
-	"goToMandatoryColouredBox_unanswered" : {
+	"goToColouredBox_unanswered_mandatory" : {
 		backgroundColor: "#c01212"
 	},
-	"goToMandatoryColouredBox_nonMandatory" : {
+	"goToColouredBox_unanswered_non_mandatory" : {
 		backgroundColor: "#e17c1a"
 	},
 	"goToMandatoryColouredBox_n_a" : {

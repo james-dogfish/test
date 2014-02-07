@@ -1,6 +1,6 @@
 <Alloy>
 	<ItemTemplate id="detailRowHeaderTemplate" name="detailRowHeaderTemplate" >
-		<Label id="title" bindId="headerTitle" onClick="onClickCallBack"/>
+		<Label id="title" bindId="headerTitle" onSingletap="onClickCallBack"/>
 		<View id="colouredBox" bindId="colouredBox"/>
 	</ItemTemplate>
 </Alloy>

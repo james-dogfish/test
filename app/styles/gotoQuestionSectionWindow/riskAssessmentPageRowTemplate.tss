@@ -3,6 +3,7 @@
 	height : "50dp"
 },
 "#title" : {
+	
 	width: Ti.UI.FILL,
 	height : "50dp",
 	left : "40dp",
