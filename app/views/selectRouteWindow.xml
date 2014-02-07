@@ -4,7 +4,7 @@
 		<View id="modalBackgorund">
 			<Label id="title"/>
 			<View id="pickerContainerView">
-				<Picker id="pickerView" onChange="pickerChange" touchTestId='routePicker'/>
+				<Picker id="pickerView" onChange="pickerChange" touchTestId="routePicker"/>
 			</View>
 			<Button id="doneButton" onClick="doneButtonClick"/>
 		</View>

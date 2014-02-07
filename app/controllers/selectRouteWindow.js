@@ -20,7 +20,7 @@ exports.show = function(routeList,callbackfunction){
 
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
-		data.push(Ti.UI.createPickerRow({title: routeList[i].title}));
+		data.push(Ti.UI.createPickerRow({title: routeList[i].title, touchTestId: routeList[i].title }));
 	}
 	
 	$.pickerView.add(data);
