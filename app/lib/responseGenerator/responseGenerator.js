@@ -73,6 +73,11 @@ function responseGenerator() {
         }
         return true;
     };
+    
+    self.formatDate = function (datum) {
+    	var date = new Date(datum);
+    	return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+	};
 
     self.buildCensusResponse = function (censusList, crossingID, detailID) {
         var censusData = "";
@@ -110,11 +115,10 @@ function responseGenerator() {
          var dateToPost = "";
         if(censusDate != null)
         {
+        	alert("DEBUG CensusDate= "+censusDate);
         	numbers = censusDate.match(/\d+/g); 
         	if(numbers !== null){
         		dateToPost = new Date(numbers[2], numbers[0]-1, numbers[1]);
-        	}else{
-        		return null;
         	}
         }
 		
