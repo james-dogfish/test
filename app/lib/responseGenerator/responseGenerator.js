@@ -94,7 +94,7 @@ function responseGenerator() {
                     		censusDate = questionList[questionIndex].value[0];
                     	}  	
                     }
-                    if (questionResponse != null) {
+                    if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
                         if (questionType === "multiSelect") {
                             censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
                         } else if (questionType === "dateRange" || questionType === "numericRange" || questionType === "decimalRange" || questionType === "alphaRange") {
