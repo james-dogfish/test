@@ -96,7 +96,7 @@ function responseGenerator() {
                     {
                     	if(questionList[questionIndex].alcrmQuestionID == "CENSUS_DATE")
                     	{
-                    		censusDate = questionList[questionIndex].value[0];
+                    		censusDate = questionList[questionIndex].value;
                     	}  	
                     }
                     if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
