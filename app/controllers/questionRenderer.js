@@ -226,6 +226,15 @@ var newTestDependentQuestions = function (questionObject) {
 
         if (sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap) {
             sectionList[sectionIndex].setItems(questionList);
+            
+            if(questionList.length > 0){
+	        	sectionList[sectionIndex].headerView.show();
+	        	sectionList[sectionIndex].headerView.height = Ti.UI.SIZE;
+	        }
+	        else{
+	        	sectionList[sectionIndex].headerView.hide();
+	        	sectionList[sectionIndex].headerView.height = 0;
+	        }
         }
     }
 
@@ -262,7 +271,6 @@ var newTestDependentQuestions = function (questionObject) {
 
         }
     }
-
 };
 
 
@@ -456,6 +464,11 @@ var buildQuestionSections = function (JASON_sectionList) {
        	newQuestionsSection.pageID= JASON_sectionList[i].pageID;
         newQuestionsSection.setItems(JASON_sectionList[i].questionList);
         newSectionList.push(newQuestionsSection);
+        
+        if(JASON_sectionList[i].questionList.length == 0){
+        	newQuestionsSection.headerView.hide();
+        	newQuestionsSection.headerView.height = 0;
+        }
     }
     return newSectionList;
 };
