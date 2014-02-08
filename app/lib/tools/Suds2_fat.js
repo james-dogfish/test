@@ -49,10 +49,11 @@ var SudsClient = function(_options) {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
       Alloy.Globals.aIndicator.hide();
-      Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
+     // Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
      
       Alloy.Globals.Util.log('Invalid server response received from ALCRM. Please retry! LOG -' + e);
-      return false;
+      
+      //return;
     }
     if (xmlDoc) {
       return xmlDoc;
@@ -173,7 +174,13 @@ var SudsClient = function(_options) {
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
       //Alloy.Globals.aIndicator.hide();
-      _callback.call(this, xmlDomFromString(this.responseText));
+      try{
+      	_callback.call(this, xmlDomFromString(this.responseText));
+      }catch(e){
+      	Alloy.Globals.aIndicator.hide();
+      	Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
+      	return;
+      }
     };
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
@@ -189,7 +196,7 @@ var SudsClient = function(_options) {
 		        if (typeof error_object !== "undefined" ||
 		          typeof error_object.response.Envelope.Body !== "undefined" ||
 		          typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
-		          typeof error_object.response.Envelope.Body.Fault.detail !== "undefined") {
+		          typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && typeof error_code != "undefined") {
 		          error_message = JSON.stringify(error_object);
 		          error_stacktrace = "";
 		          if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined") {
@@ -200,43 +207,47 @@ var SudsClient = function(_options) {
 		            }
 		
 		          }
-		        } /*else {
+		          Alloy.Globals.doAssessmentCalled = false;
+			       var alert = Titanium.UI.createAlertDialog({
+			          title: 'Error: ' + error_code,
+			          message: error_message + "\n\nWould you like to retry?",
+			          buttonNames: ['Yes', 'No'],
+			          cancel: 1,
+			          stackTrace: error_stacktrace
+			        });
+			
+			        alert.addEventListener('click', function(e) {
+			          //Clicked cancel, first check is for iphone, second for android
+			          if (e.cancel === e.index || e.cancel === true) {
+			            Alloy.Globals.aIndicator.hide();
+			            return;
+			          }
+			
+			          //now you can use parameter e to switch/case
+			
+			          switch (e.index) {
+			            case 0:
+			              invokeService(_soapAction, _body, _callback, _failure, _header);
+			              break;
+			
+			              //This will never be reached, if you specified cancel for index 1
+			            case 1:
+			              Alloy.Globals.aIndicator.hide();
+			              break;
+			
+			          }
+			        });
+			        if(typeof error_code === "string")
+			        	{
+			        		 alert.show();
+			        	}
+		        
+		        } else {
+					Alloy.Globals.aIndicator.hide();
+					return;
+		        }
 		
-		          error_code = error_object;
-		          error_message = error_object.response.Envelope.Body.Fault.detail.MESSAGE;
-		          error_stacktrace = error_object.response.Envelope.Body.Fault.detail.STACKTRACE;
-		        }*/
-		
-		        var alert = Titanium.UI.createAlertDialog({
-		          title: 'Error: ' + error_code,
-		          message: error_message + "\n\nWould you like to retry?",
-		          buttonNames: ['Yes', 'No'],
-		          cancel: 1,
-		          stackTrace: error_stacktrace
-		        });
-		
-		        alert.addEventListener('click', function(e) {
-		          //Clicked cancel, first check is for iphone, second for android
-		          if (e.cancel === e.index || e.cancel === true) {
-		            Alloy.Globals.aIndicator.hide();
-		            return;
-		          }
-		
-		          //now you can use parameter e to switch/case
-		
-		          switch (e.index) {
-		            case 0:
-		              invokeService(_soapAction, _body, _callback, _failure, _header);
-		              break;
-		
-		              //This will never be reached, if you specified cancel for index 1
-		            case 1:
-		              Alloy.Globals.aIndicator.hide();
-		              break;
-		
-		          }
-		        });
-		        alert.show();
+		        
 			}
 		);	
 		//end of convertJSON

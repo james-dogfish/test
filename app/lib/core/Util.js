@@ -173,8 +173,8 @@ function _Util() {
 		}
 	};
 
-	cmsUrl = 'http://95.138.166.94/alcrm_cms';
-	//cmsUrl = 'http://dogfishdata.com/alcrm_cms';
+	//cmsUrl = 'http://95.138.166.94/alcrm_cms';
+	cmsUrl = 'http://dogfishdata.com/alcrm_cms';
 	cheatSheetUrl = 'http://www.pdf995.com/samples/pdf.pdf';
 	templateFiles = ['abcl.json', 'ahb.json', 'aocl.json', 'barrow.json', 'fp.json', 'fpmwl.json', 'fps.json', 'mcb.json', 'mcbcctv.json', 'mcg.json', 'oc.json', 'uwc.json', 'uwcmwl.json', 'uwct.json'];
 	crossingTypes = ['abcl', 'ahb', 'aocl', 'barrow', 'fp', 'fpmwl', 'fps', 'mcb', 'mcbcctv', 'mcg', 'oc', 'uwc', 'uwcmwl', 'uwct'];

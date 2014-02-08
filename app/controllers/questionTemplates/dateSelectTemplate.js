@@ -45,7 +45,7 @@ function dateButtonClicked(e){
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	var timeLimit =false;
-	if(item.alcrmQuestionID == "CENSUS_DATE"){
+	if(item.alcrmQuestionID == "CENSUS_DATE" || item.alcrmQuestionID == "I_CENSUS_DATE"){
 		timeLimit= true;
 	}
 	

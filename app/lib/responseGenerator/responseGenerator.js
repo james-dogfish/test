@@ -216,11 +216,11 @@ function responseGenerator() {
 			}
 		}
 
-		if (censusDates.length > 0) {
+		/*if (censusDates.length > 0) {
 			for (var i = 0; i < censusDates.length; i++) {
 				censusDatesXml += "<ass1:censusDate>" + censusDates[i] + "</ass1:censusDate>";
 			}
-		}
+		}*/
 
 		//Alloy.Globals.censusIDs = [];
 
@@ -234,7 +234,7 @@ function responseGenerator() {
 		//var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 
 		//var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
-		/*if (!(Alloy.Globals.isDebugOn) && assObj.questionCount !== assObj.questionsCompleted) {
+		if (!(Alloy.Globals.isDebugOn) && assObj.questionsComplete >= assObj.questionCount) {
 			Ti.App.fireEvent('AssessmentSubmitMessage', {
 				assessmentID : assObj.assessmentId,
 				responseCode : 2
@@ -242,7 +242,7 @@ function responseGenerator() {
 			noneToSubmit++;
 			Ti.API.info("noneToSubmit = " + noneToSubmit);
 			return;
-		} else {*/
+		} else {
 			Alloy.Globals.aIndicator.show("Committing...");
 			var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
 			var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
@@ -268,7 +268,7 @@ function responseGenerator() {
 
 							Alloy.Globals.censusIDs.push(censusId);
 							Alloy.Globals.censusDates.push(censusDate);
-							if (Alloy.Globals.censusIDs.length === xmlCensusRequest.length) {
+							if (Alloy.Globals.censusIDs.length === xmlCensusRequest.length && Alloy.Globals.doAssessmentCalled  === false) {
 								self.doAssessment(assObj, sectionListAss);
 							}
 						});
@@ -284,7 +284,11 @@ function responseGenerator() {
 					//END OF COMMIT CENSUS
 				}//end for loop
 			} else {
-				self.doAssessment(assObj, sectionListAss);
+				if(Alloy.Globals.doAssessmentCalled === false)
+				{
+					self.doAssessment(assObj, sectionListAss);
+				}
+				
 			}
 			for (var i = 0; i < xmlTrainRequest.length; i++) {
 				//COMMIT TRAIN INFO
@@ -300,12 +304,13 @@ function responseGenerator() {
 						var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 						Ti.API.info("trainId=" + trainId);
 						Alloy.Globals.trainIDs.push(trainId);
-						if (Alloy.Globals.trainIDs.length === 3) {
+						if (Alloy.Globals.trainIDs.length === 3 && Alloy.Globals.doAssessmentCalled === false) {
 							self.doAssessment(assObj, sectionListAss);
 						}
 
 					});
 				}, function(xmlDoc) {
+					
 					Ti.App.fireEvent('AssessmentSubmitMessage', {
 						assessmentID : assObj.assessmentId,
 						success : false
@@ -315,31 +320,34 @@ function responseGenerator() {
 
 			}//end for loop
 
-		//}
+		}
 	};
 	//end of test1
 
 	self.doAssessment = function(assObj, sectionListAss) {
-
+		Alloy.Globals.doAssessmentCalled = true;
 		var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes);
 
 		if (assObj.isSubmitted === false) {
 			Alloy.Globals.Soap.createAssessment(xmlRequest, function(xmlDoc) {
 				assObj.alcrmStatus = "sent";
 				Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-				Ti.App.fireEvent('AssessmentSubmitMessage', {
-					assessmentID : assObj.assessmentId,
-					success : true
-				});
+				
 
 				var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
 				Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
 				Alloy.Globals.trainIDs = [];
 				Alloy.Globals.censusIDs = [];
 				Alloy.Globals.censusDates = [];
-
+				Alloy.Globals.doAssessmentCalled  = false;
 				Alloy.Globals.aIndicator.hide();
+				Ti.App.fireEvent('AssessmentSubmitMessage', {
+					assessmentID : assObj.assessmentId,
+					success : true
+				});
+				return;
 			}, function() {
+				Alloy.Globals.doAssessmentCalled = false;
 				Ti.App.fireEvent('AssessmentSubmitMessage', {
 					assessmentID : assObj.assessmentId,
 					success : false
@@ -349,19 +357,22 @@ function responseGenerator() {
 			Alloy.Globals.Soap.updateAssessment(xmlRequest, function(xmlDoc) {
 				assObj.alcrmStatus = "sent";
 				Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-				Ti.App.fireEvent('AssessmentSubmitMessage', {
-					assessmentID : assObj.assessmentId,
-					success : true
-				});
+				
 				var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
 				Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
 				//Ti.API.info('createAssessment Success response >> ' + response);
 				Alloy.Globals.trainIDs = [];
 				Alloy.Globals.censusIDs = [];
 				Alloy.Globals.censusDates = [];
-
+				Alloy.Globals.doAssessmentCalled  = false;
 				Alloy.Globals.aIndicator.hide();
+				Ti.App.fireEvent('AssessmentSubmitMessage', {
+					assessmentID : assObj.assessmentId,
+					success : true
+				});
+				return;
 			}, function() {
+				Alloy.Globals.doAssessmentCalled = false;
 				Ti.App.fireEvent('AssessmentSubmitMessage', {
 					assessmentID : assObj.assessmentId,
 					success : false
