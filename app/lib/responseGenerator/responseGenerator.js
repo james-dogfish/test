@@ -232,7 +232,7 @@ function responseGenerator() {
 
 	self.submitAss = function(assObj) {
 		//var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
-
+	 try{
 		//var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
 		if (!(Alloy.Globals.isDebugOn) && assObj.questionsComplete >= assObj.questionCount) {
 			Ti.App.fireEvent('AssessmentSubmitMessage', {
@@ -321,6 +321,14 @@ function responseGenerator() {
 			}//end for loop
 
 		}
+	  }catch(e){
+	  	Ti.API.error("Exception in responseGenerator submitAss. Error Details: "+JSON.stringify(e));
+	  	Alloy.Globals.trainIDs = [];
+		Alloy.Globals.censusIDs = [];
+		Alloy.Globals.censusDates = [];
+		Alloy.Globals.doAssessmentCalled  = false;
+		Alloy.Globals.aIndicator.hide();
+	  }
 	};
 	//end of test1
 
