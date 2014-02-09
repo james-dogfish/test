@@ -196,6 +196,7 @@ function _Util() {
 				dateFormat1: date[3] + '.' + date[2] + '.' + date[1],
 				dateFormat2: date[1] + '-' + date[2] + '-' + date[3],
 				dateFormat3: date[3] + '/' + date[2] + '/' + date[1],
+				dateFormat4: date[3] + '-' + date[2] + '-' + date[1],
 				time: date[4] + ':' + date[5] + ':' + date[6],
 			};
 			return dateObj;

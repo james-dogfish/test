@@ -44,7 +44,7 @@ exports.setData = function(shouldRefresh) {
 						'ques:parameterName': 'CROSSING_SEARCH_AREA_NAME',
 						'ques:parameterValue': Ti.App.Properties.getString('SelectedRoute')
 					},
-					//'com:maxResults':999999
+					'com:maxResults':999999
 				},	
 				sortByELR: true,
 				includeDeleted: false

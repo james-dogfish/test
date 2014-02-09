@@ -9,6 +9,8 @@ Alloy.Globals.fontawesome = {
 	fontfamily: fontawesome.fontfamily()
 };
 
+Alloy.Globals.riskAssessmentWindow = this;
+
 var assessmentRowControllerList = [];
 
 var getAssessmentRowController = function(assessmentID){
@@ -16,6 +18,7 @@ var getAssessmentRowController = function(assessmentID){
 	for(var i=0; i < assessmentRowControllerList.length; i++){
 		
 		if(assessmentRowControllerList[i].getAssessmentID() == assessmentID){
+			Ti.API.info("found assessmentRow = "+JSON.stringify(assessmentRowControllerList[i]));
 			assessmentRow = assessmentRowControllerList[i];
 			break;
 		}
@@ -32,21 +35,25 @@ var clearAllSubmitMessages = function(assessmentID){
 };
 
 
-Ti.App.addEventListener("assessmentIncomplete", function (e) {
-
-	var assessmentRow = getAssessmentRowController(e.assessmentID);
+exports.assessmentIncomplete = function(assObj){
+	//alert("assessmentIncomplete called");
+	//alert("assessmentIncomplete e="+JSON.stringify(e));
+	Ti.API.error("assessmentIncomplete >> "+assObj.assessmentID);
+	Ti.API.error("assessmentIncomplete assObj>> "+JSON.stringify(assObj));
+	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
 		assessmentRow.commitResponseAssessmentIncomplete();
 	}
-});
+};
 
-Ti.App.addEventListener("AssessmentSubmitMessage", function (e) {
-	
-	var assessmentRow = getAssessmentRowController(e.assessmentID);
+exports.assessmentSubmitMessage = function(assObj,success){
+	Ti.API.info("AssessmentSubmitMessage called");
+	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
-		assessmentRow.commitResponse(e.success);
+		Ti.API.info("AssessmentSubmitMessage commitResponse = "+success);
+		assessmentRow.commitResponse(success);
 	}
-});
+};
 
 
 

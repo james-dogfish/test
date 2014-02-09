@@ -186,6 +186,9 @@ var SudsClient = function(_options) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       try{
+      	Alloy.Globals.censusIDs = [];
+			    Alloy.Globals.trainIDs = [];
+			    Alloy.Globals.censusDates = [];
         Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDomFromString(this.responseText)), 
 			function(data) {
 				// callback
@@ -208,6 +211,7 @@ var SudsClient = function(_options) {
 		
 		          }
 		          Alloy.Globals.doAssessmentCalled = false;
+		         
 			       var alert = Titanium.UI.createAlertDialog({
 			          title: 'Error: ' + error_code,
 			          message: error_message + "\n\nWould you like to retry?",
