@@ -37,6 +37,17 @@ exports.setData = function(shouldRefresh) {
 
 	if ($.tableView.data.length === 0) {
 		crossingData = [];
+		var maxCrossings = null;
+		//alert(Ti.App.Properties.getString('maxCrossigs').length);
+		//return;
+		if(typeof Ti.App.Properties.getString('maxCrossigs') !== "undefined" &&  Ti.App.Properties.getString('maxCrossigs') != null && Ti.App.Properties.getString('maxCrossigs') !="" && Number(Ti.App.Properties.getString('maxCrossigs')) > 0)
+		{
+			maxCrossings = Number(Ti.App.Properties.getString('maxCrossigs'));
+		}else{
+			Ti.API.error("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500");
+			maxCrossings = 1500;
+		}
+		
 		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
 		Alloy.Globals.Soap.searchCrossingRequest({
 				searchCriteria: {
@@ -44,7 +55,7 @@ exports.setData = function(shouldRefresh) {
 						'ques:parameterName': 'CROSSING_SEARCH_AREA_NAME',
 						'ques:parameterValue': Ti.App.Properties.getString('SelectedRoute')
 					},
-					'com:maxResults':999999
+					'com:maxResults':maxCrossings
 				},	
 				sortByELR: true,
 				includeDeleted: false
