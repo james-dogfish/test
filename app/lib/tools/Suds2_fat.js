@@ -104,7 +104,7 @@ var SudsClient = function(_options) {
     headerBegin: '<soap:Header>',
     headerNode: 'head',
     headerEnd: '</soap:Header>',
-    timeout: 150000,
+    timeout: 999999,
     includeNS: true,
     emptyHeader: '',
     addTargetSchema: false,
