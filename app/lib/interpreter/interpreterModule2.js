@@ -775,8 +775,25 @@ function interpreterModule2() {
 	
 	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
 	                
+	                
+	                
 	                questionObject =  testIfQuestionVisable(questionObject);
 	                questionObject =  testIfQuestionMandatory(questionObject);
+	                
+	                if(questionObject.mandatory == true){
+	                	if (questionObject.title.text.slice(-1) != "*") {
+				            questionObject.title.text = questionObject.title.text + "*";
+				        }
+	                }
+	                
+	                if(passObject.readOnly == true){
+				        questionObject.readOnly = true;
+				        questionObject.template = "textFieldTemplate";
+				        questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
+				        if (questionObject.title.text.slice(-1) == "*") {
+				            questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
+				        }
+				    }
                     
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
@@ -850,9 +867,7 @@ function interpreterModule2() {
 	                	}
 	                }
 	                
-	                if(questionObject.mandatory == true){
-	                	questionObject.title.text = questionObject.title.text + "*";
-	                }
+	                
 	                
 	                //validation.conditionalMandatory
 	
