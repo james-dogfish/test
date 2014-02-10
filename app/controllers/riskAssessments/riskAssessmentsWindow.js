@@ -157,7 +157,7 @@ var openMenu = function() {
 	});
 };
 
-exports.loadRiskAssessments = function() {
+var loadRiskAssessments = function() {
 	
 	activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 		
@@ -187,6 +187,7 @@ exports.loadRiskAssessments = function() {
 	
 	return true;
 };
+exports.loadRiskAssessments= loadRiskAssessments;
 
 var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: L('delete_ra'), buttonNames: ['Yes', 'No'], cancel: 1 });
 confirmDeleteRA.addEventListener('click', function(e) { Titanium.API.info('e = ' + JSON.stringify(e));
