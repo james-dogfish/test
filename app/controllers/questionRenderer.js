@@ -118,7 +118,7 @@ var newTestDependentQuestions = function (questionObject) {
 	
     var addToSectionMap = [];
     
-    Ti.API.info("addToSectionMap hiddenQuestions = "+JSON.stringify(hiddenQuestions));
+    Alloy.Globals.Logger.log("addToSectionMap hiddenQuestions = "+JSON.stringify(hiddenQuestions),"info");
     
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
@@ -134,7 +134,7 @@ var newTestDependentQuestions = function (questionObject) {
                     	
                         addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
                     }
-					Ti.API.info("addToSectionMap question name = "+hiddenQuestions[questionIndex].name);
+					Alloy.Globals.Logger.log("addToSectionMap question name = "+hiddenQuestions[questionIndex].name,"info");
                     addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
                     hiddenQuestions.splice(questionIndex, 1);
                     questionIndex--;
@@ -165,16 +165,16 @@ var newTestDependentQuestions = function (questionObject) {
         var sectionGroupType = sectionList[sectionIndex].groupType;
 
         if (sectionGroupType in removeFromSectionMap) {
-            Ti.API.info("R sectionGroupType : " + sectionGroupType);
+            Alloy.Globals.Logger.log("R sectionGroupType : " + sectionGroupType,"info");
 
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
                 if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
-                    Ti.API.info("remove : " + questionList[questionIndex].name);
+                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].name,"info");
                     questionList[questionIndex].visable = false;
 
                     questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-                    Ti.API.info("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory);
+                    Alloy.Globals.Logger.log("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory,"info");
 
                     Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                     hiddenQuestions.push(questionList[questionIndex]);
@@ -186,7 +186,7 @@ var newTestDependentQuestions = function (questionObject) {
         }
 
         if (sectionGroupType in addToSectionMap) {
-            Ti.API.info("----- A sectionGroupType : " + sectionGroupType + " = " + JSON.stringify(addToSectionMap[sectionGroupType]));
+            Alloy.Globals.Logger.log("----- A sectionGroupType : " + sectionGroupType + " = " + JSON.stringify(addToSectionMap[sectionGroupType]),"info");
 
             for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
 
@@ -200,13 +200,13 @@ var newTestDependentQuestions = function (questionObject) {
 
                         questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
                         questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-                        Ti.API.info("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory);
+                        Alloy.Globals.Logger.log("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory,"info");
 
                         Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
 
 
                         questionList.splice(questionIndex, 0, questionObjectToAdd);
-                        Ti.API.info("added splice: " + questionObjectToAdd.name);
+                        Alloy.Globals.Logger.log("added splice: " + questionObjectToAdd.name,"info");
                         questionAdded = true;
                     }
                 }
@@ -215,11 +215,11 @@ var newTestDependentQuestions = function (questionObject) {
 
                     questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
                     questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-                    Ti.API.info("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory);
+                    Alloy.Globals.Logger.log("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory,"info");
 
                     Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
                     questionList.push(questionObjectToAdd);
-                    Ti.API.info("added push : " + questionObjectToAdd.name);
+                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.name,"info");
                 }
 
 
@@ -257,12 +257,12 @@ var newTestDependentQuestions = function (questionObject) {
         var sectionGroupType = sectionList[sectionIndex].groupType;
 
         if (sectionGroupType in testMandatorySectionMap) {
-            Ti.API.info("mandatory sectionGroupType : " + sectionGroupType);
+            Alloy.Globals.Logger.log("mandatory sectionGroupType : " + sectionGroupType,"info");
 
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
                 if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
                     questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    Ti.API.info("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory);
+                    Alloy.Globals.Logger.log("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory,"info");
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
                     Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                 }
@@ -297,12 +297,12 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
 
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 
-        //Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+        //Alloy.Globals.Logger.log("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName,"info");
         if (sectionList[sectionIndex].associatedFileName == associatedFileName) {
             var questionList = sectionList[sectionIndex].getItems();
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 
-                Ti.API.info("alcrmQuestionID " + alcrmQuestionID + " : " + questionList[questionIndex].alcrmQuestionID);
+                Alloy.Globals.Logger.log("alcrmQuestionID " + alcrmQuestionID + " : " + questionList[questionIndex].alcrmQuestionID,"info");
                 if (questionList[questionIndex].alcrmQuestionID == alcrmQuestionID) {
 
                     //return questionList[questionIndex].value;
@@ -323,7 +323,7 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
 
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 
-        //Ti.API.info("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName);
+        //Alloy.Globals.Logger.log("sectionList alcrmQuestionID "+associatedFileName+" : "+sectionList[sectionIndex].associatedFileName,"info");
         if (sectionList[sectionIndex].associatedFileName == associatedFileName && sectionList[sectionIndex].alcrmGroupType == alcrmGroupType) {
             return sectionList[sectionIndex];
         }
@@ -347,7 +347,7 @@ var removeQuestionFromListSection = function (section, question, questionIndex) 
     //e.questionIndex, e.questionObject, e.section
     question.value = [""];
 
-    //Ti.API.info("removeQuestionFromListSection = "+JSON.stringify(question));
+    //Alloy.Globals.Logger.log("removeQuestionFromListSection = "+JSON.stringify(question),"info");
 
     questionValueChange({
         questionObject: question,
@@ -415,7 +415,7 @@ var addItemFromHiddenList = function (hiddenListItemIndex) {
     //updateSection(section);
     hiddenQuestions.splice(hiddenListItemIndex, 1);
 
-    //Ti.API.info("addItemFromHiddenList = "+JSON.stringify(question));
+    //Alloy.Globals.Logger.log("addItemFromHiddenList = "+JSON.stringify(question),"info");
 
     questionValueChange({
         questionObject: question,
@@ -479,11 +479,11 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 	try{
 	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
 	    	
-	    	//Ti.API.info("mainQuestionsfileName = "+JSON.stringify(JASON_sectionList[sectionIndex]));
+	    	//Alloy.Globals.Logger.log("mainQuestionsfileName = "+JSON.stringify(JASON_sectionList[sectionIndex]),"info");
 	        var questionList = JASON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 				if(questionList[questionIndex] != null){
-					//Ti.API.info("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable));
+					//Alloy.Globals.Logger.log("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable),"info");
 		            if (questionList[questionIndex].visable == false) {
 		                hiddenQuestions.push(questionList[questionIndex]);
 		                questionList.splice(questionIndex, 1);
@@ -495,7 +495,7 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 	    }
 	    return JASON_sectionList;
 	}catch(e){
-		Ti.API.error("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e));
+		Alloy.Globals.Logger.log("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
 };
@@ -524,7 +524,7 @@ var setupSelectedQuestion = function () {
         }
     }
  }catch(e){
- 	Ti.API.error("Exception in setupSelectedQuestion. Error Details: "+JSON.stringify(e));
+ 	Alloy.Globals.Logger.log("Exception in setupSelectedQuestion. Error Details: "+JSON.stringify(e), "error");
 	Alloy.Globals.aIndicator.hide();
  }
 };
@@ -532,7 +532,7 @@ var setupSelectedQuestion = function () {
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
 		$.listView.setSections([]);
-		//Ti.API.info("setAssessment == "+JSON.stringify(JASON_sectionList));
+		//Alloy.Globals.Logger.log("setAssessment == "+JSON.stringify(JASON_sectionList),"info");
 	    currentAssessmentObject = assessmentObject;
 	
 	    hiddenQuestions = [];
@@ -565,7 +565,7 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	    // scroll to first item
 	    $.listView.scrollToItem(0, 0);
 	}catch(e){
-		Ti.API.error("Exception in setAssessment. Error Details: "+JSON.stringify(e));
+		Alloy.Globals.Logger.log("Exception in setAssessment. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
 };
@@ -588,7 +588,7 @@ exports.removeAllSectionsWithAssociatedFileName = function (associatedFileName) 
 };
 
 exports.moveToQuestion = function (groupType, questionIndex) {
-    Ti.API.info("** questionRender moveToQuestion");
+    Alloy.Globals.Logger.log("** questionRender moveToQuestion","info");
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 
@@ -665,7 +665,7 @@ var moveToQuestionByName = function (questionName, groupType) {
 
 exports.goToFirstUnanswered = function () {
     //alert("goToFirstUnanswered");
-    //Ti.API.info("goToFirstUnanswered");
+    //Alloy.Globals.Logger.log("goToFirstUnanswered","info");
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
     	
@@ -675,7 +675,7 @@ exports.goToFirstUnanswered = function () {
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
             if (questionList[questionIndex].value[0] == "") {
 
-                //Ti.API.info("unanswered question name = "+questionList[questionIndex].name);
+                //Alloy.Globals.Logger.log("unanswered question name = "+questionList[questionIndex].name,"info");
 
                 selectQuestion(questionList[questionIndex]);
 
@@ -1052,7 +1052,7 @@ var questionValueChange = function (e) {
     try {
         Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
     } catch (e) {
-        Ti.API.info('Cannot blur textfield' + JSON.stringify(e));
+        Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
     }
 
     if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
@@ -1105,13 +1105,13 @@ var questionValueChange = function (e) {
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 
-	//Ti.API.info("question value = "+e.questionObject.value[0]);
+	//Alloy.Globals.Logger.log("question value = "+e.questionObject.value[0],"info");
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
 
 
     //testIfQuestionsNeedToBeRemoved(e.questionObject);
     //testIfQuestionsNeedToBeAdded(e.questionObject);
-    Ti.API.info("questionRender question name = "+e.questionObject.name);
+    Alloy.Globals.Logger.log("questionRender question name = "+e.questionObject.name,"info");
     newTestDependentQuestions(e.questionObject);
  
 
@@ -1144,7 +1144,7 @@ function footerTextButtonClick(e) {
 function footerNotesButtonClick(e) {
 
     if (questionSelected != null) {
-        //Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        //Alloy.Globals.Logger.log("questionSelected title = " + questionSelected.title.text,"info");
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
             Alloy.Globals.Util.slideNotify(30, questionRef.question.alcrmNotes, false);
@@ -1155,7 +1155,7 @@ function footerNotesButtonClick(e) {
 function footerHelpButtonClick(e) {
 	
 	if (questionSelected != null) {
-        //Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        //Alloy.Globals.Logger.log("questionSelected title = " + questionSelected.title.text,"info");
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	
@@ -1214,7 +1214,7 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
         } else {
 
             var timerDuration = parseInt(questionRef.question.value[0]) * 60;
-            Ti.API.info("timerDuration = " + timerDuration + ", text = " + questionRef.question.value[0]);
+            Alloy.Globals.Logger.log("timerDuration = " + timerDuration + ", text = " + questionRef.question.value[0],"info");
             $.censusFooterView.open(timerDuration, question.groupType, question.associatedFileName);
         }
     }
@@ -1302,10 +1302,10 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
 
-    Ti.API.info("** questionRender selectQuestion");
+    Alloy.Globals.Logger.log("** questionRender selectQuestion","info");
 
     if (questionSelected != null) {
-        Ti.API.info("questionSelected title = " + questionSelected.title.text);
+        Alloy.Globals.Logger.log("questionSelected title = " + questionSelected.title.text,"info");
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){
@@ -1328,7 +1328,7 @@ var selectQuestion = function (newQuestionSelected) {
 
     questionSelected = newQuestionSelected;
 
-    Ti.API.info("new questionSelected title = " + questionSelected.title.text);
+    Alloy.Globals.Logger.log("new questionSelected title = " + questionSelected.title.text,"info");
 
     var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
     if (questionRef != null) {

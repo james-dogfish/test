@@ -107,12 +107,12 @@ function doLogin() {
                 name: user
             },
             function (xmlDoc) {
-                //var XMLTools = require("tools/XMLTools");
+
                 Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
                     function (data) {
                         // callback
                         var loginObject = JSON.parse(data);
-                        Ti.API.info("loginObject >> " + JSON.stringify(loginObject));
+                        Alloy.Globals.Logger.log("loginObject >> " + JSON.stringify(loginObject), "info");
 
                         $.loginButton.touchEnabled = true;
                         var accessCode = Number(loginObject.response.Envelope.Body.GetUserResponse.user.access);
@@ -123,6 +123,9 @@ function doLogin() {
                             // Success Callback
 
                             var logTheUserIn = function (route, user, pass, access) {
+
+                               Alloy.Globals.Logger.setUserName(user);
+
                                 // Build out arguments object to check login
                                 var args = {
                                     username: user,

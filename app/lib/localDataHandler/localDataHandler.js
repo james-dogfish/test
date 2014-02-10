@@ -110,11 +110,11 @@ function localDataHandler() {
 
 	//will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function (question) {
-    	Ti.API.error("updateQuestion is Called");
+    	Alloy.Globals.Logger.log("updateQuestion is Called", "error");
     	try{
 			var savedAssessments = self.getAllSavedAssessments();
-			//Ti.API.info("savedAssessments >> "+JSON.stringify(savedAssessments));
-			//Ti.API.info("savedAssessments length >> "+savedAssessments.length);
+			//Alloy.Globals.Logger.log("savedAssessments >> "+JSON.stringify(savedAssessments), "info");
+			//Alloy.Globals.Logger.log("savedAssessments length >> "+savedAssessments.length, "info");
 			var refToSaveAssessmentIndex = null;
 			for(var savedAssementIndex=0; savedAssementIndex<savedAssessments.length; savedAssementIndex++)
 			{
@@ -151,7 +151,7 @@ function localDataHandler() {
 	            }
 	
 	            if (questionFound == false) {
-	                Ti.API.info("updateQuestion : question not found ");
+	                Alloy.Globals.Logger.log("updateQuestion : question not found ", "info");
 	            }else{
 	            	sectionList[foundSectionIndex].questionList[foundIndex] = question;
 	            	//alert("updateQuestion - localDataHandler >> "+JSON.stringify(question));
@@ -164,10 +164,10 @@ function localDataHandler() {
 	
 	            return true;
 	        }
-	        Ti.API.info("ERROR - assessmentFile does not exists");
+	        Alloy.Globals.Logger.log("ERROR - assessmentFile does not exists", "info");
 	        return false;
 		}catch(e){
-			Ti.API.info("An exception occured in updateQuestion. Error Details: "+JSON.stringify(e));
+			Alloy.Globals.Logger.log("An exception occured in updateQuestion. Error Details: "+JSON.stringify(e), "info");
 		}
     };
 
@@ -184,7 +184,7 @@ function localDataHandler() {
 	        }
 	        self.updateSavedAssessments(savedAssessments);
 	    }catch(e){
-	    	Ti.API.info("Exception in updateSingleAssessmentIndexEntry. Error details: "+JSON.stringify(e));
+	    	Alloy.Globals.Logger.log("Exception in updateSingleAssessmentIndexEntry. Error details: "+JSON.stringify(e), "info");
 	    	Alloy.Globals.aIndicator.hide();
 	    	return;
 	    }
@@ -202,7 +202,7 @@ function localDataHandler() {
 	        }
 	        return assessmentObject;
 	    }catch(e){
-	    	Ti.API.info("Exception in getMostUpTodateAssessmentObject. Error details: "+JSON.stringify(e));
+	    	Alloy.Globals.Logger.log("Exception in getMostUpTodateAssessmentObject. Error details: "+JSON.stringify(e), "info");
 	    	Alloy.Globals.aIndicator.hide();
 	    	return;
 	    }
@@ -270,8 +270,8 @@ function localDataHandler() {
         var newAssessmentFileName = newAssessment.mainQuestionsfileName;
         var newAssessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + newAssessmentFileName);
 
-		//Ti.API.info("before calling interpret");
-		//Ti.API.info(JSON.stringify(JASON_question_list));
+		//Alloy.Globals.Logger.log("before calling interpret", "info");
+		//Alloy.Globals.Logger.log(JSON.stringify(JASON_question_list), "info");
 		
         //new interpreterModule
         var newQuestionSet = Alloy.Globals.interpreter.interpret(JASON_question_list, {
@@ -283,13 +283,13 @@ function localDataHandler() {
             assessmentId: assessmentID,
             questionMap: quesMap
         });
-        //Ti.API.info("after calling interpret");
-        //Ti.API.info("newQuestionSet >> " + JSON.stringify(newQuestionSet));
+        //Alloy.Globals.Logger.log("after calling interpret", "info");
+        //Alloy.Globals.Logger.log("newQuestionSet >> " + JSON.stringify(newQuestionSet), "info");
 
         newAssessmentFile.write(JSON.stringify(newQuestionSet));
         return newAssessment;
       }catch(e){
-      	 Ti.API.info("Exception in addNewAssessment. Error details: "+JSON.stringify(e));
+      	 Alloy.Globals.Logger.log("Exception in addNewAssessment. Error details: "+JSON.stringify(e), "info");
       	 Alloy.Globals.aIndicator.hide();
       	 return;
       }
@@ -298,7 +298,7 @@ function localDataHandler() {
 	//addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultCensus = function (assessmentObject, defaultQuestionSet) {
     	try{
-    	//Ti.API.info("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject));
+    	//Alloy.Globals.Logger.log("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject), "info");
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -310,7 +310,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
-       		Ti.API.info("Exception occured in addDefaultCensus. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in addDefaultCensus. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -319,7 +319,7 @@ function localDataHandler() {
 	//addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
     self.addDefaultTrainInfo = function (assessmentObject, defaultQuestionSet) {
     	try{
-    	//Ti.API.info("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject));
+    	//Alloy.Globals.Logger.log("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject), "info");
         var savedAssessments = self.getAllSavedAssessments();
 
         for (var i = 0; i < savedAssessments.length; i++) {
@@ -331,7 +331,7 @@ function localDataHandler() {
         }
         return false;
        }catch(e){
-       		Ti.API.info("Exception occured in addDefaultTrainInfo. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in addDefaultTrainInfo. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        		return false;
        }
@@ -376,7 +376,7 @@ function localDataHandler() {
 
         return [];
        }catch(e){
-       		Ti.API.info("Exception occured in addNewCoreQuestionToAssessment. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in addNewCoreQuestionToAssessment. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        		return [];
        }
@@ -425,7 +425,7 @@ function localDataHandler() {
        }catch(e)
        {
        	Alloy.Globals.aIndicator.hide();
-       	Ti.API.info("exception addNewCensusToAssessment >> - "+JSON.stringify(e));
+       	Alloy.Globals.Logger.log("exception addNewCensusToAssessment >> - "+JSON.stringify(e), "info");
        	return[];
        }
     };
@@ -455,7 +455,7 @@ function localDataHandler() {
         		{
         			if(questionList[t].value == [])
         			{
-        				Ti.API.error("ANDY to sort ROW Stuff ? You must complete the census questions. Change this to yes/no.");
+        				Alloy.Globals.Logger.log("ANDY to sort ROW Stuff ? You must complete the census questions. Change this to yes/no.", "error");
         				return;
         			}
         			
@@ -540,7 +540,7 @@ function localDataHandler() {
             }
         }
        }catch(e){
-       		Ti.API.info("Exception occured in addNewTrainGroupToAssessment. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in addNewTrainGroupToAssessment. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -591,7 +591,7 @@ function localDataHandler() {
                 //read each file here
                 var currentCensusFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + censusQuestionsfileNameList[i]);
                 if (!currentCensusFile.exists) {
-                    Ti.API.error("getAllCensusesOrTrains - cant open currentCensusfile " + censusQuestionsfileNameList[i]);
+                    Alloy.Globals.Logger.log("getAllCensusesOrTrains - cant open currentCensusfile " + censusQuestionsfileNameList[i], "error");
                 } else {
                     var currentContents = currentCensusFile.read().text;
                     getAllData.push(
@@ -606,7 +606,7 @@ function localDataHandler() {
                 //read each file here
                 var currentTrainFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + trainGroupQuestionsfileNameList[i]);
                 if (!currentTrainFile.exists) {
-                    Ti.API.error("getAllCensusesOrTrains - cant open currentTrainFile " + trainGroupQuestionsfileNameList[i]);
+                    Alloy.Globals.Logger.log("getAllCensusesOrTrains - cant open currentTrainFile " + trainGroupQuestionsfileNameList[i], "error");
                 } else {
                     var currentContents = currentTrainFile.read().text;
                     getAllData.push(
@@ -617,10 +617,10 @@ function localDataHandler() {
             break;
 
         }
-		Ti.API.error("getAllCensusesOrTrains returns => "+JSON.stringify(getAllData));
+		Alloy.Globals.Logger.log("getAllCensusesOrTrains returns => "+JSON.stringify(getAllData), "error");
         return getAllData;
         }catch(e){
-        	Ti.API.info("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e));
+        	Alloy.Globals.Logger.log("Exception occured in getAllCensusesOrTrains. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
         }
     };
@@ -646,7 +646,7 @@ function localDataHandler() {
 
         return false;
        }catch(e){
-       		Ti.API.info("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        }
 
@@ -658,7 +658,7 @@ function localDataHandler() {
 		var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
-            Ti.API.info("assessment file format is out of date, continued use of this assessment may cause errors");
+            Alloy.Globals.Logger.log("assessment file format is out of date, continued use of this assessment may cause errors", "info");
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -672,7 +672,7 @@ function localDataHandler() {
 
         return returnQuestionSet;
        }catch(e){
-       		Ti.API.info("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("Exception occured in getMainRiskAssessmentQuestions. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        }
     };
@@ -686,7 +686,7 @@ function localDataHandler() {
         if (assessmentFile.exists()) {
             var assessment = JSON.parse(assessmentFile.read().text);
             returnQuestionSet = returnQuestionSet.concat(assessment);
-            ////Ti.API.info("returnQuestionSet >> " + JSON.stringify(returnQuestionSet));
+            ////Alloy.Globals.Logger.log("returnQuestionSet >> " + JSON.stringify(returnQuestionSet), "info");
             var mandatoryCount = 0;
             var answeredCount = 0;
             for(var returnQuestionSetIndex = 0; returnQuestionSetIndex < returnQuestionSet.length; returnQuestionSetIndex++)
@@ -699,7 +699,7 @@ function localDataHandler() {
             		var questionList = returnQuestionSet[returnQuestionSetIndex].questionList;
             		for(var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++)
             		{
-            			//Ti.API.info("updateQuestionCount name = "+ questionList[questionListIndex].name);
+            			//Alloy.Globals.Logger.log("updateQuestionCount name = "+ questionList[questionListIndex].name, "info");
             			//Count the Mandatory
 	            		if(questionList[questionListIndex].mandatory == true ||
 	            			 questionList[questionListIndex].mandatory == "true"){
@@ -715,7 +715,7 @@ function localDataHandler() {
 	            				{
 	            					if(questionList[questionListIndex].value[0].trim().length > 0)
 		            				{
-		            					//Ti.API.info("value0="+questionList[questionListIndex].value[0]);
+		            					//Alloy.Globals.Logger.log("value0="+questionList[questionListIndex].value[0], "info");
 		            					answeredCount++;
 		            				}
 	            				}	
@@ -737,7 +737,7 @@ function localDataHandler() {
         self.updateSingleAssessmentIndexEntry(assessmentObject);
         return assessmentObject;
         }catch(e){
-        	Ti.API.info("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e));
+        	Alloy.Globals.Logger.log("Exception occured in updateQuestionCount. Error Details: "+JSON.stringify(e), "info");
         	Alloy.Globals.aIndicator.hide();
         }
     };
@@ -749,7 +749,7 @@ function localDataHandler() {
         var returnQuestionSet = [];
 
         if (assessmentObject.versionID != INDEX_FILE_VERSION_NUM) {
-            Ti.API.info("assessment file format is out of date, continued use of this assessment may cause errors");
+            Alloy.Globals.Logger.log("assessment file format is out of date, continued use of this assessment may cause errors", "info");
         }
 
         assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -766,7 +766,7 @@ function localDataHandler() {
 	        var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory()  + assessmentObject.mainQuestionsfileName);
 	        if (assessmentFile.exists()) {
 	            var assessment = JSON.parse(assessmentFile.read().text);
-	            //Ti.API.info("mainQuestionsfileName = "+JSON.stringify(assessment));
+	            //Alloy.Globals.Logger.log("mainQuestionsfileName = "+JSON.stringify(assessment), "info");
 	            returnQuestionSet = returnQuestionSet.concat(assessment);
 	        }
 	    }
@@ -792,7 +792,7 @@ function localDataHandler() {
         }
         return returnQuestionSet;
        }catch(e){
-       		Ti.API.info("An exception occured in openAssessment. Error Details: "+JSON.stringify(e));
+       		Alloy.Globals.Logger.log("An exception occured in openAssessment. Error Details: "+JSON.stringify(e), "info");
        		Alloy.Globals.aIndicator.hide();
        }
     };

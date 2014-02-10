@@ -63,7 +63,7 @@ var addSectionToPageList= function(section){
 		newPage.template = "masterRowTemplate";
 	}
 	else if(section.pageType == "census"){
-		Ti.API.info("census pageID = "+section.pageID);
+		Alloy.Globals.Logger.log("census pageID = "+section.pageID, "info");
 		if(section.pageID == "1" || section.pageID == 1){
 			newPage.template = "masterRowTemplate";
 		}
