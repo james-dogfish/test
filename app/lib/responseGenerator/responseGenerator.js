@@ -228,9 +228,9 @@ function responseGenerator() {
 		} else {
 			if (assObj.censusDesktopComplete == true) {
 				self.doAssessment(assObj, sectionListAss);
-			}else{
+			}/*else{
 				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
-			}
+			}*/
 		}
 	};
 	//end of commitWithOnlyCensus
