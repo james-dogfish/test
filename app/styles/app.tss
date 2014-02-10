@@ -10,22 +10,13 @@
 ".headerView" : {
 	width: "98%",
 	height: Ti.UI.SIZE,
-	top: "20dp",
+	top: "10dp",
 	left : "1%",
 	right : "1%",
 	borderRadius: 5,
 	borderWidth : 1,
 	borderColor : "#000",
 	backgroundColor: '#eee'
-},
-".headerViewDefult" : {
-	backgroundColor: "#eee"
-},
-".headerViewReadOnly" : {
-	backgroundColor: "#E8C974"
-},
-".headerViewSelected" : {
-	backgroundColor: "#A1F7B6"
 },
 
 ".questionTitle" : {

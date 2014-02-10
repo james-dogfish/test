@@ -1,6 +1,6 @@
 <Alloy>
 	<ItemTemplate id="censusCounterTemplate" name="censusCounterTemplate" class="basicTemplate">
-        <View id="mainView" class="viewGroup">
+        <View id="mainView" class="viewGroup" bindId = "backgroundView">
 			<View id="header" class="headerView" bindId="headerView">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>

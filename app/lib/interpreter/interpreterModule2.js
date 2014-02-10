@@ -84,6 +84,8 @@ function interpreterModule2() {
         },
 
         questionResponse: null,
+        
+        backgroundView : {},
 
         errorMessageVisable: false,
         questionErrorMessageView: {},
@@ -146,6 +148,8 @@ function interpreterModule2() {
 		        associatedFileName: passObject.associatedFileName, // file the question is in
 		
 		        assessmentId: passObject.assessmentId,
+		        
+		        backgroundView : Alloy.Globals.Styles["normalQuestionBackground"],
 		
 		        notesBackground: {
 		            backgroundImage: 'images/questionNote.png'
@@ -333,6 +337,7 @@ function interpreterModule2() {
 	            alcrmGroupType: Alloy.Globals.localParser.getQuestionGroup(question),
 	            visable: questionVisable,
 	            readOnly : false,
+	            backgroundView : Alloy.Globals.Styles["normalQuestionBackground"],
 	            order: Alloy.Globals.localParser.getQuestionOrder(question),
 	            associatedFileName: passObject.associatedFileName, // file the question is in
 	            questionResponse: null,
@@ -639,6 +644,7 @@ function interpreterModule2() {
    	
    	var addSubsectionsBackIntoQuestionList = function(questionList, subSectionList){
    		
+   		//backgroundView
         try{       
 	   		var subSectionIndex =0;
 	   		var newQuestionList = [];
@@ -655,6 +661,7 @@ function interpreterModule2() {
 	     			
 	     			//subsectionHeaderTemplate
 	     			for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+	     				subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 	     				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 	     			}
 	     			subSectionIndex++;
@@ -666,6 +673,7 @@ function interpreterModule2() {
 				newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
 	     			
 	     		for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
+	 				subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 	 				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 	 			}
 	 			subSectionIndex++;
@@ -698,7 +706,7 @@ function interpreterModule2() {
 	   
 	     				
 	     			}
-	     			
+	     			alert("addSubsectionsBackIntoQuestionList alcrmGroupType = "+self.sectionHeaderList[sectionIndex].alcrmGroupType);
 	     			self.sectionHeaderList[sectionIndex].questionList = addSubsectionsBackIntoQuestionList(oldQuestionList, subSectionList);
 	     		}
 	     	}

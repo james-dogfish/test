@@ -14,6 +14,12 @@ module.exports =  {
 	"headerViewSubsection" : {
 		backgroundColor: "#A9DDEE"
 	},
+	"subsectionsQuestionBackground" : {
+		backgroundColor: "#E6F5FA"
+	},
+	"normalQuestionBackground" : {
+		backgroundColor: "#fff"
+	},
 	"goToColouredBox_answered" : {
 		backgroundColor: "#1ec21e"
 	},
@@ -26,5 +32,6 @@ module.exports =  {
 	"goToMandatoryColouredBox_n_a" : {
 		backgroundColor: "none"
 	}
+	
 };
 
