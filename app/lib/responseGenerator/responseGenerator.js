@@ -443,6 +443,20 @@ function responseGenerator() {
 	};//end of doAssessment
 
 	self.commitAllCompleted = function() {
+		
+		//CHECK FOR CONNECTIVITY
+	    if (!Titanium.Network.online) {
+	      Alloy.Globals.aIndicator.hide();
+	      var alertDialog = Titanium.UI.createAlertDialog({
+	        title: L('no_connectivity_title'),
+	        message: L('no_connectivity_body'),
+	        buttonNames: ['OK']
+	      });
+	      alertDialog.show();
+		   Alloy.Globals.aIndicator.hide();
+	      return;
+	    }
+	    
 		var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 
 		//alert('activeAssessments=' + activeAssessments.length);
