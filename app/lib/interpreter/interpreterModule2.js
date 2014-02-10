@@ -817,16 +817,19 @@ function interpreterModule2() {
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
 	                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
 	                    questionObject.value = [userPreferences.name];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.name
 	                    };
 	                } else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
 	                    questionObject.value = [userPreferences.mobile];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.mobile
 	                    };
 	                } else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
 	                    questionObject.value = [userPreferences.email];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.email
 	                    };
