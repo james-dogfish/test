@@ -291,7 +291,7 @@ function responseGenerator() {
 									Alloy.Globals.Logger.log("trainId=" + trainId, "info");
 									Alloy.Globals.trainIDs.push(trainId);
 									
-									Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);							, "info"		
+									Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");	
 									Alloy.Globals.Logger.log("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length, "info");
 									if (Alloy.Globals.trainIDs.length === 3) {
 											self.doAssessment(assObj, sectionListAss);
