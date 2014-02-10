@@ -2,7 +2,7 @@
 	<ItemTemplate id="textFieldTemplate" name="textFieldTemplate" class="basicTemplate">
         <View class="viewGroup" bindId = "backgroundView">
 			<View class="headerView" bindId="headerView" onClick="onTitleClick">
-				<Label id="questionTitle" bindId="title" class="questionTitle" />
+				<Label id="questionTitle" bindId="title" class="questionTitle"/>
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
 			

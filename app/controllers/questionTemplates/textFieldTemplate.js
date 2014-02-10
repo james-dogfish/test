@@ -131,6 +131,9 @@ function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
 	
+	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+	Alloy.Globals.questionRenderer.selectQuestion(item);
+	
 	//alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
 	//alert("alcrmQuestionID = "+item.alcrmQuestionID);
 }

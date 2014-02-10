@@ -93,6 +93,17 @@ function onTextField1Blur(e){
     
 };
 
+function onTitleClick(e){
+	
+	//if(Alloy.Globals.isDebugOn == false)return;
+	
+	var item = e.section.getItemAt(e.itemIndex);
+	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+	Alloy.Globals.questionRenderer.selectQuestion(item);
+	//alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
+};
+
+
 var addValue = function(additionValue, e){
 	
 	var section = e.section; 
