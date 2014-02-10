@@ -33,5 +33,8 @@
     <string name="assessmentFailedSubmit">Failed to Submit</string>
     <string name="noCensusMessage">You must complete at least 1 census</string>
     
+    <string name="censusDesktopCompleteMessage">You can now complete the Census by ALCRM Desktop</string>
+    
+    
 
 </resources>
