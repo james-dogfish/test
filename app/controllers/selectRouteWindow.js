@@ -15,13 +15,23 @@ if (pWidth > pHeight) {
 	$.background.backgroundImage = 'images/bg/portrait.jpg';
 }
 
+function sortByNestedTitle(a, b) {
+    var x = a.title.toLowerCase();
+    var y = b.title.toLowerCase();
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}
+
 exports.show = function(routeList,callbackfunction){
 	doneCallbackfunction = callbackfunction;
 
+	routeList.sort(sortByNestedTitle); //sorts alphabetically and descending
+	
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
 		data.push(Ti.UI.createPickerRow({title: routeList[i].title, touchTestId: routeList[i].title }));
 	}
+	
+	data.sort(sortByNestedTitle);
 	
 	$.pickerView.add(data);
 	$.pickerView.selectionIndicator = true;
