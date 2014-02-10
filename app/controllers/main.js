@@ -467,6 +467,11 @@ $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
 
 /** laod the risk assessments then switch tab **/
 $.questionRendererTab.on("saveAndExitClick", function(e) {
+	try{
+		Alloy.Globals.currentlyFocusedTF.blur();
+	}catch(e){
+		Ti.API.error("COULD NOT BLUR Alloy.Globals.currentlyFocusedTF");
+	}
 	$.riskAssessmentsTab.loadRiskAssessments();
 	$.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 });
