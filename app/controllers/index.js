@@ -20,7 +20,7 @@ var startup = function() {
 	Alloy.Globals.Util.downloadConfig();
 
 	//only downloads if not already downloaded before.
-	Alloy.Globals.Util.downloadCheatSheet();
+	//Alloy.Globals.Util.downloadCheatSheet();
 
 	Alloy.Globals.Util.showDebugAlert("DEBUG ALERTS IS ON");
 	
