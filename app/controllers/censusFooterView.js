@@ -24,7 +24,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 		},
 		start: function() {
 			var self = this;
-			Ti.API.info("censusFooterView seconds = "+this.totalSec);
+			Alloy.Globals.Logger.log("censusFooterView seconds = "+this.totalSec,'info');
 			
 			Alloy.Globals.survey = {
 				lastUpdate: moment(),
@@ -40,7 +40,7 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 				var milliSecondDiff = timeNow.diff(Alloy.Globals.survey.lastUpdate, 'milliseconds');
 				var newDuration = Number(Alloy.Globals.survey.duration) - Number(milliSecondDiff);
 				Alloy.Globals.survey.duration = moment.duration(newDuration, 'milliseconds');
-				Ti.API.info("censusFooterView milliseconds = "+Alloy.Globals.survey.duration.asMilliseconds());
+				Alloy.Globals.Logger.log("censusFooterView milliseconds = "+Alloy.Globals.survey.duration.asMilliseconds(),'info');
 				
 				if(Alloy.Globals.survey.duration.asMilliseconds() < 0){
 					self.stop();
@@ -128,7 +128,7 @@ var open = function(timerDuration, groupType, associatedFileName){
 	
 	censusGroupType =groupType;
 	censusAssociatedFileName = associatedFileName;
-	//Ti.API.info("timerDuration 2 = "+timerDuration);
+	//Alloy.Globals.Logger.log("timerDuration 2 = "+timerDuration,'info');
 	//timerDuration= 5;
 	countDownObject.set(timerDuration);
 	countDownObject.start();

@@ -14,7 +14,7 @@ var getValidator = function() {
  * 
  *************************************************************/
 var startup = function() {
-	Ti.API.info("startup is fired");
+	Alloy.Globals.Logger.log("startup is fired", "info");
 	
 	//only downloads if not already downloaded before.
 	Alloy.Globals.Util.downloadConfig();

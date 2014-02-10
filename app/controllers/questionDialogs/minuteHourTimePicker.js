@@ -65,7 +65,7 @@ var closeWindow = function(){
 		displayValue : stringValue,
 		value : parseInt(currentValue.h)*60 + parseInt(currentValue.m)
 	});
-	Ti.API.info("minuteHourTimeTemplate minutes = "+parseInt(currentValue.h)*60 + parseInt(currentValue.m));
+	Alloy.Globals.Logger.log("minuteHourTimeTemplate minutes = "+parseInt(currentValue.h)*60 + parseInt(currentValue.m),"info");
 	$.modalBackgorund.animate(animationClose);
 	$.background.animate(animationFadeOut);
 };

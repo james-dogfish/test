@@ -211,7 +211,7 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 
 		return assessmentObject;
 	} catch(e) {
-		Ti.API.error("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e));
+		Alloy.Globals.Logger.log("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 		return null;
 	}
@@ -221,7 +221,7 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 	try {
 		if (assessmentObject == null) {
-			Ti.API.info("assessmentObject == null ");
+			Alloy.Globals.Logger.log("assessmentObject == null ", "info");
 			return false;
 		}
 
@@ -229,7 +229,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 
 		var quesMap = [];
 		var crossingAnswers = Alloy.Globals.localParser.getQuestions(crosAns);
-		Ti.API.info("crossingAnswers ======= > "+JSON.stringify(crossingAnswers));
+		Alloy.Globals.Logger.log("crossingAnswers ======= > "+JSON.stringify(crossingAnswers), "info");
 		if ( typeof crossingAnswers !== "undefined") {
 					for (var i = 0; i < crossingAnswers.length; i++) {
 						if ( typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
@@ -240,7 +240,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 						}
 					}
 		} else {
-			Ti.API.info("typeof crossingAnswers == undefined");
+			Alloy.Globals.Logger.log("typeof crossingAnswers == undefined", "info");
 			return false;
 		}
 
@@ -252,7 +252,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 		return true;
 
 	} catch(e) {
-		Ti.API.error("Exception occured in addCoreQuestionSetToAssessment " + JSON.stringify(e));
+		Alloy.Globals.Logger.log("Exception occured in addCoreQuestionSetToAssessment " + JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
 
@@ -275,7 +275,7 @@ function getCrossingQuestionSet(crossingDetail) {
 		//end of convertJSON
 		
 	}, function(xmlDoc) {
-		Ti.API.info("getCrossingQuestionSet failed");
+		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
 };
 
@@ -296,7 +296,7 @@ function getCrossingQuestionAnswersSet(crossingDetail) {
 		//end of convertJSON
 		
 	}, function(xmlDoc) {
-		Ti.API.info("getCrossingQuestionSet failed");
+		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
 };
 
@@ -317,7 +317,7 @@ function getAssessmentQuestionSet(crossingDetail) {
 			//end of convertJSON
 	
 		}, function(xmlDoc) {
-			Ti.API.info("getAssessmentQuestionSet failed");
+			Alloy.Globals.Logger.log("getAssessmentQuestionSet failed", "info");
 		});
 };
 
@@ -338,7 +338,7 @@ function getCensusQuestionSet(crossingDetail) {
 		//end of convertJSON
 		
 	}, function(xmlDoc) {
-		Ti.API.info("getCensusQuestionSet failed");
+		Alloy.Globals.Logger.log("getCensusQuestionSet failed", "info");
 	});
 };
 
@@ -359,18 +359,18 @@ function getTrainInfoQuestionSet(crossingDetail) {
 		//end of convertJSON
 
 	}, function(xmlDoc) {
-		Ti.API.info("getTrainInfoQuestionSet failed");
+		Alloy.Globals.Logger.log("getTrainInfoQuestionSet failed", "info");
 	});
 };
 
 var buildAssessment = function(crossingDetail) {
-	Ti.API.info("============== DEBUG ==============");
-	Ti.API.info("JSONDocAss = " + (JSONDocAss !== null && typeof JSONDocAss !== "undefined"));
-	Ti.API.info("JSONDocCrossQues = " + (JSONDocCrossQues !== null && typeof JSONDocCrossQues !== "undefined"));
-	Ti.API.info("JSONDocCrossAns = " + (JSONDocCrossAns !== null && typeof JSONDocCrossAns !== "undefined"));
-	Ti.API.info("JSONDocCensus = " + (JSONDocCensus !== null && typeof JSONDocCensus !== "undefined"));
-	Ti.API.info("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"));
-	Ti.API.info("============== END OF DEBUG ==============");
+	Alloy.Globals.Logger.log("============== DEBUG ==============", "info");
+	Alloy.Globals.Logger.log("JSONDocAss = " + (JSONDocAss !== null && typeof JSONDocAss !== "undefined"), "info");
+	Alloy.Globals.Logger.log("JSONDocCrossQues = " + (JSONDocCrossQues !== null && typeof JSONDocCrossQues !== "undefined"), "info");
+	Alloy.Globals.Logger.log("JSONDocCrossAns = " + (JSONDocCrossAns !== null && typeof JSONDocCrossAns !== "undefined"), "info");
+	Alloy.Globals.Logger.log("JSONDocCensus = " + (JSONDocCensus !== null && typeof JSONDocCensus !== "undefined"), "info");
+	Alloy.Globals.Logger.log("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"), "info");
+	Alloy.Globals.Logger.log("============== END OF DEBUG ==============", "info");
 
 	if (JSONDocAss == null || JSONDocCrossQues == null || JSONDocCrossAns == null || JSONDocCensus == null || JSONDocTrain == null) {
 		return false;
@@ -380,7 +380,7 @@ var buildAssessment = function(crossingDetail) {
 	JSONDocAss = null;
 
 	if (assessmentObject == null) {
-		Ti.API.info("in main.js buildAssessment >> assessmentObject == null");
+		Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject == null", "info");
 		return;
 	}
 
@@ -388,7 +388,7 @@ var buildAssessment = function(crossingDetail) {
 	JSONDocCrossQues = null;
 	JSONDocCrossAns = null;
 	if (returnValue == false) {
-		Ti.API.info("in main.js addCoreQuestionSetToAssessment >> did not create");
+		Alloy.Globals.Logger.log("in main.js addCoreQuestionSetToAssessment >> did not create", "info");
 		return;
 	}
 
@@ -470,7 +470,7 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	try{
 		Alloy.Globals.currentlyFocusedTF.blur();
 	}catch(e){
-		Ti.API.error("COULD NOT BLUR Alloy.Globals.currentlyFocusedTF");
+		Alloy.Globals.Logger.log("COULD NOT BLUR Alloy.Globals.currentlyFocusedTF", "error");
 	}
 	$.riskAssessmentsTab.loadRiskAssessments();
 	$.tabGroup.setActiveTab($.riskAssessmentsTab.getView());

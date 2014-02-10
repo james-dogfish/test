@@ -29,7 +29,7 @@ function showPicker(e)
 		item.value = [data.value];
 		section.updateItemAt(e.itemIndex, item);
 		
-		Ti.API.info("modalPicker value = "+data.value);
+		Alloy.Globals.Logger.log("modalPicker value = "+data.value, "info");
 		//questionValueChange(item, section, valueString);
 		
 		var questionResponse = 

@@ -26,7 +26,7 @@ exports.setData = function(shouldRefresh) {
 		var data = [];
 		//alert(JSON.stringify(results[0]));
 		for (var i = 0; i < crossingData.length; i++) {
-			//Ti.API.info(JSON.stringify(crossingData[i]));
+			//Alloy.Globals.Logger.log(JSON.stringify(crossingData[i]), "info");
 			data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
 		}
 		$.tableView.setData(data);
@@ -44,7 +44,7 @@ exports.setData = function(shouldRefresh) {
 		{
 			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
 		}else{
-			Ti.API.error("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500");
+			Alloy.Globals.Logger.log("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500", "error");
 			maxCrossings = 1500;
 		}
 		
@@ -87,7 +87,7 @@ exports.setData = function(shouldRefresh) {
 											type = crossingDetailsSearchResult[0]["type"];
 										}
 									} else {
-										////Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
+										////Alloy.Globals.Logger.log("type object ="+ JSON.stringify(crossingDetailsSearchResult), "info");
 										var type = "N/A";
 										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult, 'type')) {
 											type = crossingDetailsSearchResult["type"];
@@ -144,7 +144,7 @@ function refreshButtonClick(e) {
 
 
 function onRowClick(e){
-	Ti.API.info("crossingSelected index = "+e.itemIndex);
+	Alloy.Globals.Logger.log("crossingSelected index = "+e.itemIndex, "info");
 	$.trigger("crossingSelected",listViewData[e.itemIndex]);
 };
 
@@ -193,9 +193,9 @@ var setData = function(shouldRefresh) {
 			                }else{
 				                for(var i=0; i<results.length; i++)
 				                {
-				                	////Ti.API.info("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
+				                	////Alloy.Globals.Logger.log("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]), "info");
 				                	
-									//Ti.API.info(JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]));
+									//Alloy.Globals.Logger.log(JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]), "info");
 									var crossingDetailsSearchResult = results[i]["ns6:crossingDetailsSearchResult"];
 									var type = "";
 				                	if (typeof crossingDetailsSearchResult === "undefined") {
@@ -205,7 +205,7 @@ var setData = function(shouldRefresh) {
 				                		//return;
 				                	}
 				                	if(crossingDetailsSearchResult instanceof Array){
-				                		////Ti.API.info("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]));
+				                		////Alloy.Globals.Logger.log("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]), "info");
 				                		var type = "N/A";
 				                		if(typeof crossingDetailsSearchResult[0]["ns6:type"] !=="undefined")
 				                		{
@@ -214,7 +214,7 @@ var setData = function(shouldRefresh) {
 				                		
 				                	}
 				                	else{
-				                		////Ti.API.info("type object ="+ JSON.stringify(crossingDetailsSearchResult));
+				                		////Alloy.Globals.Logger.log("type object ="+ JSON.stringify(crossingDetailsSearchResult), "info");
 				                		var type = "N/A";
 				                		if(typeof crossingDetailsSearchResult !=="undefined")
 				                		{
@@ -236,7 +236,7 @@ var setData = function(shouldRefresh) {
 				                	//crossingDetailsSearchResult = null;
 				                	//type = null;
 				                }
-								//Ti.API.info("listViewData.length = "+listViewData.length);
+								//Alloy.Globals.Logger.log("listViewData.length = "+listViewData.length, "info");
 								Alloy.Globals.localDataHandler.cacheCrossingSearch(listViewData);
 								$.listSection.setItems(listViewData);
 								Alloy.Globals.aIndicator.hide();

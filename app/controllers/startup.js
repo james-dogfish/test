@@ -5,7 +5,7 @@ var args = arguments[0] || {};
  *************************************************************/
 exports.closeLoginWin = function(){
 		Alloy.Globals.aIndicator.hide();
-		Ti.API.info("closeLoginWin was fired");
+		Alloy.Globals.Logger.log("closeLoginWin was fired", "info");
 		$.loginWindow.close();
 		$.destroy();
 };

@@ -40,7 +40,7 @@ function responseGenerator() {
 
 					var questionResponse = questionList[questionIndex].questionResponse;
 
-					//Ti.API.error("Census questionList[questionIndex] = "+JSON.stringify(questionList[questionIndex]));
+					//Alloy.Globals.Logger.log("Census questionList[questionIndex] = "+JSON.stringify(questionList[questionIndex]), "info");
 					var questionType = questionList[questionIndex].type;
 
 					if (questionList[questionIndex].isAQuestion == true && censusDate === "") {
@@ -55,7 +55,7 @@ function responseGenerator() {
 							continue;
 						}
 					}
-					//Ti.API.error("questionResponse ====== >"+JSON.stringify(questionResponse));
+					//Alloy.Globals.Logger.log("questionResponse ====== >"+JSON.stringify(questionResponse), "info");
 					var tempFix = JSON.stringify(questionResponse);
 					tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace("1I_", "I_").replace(/[0-9]I_/g, 'I_');
 					questionResponse = JSON.parse(tempFix);
@@ -136,7 +136,7 @@ function responseGenerator() {
 				var questionResponse = questionList[questionIndex].questionResponse;
 
 				var questionType = questionList[questionIndex].type;
-				//Ti.API.error("assquestionResponse =>" + JSON.stringify(questionResponse));
+				//Alloy.Globals.Logger.log("assquestionResponse =>" + JSON.stringify(questionResponse), "info");
 				if (questionResponse != null) {
 					if (questionType === "multiSelect") {
 						riskData = riskData + '<ass1:riskData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</ass1:riskData>';
@@ -185,13 +185,13 @@ function responseGenerator() {
 
 		return xmlRequest;
 		}catch(e){
-			Ti.API.error("EXCEPTION IN buildAssessmentResponse. Error Details: "+JSON.stringify(e));
+			Alloy.Globals.Logger.log("EXCEPTION IN buildAssessmentResponse. Error Details: "+JSON.stringify(e), "info");
 		}
 	};
 	//end of buildAssessmentResponse;
 
 	self.commitWithOnlyCensus = function(xmlCensusRequest, assObj, sectionListAss) {
-		Ti.API.info("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete);
+		Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
 		if (assObj.censusDesktopComplete == false) {
 			//COMMIT CENSUS
 			for (var i = 0; i < xmlCensusRequest.length; i++) {
@@ -208,7 +208,7 @@ function responseGenerator() {
 						Alloy.Globals.censusDates.push(censusDate);
 
 					
-						Ti.API.error("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length);
+						Alloy.Globals.Logger.log("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length, "info");
 						/*if (Alloy.Globals.censusDates.length === xmlCensusRequest.length && Alloy.Globals.censusIDs.length === xmlCensusRequest.length) {
 							if (Alloy.Globals.censusDates.length === Alloy.Globals.censusIDs.length) {*/
 								self.doAssessment(assObj, sectionListAss);
@@ -244,10 +244,10 @@ function responseGenerator() {
 					// callback
 					var data = JSON.parse(data);
 					var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
-					Ti.API.info("trainId=" + trainId);
+					Alloy.Globals.Logger.log("trainId=" + trainId, "info");
 					Alloy.Globals.trainIDs.push(trainId);
 				
-					Ti.API.error("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);
+					Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 
 					if (Alloy.Globals.trainIDs.length === 3) {
 
@@ -264,7 +264,7 @@ function responseGenerator() {
 	//end of commitWithOnlyTrain;
 
 	self.commitWithTrainAndCensus = function(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss) {
-		Ti.API.info("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete);
+		Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
 		if (assObj.censusDesktopComplete == false) {
 			//COMMIT CENSUS
 			for (var i = 0; i < xmlCensusRequest.length; i++) {
@@ -288,11 +288,11 @@ function responseGenerator() {
 									// callback
 									var data = JSON.parse(data);
 									var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
-									Ti.API.info("trainId=" + trainId);
+									Alloy.Globals.Logger.log("trainId=" + trainId, "info");
 									Alloy.Globals.trainIDs.push(trainId);
 									
-									Ti.API.error("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);									
-									Ti.API.error("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length);
+									Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);							, "info"		
+									Alloy.Globals.Logger.log("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length, "info");
 									if (Alloy.Globals.trainIDs.length === 3) {
 											self.doAssessment(assObj, sectionListAss);
 									}
@@ -328,7 +328,7 @@ function responseGenerator() {
 				Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
 				//Ti.App.fireEvent('assessmentIncomplete', assObj);
 				noneToSubmit++;
-				Ti.API.info("noneToSubmit = " + noneToSubmit);
+				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
 				//return;
 			} else {
 				if (assObj.isSubmitted === false) {
@@ -336,7 +336,7 @@ function responseGenerator() {
 					var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
 					var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 					var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
-					//Ti.API.error("sectionListAss >> " + JSON.stringify(sectionListAss));
+					//Alloy.Globals.Logger.log("sectionListAss >> " + JSON.stringify(sectionListAss), "info");
 					//return;
 					var xmlCensusRequest = null;
 					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
@@ -344,7 +344,7 @@ function responseGenerator() {
 					{
 						if(assObj.censusDesktopComplete == false)
 						{
-							Ti.API.info("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete);
+							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete, "info");
 							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 						}
 					}else{
@@ -361,10 +361,10 @@ function responseGenerator() {
 					} else if (sectionListCen.length <= 0 && sectionListTra.length > 0) {
 						if(assObj.censusDesktopComplete == true)
 						{
-							Ti.API.error("======================assObj.censusDesktopComplete = true");
+							Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = true", "info");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 						}else{
-							Ti.API.info("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete);
+							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete, "info");
 							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 						}
 						
@@ -374,7 +374,7 @@ function responseGenerator() {
 				//xmlCensusRequest = null;
 			}
 		} catch (e) {
-			Ti.API.error("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e));
+			Alloy.Globals.Logger.log("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e), "info");
 			Alloy.Globals.trainIDs = [];
 			Alloy.Globals.censusIDs = [];
 			Alloy.Globals.censusDates = [];
@@ -422,7 +422,7 @@ function responseGenerator() {
 
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
 					Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
-					//Ti.API.info('createAssessment Success response >> ' + response);
+					//Alloy.Globals.Logger.log('createAssessment Success response >> ' + response, "info");
 					Alloy.Globals.trainIDs = [];
 					Alloy.Globals.censusIDs = [];
 					Alloy.Globals.censusDates = [];
@@ -437,7 +437,7 @@ function responseGenerator() {
 			}*/
 
 		} catch (e) {
-			Ti.API.error("Exception in doAssessment. Error Details: " + JSON.stringify(e));
+			Alloy.Globals.Logger.log("Exception in doAssessment. Error Details: " + JSON.stringify(e), "info");
 			
 		}
 	};//end of doAssessment

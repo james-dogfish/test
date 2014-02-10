@@ -18,7 +18,7 @@ var getAssessmentRowController = function(assessmentID){
 	for(var i=0; i < assessmentRowControllerList.length; i++){
 		
 		if(assessmentRowControllerList[i].getAssessmentID() == assessmentID){
-			Ti.API.info("found assessmentRow = "+JSON.stringify(assessmentRowControllerList[i]));
+			Alloy.Globals.Logger.log("found assessmentRow = "+JSON.stringify(assessmentRowControllerList[i]), "info");
 			assessmentRow = assessmentRowControllerList[i];
 			break;
 		}
@@ -48,8 +48,8 @@ exports.noCensusMessage = function(assObj){
 exports.assessmentIncomplete = function(assObj){
 	//alert("assessmentIncomplete called");
 	//alert("assessmentIncomplete e="+JSON.stringify(e));
-	Ti.API.error("assessmentIncomplete >> "+assObj.assessmentID);
-	Ti.API.error("assessmentIncomplete assObj>> "+JSON.stringify(assObj));
+	Alloy.Globals.Logger.log("assessmentIncomplete >> "+assObj.assessmentID, "error");
+	Alloy.Globals.Logger.log("assessmentIncomplete assObj>> "+JSON.stringify(assObj), "error");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
 		assessmentRow.commitResponseAssessmentIncomplete();
@@ -57,10 +57,10 @@ exports.assessmentIncomplete = function(assObj){
 };
 
 exports.assessmentSubmitMessage = function(assObj,success){
-	Ti.API.info("AssessmentSubmitMessage called");
+	Alloy.Globals.Logger.log("AssessmentSubmitMessage called", "info");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
-		Ti.API.info("AssessmentSubmitMessage commitResponse = "+success);
+		Alloy.Globals.Logger.log("AssessmentSubmitMessage commitResponse = "+success, "info");
 		assessmentRow.commitResponse(success);
 	}
 };
@@ -271,7 +271,7 @@ var openSearchClick = function(e){
 function onRowClick(e){
 	$.trigger("openRiskAssessment", {assessmentObject : activeAssessments[e.index]});
 	//var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
-	//Ti.API.info(assessment);
+	//Alloy.Globals.Logger.log(assessment, "info");
 	/*
 	var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
 	if(assessment.length == 0){

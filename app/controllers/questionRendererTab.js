@@ -52,14 +52,14 @@ var createPastCensus = function(pastCensusData) {
         alert(L('max_census'));
         return;
     }
-    Ti.API.info("pastCensusData >> " + JSON.stringify(pastCensusData));
+    Alloy.Globals.Logger.log("pastCensusData >> " + JSON.stringify(pastCensusData),"info");
     var cenMap = [];
     for (var t = 0; t < pastCensusData.length; t++) {
         if (typeof pastCensusData[t]["xsi:type"] !== "undefined") {
             cenMap[pastCensusData[t]["ns6:parameterName"]] = {
                 value: pastCensusData[t]["ns6:values"]
             };
-            Ti.API.info("paramName=" + pastCensusData[t]["ns6:parameterName"] + "type=" + pastCensusData[t]["xsi:type"]);
+            Alloy.Globals.Logger.log("paramName=" + pastCensusData[t]["ns6:parameterName"] + "type=" + pastCensusData[t]["xsi:type"],"info");
         } else {
             cenMap[pastCensusData[t]["ns6:parameterName"]] = {
                 value: pastCensusData[t]["ns6:parameterValue"]
@@ -75,19 +75,19 @@ var gotoQuestionSectionWindow = null;
 
 /*
 gotoQuestionSectionWindow.on("goToQuestion", function (data) {
-	Ti.API.info("gotoQuestionSectionWindow : goToQuestion");
+	Alloy.Globals.Logger.log("gotoQuestionSectionWindow : goToQuestion","info");
     $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
 });
 */
 
 Ti.App.addEventListener("goToQuestion", function(e) {
-    Ti.API.info("gotoQuestionSectionWindow : goToQuestion");
+    Alloy.Globals.Logger.log("gotoQuestionSectionWindow : goToQuestion","info");
     $.questionListView.moveToQuestion(e.groupType, e.questionIndex);
 });
 
 /*
 gotoQuestionSectionWindow.on("createCensus", function (data) {
-	Ti.API.info("gotoQuestionSectionWindow : createCensus");
+	Alloy.Globals.Logger.log("gotoQuestionSectionWindow : createCensus","info");
     Alloy.Globals.aIndicator.show();
 	
     createCensus();
@@ -194,7 +194,7 @@ Ti.App.addEventListener("deletePage", function(e) {
             /*
              * YES was clicked.
              */
-            Ti.API.info("gotoQuestionSectionWindow : deletePage");
+            Alloy.Globals.Logger.log("gotoQuestionSectionWindow : deletePage","info");
             Alloy.Globals.aIndicator.show();
 
             if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {

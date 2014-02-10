@@ -22,13 +22,13 @@ describe("Interpreter Module  Test Suite", function () {
 		    questionMap: []
 		});
 		
-		Ti.API.info("interpretedQuestions = "+JSON.stringify(interpretedQuestions));
+		Alloy.Globals.Logger.log("interpretedQuestions = "+JSON.stringify(interpretedQuestions),'info');
 		
 		var interpretedTestFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + "testFiles/test_question_set_interpreted.json");
 		var interpretedTestText = interpretedTestFile.read().text;
 		var interpretedTest = JSON.parse(interpretedTestText);
 		
-		Ti.API.info("compare question sets ="+(JSON.stringify(interpretedQuestions) === JSON.stringify(interpretedTest)));
+		Alloy.Globals.Logger.log("compare question sets ="+(JSON.stringify(interpretedQuestions) === JSON.stringify(interpretedTest)),'info');
 		var response = JSON.stringify(interpretedQuestions) === JSON.stringify(interpretedTest);
 		
 		expect(response).toEqual(true);
