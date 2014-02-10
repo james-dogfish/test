@@ -2,7 +2,7 @@
 	exitOnClose : true
 },
 "#appTitle" : {
-	text : "Pick one",
+	text : L("minuteHourTimePickerTitle"),
 	font : {
 		fontSize : 20,
 		fontWeight : 'bold'

@@ -16,7 +16,7 @@
 	exitOnClose : true
 },
 "#appTitle" : {
-	text : "Pick one",
+	text : L("modalPickerTitle"),
 	font : {
 		fontSize : 20,
 		fontWeight : 'bold'
