@@ -32,6 +32,9 @@ function textFieldClick(e){
 }
 
 function onNotesClick(e){
+	if(Alloy.Globals.dialogWindowOpen == true)return;
+	else Alloy.Globals.dialogWindowOpen = true;
+
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	//notesBackground : {backgroundImage: 'images/questionNote.png'}
