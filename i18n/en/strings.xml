@@ -33,5 +33,12 @@
     <string name="assessmentFailedSubmit">Failed to Submit</string>
     <string name="noCensusMessage">You must complete at least 1 census</string>
     
+    <string name="censusDesktopCompleteMessage">You can now complete the Census by ALCRM Desktop</string>
+    
+    <string name="modalPickerTitle">Pick One</string>
+    <string name="modalMultiPickerTitle">YPick All that Apply</string>
+    <string name="modalDatePickerTitle">Pick a Date</string>
+    <string name="minuteHourTimePickerTitle">Pick a Time</string>
+    
 
 </resources>

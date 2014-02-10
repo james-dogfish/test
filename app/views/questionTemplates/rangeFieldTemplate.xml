@@ -1,6 +1,6 @@
 <Alloy>
 	<ItemTemplate id="rangeFieldTemplate" name="rangeFieldTemplate" class="basicTemplate">
-        <View class="viewGroup">
+        <View class="viewGroup" bindId = "backgroundView">
 			<View class="headerView" bindId="headerView">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>

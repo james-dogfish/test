@@ -48,7 +48,7 @@ function closeWindowCallBack(e){
 
 exports.show = function(message){
 	$.win.open();
-	$.background.animate(animationFadeIn);
+	//$.background.animate(animationFadeIn);
 	$.gotoDisplayView.animate(animationOpen);
 };
 
@@ -56,9 +56,9 @@ var hide = function(){
 	if(closeing == false){
 		closeing= true;
 		$.gotoDisplayView.animate(animationClose);
-		$.background.animate(animationFadeOut);
-		$.selectCensusView.hide();
-		$.addCensusView.hide();
+		//$.background.animate(animationFadeOut);
+		//$.selectCensusView.hide();
+		//$.addCensusView.hide();
 	}
 	
 };
@@ -97,6 +97,7 @@ $.selectCensusView.on("addCensus", function(){
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
+	alert(L("censusDesktopCompleteMessage"));
 	Ti.App.fireEvent("censusDesktopComplete", {});
 	//$.trigger('censusDesktopComplete');
 	$.selectCensusView.hide();

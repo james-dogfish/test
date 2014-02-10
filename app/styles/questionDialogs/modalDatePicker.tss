@@ -19,7 +19,7 @@
 	exitOnClose : true
 },
 "#appTitle" : {
-	text : "Pick a date",
+	text : L("modalDatePickerTitle"),
 	font : {
 		fontSize : 20,
 		fontWeight : 'bold'
