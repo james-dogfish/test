@@ -805,21 +805,31 @@ function interpreterModule2() {
 				            questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
 				        }
 				    }
+				    
+				    if(questionObject.type == "numeric"){
+				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_NUMBER_PAD;
+				    }
+				    if(questionObject.type == "decimal"){
+				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
+				    }
                     
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
 	                if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
 	                    questionObject.value = [userPreferences.name];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.name
 	                    };
 	                } else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
 	                    questionObject.value = [userPreferences.mobile];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.mobile
 	                    };
 	                } else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
 	                    questionObject.value = [userPreferences.email];
+	                    questionObject.mandatory = false;
 	                    questionObject.displayValue = {
 	                        value: userPreferences.email
 	                    };

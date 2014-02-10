@@ -22,7 +22,7 @@ function onTextFieldBlur(e){
 	
 
 	var section = e.section; 
-	item.displayValue = {value : e.value};
+	item.displayValue.value =  e.value;
 	item.value = [e.value];
 	
 	var questionResponse = 
@@ -130,6 +130,9 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 	//if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
+	
+	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+	Alloy.Globals.questionRenderer.selectQuestion(item);
 	
 	//alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
 	//alert("alcrmQuestionID = "+item.alcrmQuestionID);

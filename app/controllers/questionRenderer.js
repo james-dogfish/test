@@ -540,6 +540,7 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	
 	    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
 	
+		Ti.API.info("JASON_sectionList = "+JSON.stringify(JASON_sectionList));
 	
 	    sectionList = buildQuestionSections(JASON_sectionList);
 	

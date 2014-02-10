@@ -157,7 +157,7 @@ var openMenu = function() {
 	});
 };
 
-exports.loadRiskAssessments = function() {
+var loadRiskAssessments = function() {
 	
 	activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 		
@@ -187,6 +187,7 @@ exports.loadRiskAssessments = function() {
 	
 	return true;
 };
+exports.loadRiskAssessments= loadRiskAssessments;
 
 var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: L('delete_ra'), buttonNames: ['Yes', 'No'], cancel: 1 });
 confirmDeleteRA.addEventListener('click', function(e) { Titanium.API.info('e = ' + JSON.stringify(e));
@@ -226,10 +227,12 @@ function onDeleteRow(e){
        * YES was clicked.
        */
        Alloy.Globals.localDataHandler.removeAssessment(deletingRow.rowData.customData);
+       loadRiskAssessments();
     } else if (e.index == 1) { 
       /*
        * Put the row back since it will be removed from the view even if NO is clicked.
        */
+      /*
        activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 		
 		var data = [];	
@@ -241,6 +244,9 @@ function onDeleteRow(e){
 				}).getView());
 		}
 		$.tableVeiw.setData(data);
+		*/
+		
+		loadRiskAssessments();
     }	 
   });
  
