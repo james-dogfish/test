@@ -664,7 +664,7 @@ function interpreterModule2() {
 	     			
 	     			//subsectionHeaderTemplate
 	     			for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
-	     				subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
+	     				//subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 	     				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 	     			}
 	     			subSectionIndex++;
@@ -676,7 +676,7 @@ function interpreterModule2() {
 				newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
 	     			
 	     		for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {	
-	 				subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
+	 				//subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 	 				newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 	 			}
 	 			subSectionIndex++;
@@ -709,7 +709,7 @@ function interpreterModule2() {
 	   
 	     				
 	     			}
-	     			alert("addSubsectionsBackIntoQuestionList alcrmGroupType = "+self.sectionHeaderList[sectionIndex].alcrmGroupType);
+	     			
 	     			self.sectionHeaderList[sectionIndex].questionList = addSubsectionsBackIntoQuestionList(oldQuestionList, subSectionList);
 	     		}
 	     	}

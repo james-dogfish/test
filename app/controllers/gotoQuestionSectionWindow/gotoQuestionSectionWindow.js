@@ -97,7 +97,7 @@ $.selectCensusView.on("addCensus", function(){
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	alert(L("censusDesktopCompleteMessage"));
+	//alert(L("censusDesktopCompleteMessage"));
 	Ti.App.fireEvent("censusDesktopComplete", {});
 	//$.trigger('censusDesktopComplete');
 	$.selectCensusView.hide();
