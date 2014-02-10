@@ -805,6 +805,13 @@ function interpreterModule2() {
 				            questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
 				        }
 				    }
+				    
+				    if(questionObject.type = "numeric"){
+				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_NUMBER_PAD;
+				    }
+				    if(questionObject.type = "decimal"){
+				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
+				    }
                     
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
