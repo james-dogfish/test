@@ -138,9 +138,11 @@ gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
 */
 
 Ti.App.addEventListener("censusDesktopComplete", function(e) {
+	//Ti.App.fireEvent("createCensus");
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+    alert("censusDesktopComplete = "+currentAssessmentObject.censusDesktopComplete);
 });
 
 /*

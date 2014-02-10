@@ -31,6 +31,7 @@
     <string name="assessmentIncomplete">Assessment Incomplete</string>
     <string name="assessmentSubmitted">Assessment Submitted</string>
     <string name="assessmentFailedSubmit">Failed to Submit</string>
+    <string name="noCensusMessage">You must complete at least 1 census</string>
     
 
 </resources>

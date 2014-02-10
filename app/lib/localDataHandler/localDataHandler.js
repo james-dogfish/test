@@ -174,6 +174,7 @@ function localDataHandler() {
 	//will update a assessment with the same assessmentID as the assessmentObject passed
     self.updateSingleAssessmentIndexEntry = function (assessmentObject) {
     	try{
+    		
 	        var savedAssessments = self.getAllSavedAssessments();
 	
 	        for (var i = 0; i < savedAssessments.length; i++) {

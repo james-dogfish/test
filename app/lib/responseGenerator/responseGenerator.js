@@ -21,7 +21,9 @@ function responseGenerator() {
 		return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 	};
 
-	self.buildCensusResponse = function(censusList, crossingID, detailID) {
+	self.buildCensusResponse = function(assObj,censusList, crossingID, detailID) {
+		//if(assObj.censusDesktopComplete == true) return;
+		
 		var xmlRequest = [];
 		for (var censusListIndex = 0; censusListIndex < censusList.length; censusListIndex++) {
 			var censusData = "";
@@ -44,6 +46,12 @@ function responseGenerator() {
 					if (questionList[questionIndex].isAQuestion == true && censusDate === "") {
 						if (questionList[questionIndex].alcrmQuestionID == "I_CENSUS_DATE" || questionList[questionIndex].alcrmQuestionID == "CENSUS_DATE") {
 							censusDate = questionList[questionIndex].value;
+							alert("censusDate="+censusDate.length);
+							if(censusDate.length === 1)
+							{
+								censusDate = null;
+								
+							}
 							continue;
 						}
 					}
@@ -69,15 +77,17 @@ function responseGenerator() {
 
 			var numbers = "";
 			var dateToPost = "";
-			if (censusDate != null) {
-				//alert("DEBUG CensusDate= " + censusDate);
-				numbers = censusDate.match(/\d+/g);
-				if (numbers !== null) {
-					dateToPost = new Date(numbers[2], numbers[0] - 1, numbers[1]);
-				}
-			}
+			if (censusDate !== null) {
+				
+					alert(censusDate);
+					numbers = censusDate.match(/\d+/g);
+					if (numbers != null) {
+						dateToPost = new Date(numbers[2], numbers[0] - 1, numbers[1]);
+					}
+					
+					xmlRequest.push("<cen:CreateCensusRequest>" + "<cen:census>" + "<cen1:crossingId>" + crossingID + "</cen1:crossingId>" + "<cen1:censusDate>" + dateToPost.toISOString() + "</cen1:censusDate>" + censusData + "</cen:census>" + "</cen:CreateCensusRequest>");
 
-			xmlRequest.push("<cen:CreateCensusRequest>" + "<cen:census>" + "<cen1:crossingId>" + crossingID + "</cen1:crossingId>" + "<cen1:censusDate>" + dateToPost.toISOString() + "</cen1:censusDate>" + censusData + "</cen:census>" + "</cen:CreateCensusRequest>");
+			}
 		}
 
 		return xmlRequest;
@@ -116,6 +126,8 @@ function responseGenerator() {
 	//end of buildTrainInfoGroupResponse
 
 	self.buildAssessmentResponse = function(sectionList, crossingID, detailID, assNotes) {
+		
+		try{
 		var riskData = "";
 
 		for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
@@ -172,6 +184,9 @@ function responseGenerator() {
 		var xmlRequest = "<ass:CreateAssessmentRequest><ass:assessment><ass1:crossingID>" + crossingID + "</ass1:crossingID>" + censusIDSXml + trainIDSXml + censusDatesXml + riskData + "</ass:assessment></ass:CreateAssessmentRequest>";
 
 		return xmlRequest;
+		}catch(e){
+			Ti.API.error("EXCEPTION IN buildAssessmentResponse. Error Details: "+JSON.stringify(e));
+		}
 	};
 	//end of buildAssessmentResponse;
 
@@ -192,13 +207,13 @@ function responseGenerator() {
 
 						Alloy.Globals.censusDates.push(censusDate);
 
-						Ti.API.error("Census - Alloy.Globals.doAssessmentCalled = " + Alloy.Globals.doAssessmentCalled);
+					
 						Ti.API.error("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length);
-						if (Alloy.Globals.censusDates.length === xmlCensusRequest.length && Alloy.Globals.censusIDs.length === xmlCensusRequest.length && Alloy.Globals.doAssessmentCalled == false) {
-							if (Alloy.Globals.censusDates.length === Alloy.Globals.censusIDs.length) {
+						/*if (Alloy.Globals.censusDates.length === xmlCensusRequest.length && Alloy.Globals.censusIDs.length === xmlCensusRequest.length) {
+							if (Alloy.Globals.censusDates.length === Alloy.Globals.censusIDs.length) {*/
 								self.doAssessment(assObj, sectionListAss);
-							}
-						}
+							/*}
+						}*/
 
 					});
 
@@ -211,8 +226,10 @@ function responseGenerator() {
 			} //end for loop
 
 		} else {
-			if (Alloy.Globals.doAssessmentCalled === false) {
+			if (assObj.censusDesktopComplete == true) {
 				self.doAssessment(assObj, sectionListAss);
+			}else{
+				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 			}
 		}
 	};
@@ -229,10 +246,10 @@ function responseGenerator() {
 					var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 					Ti.API.info("trainId=" + trainId);
 					Alloy.Globals.trainIDs.push(trainId);
-					Ti.API.error("Trains - Alloy.Globals.doAssessmentCalled = " + Alloy.Globals.doAssessmentCalled);
+				
 					Ti.API.error("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);
 
-					if (Alloy.Globals.trainIDs.length === 3 && Alloy.Globals.doAssessmentCalled == false) {
+					if (Alloy.Globals.trainIDs.length === 3) {
 
 						self.doAssessment(assObj, sectionListAss);
 					}
@@ -273,15 +290,11 @@ function responseGenerator() {
 									var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 									Ti.API.info("trainId=" + trainId);
 									Alloy.Globals.trainIDs.push(trainId);
-									Ti.API.error("Trains - Alloy.Globals.doAssessmentCalled = " + Alloy.Globals.doAssessmentCalled);
-									Ti.API.error("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);
-
-									Ti.API.error("Census - Alloy.Globals.doAssessmentCalled = " + Alloy.Globals.doAssessmentCalled);
+									
+									Ti.API.error("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length);									
 									Ti.API.error("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length);
-									if (Alloy.Globals.trainIDs.length === 3 && Alloy.Globals.censusDates.length === xmlCensusRequest.length && Alloy.Globals.censusIDs.length === xmlCensusRequest.length && Alloy.Globals.doAssessmentCalled == false) {
-										if (Alloy.Globals.censusDates.length === Alloy.Globals.censusIDs.length) {
+									if (Alloy.Globals.trainIDs.length === 3) {
 											self.doAssessment(assObj, sectionListAss);
-										}
 									}
 
 								});
@@ -303,9 +316,8 @@ function responseGenerator() {
 			} //end for loop
 
 		} else {
-			if (Alloy.Globals.doAssessmentCalled === false) {
+			
 				self.doAssessment(assObj, sectionListAss);
-			}
 		}
 	}; //end of commitWithTrainAndCensus
 
@@ -325,15 +337,36 @@ function responseGenerator() {
 				var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
 				//Ti.API.error("sectionListAss >> " + JSON.stringify(sectionListAss));
 				//return;
-				var xmlCensusRequest = self.buildCensusResponse(sectionListCen, assObj.crossingID, assObj.detailID);
+				var xmlCensusRequest = null;
 				var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
-
+				if(typeof sectionListCen === "undefined" || sectionListCen.length === 0 || sectionListCen == null)
+				{
+					if(assObj.censusDesktopComplete == false)
+					{
+						Ti.API.info("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete);
+						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
+					}
+				}else{
+					xmlCensusRequest = self.buildCensusResponse(assObj,sectionListCen, assObj.crossingID, assObj.detailID);
+					if(assObj.censusDesktopComplete == false)
+					{
+						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
+					}
+				}
 				if (sectionListCen.length > 0 && sectionListTra.length > 0) {
 					self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
 				} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
 					self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
 				} else if (sectionListCen.length <= 0 && sectionListTra.length > 0) {
-					self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
+					if(assObj.censusDesktopComplete == true)
+					{
+						Ti.API.error("======================assObj.censusDesktopComplete = true");
+						self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
+					}else{
+						Ti.API.info("assObj.censusDesktopComplete = "+assObj.censusDesktopComplete);
+						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
+					}
+					
 				}
 
 				//xmlCensusRequest = null;
@@ -343,21 +376,22 @@ function responseGenerator() {
 			Alloy.Globals.trainIDs = [];
 			Alloy.Globals.censusIDs = [];
 			Alloy.Globals.censusDates = [];
-			Alloy.Globals.doAssessmentCalled = false;
+			
 			Alloy.Globals.aIndicator.hide();
 		}
 	};//end of submitAss
 
 	self.doAssessment = function(assObj, sectionListAss) {
-		Alloy.Globals.assessmentId = assObj.assessmentId;
 		try {
-			Alloy.Globals.doAssessmentCalled = true;
+			
 			var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes);
 
 			if (assObj.isSubmitted === false) {
 				Alloy.Globals.Soap.createAssessment(xmlRequest, function(xmlDoc) {
-					assObj.alcrmStatus = "sent";
+					assObj.alcrmStatus = "Sent";
 					assObj.isSubmitted = true;
+					//alert("createAss");
+					//alert(JSON.stringify(assObj));
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
@@ -365,19 +399,21 @@ function responseGenerator() {
 					Alloy.Globals.trainIDs = [];
 					Alloy.Globals.censusIDs = [];
 					Alloy.Globals.censusDates = [];
-					Alloy.Globals.doAssessmentCalled = false;
+					
 					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true);
-					return;
+					//return;
 				}, function() {
-					Alloy.Globals.doAssessmentCalled = false;
+					
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 				});
 			} else {
 
 				Alloy.Globals.Soap.updateAssessment(xmlRequest, function(xmlDoc) {
-					assObj.alcrmStatus = "sent";
+					assObj.alcrmStatus = "Sent";
 					assObj.isSubmitted = true;
+					//alert("updateAss");
+					//alert(JSON.stringify(assObj));
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
@@ -386,26 +422,26 @@ function responseGenerator() {
 					Alloy.Globals.trainIDs = [];
 					Alloy.Globals.censusIDs = [];
 					Alloy.Globals.censusDates = [];
-					Alloy.Globals.doAssessmentCalled = false;
+					
 					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true);
-					return;
+					//return;
 				}, function() {
-					Alloy.Globals.doAssessmentCalled = false;
+					
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 				});
 			}
 
 		} catch (e) {
 			Ti.API.error("Exception in doAssessment. Error Details: " + JSON.stringify(e));
-			Alloy.Globals.doAssessmentCalled = false;
+			
 		}
 	};//end of doAssessment
 
 	self.commitAllCompleted = function() {
 		var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 
-		Ti.API.info('activeAssessments=' + JSON.stringify(activeAssessments));
+		alert('activeAssessments=' + activeAssessments.length);
 
 		for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
 			self.submitAss(activeAssessments[assessmentIndex]);

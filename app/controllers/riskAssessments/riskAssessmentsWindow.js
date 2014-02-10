@@ -34,6 +34,16 @@ var clearAllSubmitMessages = function(assessmentID){
 
 };
 
+exports.noCensusMessage = function(assObj){
+	//alert("assessmentIncomplete called");
+	//alert("assessmentIncomplete e="+JSON.stringify(e));
+	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
+	if(assessmentRow != null){
+		assessmentRow.showNoCensusMessage();
+	}
+};
+
+
 
 exports.assessmentIncomplete = function(assObj){
 	//alert("assessmentIncomplete called");

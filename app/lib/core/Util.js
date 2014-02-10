@@ -116,6 +116,7 @@ function _Util() {
 				}
 
 			}, function(data, client) {
+				//alert(JSON.stringify(data));
 				Ti.App.Properties.setString('helpContent', data.help);
 				Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
 				Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);

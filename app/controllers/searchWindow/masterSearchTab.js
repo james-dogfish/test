@@ -40,9 +40,9 @@ exports.setData = function(shouldRefresh) {
 		var maxCrossings = null;
 		//alert(Ti.App.Properties.getString('maxCrossigs').length);
 		//return;
-		if(typeof Ti.App.Properties.getString('maxCrossigs') !== "undefined" &&  Ti.App.Properties.getString('maxCrossigs') != null && Ti.App.Properties.getString('maxCrossigs') !="" && Number(Ti.App.Properties.getString('maxCrossigs')) > 0)
+		if(typeof Ti.App.Properties.getString('maxCrossings') !== "undefined" &&  Ti.App.Properties.getString('maxCrossings') != null && Ti.App.Properties.getString('maxCrossings') !="" && Number(Ti.App.Properties.getString('maxCrossings')) > 0)
 		{
-			maxCrossings = Number(Ti.App.Properties.getString('maxCrossigs'));
+			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
 		}else{
 			Ti.API.error("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500");
 			maxCrossings = 1500;
