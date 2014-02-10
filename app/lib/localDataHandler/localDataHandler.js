@@ -704,28 +704,15 @@ function localDataHandler() {
 	            		if(questionList[questionListIndex].mandatory == true ||
 	            			 questionList[questionListIndex].mandatory == "true"){
 	            			mandatoryCount++;
-	            		}
-	            		
-	            		//Count the Answered
-            			if(typeof questionList[questionListIndex].value !== "undefined")
-            			{		
-	            			if(questionList[questionListIndex].value instanceof Array)
-	            			{            				
-	            				if(questionList[questionListIndex].value.length >= 1)
-	            				{
-	            					if(questionList[questionListIndex].value[0].trim().length > 0)
-		            				{
-		            					//Ti.API.info("value0="+questionList[questionListIndex].value[0]);
-		            					answeredCount++;
-		            				}
-	            				}	
-	            			}else{ // if it's not an Array
-	            				if(questionList[questionListIndex].value.trim().length > 0)
-		            			{
-		            					answeredCount++;
-		            			}
+	            			
+
+	            			if(typeof questionList[questionListIndex].value === "undefined") continue;
+	            			if(!(questionList[questionListIndex].value instanceof Array)) continue;
+	            			if(questionList[questionListIndex].value.length <= 0)continue;
+	            			if(questionList[questionListIndex].value[0] != ""){
+	            				answeredCount++;
 	            			}
-	            		}//end check for undefined
+	            		}
             		}//end inner for loop
             	}//end if
             }//end outer for loop

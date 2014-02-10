@@ -22,7 +22,7 @@ function onTextFieldBlur(e){
 	
 
 	var section = e.section; 
-	item.displayValue = {value : e.value};
+	item.displayValue.value =  e.value;
 	item.value = [e.value];
 	
 	var questionResponse = 

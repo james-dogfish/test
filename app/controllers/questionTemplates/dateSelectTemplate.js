@@ -59,7 +59,7 @@ function dateButtonClicked(e){
 	
 	Alloy.createController("questionDialogs/modalDatePicker", {timeLimit : timeLimit, closeCallBack : function(dateString){
 		item.displayValue = {value : dateString};
-		item.value = dateString;
+		item.value = [dateString];
 		
 		
 		section.updateItemAt(e.itemIndex, item);
