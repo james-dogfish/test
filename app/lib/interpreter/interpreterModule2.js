@@ -806,10 +806,10 @@ function interpreterModule2() {
 				        }
 				    }
 				    
-				    if(questionObject.type = "numeric"){
+				    if(questionObject.type == "numeric"){
 				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_NUMBER_PAD;
 				    }
-				    if(questionObject.type = "decimal"){
+				    if(questionObject.type == "decimal"){
 				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
 				    }
                     
