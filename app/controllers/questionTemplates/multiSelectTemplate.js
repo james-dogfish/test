@@ -1,4 +1,7 @@
 function onNotesClick(e){
+	if(Alloy.Globals.dialogWindowOpen == true)return;
+	else Alloy.Globals.dialogWindowOpen = true;
+	
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	//notesBackground : {backgroundImage: 'images/questionNote.png'}
@@ -24,15 +27,12 @@ function onNotesClick(e){
 
 
 function multiSelectButtonClicked(e){
+	if(Alloy.Globals.dialogWindowOpen == true)return;
+	else Alloy.Globals.dialogWindowOpen = true;
+	
+	
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	
-	/*
-	Ti.App.fireEvent("questionSelected", {
-		questionObject : item
-	}); 
-	*/
-	
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);

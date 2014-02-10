@@ -19,8 +19,12 @@ function selectButtonClicked(e){
 
 function showPicker(e)
 {
+	if(Alloy.Globals.dialogWindowOpen == true)return;
+	else Alloy.Globals.dialogWindowOpen = true;
+	
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
+	
 	Alloy.createController("questionDialogs/modalPicker", {currentValue : item.value[0], valueList : item.selections, closeCallBack : function(data){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.value];
@@ -70,6 +74,10 @@ function showPicker(e)
 }
 
 function onNotesClick(e){
+	if(Alloy.Globals.dialogWindowOpen == true)return;
+	else Alloy.Globals.dialogWindowOpen = true;
+	
+	
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	//notesBackground : {backgroundImage: 'images/questionNote.png'}

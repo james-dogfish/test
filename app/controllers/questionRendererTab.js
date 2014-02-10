@@ -142,7 +142,7 @@ Ti.App.addEventListener("censusDesktopComplete", function(e) {
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
-    alert("censusDesktopComplete = "+currentAssessmentObject.censusDesktopComplete);
+    //alert("censusDesktopComplete = "+currentAssessmentObject.censusDesktopComplete);
 });
 
 /*

@@ -531,10 +531,12 @@ var setupSelectedQuestion = function () {
 
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
+		$.listView.setSections([]);
 		//Ti.API.info("setAssessment == "+JSON.stringify(JASON_sectionList));
 	    currentAssessmentObject = assessmentObject;
 	
 	    hiddenQuestions = [];
+	    allSections = [];
 	
 	    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
 	
@@ -1145,7 +1147,7 @@ function footerNotesButtonClick(e) {
         //Ti.API.info("questionSelected title = " + questionSelected.title.text);
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
-            Alloy.Globals.Util.slideNotify(30, questionRef.question.notes, false);
+            Alloy.Globals.Util.slideNotify(30, questionRef.question.alcrmNotes, false);
         }
     }
 };

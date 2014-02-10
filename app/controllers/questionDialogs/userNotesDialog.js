@@ -32,6 +32,7 @@ var animationClose = Titanium.UI.createAnimation();
 animationClose.right = "-50%";
 animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
+	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
 });
 
