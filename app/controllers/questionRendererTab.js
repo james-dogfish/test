@@ -85,7 +85,6 @@ Ti.App.addEventListener("createCensus", function(e) {
 Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.show();
 
-    //createCensus();
     createPastCensus(e.questionList);
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
@@ -160,7 +159,6 @@ var openMenu = function() {
         return false;
     }
 
-    //var Ui = require('core/Ui'),
     popOver = Alloy.Globals.Ui.renderPopOver({
         width: 250
     }),

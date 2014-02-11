@@ -13,6 +13,7 @@ function interpreterModule2() {
 	var removedQuestionsMap = [];
 	var hiddenQuestionsMap = [];
 	var censusCounterQuestionMap = [];
+	var timerPickerQuestionMap = [];
 
 
     var ui_types_map = {};
@@ -65,6 +66,7 @@ function interpreterModule2() {
         selections: [], // a list of possible values for the question
         validation: {},
         mandatory : false, //can be changed at run time with conditionalMandatory
+        duration : null, //used in the timerPickerQuestions template
 		subsectionTitle : null,
         title: {
             text: ""
@@ -154,6 +156,7 @@ function interpreterModule2() {
 		        value: [""], // a list of all values set for this question
 		        renderValue: [], // a list of condtions if the question is visable
 		        selections: [], // a list of possible values for the question
+		        duration : null, //used in the timerPickerQuestions template
 		        validation: {
 		            validationTest: false,
 		            min: null,
@@ -351,6 +354,8 @@ function interpreterModule2() {
 	            selections: questionSelections, // a list of possible values for the question
 	            validation: questionValidation,
 	            mandatory : isMandatory, //can be changed at run time with conditionalMandatory
+	            
+	            duration : null, //used in the timerPickerQuestions template
 	            
 	            subsectionTitle : Alloy.Globals.localParser.getTableRowText(question),
 	
@@ -762,21 +767,32 @@ function interpreterModule2() {
 					
 	                if (self.sectionHeaderList[sectionIndex].questionList[questionIndex].isAQuestion == false) continue;
 	                
-	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID in hiddenQuestionsMap){
-	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].visable = false;
-	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].renderDependencyList = [];
+	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+	                
+	                if(questionObject.alcrmQuestionID in hiddenQuestionsMap){
+	                	questionObject.visable = false;
+	                	questionObject.renderDependencyList = [];
 	                }
-	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID in censusCounterQuestionMap){
-	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "censusCounterTemplate";
+	                if(questionObject.alcrmQuestionID in censusCounterQuestionMap){
+	                	questionObject.template = "censusCounterTemplate";
 	                }
 	                
+	                
+	                if(questionObject.alcrmQuestionID in timerPickerQuestionMap){
+	                	questionObject.template = "minuteHourTimeTemplate";
+	                	questionObject.type = "timerPicker";
+	                	questionObject.duration = timerPickerQuestionMap[questionObject.alcrmQuestionID];
+	                }
+	                
+	                /*
 	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID == "I_DURATION"){
 	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "minuteHourTimeTemplate";
 	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].type = "timerPicker";
 	                }
+	                */
 	                
 	
-	                var questionObject = self.sectionHeaderList[sectionIndex].questionList[questionIndex];
+	                
 	                
 	                
 	                
@@ -941,6 +957,13 @@ function interpreterModule2() {
     		censusCounterQuestionMap = [];
 			for(var i=0; i< censusCounterQuestions.length; i++){
 				censusCounterQuestionMap[censusCounterQuestions[i]] = true;
+			}
+			
+			var timerPickerQuestions = Ti.App.Properties.getList("timerPickerQuestions", []);
+    		Alloy.Globals.Logger.log("timerPickerQuestions = "+JSON.stringify(timerPickerQuestions), "info");
+    		timerPickerQuestionMap = [];
+			for(var i=0; i< timerPickerQuestions.length; i++){
+				timerPickerQuestionMap[timerPickerQuestions[i].name] = timerPickerQuestions[i].duration;
 			}
 			
 			

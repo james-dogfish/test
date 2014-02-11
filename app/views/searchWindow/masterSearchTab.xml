@@ -12,9 +12,12 @@
 				<Label id="appTitle"/>
 			</Toolbar>
 			
-			
+			<View id="SearchBarView">
+				<TextField id="searchTextField" class="inputField"/>
+				<Button id="searchButton" class="inputButton" onClick="onSearchButtonClick"/>
+			</View>
 			<TableView id="tableView" onClick="onRowClick">
-				<SearchBar id="searchBar"/>
+				<!--<SearchBar id="searchBar"/>-->
 			</TableView>
 		</Window>
 	</Tab>

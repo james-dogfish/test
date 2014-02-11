@@ -16,10 +16,3 @@
 	paddingLeft : "10dp",
 	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 }
-
-/*
- "#valueTextFieldContainer" : {
-	width: Ti.UI.Fill,
-	clearButtonMode : true,
-} 
- */

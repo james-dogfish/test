@@ -11,16 +11,6 @@
 			</View>
 		
 			<View class="questionView">
-				<!--
-				<View id="multiSelectInputContaner" class="inputField">
-					<Label id="multiSelectTextField" bindId="displayValue"/>
-				</View>
-				-->
-				<!--
-				<View id="multiSelectTextFieldContainer" class="inputFieldContainer" >
-					<TextArea  id="multiSelectTextField" class="inputFieldView" bindId="displayValue" onClick="multiSelectButtonClicked"/>
-				</View>
-				-->
 				<TextField id="multiSelectTextField" class="inputField" bindId="displayValue" onClick="multiSelectButtonClicked"/>
 				<Button id="multiSelectButton" class="inputButton" onClick="multiSelectButtonClicked">Select</Button>
 			</View>

@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0
+apiversion: 2
+description: An expandable textbox which resizes based on the amount of text inputted
+author: Alessio Failla
+license: Specify your license
+copyright: Dogfi.sh Mobile Ltd
+
+
+# these should not be edited
+name: expandabletextbox
+moduleid: sh.dogfi.expandabletextbox
+guid: cd8f6e13-7dbc-47e4-bfd7-2b07930485bc
+platform: iphone
+minsdk: 3.2.0.GA

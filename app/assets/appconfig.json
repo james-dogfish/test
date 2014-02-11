@@ -4,6 +4,23 @@
         "SCOTLAND",
         "EAST_MIDLANDS"
     ],
+    
+    "timerPickerQuestions" : [
+    	{
+		    "name" : "I_DURATION",
+		    "duration" :{
+				"hoursLowBound" : 0,
+				"hoursHighBound" : 12,
+				"hoursIncrement" : 1,
+				
+				"minutesLowBound" : 0,
+				"minutesHighBound" : 60,
+				"minutesIncrement" : 15
+			}
+		}
+	],
+    
+    
     "censusCounterQuestions": [
         "I_CAR_COUNT",
         "I_LOR_COUNT",
