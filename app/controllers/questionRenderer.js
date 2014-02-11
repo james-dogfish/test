@@ -30,7 +30,6 @@ var findQuestionsRef = function (sectionList, questionName, groupType) {
 	        }
        }
     }
-    //alert("not found " +questionName);
     return null;
 };
 
@@ -97,7 +96,6 @@ var newFindQuestionObject = function (questionName, groupType) {
             var questionList = sectionList[sectionIndex].getItems();
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
                 if (questionList[questionIndex].name == questionName) {
-                    //return questionList[questionIndex].value;
                     return questionList[questionIndex];
                 }
             }
@@ -433,12 +431,10 @@ var buildQuestionSections = function (JASON_sectionList) {
 var removeHiddenQuestions = function (JASON_sectionList) {
 	try{
 	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
-	    	
-	    	//Alloy.Globals.Logger.log("mainQuestionsfileName = "+JSON.stringify(JASON_sectionList[sectionIndex]),"info");
+
 	        var questionList = JASON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 				if(questionList[questionIndex] != null){
-					//Alloy.Globals.Logger.log("questionList[questionIndex].visable ="+JSON.stringify(questionList[questionIndex].visable),"info");
 		            if (questionList[questionIndex].visable == false) {
 		                hiddenQuestions.push(questionList[questionIndex]);
 		                questionList.splice(questionIndex, 1);
@@ -517,21 +513,15 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 };
 
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
-    //allSections = sectionList;
+
     JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
 
     appendSectionList = buildQuestionSections(JASON_sectionList);
 
-    //removeAnyRenderOptionQuestion(appendSectionList);
     allSections = allSections.concat(appendSectionList);
     $.listView.setSections(allSections);
 };
 
-exports.removeAllSectionsWithAssociatedFileName = function (associatedFileName) {
-    for (var i = 0; i < allSections.length; i++) {
-
-    }
-};
 
 exports.moveToQuestion = function (groupType, questionIndex) {
     Alloy.Globals.Logger.log("** questionRender moveToQuestion","info");
@@ -854,7 +844,6 @@ var validateSingleQuestionValue = function (value, questionObject) {
         }
     }
 
-
     returnObject.isValid = true;
     return returnObject;
 };
@@ -1027,15 +1016,6 @@ function footerHelpButtonClick(e) {
         }
     }
 };
-
-//Ti.App.addEventListener("questionValueChange", questionValueChange);
-
-Ti.App.addEventListener("notesAdded", function (notesObject) {
-
-    Alloy.Globals.localDataHandler.updateQuestion(
-        notesObject.item
-    );
-});
 
 Ti.App.addEventListener("startCensesTimer", function (e) {
     var question = e.question;

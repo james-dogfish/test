@@ -52,10 +52,3 @@
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
 	borderColor : "#333",
 }
-
-/*
-"#searchBar" : {
-	barColor:'#f00', 
-    height:43,
-    top:0,
-}*/

@@ -50,7 +50,6 @@ function pickerChange(e){
 
 function doneButtonClick(e){
 	$.win.close();
-	//loginWin.closeLoginWin();
 	var loginWin = Alloy.createController('startup');
 	loginWin.closeLoginWin();
 	

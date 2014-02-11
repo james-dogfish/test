@@ -1,9 +1,5 @@
 function onTextFieldBlur(e){
-	//Alloy.createController("userNotificationWindows/activityIndicatorDialog").show(); 
-	
-	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
-
 };
 
 function onStartButtonClick(e){
@@ -37,25 +33,22 @@ function onNotesClick(e){
 
 	var item = e.section.getItemAt(e.itemIndex);
 	
-	//notesBackground : {backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionSelectedNote.png'},
-	
-	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
-		
-		if(notes != ""){
-			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-			item.notes = notes; 
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", 
+		closeCallBack : function(notes){
+			
+			if(notes != ""){
+				item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+				item.notes = notes; 
+			}
+			else{
+				item.notesBackground = {backgroundImage: 'images/questionNote.png'};
+				item.notes = ""; 
+			}
+			e.section.updateItemAt(e.itemIndex, item);
+			
+			Alloy.Globals.localDataHandler.updateQuestion(item);
 		}
-		else{
-			item.notesBackground = {backgroundImage: 'images/questionNote.png'};
-			item.notes = ""; 
-		}
-		e.section.updateItemAt(e.itemIndex, item);
-		
-		Alloy.Globals.localDataHandler.updateQuestion(item);
-	}});
+	});
 };
 
 function onTitleClick(e){
@@ -63,6 +56,5 @@ function onTitleClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
 	Alloy.Globals.questionRenderer.selectQuestion(item);
-	//alert("name = "+item.name);
 }
 

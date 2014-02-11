@@ -45,9 +45,7 @@ exports.setData = function(shouldRefresh) {
 		$.tableView.setData([]);
 
 		var data = [];
-		//alert(JSON.stringify(results[0]));
 		for (var i = 0; i < crossingData.length; i++) {
-			//Alloy.Globals.Logger.log(JSON.stringify(crossingData[i]), "info");
 			data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
 		}
 		$.tableView.setData(data);
@@ -59,8 +57,6 @@ exports.setData = function(shouldRefresh) {
 	if ($.tableView.data.length === 0) {
 		crossingData = [];
 		var maxCrossings = null;
-		//alert(Ti.App.Properties.getString('maxCrossigs').length);
-		//return;
 		if(typeof Ti.App.Properties.getString('maxCrossings') !== "undefined" &&  Ti.App.Properties.getString('maxCrossings') != null && Ti.App.Properties.getString('maxCrossings') !="" && Number(Ti.App.Properties.getString('maxCrossings')) > 0)
 		{
 			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
@@ -113,8 +109,6 @@ exports.setData = function(shouldRefresh) {
 											type = crossingDetailsSearchResult["type"];
 										}
 									}
-
-									//alert("stop");
 									crossingData.push({
 										name: results[i]["name"],
 										id: results[i]["id"],
@@ -126,12 +120,10 @@ exports.setData = function(shouldRefresh) {
 							}
 						} else {
 							Alloy.Globals.aIndicator.hide();
-							//var Alloy.Globals.Util = require('core/Alloy.Globals.Util');
 							Alloy.Globals.Util.showAlert(L('no_results'));
 						}
 
 						var data = [];
-						//alert(JSON.stringify(results[0]));
 						for (var i = 0; i < crossingData.length; i++) {
 							data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
 						}
