@@ -105,6 +105,9 @@ function _Util() {
 	 */
 
 	self.downloadConfig = function(callback) {
+		
+
+		
 		if (self.phoneConnected()) {
 			var fileName = 'appconfig.json';
 			self.downloadFileConditionally(cmsUrl + '/data/appconfig.json', docsFolder + fileName, function(c) {
@@ -122,6 +125,7 @@ function _Util() {
 				Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);
 				Ti.App.Properties.setList('removedQuestions', data.removedQuestions);
 				Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
+				Ti.App.Properties.setList('timerPickerQuestions', data.timerPickerQuestions);
 				Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
 				Ti.App.Properties.setString('maxCrossings',data.maxCrossings);
 				Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
@@ -138,12 +142,14 @@ function _Util() {
 			Ti.App.Properties.setList('removedSections', data.removedSections);
 			Ti.App.Properties.setList('removedQuestions', data.removedQuestions);
 			Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
+			Ti.App.Properties.setList('timerPickerQuestions', data.timerPickerQuestions);
 			Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
 			//Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
 			if (callback) {
 				callback();
 			}
 		}
+		
 	};
 
 	/*
