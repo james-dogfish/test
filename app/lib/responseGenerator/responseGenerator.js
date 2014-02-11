@@ -170,7 +170,7 @@ function responseGenerator() {
 										"<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>"+ 
   							 			"<ques:parameterValue>"+crossingID + " " + assDate + " " + questionList[questionIndex].value+"</ques:parameterValue>";
   							questionResponse = questionList[questionIndex].questionResponse;
-  							alert(questionResponse);
+  							//alert(questionResponse);
   							titleFixed = true;
 							//Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
 							//alert("questionList[questionIndex].value = "+questionList[questionIndex].value);
