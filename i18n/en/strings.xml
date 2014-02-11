@@ -12,6 +12,10 @@
 	    <string name="page_core_question_name">Core Crossing Details</string>
 	    <string name="page_census_name">Census</string>
 	    <string name="page_train_info_name">Train Info</string>
+	    <string name="searchButtonTitle">Search</string>
+	    <string name="stop_timer">Are you sure you want to stop the timer?</string>
+	    
+	    
     
     <!-- delete ra & census related strings -->
 	    <string name="delete_ra">There is no undo. Are you sure you want to delete this Risk Assessment?</string>

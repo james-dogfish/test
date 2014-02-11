@@ -5,38 +5,32 @@ function onNotesClick(e){
 	else Alloy.Globals.dialogWindowOpen = true;
 
 	var item = e.section.getItemAt(e.itemIndex);
-	
-	//notesBackground : {backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionSelectedNote.png'},
-	
-	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
-		
-		if(notes != ""){
-			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-			item.notes = notes; 
+
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", 
+		closeCallBack : function(notes){
+			
+			if(notes != ""){
+				item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+				item.notes = notes; 
+			}
+			else{
+				item.notesBackground = {backgroundImage: 'images/questionNote.png'};
+				item.notes = ""; 
+			}
+			e.section.updateItemAt(e.itemIndex, item);
+			
+			Alloy.Globals.localDataHandler.updateQuestion(item);
 		}
-		else{
-			item.notesBackground = {backgroundImage: 'images/questionNote.png'};
-			item.notes = ""; 
-		}
-		e.section.updateItemAt(e.itemIndex, item);
-		
-		Alloy.Globals.localDataHandler.updateQuestion(item);
-	}});
+	});
 };
 
 
 function onTextFieldFocus(e){
 
 	Alloy.Globals.currentlyFocusedTF = e.source;
-	
-	//e.source.blur();
-	
+
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	if(item.readOnly == true){
@@ -44,12 +38,7 @@ function onTextFieldFocus(e){
 	}
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	
-	/*
-	Ti.App.fireEvent("questionSelected", {
-		questionObject : item
-	}); 
-	*/
+
 };
 
 
@@ -67,7 +56,6 @@ function onTextField1Blur(e){
 		intValue =0;
 	}
 	
-	//currentValue = ""+intValue;
 	item.value[0] = ""+intValue;
 	item.displayValue = {value : item.value[0]};
 	
@@ -78,29 +66,15 @@ function onTextField1Blur(e){
        
     item.questionResponse = questionResponse;
 	
-	/*
-	Ti.App.fireEvent("questionValueChange", {
-		item : item,
-		name : item.name,
-		itemIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : item.value,
-		responseObject : questionResponse
-	}); 
-	*/
-	
 	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
     
 };
 
 function onTitleClick(e){
 	
-	//if(Alloy.Globals.isDebugOn == false)return;
-	
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
 	Alloy.Globals.questionRenderer.selectQuestion(item);
-	//alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
 };
 
 
@@ -122,34 +96,15 @@ var addValue = function(additionValue, e){
 	}
 	item.value[0] = ""+intValue;
 	
-	//alert("value = "+item.value[0]);
-	
-	
 	item.displayValue = {value : item.value[0]};
-	
-	
-	//section.updateItemAt(questionObject.itemIndex, item);
 	
 	var questionResponse = 
        "<ques:parameterName>"+item.name+"</ques:parameterName>"+
        "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
-    //alert("questionResponse object in template = "+JSON.stringify(questionResponse));
     
     item.questionResponse = questionResponse;
     
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-    
-    /*
-	
-	Ti.App.fireEvent("questionValueChange", {
-		item : item,
-		name : item.name,
-		itemIndex : questionObject.itemIndex,
-		groupType : item.groupType,
-		value : item.value,
-		responseObject : responseObject
-	}); 
-	*/
 	
 };
 

@@ -20,5 +20,8 @@
 			<Label id="commitStatus" class="titleText">Commit </Label>
 			<View id="commitStatusLabelList"/>
 		</View>
+		
+
+				
 	</TableViewRow>
 </Alloy>

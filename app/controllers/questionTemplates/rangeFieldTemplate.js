@@ -7,27 +7,22 @@ function onNotesClick(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	
-	//notesBackground : {backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionSelectedNote.png'},
-	
-	
-	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", closeCallBack : function(notes){
-		
-		if(notes != ""){
-			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
-			item.notes = notes; 
+	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes", 
+		closeCallBack : function(notes){
+			if(notes != ""){
+				item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
+				item.notes = notes; 
+			}
+			else{
+				item.notesBackground = {backgroundImage: 'images/questionNote.png'};
+				item.notes = ""; 
+			}
+			e.section.updateItemAt(e.itemIndex, item);
+			
+			Alloy.Globals.localDataHandler.updateQuestion(item);
 		}
-		else{
-			item.notesBackground = {backgroundImage: 'images/questionNote.png'};
-			item.notes = ""; 
-		}
-		e.section.updateItemAt(e.itemIndex, item);
-		
-		Alloy.Globals.localDataHandler.updateQuestion(item);
-	}});
+	});
 };
-
 
 function onTextFieldFocus(e){
 
@@ -35,18 +30,12 @@ function onTextFieldFocus(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	if(item.readOnly == true){
 		e.source.blur();
 		return;
 	}
-	/*
-	Ti.App.fireEvent("questionSelected", {
-		questionObject : item
-	}); 
-	*/
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 };
 
@@ -62,28 +51,8 @@ function onTextField1Blur(e){
 	}
 	
 	item.displayValue = {value : e.value};
-	
-	//var test = validateValue(e.value, item.type, item.jsonObject);
-	//if(test == false)return;
 	currentValue[0] = e.value;
 	item.value = currentValue;
-	
-	/*
-	var responseObject = [
-		{name : item.name},
-		{lowValue : currentValue[0]},
-		{highValue : currentValue[1]},
-		{notes : ""}
-	];
-	*/
-	
-	/*
-	var responseObject = {
-		"ques:parameterName":{"#text":item.name},
-		"ques:lowValue":{"#text":currentValue[0]},
-		"ques:highValue":{"#text":currentValue[1]}
-	};
-	*/
 	
 	var questionResponse = 
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
@@ -94,28 +63,13 @@ function onTextField1Blur(e){
     item.questionResponse = questionResponse;
     
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-    
-    /*
-	
-	Ti.App.fireEvent("questionValueChange", {
-		item : item,
-		name : item.name,
-		itemIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : currentValue,
-		responseObject : questionResponse
-	}); 
-	*/
 };
 
 function onTitleClick(e){
 	
-	//if(Alloy.Globals.isDebugOn == false)return;
-	
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
 	Alloy.Globals.questionRenderer.selectQuestion(item);
-	//alert("mandatoryDependenciesList = "+JSON.stringify( item.mandatoryDependenciesList));
 };
 
 function onTextField2Blur(e){
@@ -123,35 +77,13 @@ function onTextField2Blur(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 	
-	
-	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);
 		return;
 	}
 	item.displayValue2 = {value : e.value};
-	
-	//var test = validateValue(e.value, item.type, item.jsonObject);
-	//if(test == false)return;
 	currentValue[2] = e.value;
 	item.value = currentValue;
-	
-		/*
-	var responseObject = [
-		{name : item.name},
-		{lowValue : currentValue[0]},
-		{highValue : currentValue[1]},
-		{notes : ""}
-	];
-	*/
-	
-	/*
-	var questionResponse = {
-		"ques:parameterName":{"#text":item.name},
-		"ques:lowValue":{"#text":currentValue[0]},
-		"ques:highValue":{"#text":currentValue[1]}
-	};
-	*/
 	
 	var questionResponse = 
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
@@ -162,15 +94,5 @@ function onTextField2Blur(e){
 	item.questionResponse = questionResponse;
 	
 	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-	
-	/*
-	Ti.App.fireEvent("questionValueChange", {
-		item : item,
-		name : item.name,
-		itemIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : currentValue,
-		responseObject : questionResponse
-	}); 
-	*/
+
 };

@@ -6,12 +6,9 @@ function onTextFieldChange(e){
 };
 
 function onTextFieldBlur(e){
-	//Alloy.createController("userNotificationWindows/activityIndicatorDialog").show(); 
-	//alert("e.itemIndex : "+e.itemIndex);
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){
-		//alert("in textFieldTemplate.onTextFieldBlur item was undefined");
 		return;
 	}
 	
@@ -19,7 +16,6 @@ function onTextFieldBlur(e){
 		e.section.updateItemAt(e.itemIndex, item);
 		return;
 	}
-	
 
 	var section = e.section; 
 	item.displayValue.value =  e.value;
@@ -34,40 +30,8 @@ function onTextFieldBlur(e){
     
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
-	
-	/*
-	var responseObject = [
-		{name : item.name},
-		{value : e.value},
-		{notes : ""}
-	];
-	*/
-	
-	/*
-	var responseObject = {
-		"ques:parameterName":{"#text":item.name},
-		"ques:parameterValue":{"#text":e.value}
-	};
-	*/
-	
-
-	
 	section.updateItemAt(e.itemIndex, item);
-	
-	
 
-/*
-	Ti.App.fireEvent("questionValueChange", {
-		questionObject : item,
-		name : item.name,
-		questionIndex : e.itemIndex,
-		groupType : item.groupType,
-		value : [e.value],
-		responseObject : questionResponse
-	}); 
-	*/
-		
-	//questionIndex, questionObject, section
 };
 
 function onNotesClick(e){
@@ -75,12 +39,7 @@ function onNotesClick(e){
 	else Alloy.Globals.dialogWindowOpen = true;
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	
-	//notesBackground : {backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionNote.png'}
-	//{backgroundImage: 'images/questionSelectedNote.png'},
-	
-	
+
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes",closeCallBack : function(notes){
 		
 		if(notes != ""){
@@ -101,10 +60,8 @@ function onTextFieldFocus(e){
 
 	Alloy.Globals.currentlyFocusedTF = e.source;
 
-	//alert("onTextFieldFocus");
 	var item = e.section.getItemAt(e.itemIndex);
 	if(typeof item === "undefined"){
-		//alert("in textFieldTemplate.onTextFieldFocus item was undefined");
 		return;
 	}
 	if(item.readOnly == true){
@@ -112,29 +69,13 @@ function onTextFieldFocus(e){
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	
-	/*
-	if(item.readOnly == true){
-		e.source.blur();
-		//item.displayValue.editable = false;
-		e.section.updateItemAt(e.itemIndex, item);
-	}
-	*/
-	/*
-	Ti.App.fireEvent("questionSelected", {
-		questionObject : item
-	}); 
-	*/
 };
 
 function onTitleClick(e){
-	//if(Alloy.Globals.isDebugOn == false)return;
+
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
 	Alloy.Globals.questionRenderer.selectQuestion(item);
-	
-	//alert("conditionalMandatory = "+JSON.stringify( item.validation.conditionalMandatory));
-	//alert("alcrmQuestionID = "+item.alcrmQuestionID);
 }
 
