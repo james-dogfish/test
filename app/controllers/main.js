@@ -10,7 +10,7 @@ var JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, JSONDocCensus, JSONDocTrain =
  * toggleSearch: this function is fired when a user taps on the "Search" button
  *******************************************************************************/
 function toggleSearch() {
-
+	Alloy.Globals.Logger.log("toggleSearch()","info");
 	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
@@ -56,13 +56,7 @@ var openMenu = function() {
 	}, {
 		title : 'Help',
 		id : 3
-	} /*{
-	 title: 'Commit All Completed',
-	 id: 4
-	 }, {
-	 title: 'Logout',
-	 id: 5
-	 }*/];
+	}];
 
 	menuTable.setData(data);
 
@@ -114,6 +108,7 @@ $.riskAssessmentsTab.loadRiskAssessments();
  *************************************************************/
 
 $.riskAssessmentsTab.on("openRiskAssessment", function(e) {
+	Alloy.Globals.Logger.log("openRiskAssessment","info");
 	$.questionRendererTab.clear();
 	$.tabGroup.setActiveTab($.questionRendererTab.getView());
 
@@ -157,12 +152,14 @@ function parseTrainData(xml_text, curAssObj) {
 			var trainData = Alloy.Globals.localDataHandler.addDefaultTrainInfo(curAssObj, data);
 			trainData = null;
 			censusData = null;
-
+			Alloy.Globals.Logger.log("parseTrainData > got data","info");
 		} else {
+			Alloy.Globals.Logger.log("parseTrainData > no data","info");
 			alert(L('no_data'));
 
 		}
 	} catch(e) {
+		Alloy.Globals.Logger.log("Exception in parseTrainData. Details: "+JSON.stringify(e),"info");
 		Alloy.Globals.aIndicator.hide();
 	}
 };
@@ -186,18 +183,22 @@ function parseCensusData(xml_text, curAssObj) {
 			var data = Alloy.Globals.localParser.getQuestions(xml_text);
 			if ( typeof data === "undefined") {
 				alert(L('no_data'));
+				Alloy.Globals.Logger.log("parseCensusData > no data","info");
 				return;
 			}
 
 			var censusData = Alloy.Globals.localDataHandler.addDefaultCensus(curAssObj, data);
 			xml_text = null;
 			censusData = null;
+			Alloy.Globals.Logger.log("parseCensusData > got data","info");
 
 		} else {
+			Alloy.Globals.Logger.log("parseCensusData > xml_text is undefined or null","info");
 			alert(L('no_data'));
 
 		}
 	} catch(e) {
+		Alloy.Globals.Logger.log("Exception in parseCensusData. Error: "+JSON.stringify(e),"info");
 		Alloy.Globals.aIndicator.hide();
 	}
 };
@@ -436,8 +437,6 @@ var buildAssessment = function(crossingDetail) {
  *
  *************************************************************/
 $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
-	//try {
-
 		if ( typeof crossingDetail != "undefined") {
 			if (crossingDetail != "null") {
 				Alloy.Globals.currentCrossingName = crossingDetail.name;
@@ -459,10 +458,6 @@ $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
 		getCrossingQuestionAnswersSet(crossingDetail);
 		getCensusQuestionSet(crossingDetail);
 		getTrainInfoQuestionSet(crossingDetail);
-
-	//} catch(e) {
-	//	Alloy.Globals.aIndicator.hide();
-	//}
 });
 
 /** laod the risk assessments then switch tab **/

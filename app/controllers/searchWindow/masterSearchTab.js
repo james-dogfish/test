@@ -1,11 +1,11 @@
 var crossingData;
-//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');				
 
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
 }
 
 function refreshButtonClick(e) {
+	Alloy.Globals.Logger.log("refreshButtonClick","info");
 	var data = [];
 	$.tableView.setData(data);
 	$.trigger("RefreshButtonClick");
@@ -13,11 +13,12 @@ function refreshButtonClick(e) {
 
 
 function onRowClick(e) {
+	Alloy.Globals.Logger.log("Tapped on a crossing","info");
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 
 exports.setData = function(shouldRefresh) {
-	
+	Alloy.Globals.Logger.log("masterSearchTab - setData","info");
 	crossingData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
 	if (crossingData.length !== 0 && shouldRefresh == false) {
 		Alloy.Globals.aIndicator.show("Loading...", 50000);
@@ -66,14 +67,13 @@ exports.setData = function(shouldRefresh) {
 				var convertedJson = Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 					function(data) {
 						// callback
-						//alert(data);
-						// var crossingsObject = JSON.stringify(data);
+						Alloy.Globals.Logger.log("in crossingsSearch Callback","info");
 						var data = JSON.parse(data);
 
 						// Check whether JSON structure exits before attempting to grab results
 						if (Alloy.Globals.Util.checkNested(data, 'response', 'Envelope', 'Body', 'AdvancedSearchResponse', 'searchResults')) {
 							var results = data.response.Envelope.Body.AdvancedSearchResponse.searchResults;
-
+							Alloy.Globals.Logger.log("got crossing results ...","info");
 							for (var i = 0; i < results.length; i++) {
 
 								var type = "";
@@ -125,127 +125,3 @@ exports.setData = function(shouldRefresh) {
 			function(xmlDoc) {});
 	}
 };
-
-/*
-var listViewData = [];
-//var crossingData = [];
-//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');		
-
-function backButtonClick(e) {
-	$.trigger("BackButtonClick");
-}
-
-function refreshButtonClick(e) {
-	listViewData = [];
-	$.listSection.setItems(listViewData);
-	setData(true);
-	//listViewData = null;
-}
-
-
-function onRowClick(e){
-	Alloy.Globals.Logger.log("crossingSelected index = "+e.itemIndex, "info");
-	$.trigger("crossingSelected",listViewData[e.itemIndex]);
-};
-
-var setData = function(shouldRefresh) {
-	var savedListViewData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
-	if(savedListViewData.length !== 0 && shouldRefresh == false)
-	{
-		Alloy.Globals.aIndicator.show("Loading...",50000);
-		listViewData = savedListViewData;
-		$.listSection.setItems(listViewData);
-		//listViewData = null;
-
-		
-		Alloy.Globals.aIndicator.hide();
-		return;
-	} //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
-	
-	
-	if(listViewData.length === 0){ 
-		Alloy.Globals.aIndicator.show("Loading...");
-		 listViewData = [];
-				 Alloy.Globals.Soap.searchCrossingRequest(
-					{
-						searchCriteria:{
-							'com:searchCriteria':{
-								'ques:parameterName':'CROSSING_SEARCH_AREA_NAME',
-								'ques:parameterValue':Ti.App.Properties.getString('SelectedRoute'),
-							},
-						},
-						sortByELR:true,
-						includeDeleted:false
-					},
-					function(xmlDoc){
-							//var XMLTools = require("tools/XMLTools");
-			                XMLTools.setDoc(xmlDoc);
-			                var crossingsObject = JSON.stringify(XMLTools.toObject());
-			                
-			                var data = JSON.parse(crossingsObject);
-			                var results = data["soapenv:Body"]["ns9:AdvancedSearchResponse"]["ns9:searchResults"];
-			                if(typeof results === undefined || results === "undefined")
-			                {
-			                	Alloy.Globals.aIndicator.hide();
-			                	//var Alloy.Globals.Util = require('core/Alloy.Globals.Util');
-								Alloy.Globals.Util.showAlert(L('no_results'));
-								
-			                }else{
-				                for(var i=0; i<results.length; i++)
-				                {
-				                	////Alloy.Globals.Logger.log("crossingObject" +JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]), "info");
-				                	
-									//Alloy.Globals.Logger.log(JSON.stringify(results[i]["ns6:crossingDetailsSearchResult"]), "info");
-									var crossingDetailsSearchResult = results[i]["ns6:crossingDetailsSearchResult"];
-									var type = "";
-				                	if (typeof crossingDetailsSearchResult === "undefined") {
-				                		continue; //SKIP IT.
-				                		//type = "undefined";
-				                		//Alloy.Globals.aIndicator.hide();
-				                		//return;
-				                	}
-				                	if(crossingDetailsSearchResult instanceof Array){
-				                		////Alloy.Globals.Logger.log("type Array ="+ JSON.stringify(crossingDetailsSearchResult[0]), "info");
-				                		var type = "N/A";
-				                		if(typeof crossingDetailsSearchResult[0]["ns6:type"] !=="undefined")
-				                		{
-				                			type = crossingDetailsSearchResult[0]["ns6:type"];
-				                		}
-				                		
-				                	}
-				                	else{
-				                		////Alloy.Globals.Logger.log("type object ="+ JSON.stringify(crossingDetailsSearchResult), "info");
-				                		var type = "N/A";
-				                		if(typeof crossingDetailsSearchResult !=="undefined")
-				                		{
-				                			type = crossingDetailsSearchResult["ns6:type"];
-				                		}
-				                	}
-				                	
-				                	//alert("stop");
-			
-				                	listViewData.push({
-				                		template : "crossingRow",
-				                		crossingName : {text : "Crossing Name - " + results[i]["ns6:name"]},
-				                		crossingElr : {text : "Crossing ID - "+results[i]["ns5:id"]},
-				                		crossingType : {text : "Crossing Type - "+ type},
-				                		id:   results[i]["ns5:id"],
-				                		name: results[i]["ns6:name"],
-				                		searchableText : results[i]["ns6:name"],
-				                	});
-				                	//crossingDetailsSearchResult = null;
-				                	//type = null;
-				                }
-								//Alloy.Globals.Logger.log("listViewData.length = "+listViewData.length, "info");
-								Alloy.Globals.localDataHandler.cacheCrossingSearch(listViewData);
-								$.listSection.setItems(listViewData);
-								Alloy.Globals.aIndicator.hide();
-							}
-					},
-					function(xmlDoc){});
-	}
-	
-};
-exports.setData = setData;
-
-*/

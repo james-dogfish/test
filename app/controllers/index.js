@@ -29,9 +29,6 @@ var startup = function() {
 	var mainView = Alloy.createController('main').getView();
 	mainView.open();
 	mainView = null;
-
-
-	//masterSearchTab = null;
 	
 	// Check whether settings are filled
 	if (!Alloy.Globals.User.hasPreferences()) {

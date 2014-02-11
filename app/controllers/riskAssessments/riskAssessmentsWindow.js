@@ -35,8 +35,6 @@ var clearAllSubmitMessages = function(assessmentID){
 };
 
 exports.noCensusMessage = function(assObj){
-	//alert("assessmentIncomplete called");
-	//alert("assessmentIncomplete e="+JSON.stringify(e));
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
 		assessmentRow.showNoCensusMessage();
@@ -46,8 +44,6 @@ exports.noCensusMessage = function(assObj){
 
 
 exports.assessmentIncomplete = function(assObj){
-	//alert("assessmentIncomplete called");
-	//alert("assessmentIncomplete e="+JSON.stringify(e));
 	Alloy.Globals.Logger.log("assessmentIncomplete >> "+assObj.assessmentID, "error");
 	Alloy.Globals.Logger.log("assessmentIncomplete assObj>> "+JSON.stringify(assObj), "error");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
@@ -65,25 +61,10 @@ exports.assessmentSubmitMessage = function(assObj,success){
 	}
 };
 
-
-
-//var localDataHandler = require('localDataHandler/localDataHandler');
-
 var activeAssessments = [];
 
 // Setting up menu item for home screen
 var openMenu = function() {
-
-	
-	// Check whether settings are filled 
-	/*if (!Alloy.Globals.User.hasPreferences()) {
-		// Open setting screen
-		var userSettings = Alloy.createController('userSettings', {
-			message: true
-		}).getView();
-		userSettings.open();
-		return false;
-	}*/
 
 	//var Ui = require('core/Ui'),
 	popOver = Alloy.Globals.Ui.renderPopOver({
@@ -126,9 +107,7 @@ var openMenu = function() {
 			var appHelp = Alloy.createController('appHelp').getView();
 			appHelp.open();
 		} else if (e.row.id === 4) {
-			// Commit all assessments
-			//var responseGenerator = require('responseGenerator/responseGenerator');
-			//responseGenerator  = new responseGenerator();
+			
 			if(Alloy.Globals.User.hasPreferences())
 			{
 				clearAllSubmitMessages();
@@ -142,13 +121,9 @@ var openMenu = function() {
 			
 			
 		} else if (e.row.id === 5) {
-			// Reset the searching table 
-			//$.searchTable.visible = false;
-			//$.searchButton.title = 'Search';
-			// Making table clickable!
-			//$.searchTable.loading = false;
-			// Log a user out
+			
 			Alloy.Globals.User.logOut();
+			Alloy.Globals.Logger.log("User Loggedout","info");
 			Alloy.Globals.localDataHandler.clearCachedCrossing();
 			Alloy.Globals.tabGroup.close();
 			$.destroy;
@@ -160,33 +135,23 @@ var openMenu = function() {
 var loadRiskAssessments = function() {
 	
 	activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
-		
+			
 	var data = [];
 	assessmentRowControllerList = [];
-	
 	
 	for(var i=0; i < activeAssessments.length; i++){
 		assessmentRowControllerList.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",{
 				thisRA: activeAssessments[i],
 				fontawesome: fontawesome
 			}));
-			
-			
 		data.push(assessmentRowControllerList[i].getView());
-		
-			
-		if(i == 1){
-			//assessmentRowControllerList[i].commitResponse(true, "train Info 1");
-			//assessmentRowControllerList[i].commitResponse(true, "train Info 2");
-			//assessmentRowControllerList[i].commitResponse(true, "train Info 3");
-			//assessmentRowControllerList[i].commitResponse(false, "train Info 4");
-		}
 
 	}
 	$.tableVeiw.setData(data);
 	
 	return true;
 };
+
 exports.loadRiskAssessments= loadRiskAssessments;
 
 var confirmDeleteRA = Titanium.UI.createAlertDialog({ title: 'Delete RA', message: L('delete_ra'), buttonNames: ['Yes', 'No'], cancel: 1 });
@@ -226,35 +191,17 @@ function onDeleteRow(e){
       /*
        * YES was clicked.
        */
+       Alloy.Globals.Logger.log("removed risk assessment","info");
        Alloy.Globals.localDataHandler.removeAssessment(deletingRow.rowData.customData);
        loadRiskAssessments();
     } else if (e.index == 1) { 
-      /*
-       * Put the row back since it will be removed from the view even if NO is clicked.
-       */
-      /*
-       activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
-		
-		var data = [];	
-		for(var i=0; i < activeAssessments.length; i++){
-			data.push(Alloy.createController("riskAssessments/riskAssessmentTableRow",
-				{
-					thisRA: activeAssessments[i],
-					fontawesome: fontawesome
-				}).getView());
-		}
-		$.tableVeiw.setData(data);
-		*/
-		
+    		
 		loadRiskAssessments();
     }	 
   });
  
   alertYesNo.show();
 };
-
-
-
 
 var openSearchClick = function(e){
 	if(Alloy.Globals.User.hasPreferences())
@@ -270,17 +217,4 @@ var openSearchClick = function(e){
 
 function onRowClick(e){
 	$.trigger("openRiskAssessment", {assessmentObject : activeAssessments[e.index]});
-	//var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
-	//Alloy.Globals.Logger.log(assessment, "info");
-	/*
-	var assessment = Alloy.Globals.localDataHandler.openAssessment(activeAssessments[e.index].fileName);
-	if(assessment.length == 0){
-		return;
-	}
-	
-	if(assessment.length > 0){
-		alert(assessment[0].name);
-	}
-	*/
-	
 };

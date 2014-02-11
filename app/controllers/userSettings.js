@@ -1,9 +1,4 @@
 // Will save user details to the app
-// Load Alloy.Globals.User library 
-//var Alloy.Globals.User = require('core/Alloy.Globals.User'),
-	//Validator = require('validator/Validator'),
-	//Alloy.Globals.Util = require('core/Alloy.Globals.Util');
-
 var userPreferences = Alloy.Globals.User.getPreferences();
 
 // Set these values to the app now
@@ -76,16 +71,9 @@ var saveSettings = function() {
 	$.destroy();
 };
 
-var closeSettings = function() {
-	//if(Alloy.Globals.User.hasPreferences())
-	//{
-			
+var closeSettings = function() {		
 			$.window.close();
 			$.destroy();
-
-	//}else{
-	//	Alloy.Globals.Util.slideNotify($.window, 0, 'Please provide this information before proceeding. Thanks!');
-	//}
 };
 
 exports.open = function() {

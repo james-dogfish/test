@@ -1,17 +1,9 @@
 function interpreterModule2() {
 
-    //self.QUESTION_ROW_TYPE = "question";
-    //self.NON_QUESTION_ROW_TYPE = "NonQuestion";
-    //var Alloy.Globals.Styles = require('styles/styles');
-
     var self = this;
     self.sectionHeaderList = [];
     
     var questionMap = [];
-    
-    //var Alloy.Globals.User = require('core/Alloy.Globals.User');
-    //var userPreferences = Alloy.Globals.User.getPreferences();
-   
 
     var renderDependenciesMap = [];
     

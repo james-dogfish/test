@@ -1,8 +1,4 @@
-//var Alloy.Globals.User = require('core/Alloy.Globals.User');
 var currentAssessmentObject = null;
-//var Alloy.Globals.localDataHandler = require('Alloy.Globals.localDataHandler/Alloy.Globals.localDataHandler');
-//var interpreter = require('interpreter/interpreterModule2');
-//var aIndicator = Alloy.createController('userNotificationWindows/Alloy.Globals.aIndicatorDialog');
 
 Alloy.Globals.questionRenderer = null;
 Alloy.Globals.questionRenderer = $.questionListView;
@@ -41,7 +37,6 @@ var createCensus = function() {
         return;
     }
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-    //var censusDataInterpreted = interpreter.interpret(censusData);
     $.questionListView.appendSectionsToAssessment(censusData);
 };
 
@@ -73,29 +68,10 @@ var createPastCensus = function(pastCensusData) {
 
 var gotoQuestionSectionWindow = null;
 
-/*
-gotoQuestionSectionWindow.on("goToQuestion", function (data) {
-	Alloy.Globals.Logger.log("gotoQuestionSectionWindow : goToQuestion","info");
-    $.questionListView.moveToQuestion(data.groupType, data.questionIndex);
-});
-*/
-
 Ti.App.addEventListener("goToQuestion", function(e) {
     Alloy.Globals.Logger.log("gotoQuestionSectionWindow : goToQuestion","info");
     $.questionListView.moveToQuestion(e.groupType, e.questionIndex);
 });
-
-/*
-gotoQuestionSectionWindow.on("createCensus", function (data) {
-	Alloy.Globals.Logger.log("gotoQuestionSectionWindow : createCensus","info");
-    Alloy.Globals.aIndicator.show();
-	
-    createCensus();
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-    Alloy.Globals.aIndicator.hide();
-});
-*/
 
 Ti.App.addEventListener("createCensus", function(e) {
 
@@ -105,19 +81,6 @@ Ti.App.addEventListener("createCensus", function(e) {
 
     Alloy.Globals.aIndicator.hide();
 });
-
-/*
-gotoQuestionSectionWindow.on("addPastCensus", function (e) {
-    //alert("addPastCensus back = "+JSON.stringify(e));
-    Alloy.Globals.aIndicator.show();
-
-    //createCensus();
-    createPastCensus(e.questionList);
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-    Alloy.Globals.aIndicator.hide();
-});
-*/
 
 Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.show();
@@ -129,56 +92,19 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.hide();
 });
 
-/*
-gotoQuestionSectionWindow.on("censusDesktopComplete", function (e) {
-     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
-     currentAssessmentObject.censusDesktopComplete = true;
-     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
-});
-*/
-
 Ti.App.addEventListener("censusDesktopComplete", function(e) {
-	//Ti.App.fireEvent("createCensus");
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
-    //alert("censusDesktopComplete = "+currentAssessmentObject.censusDesktopComplete);
 });
-
-/*
-gotoQuestionSectionWindow.on("goToFirstUnanswered", function (data) {
-    $.questionListView.goToFirstUnanswered();
-});
-*/
 
 Ti.App.addEventListener("goToFirstUnanswered", function(e) {
     $.questionListView.goToFirstUnanswered();
 });
 
-/*
-gotoQuestionSectionWindow.on("goToLastPositiond", function (e) {
-    $.questionListView.goToLastPositiond();
-});*/
-
 Ti.App.addEventListener("goToLastPositiond", function(e) {
     $.questionListView.goToLastPositiond();
 });
-
-/*
-gotoQuestionSectionWindow.on("deletePage", function (e) {
-    //alert("delete associatedFileName = "+e.associatedFileName);
-    Alloy.Globals.aIndicator.show();
-
-    if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, e.associatedFileName) == true) {
-        var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
-        $.questionListView.setAssessment(sectionList, currentAssessmentObject);
-        gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-    }
-
-    Alloy.Globals.aIndicator.hide();
-});
-*/
-
 
 Ti.App.addEventListener("deletePage", function(e) {
 
@@ -210,8 +136,6 @@ Ti.App.addEventListener("deletePage", function(e) {
     });
 
     alertYesNo.show();
-
-
 });
 
 var showGoto = function() {
@@ -257,23 +181,8 @@ var openMenu = function() {
             title: 'Save & Exit',
             id: 6
         }
-        /*{
-            title: 'Cheat Sheet',
-            id: 4
-        }, {
-            title: 'Logout',
-            id: 5
-        }*/
     ];
-    /*var userPreferences = Alloy.Globals.Alloy.Globals.User.getPreferences();
-	if(userPreferences.singleView == false || userPreferences.singleView == "false")
-	{
-	   data.push({
-            title: 'GoTo',
-            id: 2
-       });
-	}*/
-
+    
     menuTable.setData(data);
 
     popOver.add(menuTable);
