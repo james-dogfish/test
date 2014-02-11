@@ -1067,7 +1067,7 @@ var questionValueChange = function (e) {
 		}
 		
         if (questionTitleRef !== null) {
-            if (typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null) {
+            /*if (typeof Ti.App.Properties.getString("LastAssDate") !== "undefined" && Ti.App.Properties.getString("LastAssDate") !== null) {
                 if (Ti.App.Properties.getString("LastAssDate").trim() !== "") {
                     //e.questionObject.value[0] = e.questionObject.value[0] + " " + Ti.App.Properties.getString("LastAssDate").trim();
                     if (questionTitleRef.question.displayValue.value.trim().length > 0) {
@@ -1082,7 +1082,7 @@ var questionValueChange = function (e) {
                 if (questionTitleRef.question.displayValue.value.trim().length > 0) {
                     questionTitleRef.question.displayValue.value = questionTitleRef.question.displayValue.value.trim().replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '') + " " + curDate.getDay() + "/" + (curDate.getMonth()) + 1 + "/" + curDate.getFullYear();
                 }
-            }
+            }*/
 
             var questionResponse =
                 "<ques:parameterName>" + questionTitleRef.question.alcrmQuestionID + "</ques:parameterName>" +

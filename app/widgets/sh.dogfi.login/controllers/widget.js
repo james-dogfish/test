@@ -25,10 +25,6 @@ var changeBg = function (e) {
 Ti.Gesture.addEventListener('orientationchange', changeBg);
 
 function doLogin() {
-
-
-
-    //Ti.App.fireEvent('doLoginEvent2');
     var theIndex = Alloy.createController('index');
     var loginWin = Alloy.createController('startup');
 
@@ -84,10 +80,7 @@ function doLogin() {
                 } catch (e) {
 
                 }
-
-                //Ti.App.fireEvent('closeLoginWin');
-                //Ti.App.fireEvent('fireStartup');//startup();
-                //loginWin.closeLoginWin();
+                
                 theIndex.startup();
                 loginWin.closeLoginWin();
                 return;
@@ -104,8 +97,8 @@ function doLogin() {
         Alloy.Globals.Util.log("Login button pressed");
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
-                name: user
-            },
+        	name: user
+        },pass,
             function (xmlDoc) {
 
                 Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
@@ -199,10 +192,7 @@ function doLogin() {
                         }
                     }
                 );
-				},
-                function (xmlDoc) {}, {
-                    password: pass
-                });
+				});
 
         } else {
             loginError('Please check your credentials!');

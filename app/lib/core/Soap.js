@@ -41,7 +41,7 @@ var _Soap = function () {
 		|---------------------------------------------------------------------------------
 		*/
 
-        login: function (args, success, failure, pwd) {
+        login: function (args, password, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
                 endpoint: loginUrl,
@@ -59,9 +59,7 @@ var _Soap = function () {
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     '   <wsse:Username>' + args.name + '</wsse:Username>' +
-                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + /*Kafk3TB4JlTq+QvwDUDBOYnVMfM=*/ pwd.password + '</wsse:Password>' +
-                //'   <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">BWN4LrrN+32eFQUId/sylQ==</wsse:Nonce>'+
-                //'   <wsu:Created>' +new Date().getTime()/*2013-12-10T16:46:20.877Z*/+'</wsu:Created>'+
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + /*Kafk3TB4JlTq+QvwDUDBOYnVMfM=*/ password + '</wsse:Password>' +
                 '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Admin</module></versionInfo>',
