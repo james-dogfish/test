@@ -154,7 +154,7 @@ function responseGenerator() {
 
 		try {
 			var riskData = "";
-
+			var titleFixed = false;
 			for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
 				var questionList = sectionList[sectionListIndex].questionList;
 				for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
@@ -162,13 +162,20 @@ function responseGenerator() {
 
 					var questionType = questionList[questionIndex].type;
 
-					if (questionList[questionIndex].isAQuestion == true) {
-						if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE") {
+					//if (questionList[questionIndex].isAQuestion == true) {
+						if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 							var assDate = self.findQuestionByParam(sectionList,"LAST_ASSESSMENT_DATE");
-							questionList[questionIndex].value = crossingID + " " + assDate + " " + questionList[questionIndex].value;
+							//questionList[questionIndex].value = crossingID + " " + assDate + " " + questionList[questionIndex].value;
+							questionList[questionIndex].questionResponse = 
+										"<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>"+ 
+  							 			"<ques:parameterValue>"+crossingID + " " + assDate + " " + questionList[questionIndex].value+"</ques:parameterValue>";
+  							questionResponse = questionList[questionIndex].questionResponse;
+  							alert(questionResponse);
+  							titleFixed = true;
+							//Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
 							//alert("questionList[questionIndex].value = "+questionList[questionIndex].value);
 						}
-					}
+					//}
 
 					//Alloy.Globals.Logger.log("assquestionResponse =>" + JSON.stringify(questionResponse), "info");
 					if (questionResponse != null) {
