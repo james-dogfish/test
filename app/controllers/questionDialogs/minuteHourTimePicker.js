@@ -8,8 +8,8 @@ var currentValue = {m : "00", h : "00"};
 		hoursHighBound : 12,
 		hoursIncrement : 1,
 		
-		minutesLowBound : 15,
-		minutesHighBound : 45,
+		minutesLowBound : 0,
+		minutesHighBound : 60,
 		minutesIncrement : 15,
 	};
 
@@ -27,8 +27,8 @@ for(var hours =duration.hoursLowBound;hours<=duration.hoursHighBound;hours+= dur
 for(var minutes =duration.minutesLowBound;minutes<=duration.minutesHighBound;minutes+= duration.minutesIncrement){
 	$.minutesColumn.addRow(Ti.UI.createPickerRow(
 		{
-			title:  ""+minutes, 
-			value : ""+minutes
+			title:  (minutes < 10 )? '0'+minutes : ""+minutes, 
+			value : (minutes < 10 )? '0'+minutes : ""+minutes
 		}
 	));
 }
