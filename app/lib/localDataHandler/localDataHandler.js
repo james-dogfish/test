@@ -138,6 +138,7 @@ function localDataHandler() {
                                 foundIndex = questionIndex;
                                 foundSectionIndex = sectionIndex;
                                 questionFound = true;
+                                break;
                             }
                         }
                     }
