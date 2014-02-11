@@ -24,7 +24,35 @@
 	borderTop:"true",
 	borderBottom:"true",
 	barColor:"#084f6f"
+},
+"#SearchBarView" : {
+	width : Ti.UI.FILL,
+	height : Ti.UI.SIZE,
+	backgroundColor: '#999',
+	layout: 'horizontal',
+},
+"#searchTextField" : {
+	left : "1%",
+	top : "5dp",
+	bottom : "5dp",
+	width : "77%",
+	height : "50dp",
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	paddingLeft : "10dp",
+	borderColor : "#333",
+},
+"#searchButton" : {
+	left : "1%",
+	top : "5dp",
+	bottom : "5dp",
+	//backgroundColor: '#fff',
+	width : "20%",
+	height : "50dp",
+	title : L("searchButtonTitle"),
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	borderColor : "#333",
 }
+
 /*
 "#searchBar" : {
 	barColor:'#f00', 

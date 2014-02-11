@@ -17,6 +17,27 @@ function onRowClick(e) {
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 
+function setTableData(crossingData){
+	
+	//this is the form, the crossingData should be in
+	//crossingData = [
+	//	{name : "crossing name", id : "crossing id", type : "crossing type"},
+	//	{name : "crossing name", id : "crossing id", type : "crossing type"},
+	//	{name : "crossing name", id : "crossing id", type : "crossing type"}
+	//];
+	
+	var rowViewList = [];
+	for (var i = 0; i < crossingData.length; i++) {
+		rowViewList.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());
+	}
+	$.tableView.setData(rowViewList);
+};
+
+function onSearchButtonClick(){
+	$.searchTextField.blur();
+	$.searchTextField.value; // this is the value of the searchTextField
+};
+
 exports.setData = function(shouldRefresh) {
 	Alloy.Globals.Logger.log("masterSearchTab - setData","info");
 	crossingData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
