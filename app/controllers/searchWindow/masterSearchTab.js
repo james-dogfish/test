@@ -21,9 +21,8 @@ function setTableData(crossingData){
 	
 	//this is the form, the crossingData should be in
 	//crossingData = [
-	//	{name : "crossing name", id : "crossing id", type : "crossing type"},
-	//	{name : "crossing name", id : "crossing id", type : "crossing type"},
-	//	{name : "crossing name", id : "crossing id", type : "crossing type"}
+	//	{name:"Garston", id:"439", type:"UWCT"},
+	//	{name:"The Oaks", id:"8660", type:"UWCT"}
 	//];
 	
 	var rowViewList = [];

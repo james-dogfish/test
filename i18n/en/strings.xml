@@ -13,6 +13,8 @@
 	    <string name="page_census_name">Census</string>
 	    <string name="page_train_info_name">Train Info</string>
 	    <string name="searchButtonTitle">Search</string>
+	    <string name="stop_timer">Are you sure you want to stop the timer?</string>
+	    
 	    
     
     <!-- delete ra & census related strings -->

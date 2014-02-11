@@ -63,6 +63,8 @@ var countDown =  function( seconds, fn_tick, fn_end  ) {
 			
 		},
 		stop: function() {
+			
+			
 			clearInterval(this.timer);
 			this.time = {h:0,m:0,s:0};
 			this.totalSec = 0;
@@ -170,7 +172,23 @@ function pauseClick(e){
 };
 
 function stopClick(e){
-	close();
+	
+	var alertYesNo = Titanium.UI.createAlertDialog({
+        message: L('stop_timer'),
+        buttonNames: ['Yes', 'No']
+    });
+
+    alertYesNo.addEventListener('click', function(e) {
+        if (e.index == 0) {
+            close();
+
+            Alloy.Globals.aIndicator.hide();
+        } else if (e.index == 1) {
+			//Alloy.Globals.aIndicator.hide();
+        }
+    });
+
+    alertYesNo.show();
 };
 
 function resetClick(e){
