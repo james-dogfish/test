@@ -14,6 +14,9 @@ exports.setAssessment = function(assessmentObject) {
     var sectionList = Alloy.Globals.localDataHandler.openAssessment(assessmentObject);
     $.questionListView.setAssessment(sectionList, assessmentObject);
     Alloy.Globals.aIndicator.hide();
+    // Call analytics functions here
+    Alloy.Globals.Analytics.trackNav('Home', 'Assessment Form', 'ra:open');
+    Alloy.Globals.Analytics.trackFeature('RiskAssessment:Opened');
 };
 
 exports.clear = function() {
@@ -26,7 +29,7 @@ function saveAndExitClick(e) {
     if (currentAssessmentObject !== null) {
         Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
     }
-    $.trigger("saveAndExitClick");
+    $.trigger("saveAndExitClick"); // TODO - Why is this being clicked multiple times ??
 }
 
 var createCensus = function() {
