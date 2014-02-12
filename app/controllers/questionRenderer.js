@@ -108,7 +108,6 @@ var newTestDependentQuestions = function (questionObject) {
 	
     var addToSectionMap = [];
     
-    Alloy.Globals.Logger.log("addToSectionMap hiddenQuestions = "+JSON.stringify(hiddenQuestions),"info");
     
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
@@ -124,7 +123,6 @@ var newTestDependentQuestions = function (questionObject) {
                     	
                         addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
                     }
-					Alloy.Globals.Logger.log("addToSectionMap question name = "+hiddenQuestions[questionIndex].name,"info");
                     addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
                     hiddenQuestions.splice(questionIndex, 1);
                     questionIndex--;
@@ -153,16 +151,15 @@ var newTestDependentQuestions = function (questionObject) {
         var sectionGroupType = sectionList[sectionIndex].groupType;
 
         if (sectionGroupType in removeFromSectionMap) {
-            Alloy.Globals.Logger.log("R sectionGroupType : " + sectionGroupType,"info");
+            Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
 
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
                 if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
-                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].name,"info");
+                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].title.text,"info");
                     questionList[questionIndex].visable = false;
 
                     questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-                    Alloy.Globals.Logger.log("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory,"info");
 
                     Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                     hiddenQuestions.push(questionList[questionIndex]);
@@ -174,7 +171,7 @@ var newTestDependentQuestions = function (questionObject) {
         }
 
         if (sectionGroupType in addToSectionMap) {
-            Alloy.Globals.Logger.log("----- A sectionGroupType : " + sectionGroupType + " = " + JSON.stringify(addToSectionMap[sectionGroupType]),"info");
+            Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
 
             for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
 
@@ -188,13 +185,13 @@ var newTestDependentQuestions = function (questionObject) {
 
                         questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
                         questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-                        Alloy.Globals.Logger.log("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory,"info");
+     
 
                         Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
 
 
                         questionList.splice(questionIndex, 0, questionObjectToAdd);
-                        Alloy.Globals.Logger.log("added splice: " + questionObjectToAdd.name,"info");
+                        Alloy.Globals.Logger.log("added splice : " + questionObjectToAdd.title.text,"info");
                         questionAdded = true;
                     }
                 }
@@ -203,11 +200,10 @@ var newTestDependentQuestions = function (questionObject) {
 
                     questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
                     questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-                    Alloy.Globals.Logger.log("testMandatory : " + questionObjectToAdd.name + ", mandatory = " + questionObjectToAdd.mandatory,"info");
 
                     Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
                     questionList.push(questionObjectToAdd);
-                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.name,"info");
+                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.title.text,"info");
                 }
             }
         }
@@ -243,12 +239,11 @@ var newTestDependentQuestions = function (questionObject) {
         var sectionGroupType = sectionList[sectionIndex].groupType;
 
         if (sectionGroupType in testMandatorySectionMap) {
-            Alloy.Globals.Logger.log("mandatory sectionGroupType : " + sectionGroupType,"info");
+   
 
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
                 if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
                     questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    Alloy.Globals.Logger.log("testMandatory : " + questionList[questionIndex].name + ", mandatory = " + questionList[questionIndex].mandatory,"info");
                     questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
                     Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
                 }
@@ -285,8 +280,6 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
         if (sectionList[sectionIndex].associatedFileName == associatedFileName) {
             var questionList = sectionList[sectionIndex].getItems();
             for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-
-                Alloy.Globals.Logger.log("alcrmQuestionID " + alcrmQuestionID + " : " + questionList[questionIndex].alcrmQuestionID,"info");
                 if (questionList[questionIndex].alcrmQuestionID == alcrmQuestionID) {
 
                     return {
@@ -298,6 +291,7 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
             }
         }
     }
+    Alloy.Globals.Logger.log("findQuestionByAssociatedFileName question not found, alcrmQuestionID = "+alcrmQuestionID+", associatedFileName = "+associatedFileName, "error");
     return null;
 };
 
@@ -434,12 +428,15 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 
 	        var questionList = JASON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+	        	
 				if(questionList[questionIndex] != null){
 		            if (questionList[questionIndex].visable == false) {
+		            	Alloy.Globals.Logger.log("removeHiddenQuestion at start, question name = "+questionList[questionIndex].name,"info");
 		                hiddenQuestions.push(questionList[questionIndex]);
 		                questionList.splice(questionIndex, 1);
 		                questionIndex = questionIndex - 1;
 		            }
+		            
 		       }
 	        }
 	        JASON_sectionList.questionList = questionList;
@@ -480,7 +477,7 @@ var setupSelectedQuestion = function () {
 
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
-		Ti.API.info("JASON_sectionList = "+JSON.stringify(JASON_sectionList));
+		Ti.API.info("setAssessment = "+JSON.stringify(JASON_sectionList));
 		$.listView.setSections([]);
 	    currentAssessmentObject = assessmentObject;
 	
@@ -513,7 +510,7 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 };
 
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
-
+	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JASON_sectionList));
     JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
 
     appendSectionList = buildQuestionSections(JASON_sectionList);
@@ -524,7 +521,7 @@ exports.appendSectionsToAssessment = function (JASON_sectionList) {
 
 
 exports.moveToQuestion = function (groupType, questionIndex) {
-    Alloy.Globals.Logger.log("** questionRender moveToQuestion","info");
+    Alloy.Globals.Logger.log("** questionRender moveToQuestion, groupType = "+groupType+", questionIndex = "+questionIndex,"info");
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 
@@ -965,7 +962,7 @@ var questionValueChange = function (e) {
 
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
-    Alloy.Globals.Logger.log("questionRender question name = "+e.questionObject.name,"info");
+    Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
     newTestDependentQuestions(e.questionObject);
 
     return e.questionObject;
@@ -1114,10 +1111,8 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
 
-    Alloy.Globals.Logger.log("** questionRender selectQuestion","info");
 
     if (questionSelected != null) {
-        Alloy.Globals.Logger.log("questionSelected title = " + questionSelected.title.text,"info");
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){

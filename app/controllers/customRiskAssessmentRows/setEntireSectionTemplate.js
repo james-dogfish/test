@@ -17,7 +17,6 @@ function selectButtonClicked(e){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.displayValue];
 		
-		//alert("valueName = "+data.displayValue+", value = "+data.value);
 		Ti.App.fireEvent("setEntireSectionTemplate", {
 			groupType : section.groupType,
 			value : [data.displayValue],

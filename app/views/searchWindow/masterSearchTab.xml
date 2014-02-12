@@ -13,7 +13,7 @@
 			</Toolbar>
 			
 			<View id="SearchBarView">
-				<TextField id="searchTextField" class="inputField"/>
+				<TextField id="searchTextField" class="inputField" onChange="onSearchTextFieldChange"/>
 				<Button id="searchButton" class="inputButton" onClick="onSearchButtonClick"/>
 			</View>
 			<TableView id="tableView" onClick="onRowClick">

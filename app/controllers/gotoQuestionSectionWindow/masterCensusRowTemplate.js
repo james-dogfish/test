@@ -9,6 +9,5 @@ function onClickCallBack(e){
 
 function deleteButtonClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
-	//alert("item = "+JSON.stringify(item));
 	Ti.App.fireEvent("deletePage", {associatedFileName : item.associatedFileName}); 
 };

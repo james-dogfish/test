@@ -4,6 +4,7 @@
 	bottom : "10dp",
 },
 "#valueTextField" : {
+	returnKeyType : Ti.UI.RETURNKEY_DONE,
 	width: Ti.UI.Fill,
 	height: "50dp",
 	left : "0dp",
