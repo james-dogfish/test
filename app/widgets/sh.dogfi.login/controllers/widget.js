@@ -162,6 +162,8 @@ function doLogin() {
                                         });
                                     }
 
+                                    Alloy.Globals.Analytics.trackNav('login', 'home', 'login:success');
+
                                     //Ti.App.fireEvent('fireStartup');//startup();
 
                                 }, function (args) {

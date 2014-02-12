@@ -11,25 +11,13 @@ var JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, JSONDocCensus, JSONDocTrain =
  *******************************************************************************/
 function toggleSearch() {
 	Alloy.Globals.Logger.log("toggleSearch()","info");
+	Alloy.Globals.Analytics.trackFeature('home:search:toggled');
 	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
 			message : true
 		}).getView();
 		userSettings.open();
-	}
-
-	if (!Alloy.Globals.Util.allRouteTemplatesAvailable()) {
-		/*
-		 // Check to make sure all route templates are fully downloaded
-		 Alloy.Globals.Util.slideNotify($.home, 0, 'Please wait while all the files required for your route are downloaded!');
-		 //Alloy.Globals.aIndicator.show('Please wait while all the files required for your route are downloaded!');
-		 // Download template files now
-		 Alloy.Globals.Util.downloadAllRouteTemplates(function() {
-		 Alloy.Globals.Util.slideNotify($.home, null, null, true);
-		 });
-		 */
-
 	}
 
 	$.tabGroup.setActiveTab($.masterSearchTab.getView());

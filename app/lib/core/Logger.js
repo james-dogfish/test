@@ -6,6 +6,7 @@ function _Logger() {
 
         loggerObject = {
 
+            // Do a ti log + leave a breadcrumb
             log: function(message, type, noBreadCrumb) {
                 switch (type) {
                     case "debug":
@@ -30,7 +31,8 @@ function _Logger() {
             logException: function(e) {
                 apm && apm.logHandledException(e);
             },
-
+            // Set username for crittercism session, 
+            // important for reports from dashboard
             setUserName: function(name) {
                 apm && apm.setUsername(name);
             }

@@ -1,13 +1,19 @@
 {
-	"global": {"debug":false,"stagedRollOut":true}, 
-	"env:development": {}, 
-	"env:test": {}, 
-	"env:production": {}, 
+	"global": {
+		"debug": false,
+		"stagedRollOut": true,
+		"analytics": {
+			"navOverride": true
+		}
+	},
+	"env:development": {},
+	"env:test": {},
+	"env:production": {},
 	"os:android": {},
 	"os:blackberry": {},
 	"os:ios": {},
 	"os:mobileweb": {},
 	"dependencies": {
-		"sh.dogfi.login":"1.0"
+		"sh.dogfi.login": "1.0"
 	}
 }
