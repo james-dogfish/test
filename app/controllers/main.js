@@ -457,6 +457,9 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	}
 	$.riskAssessmentsTab.loadRiskAssessments();
 	$.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
+
+	Alloy.Globals.Analytics.trackNav('Assessment Form', 'Home', 'ra:exit');
+    Alloy.Globals.Analytics.trackFeature('RiskAssessment:Opened');
 });
 
 /** call the openMenu function above **/
