@@ -8,9 +8,9 @@ function _Analytics() {
         // supports the ui in the future
         // http://docs.appcelerator.com/platform/latest/#!/guide/Analytics-section-37524837_Analytics-Transitionevents
         trackNav: function(from, to, name) {
-            var that = self;
+            //var that = self;
             if (Alloy.CFG.analytics.navOverride) {
-                that.trackFeature(from + '-to-' + to);
+                analyticsObject.trackFeature(from + '-to-' + to);
             }
             Ti.Analytics.navEvent(from, to, name);
         },
