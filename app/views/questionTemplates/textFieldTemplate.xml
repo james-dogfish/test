@@ -10,7 +10,7 @@
 				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
 			</View>
 			
-			<View class="questionView">
+			<View class="questionView" onClick="questionViewClicked">
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>	
 			</View>
 		</View>
