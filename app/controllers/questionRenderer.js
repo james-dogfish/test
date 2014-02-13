@@ -953,6 +953,10 @@ var questionValueChange = function (e) {
         }
 
     }
+    
+    if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
+    	$.censusFooterView.close();
+    }
 	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
@@ -1013,6 +1017,13 @@ function footerHelpButtonClick(e) {
         }
     }
 };
+
+var pageDeletedEvent = function(associatedFileName){
+	if(associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
+    	$.censusFooterView.close();
+    }
+};
+exports.pageDeletedEvent = pageDeletedEvent;
 
 Ti.App.addEventListener("startCensesTimer", function (e) {
     var question = e.question;
