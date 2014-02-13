@@ -6,6 +6,7 @@
 			<View id="pickerContainerView">
 				<Picker id="pickerView" onChange="pickerChange" touchTestId="routePicker"/>
 			</View>
+			<TextField id="textFieldTestingOnly" class="inputField"/>
 			<Button id="doneButton" onClick="doneButtonClick"/>
 		</View>
 	</Window>
