@@ -545,14 +545,45 @@ function localDataHandler() {
 
                 var mainQuestionsfile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName);
                 if (mainQuestionsfile.exists()) {
+                	Alloy.Globals.Logger.log("mainQuestions File deleted : " + self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName, "info");
                     mainQuestionsfile.deleteFile();
+                }
+                else{
+                	Alloy.Globals.Logger.log("could not deleted mainQuestions File  : " + self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName, "error");
                 }
 
                 if (assessmentObject.coreQuestionsFileName !== null) {
                     var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.coreQuestionsFileName);
                     if (coreQuestionsFile.exists()) {
+                    	Alloy.Globals.Logger.log("coreQuestions File deleted : " + self.getWorkingDirectory() + assessmentObject.coreQuestionsFileName, "info");
                         coreQuestionsFile.deleteFile();
                     }
+                    else{
+                		Alloy.Globals.Logger.log("could not deleted coreQuestions File  : " + self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName, "error");
+                	}
+                }
+                
+
+                for(var trainGroupfileIndex =0; trainGroupfileIndex < assessmentObject.trainGroupQuestionsfileNameList.length; trainGroupfileIndex++){
+                	var file = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.trainGroupQuestionsfileNameList[trainGroupfileIndex]);
+                	if (file.exists()) {
+                		Alloy.Globals.Logger.log("trainGroup file deleted : " + self.getWorkingDirectory() + assessmentObject.trainGroupQuestionsfileNameList[trainGroupfileIndex], "info");
+                    	file.deleteFile();
+                    }
+                    else{
+                		Alloy.Globals.Logger.log("could not deleted trainGroup File  : " + self.getWorkingDirectory() + assessmentObject.trainGroupQuestionsfileNameList[trainGroupfileIndex], "error");
+                	}
+                }
+                
+                for(var censusfileIndex =0; censusfileIndex < assessmentObject.censusQuestionsfileNameList.length; censusfileIndex++){
+                	var file = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.censusQuestionsfileNameList[censusfileIndex]);
+                	if (file.exists()) {
+                		Alloy.Globals.Logger.log("censusfile deleted : " + self.getWorkingDirectory() + assessmentObject.censusQuestionsfileNameList[censusfileIndex], "info");
+                    	file.deleteFile();
+                    }
+                    else{
+                		Alloy.Globals.Logger.log("could not deleted censusfile File  : " + self.getWorkingDirectory() + assessmentObject.censusQuestionsfileNameList[censusfileIndex], "error");
+                	}
                 }
 
                 savedAssessments.splice(i, 1);
@@ -662,48 +693,56 @@ function localDataHandler() {
             Alloy.Globals.aIndicator.hide();
         }
     };
+    
+    var getQuestionCountForFile = function(assessmentFileName, assessmentObject){
+    	//var questionCount = {mandatoryCount : 0, answeredCount : 0};
+    	var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentFileName);
+	    if (assessmentFile.exists()) {
+	        var sectionList = JSON.parse(assessmentFile.read().text);
+	        //returnQuestionSet = returnQuestionSet.concat(assessment);
+	        ////Alloy.Globals.Logger.log("returnQuestionSet >> " + JSON.stringify(returnQuestionSet), "info");
+	        for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
+	            if (sectionList[sectionListIndex].alcrmGroupType === "CrossingGeneral") {
+	                continue;
+	            } else {
+	                //get the questionList
+	                var questionList = sectionList[sectionListIndex].questionList;
+	                for (var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++) {
+	                    //Alloy.Globals.Logger.log("updateQuestionCount name = "+ questionList[questionListIndex].name, "info");
+	                    //Count the Mandatory
+	                    if (questionList[questionListIndex].mandatory == true ||
+	                        questionList[questionListIndex].mandatory == "true") {
+	                        assessmentObject.questionCount++;
+	
+	
+	                        if (typeof questionList[questionListIndex].value === "undefined") continue;
+	                        if (!(questionList[questionListIndex].value instanceof Array)) continue;
+	                        if (questionList[questionListIndex].value.length <= 0) continue;
+	                        if (questionList[questionListIndex].value[0] != "") {
+	                            assessmentObject.questionsCompleted++;
+	                        }
+	                    }
+	                } //end inner for loop
+	            } //end if
+	        } //end outer for loop
+	    }
+	    return assessmentObject;
+    };
 
     //updates the number of answers mandatory questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
     self.updateQuestionCount = function(assessmentObject) {
         try {
             var returnQuestionSet = [];
             assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
-            var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName);
-            if (assessmentFile.exists()) {
-                var assessment = JSON.parse(assessmentFile.read().text);
-                returnQuestionSet = returnQuestionSet.concat(assessment);
-                ////Alloy.Globals.Logger.log("returnQuestionSet >> " + JSON.stringify(returnQuestionSet), "info");
-                var mandatoryCount = 0;
-                var answeredCount = 0;
-                for (var returnQuestionSetIndex = 0; returnQuestionSetIndex < returnQuestionSet.length; returnQuestionSetIndex++) {
-                    if (returnQuestionSet[returnQuestionSetIndex].alcrmGroupType === "CrossingGeneral") {
-                        continue;
-                    } else {
-                        //get the questionList
-                        var questionList = returnQuestionSet[returnQuestionSetIndex].questionList;
-                        for (var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++) {
-                            //Alloy.Globals.Logger.log("updateQuestionCount name = "+ questionList[questionListIndex].name, "info");
-                            //Count the Mandatory
-                            if (questionList[questionListIndex].mandatory == true ||
-                                questionList[questionListIndex].mandatory == "true") {
-                                mandatoryCount++;
-
-
-                                if (typeof questionList[questionListIndex].value === "undefined") continue;
-                                if (!(questionList[questionListIndex].value instanceof Array)) continue;
-                                if (questionList[questionListIndex].value.length <= 0) continue;
-                                if (questionList[questionListIndex].value[0] != "") {
-                                    answeredCount++;
-                                }
-                            }
-                        } //end inner for loop
-                    } //end if
-                } //end outer for loop
-
-                //update the ass obj
-                assessmentObject.questionCount = mandatoryCount;
-                assessmentObject.questionsCompleted = answeredCount;
+            
+            assessmentObject.questionCount = 0;
+            assessmentObject.questionsCompleted = 0;
+            
+           	assessmentObject =  getQuestionCountForFile(assessmentObject.mainQuestionsfileName, assessmentObject);
+            for(var i =0; i < assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+            	assessmentObject =  getQuestionCountForFile(assessmentObject.trainGroupQuestionsfileNameList[i], assessmentObject);
             }
+            
             self.updateSingleAssessmentIndexEntry(assessmentObject);
             return assessmentObject;
         } catch (e) {

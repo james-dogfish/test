@@ -200,6 +200,8 @@ function interpreterModule2() {
     var createQuestionObject = function (question, passObject, sectionGroupType, assessmentId, questionMap) {
     	
     	try{
+    		
+    		
 			var questionName = passObject.pageID + Alloy.Globals.localParser.getQuestionName(question);
 	        var type = Alloy.Globals.localParser.getQuestionType(question);
 	        var templateType = "";
@@ -209,6 +211,11 @@ function interpreterModule2() {
 	            //Alloy.Globals.Logger.log("questionNull type =" + type+", question = "+JSON.stringify(question), "info");
 	            return null;
 	        }
+	        
+	        if(Alloy.Globals.localParser.getRiskAnalysisOnly(question) == true){
+    			Alloy.Globals.Logger.log("getRiskAnalysisOnly == true, question name = "+questionName, "info");
+    			return null;
+    		}
 	        
 	        if(Alloy.Globals.localParser.getQuestionName(question) in removedQuestionsMap){
 	        	//Alloy.Globals.Logger.log("Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap TRUE", "info");
