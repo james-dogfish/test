@@ -192,13 +192,13 @@ function localParser() {
 	
 	self.getRiskAnalysisOnly = function(question) {
 		if ( typeof question.riskAnalysisOnly === "undefined") {
-			Ti.API.info("riskAnalysisOnly == undefined");
+			//Ti.API.info("riskAnalysisOnly == undefined");
 			return false;
 		} else if ( typeof question.riskAnalysisOnly === "true") {
-			Ti.API.info("riskAnalysisOnly == true");
+			//Ti.API.info("riskAnalysisOnly == true");
 			return true;
 		}else if ( typeof question.riskAnalysisOnly === "false") {
-			Ti.API.info("riskAnalysisOnly == false");
+			//Ti.API.info("riskAnalysisOnly == false");
 			return false;
 		}
 		return false;
