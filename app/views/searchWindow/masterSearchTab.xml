@@ -6,9 +6,10 @@
 				<Button class="systemButton" onClick="backButtonClick" left="10" >
 					<Label class="systemButtonText" text="Home" onClick="backButtonClick" />
 				</Button>
-				<Button class="systemButton" onClick="refreshButtonClick" right="10" >
-					<Label class="systemButtonText" text="Refresh" onClick="refreshButtonClick" />
-				</Button>
+				<!-- <Button class="systemButton" onClick="refreshButtonClick" right="10" >
+						<Label class="systemButtonText" text="Refresh" onClick="refreshButtonClick" />
+					</Button> 
+				-->
 				<Label id="appTitle"/>
 			</Toolbar>
 			

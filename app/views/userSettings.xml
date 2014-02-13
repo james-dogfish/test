@@ -12,9 +12,10 @@
 				<TextField class='numberField' id='mobile'/>
 				<Label class='label' text="Email" />
 				<TextField class='textField' id='email' />
-				<Label class='label' text="Single Section View" />
+				<Label class='label' text="Single Section View - Ver. 1.0.171" />
 				<Switch id='sectionSwitch' value='false' />
 				<Button id='saveButton' title='Save' onClick='saveSettings' touchTestId='saveButton'/>
+				
 			</View>
 		</ScrollView>
 	</Window>
