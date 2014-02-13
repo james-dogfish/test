@@ -104,6 +104,35 @@ var _Soap = function () {
             sudsClient.invoke('SearchCrossingRequest', args, success, failure);
         },
         
+        advSearchCrossingRequest: function (args, success, failure) {
+            var userPass = Alloy.Globals.User.getLogin();
+            var sudsClient = new suds({
+                endpoint: crossingUrl,
+                targetNamespace: targetNS + 'crossing',
+                ns: 'cros',
+                includeNS: true,
+                xmlDeclaration: '',
+                envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cros="http://com/icon/networkrail/alcrm/crossing" xmlns:com="http://common.beans.alcrm.networkrail.icon.com" xmlns:ques="http://questions.beans.alcrm.networkrail.icon.com">',
+                bodyBegin: '<soapenv:Body>',
+                bodyEnd: '</soapenv:Body>',
+                envelopeEnd: '</soapenv:Envelope>',
+                headerBegin: '<soapenv:Header>',
+                headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
+                    '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
+                    '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
+                    '</wsse:Security>' +
+                    '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Crossing</module></versionInfo>',
+                headerEnd: '</soapenv:Header>',
+                enableWs: true
+            });
+
+            sudsClient.invoke('AdvancedSearchRequest', args, success, failure);
+        },
+        
          getCrossingRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({

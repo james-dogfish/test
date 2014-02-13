@@ -161,7 +161,7 @@ exports.setData = function(shouldRefresh) {
 		}
 		
 		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
-		Alloy.Globals.Soap.searchCrossingRequest({
+		Alloy.Globals.Soap.advSearchCrossingRequest({
 				searchCriteria: {
 					'com:searchCriteria': {
 						'ques:parameterName': 'CROSSING_SEARCH_AREA_NAME',
