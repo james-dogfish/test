@@ -820,6 +820,9 @@ function interpreterModule2() {
 				    if(questionObject.type == "decimal"){
 				    	questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
 				    }
+				    if(Ti.App.deployType === 'test' && questionObject.alcrmQuestionID == "I_CENSUS_TYPE"){
+				    	questionObject.template = "textFieldTemplate";
+				    }
                     
 	
 	                //self.sectionHeaderList[sectionIndex].questionList[questionIndex]
