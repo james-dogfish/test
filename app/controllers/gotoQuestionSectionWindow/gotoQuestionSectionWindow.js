@@ -38,7 +38,6 @@ var closeAnimationHandler = function() {
 	Ti.App.removeEventListener("goToQuestionEvent", goToQuestionCallBack);
 	Ti.App.removeEventListener("pageSelected", pageSelectedCallBack);
 	$.destroy();
-	//$.trigger('windowFinishedClosing');
 };
 animationClose.addEventListener('complete',closeAnimationHandler);
 
@@ -66,46 +65,35 @@ exports.hide = hide;
 
 function firstUnansweredClick(e){
 	hide();
-	//$.trigger('goToFirstUnanswered');
 	Ti.App.fireEvent("goToFirstUnanswered", {});
 };
 
 function resumeLastPositionClick(e){
 	hide();
-	//$.trigger('goToLastPositiond');
 	Ti.App.fireEvent("goToLastPositiond", {});
 };
 
 function createCensusClick(e){
-	//$.trigger('createCensus');
 	$.selectCensusView.show();
-	//hide();
 };
 
 
 
 $.selectCensusView.on("createCensus", function(){
 	Alloy.Globals.Logger.log("selectCensusView : createCensus", "info");
-	//$.trigger('createCensus', {});
 	Ti.App.fireEvent("createCensus", {});
 	
 	$.selectCensusView.hide();
 });
 $.selectCensusView.on("addCensus", function(){
-	//$.trigger('addCensus');
-	//alert(addCensus);
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	//alert(L("censusDesktopCompleteMessage"));
 	Ti.App.fireEvent("censusDesktopComplete", {});
-	//$.trigger('censusDesktopComplete');
 	$.selectCensusView.hide();
 });
 $.addCensusView.on("addPastCensus", function(e){
-	//e.pastCensusObject;
 	Ti.App.fireEvent("addPastCensus", e);
-	//$.trigger('addPastCensus', e);
 	$.selectCensusView.hide();
 	$.addCensusView.hide();
 });
@@ -113,31 +101,25 @@ $.addCensusView.on("addPastCensus", function(e){
 var sectionClick = function(sectionDetails){
 	sectionToGoToGroupType = sectionDetails.groupType;
 	hide();
-	
-	//$.trigger('sectionClick', sectionDetails.groupType);
 };
 exports.setAssessmentObject = function(assessmentObject){
 	currentAssessmentObject = assessmentObject;
 };
 
 exports.setContentsDetails = function(questionSectionContentsDetails){
-	//sectionClick
 	$.masterView.setContentsDetails(questionSectionContentsDetails);
-	
 	$.masterView.MoveToOpen(false);
 	$.detailView.MoveToClose(false);
 };
 
 
 var goToQuestionCallBack = function(data){
-	//$.trigger('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
 	Ti.App.fireEvent('goToQuestion', {groupType : data.groupType, questionIndex : data.questionIndex});
 	hide();
 };
 Ti.App.addEventListener("goToQuestionEvent", goToQuestionCallBack);
 
 var pageSelectedCallBack = function(e){
-	//alert("row Clicked, sectionList.length = "+e.sectionList.length);
 	$.masterView.MoveToClose(true);
 	$.detailView.MoveToOpen(true);
 	$.detailView.setContentsDetails(e.pageName, e.sectionList);
@@ -145,13 +127,6 @@ var pageSelectedCallBack = function(e){
 };
 Ti.App.addEventListener("pageSelected", pageSelectedCallBack);
 
-/*
-Ti.App.addEventListener("deletePage", function(e){
-	//alert("associatedFileName = "+ JSON.stringify(e.associatedFileName));
-	//$.trigger('deletePage', {associatedFileName : e.associatedFileName});
-	Ti.App.fireEvent('deletePage', {associatedFileName : e.associatedFileName});
-});
-*/
 
 $.detailView.on("moveToMaster", function(){
 	$.masterView.MoveToOpen(true);

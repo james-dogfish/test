@@ -1,6 +1,3 @@
-//var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(400);
-
-//$.container.width = gotoDisplayViewWidth;
 
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "0%";

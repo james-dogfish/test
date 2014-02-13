@@ -32,6 +32,10 @@ function setTableData(crossingData){
 	$.tableView.setData(rowViewList);
 };
 
+function onSearchTextFieldChange(e){
+	//$.tableView.
+}
+
 function onSearchButtonClick(){
 	$.searchTextField.blur();
 	$.searchTextField.value; // this is the value of the searchTextField

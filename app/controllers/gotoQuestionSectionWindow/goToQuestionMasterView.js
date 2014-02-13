@@ -1,9 +1,5 @@
 var pageList = [];
 
-//var gotoDisplayViewWidth = Alloy.Measurement.dpToPX(400);
-
-//$.container.width = gotoDisplayViewWidth;
-
 var animationOpen = Titanium.UI.createAnimation();
 animationOpen.left = "0%";
 animationOpen.duration = Alloy.Globals.animationDuration;
@@ -77,7 +73,6 @@ var addSectionToPageList= function(section){
 	else if(section.pageType == "coreQuestion"){
 		newPage.template = "masterRowTemplate";
 		coreQuestionType = true;
-		//newPage.colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 	}
 	
 	newPage.sectionList.push(section);

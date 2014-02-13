@@ -105,7 +105,6 @@ function localDataHandler() {
 
     //will update the saved copy of the  question in the relevent save file
     self.updateQuestion = function(question) {
-        Alloy.Globals.Logger.log("updateQuestion is Called", "error");
         try {
             var savedAssessments = self.getAllSavedAssessments();
             //Alloy.Globals.Logger.log("savedAssessments >> "+JSON.stringify(savedAssessments), "info");
