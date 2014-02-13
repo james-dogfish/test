@@ -109,7 +109,14 @@ var open = function(timerDuration, groupType, associatedFileName){
 };
 exports.open = open;
 
+var getCensusAssociatedFileName = function(){
+	return censusAssociatedFileName;
+};
+exports.getCensusAssociatedFileName = getCensusAssociatedFileName;
+
 var close = function(){
+	if(isOpen == false)return;
+	
 	$.container.height = "0dp";
 	isOpen = false;
 

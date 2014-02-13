@@ -127,6 +127,7 @@ Ti.App.addEventListener("deletePage", function(e) {
 
             if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
                 var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
+                $.questionListView.pageDeletedEvent(deletingRow.associatedFileName);
                 $.questionListView.setAssessment(sectionList, currentAssessmentObject);
                 gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
             }
