@@ -200,3 +200,7 @@ function doLogin() {
             loginError('Please check your credentials!');
         }
 }
+
+function focusPassword() {
+    $.passField.focus();
+}
