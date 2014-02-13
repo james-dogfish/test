@@ -15,6 +15,7 @@
 	borderRadius: 5,
 	borderWidth : 2,
 	borderColor : "#aaa",
+	layout : "vertical"
 },
 "#title" : {
 	width: Ti.UI.FILL,
@@ -37,6 +38,13 @@
 },
 "#pickerView" : {
 	
+},
+"#textFieldTestingOnly" : {
+	paddingLeft : "10dp",
+	width: Ti.UI.FILL,
+	left : "10dp",
+	right : "10dp",
+	hintText : "Testing Only"
 },
 "#doneButton" : {
 	width: "100dp",
