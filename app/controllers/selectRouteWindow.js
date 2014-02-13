@@ -15,6 +15,17 @@ if (pWidth > pHeight) {
 	$.background.backgroundImage = 'images/bg/portrait.jpg';
 }
 
+if(Ti.App.deployType === 'test'){
+	$.textFieldTestingOnly.height = "40dp";
+	$.textFieldTestingOnly.top = "10dp";
+	$.textFieldTestingOnly.bottom = "10dp";
+}
+else{
+	$.textFieldTestingOnly.height = 0;
+	$.textFieldTestingOnly.top = 0;
+	
+}
+
 function sortByNestedTitle(a, b) {
     var x = a.title.toLowerCase();
     var y = b.title.toLowerCase();
@@ -28,6 +39,7 @@ exports.show = function(routeList,callbackfunction){
 	
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
+		
 		data.push(Ti.UI.createPickerRow({title: routeList[i].title, touchTestId: routeList[i].title }));
 	}
 	
@@ -42,6 +54,7 @@ exports.show = function(routeList,callbackfunction){
 };
 
 function pickerChange(e){
+	Ti.API.info("title : "+$.pickerView.getSelectedRow(null).title+", value : "+$.pickerView.getSelectedRow(null).value);
 	currentValue = {
 		title : $.pickerView.getSelectedRow(null).title,
 		value : $.pickerView.getSelectedRow(null).value
@@ -55,7 +68,13 @@ function doneButtonClick(e){
 	
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
-	doneCallbackfunction(currentValue);	
+	
+	if($.textFieldTestingOnly.value != ""){
+		doneCallbackfunction({title : $.textFieldTestingOnly.value, value : $.textFieldTestingOnly.value});	
+	}
+	else{
+		doneCallbackfunction(currentValue);	
+	}
 	$.win.hide();
 	
 	$.destroy();
