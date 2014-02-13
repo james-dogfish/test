@@ -1,3 +1,10 @@
+function questionViewClicked(e) {
+	var textfield = e.source.getChildren()[0];
+	textfield.touchEnabled = true;
+	textfield.focus();
+	textfield = null;
+};
+
 function onTextFieldChange(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	item.value[0] = e.value;
@@ -31,7 +38,7 @@ function onTextFieldBlur(e){
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
 	section.updateItemAt(e.itemIndex, item);
-
+	e.source.touchEnabled = false;
 };
 
 function onNotesClick(e){
