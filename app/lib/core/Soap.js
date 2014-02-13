@@ -101,7 +101,7 @@ var _Soap = function () {
                 enableWs: true
             });
 
-            sudsClient.invoke('AdvancedSearchRequest', args, success, failure);
+            sudsClient.invoke('SearchCrossingRequest', args, success, failure);
         },
         
          getCrossingRequest: function (args, success, failure) {

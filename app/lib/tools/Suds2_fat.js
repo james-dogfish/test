@@ -150,7 +150,7 @@ var SudsClient = function(_options) {
     //Build request body 
     var body = _body;
     var header = _options.headerContent;
-
+	
     //Allow straight string input for XML body - if not, build from object
 
     if (typeof body !== 'string') {
@@ -158,6 +158,11 @@ var SudsClient = function(_options) {
       body += convertToXml(_body, wrapNS(true));
       body += '</' + wrapNS(false) + _soapAction + '>';
     }
+    
+    var crossingSearchFix = JSON.stringify(body);
+	crossingSearchFix = crossingSearchFix.replace("</com:searchCriteria_2>","</com:searchCriteria>").replace("<com:searchCriteria_2>","<com:searchCriteria>");
+	Ti.API.error(crossingSearchFix);
+	body = JSON.parse(crossingSearchFix);
 
     var ebegin = config.envelopeBegin;
     config.envelopeBegin = ebegin.replace('PLACEHOLDER', config.targetNamespace);
@@ -186,6 +191,7 @@ var SudsClient = function(_options) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       //_failure.call(this, xmlDomFromString(this.responseText));
       try{
+      	Alloy.Globals.aIndicator.hide();
       	Alloy.Globals.censusIDs = [];
 			    Alloy.Globals.trainIDs = [];
 			    Alloy.Globals.censusDates = [];
