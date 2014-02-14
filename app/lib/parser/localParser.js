@@ -1,6 +1,12 @@
+// Local Parser
+// ----------------
+// deals with parsing the converted JSON.
+
 function localParser() {
 	var self = this;
-
+	
+	//getQuestions - we pass in a JSON payload (JSON converted by dogfishdata)
+	//we then traverse the payload and return the questions.
 	self.getQuestions = function(JSONPayload) {
 		var questions = null;
 
@@ -21,6 +27,7 @@ function localParser() {
 		return questions;
 	};
 
+	//getQuestionText
 	self.getQuestionText = function(question) {
 		return question.text;
 	};

@@ -1,4 +1,4 @@
-var crossingData;
+var crossingData = [];
 
 function backButtonClick(e) {
 	$.trigger("BackButtonClick");
@@ -14,6 +14,7 @@ function refreshButtonClick(e) {
 
 function onRowClick(e) {
 	Alloy.Globals.Logger.log("Tapped on a crossing","info");
+	//alert(JSON.stringify(e));
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 
@@ -67,8 +68,9 @@ function searchFromSearchButton()
 						'ques:parameterName': 'CROSSING_SEARCH_ROUTE',
 						'ques:parameterValue': Ti.App.Properties.getString("SelectedRoute")
 					},
-					'com:maxResults':maxCrossings
+					'com:maxResults':maxCrossings,
 				},
+				searchFunction: 'assess'
 				//sortByELR: true,
 				//includeDeleted: false
 			},
@@ -80,7 +82,8 @@ function searchFromSearchButton()
 						// callback
 						Alloy.Globals.Logger.log("in crossingsSearch Callback","info");
 						var data = JSON.parse(data);
-
+						
+						
 						// Check whether JSON structure exits before attempting to grab results
 						if (Alloy.Globals.Util.checkNested(data, 'response', 'Envelope', 'Body', 'SearchCrossingResponse', 'searchResults')) {
 							var results = data.response.Envelope.Body.SearchCrossingResponse.searchResults;
@@ -90,23 +93,12 @@ function searchFromSearchButton()
 								var type = "";
 								var crossingDetailsSearchResult;
 
-								if (Alloy.Globals.Util.checkNested(results[i], 'crossingDetailsSearchResult')) {
-									crossingDetailsSearchResult = results[i]["crossingDetailsSearchResult"];
-									if (crossingDetailsSearchResult instanceof Array) {
-										var type = "N/A";
-										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult[0], 'type')) {
-											type = crossingDetailsSearchResult[0]["type"];
-										}
-									} else {
-										////Alloy.Globals.Logger.log("type object ="+ JSON.stringify(crossingDetailsSearchResult), "info");
-										var type = "N/A";
-										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult, 'type')) {
-											type = crossingDetailsSearchResult["type"];
-										}
-									}
+								if (Alloy.Globals.Util.checkNested(results[i], 'crossingBasicSearchResult')) {
+									crossingDetailsSearchResult = results[i]["crossingBasicSearchResult"];
+									type =  results[i]["type"];
 									crossingData.push({
-										name: results[i]["name"],
-										id: results[i]["id"],
+										name: crossingDetailsSearchResult["name"],
+										id: crossingDetailsSearchResult["id"],
 										type: type
 									});
 								} else {
