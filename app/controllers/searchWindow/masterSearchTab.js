@@ -52,6 +52,7 @@ function searchFromSearchButton()
 		if(typeof Ti.App.Properties.getString('maxCrossings') !== "undefined" &&  Ti.App.Properties.getString('maxCrossings') != null && Ti.App.Properties.getString('maxCrossings') !="" && Number(Ti.App.Properties.getString('maxCrossings')) > 0)
 		{
 			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
+			alert(maxCrossings);
 		}else{
 			Alloy.Globals.Logger.log("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500", "error");
 			maxCrossings = 1500;
@@ -147,6 +148,7 @@ exports.setData = function(shouldRefresh) {
 		if(typeof Ti.App.Properties.getString('maxCrossings') !== "undefined" &&  Ti.App.Properties.getString('maxCrossings') != null && Ti.App.Properties.getString('maxCrossings') !="" && Number(Ti.App.Properties.getString('maxCrossings')) > 0)
 		{
 			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
+			//alert(maxCrossings);
 		}else{
 			Alloy.Globals.Logger.log("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500", "error");
 			maxCrossings = 1500;

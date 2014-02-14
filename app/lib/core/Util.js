@@ -127,7 +127,7 @@ function _Util() {
 				Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
 				Ti.App.Properties.setList('timerPickerQuestions', data.timerPickerQuestions);
 				Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
-				Ti.App.Properties.setString('maxCrossings',data.maxCrossings);
+				Ti.App.Properties.setString('maxCrossings',JSON.stringify(data.maxCrossings));
 				Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));
 				if (callback) {
 					callback();

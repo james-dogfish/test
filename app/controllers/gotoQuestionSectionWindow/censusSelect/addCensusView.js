@@ -30,6 +30,7 @@ Alloy.Globals.Soap.searchCensus(
 	},
 	function(xmlDoc){
 		 //var XMLTools = require("tools/XMLTools");
+		 try{
 		 Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
 			function(data) {
 				// callback
@@ -78,6 +79,9 @@ Alloy.Globals.Soap.searchCensus(
 			}
 		);	
 		//end of convertJSON
+		}catch(e){
+			Alloy.Globals.aIndicator.hide();
+		}
 });
 };
 
