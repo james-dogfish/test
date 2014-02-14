@@ -58,8 +58,10 @@ function onNotesClick(e){
 function onTextFieldFocus(e){
 
 	Alloy.Globals.currentlyFocusedTF = e.source;
+	
 
 	var item = e.section.getItemAt(e.itemIndex);
+	
 	if(typeof item === "undefined"){
 		return;
 	}
@@ -68,6 +70,8 @@ function onTextFieldFocus(e){
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	e.source.value = item.displayValue.value;
+
 };
 
 function onTitleClick(e){
