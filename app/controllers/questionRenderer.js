@@ -29,16 +29,17 @@ var listViewDisplayType = ALL_SECTIONS;
 var currentSingleSectionIndex = 0;
 
 
-//`findQuestionsRef` searches sectionList for a question that 
-//matches the questionName and groupType and returns references to the found question.
-/***
- * @param sectionList : (Titanium.UI.ListSection) the list of sections to search in
- * @param questionName : (string) Name to search against
- * @param groupType : (string) groupType to search against
- * 
- * @returns - success :  Object { (int)questionIndex, questionObject, (Titanium.UI.ListSection) sectionObject}
- * @returns - fail : null
- */
+/**
+`findQuestionsRef` searches sectionList for a question that 
+matches the questionName and groupType and returns references to the found question.
+
+@param questionName  (string) Name to search against
+@param groupType  (string) groupType to search against
+
+@return - success :  Object { (int)questionIndex, questionObject, (Titanium.UI.ListSection) sectionObject}
+@return - fail : null
+*/
+ 
 var findQuestionsRef = function (sectionList, questionName, groupType) {
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 		
@@ -59,14 +60,16 @@ var findQuestionsRef = function (sectionList, questionName, groupType) {
 };
 
 
-//`newTestIfMandatory` the questionObject passed in will be tested if it is mandatory.
-//A question can be strictly  mandatory or can be mandatory depending on the
-//value of anther question.
-/***
- * @param questionObject : questionObject to test
- * 
- * @returns :  true or false
- */
+
+/**
+`newTestIfMandatory` the questionObject passed in will be tested if it is mandatory.
+A question can be strictly  mandatory or can be mandatory depending on the
+value of anther question.
+
+@param questionObject : questionObject to test
+ 
+@return :  true or false
+*/
 var newTestIfMandatory = function (questionObject) {
 
     if (questionObject.validation.mandatory == true) {
@@ -90,13 +93,15 @@ var newTestIfMandatory = function (questionObject) {
     return false;
 };
 
-//`setQuestionToMandatory` the question passed in will have its title changed to
-//have a '*' at its end if it is mandatory or removed if it is not
-/***
- * @param questionObject : questionObject to be changed
- * 
- * @returns :  questionObject
- */
+
+/**
+`setQuestionToMandatory` the question passed in will have its title changed to
+have a '*' at its end if it is mandatory or removed if it is not
+
+@param questionObject : questionObject to be changed 
+
+@return :  questionObject
+*/
 var setQuestionToMandatory = function (questionObject) {
     if (questionObject.mandatory == true) {
         if (questionObject.title.text.slice(-1) != "*") {
@@ -112,13 +117,15 @@ var setQuestionToMandatory = function (questionObject) {
 };
 
 
-//`newTestIfVisable` questionObject passed in will be tested if it should be Visible
-//to the user or hidden
-/***
- * @param questionObject : questionObject to test
- * 
- * @returns :  true or false
- */
+
+/**
+`newTestIfVisable` questionObject passed in will be tested if it should be Visible
+to the user or hidden
+
+@param questionObject : questionObject to test
+
+@return :  true or false
+*/
 var newTestIfVisable = function (questionObject) {
 
     for (var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++) {
@@ -136,16 +143,19 @@ var newTestIfVisable = function (questionObject) {
 };
 
 
-//`newFindQuestionObject` this function searches all sections for a question that 
-//matches the questionName and groupType and return the question Object or null 
-//if not found
-/***
- * @param questionName : (string) Name to search against
- * @param groupType : (string) groupType to search against
- * 
- * @returns - success :  questionObject
- * @returns - fail : null
- */
+
+/**
+`newFindQuestionObject` this function searches all sections for a question that 
+matches the questionName and groupType and return the question Object or null 
+if not found
+
+@param questionName : (string) Name to search against
+@param groupType : (string) groupType to search against
+
+@return - success :  questionObject
+@return - fail : null
+*/
+
 var newFindQuestionObject = function (questionName, groupType) {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -163,14 +173,16 @@ var newFindQuestionObject = function (questionName, groupType) {
 };
 
 
-//`newTestDependentQuestions` tests all questions that are dependent on the passed
-//questionObject if they are visable or mandatory. question are hiden or made Visible
-//depending on the results of the tests
-/***
- * @param questionObject : questionObject to test
- * 
- * @returns :  n/a
- */
+
+/**
+`newTestDependentQuestions` tests all questions that are dependent on the passed
+questionObject if they are visable or mandatory. question are hiden or made Visible
+depending on the results of the tests
+
+@param questionObject : questionObject to test
+
+@return :  n/a
+*/
 var newTestDependentQuestions = function (questionObject) {
 	
 	
@@ -326,15 +338,17 @@ var newTestDependentQuestions = function (questionObject) {
 };
 
 
-//`findQuestionsValue` searches for the question that matches the 
-//passed questionName, then the question value array is returned. if no question is
-//found it returns an array with a empty String in
-/***
- * @param questionName : (string) Name to search against
- * 
- * @returns - success :  value List eg ["value1", "value2"]
- * @returns - fail : list with one item [""]
- */
+
+/**
+`findQuestionsValue` searches for the question that matches the 
+passed questionName, then the question value array is returned. if no question is
+found it returns an array with a empty String in
+
+@param questionName : (string) Name to search against
+
+@return - success :  value List eg ["value1", "value2"]
+@return - fail : list with one item [""]
+*/
 var findQuestionsValue = function (questionName) {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -351,15 +365,17 @@ var findQuestionsValue = function (questionName) {
 };
 
 
-//`findSectionByAssociatedFileName` searches for the question that matches the 
-//passed alcrmQuestionID that also is found is the file that matches associatedFileName.
-/***
- * @param alcrmQuestionID : (string) alcrmQuestionID to search for
- * @param associatedFileName : (string) associatedFileName to search for
- * 
- * @returns - success :  Object {questionIndex, questionObject, sectionObject}
- * @returns - fail : null
- */
+
+/**
+`findSectionByAssociatedFileName` searches for the question that matches the 
+passed alcrmQuestionID that also is found is the file that matches associatedFileName.
+
+@param alcrmQuestionID : (string) alcrmQuestionID to search for
+@param associatedFileName : (string) associatedFileName to search for
+ 
+@return - success :  Object {questionIndex, questionObject, sectionObject}
+@return - fail : null
+*/
 var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFileName) {
     var sectionList = getAllQuestionSections();
 
@@ -384,16 +400,18 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
 };
 
 
-//`findSectionByAssociatedFileName` searches for the section that matches the 
-//passed alcrmGroupType that also is found is the file that matches associatedFileName.
-//the fuction will return the section object or null if not found
-/***
- * @param alcrmGroupType :(string) alcrmGroupType to search for
- * @param associatedFileName : (string) associatedFileName to search for
- * 
- * @returns - success :  (Titanium.UI.ListSection) sectionObject
- * @returns - fail : null
- */
+
+/**
+`findSectionByAssociatedFileName` searches for the section that matches the 
+passed alcrmGroupType that also is found is the file that matches associatedFileName.
+the fuction will return the section object or null if not found
+
+@param alcrmGroupType :(string) alcrmGroupType to search for
+@param associatedFileName : (string) associatedFileName to search for
+  
+@return - success :  (Titanium.UI.ListSection) sectionObject
+@return - fail : null
+*/
 var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileName) {
     var sectionList = getAllQuestionSections();
 
@@ -407,23 +425,27 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
 };
 
 
-//`exports.clear` clears all sections and questions from the listView
-/*** * 
- * @returns : n/a
- */
+
+/** 
+`exports.clear` clears all sections and questions from the listView
+
+@return : n/a
+*/
 exports.clear = function () {
     allSections = [];
     $.listView.setSections(allSections);
 };
 
 
-//`buildQuestionSections` takes the JASON_sectionList and builds titanium
-//ListSection for each section and return the new list of titanium ListSections
-/***
- * @param JASON_sectionList : simple JSON List of Sections and Question
- * 
- * @returns :  (Titanium.UI.ListSection)  listSections
- */
+
+/**
+`buildQuestionSections` takes the JASON_sectionList and builds titanium
+ListSection for each section and return the new list of titanium ListSections
+
+@param JASON_sectionList : simple JSON List of Sections and Question
+
+@return :  (Titanium.UI.ListSection)  listSections
+*/
 var buildQuestionSections = function (JASON_sectionList) {
     var newSectionList = [];
     for (var i = 0; i < JASON_sectionList.length; i++) {
@@ -458,14 +480,16 @@ var buildQuestionSections = function (JASON_sectionList) {
 };
 
 
-//`removeHiddenQuestions` takes the JASON_sectionList removes all hidden questions
-//before the function buildQuestionSections is called. all hidden questions are added to
-//hiddenQuestions list
-/***
- * @param JASON_sectionList : simple JSON List of Sections and Question
- * 
- * @returns :  JASON_sectionList - with hidden questions removed
- */
+
+/**
+`removeHiddenQuestions` takes the JASON_sectionList removes all hidden questions
+before the function buildQuestionSections is called. all hidden questions are added to
+hiddenQuestions list
+ 
+@param JASON_sectionList : simple JSON List of Sections and Question
+
+@return :  JASON_sectionList - with hidden questions removed
+*/
 var removeHiddenQuestions = function (JASON_sectionList) {
 	try{
 	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
@@ -492,10 +516,12 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 	}
 };
 
-//`setupSelectedQuestion` called within the function setAssessment. it searches for the
-//a question that has been previously selected or if non found the first non read-only question
-/***
- * @returns : n/a
+
+/**
+`setupSelectedQuestion` called within the function setAssessment. it searches for the
+a question that has been previously selected or if non found the first non read-only question
+
+@return : n/a
  */
 var setupSelectedQuestion = function () {
  try{
@@ -525,15 +551,17 @@ var setupSelectedQuestion = function () {
 };
 
 
-//`setAssessment` the JASON_sectionList is the interpreted question set and assessmentObject
-//is the saved assessment object created in localDataHandler. this function is used to setup 
-//questionRenderer to veiw an assessment
-/***
- * @param JASON_sectionList : simple JSON List of Sections and Question
- * @param assessmentObject : object defining an assessment and names of attched saved files
- * 
- * @returns - n/a
- */
+
+/**
+`setAssessment` the JASON_sectionList is the interpreted question set and assessmentObject
+is the saved assessment object created in localDataHandler. this function is used to setup 
+questionRenderer to veiw an assessment
+
+@param JASON_sectionList : simple JSON List of Sections and Question
+@param assessmentObject : object defining an assessment and names of attched saved files
+ 
+@return - n/a
+*/
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
 		Ti.API.info("setAssessment = "+JSON.stringify(JASON_sectionList));
@@ -566,13 +594,14 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	}
 };
 
-//`appendSectionsToAssessment` the JASON_sectionList is the interpreted question.
-//used to add extra sectons to the listView after setAssessment has been called
-/***
- * @param JASON_sectionList : simple JSON List of Sections and Question
- * 
- * @returns - n/a
- */
+
+/**
+`appendSectionsToAssessment` the JASON_sectionList is the interpreted question.
+used to add extra sectons to the listView after setAssessment has been called
+@param JASON_sectionList : simple JSON List of Sections and Question
+ 
+@return - n/a
+*/
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
 	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JASON_sectionList));
     JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
@@ -583,14 +612,16 @@ exports.appendSectionsToAssessment = function (JASON_sectionList) {
     $.listView.setSections(allSections);
 };
 
-//`exports.moveToQuestion` searches for a section that matched the groupType
-//and moves the listView to make visble the question at questionIndex at the top of the screen
-/***
- * @param groupType : (string) groupType to search for
- * @param questionIndex : (int) questionIndex to search for
- * 
- * @returns - n/a
- */
+
+/**
+`exports.moveToQuestion` searches for a section that matched the groupType
+and moves the listView to make visble the question at questionIndex at the top of the screen
+
+@param groupType : (string) groupType to search for
+@param questionIndex : (int) questionIndex to search for
+ 
+@return - n/a
+*/
 exports.moveToQuestion = function (groupType, questionIndex) {
     Alloy.Globals.Logger.log("** questionRender moveToQuestion, groupType = "+groupType+", questionIndex = "+questionIndex,"info");
     var sectionList = getAllQuestionSections();
@@ -618,15 +649,17 @@ exports.moveToQuestion = function (groupType, questionIndex) {
     }
 };
 
-//`getQuestionIndexFromSection` returns the index of the question that matches the questionName
-//in the section that is passed. if no question is found null is returned
-/***
- * @param questionName : (string) questionName to search for
- * @param section : (Titanium.UI.ListSection) section to search in
- * 
- * @returns - success :  (int) question index
- * @returns - fail : null
- */
+
+/**
+`getQuestionIndexFromSection` returns the index of the question that matches the questionName
+in the section that is passed. if no question is found null is returned
+
+@param questionName : (string) questionName to search for
+@param section : (Titanium.UI.ListSection) section to search in
+
+@return - success :  (int) question index
+@return - fail : null
+*/
 var getQuestionIndexFromSection = function (questionName, section) {
 
     var questionList = section.getItems();
@@ -639,14 +672,16 @@ var getQuestionIndexFromSection = function (questionName, section) {
     return null;
 };
 
-//`moveToQuestionByName` move the list view to place the question found that matches questionName
-//and groupType at the top of the screen
-/***
- * @param questionName : (string) questionName to search for
- * @param groupType : (string) groupType to search for
- * 
- * @returns - n/a
- */
+
+/**
+`moveToQuestionByName` move the list view to place the question found that matches questionName
+and groupType at the top of the screen
+
+@param questionName : (string) questionName to search for
+@param groupType : (string) groupType to search for
+ 
+@return - n/a
+*/
 var moveToQuestionByName = function (questionName, groupType) {
 
     var sectionList = getAllQuestionSections();
@@ -677,11 +712,13 @@ var moveToQuestionByName = function (questionName, groupType) {
     }
 };
 
-//`exports.goToFirstUnanswered` searches for the first question that has not been answered and
-//moves the listView so the question is at the top of the sceeen
-/***
- * @returns - n/a
- */
+
+/**
+`exports.goToFirstUnanswered` searches for the first question that has not been answered and
+moves the listView so the question is at the top of the sceeen
+
+@return - n/a
+*/
 exports.goToFirstUnanswered = function () {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -713,18 +750,22 @@ exports.goToFirstUnanswered = function () {
     }
 };
 
-//`exports.goToLastPositiond` searches for the first question that has not been a
-/***
- * @returns - n/a
- */
+
+/**
+`exports.goToLastPositiond` searches for the first question that has not been a
+
+@return - n/a
+*/
 exports.goToLastPositiond = function () {
     moveToQuestionByName(questionSelected.name, questionSelected.groupType);
 };
 
-//`exports.getGoToContentsDetails` builds a list of all sections and questions to be used in the goTo window
-/***
- * @returns - list of new section objects which contain list of new question objects
- */
+
+/**
+`exports.getGoToContentsDetails` builds a list of all sections and questions to be used in the goTo window
+
+@return - list of new section objects which contain list of new question objects
+*/
 exports.getGoToContentsDetails = function () {
     var sectionContentsDetailsList = [];
     var sectionList = getAllQuestionSections();
@@ -785,20 +826,24 @@ exports.getGoToContentsDetails = function () {
     return sectionContentsDetailsList;
 };
 
-//`getAllQuestionSections` returns a list of all sections in the assessment
-/***
- * @/returns - list of (Titanium.UI.ListSection) 
- */
+
+/**
+`getAllQuestionSections` returns a list of all sections in the assessment
+
+@return - list of (Titanium.UI.ListSection) 
+*/
 var getAllQuestionSections = function () {
     return allSections;
 };
 
-//`setSelectedSectionForSingleSections` takes a section from the allSections list and sets it to be the single visable section
-/***
- * @param sectionsIndex : (int) the index of the section in the sectionList
- * 
- * @/returns - n/a
- */
+
+/**
+`setSelectedSectionForSingleSections` takes a section from the allSections list and sets it to be the single visable section
+
+@param sectionsIndex : (int) the index of the section in the sectionList
+
+@/returns - n/a
+*/
 var setSelectedSectionForSingleSections = function (sectionsIndex) {
     currentSingleSectionIndex = sectionsIndex;
     var newSectionList = [];
@@ -810,12 +855,13 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
     $.listView.setSections(newSectionList);
 };
 
-//`setListViewDisplayTypeToSingleSections` toogles the listViewDisplayType to be SINGLE_SECTIONS or ALL_SECTIONS
-/***
- * @param onSingleSection : (boolean) if the SingleSection is on
- * 
- * @/returns - n/a
- */
+
+/**
+`setListViewDisplayTypeToSingleSections` toogles the listViewDisplayType to be SINGLE_SECTIONS or ALL_SECTIONS
+@param onSingleSection : (boolean) if the SingleSection is on
+ 
+@return - n/a
+*/
 var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
 
     if (onSingleSection == true) {
@@ -838,13 +884,15 @@ var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
     }
 };
 
-//`getQuestionSection` searches of a section that has groupType and returns the SectionObject
-/***
- * @param groupType : (string) groupType to search for
- * 
- * @returns - success :  sectionObject
- * @returns - fail : null
- */
+
+/**
+`getQuestionSection` searches of a section that has groupType and returns the SectionObject
+
+@param groupType : (string) groupType to search for
+
+@return - success :  sectionObject
+@return - fail : null
+*/
 var getQuestionSection = function (groupType) {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -855,13 +903,15 @@ var getQuestionSection = function (groupType) {
     return null;
 };
 
-//`validateSingleQuestionValue` to be called by validateEntireQuestion 
-/***
- * @param value : (string) value to be tested 
- * @param questionObject : questionObject to be validated
- * 
- * @returns :  questionObject - updated questionObject
- */
+
+/**
+`validateSingleQuestionValue` to be called by validateEntireQuestion 
+
+@param value : (string) value to be tested 
+@param questionObject : questionObject to be validated
+ 
+@return :  questionObject - updated questionObject
+*/
 var validateSingleQuestionValue = function (value, questionObject) {
     var returnObject = {
         isValid: true,
@@ -971,14 +1021,16 @@ var validateSingleQuestionValue = function (value, questionObject) {
     return returnObject;
 };
 
-//`setQuestionError` sets the error message for a questionObject
-/***
- * @param isValid : (boolean) if the question is valid
- * @param message : (string) error message to display
- * @param questionObject : questionObject to update
- * 
- * @returns :  questionObject
- */
+
+/**
+`setQuestionError` sets the error message for a questionObject
+
+@param isValid : (boolean) if the question is valid
+@param message : (string) error message to display
+@param questionObject : questionObject to update
+
+@return :  questionObject
+*/
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
 
@@ -1003,12 +1055,14 @@ var setQuestionError = function (isValid, message, questionObject) {
     return questionObject;
 };
 
-//`validateEntireQuestion` validate the values of a question
-/***
- * @param questionObject : questionObject to update
- * 
- * @returns :  questionObject
- */
+
+/**
+`validateEntireQuestion` validate the values of a question
+
+@param questionObject : questionObject to update
+
+@return :  questionObject
+*/
 var validateEntireQuestion = function (questionObject) {
 	
     var valueList = questionObject.value;
@@ -1045,40 +1099,46 @@ Ti.App.addEventListener("singleViewChange", function (data) {
 */
 
 
-//`moveSectionBackClick` the callback function for the button click to move the selected section
-//in the single section mode to the previous section
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`moveSectionBackClick` the callback function for the button click to move the selected section
+in the single section mode to the previous section
+
+@param e : not used
+
+@return :  n/a
+*/
 function moveSectionBackClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex - 1);
 };
 
 
-//`moveSectionNextClick` the callback function for the button click to move the selected section
-//in the single section mode to the next section
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`moveSectionNextClick` the callback function for the button click to move the selected section
+in the single section mode to the next section
+
+@param e : not used
+ 
+@return :  n/a
+*/
 function moveSectionNextClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
 
 
-//`questionRealTimeValidation` called from a textFieldTemplate change event to
-//this function validates a question value and display updates the question error
-//message if thr question is not valid
-/***
- * @param e.questionObject : questionObject
- * @param e.section : sectionObject
- * @param e.questionIndex : (int) the index of the question in the section
- * 
- * @returns :  n/a
- */
+
+/**
+`questionRealTimeValidation` called from a textFieldTemplate change event to
+this function validates a question value and display updates the question error
+message if thr question is not valid
+
+@param e.questionObject : questionObject
+@param e.section : sectionObject
+@param e.questionIndex : (int) the index of the question in the section
+
+@return :  n/a
+*/
 var questionRealTimeValidation = function(e)
 {
 	 e.questionObject = validateEntireQuestion(e.questionObject);
@@ -1089,16 +1149,18 @@ var questionRealTimeValidation = function(e)
 exports.questionRealTimeValidation = questionRealTimeValidation;
 
 
-//`questionValueChange` called from a questionTemplate changes its value
-//the function updates the question error message if needed and removes or addes 
-//questions if this question value change effets them
-/***
- * @param e.questionObject : questionObject
- * @param e.section : (Titanium.UI.ListSection) sectionObject
- * @param e.questionIndex : (int) the index of the question in the section
- * 
- * @returns :  n/a
- */
+
+/**
+`questionValueChange` called from a questionTemplate changes its value
+the function updates the question error message if needed and removes or addes 
+questions if this question value change effets them
+
+@param e.questionObject : questionObject
+@param e.section : (Titanium.UI.ListSection) sectionObject
+@param e.questionIndex : (int) the index of the question in the section
+
+@return :  n/a
+*/
 var questionValueChange = function (e) {
 
     // Blur the currently focused TF
@@ -1155,9 +1217,11 @@ var questionValueChange = function (e) {
 exports.questionValueChange = questionValueChange;
 
 
-//`toggleScrollLock` toggles if the list view is locked in place or not
-/***
- * @returns :  n/a
+
+/**
+`toggleScrollLock` toggles if the list view is locked in place or not
+
+@return :  n/a
  */
 var toggleScrollLock = function()
 {
@@ -1171,13 +1235,15 @@ exports.toggleScrollLock = toggleScrollLock;
 
 
 
-//`footerTextButtonClick` the callback function for the button click text in the qustion renderer footer
-//opens the userNotesDialog and populates it with the saved Assessment Notes.
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`footerTextButtonClick` the callback function for the button click text in the qustion renderer footer
+opens the userNotesDialog and populates it with the saved Assessment Notes.
+
+@param e : not used
+
+@return :  n/a
+*/
 function footerTextButtonClick(e) {
     Alloy.createController("questionDialogs/userNotesDialog", {
         notes: currentAssessmentObject.notes,
@@ -1190,13 +1256,15 @@ function footerTextButtonClick(e) {
 };
 
 
-//`footerNotesButtonClick` the callback function for the button click notes in the qustion renderer footer
-//triggers the slideNotify for the currently selected question to display the server notes
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`footerNotesButtonClick` the callback function for the button click notes in the qustion renderer footer
+triggers the slideNotify for the currently selected question to display the server notes
+
+@param e : not used
+
+@return :  n/a
+*/
 function footerNotesButtonClick(e) {
 
     if (questionSelected != null) {
@@ -1208,13 +1276,15 @@ function footerNotesButtonClick(e) {
 };
 
 
-//`footerHelpButtonClick` the callback function for the button click help in the qustion renderer footer
-//triggers the slideNotify for the currently selected question to display the server help message
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`footerHelpButtonClick` the callback function for the button click help in the qustion renderer footer
+triggers the slideNotify for the currently selected question to display the server help message
+
+@param e : not used
+
+@return :  n/a
+*/
 function footerHelpButtonClick(e) {
 	
 	if (questionSelected != null) {
@@ -1229,12 +1299,14 @@ function footerHelpButtonClick(e) {
 };
 
 
-//`pageDeletedEvent` used to delete a census attached to an assessment
-/***
- * @param associatedFileName : (string) fileName to be deleted
- * 
- * @returns :  n/a
- */
+
+/**
+`pageDeletedEvent` used to delete a census attached to an assessment
+
+@param associatedFileName : (string) fileName to be deleted
+ 
+@return :  n/a
+*/
 var pageDeletedEvent = function(associatedFileName){
 	if(associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
@@ -1243,14 +1315,16 @@ var pageDeletedEvent = function(associatedFileName){
 exports.pageDeletedEvent = pageDeletedEvent;
 
 
-//`Ti.App.addEventListener("startCensesTimer")` fired when a used clicks start for the quick census
-//this will opem the census timer as a footer of the question renderer and count down based on the 
-//timerDuration question value
-/***
- * @param e.question : questionObject that files the event
- * 
- * @returns :  true or false - depending if the timer opened or not
- */
+
+/**
+`Ti.App.addEventListener("startCensesTimer")` fired when a used clicks start for the quick census
+this will opem the census timer as a footer of the question renderer and count down based on the 
+timerDuration question value
+
+@param e.question : questionObject that files the event
+
+@return :  true or false - depending if the timer opened or not
+*/
 Ti.App.addEventListener("startCensesTimer", function (e) {
     var question = e.question;
 
@@ -1298,13 +1372,15 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
 });
 
 
-//`$.censusFooterView.on("goToCensus")` fired when a used clicks go to census on the census timer footer
-//the list view will move to the census usage page and position the top question at the top of the screen
-/***
- * @param e.question : questionObject that files the event
- * 
- * @returns :  true or false - depending if the timer opened or not
- */
+
+/**
+`$.censusFooterView.on("goToCensus")` fired when a used clicks go to census on the census timer footer
+the list view will move to the census usage page and position the top question at the top of the screen
+
+@param e.question : questionObject that files the event
+
+@return :  true or false - depending if the timer opened or not
+*/
 $.censusFooterView.on("goToCensus", function (e) {
     e.censusAssociatedFileName;
     var section = findSectionByAssociatedFileName("CensusUsage", e.censusAssociatedFileName);
@@ -1317,15 +1393,17 @@ $.censusFooterView.on("goToCensus", function (e) {
 });
 
 
-//`updateAndReturnQuestion` fired when a used clicks go to census on the census timer footer
+
+/**
+`updateAndReturnQuestion` fired when a used clicks go to census on the census timer footer
 //the list view will move to the census usage page and position the top question at the top of the screen
-/***
- * @param question : questionObject to be updated
- * @param value : (string) value to be set
- * @param displayValue : (string) value to populate the textField
- * 
- * @returns :  true or false - depending if the timer opened or not
- */
+
+@param question : questionObject to be updated
+@param value : (string) value to be set
+@param displayValue : (string) value to populate the textField
+
+@return :  true or false - depending if the timer opened or not
+*/
 var updateAndReturnQuestion = function (question, value, displayValue) {
     if (question.template == "singleSelectTemplate") {
         question.displayValue = {
@@ -1342,15 +1420,17 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
     return question;
 };
 
-//`Ti.App.addEventListener("setEntireSectionTemplate")` fired when a used clicks go to census on the census timer footer
-//the list view will move to the census usage page and position the top question at the top of the screen
-/***
- * @param e.groupType : question groupType to match
- * @param e.value : (string) value to be set
- * @param e.questionToChangeTemplate : (string) template name to match
- * 
- * @returns :  n/a
- */
+
+/**
+`Ti.App.addEventListener("setEntireSectionTemplate")` fired when a used clicks go to census on the census timer footer
+the list view will move to the census usage page and position the top question at the top of the screen
+
+@param e.groupType : question groupType to match
+@param e.value : (string) value to be set
+@param e.questionToChangeTemplate : (string) template name to match
+
+@return :  n/a
+*/
 Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
     var sectionList = getAllQuestionSections();
@@ -1372,12 +1452,14 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 });
 
 
-//`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
-/***
- * @param newQuestionSelected : the new questionObject to select
- * 
- * @returns :  QuestionObject
- */
+
+/**
+`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+
+@param newQuestionSelected : the new questionObject to select
+ 
+@return :  QuestionObject
+*/
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
 
@@ -1417,13 +1499,15 @@ var selectQuestion = function (newQuestionSelected) {
 exports.selectQuestion = selectQuestion;
 
 
-//`footerPostlayout` callback when census timer footer has finshed it height change
-//resets the list view so there is not overlap
-/***
- * @param e : not used
- * 
- * @returns :  n/a
- */
+
+/**
+`footerPostlayout` callback when census timer footer has finshed it height change
+resets the list view so there is not overlap
+
+@param e : not used
+
+@return :  n/a
+*/
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
 };
