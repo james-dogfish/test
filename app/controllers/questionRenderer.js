@@ -33,6 +33,8 @@ var currentSingleSectionIndex = 0;
 `findQuestionsRef` searches sectionList for a question that 
 matches the questionName and groupType and returns references to the found question.
 
+@method findQuestionsRef
+
 @param questionName  (string) Name to search against
 @param groupType  (string) groupType to search against
 
@@ -66,6 +68,8 @@ var findQuestionsRef = function (sectionList, questionName, groupType) {
 A question can be strictly  mandatory or can be mandatory depending on the
 value of anther question.
 
+@method newTestIfMandatory
+
 @param questionObject : questionObject to test
  
 @return :  true or false
@@ -98,6 +102,8 @@ var newTestIfMandatory = function (questionObject) {
 `setQuestionToMandatory` the question passed in will have its title changed to
 have a '*' at its end if it is mandatory or removed if it is not
 
+@method setQuestionToMandatory
+
 @param questionObject : questionObject to be changed 
 
 @return :  questionObject
@@ -121,6 +127,8 @@ var setQuestionToMandatory = function (questionObject) {
 /**
 `newTestIfVisable` questionObject passed in will be tested if it should be Visible
 to the user or hidden
+
+@method newTestIfVisable
 
 @param questionObject : questionObject to test
 
@@ -148,6 +156,8 @@ var newTestIfVisable = function (questionObject) {
 `newFindQuestionObject` this function searches all sections for a question that 
 matches the questionName and groupType and return the question Object or null 
 if not found
+
+@method newFindQuestionObject
 
 @param questionName : (string) Name to search against
 @param groupType : (string) groupType to search against
@@ -178,6 +188,8 @@ var newFindQuestionObject = function (questionName, groupType) {
 `newTestDependentQuestions` tests all questions that are dependent on the passed
 questionObject if they are visable or mandatory. question are hiden or made Visible
 depending on the results of the tests
+
+@method newTestDependentQuestions
 
 @param questionObject : questionObject to test
 
@@ -344,6 +356,8 @@ var newTestDependentQuestions = function (questionObject) {
 passed questionName, then the question value array is returned. if no question is
 found it returns an array with a empty String in
 
+@method findQuestionsValue
+
 @param questionName : (string) Name to search against
 
 @return - success :  value List eg ["value1", "value2"]
@@ -369,6 +383,8 @@ var findQuestionsValue = function (questionName) {
 /**
 `findSectionByAssociatedFileName` searches for the question that matches the 
 passed alcrmQuestionID that also is found is the file that matches associatedFileName.
+
+@method findSectionByAssociatedFileName
 
 @param alcrmQuestionID : (string) alcrmQuestionID to search for
 @param associatedFileName : (string) associatedFileName to search for
@@ -406,6 +422,8 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
 passed alcrmGroupType that also is found is the file that matches associatedFileName.
 the fuction will return the section object or null if not found
 
+@method findSectionByAssociatedFileName
+
 @param alcrmGroupType :(string) alcrmGroupType to search for
 @param associatedFileName : (string) associatedFileName to search for
   
@@ -429,6 +447,8 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
 /** 
 `exports.clear` clears all sections and questions from the listView
 
+@method exports.clear
+
 @return : n/a
 */
 exports.clear = function () {
@@ -441,6 +461,8 @@ exports.clear = function () {
 /**
 `buildQuestionSections` takes the JASON_sectionList and builds titanium
 ListSection for each section and return the new list of titanium ListSections
+
+@method buildQuestionSections
 
 @param JASON_sectionList : simple JSON List of Sections and Question
 
@@ -485,7 +507,9 @@ var buildQuestionSections = function (JASON_sectionList) {
 `removeHiddenQuestions` takes the JASON_sectionList removes all hidden questions
 before the function buildQuestionSections is called. all hidden questions are added to
 hiddenQuestions list
- 
+
+@method removeHiddenQuestions
+
 @param JASON_sectionList : simple JSON List of Sections and Question
 
 @return :  JASON_sectionList - with hidden questions removed
@@ -520,6 +544,8 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 /**
 `setupSelectedQuestion` called within the function setAssessment. it searches for the
 a question that has been previously selected or if non found the first non read-only question
+
+@method setupSelectedQuestion
 
 @return : n/a
  */
@@ -556,6 +582,8 @@ var setupSelectedQuestion = function () {
 `setAssessment` the JASON_sectionList is the interpreted question set and assessmentObject
 is the saved assessment object created in localDataHandler. this function is used to setup 
 questionRenderer to veiw an assessment
+
+@method setAssessment
 
 @param JASON_sectionList : simple JSON List of Sections and Question
 @param assessmentObject : object defining an assessment and names of attched saved files
@@ -598,6 +626,9 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 /**
 `appendSectionsToAssessment` the JASON_sectionList is the interpreted question.
 used to add extra sectons to the listView after setAssessment has been called
+
+@method appendSectionsToAssessment
+
 @param JASON_sectionList : simple JSON List of Sections and Question
  
 @return - n/a
@@ -616,6 +647,8 @@ exports.appendSectionsToAssessment = function (JASON_sectionList) {
 /**
 `exports.moveToQuestion` searches for a section that matched the groupType
 and moves the listView to make visble the question at questionIndex at the top of the screen
+
+@method exports.moveToQuestion
 
 @param groupType : (string) groupType to search for
 @param questionIndex : (int) questionIndex to search for
@@ -654,6 +687,8 @@ exports.moveToQuestion = function (groupType, questionIndex) {
 `getQuestionIndexFromSection` returns the index of the question that matches the questionName
 in the section that is passed. if no question is found null is returned
 
+@method getQuestionIndexFromSection
+
 @param questionName : (string) questionName to search for
 @param section : (Titanium.UI.ListSection) section to search in
 
@@ -676,6 +711,8 @@ var getQuestionIndexFromSection = function (questionName, section) {
 /**
 `moveToQuestionByName` move the list view to place the question found that matches questionName
 and groupType at the top of the screen
+
+@method moveToQuestionByName
 
 @param questionName : (string) questionName to search for
 @param groupType : (string) groupType to search for
@@ -717,6 +754,8 @@ var moveToQuestionByName = function (questionName, groupType) {
 `exports.goToFirstUnanswered` searches for the first question that has not been answered and
 moves the listView so the question is at the top of the sceeen
 
+@method exports.goToFirstUnanswered
+
 @return - n/a
 */
 exports.goToFirstUnanswered = function () {
@@ -754,6 +793,8 @@ exports.goToFirstUnanswered = function () {
 /**
 `exports.goToLastPositiond` searches for the first question that has not been a
 
+@method exports.goToLastPositiond
+
 @return - n/a
 */
 exports.goToLastPositiond = function () {
@@ -763,6 +804,8 @@ exports.goToLastPositiond = function () {
 
 /**
 `exports.getGoToContentsDetails` builds a list of all sections and questions to be used in the goTo window
+
+@method exports.getGoToContentsDetails
 
 @return - list of new section objects which contain list of new question objects
 */
@@ -830,6 +873,8 @@ exports.getGoToContentsDetails = function () {
 /**
 `getAllQuestionSections` returns a list of all sections in the assessment
 
+@method getAllQuestionSections
+
 @return - list of (Titanium.UI.ListSection) 
 */
 var getAllQuestionSections = function () {
@@ -839,6 +884,8 @@ var getAllQuestionSections = function () {
 
 /**
 `setSelectedSectionForSingleSections` takes a section from the allSections list and sets it to be the single visable section
+
+@method setSelectedSectionForSingleSections
 
 @param sectionsIndex : (int) the index of the section in the sectionList
 
@@ -858,6 +905,9 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
 
 /**
 `setListViewDisplayTypeToSingleSections` toogles the listViewDisplayType to be SINGLE_SECTIONS or ALL_SECTIONS
+
+@method setListViewDisplayTypeToSingleSections
+
 @param onSingleSection : (boolean) if the SingleSection is on
  
 @return - n/a
@@ -888,6 +938,8 @@ var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
 /**
 `getQuestionSection` searches of a section that has groupType and returns the SectionObject
 
+@method getQuestionSection
+
 @param groupType : (string) groupType to search for
 
 @return - success :  sectionObject
@@ -906,6 +958,8 @@ var getQuestionSection = function (groupType) {
 
 /**
 `validateSingleQuestionValue` to be called by validateEntireQuestion 
+
+@method validateSingleQuestionValue
 
 @param value : (string) value to be tested 
 @param questionObject : questionObject to be validated
@@ -1025,6 +1079,8 @@ var validateSingleQuestionValue = function (value, questionObject) {
 /**
 `setQuestionError` sets the error message for a questionObject
 
+@method setQuestionError
+
 @param isValid : (boolean) if the question is valid
 @param message : (string) error message to display
 @param questionObject : questionObject to update
@@ -1058,6 +1114,8 @@ var setQuestionError = function (isValid, message, questionObject) {
 
 /**
 `validateEntireQuestion` validate the values of a question
+
+@method validateEntireQuestion
 
 @param questionObject : questionObject to update
 
@@ -1104,6 +1162,8 @@ Ti.App.addEventListener("singleViewChange", function (data) {
 `moveSectionBackClick` the callback function for the button click to move the selected section
 in the single section mode to the previous section
 
+@method moveSectionBackClick
+
 @param e : not used
 
 @return :  n/a
@@ -1117,6 +1177,8 @@ function moveSectionBackClick(e) {
 /**
 `moveSectionNextClick` the callback function for the button click to move the selected section
 in the single section mode to the next section
+
+@method moveSectionNextClick
 
 @param e : not used
  
@@ -1132,6 +1194,8 @@ function moveSectionNextClick(e) {
 `questionRealTimeValidation` called from a textFieldTemplate change event to
 this function validates a question value and display updates the question error
 message if thr question is not valid
+
+@method questionRealTimeValidation
 
 @param e.questionObject : questionObject
 @param e.section : sectionObject
@@ -1154,6 +1218,8 @@ exports.questionRealTimeValidation = questionRealTimeValidation;
 `questionValueChange` called from a questionTemplate changes its value
 the function updates the question error message if needed and removes or addes 
 questions if this question value change effets them
+
+@method questionValueChange
 
 @param e.questionObject : questionObject
 @param e.section : (Titanium.UI.ListSection) sectionObject
@@ -1221,6 +1287,8 @@ exports.questionValueChange = questionValueChange;
 /**
 `toggleScrollLock` toggles if the list view is locked in place or not
 
+@method toggleScrollLock
+
 @return :  n/a
  */
 var toggleScrollLock = function()
@@ -1239,6 +1307,8 @@ exports.toggleScrollLock = toggleScrollLock;
 /**
 `footerTextButtonClick` the callback function for the button click text in the qustion renderer footer
 opens the userNotesDialog and populates it with the saved Assessment Notes.
+
+@method footerTextButtonClick
 
 @param e : not used
 
@@ -1261,6 +1331,8 @@ function footerTextButtonClick(e) {
 `footerNotesButtonClick` the callback function for the button click notes in the qustion renderer footer
 triggers the slideNotify for the currently selected question to display the server notes
 
+@method footerNotesButtonClick
+
 @param e : not used
 
 @return :  n/a
@@ -1280,6 +1352,8 @@ function footerNotesButtonClick(e) {
 /**
 `footerHelpButtonClick` the callback function for the button click help in the qustion renderer footer
 triggers the slideNotify for the currently selected question to display the server help message
+
+@method footerHelpButtonClick
 
 @param e : not used
 
@@ -1303,6 +1377,8 @@ function footerHelpButtonClick(e) {
 /**
 `pageDeletedEvent` used to delete a census attached to an assessment
 
+@method pageDeletedEvent
+
 @param associatedFileName : (string) fileName to be deleted
  
 @return :  n/a
@@ -1320,6 +1396,8 @@ exports.pageDeletedEvent = pageDeletedEvent;
 `Ti.App.addEventListener("startCensesTimer")` fired when a used clicks start for the quick census
 this will opem the census timer as a footer of the question renderer and count down based on the 
 timerDuration question value
+
+@method startCensesTimer
 
 @param e.question : questionObject that files the event
 
@@ -1377,6 +1455,8 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
 `$.censusFooterView.on("goToCensus")` fired when a used clicks go to census on the census timer footer
 the list view will move to the census usage page and position the top question at the top of the screen
 
+@method censusFooterView
+
 @param e.question : questionObject that files the event
 
 @return :  true or false - depending if the timer opened or not
@@ -1397,6 +1477,8 @@ $.censusFooterView.on("goToCensus", function (e) {
 /**
 `updateAndReturnQuestion` fired when a used clicks go to census on the census timer footer
 //the list view will move to the census usage page and position the top question at the top of the screen
+
+@method updateAndReturnQuestion
 
 @param question : questionObject to be updated
 @param value : (string) value to be set
@@ -1424,6 +1506,8 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
 /**
 `Ti.App.addEventListener("setEntireSectionTemplate")` fired when a used clicks go to census on the census timer footer
 the list view will move to the census usage page and position the top question at the top of the screen
+
+@method setEntireSectionTemplate
 
 @param e.groupType : question groupType to match
 @param e.value : (string) value to be set
@@ -1455,6 +1539,8 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
 /**
 `selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+
+@method selectQuestion
 
 @param newQuestionSelected : the new questionObject to select
  
@@ -1503,6 +1589,8 @@ exports.selectQuestion = selectQuestion;
 /**
 `footerPostlayout` callback when census timer footer has finshed it height change
 resets the list view so there is not overlap
+
+@method footerPostlayout
 
 @param e : not used
 
