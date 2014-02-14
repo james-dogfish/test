@@ -7,9 +7,9 @@
 					<Button id="closeButton" onClick='closeSettings' backgroundImage="/images/close.png" touchTestId='closeButton'/>
 				</View> 
 				<Label class='label' text="Name" />
-				<TextField class='textField' id='name' />
+				<TextField class='textField' id='name' onReturn="focusMobile"/>
 				<Label class='label' text="Mobile Number" />
-				<TextField class='numberField' id='mobile'/>
+				<TextField class='numberField' id='mobile' onReturn="focusEmail"/>
 				<Label class='label' text="Email" />
 				<TextField class='textField' id='email' />
 				<Label class='label' text="Single Section View - Ver. 1.0.171" />

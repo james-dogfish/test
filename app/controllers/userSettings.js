@@ -79,3 +79,11 @@ var closeSettings = function() {
 exports.open = function() {
 	$.window.open();
 };
+
+function focusMobile() {
+	$.mobile.focus();
+}
+
+function focusEmail() {
+	$.email.focus();
+}

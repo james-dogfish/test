@@ -459,7 +459,7 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	$.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 
 	Alloy.Globals.Analytics.trackNav('Assessment Form', 'Home', 'ra:exit');
-    Alloy.Globals.Analytics.trackFeature('RiskAssessment:Opened');
+    Alloy.Globals.Analytics.trackFeature('RiskAssessment:Closed');
 });
 
 /** call the openMenu function above **/

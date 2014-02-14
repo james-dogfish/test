@@ -195,26 +195,13 @@ var openMenu = function() {
 
     menuTable.addEventListener('click', function(e) {
         popOver.hide();
-        if (e.row.id === 1) {
-            // Open setting screen
-            var userSettings = Alloy.createController('userSettings');
-            userSettings.open();
-        } else if (e.row.id === 2) {
+        if (e.row.id === 2) {
             // GoTo screen
             showGoto();
         } else if (e.row.id === 3) {
             // Help screen 
             var appHelp = Alloy.createController('appHelp').getView();
             appHelp.open();
-        } else if (e.row.id === 4) {
-            var cheatSheet = Alloy.createController('cheatSheet').getView();
-            cheatSheet.open();
-        } else if (e.row.id === 5) {
-
-            Alloy.Globals.tabGroup.close();
-            loginView = Alloy.createController('index').getView();
-            loginView.open();
-            Alloy.Globals.User.logOut();
         } else if (e.row.id === 6) {
             if (currentAssessmentObject !== null) {
                 Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
