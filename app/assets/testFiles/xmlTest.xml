@@ -1428,13 +1428,13 @@
 				</ns5:validation>
 				<ns5:riskAnalysisOnly>false</ns5:riskAnalysisOnly>
 			</ns6:questions>
-			<ns6:questions>
-				<ns5:parameterName>I_PLATFORM_UP_L</ns5:parameterName>
-				<ns5:order>406</ns5:order>
-				<ns5:group>EnvironmentUp</ns5:group>
-				<ns5:text>Distance to a platform (Within 20m of track Left)</ns5:text>
-				<ns5:firstTab>Environment</ns5:firstTab>
-				<ns5:secondTab>Up</ns5:secondTab>
+		<ns6:questions>
+			<ns5:parameterName>I_PLATFORM_UP_L</ns5:parameterName>
+			<ns5:order>406</ns5:order>
+			<ns5:group>EnvironmentUp</ns5:group>
+			<ns5:text>Distance to a platform (Within 20m of track Left)</ns5:text>
+			<ns5:firstTab>Environment</ns5:firstTab>
+			<ns5:secondTab>Up</ns5:secondTab>
 				<ns5:helpText>I_PLATFORM_UP_L Help</ns5:helpText>
 				<ns5:notesText>I_PLATFORM_UP_L Notes</ns5:notesText>
 				<ns5:type>numeric</ns5:type>

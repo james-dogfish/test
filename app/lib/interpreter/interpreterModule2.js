@@ -791,18 +791,6 @@ function interpreterModule2() {
 	                	questionObject.duration = timerPickerQuestionMap[questionObject.alcrmQuestionID];
 	                }
 	                
-	                /*
-	                if(self.sectionHeaderList[sectionIndex].questionList[questionIndex].alcrmQuestionID == "I_DURATION"){
-	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].template = "minuteHourTimeTemplate";
-	                	self.sectionHeaderList[sectionIndex].questionList[questionIndex].type = "timerPicker";
-	                }
-	                */
-	                
-	
-	                
-	                
-	                
-	                
 	                questionObject =  testIfQuestionVisable(questionObject);
 	                questionObject =  testIfQuestionMandatory(questionObject);
 	                
@@ -854,37 +842,7 @@ function interpreterModule2() {
 	                } 
 	               else if(questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
 	                	questionObject.template = "censusStartTimerTemplate";
-	               }
-	               /*
-	               //Ti.App.Properties.getString('censusCounterQuestions') //TODO : add this
-	               else if(questionObject.alcrmQuestionID == "I_CAR_COUNT" ||
-	               			questionObject.alcrmQuestionID == "I_LOR_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_BUS_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_HGV_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_PED_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_CYC_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_HOOF_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_EQUESTRIAN_COUNT" || 
-	               			questionObject.alcrmQuestionID == "I_TRACTOR_COUNT") {
-	                	questionObject.template = "censusCounterTemplate";
-	               }
-	               */
-	               
-	            	/*
-	               else if(questionObject.alcrmGroupType == "CrossingGeneral") {
-	                	questionObject.readOnly = true;
-	                	questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
-	               }
-	               */
-	               
-	               /*
-	               for(var censusCounterQuestionsIndex =0; censusCounterQuestionsIndex < censusCounterQuestions.length; censusCounterQuestionsIndex++){
-	               		if(questionObject.alcrmQuestionID == censusCounterQuestions[censusCounterQuestionsIndex]){
-	               			questionObject.template = "censusCounterTemplate";
-	               		}
-	               }
-	               */
-	               
+	               }          
 	               
 	                
 	                for(var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++){

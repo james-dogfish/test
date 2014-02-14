@@ -70,8 +70,8 @@ function onTextFieldFocus(e){
 		return;
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
-	//e.source.value = item.displayValue.value;
-	e.source.value = "test 1";
+	e.source.value = item.displayValue.value;
+
 };
 
 function onTitleClick(e){
