@@ -35,11 +35,11 @@ matches the questionName and groupType and returns references to the found quest
 
 @method findQuestionsRef
 
-@param questionName  (string) Name to search against
-@param groupType  (string) groupType to search against
+@param {string} questionName Name to search against
+@param {string} groupType groupType to search against
 
-@return - success :  Object { (int)questionIndex, questionObject, (Titanium.UI.ListSection) sectionObject}
-@return - fail : null
+@return {Object} (success) { (int)questionIndex, questionObject, (Titanium.UI.ListSection) sectionObject}
+@return {null} (fail) : 
 */
  
 var findQuestionsRef = function (sectionList, questionName, groupType) {
@@ -70,9 +70,9 @@ value of anther question.
 
 @method newTestIfMandatory
 
-@param questionObject : questionObject to test
+@param {questionObject} questionObject to test
  
-@return :  true or false
+@return {boolean} true or false
 */
 var newTestIfMandatory = function (questionObject) {
 
@@ -104,9 +104,9 @@ have a '*' at its end if it is mandatory or removed if it is not
 
 @method setQuestionToMandatory
 
-@param questionObject : questionObject to be changed 
+@param {questionObject} questionObject to be changed 
 
-@return :  questionObject
+@return {JASON_obejct} questionObject
 */
 var setQuestionToMandatory = function (questionObject) {
     if (questionObject.mandatory == true) {
@@ -130,9 +130,9 @@ to the user or hidden
 
 @method newTestIfVisable
 
-@param questionObject : questionObject to test
+@param {JASON_obejct} questionObject to test
 
-@return :  true or false
+@return {boolean} true or false
 */
 var newTestIfVisable = function (questionObject) {
 
@@ -159,11 +159,11 @@ if not found
 
 @method newFindQuestionObject
 
-@param questionName : (string) Name to search against
-@param groupType : (string) groupType to search against
+@param {String} questionName Name to search against
+@param {String} groupType to search against
 
-@return - success :  questionObject
-@return - fail : null
+@return {JASON_obejct} (success) :  questionObject
+@return {null} (fail)
 */
 
 var newFindQuestionObject = function (questionName, groupType) {
@@ -191,9 +191,9 @@ depending on the results of the tests
 
 @method newTestDependentQuestions
 
-@param questionObject : questionObject to test
+@param {JASON_obejct} questionObject question to test
 
-@return :  n/a
+@return {} n/a
 */
 var newTestDependentQuestions = function (questionObject) {
 	
@@ -358,10 +358,10 @@ found it returns an array with a empty String in
 
 @method findQuestionsValue
 
-@param questionName : (string) Name to search against
+@param {String} questionName  Name to search against
 
-@return - success :  value List eg ["value1", "value2"]
-@return - fail : list with one item [""]
+@return {JSON_List} (success) value List eg ["value1", "value2"]
+@return {JSON_List} (fail) list with one item [""]
 */
 var findQuestionsValue = function (questionName) {
     var sectionList = getAllQuestionSections();
@@ -386,11 +386,11 @@ passed alcrmQuestionID that also is found is the file that matches associatedFil
 
 @method findSectionByAssociatedFileName
 
-@param alcrmQuestionID : (string) alcrmQuestionID to search for
-@param associatedFileName : (string) associatedFileName to search for
+@param {String} alcrmQuestionID alcrmQuestionID to search for
+@param {String} associatedFileName associatedFileName to search for
  
-@return - success :  Object {questionIndex, questionObject, sectionObject}
-@return - fail : null
+@return {JSON_Object} (success) {questionIndex, questionObject, sectionObject}
+@return {null} (fail)
 */
 var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFileName) {
     var sectionList = getAllQuestionSections();
@@ -424,11 +424,11 @@ the fuction will return the section object or null if not found
 
 @method findSectionByAssociatedFileName
 
-@param alcrmGroupType :(string) alcrmGroupType to search for
-@param associatedFileName : (string) associatedFileName to search for
+@param {String} alcrmGroupType alcrmGroupType to search for
+@param {String} associatedFileName associatedFileName to search for
   
-@return - success :  (Titanium.UI.ListSection) sectionObject
-@return - fail : null
+@return {Titanium.UI.ListSection} (success) sectionObject
+@return {null} (fail)
 */
 var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileName) {
     var sectionList = getAllQuestionSections();
@@ -449,7 +449,7 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
 
 @method exports.clear
 
-@return : n/a
+@return {} n/a
 */
 exports.clear = function () {
     allSections = [];
@@ -464,9 +464,9 @@ ListSection for each section and return the new list of titanium ListSections
 
 @method buildQuestionSections
 
-@param JASON_sectionList : simple JSON List of Sections and Question
+@param {JASON_List} JASON_sectionList simple JSON List of Sections and Question
 
-@return :  (Titanium.UI.ListSection)  listSections
+@return {Titanium.UI.ListSection} listSections
 */
 var buildQuestionSections = function (JASON_sectionList) {
     var newSectionList = [];
@@ -510,9 +510,9 @@ hiddenQuestions list
 
 @method removeHiddenQuestions
 
-@param JASON_sectionList : simple JSON List of Sections and Question
+@param {JSON_LIST} JASON_sectionList simple JSON List of Sections and Question
 
-@return :  JASON_sectionList - with hidden questions removed
+@return {JSON_LIST}  JASON_sectionList section list with hidden questions removed
 */
 var removeHiddenQuestions = function (JASON_sectionList) {
 	try{
@@ -547,7 +547,7 @@ a question that has been previously selected or if non found the first non read-
 
 @method setupSelectedQuestion
 
-@return : n/a
+@return {} n/a
  */
 var setupSelectedQuestion = function () {
  try{
@@ -585,10 +585,10 @@ questionRenderer to veiw an assessment
 
 @method setAssessment
 
-@param JASON_sectionList : simple JSON List of Sections and Question
-@param assessmentObject : object defining an assessment and names of attched saved files
+@param {JSON_List} JASON_sectionList simple JSON List of Sections and Question
+@param {JSON_Object} assessmentObject object defining an assessment and names of attched saved files
  
-@return - n/a
+@return {} n/a
 */
 exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	try{
@@ -629,9 +629,9 @@ used to add extra sectons to the listView after setAssessment has been called
 
 @method appendSectionsToAssessment
 
-@param JASON_sectionList : simple JSON List of Sections and Question
+@param {JSON_List} JASON_sectionList simple JSON List of Sections and Question
  
-@return - n/a
+@return {} n/a
 */
 exports.appendSectionsToAssessment = function (JASON_sectionList) {
 	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JASON_sectionList));
@@ -650,10 +650,10 @@ and moves the listView to make visble the question at questionIndex at the top o
 
 @method exports.moveToQuestion
 
-@param groupType : (string) groupType to search for
-@param questionIndex : (int) questionIndex to search for
+@param {string} groupType groupType to search for
+@param {int} questionIndex  questionIndex to search for
  
-@return - n/a
+@return {} n/a
 */
 exports.moveToQuestion = function (groupType, questionIndex) {
     Alloy.Globals.Logger.log("** questionRender moveToQuestion, groupType = "+groupType+", questionIndex = "+questionIndex,"info");
@@ -689,11 +689,11 @@ in the section that is passed. if no question is found null is returned
 
 @method getQuestionIndexFromSection
 
-@param questionName : (string) questionName to search for
-@param section : (Titanium.UI.ListSection) section to search in
+@param {String} questionName questionName to search for
+@param {Titanium.UI.ListSection} section section to search in
 
-@return - success :  (int) question index
-@return - fail : null
+@return {int} (success) question index
+@return {null} fail
 */
 var getQuestionIndexFromSection = function (questionName, section) {
 
@@ -714,10 +714,10 @@ and groupType at the top of the screen
 
 @method moveToQuestionByName
 
-@param questionName : (string) questionName to search for
-@param groupType : (string) groupType to search for
+@param {String} questionName questionName to search for
+@param {String} groupType groupType to search for
  
-@return - n/a
+@return {} n/a
 */
 var moveToQuestionByName = function (questionName, groupType) {
 
@@ -756,7 +756,7 @@ moves the listView so the question is at the top of the sceeen
 
 @method exports.goToFirstUnanswered
 
-@return - n/a
+@return {} n/a
 */
 exports.goToFirstUnanswered = function () {
     var sectionList = getAllQuestionSections();
@@ -795,7 +795,7 @@ exports.goToFirstUnanswered = function () {
 
 @method exports.goToLastPositiond
 
-@return - n/a
+@return {} n/a
 */
 exports.goToLastPositiond = function () {
     moveToQuestionByName(questionSelected.name, questionSelected.groupType);
@@ -807,7 +807,7 @@ exports.goToLastPositiond = function () {
 
 @method exports.getGoToContentsDetails
 
-@return - list of new section objects which contain list of new question objects
+@return {JSON_List} list of new section objects which contain list of new question objects
 */
 exports.getGoToContentsDetails = function () {
     var sectionContentsDetailsList = [];
@@ -875,7 +875,7 @@ exports.getGoToContentsDetails = function () {
 
 @method getAllQuestionSections
 
-@return - list of (Titanium.UI.ListSection) 
+@return {Titanium.UI.ListSectio} list of sections
 */
 var getAllQuestionSections = function () {
     return allSections;
@@ -887,9 +887,9 @@ var getAllQuestionSections = function () {
 
 @method setSelectedSectionForSingleSections
 
-@param sectionsIndex : (int) the index of the section in the sectionList
+@param {int} sectionsIndex the index of the section in the sectionList
 
-@/returns - n/a
+@/returns {} n/a
 */
 var setSelectedSectionForSingleSections = function (sectionsIndex) {
     currentSingleSectionIndex = sectionsIndex;
@@ -908,9 +908,9 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
 
 @method setListViewDisplayTypeToSingleSections
 
-@param onSingleSection : (boolean) if the SingleSection is on
+@param {boolean} onSingleSection if the SingleSection is on
  
-@return - n/a
+@return {} n/a
 */
 var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
 
@@ -940,10 +940,10 @@ var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
 
 @method getQuestionSection
 
-@param groupType : (string) groupType to search for
+@param {String} groupType groupType to search for
 
-@return - success :  sectionObject
-@return - fail : null
+@return {JSON_Object} (success) sectionObject
+@return {null} (fail)
 */
 var getQuestionSection = function (groupType) {
     var sectionList = getAllQuestionSections();
@@ -961,10 +961,10 @@ var getQuestionSection = function (groupType) {
 
 @method validateSingleQuestionValue
 
-@param value : (string) value to be tested 
-@param questionObject : questionObject to be validated
+@param {String} value value to be tested 
+@param {JSON_Object} questionObject questionObject to be validated
  
-@return :  questionObject - updated questionObject
+@return {JSON_Object} updated questionObject
 */
 var validateSingleQuestionValue = function (value, questionObject) {
     var returnObject = {
@@ -1081,11 +1081,11 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 @method setQuestionError
 
-@param isValid : (boolean) if the question is valid
-@param message : (string) error message to display
-@param questionObject : questionObject to update
+@param {boolean} isValid if the question is valid
+@param {String} message error message to display
+@param {JSON_Object} questionObject questionObject to update
 
-@return :  questionObject
+@return {JSON_Object} questionObject
 */
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
@@ -1117,9 +1117,9 @@ var setQuestionError = function (isValid, message, questionObject) {
 
 @method validateEntireQuestion
 
-@param questionObject : questionObject to update
+@param {JSON_Object} questionObject question to update
 
-@return :  questionObject
+@return {JSON_Object} questionObject
 */
 var validateEntireQuestion = function (questionObject) {
 	
@@ -1164,9 +1164,9 @@ in the single section mode to the previous section
 
 @method moveSectionBackClick
 
-@param e : not used
+@param {JSON_Object} e not used
 
-@return :  n/a
+@return {} n/a
 */
 function moveSectionBackClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex - 1);
@@ -1180,9 +1180,9 @@ in the single section mode to the next section
 
 @method moveSectionNextClick
 
-@param e : not used
+@param {JSON_Object} e not used
  
-@return :  n/a
+@return {} n/a
 */
 function moveSectionNextClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
@@ -1197,11 +1197,11 @@ message if thr question is not valid
 
 @method questionRealTimeValidation
 
-@param e.questionObject : questionObject
-@param e.section : sectionObject
-@param e.questionIndex : (int) the index of the question in the section
+@param {JSON_Object} e.questionObject questionObject
+@param {JSON_Object} e.section sectionObject
+@param {int} e.questionIndex the index of the question in the section
 
-@return :  n/a
+@return {}  n/a
 */
 var questionRealTimeValidation = function(e)
 {
@@ -1221,11 +1221,11 @@ questions if this question value change effets them
 
 @method questionValueChange
 
-@param e.questionObject : questionObject
-@param e.section : (Titanium.UI.ListSection) sectionObject
-@param e.questionIndex : (int) the index of the question in the section
+@param {JSON_Object} e.questionObject questionObject
+@param {Titanium.UI.ListSection} e.section sectionObject
+@param {int} e.questionIndex the index of the question in the section
 
-@return :  n/a
+@return {}  n/a
 */
 var questionValueChange = function (e) {
 
@@ -1289,7 +1289,7 @@ exports.questionValueChange = questionValueChange;
 
 @method toggleScrollLock
 
-@return :  n/a
+@return {}  n/a
  */
 var toggleScrollLock = function()
 {
@@ -1310,9 +1310,9 @@ opens the userNotesDialog and populates it with the saved Assessment Notes.
 
 @method footerTextButtonClick
 
-@param e : not used
+@param {JSON_Object} e not used
 
-@return :  n/a
+@return {} n/a
 */
 function footerTextButtonClick(e) {
     Alloy.createController("questionDialogs/userNotesDialog", {
@@ -1333,9 +1333,9 @@ triggers the slideNotify for the currently selected question to display the serv
 
 @method footerNotesButtonClick
 
-@param e : not used
+@param {JSON_Object} e not used
 
-@return :  n/a
+@return {}  n/a
 */
 function footerNotesButtonClick(e) {
 
@@ -1355,9 +1355,9 @@ triggers the slideNotify for the currently selected question to display the serv
 
 @method footerHelpButtonClick
 
-@param e : not used
+@param {JSON_Object} e not used
 
-@return :  n/a
+@return {}  n/a
 */
 function footerHelpButtonClick(e) {
 	
@@ -1379,9 +1379,9 @@ function footerHelpButtonClick(e) {
 
 @method pageDeletedEvent
 
-@param associatedFileName : (string) fileName to be deleted
+@param {String} associatedFileName fileName to be deleted
  
-@return :  n/a
+@return {}  n/a
 */
 var pageDeletedEvent = function(associatedFileName){
 	if(associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
@@ -1399,9 +1399,9 @@ timerDuration question value
 
 @method startCensesTimer
 
-@param e.question : questionObject that files the event
+@param {JSON_Object} e.question questionObject that files the event
 
-@return :  true or false - depending if the timer opened or not
+@return {Boolean}  true or false - depending if the timer opened or not
 */
 Ti.App.addEventListener("startCensesTimer", function (e) {
     var question = e.question;
@@ -1457,9 +1457,9 @@ the list view will move to the census usage page and position the top question a
 
 @method censusFooterView
 
-@param e.question : questionObject that files the event
+@param {JSON_Object} e.question questionObject that files the event
 
-@return :  true or false - depending if the timer opened or not
+@return {Boolean} true or false - depending if the timer opened or not
 */
 $.censusFooterView.on("goToCensus", function (e) {
     e.censusAssociatedFileName;
@@ -1480,11 +1480,11 @@ $.censusFooterView.on("goToCensus", function (e) {
 
 @method updateAndReturnQuestion
 
-@param question : questionObject to be updated
-@param value : (string) value to be set
-@param displayValue : (string) value to populate the textField
+@param {JSON_Object} question questionto be updated
+@param {String} value  value to be set
+@param {String} displayValue value to populate the textField
 
-@return :  true or false - depending if the timer opened or not
+@return {Boolean} true or false - depending if the timer opened or not
 */
 var updateAndReturnQuestion = function (question, value, displayValue) {
     if (question.template == "singleSelectTemplate") {
@@ -1509,11 +1509,11 @@ the list view will move to the census usage page and position the top question a
 
 @method setEntireSectionTemplate
 
-@param e.groupType : question groupType to match
-@param e.value : (string) value to be set
-@param e.questionToChangeTemplate : (string) template name to match
+@param {JSON_Object} e.groupType question groupType to match
+@param {String} e.value value to be set
+@param {String} e.questionToChangeTemplate template name to match
 
-@return :  n/a
+@return {}  n/a
 */
 Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
@@ -1542,9 +1542,9 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
 @method selectQuestion
 
-@param newQuestionSelected : the new questionObject to select
+@param {JSON_Object} newQuestionSelected the new questionObject to select
  
-@return :  QuestionObject
+@return {JSON_Object}  QuestionObject
 */
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
@@ -1592,9 +1592,9 @@ resets the list view so there is not overlap
 
 @method footerPostlayout
 
-@param e : not used
+@param {JSON_Object} e not used
 
-@return :  n/a
+@return {}  n/a
 */
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
