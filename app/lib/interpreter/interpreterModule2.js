@@ -61,8 +61,8 @@ function interpreterModule2() {
 
 @method setEntireSectionTemplate
 
-@param {JASON_obejct} question  the question object from the server.
-@param {JASON_obejct} passObject  this is the settings object for this question set file.
+@param {JSON_obejct} question  the question object from the server.
+@param {JSON_obejct} passObject  this is the settings object for this question set file.
 
 @return {string} question DisplayName
 */
@@ -106,10 +106,10 @@ function interpreterModule2() {
 
 @method createCensusDateQuestion
 
-@param {JASON_obejct} passObject  this is the settings object for this question set file.
-@param {JASON_obejct} section  secified what section to add thr question to.
+@param {JSON_obejct} passObject  this is the settings object for this question set file.
+@param {JSON_obejct} section  secified what section to add thr question to.
 
-@return {JASON_obejct} (success) questionObject
+@return {JSON_obejct} (success) questionObject
 @return {null} (fail) when the question fails
 */
 	var createCensusDateQuestion = function(passObject, section) {
@@ -185,13 +185,13 @@ function interpreterModule2() {
 
 @method createQuestionObject
 
-@param {JASON_obejct} question
-@param {JASON_obejct} passObject
+@param {JSON_obejct} question
+@param {JSON_obejct} passObject
 @param {String} sectionGroupType
 @param {String} assessmentId
 @param {MAP} questionMap
 
-@return {JASON_obejct} (success) questionObject
+@return {JSON_obejct} (success) questionObject
 @return {null} (fail) when the question fails to build
 */
 	var createQuestionObject = function(question, passObject, sectionGroupType, assessmentId, questionMap) {
@@ -398,10 +398,10 @@ function interpreterModule2() {
 
 @method questionSetPastVariables
 
-@param {JASON_obejct} questionObject
+@param {JSON_obejct} questionObject
 @param {Map} questionMap
 
-@return {JASON_obejct} questionObject
+@return {JSON_obejct} questionObject
 */
 	var questionSetPastVariables = function(questionObject, questionMap) {
 
@@ -467,8 +467,8 @@ function interpreterModule2() {
 
 @method addQuestionToSectionHeader
 
-@param {JASON_obejct} question
-@param {JASON_obejct} passObject
+@param {JSON_obejct} question
+@param {JSON_obejct} passObject
 @param {String} assessmentId
 
 @return n/a
@@ -517,9 +517,9 @@ function interpreterModule2() {
 
 @method testIfQuestionMandatory
 
-@param {JASON_obejct} questionObject
+@param {JSON_obejct} questionObject
 
-@return {JASON_obejct} questionObject
+@return {JSON_obejct} questionObject
 */
 	var testIfQuestionMandatory = function(questionObject) {
 
@@ -553,9 +553,9 @@ function interpreterModule2() {
 
 @method testIfQuestionVisable
 
-@param {JASON_obejct} questionObject
+@param {JSON_obejct} questionObject
 
-@return {JASON_obejct} questionObject
+@return {JSON_obejct} questionObject
 */
 	var testIfQuestionVisable = function(questionObject) {
 
@@ -653,10 +653,10 @@ function interpreterModule2() {
 
 @method addQuestionToSubsectionList
 
-@param {JASON_List} subSectionList
-@param {JASON_obejct} question
+@param {JSON_List} subSectionList
+@param {JSON_obejct} question
 
-@return {List of JASON_obejct} subSectionList
+@return {List of JSON_obejct} subSectionList
 */
 	var addQuestionToSubsectionList = function(subSectionList, question) {
 
@@ -684,7 +684,7 @@ function interpreterModule2() {
 
 @param {String} title
 
-@return {JASON_obejct} subsectionHeader
+@return {JSON_obejct} subsectionHeader
 */
 	var createSubsectionHeader = function(title) {
 		try {
@@ -719,10 +719,10 @@ function interpreterModule2() {
 
 @method addSubsectionsBackIntoQuestionList
 
-@param {JASON_List} questionList
-@param {JASON_List} subSectionList
+@param {JSON_List} questionList
+@param {JSON_List} subSectionList
 
-@return {List of JASON_obejct} questionList
+@return {List of JSON_obejct} questionList
 */
 	var addSubsectionsBackIntoQuestionList = function(questionList, subSectionList) {
 
@@ -805,7 +805,7 @@ function interpreterModule2() {
 
 @method postInterpretSettings
 
-@param {JASON_obejct} passObject
+@param {JSON_obejct} passObject
 
 @return n/a
 */
@@ -1032,10 +1032,10 @@ function interpreterModule2() {
 
 @method interpret
 
-@param {JASON_List} allQuestions
-@param {JASON_obejct} passObject
+@param {JSON_List} allQuestions
+@param {JSON_obejct} passObject
 
-@return {List of JASON_obejct} questionList
+@return {List of JSON_obejct} questionList
 */
 	self.interpret = function(allQuestions, passObject) {
 

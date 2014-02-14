@@ -106,7 +106,7 @@ have a '*' at its end if it is mandatory or removed if it is not
 
 @param {questionObject} questionObject to be changed 
 
-@return {JASON_obejct} questionObject
+@return {JSON_obejct} questionObject
 */
 var setQuestionToMandatory = function (questionObject) {
     if (questionObject.mandatory == true) {
@@ -130,7 +130,7 @@ to the user or hidden
 
 @method newTestIfVisable
 
-@param {JASON_obejct} questionObject to test
+@param {JSON_obejct} questionObject to test
 
 @return {boolean} true or false
 */
@@ -162,7 +162,7 @@ if not found
 @param {String} questionName Name to search against
 @param {String} groupType to search against
 
-@return {JASON_obejct} (success) :  questionObject
+@return {JSON_obejct} (success) :  questionObject
 @return {null} (fail)
 */
 
@@ -191,7 +191,7 @@ depending on the results of the tests
 
 @method newTestDependentQuestions
 
-@param {JASON_obejct} questionObject question to test
+@param {JSON_obejct} questionObject question to test
 
 @return {} n/a
 */
@@ -459,41 +459,41 @@ exports.clear = function () {
 
 
 /**
-`buildQuestionSections` takes the JASON_sectionList and builds titanium
+`buildQuestionSections` takes the JSON_sectionList and builds titanium
 ListSection for each section and return the new list of titanium ListSections
 
 @method buildQuestionSections
 
-@param {JASON_List} JASON_sectionList simple JSON List of Sections and Question
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
 
 @return {Titanium.UI.ListSection} listSections
 */
-var buildQuestionSections = function (JASON_sectionList) {
+var buildQuestionSections = function (JSON_sectionList) {
     var newSectionList = [];
-    for (var i = 0; i < JASON_sectionList.length; i++) {
+    for (var i = 0; i < JSON_sectionList.length; i++) {
         var newQuestionsSection = Titanium.UI.createListSection();
 
-        if (JASON_sectionList[i].pageType == "riskAssessment") {
+        if (JSON_sectionList[i].pageType == "riskAssessment") {
             newQuestionsSection.headerView = Alloy.createController("questionSectionHeader", {
-                title: JASON_sectionList[i].title
+                title: JSON_sectionList[i].title
             }).getView();
         } else {
             newQuestionsSection.headerView = Alloy.createController("questionSectionHeader", {
-                title: JASON_sectionList[i].pageName + " " + JASON_sectionList[i].title
+                title: JSON_sectionList[i].pageName + " " + JSON_sectionList[i].title
             }).getView();
         }
 
-        newQuestionsSection.title = JASON_sectionList[i].title;
-        newQuestionsSection.groupType = JASON_sectionList[i].groupType;
-        newQuestionsSection.alcrmGroupType = JASON_sectionList[i].alcrmGroupType;
-        newQuestionsSection.associatedFileName = JASON_sectionList[i].associatedFileName;
-        newQuestionsSection.pageName = JASON_sectionList[i].pageName;
-        newQuestionsSection.pageType = JASON_sectionList[i].pageType;
-       	newQuestionsSection.pageID= JASON_sectionList[i].pageID;
-        newQuestionsSection.setItems(JASON_sectionList[i].questionList);
+        newQuestionsSection.title = JSON_sectionList[i].title;
+        newQuestionsSection.groupType = JSON_sectionList[i].groupType;
+        newQuestionsSection.alcrmGroupType = JSON_sectionList[i].alcrmGroupType;
+        newQuestionsSection.associatedFileName = JSON_sectionList[i].associatedFileName;
+        newQuestionsSection.pageName = JSON_sectionList[i].pageName;
+        newQuestionsSection.pageType = JSON_sectionList[i].pageType;
+       	newQuestionsSection.pageID= JSON_sectionList[i].pageID;
+        newQuestionsSection.setItems(JSON_sectionList[i].questionList);
         newSectionList.push(newQuestionsSection);
         
-        if(JASON_sectionList[i].questionList.length == 0){
+        if(JSON_sectionList[i].questionList.length == 0){
         	newQuestionsSection.headerView.hide();
         	newQuestionsSection.headerView.height = 0;
         }
@@ -504,21 +504,21 @@ var buildQuestionSections = function (JASON_sectionList) {
 
 
 /**
-`removeHiddenQuestions` takes the JASON_sectionList removes all hidden questions
+`removeHiddenQuestions` takes the JSON_sectionList removes all hidden questions
 before the function buildQuestionSections is called. all hidden questions are added to
 hiddenQuestions list
 
 @method removeHiddenQuestions
 
-@param {JSON_LIST} JASON_sectionList simple JSON List of Sections and Question
+@param {JSON_LIST} JSON_sectionList simple JSON List of Sections and Question
 
-@return {JSON_LIST}  JASON_sectionList section list with hidden questions removed
+@return {JSON_LIST}  JSON_sectionList section list with hidden questions removed
 */
-var removeHiddenQuestions = function (JASON_sectionList) {
+var removeHiddenQuestions = function (JSON_sectionList) {
 	try{
-	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
+	    for (var sectionIndex = 0; sectionIndex < JSON_sectionList.length; sectionIndex++) {
 
-	        var questionList = JASON_sectionList[sectionIndex].questionList;
+	        var questionList = JSON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 	        	
 				if(questionList[questionIndex] != null){
@@ -531,9 +531,9 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 		            
 		       }
 	        }
-	        JASON_sectionList.questionList = questionList;
+	        JSON_sectionList.questionList = questionList;
 	    }
-	    return JASON_sectionList;
+	    return JSON_sectionList;
 	}catch(e){
 		Alloy.Globals.Logger.log("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
@@ -579,31 +579,31 @@ var setupSelectedQuestion = function () {
 
 
 /**
-`setAssessment` the JASON_sectionList is the interpreted question set and assessmentObject
+`setAssessment` the JSON_sectionList is the interpreted question set and assessmentObject
 is the saved assessment object created in localDataHandler. this function is used to setup 
 questionRenderer to veiw an assessment
 
 @method setAssessment
 
-@param {JSON_List} JASON_sectionList simple JSON List of Sections and Question
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
 @param {JSON_Object} assessmentObject object defining an assessment and names of attched saved files
  
 @return {} n/a
 */
-exports.setAssessment = function (JASON_sectionList, assessmentObject) {
+exports.setAssessment = function (JSON_sectionList, assessmentObject) {
 	try{
-		Ti.API.info("setAssessment = "+JSON.stringify(JASON_sectionList));
+		Ti.API.info("setAssessment = "+JSON.stringify(JSON_sectionList));
 		$.listView.setSections([]);
 	    currentAssessmentObject = assessmentObject;
 	
 	    hiddenQuestions = [];
 	    allSections = [];
 	
-	    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+	    JSON_sectionList = removeHiddenQuestions(JSON_sectionList);
 	
 		
 	
-	    sectionList = buildQuestionSections(JASON_sectionList);
+	    sectionList = buildQuestionSections(JSON_sectionList);
 	
 	    allSections = sectionList;
 	
@@ -624,20 +624,20 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 
 
 /**
-`appendSectionsToAssessment` the JASON_sectionList is the interpreted question.
+`appendSectionsToAssessment` the JSON_sectionList is the interpreted question.
 used to add extra sectons to the listView after setAssessment has been called
 
 @method appendSectionsToAssessment
 
-@param {JSON_List} JASON_sectionList simple JSON List of Sections and Question
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
  
 @return {} n/a
 */
-exports.appendSectionsToAssessment = function (JASON_sectionList) {
-	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JASON_sectionList));
-    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+exports.appendSectionsToAssessment = function (JSON_sectionList) {
+	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JSON_sectionList));
+    JSON_sectionList = removeHiddenQuestions(JSON_sectionList);
 
-    appendSectionList = buildQuestionSections(JASON_sectionList);
+    appendSectionList = buildQuestionSections(JSON_sectionList);
 
     allSections = allSections.concat(appendSectionList);
     $.listView.setSections(allSections);
