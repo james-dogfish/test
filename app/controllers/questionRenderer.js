@@ -38,7 +38,7 @@ matches the questionName and groupType and returns references to the found quest
 @param {string} questionName Name to search against
 @param {string} groupType groupType to search against
 
-@return {Object} (success) { (int)questionIndex, questionObject, (Titanium.UI.ListSection) sectionObject}
+@return {Object} (success) {(int)questionIndex, (JSON_Object) questionObject, (Titanium.UI.ListSection) sectionObject}
 @return {null} (fail) : 
 */
  
@@ -875,7 +875,7 @@ exports.getGoToContentsDetails = function () {
 
 @method getAllQuestionSections
 
-@return {Titanium.UI.ListSectio} list of sections
+@return {Titanium.UI.ListSection} list of sections
 */
 var getAllQuestionSections = function () {
     return allSections;
