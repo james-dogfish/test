@@ -134,7 +134,8 @@ differently from the `firstTab` and `secondTab` nodes
 				backgroundView : Alloy.Globals.Styles["normalQuestionBackground"],
 
 				notesBackground : {
-					backgroundImage : 'images/questionNote.png'
+					backgroundImage : 'images/questionNote.png',
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_notesButton"
 				}, //{backgroundImage: 'images/questionSelectedNote.png'}
 				notes : "",
 				alcrmNotes : "I_CENSUS_DATE Notes",
@@ -344,7 +345,8 @@ differently from the `firstTab` and `secondTab` nodes
 				assessmentId : assessmentId,
 
 				notesBackground : {
-					backgroundImage : 'images/questionNote.png'
+					backgroundImage : 'images/questionNote.png',
+					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_notesButton"
 				}, //{backgroundImage: 'images/questionSelectedNote.png'}
 				notes : "",
 				alcrmNotes : Alloy.Globals.localParser.getNotesText(question),
@@ -366,11 +368,11 @@ differently from the `firstTab` and `secondTab` nodes
 				}, // the title text for this question
 				displayValue : {
 					value : "",
-					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue1"
+					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue1"
 				},
 				displayValue2 : {
 					value : "",
-					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue2"
+					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue2"
 				},
 
 				errorMessageVisable : false,

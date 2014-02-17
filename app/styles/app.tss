@@ -30,6 +30,7 @@
 	textAlign: 'left'
 },
 ".notesButton" : {
+	touchTestID : "",
 	backgroundImage: 'images/questionNote.png',
 	right : "10dp",
 	width: 30,
