@@ -27,7 +27,7 @@ function onTextFieldBlur(e){
    //"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 
     item.questionResponse = questionResponse;
-    e.source.value = "";
+    //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
 	section.updateItemAt(e.itemIndex, item);
