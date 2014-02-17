@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="container">
-		<ListView id="listView">
+		<ListView id="listView" onMove="onListViewMove">
 			<Templates>
 	           <Require src="questionTemplates/textFieldTemplate" type="view"/>
 	           <Require src="questionTemplates/multiSelectTemplate" type="view"/>

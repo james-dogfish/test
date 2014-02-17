@@ -519,7 +519,8 @@ section
 	};
 
 /**
-`testIfQuestionMandatory`
+`testIfQuestionMandatory` called in `postInterpretSettings()` will test if a question 
+should be displayed as mandatory
 
 @method testIfQuestionMandatory
 
