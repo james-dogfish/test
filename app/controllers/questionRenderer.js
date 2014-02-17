@@ -1601,3 +1601,11 @@ resets the list view so there is not overlap
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
 };
+
+function onListViewMove(e){
+	Ti.API.info("onListViewMove "+JSON.stringify(e));
+}
+
+$.listView.addEventListener("touchmove", function(e){
+	Ti.API.info("onListViewMove2 "+JSON.stringify(e));
+});
