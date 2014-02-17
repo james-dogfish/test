@@ -40,10 +40,10 @@ function onSearchTextFieldChange(e){
 function onSearchButtonClick(){
 	$.searchTextField.blur();
 	$.searchTextField.value; // this is the value of the searchTextField
-	if($.searchTextField.value.trim()!="")
-	{
+	//if($.searchTextField.value.trim()!="")
+	//{
 		searchFromSearchButton();
-	}
+	//}
 };
 
 function searchFromSearchButton()
@@ -155,16 +155,15 @@ exports.setData = function(shouldRefresh) {
 		}
 		
 		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
-		Alloy.Globals.Soap.advSearchCrossingRequest({
-				searchCriteria: {
+		Alloy.Globals.Soap.searchCrossingRequest({
+				crossingSearchCriteria: {
 					'com:searchCriteria': {
-						'ques:parameterName': 'CROSSING_SEARCH_AREA_NAME',
+						'ques:parameterName': 'CROSSING_SEARCH_ROUTE',
 						'ques:parameterValue': Ti.App.Properties.getString('SelectedRoute')
 					},
 					'com:maxResults':maxCrossings
-				},	
-				sortByELR: true,
-				includeDeleted: false
+				},
+				searchFunction: 'assess'
 			},
 			function(xmlDoc) {
 
@@ -176,31 +175,20 @@ exports.setData = function(shouldRefresh) {
 						var data = JSON.parse(data);
 
 						// Check whether JSON structure exits before attempting to grab results
-						if (Alloy.Globals.Util.checkNested(data, 'response', 'Envelope', 'Body', 'AdvancedSearchResponse', 'searchResults')) {
-							var results = data.response.Envelope.Body.AdvancedSearchResponse.searchResults;
+						if (Alloy.Globals.Util.checkNested(data, 'response', 'Envelope', 'Body', 'SearchCrossingResponse', 'searchResults')) {
+							var results = data.response.Envelope.Body.SearchCrossingResponse.searchResults;
 							Alloy.Globals.Logger.log("got crossing results ...","info");
 							for (var i = 0; i < results.length; i++) {
 
 								var type = "";
 								var crossingDetailsSearchResult;
 
-								if (Alloy.Globals.Util.checkNested(results[i], 'crossingDetailsSearchResult')) {
-									crossingDetailsSearchResult = results[i]["crossingDetailsSearchResult"];
-									if (crossingDetailsSearchResult instanceof Array) {
-										var type = "N/A";
-										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult[0], 'type')) {
-											type = crossingDetailsSearchResult[0]["type"];
-										}
-									} else {
-										////Alloy.Globals.Logger.log("type object ="+ JSON.stringify(crossingDetailsSearchResult), "info");
-										var type = "N/A";
-										if (Alloy.Globals.Util.checkNested(crossingDetailsSearchResult, 'type')) {
-											type = crossingDetailsSearchResult["type"];
-										}
-									}
+								if (Alloy.Globals.Util.checkNested(results[i], 'crossingBasicSearchResult')) {
+									crossingDetailsSearchResult = results[i]["crossingBasicSearchResult"];
+									type =  results[i]["type"];
 									crossingData.push({
-										name: results[i]["name"],
-										id: results[i]["id"],
+										name: crossingDetailsSearchResult["name"],
+										id: crossingDetailsSearchResult["id"],
 										type: type
 									});
 								} else {
@@ -211,7 +199,7 @@ exports.setData = function(shouldRefresh) {
 							Alloy.Globals.aIndicator.hide();
 							Alloy.Globals.Util.showAlert(L('no_results'));
 						}
-
+						
 						var data = [];
 						for (var i = 0; i < crossingData.length; i++) {
 							data.push(Alloy.createController("searchWindow/masterSearchTableRow", crossingData[i]).getView());

@@ -21,7 +21,7 @@ function toggleSearch() {
 	}
 
 	$.tabGroup.setActiveTab($.masterSearchTab.getView());
-	//$.masterSearchTab.setData(false);
+	$.masterSearchTab.setData(false);
 }
 
 /*******************************************************************************

@@ -6,19 +6,18 @@
 				<Button class="systemButton" onClick="backButtonClick" left="10" >
 					<Label class="systemButtonText" text="Home" onClick="backButtonClick" />
 				</Button>
-				<!-- <Button class="systemButton" onClick="refreshButtonClick" right="10" >
+				<Button class="systemButton" onClick="refreshButtonClick" right="10" >
 						<Label class="systemButtonText" text="Refresh" onClick="refreshButtonClick" />
-					</Button> 
-				-->
+				</Button> 
 				<Label id="appTitle"/>
 			</Toolbar>
 			
-			<View id="SearchBarView">
+			<!--<View id="SearchBarView">
 				<TextField id="searchTextField" class="inputField" onChange="onSearchTextFieldChange"/>
 				<Button id="searchButton" class="inputButton" onClick="onSearchButtonClick"/>
-			</View>
+		    </View> -->
 			<TableView id="tableView" onClick="onRowClick">
-				<!--<SearchBar id="searchBar"/>-->
+				<SearchBar id="searchBar"/>
 			</TableView>
 		</Window>
 	</Tab>

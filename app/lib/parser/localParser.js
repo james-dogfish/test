@@ -5,8 +5,16 @@
 function localParser() {
 	var self = this;
 	
-	//getQuestions - we pass in a JSON payload (JSON converted by dogfishdata)
-	//we then traverse the payload and return the questions.
+	/**
+	 * getQuestions - we pass in a JSON payload (JSON converted by dogfishdata)
+	 * we then traverse the payload and return the questions.
+	 * 
+	 * @method getQuestions
+	 * 
+ 	 * @param {Object} JSONPayload
+ 	 * 
+ 	 * @return {Object} questions - an array of questions.
+	 */
 	self.getQuestions = function(JSONPayload) {
 		var questions = null;
 
@@ -27,18 +35,44 @@ function localParser() {
 		return questions;
 	};
 
-	//getQuestionText
+	/**
+	 * getQuestionText - given a specific question object, we return the question 's text
+	 * 
+	 * @method getQuestionText
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's text
+	 */
 	self.getQuestionText = function(question) {
 		return question.text;
 	};
 
+	/**
+	 * getHelpText - given a specific question object, we return the question 's helptext
+	 * 
+	 * @method getHelpText
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's help text
+	 */
 	self.getHelpText = function(question) {
 		if ( typeof question.helpText !== "undefined") {
 			return question.helpText;
 		}
 		return "";
 	};
-
+	
+	/**
+	 * getNotesText - given a specific question object, we return the question 's notesText
+	 * 
+	 * @method getNotesText
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's notesText
+	 */
 	self.getNotesText = function(question) {
 		if ( typeof question.notesText !== "undefined") {
 			return question.notesText;
@@ -46,18 +80,55 @@ function localParser() {
 		return "";
 	};
 
+	/**
+	 * getQuestionName - given a specific question object, we return the question 's parameterName
+	 * 
+	 * @method getQuestionName
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's parameterName
+	 */
 	self.getQuestionName = function(question) {
 		return question.parameterName;
 	};
 
+	/**
+	 * getQuestionDisplayGroup - given a specific question object, we return the question 's displayGroup
+	 * 
+	 * @method getQuestionDisplayGroup
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's displayGroup
+	 */
 	self.getQuestionDisplayGroup = function(question) {
 		return question.displayGroup;
 	};
 
+	/**
+	 * getQuestionOrder - given a specific question object, we return the question 's order value
+	 * 
+	 * @method getQuestionOrder
+	 * 
+     * @param {Object} question
+     * 
+     * @return {int} question's order value
+	 */
 	self.getQuestionOrder = function(question) {
 		return question.order;
 	};
 
+	/**
+	 * getQuestionGroup - given a specific question object, we return the question 's group 
+	 * 					  IFF the question is NOT undefined. Otherwise, we return an empty string
+	 * 
+	 * @method getQuestionGroup
+	 * 
+     * @param {Object} question
+     * 
+     * @return {String} question's group OR empty string.
+	 */
 	self.getQuestionGroup = function(question) {
 		if ( typeof question !== "undefined") {
 			return question.group;
@@ -65,6 +136,17 @@ function localParser() {
 		return "";
 
 	};
+	
+	/**
+	 * getQuestionMandatory - given a specific question object, we return a boolean to indicate
+	 * 						  if the question is mandatory or not.
+	 * 
+	 * @method getQuestionMandatory
+	 * 
+     * @param {Object} question
+     * 
+     * @return {Boolean} true/false to indicate if question s mandatory
+	 */
 	self.getQuestionMandatory = function(question) {
 		var validation = self.getValidation(question);
 		if ( typeof validation !== "undefined") {
@@ -78,7 +160,8 @@ function localParser() {
 		return false;
 
 	};
-
+	
+	
 	self.getUserResponse = function(question) {
 		var questionResponse = question.userResponse;
 		if ( typeof questionResponse === "undefined") {

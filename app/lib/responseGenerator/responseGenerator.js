@@ -6,8 +6,16 @@ function responseGenerator() {
 	var self = this;
 	var noneToSubmit = 0;
 
-	// Here we pass in a questionList and we return true/false
-	// depending on weather the assessment is fully done or not.
+/**
+ * `testIfAssessmentIsComplete` - Here we pass in a questionList and we return true/false
+ * depending on weather the assessment is fully done or not.
+ * 
+ * @method testIfAssessmentIsComplete
+ * 
+ * @param {Object} questionList
+ * 
+ * @return {Boolean} true/false if assessment is complete or not
+ */
 	var testIfAssessmentIsComplete = function(questionList) {
 		var mandatoryQuestionCount = 0;
 		for (var i = 0; i < questionList.length; i++) {
@@ -27,10 +35,23 @@ function responseGenerator() {
 		return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 	};
 
-	// BuildCensusRespose is responsible for the creation of xml markup required in order to
-	// send to ICON's webservice. We pass in an assessment object which is the asssessment
-	// that we want to work with, censusList which is a list of census questions,
-	// crossingID (the selected/current crossing). detailID is not being used.
+/**
+ * `BuildCensusRespose` is responsible for the creation of xml markup required in order to
+ * send to ICON's webservice. We pass in an assessment object which is the asssessment
+ * that we want to work with, censusList which is a list of census questions,
+ * crossingID (the selected/current crossing). detailID is not being used.
+ * tempFix - this is a dirty fix to fix broken census xml request
+ * 
+ * @method BuildCensusRespose
+ * 
+ * 
+ * @param {Object} assObj
+ * @param {Object} censusList
+ * @param {Object} crossingID
+ * @param {Object} detailID
+ * 
+ * @return {String} xmlRequest - the xmlRequest payload string.
+ */
 	self.buildCensusResponse = function(assObj, censusList, crossingID, detailID) {
 		try {
 			var xmlRequest = [];
@@ -60,7 +81,6 @@ function responseGenerator() {
 							}
 						}
 
-						//dirty fix to fix broken census request xml
 						var tempFix = JSON.stringify(questionResponse);
 						tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace("1I_", "I_").replace(/[0-9]I_/g, 'I_');
 						questionResponse = JSON.parse(tempFix);
@@ -101,11 +121,20 @@ function responseGenerator() {
 
 		}
 	};
-	//end of buildCensusResponse
 
-	// buildTrainInfoGroupResponse is responsible for the creation of xml markup required in order to
-	// send to ICON's webservice. We pass in, trainList which is a list of train questions,
-	// crossingID (the selected/current crossing). detailID is not being used.
+/**
+ * `buildTrainInfoGroupResponse` is responsible for the creation of xml markup required in order to 
+ * send to ICON's webservice. We pass in, trainList which is a list of train questions, crossingID 
+ * (the selected/current crossing). detailID is not being used.
+ * 
+ * @method buildTrainInfoGroupResponse
+ * 
+ * @param {Object} trainList
+ * @param {Object} crossingID
+ * @param {Object} detailID
+ * 
+ * @return {String} xmlRequest - the xmlRequest payload string.
+ */
 	self.buildTrainInfoGroupResponse = function(trainList, crossingID, detailID) {
 		try {
 			var xmlRequest = [];
@@ -140,12 +169,20 @@ function responseGenerator() {
 			Ti.API.error("ERROR in buildTrainInfoGroupResponse. Error Details: " + JSON.stringify(e));
 		}
 	};
-	//end of buildTrainInfoGroupResponse
 
-	//findQuestionByParam is used as a getter to grab a specific question's value
-	//pass in the sectionList that we want to search
-	//pass in the paramName which is unique in the sectionList
-	//return the question value (if found)
+/**
+ * `findQuestionByParam` is used as a getter to grab a specific question's value
+ * pass in the sectionList that we want to search
+ * pass in the paramName which is unique in the sectionList
+ * return the question value (if found).
+ * 
+ * @method findQuestionByParam
+ * 
+ * @param {Object} sectionList
+ * @param {Object} paramName
+ * 
+ * @return {String} the found question's value.
+ */
 	self.findQuestionByParam = function(sectionList, paramName) {
 		for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
 			var questionList = sectionList[sectionListIndex].questionList;
@@ -161,12 +198,25 @@ function responseGenerator() {
 			}
 		}
 	};
-	//end of findQuestionByParam
 
-	// buildAssessmentResponse is responsible for the creation of xml markup required in order to
-	// send to ICON's webservice. We pass in a sectionlist containing all the data,
-	// crossingID (the selected/current crossing). detailID is not being used. assNotes contains
-	// any assessment notes.
+/**
+ * `buildAssessmentResponse` is responsible for the creation of xml markup required in order to
+ * send to ICON's webservice. We pass in a sectionlist containing all the data,
+ * crossingID (the selected/current crossing). detailID is not being used. assNotes contains
+ * any assessment notes.
+ * 
+ * we need to post crossingID plus a space plus assessment date plus a space plus assessment title
+ * this is what we the if block at line 233 does.
+ * 
+ * @method buildAssessmentResponse
+ * 
+ * @param {Object} sectionList
+ * @param {Object} crossingID
+ * @param {Object} detailID
+ * @param {Object} assNotes
+ * 
+ * @return {String} xmlRequest - the xmlRequest payload string.
+ */
 	self.buildAssessmentResponse = function(sectionList, crossingID, detailID, assNotes) {
 		try {
 			var riskData = "";
@@ -178,8 +228,6 @@ function responseGenerator() {
 
 					var questionType = questionList[questionIndex].type;
 
-					//we need to post crossingID plus a space plus assessment date plus a space plus assessment title
-					//this is what we are doing in the if block below
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 						var assDate = self.findQuestionByParam(sectionList, "LAST_ASSESSMENT_DATE");
 						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + questionList[questionIndex].value + "</ques:parameterValue>";
@@ -197,8 +245,8 @@ function responseGenerator() {
 						}
 					}
 
-				} //end of inner for loop
-			}//end of outer for loop
+				} 
+			}
 			var date = new Date();
 			var trainIDs = Alloy.Globals.trainIDs;
 			var censusIDs = Alloy.Globals.censusIDs;
@@ -235,21 +283,27 @@ function responseGenerator() {
 			Alloy.Globals.Logger.log("EXCEPTION IN buildAssessmentResponse. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
-	//end of buildAssessmentResponse;
 
-	//commitWithOnlyCensus - we take an xmlCensusRequest array containing all the xml we need to post to web service
-	//assObj is the current assessment object that we want to commit
-	//sectionListAss contains section data.
+/**
+ * `commitWithOnlyCensus` - we take an xmlCensusRequest array containing all the xml we need to post to web service
+ * assObj is the current assessment object that we want to commit
+ * sectionListAss contains section data.
+ * 
+ * @method commitWithOnlyCensus
+ * 
+ * @param {Object} xmlCensusRequest
+ * @param {Object} assObj
+ * @param {Object} sectionListAss
+ */
 	self.commitWithOnlyCensus = function(xmlCensusRequest, assObj, sectionListAss) {
 		try {
 			Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
 			if (assObj.censusDesktopComplete == false) {
-				//COMMIT CENSUS
+				
 				for (var i = 0; i < xmlCensusRequest.length; i++) {
 					Alloy.Globals.Soap.createCensus(xmlCensusRequest[i], function(xmlDoc) {
 
 						Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
-							// callback
 							var data = JSON.parse(data);
 							var censusId = data.response.Envelope.Body.CreateCensusResponse.census.censusId;
 							var censusDate = data.response.Envelope.Body.CreateCensusResponse.census.censusDate;
@@ -264,14 +318,12 @@ function responseGenerator() {
 
 						});
 
-						//end of convertJSON
-
 					}, function(xmlDoc) {
 						Alloy.Globas.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 					});
-					//END OF COMMIT CENSUS
-				} //end for loop
+					
+				}
 
 			} else {
 				if (assObj.censusDesktopComplete == true) {
@@ -283,20 +335,25 @@ function responseGenerator() {
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyCensus. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
-	//end of commitWithOnlyCensus
 
-	//commitWithOnlyTrain - we take an xmlTrainRequest array containing all the xml we need to post to web service
-	//assObj is the current assessment object that we want to commit
-	//sectionListAss contains section data. We then invoke the function to create a tran group request (SOAP) and
-	//upon success we call the doAssessment function will deal with the commit of an assessment.
+/**
+ * `commitWithOnlyTrain` - we take an xmlTrainRequest array containing all the xml we need to post to web service
+ * assObj is the current assessment object that we want to commit
+ * sectionListAss contains section data. We then invoke the function to create a tran group request (SOAP) and
+ * upon success we call the doAssessment function will deal with the commit of an assessment.
+ * 
+ * @method commitWithOnlyTrain
+ * 
+ * @param {Object} xmlTrainRequest
+ * @param {Object} assObj
+ * @param {Object} sectionListAss
+ */
 	self.commitWithOnlyTrain = function(xmlTrainRequest, assObj, sectionListAss) {
 		try {
 			for (var i = 0; i < xmlTrainRequest.length; i++) {
-				//COMMIT TRAIN INFO
 				Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest[i], function(xmlDoc) {
 
 					Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
-						// callback
 						var data = JSON.parse(data);
 						var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 						Alloy.Globals.Logger.log("trainId=" + trainId, "info");
@@ -314,33 +371,38 @@ function responseGenerator() {
 					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 				});
-				//END OF COMMIT TRAIN INFO
-			}//end for loop
+			}
 		} catch(e) {
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyTrain. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
-	//end of commitWithOnlyTrain;
 
-	//commitWithTrainAndCensus - we take an xmlTrainRequest & an xmlCensusRequest array containing all the xml
-	//we need to post to web service
-	//assObj is the current assessment object that we want to commit
-	//sectionListAss contains section data. We then invoke the function to create a census request (SOAP) and
-	//upon success we invoke the function to create a train group request. Finally upon success of the latter
-	//we call the doAssessment function which will deal with the commit of an assessment.
-	//NOTE: if an assessment has been marked to be completed via ALCRM Destop, we call the doAssessment function
-	//      straight away.
+/**
+ * `commitWithTrainAndCensus` - we take an xmlTrainRequest & an xmlCensusRequest array containing all the xml
+ * we need to post to web service
+ * assObj is the current assessment object that we want to commit
+ * sectionListAss contains section data. We then invoke the function to create a census request (SOAP) and
+ * upon success we invoke the function to create a train group request. Finally upon success of the latter
+ * we call the doAssessment function which will deal with the commit of an assessment.
+ * NOTE: if an assessment has been marked to be completed via ALCRM Destop, we call the doAssessment function
+ *      straight away.
+ * 
+ * @method commitWithTrainAndCensus
+ * 
+ * @param {Object} xmlCensusRequest
+ * @param {Object} xmlTrainRequest
+ * @param {Object} assObj
+ * @param {Object} sectionListAss
+ */
 	self.commitWithTrainAndCensus = function(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss) {
 		Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
 		try {
 			if (assObj.censusDesktopComplete == false) {
-				//COMMIT CENSUS
 				for (var i = 0; i < xmlCensusRequest.length; i++) {
 					Alloy.Globals.Soap.createCensus(xmlCensusRequest[i], function(xmlDoc) {
 
 						Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
-							// callback
 							var data = JSON.parse(data);
 							var censusId = data.response.Envelope.Body.CreateCensusResponse.census.censusId;
 							var censusDate = data.response.Envelope.Body.CreateCensusResponse.census.censusDate;
@@ -350,11 +412,9 @@ function responseGenerator() {
 							Alloy.Globals.censusDates.push(censusDate);
 
 							for (var i = 0; i < xmlTrainRequest.length; i++) {
-								//COMMIT TRAIN INFO
 								Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest[i], function(xmlDoc) {
 
 									Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
-										// callback
 										var data = JSON.parse(data);
 										var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 										Alloy.Globals.Logger.log("trainId=" + trainId, "info");
@@ -371,21 +431,15 @@ function responseGenerator() {
 									Alloy.Globals.aIndicator.hide();
 									Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 								});
-								//END OF COMMIT TRAIN INFO
 
-							} //end for loop
+							}
 
 						});
-
-						//end of convertJSON
-
 					}, function(xmlDoc) {
 						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
 					});
-					//END OF COMMIT CENSUS
-				} //end for loop
-
+				}
 			} else {
 
 				self.doAssessment(assObj, sectionListAss);
@@ -395,28 +449,31 @@ function responseGenerator() {
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithTrainAndCensus. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
-	//end of commitWithTrainAndCensus
 
-	//submitAss - we take an assessment object and create the different sections we need to call the functions above.
-	//we do this IFF an assessment has not been previously submitted.
-	//This function the calls all the other functions to build the XML payloads.
+/**
+ * `submitAss` - we take an assessment object and create the different sections we need to call the functions above.
+ * we do this IFF an assessment has not been previously submitted.
+ * This function the calls all the other functions to build the XML payloads.
+ * 
+ * @method submitAss
+ * 
+ * @param {Object} assObj
+ */
 	self.submitAss = function(assObj) {
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
-				//alert("assessmentIncomplete before");
+
 				Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
-				//Ti.App.fireEvent('assessmentIncomplete', assObj);
+
 				noneToSubmit++;
 				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
-				//return;
+
 			} else {
 				if (assObj.isSubmitted === false) {
 					Alloy.Globals.aIndicator.show("Committing...");
 					var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
 					var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 					var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
-					//Alloy.Globals.Logger.log("sectionListAss >> " + JSON.stringify(sectionListAss), "info");
-					//return;
 					var xmlCensusRequest = null;
 					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
 					if ( typeof sectionListCen === "undefined" || sectionListCen.length === 0 || sectionListCen == null) {
@@ -449,8 +506,6 @@ function responseGenerator() {
 						Alloy.Globals.aIndicator.hide();
 					}
 				}
-
-				//xmlCensusRequest = null;
 			}
 		} catch (e) {
 			Alloy.Globals.Logger.log("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e), "info");
@@ -461,11 +516,17 @@ function responseGenerator() {
 			Alloy.Globals.aIndicator.hide();
 		}
 	};
-	//end of submitAss
 
-	//doAssessment - we take an assObj (the assessment we want to submit) and a sectionListAss (built in submitAss function above).
-	//We then call the buildAssessmentResponse (line 471) (see above) to get the xml payload to use in the SOAP call.
-	//Once we have the xmlPayload to send, we call the createAssessment request to "commit" the given assObj.
+/**
+ * `doAssessment` - we take an assObj (the assessment we want to submit) and a sectionListAss (built in submitAss function above).
+ * We then call the buildAssessmentResponse (line 471) (see above) to get the xml payload to use in the SOAP call.
+ * Once we have the xmlPayload to send, we call the createAssessment request to "commit" the given assObj.
+ * 
+ * @method doAssessment
+ * 
+ * @param {Object} assObj
+ * @param {Object} sectionListAss
+ */
 	self.doAssessment = function(assObj, sectionListAss) {
 		try {
 
@@ -475,8 +536,7 @@ function responseGenerator() {
 				Alloy.Globals.Soap.createAssessment(xmlRequest, function(xmlDoc) {
 					assObj.alcrmStatus = "Sent";
 					assObj.isSubmitted = true;
-					//alert("createAss");
-					//alert(JSON.stringify(assObj));
+
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
 
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
@@ -487,7 +547,6 @@ function responseGenerator() {
 
 					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true);
-					//return;
 				}, function() {
 					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
@@ -501,13 +560,19 @@ function responseGenerator() {
 
 		}
 	};
-	//end of doAssessment
 	
-	//commitAllCompleted - we loop through all the saved assessments and we call the submitAss function on each 
-	//assessment.
+/**
+ * `commitAllCompleted` - we loop through all the saved assessments and we call the submitAss function on each 
+ * assessment.
+ * 
+ * @params N/A
+ * 
+ * @method commitAllCompleted
+ * 
+ * @return {} N/A
+ */
 	self.commitAllCompleted = function() {
 		try {
-			//CHECK FOR CONNECTIVITY
 			if (!Titanium.Network.online) {
 				Alloy.Globals.aIndicator.hide();
 				var alertDialog = Titanium.UI.createAlertDialog({
@@ -522,8 +587,6 @@ function responseGenerator() {
 
 			var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 
-			//alert('activeAssessments=' + activeAssessments.length);
-
 			for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
 				self.submitAss(activeAssessments[assessmentIndex]);
 			}
@@ -533,8 +596,6 @@ function responseGenerator() {
 			Ti.API.error("EXCEPTION in commitAllCompleted. Error Details: " + JSON.stringify(e));
 		}
 	};
-	//end of commitAllCompleted
-}//end of responseGenerator
-
+}
 
 module.exports = new responseGenerator();
