@@ -12,9 +12,12 @@ function onStartButtonClick(e){
 		return;
 	}
 	
+	Alloy.Globals.questionRenderer.startCensesTimer(question);
+	/*
 	Ti.App.fireEvent("startCensesTimer", {
 		question : question,
 	}); 
+	*/
 };
 
 function onTextFieldFocus(e){
