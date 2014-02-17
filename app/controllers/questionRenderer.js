@@ -1,19 +1,47 @@
-Alloy.Globals.currentlyFocusedTF = null; // Will store the currently focused textfield
 
+//`Alloy.Globals.currentlyFocusedTF` stores the currently focused textfield
+Alloy.Globals.currentlyFocusedTF = null; 
+
+//`hiddenQuestions` is a list of all questions that are not currently visible
 var hiddenQuestions = [];
+
+//`allSections` is a list of all possible (Titanium.UI.ListSection) in a assessment
 var allSections = [];
+
+//`currentAssessmentObject` defines the assessmentObject the the question renderer is displaying
 var currentAssessmentObject = null;
 
-//questionSelected is used for the move to lastQuestion
+//`questionSelected` is used for the move to lastQuestion
 //when a question is selected this value is updated
 var questionSelected = null;
 
+
+// `ALL_SECTIONS` and `SINGLE_SECTIONS` are just names for set values
 var ALL_SECTIONS = 1;
 var SINGLE_SECTIONS = 2;
 
-var currentSingleSectionIndex = 0;
+//`listViewDisplayType` defines what mode the question renderer is in and can be set to `ALL_SECTIONS` or `SINGLE_SECTIONS`
 var listViewDisplayType = ALL_SECTIONS;
 
+
+//`currentSingleSectionIndex` is the index of the section curently selected section,
+//when `listViewDisplayType` is set to `SINGLE_SECTIONS`
+var currentSingleSectionIndex = 0;
+
+
+/**
+`findQuestionsRef` searches sectionList for a question that 
+matches the questionName and groupType and returns references to the found question.
+
+@method findQuestionsRef
+
+@param {string} questionName Name to search against
+@param {string} groupType groupType to search against
+
+@return {Object} (success) {(int)questionIndex, (JSON_Object) questionObject, (Titanium.UI.ListSection) sectionObject}
+@return {null} (fail) : 
+*/
+ 
 var findQuestionsRef = function (sectionList, questionName, groupType) {
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 		
@@ -34,6 +62,18 @@ var findQuestionsRef = function (sectionList, questionName, groupType) {
 };
 
 
+
+/**
+`newTestIfMandatory` the questionObject passed in will be tested if it is mandatory.
+A question can be strictly  mandatory or can be mandatory depending on the
+value of anther question.
+
+@method newTestIfMandatory
+
+@param {questionObject} questionObject to test
+ 
+@return {boolean} true or false
+*/
 var newTestIfMandatory = function (questionObject) {
 
     if (questionObject.validation.mandatory == true) {
@@ -57,6 +97,17 @@ var newTestIfMandatory = function (questionObject) {
     return false;
 };
 
+
+/**
+`setQuestionToMandatory` the question passed in will have its title changed to
+have a '*' at its end if it is mandatory or removed if it is not
+
+@method setQuestionToMandatory
+
+@param {questionObject} questionObject to be changed 
+
+@return {JSON_obejct} questionObject
+*/
 var setQuestionToMandatory = function (questionObject) {
     if (questionObject.mandatory == true) {
         if (questionObject.title.text.slice(-1) != "*") {
@@ -72,6 +123,17 @@ var setQuestionToMandatory = function (questionObject) {
 };
 
 
+
+/**
+`newTestIfVisable` questionObject passed in will be tested if it should be Visible
+to the user or hidden
+
+@method newTestIfVisable
+
+@param {JSON_obejct} questionObject to test
+
+@return {boolean} true or false
+*/
 var newTestIfVisable = function (questionObject) {
 
     for (var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++) {
@@ -87,6 +149,22 @@ var newTestIfVisable = function (questionObject) {
     }
     return false;
 };
+
+
+
+/**
+`newFindQuestionObject` this function searches all sections for a question that 
+matches the questionName and groupType and return the question Object or null 
+if not found
+
+@method newFindQuestionObject
+
+@param {String} questionName Name to search against
+@param {String} groupType to search against
+
+@return {JSON_obejct} (success) :  questionObject
+@return {null} (fail)
+*/
 
 var newFindQuestionObject = function (questionName, groupType) {
     var sectionList = getAllQuestionSections();
@@ -104,11 +182,24 @@ var newFindQuestionObject = function (questionName, groupType) {
     return null;
 };
 
+
+
+/**
+`newTestDependentQuestions` tests all questions that are dependent on the passed
+questionObject if they are visable or mandatory. question are hiden or made Visible
+depending on the results of the tests
+
+@method newTestDependentQuestions
+
+@param {JSON_obejct} questionObject question to test
+
+@return {} n/a
+*/
 var newTestDependentQuestions = function (questionObject) {
 	
+	
+	//`addToSectionMap`is a map of section using groupType as a key to a list of questions to add to that section
     var addToSectionMap = [];
-    
-    
     for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
         for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
 			if(typeof hiddenQuestions[questionIndex].name === "undefined")
@@ -130,7 +221,8 @@ var newTestDependentQuestions = function (questionObject) {
             }
         }
     }
-
+	//`removeFromSectionMap` is a map of section with groupType being the key. each element in the map is a second map of question names.
+	//using this `if(questionName in removeFromSectionMap[groupType]` will tell you if the question needs to be removed
     var removeFromSectionMap = [];
     for (var questionIndex = 0; questionIndex < questionObject.renderDependencyList.length; questionIndex++) {
         var childQuestion = newFindQuestionObject(questionObject.renderDependencyList[questionIndex].name, questionObject.renderDependencyList[questionIndex].groupType);
@@ -150,6 +242,7 @@ var newTestDependentQuestions = function (questionObject) {
         var questionList = sectionList[sectionIndex].getItems();
         var sectionGroupType = sectionList[sectionIndex].groupType;
 
+		//`if (sectionGroupType in removeFromSectionMap)` tests if there are any question that need to be removed 
         if (sectionGroupType in removeFromSectionMap) {
             Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
 
@@ -169,12 +262,13 @@ var newTestDependentQuestions = function (questionObject) {
                 }
             }
         }
-
+		//`if (sectionGroupType in addToSectionMap) ` tests if there are any question that need to be added 
         if (sectionGroupType in addToSectionMap) {
             Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
 
             for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
 
+				//will now add the question in the section depending on there order
                 var questionObjectToAdd = addToSectionMap[sectionGroupType][addQuestionIndex];
                 var questionAdded = false;
                 for (var questionIndex = 0; questionIndex < questionList.length && questionAdded != true; questionIndex++) {
@@ -256,6 +350,19 @@ var newTestDependentQuestions = function (questionObject) {
 };
 
 
+
+/**
+`findQuestionsValue` searches for the question that matches the 
+passed questionName, then the question value array is returned. if no question is
+found it returns an array with a empty String in
+
+@method findQuestionsValue
+
+@param {String} questionName  Name to search against
+
+@return {JSON_List} (success) value List eg ["value1", "value2"]
+@return {JSON_List} (fail) list with one item [""]
+*/
 var findQuestionsValue = function (questionName) {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -272,6 +379,19 @@ var findQuestionsValue = function (questionName) {
 };
 
 
+
+/**
+`findSectionByAssociatedFileName` searches for the question that matches the 
+passed alcrmQuestionID that also is found is the file that matches associatedFileName.
+
+@method findSectionByAssociatedFileName
+
+@param {String} alcrmQuestionID alcrmQuestionID to search for
+@param {String} associatedFileName associatedFileName to search for
+ 
+@return {JSON_Object} (success) {questionIndex, questionObject, sectionObject}
+@return {null} (fail)
+*/
 var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFileName) {
     var sectionList = getAllQuestionSections();
 
@@ -283,8 +403,8 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
                 if (questionList[questionIndex].alcrmQuestionID == alcrmQuestionID) {
 
                     return {
+                    	questionIndex: questionIndex,
                         question: questionList[questionIndex],
-                        questionIndex: questionIndex,
                         section: sectionList[sectionIndex]
                     };
                 }
@@ -295,6 +415,21 @@ var findQuestionByAssociatedFileName = function (alcrmQuestionID, associatedFile
     return null;
 };
 
+
+
+/**
+`findSectionByAssociatedFileName` searches for the section that matches the 
+passed alcrmGroupType that also is found is the file that matches associatedFileName.
+the fuction will return the section object or null if not found
+
+@method findSectionByAssociatedFileName
+
+@param {String} alcrmGroupType alcrmGroupType to search for
+@param {String} associatedFileName associatedFileName to search for
+  
+@return {Titanium.UI.ListSection} (success) sectionObject
+@return {null} (fail)
+*/
 var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileName) {
     var sectionList = getAllQuestionSections();
 
@@ -307,114 +442,58 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
     return null;
 };
 
-var removeQuestionFromListSection = function (section, question, questionIndex) {
-    question.visable = false;
-    hiddenQuestions.push(question);
-
-    var listViewAnimationProperties = {
-        animated: true,
-        position: Titanium.UI.iPhone.ListViewScrollPosition.NONE
-    };
-    section.deleteItemsAt(questionIndex, 1);
-    
-    question.value = [""];
-
-    questionValueChange({
-        questionObject: question,
-        questionIndex: -1,
-        section: null
-    });
-
-    return (questionIndex - 1);
-};
-
-function updateSection(section) {
-    var questionList = section.getItems();
-    section.setItems(questionList);
-}
-
-var addItemFromHiddenList = function (hiddenListItemIndex) {
-    var question = hiddenQuestions[hiddenListItemIndex];
-    question.visable = true;
-    var order = question.order;
-
-    var section = null;
-
-    var sectionList = getAllQuestionSections();
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-        if (sectionList[sectionIndex].groupType == question.groupType) {
-            section = sectionList[sectionIndex];
-        }
-    }
-
-    if (section == null) {
-        question.visable = false;
-        return hiddenListItemIndex;
-    }
-
-    var listViewAnimationProperties = {
-        animated: true,
-        position: Titanium.UI.iPhone.ListViewScrollPosition.NONE
-    };
-
-    var sectionItemList = section.getItems();
-    var questionIndex = 0;
-    for (var i = 0; i < sectionItemList.length; i++) {
-        if (question.order < sectionItemList[i].order) {
-            section.insertItemsAt(i, [question], listViewAnimationProperties);
-            questionIndex = i;
-            break;
-        } else if (i == (sectionItemList.length - 1)) {
-            questionIndex = i;
-            section.insertItemsAt(i, [question], listViewAnimationProperties);
 
 
-            break;
-        }
-    }
-    hiddenQuestions.splice(hiddenListItemIndex, 1);
+/** 
+`exports.clear` clears all sections and questions from the listView
 
-    questionValueChange({
-        questionObject: question,
-        questionIndex: questionIndex,
-        section: section
-    });
+@method exports.clear
 
-    return (hiddenListItemIndex - 1);
-};
-
+@return {} n/a
+*/
 exports.clear = function () {
     allSections = [];
     $.listView.setSections(allSections);
 };
 
-var buildQuestionSections = function (JASON_sectionList) {
+
+
+/**
+`buildQuestionSections` takes the JSON_sectionList and builds titanium
+ListSection for each section and return the new list of titanium ListSections
+
+@method buildQuestionSections
+
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
+
+@return {Titanium.UI.ListSection} listSections
+*/
+var buildQuestionSections = function (JSON_sectionList) {
     var newSectionList = [];
-    for (var i = 0; i < JASON_sectionList.length; i++) {
+    for (var i = 0; i < JSON_sectionList.length; i++) {
         var newQuestionsSection = Titanium.UI.createListSection();
 
-        if (JASON_sectionList[i].pageType == "riskAssessment") {
+        if (JSON_sectionList[i].pageType == "riskAssessment") {
             newQuestionsSection.headerView = Alloy.createController("questionSectionHeader", {
-                title: JASON_sectionList[i].title
+                title: JSON_sectionList[i].title
             }).getView();
         } else {
             newQuestionsSection.headerView = Alloy.createController("questionSectionHeader", {
-                title: JASON_sectionList[i].pageName + " " + JASON_sectionList[i].title
+                title: JSON_sectionList[i].pageName + " " + JSON_sectionList[i].title
             }).getView();
         }
 
-        //newQuestionsSection.headerTitle = JASON_sectionList[i].title;
-        newQuestionsSection.title = JASON_sectionList[i].title;
-        newQuestionsSection.groupType = JASON_sectionList[i].groupType;
-        newQuestionsSection.alcrmGroupType = JASON_sectionList[i].alcrmGroupType;
-        newQuestionsSection.associatedFileName = JASON_sectionList[i].associatedFileName;
-        newQuestionsSection.pageName = JASON_sectionList[i].pageName;
-        newQuestionsSection.pageType = JASON_sectionList[i].pageType;
-       	newQuestionsSection.pageID= JASON_sectionList[i].pageID;
-        newQuestionsSection.setItems(JASON_sectionList[i].questionList);
+        newQuestionsSection.title = JSON_sectionList[i].title;
+        newQuestionsSection.groupType = JSON_sectionList[i].groupType;
+        newQuestionsSection.alcrmGroupType = JSON_sectionList[i].alcrmGroupType;
+        newQuestionsSection.associatedFileName = JSON_sectionList[i].associatedFileName;
+        newQuestionsSection.pageName = JSON_sectionList[i].pageName;
+        newQuestionsSection.pageType = JSON_sectionList[i].pageType;
+       	newQuestionsSection.pageID= JSON_sectionList[i].pageID;
+        newQuestionsSection.setItems(JSON_sectionList[i].questionList);
         newSectionList.push(newQuestionsSection);
         
-        if(JASON_sectionList[i].questionList.length == 0){
+        if(JSON_sectionList[i].questionList.length == 0){
         	newQuestionsSection.headerView.hide();
         	newQuestionsSection.headerView.height = 0;
         }
@@ -422,11 +501,24 @@ var buildQuestionSections = function (JASON_sectionList) {
     return newSectionList;
 };
 
-var removeHiddenQuestions = function (JASON_sectionList) {
-	try{
-	    for (var sectionIndex = 0; sectionIndex < JASON_sectionList.length; sectionIndex++) {
 
-	        var questionList = JASON_sectionList[sectionIndex].questionList;
+
+/**
+`removeHiddenQuestions` takes the JSON_sectionList removes all hidden questions
+before the function buildQuestionSections is called. all hidden questions are added to
+hiddenQuestions list
+
+@method removeHiddenQuestions
+
+@param {JSON_LIST} JSON_sectionList simple JSON List of Sections and Question
+
+@return {JSON_LIST}  JSON_sectionList section list with hidden questions removed
+*/
+var removeHiddenQuestions = function (JSON_sectionList) {
+	try{
+	    for (var sectionIndex = 0; sectionIndex < JSON_sectionList.length; sectionIndex++) {
+
+	        var questionList = JSON_sectionList[sectionIndex].questionList;
 	        for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 	        	
 				if(questionList[questionIndex] != null){
@@ -439,15 +531,24 @@ var removeHiddenQuestions = function (JASON_sectionList) {
 		            
 		       }
 	        }
-	        JASON_sectionList.questionList = questionList;
+	        JSON_sectionList.questionList = questionList;
 	    }
-	    return JASON_sectionList;
+	    return JSON_sectionList;
 	}catch(e){
 		Alloy.Globals.Logger.log("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
 };
 
+
+/**
+`setupSelectedQuestion` called within the function setAssessment. it searches for the
+a question that has been previously selected or if non found the first non read-only question
+
+@method setupSelectedQuestion
+
+@return {} n/a
+ */
 var setupSelectedQuestion = function () {
  try{
     for (var sectionIndex = 0; sectionIndex < allSections.length; sectionIndex++) {
@@ -475,20 +576,34 @@ var setupSelectedQuestion = function () {
  }
 };
 
-exports.setAssessment = function (JASON_sectionList, assessmentObject) {
+
+
+/**
+`setAssessment` the JSON_sectionList is the interpreted question set and assessmentObject
+is the saved assessment object created in localDataHandler. this function is used to setup 
+questionRenderer to veiw an assessment
+
+@method setAssessment
+
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
+@param {JSON_Object} assessmentObject object defining an assessment and names of attched saved files
+ 
+@return {} n/a
+*/
+exports.setAssessment = function (JSON_sectionList, assessmentObject) {
 	try{
-		Ti.API.info("setAssessment = "+JSON.stringify(JASON_sectionList));
+		Ti.API.info("setAssessment = "+JSON.stringify(JSON_sectionList));
 		$.listView.setSections([]);
 	    currentAssessmentObject = assessmentObject;
 	
 	    hiddenQuestions = [];
 	    allSections = [];
 	
-	    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
+	    JSON_sectionList = removeHiddenQuestions(JSON_sectionList);
 	
 		
 	
-	    sectionList = buildQuestionSections(JASON_sectionList);
+	    sectionList = buildQuestionSections(JSON_sectionList);
 	
 	    allSections = sectionList;
 	
@@ -499,9 +614,7 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 		userPreferences = null;
 		
 	    setupSelectedQuestion();
-	    //setup questionSelected to be the first question
 	
-	    // scroll to first item
 	    $.listView.scrollToItem(0, 0);
 	}catch(e){
 		Alloy.Globals.Logger.log("Exception in setAssessment. Error Details: "+JSON.stringify(e), "error");
@@ -509,17 +622,39 @@ exports.setAssessment = function (JASON_sectionList, assessmentObject) {
 	}
 };
 
-exports.appendSectionsToAssessment = function (JASON_sectionList) {
-	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JASON_sectionList));
-    JASON_sectionList = removeHiddenQuestions(JASON_sectionList);
 
-    appendSectionList = buildQuestionSections(JASON_sectionList);
+/**
+`appendSectionsToAssessment` the JSON_sectionList is the interpreted question.
+used to add extra sectons to the listView after setAssessment has been called
+
+@method appendSectionsToAssessment
+
+@param {JSON_List} JSON_sectionList simple JSON List of Sections and Question
+ 
+@return {} n/a
+*/
+exports.appendSectionsToAssessment = function (JSON_sectionList) {
+	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JSON_sectionList));
+    JSON_sectionList = removeHiddenQuestions(JSON_sectionList);
+
+    appendSectionList = buildQuestionSections(JSON_sectionList);
 
     allSections = allSections.concat(appendSectionList);
     $.listView.setSections(allSections);
 };
 
 
+/**
+`exports.moveToQuestion` searches for a section that matched the groupType
+and moves the listView to make visble the question at questionIndex at the top of the screen
+
+@method exports.moveToQuestion
+
+@param {string} groupType groupType to search for
+@param {int} questionIndex  questionIndex to search for
+ 
+@return {} n/a
+*/
 exports.moveToQuestion = function (groupType, questionIndex) {
     Alloy.Globals.Logger.log("** questionRender moveToQuestion, groupType = "+groupType+", questionIndex = "+questionIndex,"info");
     var sectionList = getAllQuestionSections();
@@ -547,6 +682,19 @@ exports.moveToQuestion = function (groupType, questionIndex) {
     }
 };
 
+
+/**
+`getQuestionIndexFromSection` returns the index of the question that matches the questionName
+in the section that is passed. if no question is found null is returned
+
+@method getQuestionIndexFromSection
+
+@param {String} questionName questionName to search for
+@param {Titanium.UI.ListSection} section section to search in
+
+@return {int} (success) question index
+@return {null} fail
+*/
 var getQuestionIndexFromSection = function (questionName, section) {
 
     var questionList = section.getItems();
@@ -560,6 +708,17 @@ var getQuestionIndexFromSection = function (questionName, section) {
 };
 
 
+/**
+`moveToQuestionByName` move the list view to place the question found that matches questionName
+and groupType at the top of the screen
+
+@method moveToQuestionByName
+
+@param {String} questionName questionName to search for
+@param {String} groupType groupType to search for
+ 
+@return {} n/a
+*/
 var moveToQuestionByName = function (questionName, groupType) {
 
     var sectionList = getAllQuestionSections();
@@ -590,6 +749,15 @@ var moveToQuestionByName = function (questionName, groupType) {
     }
 };
 
+
+/**
+`exports.goToFirstUnanswered` searches for the first question that has not been answered and
+moves the listView so the question is at the top of the sceeen
+
+@method exports.goToFirstUnanswered
+
+@return {} n/a
+*/
 exports.goToFirstUnanswered = function () {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -621,10 +789,26 @@ exports.goToFirstUnanswered = function () {
     }
 };
 
+
+/**
+`exports.goToLastPositiond` searches for the first question that has not been a
+
+@method exports.goToLastPositiond
+
+@return {} n/a
+*/
 exports.goToLastPositiond = function () {
     moveToQuestionByName(questionSelected.name, questionSelected.groupType);
 };
 
+
+/**
+`exports.getGoToContentsDetails` builds a list of all sections and questions to be used in the goTo window
+
+@method exports.getGoToContentsDetails
+
+@return {JSON_List} list of new section objects which contain list of new question objects
+*/
 exports.getGoToContentsDetails = function () {
     var sectionContentsDetailsList = [];
     var sectionList = getAllQuestionSections();
@@ -685,11 +869,28 @@ exports.getGoToContentsDetails = function () {
     return sectionContentsDetailsList;
 };
 
+
+/**
+`getAllQuestionSections` returns a list of all sections in the assessment
+
+@method getAllQuestionSections
+
+@return {Titanium.UI.ListSection} list of sections
+*/
 var getAllQuestionSections = function () {
     return allSections;
 };
 
-//takes a section from the allSections list and sets it to be the single visable section
+
+/**
+`setSelectedSectionForSingleSections` takes a section from the allSections list and sets it to be the single visable section
+
+@method setSelectedSectionForSingleSections
+
+@param {int} sectionsIndex the index of the section in the sectionList
+
+@/returns {} n/a
+*/
 var setSelectedSectionForSingleSections = function (sectionsIndex) {
     currentSingleSectionIndex = sectionsIndex;
     var newSectionList = [];
@@ -701,7 +902,16 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
     $.listView.setSections(newSectionList);
 };
 
-//toogles the listViewDisplayType tp be SINGLE_SECTIONS or ALL_SECTIONS
+
+/**
+`setListViewDisplayTypeToSingleSections` toogles the listViewDisplayType to be SINGLE_SECTIONS or ALL_SECTIONS
+
+@method setListViewDisplayTypeToSingleSections
+
+@param {boolean} onSingleSection if the SingleSection is on
+ 
+@return {} n/a
+*/
 var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
 
     if (onSingleSection == true) {
@@ -724,6 +934,17 @@ var setListViewDisplayTypeToSingleSections = function (onSingleSection) {
     }
 };
 
+
+/**
+`getQuestionSection` searches of a section that has groupType and returns the SectionObject
+
+@method getQuestionSection
+
+@param {String} groupType groupType to search for
+
+@return {JSON_Object} (success) sectionObject
+@return {null} (fail)
+*/
 var getQuestionSection = function (groupType) {
     var sectionList = getAllQuestionSections();
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
@@ -734,14 +955,23 @@ var getQuestionSection = function (groupType) {
     return null;
 };
 
-//to be called by validateEntireQuestion
+
+/**
+`validateSingleQuestionValue` to be called by validateEntireQuestion 
+
+@method validateSingleQuestionValue
+
+@param {String} value value to be tested 
+@param {JSON_Object} questionObject questionObject to be validated
+ 
+@return {JSON_Object} updated questionObject
+*/
 var validateSingleQuestionValue = function (value, questionObject) {
     var returnObject = {
         isValid: true,
         outPutMessage: ""
     };
     
-    //var validation = Alloy.Globals.localParser.getValidation(questionObject);
     var dataType = questionObject.type;
 
     if (value == "") {
@@ -845,6 +1075,18 @@ var validateSingleQuestionValue = function (value, questionObject) {
     return returnObject;
 };
 
+
+/**
+`setQuestionError` sets the error message for a questionObject
+
+@method setQuestionError
+
+@param {boolean} isValid if the question is valid
+@param {String} message error message to display
+@param {JSON_Object} questionObject questionObject to update
+
+@return {JSON_Object} questionObject
+*/
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
 
@@ -870,6 +1112,15 @@ var setQuestionError = function (isValid, message, questionObject) {
 };
 
 
+/**
+`validateEntireQuestion` validate the values of a question
+
+@method validateEntireQuestion
+
+@param {JSON_Object} questionObject question to update
+
+@return {JSON_Object} questionObject
+*/
 var validateEntireQuestion = function (questionObject) {
 	
     var valueList = questionObject.value;
@@ -897,18 +1148,61 @@ var validateEntireQuestion = function (questionObject) {
     return questionObject;
 };
 
+/*
+//`Ti.App.addEventListener("singleViewChange)` listen for an event of the question renderer
+//being changed from single to muiti section view
 Ti.App.addEventListener("singleViewChange", function (data) {
     setListViewDisplayTypeToSingleSections(data.isSingleView);
 });
+*/
 
+
+
+/**
+`moveSectionBackClick` the callback function for the button click to move the selected section
+in the single section mode to the previous section
+
+@method moveSectionBackClick
+
+@param {JSON_Object} e not used
+
+@return {} n/a
+*/
 function moveSectionBackClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex - 1);
 };
 
+
+
+/**
+`moveSectionNextClick` the callback function for the button click to move the selected section
+in the single section mode to the next section
+
+@method moveSectionNextClick
+
+@param {JSON_Object} e not used
+ 
+@return {} n/a
+*/
 function moveSectionNextClick(e) {
     setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
 };
 
+
+
+/**
+`questionRealTimeValidation` called from a textFieldTemplate change event to
+this function validates a question value and display updates the question error
+message if thr question is not valid
+
+@method questionRealTimeValidation
+
+@param {JSON_Object} e.questionObject questionObject
+@param {JSON_Object} e.section sectionObject
+@param {int} e.questionIndex the index of the question in the section
+
+@return {}  n/a
+*/
 var questionRealTimeValidation = function(e)
 {
 	 e.questionObject = validateEntireQuestion(e.questionObject);
@@ -918,6 +1212,21 @@ var questionRealTimeValidation = function(e)
 };
 exports.questionRealTimeValidation = questionRealTimeValidation;
 
+
+
+/**
+`questionValueChange` called from a questionTemplate changes its value
+the function updates the question error message if needed and removes or addes 
+questions if this question value change effets them
+
+@method questionValueChange
+
+@param {JSON_Object} e.questionObject questionObject
+@param {Titanium.UI.ListSection} e.section sectionObject
+@param {int} e.questionIndex the index of the question in the section
+
+@return {}  n/a
+*/
 var questionValueChange = function (e) {
 
     // Blur the currently focused TF
@@ -973,6 +1282,15 @@ var questionValueChange = function (e) {
 };
 exports.questionValueChange = questionValueChange;
 
+
+
+/**
+`toggleScrollLock` toggles if the list view is locked in place or not
+
+@method toggleScrollLock
+
+@return {}  n/a
+ */
 var toggleScrollLock = function()
 {
 	if($.listView.canScroll === true){
@@ -981,9 +1299,21 @@ var toggleScrollLock = function()
         $.listView.setCanScroll(true);
     }
 };
-
 exports.toggleScrollLock = toggleScrollLock;
 
+
+
+
+/**
+`footerTextButtonClick` the callback function for the button click text in the qustion renderer footer
+opens the userNotesDialog and populates it with the saved Assessment Notes.
+
+@method footerTextButtonClick
+
+@param {JSON_Object} e not used
+
+@return {} n/a
+*/
 function footerTextButtonClick(e) {
     Alloy.createController("questionDialogs/userNotesDialog", {
         notes: currentAssessmentObject.notes,
@@ -995,6 +1325,18 @@ function footerTextButtonClick(e) {
     });
 };
 
+
+
+/**
+`footerNotesButtonClick` the callback function for the button click notes in the qustion renderer footer
+triggers the slideNotify for the currently selected question to display the server notes
+
+@method footerNotesButtonClick
+
+@param {JSON_Object} e not used
+
+@return {}  n/a
+*/
 function footerNotesButtonClick(e) {
 
     if (questionSelected != null) {
@@ -1005,6 +1347,18 @@ function footerNotesButtonClick(e) {
     }
 };
 
+
+
+/**
+`footerHelpButtonClick` the callback function for the button click help in the qustion renderer footer
+triggers the slideNotify for the currently selected question to display the server help message
+
+@method footerHelpButtonClick
+
+@param {JSON_Object} e not used
+
+@return {}  n/a
+*/
 function footerHelpButtonClick(e) {
 	
 	if (questionSelected != null) {
@@ -1018,6 +1372,17 @@ function footerHelpButtonClick(e) {
     }
 };
 
+
+
+/**
+`pageDeletedEvent` used to delete a census attached to an assessment
+
+@method pageDeletedEvent
+
+@param {String} associatedFileName fileName to be deleted
+ 
+@return {}  n/a
+*/
 var pageDeletedEvent = function(associatedFileName){
 	if(associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
@@ -1025,6 +1390,19 @@ var pageDeletedEvent = function(associatedFileName){
 };
 exports.pageDeletedEvent = pageDeletedEvent;
 
+
+
+/**
+`Ti.App.addEventListener("startCensesTimer")` fired when a used clicks start for the quick census
+this will opem the census timer as a footer of the question renderer and count down based on the 
+timerDuration question value
+
+@method startCensesTimer
+
+@param {JSON_Object} e.question questionObject that files the event
+
+@return {Boolean}  true or false - depending if the timer opened or not
+*/
 Ti.App.addEventListener("startCensesTimer", function (e) {
     var question = e.question;
 
@@ -1071,6 +1449,18 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
     return true;
 });
 
+
+
+/**
+`$.censusFooterView.on("goToCensus")` fired when a used clicks go to census on the census timer footer
+the list view will move to the census usage page and position the top question at the top of the screen
+
+@method censusFooterView
+
+@param {JSON_Object} e.question questionObject that files the event
+
+@return {Boolean} true or false - depending if the timer opened or not
+*/
 $.censusFooterView.on("goToCensus", function (e) {
     e.censusAssociatedFileName;
     var section = findSectionByAssociatedFileName("CensusUsage", e.censusAssociatedFileName);
@@ -1082,6 +1472,20 @@ $.censusFooterView.on("goToCensus", function (e) {
 
 });
 
+
+
+/**
+`updateAndReturnQuestion` fired when a used clicks go to census on the census timer footer
+//the list view will move to the census usage page and position the top question at the top of the screen
+
+@method updateAndReturnQuestion
+
+@param {JSON_Object} question questionto be updated
+@param {String} value  value to be set
+@param {String} displayValue value to populate the textField
+
+@return {Boolean} true or false - depending if the timer opened or not
+*/
 var updateAndReturnQuestion = function (question, value, displayValue) {
     if (question.template == "singleSelectTemplate") {
         question.displayValue = {
@@ -1099,6 +1503,18 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
 };
 
 
+/**
+`Ti.App.addEventListener("setEntireSectionTemplate")` fired when a used clicks go to census on the census timer footer
+the list view will move to the census usage page and position the top question at the top of the screen
+
+@method setEntireSectionTemplate
+
+@param {JSON_Object} e.groupType question groupType to match
+@param {String} e.value value to be set
+@param {String} e.questionToChangeTemplate template name to match
+
+@return {}  n/a
+*/
 Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
     var sectionList = getAllQuestionSections();
@@ -1119,6 +1535,17 @@ Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
 });
 
+
+
+/**
+`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+
+@method selectQuestion
+
+@param {JSON_Object} newQuestionSelected the new questionObject to select
+ 
+@return {JSON_Object}  QuestionObject
+*/
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
 
@@ -1155,9 +1582,20 @@ var selectQuestion = function (newQuestionSelected) {
 
     return newQuestionSelected;
 };
-
 exports.selectQuestion = selectQuestion;
 
+
+
+/**
+`footerPostlayout` callback when census timer footer has finshed it height change
+resets the list view so there is not overlap
+
+@method footerPostlayout
+
+@param {JSON_Object} e not used
+
+@return {}  n/a
+*/
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
 };
