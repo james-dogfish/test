@@ -125,6 +125,8 @@ function interpreterModule2() {
 				visable : true,
 				order : "1",
 				associatedFileName : passObject.associatedFileName, // file the question is in
+				
+				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE"},
 
 				assessmentId : passObject.assessmentId,
 
@@ -337,6 +339,8 @@ function interpreterModule2() {
 				order : Alloy.Globals.localParser.getQuestionOrder(question),
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				questionResponse : null,
+				
+				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)},
 
 				assessmentId : assessmentId,
 
