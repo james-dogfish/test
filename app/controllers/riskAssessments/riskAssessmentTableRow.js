@@ -19,7 +19,7 @@ if (arguments && arguments[0]) {
 	}
 	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
 
-	if (thisRA.alcrmStatus === 'Sent') {
+	if (thisRA.alcrmStatus === 'sent' || thisRA.isSubmitted == true) {
 		$.row.editable = false;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
 	} else {

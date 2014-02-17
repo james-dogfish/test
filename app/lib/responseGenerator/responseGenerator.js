@@ -534,7 +534,7 @@ function responseGenerator() {
 
 			if (assObj.isSubmitted === false) {
 				Alloy.Globals.Soap.createAssessment(xmlRequest, function(xmlDoc) {
-					assObj.alcrmStatus = "Sent";
+					assObj.alcrmStatus = "sent";
 					assObj.isSubmitted = true;
 
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
