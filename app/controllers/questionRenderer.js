@@ -1393,18 +1393,18 @@ exports.pageDeletedEvent = pageDeletedEvent;
 
 
 /**
-`Ti.App.addEventListener("startCensesTimer")` fired when a used clicks start for the quick census
+`startCensesTimer` fired when a used clicks start for the quick census
 this will opem the census timer as a footer of the question renderer and count down based on the 
 timerDuration question value
 
 @method startCensesTimer
 
-@param {JSON_Object} e.question questionObject that files the event
+@param {JSON_Object} question questionObject that files the event
 
 @return {Boolean}  true or false - depending if the timer opened or not
+
 */
-Ti.App.addEventListener("startCensesTimer", function (e) {
-    var question = e.question;
+var startCensesTimer = function(question){
 
     var sectionList = getAllQuestionSections();
 
@@ -1447,9 +1447,8 @@ Ti.App.addEventListener("startCensesTimer", function (e) {
     	return false;
     }
     return true;
-});
-
-
+};
+exports.startCensesTimer = startCensesTimer;
 
 /**
 `$.censusFooterView.on("goToCensus")` fired when a used clicks go to census on the census timer footer
@@ -1504,37 +1503,37 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
 
 
 /**
-`Ti.App.addEventListener("setEntireSectionTemplate")` fired when a used clicks go to census on the census timer footer
+`setEntireSectionTemplate` called when a used clicks go to census on the census timer footer
 the list view will move to the census usage page and position the top question at the top of the screen
 
 @method setEntireSectionTemplate
 
-@param {JSON_Object} e.groupType question groupType to match
-@param {String} e.value value to be set
-@param {String} e.questionToChangeTemplate template name to match
+@param {JSON_Object} groupType question groupType to match
+@param {String} value value to be set
+@param {String} displayValue value for the textField
+@param {String} questionToChangeTemplate template name to match
 
 @return {}  n/a
 */
-Ti.App.addEventListener("setEntireSectionTemplate", function (e) {
 
-    var sectionList = getAllQuestionSections();
+var setEntireSectionTemplate = function(groupType, value, displayValue, questionToChangeTemplate){
+	var sectionList = getAllQuestionSections();
 
     for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
 
-        if (sectionList[sectionIndex].groupType != e.groupType) continue;
+        if (sectionList[sectionIndex].groupType != groupType) continue;
 
         var questionList = sectionList[sectionIndex].getItems();
         for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++) {
         	
-            if (questionList[questionIndex].template == e.questionToChangeTemplate) {
-                var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], e.value, e.displayValue);
+            if (questionList[questionIndex].template == questionToChangeTemplate) {
+                var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
                 sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
             }
         }
     }
-
-});
-
+};
+exports.setEntireSectionTemplate= setEntireSectionTemplate;
 
 
 /**
@@ -1601,11 +1600,3 @@ resets the list view so there is not overlap
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
 };
-
-function onListViewMove(e){
-	Ti.API.info("onListViewMove "+JSON.stringify(e));
-}
-
-$.listView.addEventListener("touchmove", function(e){
-	Ti.API.info("onListViewMove2 "+JSON.stringify(e));
-});
