@@ -970,7 +970,7 @@ relevent subsections, this function is called to insert the questions back in to
 	};
 
 /**
-`sortQuestionsByOrder`
+`sortQuestionsByOrder` sorts all questions based on the question order property
 
 @method sortQuestionsByOrder
 
@@ -995,7 +995,8 @@ relevent subsections, this function is called to insert the questions back in to
 	};
 
 /**
-`readAppconfig`
+`readAppconfig` using the cms settings from the server or the local settings in appcofig.json
+add changes to map variables to be used latter.
 
 @method readAppconfig
 
@@ -1042,12 +1043,13 @@ relevent subsections, this function is called to insert the questions back in to
 
 /**
 
-/`interpret`
+/`interpret` the rooot function to call to translate the question set from the server in to a workable
+question set for questionRender
 
 @method interpret
 
-@param {JSON_List} allQuestions
-@param {JSON_obejct} passObject
+@param {JSON_List} allQuestions this is the Json question data set from the server
+@param {JSON_obejct} passObject this is the settings object for this question set file.
 
 @return {List of JSON_obejct} questionList
 */
