@@ -25,7 +25,7 @@
 	left : "1%",
 	top : "5dp",
 	bottom : "5dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
 	textAlign: 'left'
 },

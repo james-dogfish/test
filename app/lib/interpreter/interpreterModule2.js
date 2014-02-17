@@ -544,6 +544,7 @@ should be displayed as mandatory
 
 						if (questionObject.title.text.slice(-1) != "*") {
 							questionObject.title.text = questionObject.title.text + "*";
+							questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
 						}
 
 						return questionObject;
@@ -893,6 +894,7 @@ relevent subsections, this function is called to insert the questions back in to
 					if (questionObject.mandatory == true) {
 						if (questionObject.title.text.slice(-1) != "*") {
 							questionObject.title.text = questionObject.title.text + "*";
+							questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
 						}
 					}
 
