@@ -127,7 +127,7 @@ differently from the `firstTab` and `secondTab` nodes
 				order : "1",
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				
-				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE"},
+				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE" + "button1"},
 
 				assessmentId : passObject.assessmentId,
 
@@ -160,10 +160,12 @@ differently from the `firstTab` and `secondTab` nodes
 					text : "Date of Census"
 				}, // the title text for this question
 				displayValue : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue1"
 				},
 				displayValue2 : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue2"
 				},
 
 				questionResponse : null,
@@ -337,7 +339,7 @@ differently from the `firstTab` and `secondTab` nodes
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				questionResponse : null,
 				
-				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)},
+				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)+"_button1"},
 
 				assessmentId : assessmentId,
 
@@ -363,10 +365,12 @@ differently from the `firstTab` and `secondTab` nodes
 					text : Alloy.Globals.localParser.getQuestionText(question)
 				}, // the title text for this question
 				displayValue : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue1"
 				},
 				displayValue2 : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue2"
 				},
 
 				errorMessageVisable : false,
