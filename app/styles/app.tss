@@ -25,11 +25,12 @@
 	left : "1%",
 	top : "5dp",
 	bottom : "5dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
 	textAlign: 'left'
 },
 ".notesButton" : {
+	touchTestID : "",
 	backgroundImage: 'images/questionNote.png',
 	right : "10dp",
 	width: 30,
@@ -56,6 +57,7 @@
 },
 
 ".questionView" : {
+	touchTestID : "",
 	width: "98%",
 	height: Ti.UI.SIZE,
 	top: "5dp",
@@ -67,6 +69,7 @@
 },
 
 ".inputField" : {
+	touchTestID : "",
 	borderRadius: 5,
 	borderWidth : 2,
 	borderColor : "#aaa",

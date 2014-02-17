@@ -15,9 +15,11 @@
 	paddingLeft : "10dp"
 },
 "#selectButton" : {
+	touchTestID : "",
 	width : Ti.UI.FILL,
 	height: "50dp",
 	right: "0dp",
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	
 }
