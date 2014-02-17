@@ -127,7 +127,7 @@ differently from the `firstTab` and `secondTab` nodes
 				order : "1",
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				
-				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE"},
+				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE" + "button1"},
 
 				assessmentId : passObject.assessmentId,
 
@@ -160,10 +160,12 @@ differently from the `firstTab` and `secondTab` nodes
 					text : "Date of Census"
 				}, // the title text for this question
 				displayValue : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue1"
 				},
 				displayValue2 : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue2"
 				},
 
 				questionResponse : null,
@@ -207,7 +209,7 @@ differently from the `firstTab` and `secondTab` nodes
 			if ( type in ui_types_map) {
 				templateType = ui_types_map[type];
 			} else {
-				//Alloy.Globals.Logger.log("questionNull type =" + type+", question = "+JSON.stringify(question), "info");
+				Alloy.Globals.Logger.log("questionNull type =" + type+", question = "+JSON.stringify(question), "info");
 				return null;
 			}
 
@@ -217,7 +219,6 @@ differently from the `firstTab` and `secondTab` nodes
 			}
 
 			if (Alloy.Globals.localParser.getQuestionName(question) in removedQuestionsMap) {
-				//Alloy.Globals.Logger.log("Alloy.Globals.localParser.getQuestionName(question) in hiddenQuestionsMap TRUE", "info");
 				return null;
 			}
 
@@ -244,7 +245,6 @@ differently from the `firstTab` and `secondTab` nodes
 						name : dependencieName,
 						groupType : ""
 					},
-					//name: dependencieName,
 					value : dependencieValue
 				});
 			}
@@ -270,7 +270,6 @@ differently from the `firstTab` and `secondTab` nodes
 			};
 
 			var validation = Alloy.Globals.localParser.getValidation(question);
-			//Alloy.Globals.Logger.log("VALIDATION OBJECT PASSED = "+JSON.stringify(validation), "info");
 
 			var isMandatory = false;
 
@@ -290,7 +289,6 @@ differently from the `firstTab` and `secondTab` nodes
 
 					var dependencieName = passObject.pageID + conditionalMandatory[i].name;
 					questionValidation.conditionalMandatory.push({
-						//name: conditionalMandatory[i].name,
 						question : {
 							name : dependencieName,
 							groupType : ""
@@ -341,7 +339,7 @@ differently from the `firstTab` and `secondTab` nodes
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				questionResponse : null,
 				
-				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)},
+				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)+"_button1"},
 
 				assessmentId : assessmentId,
 
@@ -367,10 +365,12 @@ differently from the `firstTab` and `secondTab` nodes
 					text : Alloy.Globals.localParser.getQuestionText(question)
 				}, // the title text for this question
 				displayValue : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue1"
 				},
 				displayValue2 : {
-					value : ""
+					value : "",
+					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_displayValue2"
 				},
 
 				errorMessageVisable : false,
@@ -499,7 +499,6 @@ section
 			var newSectionHeader = {
 				title : getSectionDisplayName(question, passObject),
 				groupType : groupType,
-				//displayName :getSectionDisplayName(question),
 				alcrmGroupType : alcrmGroupType,
 				pageName : passObject.pageName,
 				pageType : passObject.pageType,
@@ -544,6 +543,7 @@ should be displayed as mandatory
 
 						if (questionObject.title.text.slice(-1) != "*") {
 							questionObject.title.text = questionObject.title.text + "*";
+							questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
 						}
 
 						return questionObject;
@@ -603,7 +603,6 @@ and mandatoryDependenciesList. these are list of questions that are dependent on
 
 					//adds a list of all questions that have a Dependencies on if it is visable based on this question
 					if ( typeof renderDependenciesMap[name] !== "undefined") {
-						//Alloy.Globals.Logger.log(name, "info");
 
 						//creates a list of Dependent question names with no repeated names
 						var questionNameArray = renderDependenciesMap[name];
@@ -738,7 +737,6 @@ relevent subsections, this function is called to insert the questions back in to
 */
 	var addSubsectionsBackIntoQuestionList = function(questionList, subSectionList) {
 
-		//backgroundView
 		try {
 			var subSectionIndex = 0;
 			var newQuestionList = [];
@@ -753,7 +751,6 @@ relevent subsections, this function is called to insert the questions back in to
 
 					//subsectionHeaderTemplate
 					for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {
-						//subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 						newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 					}
 					subSectionIndex++;
@@ -765,7 +762,6 @@ relevent subsections, this function is called to insert the questions back in to
 				newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
 
 				for (var subSectionQuestionIndex = 0; subSectionQuestionIndex < subSectionList[subSectionIndex].questionList.length; subSectionQuestionIndex++) {
-					//subSectionList[subSectionIndex].questionList[subSectionQuestionIndex].backgroundView = Alloy.Globals.Styles["subsectionsQuestionBackground"];
 					newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 				}
 				subSectionIndex++;
@@ -790,14 +786,12 @@ relevent subsections, this function is called to insert the questions back in to
 			for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
 				if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Sighting") {
 
-					//var newQuestionList = [];
 					var subSectionList = [];
 
 					var oldQuestionList = self.sectionHeaderList[sectionIndex].questionList;
 					for (var questionIndex = 0; questionIndex < oldQuestionList.length; questionIndex++) {
 
 						if (oldQuestionList[questionIndex].subsectionTitle != null) {
-							//newQuestionList.push(oldQuestionList[questionIndex]);
 							addQuestionToSubsectionList(subSectionList, oldQuestionList[questionIndex]);
 						}
 
@@ -824,13 +818,10 @@ relevent subsections, this function is called to insert the questions back in to
 	var postInterpretSettings = function(passObject) {
 		try {
 			var userPreferences = Alloy.Globals.User.getPreferences();
-			//Alloy.Globals.Logger.log("censusCounterQuestions = "+Ti.App.Properties.getString('censusCounterQuestions'), "info");
-			//var censusCounterQuestions = JSON.parse(Ti.App.Properties.getString('censusCounterQuestions'));
 
 			for (var sectionIndex = 0; sectionIndex < self.sectionHeaderList.length; sectionIndex++) {
 
 				if (self.sectionHeaderList[sectionIndex].alcrmGroupType in removedSectionsMap) {
-					//Alloy.Globals.Logger.log("self.sectionHeaderList[sectionIndex].alcrmGroupType in hiddenSectionsMap TRUE", "info");
 					self.sectionHeaderList.splice(sectionIndex, 1);
 					sectionIndex = sectionIndex - 1;
 				} else if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
@@ -893,6 +884,7 @@ relevent subsections, this function is called to insert the questions back in to
 					if (questionObject.mandatory == true) {
 						if (questionObject.title.text.slice(-1) != "*") {
 							questionObject.title.text = questionObject.title.text + "*";
+							questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
 						}
 					}
 
@@ -915,7 +907,6 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.template = "textFieldTemplate";
 					}
 
-					//self.sectionHeaderList[sectionIndex].questionList[questionIndex]
 					if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
 						questionObject.value = [userPreferences.name];
 						questionObject.mandatory = false;
@@ -955,7 +946,6 @@ relevent subsections, this function is called to insert the questions back in to
 						}
 					}
 
-					//validation.conditionalMandatory
 
 					self.sectionHeaderList[sectionIndex].questionList[questionIndex] = questionObject;
 				}
@@ -968,7 +958,7 @@ relevent subsections, this function is called to insert the questions back in to
 	};
 
 /**
-`sortQuestionsByOrder`
+`sortQuestionsByOrder` sorts all questions based on the question order property
 
 @method sortQuestionsByOrder
 
@@ -993,7 +983,8 @@ relevent subsections, this function is called to insert the questions back in to
 	};
 
 /**
-`readAppconfig`
+`readAppconfig` using the cms settings from the server or the local settings in appcofig.json
+add changes to map variables to be used latter.
 
 @method readAppconfig
 
@@ -1040,12 +1031,13 @@ relevent subsections, this function is called to insert the questions back in to
 
 /**
 
-/`interpret`
+/`interpret` the rooot function to call to translate the question set from the server in to a workable
+question set for questionRender
 
 @method interpret
 
-@param {JSON_List} allQuestions
-@param {JSON_obejct} passObject
+@param {JSON_List} allQuestions this is the Json question data set from the server
+@param {JSON_obejct} passObject this is the settings object for this question set file.
 
 @return {List of JSON_obejct} questionList
 */
