@@ -1551,6 +1551,8 @@ var selectQuestion = function (newQuestionSelected) {
 
 
     if (questionSelected != null) {
+    	if(questionSelected.name == newQuestionSelected.name)return newQuestionSelected;
+    	
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){

@@ -12,7 +12,7 @@
 			
 			<View class="questionView">
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onFocus="onTextFieldFocus"/>
-				<Button id="startButton" class="inputButton" onClick="onStartButtonClick">Start</Button>
+				<Button id="startButton" class="inputButton" bindId="btnSelect" onClick="onStartButtonClick">Start</Button>
 			</View>
 		</View>
     </ItemTemplate>
