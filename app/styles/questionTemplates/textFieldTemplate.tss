@@ -3,6 +3,7 @@
 	height: Ti.UI.SIZE,
 	bottom : "10dp",
 },
+/*
 "#valueTextFieldContainer" : {
 	height: "50dp",
 	width: Ti.UI.FILL,
@@ -14,7 +15,7 @@
 	left : "10dp",
 	right : "0dp",
 	scrollable : false,
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
 	backgroundColor: '#fff',
 	clearButtonMode : true,
@@ -22,7 +23,8 @@
 	paddingLeft : "10dp",
 	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER
 }
-/*
+*/
+
 "#valueTextField" : {
 	returnKeyType : Ti.UI.RETURNKEY_DONE,
 	width: Ti.UI.Fill,
@@ -30,7 +32,7 @@
 	left : "0dp",
 	right : "0dp",
 	scrollable : false,
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
 	backgroundColor: '#fff',
 	clearButtonMode : true,
@@ -38,4 +40,4 @@
 	paddingLeft : "10dp",
 	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER
 }
- */
+ 

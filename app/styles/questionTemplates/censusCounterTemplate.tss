@@ -15,7 +15,7 @@
 	left : "1%",
 	right : "0dp",
 	clearButtonMode : true,
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
 	backgroundColor: '#fff',
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,

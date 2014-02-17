@@ -556,7 +556,8 @@ should be displayed as mandatory
 	};
 
 /**
-`testIfQuestionVisable`
+`testIfQuestionVisable` called in `postInterpretSettings()` will test if a question 
+should be displayed or hidden
 
 @method testIfQuestionVisable
 
@@ -585,7 +586,8 @@ should be displayed as mandatory
 	};
 
 /**
-`lookQuestionDependencies`
+`lookQuestionDependencies` will build up a list for all qustions a renderDependencyList
+and mandatoryDependenciesList. these are list of questions that are dependent on the value of the question
 
 @method lookQuestionDependencies
 
@@ -656,7 +658,8 @@ should be displayed as mandatory
 	};
 
 /**
-`addQuestionToSubsectionList`
+`addQuestionToSubsectionList` called buy `addSubsections`. adds a question to its respective subsection list.
+is used to group questions of the same subGroup together.
 
 @method addQuestionToSubsectionList
 
@@ -685,7 +688,8 @@ should be displayed as mandatory
 	};
 
 /**
-`createSubsectionHeader`
+`createSubsectionHeader` called buy `addSubsections`.  used to create a subsection header to add to the question list
+using the template subsectionHeaderTemplate
 
 @method createSubsectionHeader
 
@@ -722,7 +726,8 @@ should be displayed as mandatory
 	};
 
 /**
-`addSubsectionsBackIntoQuestionList`
+`addSubsectionsBackIntoQuestionList` called buy `addSubsections`. when all of the question in a secion have been added in to there
+relevent subsections, this function is called to insert the questions back in to the main question list
 
 @method addSubsectionsBackIntoQuestionList
 
@@ -774,7 +779,7 @@ should be displayed as mandatory
 	};
 
 /**
-`addSubsections`
+`addSubsections` loops through all sections and creates any subsections need. is the root function 
 
 @method addSubsections
 
@@ -808,7 +813,7 @@ should be displayed as mandatory
 	};
 
 /**
-`postInterpretSettings`
+`postInterpretSettings` this is called to add any hard coded effect to the question set
 
 @method postInterpretSettings
 
