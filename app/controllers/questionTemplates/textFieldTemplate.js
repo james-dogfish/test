@@ -57,6 +57,26 @@ function onNotesClick(e){
 
 function onTextFieldFocus(e){
 	
+	/*
+	{"color":"#000",
+	"backgroundColor":"#eee",
+	"title":"Select",
+	"enabled":true,
+	"font":{"fontWeight":"bold","fontFamily":"Helvetica Neue","fontSize":"20sp"},
+	"borderColor":"#aaa",
+	"touchTestID":"0I_CCIL_button1",
+	"bindId":"btnSelect",
+	"textAlign":1,
+	"borderRadius":5,
+	"right":"0dp",
+	"borderWidth":2,
+	"height":"50dp",
+	"width":"FILL",
+	"horizontalWrap":true
+	}
+	*/
+	
+	Ti.API.info("onTextFieldFocus " + JSON.stringify(e.source));
 	Alloy.Globals.currentlyFocusedTF = e.source;
 	
 
