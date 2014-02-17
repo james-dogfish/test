@@ -10,28 +10,27 @@
 },
 "#crossingName" : {
 	width : Ti.UI.FILL,
-	height: "30dp",
-	top : "10dp",
+	height: "25dp",
+	top : "5dp",
 	left : "20dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"25sp", fontWeight:'normal'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
 	color: '#000000'
 },
 
 "#crossingElr" : {
 	width : Ti.UI.FILL,
-	height: "20dp",
+	height: "15dp",
 	top : "5dp",
 	left : "20dp",
-	bottom : "10dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"15sp", fontWeight:'normal'},
 	color: '#000000'
 },
 "#crossingType" : {
 	width : Ti.UI.FILL,
-	height: "20dp",
+	height: "15dp",
 	top : "5dp",
 	left : "20dp",
 	bottom : "10dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
+	font: {fontFamily:'Helvetica Neue', fontSize:"15sp", fontWeight:'normal'},
 	color: '#000000'
 }
