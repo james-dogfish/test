@@ -10,9 +10,18 @@
 				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
 			</View>
 			
+			
 			<View class="questionView">
+				<!--
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>	
+				-->
+				<View id="valueTextFieldContainer" class="inputFieldContainer" >
+					<TextArea  id="valueTextField"  bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>
+				</View>
 			</View>
+			
+			
+			
 		</View>
     </ItemTemplate>
 </Alloy>

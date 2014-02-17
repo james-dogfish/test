@@ -57,7 +57,8 @@ function interpreterModule2() {
 	ui_types_map["alphaRange"] = "rangeFieldTemplate";
 
 /**
-`getSectionDisplayName`
+`getSectionDisplayName` depending on the page type of a section, the display name will be genrated
+differently from the `firstTab` and `secondTab` nodes
 
 @method setEntireSectionTemplate
 
@@ -102,7 +103,7 @@ function interpreterModule2() {
 	};
 
 /**
-`createCensusDateQuestion`
+`createCensusDateQuestion` this is a new question added top the top of census general.
 
 @method createCensusDateQuestion
 
@@ -183,15 +184,15 @@ function interpreterModule2() {
 	};
 
 /**
-`createQuestionObject`
+`createQuestionObject` this function will build a question from the JSON from the server
 
 @method createQuestionObject
 
-@param {JSON_obejct} question
-@param {JSON_obejct} passObject
-@param {String} sectionGroupType
+@param {JSON_obejct} question the server JSON object of a question
+@param {JSON_obejct} passObject this is the settings object for this question set file.
+@param {String} sectionGroupType 
 @param {String} assessmentId
-@param {MAP} questionMap
+@param {MAP} questionMap this is a map of question names and values for a saved pre populated question
 
 @return {JSON_obejct} (success) questionObject
 @return {null} (fail) when the question fails to build
@@ -398,12 +399,12 @@ function interpreterModule2() {
 
 /**
 
-/`questionSetPastVariables`
+/`questionSetPastVariables` populates a question value with stored values from the sever
 
 @method questionSetPastVariables
 
-@param {JSON_obejct} questionObject
-@param {Map} questionMap
+@param {JSON_obejct} questionObject this is the genderated question object from createQuestionObject
+@param {Map} questionMap this is a map of question names and values for a saved pre populated question
 
 @return {JSON_obejct} questionObject
 */
@@ -467,7 +468,8 @@ function interpreterModule2() {
 	};
 
 /**
-`addQuestionToSectionHeader`
+`addQuestionToSectionHeader` called by interpret, will add an object from `createQuestionObject()` to a 
+section
 
 @method addQuestionToSectionHeader
 
