@@ -44,7 +44,7 @@ function saveAndExitClick(e) {
     $.questionListView.appendSectionsToAssessment(censusData);
 };*/
 
-var createPastCensus = function(pastCensusData) {
+/*var createPastCensus = function(pastCensusData) {
     currentAssessmentObject;
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
@@ -68,7 +68,7 @@ var createPastCensus = function(pastCensusData) {
 
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
     $.questionListView.appendSectionsToAssessment(censusData);
-};
+};*/
 
 var gotoQuestionSectionWindow = null;
 
@@ -85,6 +85,7 @@ var createCensus= function(){
 		
 	    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
 	    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
+	    	Alloy.Globals.aIndicator.hide();
 	        alert(L('max_census'));
 	        return;
 	    }
@@ -101,12 +102,39 @@ var createCensus= function(){
 exports.createCensus= createCensus;
 
 Ti.App.addEventListener("addPastCensus", function(e) {
+	
+	try{
     Alloy.Globals.aIndicator.show();
 
-    createPastCensus(e.questionList);
+     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
+    	Alloy.Globals.aIndicator.hide();
+        alert(L('max_census'));
+        return;
+    }
+    Alloy.Globals.Logger.log("pastCensusData >> " + JSON.stringify(e.questionList),"info");
+    var cenMap = [];
+    for (var t = 0; t < e.questionList.length; t++) {
+        if (typeof e.questionList[t].type !== "undefined") {
+            cenMap[e.questionList[t].parameterName] = {
+                value: e.questionList[t].values
+            };
+        } else {
+            cenMap[e.questionList[t].parameterName] = {
+                value: e.questionList[t].parameterValue
+            };
+        }
+    }
+
+    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
+    $.questionListView.appendSectionsToAssessment(censusData);
+    
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
     Alloy.Globals.aIndicator.hide();
+    }catch(e){
+    	Alloy.Globals.aIndicator.hide();
+    }
 });
 
 Ti.App.addEventListener("censusDesktopComplete", function(e) {
