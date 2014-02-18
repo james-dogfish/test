@@ -2,7 +2,8 @@ var assessmentID = null;
 
 if (arguments && arguments[0]) {
 
-	var fontawesome = arguments[0].fontawesome, thisRA = arguments[0].thisRA;
+	var fontawesome = arguments[0].fontawesome, 
+	thisRA = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(arguments[0].thisRA);
 
 	assessmentID = thisRA.assessmentID;
 

@@ -53,6 +53,9 @@ function responseGenerator() {
  * @return {String} xmlRequest - the xmlRequest payload string.
  */
 	self.buildCensusResponse = function(assObj, censusList, crossingID, detailID) {
+		//alert("buildCensusResponse invoked");
+		//alert("censusList = "+JSON.stringify(censusList));
+		Ti.API.info("==============censusList = "+JSON.stringify(censusList));
 		try {
 			var xmlRequest = [];
 			for (var censusListIndex = 0; censusListIndex < censusList.length; censusListIndex++) {
@@ -72,10 +75,18 @@ function responseGenerator() {
 
 						if (questionList[questionIndex].isAQuestion == true && censusDate === "") {
 							if (questionList[questionIndex].alcrmQuestionID == "I_CENSUS_DATE" || questionList[questionIndex].alcrmQuestionID == "CENSUS_DATE") {
-								censusDate = questionList[questionIndex].value;
+								if(questionList[questionIndex].value instanceof Array){
+									censusDate = questionList[questionIndex].value[0];
+								}else if(questionList[questionIndex].value.trim() != ""){
+									censusDate = questionList[questionIndex].value;
+								}else{
+									Alloy.Globals.aIndicator.hide();
+									Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
+									return;
+								}
+								Ti.API.info("censusDate = "+censusDate);
 								if (censusDate.length === 1) {
 									censusDate = null;
-
 								}
 								continue;
 							}
@@ -84,7 +95,8 @@ function responseGenerator() {
 						var tempFix = JSON.stringify(questionResponse);
 						tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace("1I_", "I_").replace(/[0-9]I_/g, 'I_');
 						questionResponse = JSON.parse(tempFix);
-
+						
+						Ti.API.info("questionResponse = "+JSON.stringify(questionResponse));
 						if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
 							if (questionType === "multiSelect") {
 								censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
@@ -99,10 +111,11 @@ function responseGenerator() {
 						}
 					}
 				}
-
+				Ti.API.info(censusDate);
 				var numbers = "";
 				var dateToPost = "";
-				if (censusDate !== null) {
+				//alert("censusDate = "+JSON.stringify(censusDate));
+				if (censusDate !== null && censusDate.trim() !== "") {
 
 					numbers = censusDate.match(/\d+/g);
 					if (numbers != null) {
@@ -113,7 +126,7 @@ function responseGenerator() {
 
 				}
 			}
-
+			//alert("xmlRequest = "+JSON.stringify(xmlRequest));
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.aIndicator.hide();
@@ -398,6 +411,15 @@ function responseGenerator() {
 	self.commitWithTrainAndCensus = function(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss) {
 		Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
 		try {
+			
+			//BIT OF SANITY CHECK HERE!!
+			if(typeof xmlCensusRequest === "undefined" || typeof xmlTrainRequest === "undefined"
+				|| typeof assObj === "undefined" || typeof sectionListAss === "undefined")
+				{
+					Alloy.Globals.aIndicator.hide();
+					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false);
+					return;
+				}
 			if (assObj.censusDesktopComplete == false) {
 				for (var i = 0; i < xmlCensusRequest.length; i++) {
 					Alloy.Globals.Soap.createCensus(xmlCensusRequest[i], function(xmlDoc) {
@@ -478,13 +500,18 @@ function responseGenerator() {
 					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
 					if ( typeof sectionListCen === "undefined" || sectionListCen.length === 0 || sectionListCen == null) {
 						if (assObj.censusDesktopComplete == false) {
+							alert("here0");
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
 							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
 						}
 					} else {
 						xmlCensusRequest = self.buildCensusResponse(assObj, sectionListCen, assObj.crossingID, assObj.detailID);
-						if (assObj.censusDesktopComplete == false) {
+						if(typeof xmlCensusRequest === "undefined" ||
+							xmlCensusRequest.length == 0)
+						{
+							alert("here1");
+							Ti.API.error("=====xmlCensusRequest======"+JSON.stringify(xmlCensusRequest));
 							Alloy.Globals.aIndicator.hide();
 							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
 						}
@@ -494,6 +521,7 @@ function responseGenerator() {
 					} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
 						self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
 					} else if (sectionListCen.length <= 0 && sectionListTra.length > 0) {
+						alert("here2");
 						if (assObj.censusDesktopComplete == true) {
 							Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = true", "info");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
