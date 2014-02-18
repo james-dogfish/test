@@ -1,20 +1,21 @@
+// User Module
+// ----------------
 // File deals with a User = an LCM
 function _User() {
 
-    var /*keychain = require('com.obscure.keychain'),*/
-        //moment = require('alloy/moment'),
-        userKeychain = null; // = keychain.createKeychainItem('User'),
-        passKeychain = null; // = keychain.createKeychainItem('Pass'),
-        loginKeychain = null; // = keychain.createKeychainItem("LoggedIn");
+    var userKeychain = null; 
+        passKeychain = null; 
+        loginKeychain = null;
 
-    	/*
-		|---------------------------------------------------------------------------------
-		| Public Interface 
-		|---------------------------------------------------------------------------------
-		*/
 
     userObject = {
-    	
+ /**
+ * `init` - Initialises all User "keychains"
+ * 
+ * @method init
+ * 
+ * @return {} N/A
+ */
     	init: function () {
     		if(Ti.App.Properties.hasOwnProperty('userKeychain'))
     		{
@@ -29,16 +30,37 @@ function _User() {
     			loginKeychain = Ti.App.Properties.getBool('loginKeychain');
     		}
     	},
-
+ /**
+ * `setLoginTimestamp` - sets the lastLogin property
+ * 
+ * @method setLoginTimestamp
+ * 
+ * @return {} N/A
+ */
         setLoginTimestamp: function () {
             Ti.App.Properties.setString('lastLogin', moment().format('YYYY-MM-DD'));
         },
+ 
+ /**
+ * `howLongLeft` - returns the difference between the lastLogin property and the current timestamp in days.
+ * 
+ * @method howLongLeft
+ * 
+ * @return {int} difference between the lastLogin property and the current timestamp in days.
+ */
         howLongLeft: function () {
             today = moment(),
             todayFormatted = today.format('YYYY-MM-DD');
             var lastLogin = Ti.App.Properties.getString('lastLogin', todayFormatted);
             return Number(moment().diff(lastLogin, 'days'));
         },
+ /**
+ * `isLoginExpired` - checks if a user login is expired based on the hard coded value (14)
+ * 
+ * @method isLoginExpired
+ * 
+ * @return {Boolean} true/false depending on weather the login is expired or not.
+ */
         isLoginExpired: function () {
             //var moment = require('alloy/moment'),
                var today = moment(),
@@ -51,13 +73,14 @@ function _User() {
             }
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Logs a user into the app i.e - stores username, password and route if they are 
-			| valid
-			|---------------------------------------------------------------------------------
-			*/
-
+ /**
+ * `setLogin` - Logs a user into the app i.e - stores username, password and route if they are 
+ * 				valid
+ * 
+ * @method setLogin
+ * 
+ * @return {Boolean} true/false if the function succeds or not.
+ */
         setLogin: function (args, success, failure) {
             Ti.API.info('Set login function called ' + JSON.stringify(args));
 
@@ -92,13 +115,8 @@ function _User() {
             }
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Returns the username and password in an object
-			|---------------------------------------------------------------------------------
-			*/
 
-        setRoute: function (chosenRoute) {
+      	setRoute: function (chosenRoute) {
             Ti.App.Properties.setString('LCM_ROUTE', chosenRoute);
         },
 
@@ -114,11 +132,6 @@ function _User() {
             return toReturn;
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Checks if a user is logged in
-			|---------------------------------------------------------------------------------
-			*/
 
         isLoggedIn: function () {
             if (Ti.App.Properties.getBool("loginKeychain") &&
@@ -128,12 +141,6 @@ function _User() {
                 return false;
             }
         },
-
-       		 /*
-			|---------------------------------------------------------------------------------
-			| Returns route for a user
-			|---------------------------------------------------------------------------------
-			*/
 
         getRoute: function () {
             if (Ti.App.Properties.getString('LCM_ROUTE', null) !== null) {
@@ -157,17 +164,7 @@ function _User() {
           
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Saves user preference to the app
-			|---------------------------------------------------------------------------------
-			*/
-
         setPreferences: function (object) {
-            /*Ti.App.Properties.setString('userName', object.name);
-            Ti.App.Properties.setString('userEmail', object.email);
-            Ti.App.Properties.setString('userMobile', object.mobile);
-            Ti.App.Properties.setBool('userSingleView', object.singleView);*/
              var UserObj = {
 		     	userName: object.name,
 		     	userEmail: object.email,
@@ -185,37 +182,25 @@ function _User() {
 						var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
 						
 						newFile.createFile();
-						//newFile.write(JSON.stringify(UserObj));
 						if (newFile.exists()){
-							//newFile.deleteFile();
-							
 						    newFile.write(JSON.stringify(UserObj));
 						    Ti.API.info('userFile: '+newFile.read());
 						}
 	        		}
 	        	}
-             	    
-		     //userPrefs.write(JSON.stringify(UserObj));			    
+		    
 		},
 
         getPreferences: function () {
-            /*var settingsObj = {
-                name: Ti.App.Properties.getString('userName', ''),
-                mobile: Ti.App.Properties.getString('userMobile', ''),
-                email: Ti.App.Properties.getString('userEmail', ''),
-                singleView: Ti.App.Properties.getBool('userSingleView', false)
-            };*/
            if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
         	{
         		if(Ti.App.Properties.getString('userKeychain') !== null)
         		{
         			var UserDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,Ti.App.Properties.getString('userKeychain').replace(/ /g,''));
 		            var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
-		            //alert(UserDir.nativePath);
 					 if (!UserFile.exists()) {
 				          return {};
 				     } 
-		    		//alert(UserFile.read().text);
 		    		var UserObj = JSON.parse(UserFile.read().text);
 		    		if(UserObj.userSingleView === "" || UserObj.userSingleView === null)
 		    		{
@@ -238,7 +223,6 @@ function _User() {
             {
             	return false;
             }
-            //alert(JSON.stringify(prefHash));
             if (prefHash.name && prefHash.mobile && prefHash.email) {
                 return true;
             } else {
@@ -253,7 +237,6 @@ function _User() {
             } else {
                 return false;
             }
-            //return Ti.App.Properties.getString('userEmail', '');
         },
 
         getName: function () {
@@ -263,7 +246,6 @@ function _User() {
             } else {
                 return false;
             }
-            //return Ti.App.Properties.getString('userName', '');
         },
 
         getMobile: function () {
@@ -273,14 +255,9 @@ function _User() {
             } else {
                 return false;
             }
-            //return Ti.App.Properties.getString('userMobile', '');
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Returns true if a user likes a single view layout
-			|---------------------------------------------------------------------------------
-			*/
+ 
         prefersSingleView: function () {
         	var prefHash = this.getPreferences();
             if (prefHash.singleView) {
@@ -288,23 +265,12 @@ function _User() {
             } else {
                 return false;
             }
-            //return Ti.App.Properties.getBool('userSingleView', false);
         },
 
-        	/*
-			|---------------------------------------------------------------------------------
-			| Logs a user out of the application, i.e - clears only the login keychain but keeps all route access / user information.
-			|---------------------------------------------------------------------------------
-			*/
         logOut: function () {
               Ti.App.Properties.removeProperty('loginKeychain');
-              //Ti.App.Properties.removeProperty('userKeychain');
-              //Ti.App.Properties.removeProperty('passKeychain');
               Ti.App.Properties.removeProperty('LCM_ROUTE');
               Alloy.Globals.localDataHandler.clearCachedCrossing();
-           // userKeychain.reset();
-           // passKeychain.reset();
-            //this = null;
         },
 
         offlineLogin: function (data) {
