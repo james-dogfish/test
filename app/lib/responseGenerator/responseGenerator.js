@@ -92,6 +92,7 @@ function responseGenerator() {
 							}
 						}
 
+						Ti.API.info("questionResponse = "+JSON.stringify(questionResponse));
 						var tempFix = JSON.stringify(questionResponse);
 						tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace("1I_", "I_").replace(/[0-9]I_/g, 'I_');
 						questionResponse = JSON.parse(tempFix);
