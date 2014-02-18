@@ -81,7 +81,9 @@ function createCensusClick(e){
 
 $.selectCensusView.on("createCensus", function(){
 	Alloy.Globals.Logger.log("selectCensusView : createCensus", "info");
-	Ti.App.fireEvent("createCensus", {});
+	//Ti.App.fireEvent("createCensus", {});
+	
+	Alloy.Globals.questionRendererTab.createCensus();
 	
 	$.selectCensusView.hide();
 });

@@ -80,8 +80,6 @@ exports.commitResponseAssessmentIncomplete = function() {
 exports.commitResponse = function(success, pageType) {
 	//icon-times icon-check
 	$.commitResponseView.height = Ti.UI.SIZE;
-	/* FIX FOR NRAM-247 */
-	Alloy.Globals.riskAssessmentWindow.loadRiskAssessments();
 	
 	if (success == true && commitError == false) {
 

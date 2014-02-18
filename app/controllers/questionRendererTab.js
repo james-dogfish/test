@@ -2,6 +2,7 @@ var currentAssessmentObject = null;
 
 Alloy.Globals.questionRenderer = null;
 Alloy.Globals.questionRenderer = $.questionListView;
+Alloy.Globals.questionRendererTab = this;
 
 exports.getAssessment = function() {
     return currentAssessmentObject;
@@ -76,6 +77,17 @@ Ti.App.addEventListener("goToQuestion", function(e) {
     $.questionListView.moveToQuestion(e.groupType, e.questionIndex);
 });
 
+
+var createCensus= function(){
+	Alloy.Globals.aIndicator.show();
+    createCensus();
+    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+
+    Alloy.Globals.aIndicator.hide();
+};
+exports.createCensus= createCensus;
+
+/*
 Ti.App.addEventListener("createCensus", function(e) {
 
     Alloy.Globals.aIndicator.show();
@@ -84,6 +96,7 @@ Ti.App.addEventListener("createCensus", function(e) {
 
     Alloy.Globals.aIndicator.hide();
 });
+*/
 
 Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.show();

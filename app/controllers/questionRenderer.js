@@ -1048,7 +1048,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
     }
 
     if (questionObject.validation.minLength != null) {
-        if (value.length <= parseInt(questionObject.validation.minLength)) {
+        if (value.length < parseInt(questionObject.validation.minLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("minLength_error_text") +" "+  questionObject.validation.minLength + " characters";
             return returnObject;
@@ -1057,7 +1057,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (questionObject.validation.maxLength != null) {
-        if (value.length >= parseInt(questionObject.validation.maxLength)) {
+        if (value.length > parseInt(questionObject.validation.maxLength)) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("maxLength_error_text") +" "+  questionObject.validation.maxLength + " characters";
             return returnObject;
