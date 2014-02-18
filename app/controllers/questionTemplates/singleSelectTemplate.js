@@ -84,7 +84,10 @@ function onNotesClick(e){
 
 function onTitleClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
-	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+
+	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+	
 	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Ti.API.info("questionResponse = "+JSON.stringify(item.questionResponse));
 };
 

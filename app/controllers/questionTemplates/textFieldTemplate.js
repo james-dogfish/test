@@ -112,7 +112,8 @@ function onTitleClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	//alert("question value = "+item.displayValue.value);
 	
-	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+
 	Alloy.Globals.questionRenderer.selectQuestion(item);
 }
 
