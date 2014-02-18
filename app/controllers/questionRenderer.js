@@ -1,6 +1,6 @@
 
 //`Alloy.Globals.currentlyFocusedTF` stores the currently focused textfield
-Alloy.Globals.currentlyFocusedTF = null; 
+Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
 
 //`hiddenQuestions` is a list of all questions that are not currently visible
 var hiddenQuestions = [];
@@ -1232,8 +1232,20 @@ questions if this question value change effets them
 var questionValueChange = function (e) {
 
     // Blur the currently focused TF
+    //{TextField : null, assessment : null};
     try {
-        Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+    	if(Alloy.Globals.currentlyFocusedTF.TextField != null){
+	    	Alloy.Globals.currentlyFocusedTF.TextField.blur();
+	    	
+	    	var questionObject = Alloy.Globals.currentlyFocusedTF.questionObject;
+	    	if(questionObject != null){
+	    		var questionRef = findQuestionsRef(sectionList, questionObject.name, questionObject.groupType);
+	    		questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex, questionTitleRef.question);
+	    	}
+	    	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
+	    }
+    	
+    	
     } catch (e) {
         Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
     }
@@ -1272,7 +1284,7 @@ var questionValueChange = function (e) {
     e.questionObject = validateEntireQuestion(e.questionObject);
 
     if (e.section != null) {
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
+        //e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
@@ -1549,7 +1561,7 @@ exports.setEntireSectionTemplate= setEntireSectionTemplate;
 */
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
-
+    
 
     if (questionSelected != null) {
     	if(questionSelected.name == newQuestionSelected.name)return newQuestionSelected;
