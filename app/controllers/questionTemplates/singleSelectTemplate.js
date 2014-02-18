@@ -1,4 +1,6 @@
 function selectButtonClicked(e){
+	
+	Ti.API.info("selectButtonClicked " + JSON.stringify(e.source));
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
 	if(item.readOnly == true){
