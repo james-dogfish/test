@@ -80,7 +80,9 @@ exports.commitResponseAssessmentIncomplete = function() {
 exports.commitResponse = function(success, pageType) {
 	//icon-times icon-check
 	$.commitResponseView.height = Ti.UI.SIZE;
-
+	/* FIX FOR NRAM-247 */
+	Alloy.Globals.riskAssessmentWindow.loadRiskAssessments();
+	
 	if (success == true && commitError == false) {
 
 		if (currentCommitMessageView != null) {
@@ -96,7 +98,7 @@ exports.commitResponse = function(success, pageType) {
 
 	} else if (success == false && commitError == false) {
 		commitError = true;
-
+		
 		if (currentCommitMessageView != null) {
 			$.commitStatusLabelList.remove(currentCommitMessageView);
 		}
@@ -109,4 +111,6 @@ exports.commitResponse = function(success, pageType) {
 		$.commitStatusLabelList.add(currentCommitMessageView);
 
 	}
+	
+	
 }; 

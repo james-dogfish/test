@@ -216,7 +216,7 @@ var SudsClient = function(_options) {
 		            }
 		
 		          }
-		          Alloy.Globals.doAssessmentCalled = false;
+		          
 		         
 			       var alert = Titanium.UI.createAlertDialog({
 			          title: 'Error: ' + error_code,
