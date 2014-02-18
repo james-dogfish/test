@@ -1588,6 +1588,23 @@ var selectQuestion = function (newQuestionSelected) {
 exports.selectQuestion = selectQuestion;
 
 
+/**
+`saveCurrentlySelectedQuestion`
+
+@method saveCurrentlySelectedQuestion
+
+@return {}  n/a
+*/
+exports.saveCurrentlySelectedQuestion  = function () {
+	if (questionSelected != null) {
+		var sectionList = getAllQuestionSections();
+		var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+		if (questionRef != null) {
+			Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+		}
+	}
+};
+
 
 /**
 `footerPostlayout` callback when census timer footer has finshed it height change
