@@ -109,9 +109,14 @@ exports.setAssessmentObject = function(assessmentObject){
 };
 
 exports.setContentsDetails = function(questionSectionContentsDetails){
+	try{
 	$.masterView.setContentsDetails(questionSectionContentsDetails);
 	$.masterView.MoveToOpen(false);
 	$.detailView.MoveToClose(false);
+	}catch(e){
+		alert("Exception in exports.setContentsDetails");
+		Alloy.Globals.aIndicator.hide();
+	}
 };
 
 

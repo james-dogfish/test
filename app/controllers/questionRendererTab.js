@@ -79,11 +79,17 @@ Ti.App.addEventListener("goToQuestion", function(e) {
 
 
 var createCensus= function(){
+	
+	try{
 	Alloy.Globals.aIndicator.show();
     createCensus();
     gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
 
     Alloy.Globals.aIndicator.hide();
+   }catch(e){
+   	alert("DEBUG: An exception occured!!!! Details for dev: "+JSON.stringify(e));
+   	Alloy.Globals.aIndicator.hide();
+   }
 };
 exports.createCensus= createCensus;
 
