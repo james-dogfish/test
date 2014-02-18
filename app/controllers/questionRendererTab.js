@@ -33,7 +33,7 @@ function saveAndExitClick(e) {
     $.trigger("saveAndExitClick"); // TODO - Why is this being clicked multiple times ??
 }
 
-var createCensus = function() {
+/*var createCensus = function() {
     currentAssessmentObject;
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
@@ -42,7 +42,7 @@ var createCensus = function() {
     }
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
     $.questionListView.appendSectionsToAssessment(censusData);
-};
+};*/
 
 var createPastCensus = function(pastCensusData) {
     currentAssessmentObject;
@@ -81,28 +81,24 @@ Ti.App.addEventListener("goToQuestion", function(e) {
 var createCensus= function(){
 	
 	try{
-	Alloy.Globals.aIndicator.show();
-    createCensus();
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-    Alloy.Globals.aIndicator.hide();
+		Alloy.Globals.aIndicator.show();
+		
+	    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+	    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
+	        alert(L('max_census'));
+	        return;
+	    }
+	    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
+	    $.questionListView.appendSectionsToAssessment(censusData);
+	    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+	
+	    Alloy.Globals.aIndicator.hide();
    }catch(e){
-   	alert("DEBUG: An exception occured!!!! Details for dev: "+JSON.stringify(e));
-   	Alloy.Globals.aIndicator.hide();
+   		alert("DEBUG: An exception occured!!!! Details for dev: "+JSON.stringify(e));
+   		Alloy.Globals.aIndicator.hide();
    }
 };
 exports.createCensus= createCensus;
-
-/*
-Ti.App.addEventListener("createCensus", function(e) {
-
-    Alloy.Globals.aIndicator.show();
-    createCensus();
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
-
-    Alloy.Globals.aIndicator.hide();
-});
-*/
 
 Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.show();
