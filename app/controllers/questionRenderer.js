@@ -1,6 +1,6 @@
 
 //`Alloy.Globals.currentlyFocusedTF` stores the currently focused textfield
-Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
+Alloy.Globals.currentlyFocusedTF = null;
 
 //`hiddenQuestions` is a list of all questions that are not currently visible
 var hiddenQuestions = [];
@@ -1215,6 +1215,24 @@ var questionRealTimeValidation = function(e)
 exports.questionRealTimeValidation = questionRealTimeValidation;
 
 
+/**
+`blurCurrentlyFocusedTF`
+
+@method blurCurrentlyFocusedTF
+
+@return {}  n/a
+*/
+var blurCurrentlyFocusedTF = function(){
+	try {
+    	if(Alloy.Globals.currentlyFocusedTF != null){
+	    	Alloy.Globals.currentlyFocusedTF.blur();
+	    }
+    } catch (e) {
+        Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
+    }
+};
+exports.blurCurrentlyFocusedTF = blurCurrentlyFocusedTF;
+
 
 /**
 `questionValueChange` called from a questionTemplate changes its value
@@ -1232,23 +1250,7 @@ questions if this question value change effets them
 var questionValueChange = function (e) {
 
     // Blur the currently focused TF
-    //{TextField : null, assessment : null};
-    try {
-    	if(Alloy.Globals.currentlyFocusedTF.TextField != null){
-	    	Alloy.Globals.currentlyFocusedTF.TextField.blur();
-	    	
-	    	var questionObject = Alloy.Globals.currentlyFocusedTF.questionObject;
-	    	if(questionObject != null){
-	    		var questionRef = findQuestionsRef(sectionList, questionObject.name, questionObject.groupType);
-	    		questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex, questionTitleRef.question);
-	    	}
-	    	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
-	    }
-    	
-    	
-    } catch (e) {
-        Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
-    }
+    blurCurrentlyFocusedTF();
 
     if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
 
@@ -1295,6 +1297,7 @@ var questionValueChange = function (e) {
     return e.questionObject;
 };
 exports.questionValueChange = questionValueChange;
+
 
 
 

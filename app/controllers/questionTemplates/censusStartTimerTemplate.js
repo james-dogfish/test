@@ -57,7 +57,7 @@ function onNotesClick(e){
 function onTitleClick(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
-	Alloy.Globals.currentlyFocusedTF && Alloy.Globals.currentlyFocusedTF.blur();
+	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 	Alloy.Globals.questionRenderer.selectQuestion(item);
 }
 
