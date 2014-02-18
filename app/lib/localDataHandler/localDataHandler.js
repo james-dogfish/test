@@ -1,21 +1,36 @@
 var INDEX_FILE_VERSION_NUM = 8;
 
-/*************************************************************
- * localDataHandler:
- * 			- deals with the lifetime of local files used to
- * 			- store/retrieve/manage data locally
- *************************************************************/
+/**
+`localDataHandler` deals with the lifetime of local files used to
+& store/retrieve/manage data locally
+
+@class localDataHandler
+*/
 function localDataHandler() {
     var self = this;
 
     var testEnvironment = false;
+    
+/**
+`setTestEnvironment`
 
+@method setTestEnvironment
+
+@param {boolean} isTesting
+
+@return {} n/a
+*/
     self.setTestEnvironment = function(isTesting) {
         testEnvironment = isTesting;
     };
 
+/**
+`getWorkingDirectory` will get the Directory all files will be read from, this is ether the users Directory or the test Directory
 
-    //will get the Directory all files will be read from, this is ether the users Directory or the test Directory
+@method getWorkingDirectory
+
+@return {} n/a
+*/
     self.getWorkingDirectory = function() {
 
         var workingDirectory = "";
@@ -28,7 +43,15 @@ function localDataHandler() {
         }
     };
 
-    //saves the CrossingSearch results so you do not need to make repeated requestes
+/**
+`cacheCrossingSearch` saves the CrossingSearch results so you do not need to make repeated requestes
+
+@method cacheCrossingSearch
+
+@param {JSON_List} payload
+
+@return {} n/a
+*/ 
     self.cacheCrossingSearch = function(payload) {
         try {
             var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
@@ -40,6 +63,13 @@ function localDataHandler() {
         }
     };
 
+/**
+`clearCachedCrossing`
+
+@method clearCachedCrossing
+
+@return {} n/a
+*/ 
     self.clearCachedCrossing = function() {
         var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
 
@@ -50,6 +80,13 @@ function localDataHandler() {
 
     };
 
+/**
+`loadCachedCrossingSearch` returns a saved list of corssings
+
+@method loadCachedCrossingSearch
+
+@return {JSON_List} 
+*/ 
     self.loadCachedCrossingSearch = function() {
         try {
             var crossingsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "crossingsSearch.json");
@@ -66,7 +103,13 @@ function localDataHandler() {
     };
 
 
-    //will clear all assessments for the working Directory. this will delete all files related to each assessments
+/**
+`clearAllSavedAssessments` will clear all assessments for the working Directory. this will delete all files related to each assessments
+
+@method clearAllSavedAssessments
+
+@return {} n/a
+*/ 
     self.clearAllSavedAssessments = function() {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "assessmentIndex.json");
         var savedAssessments = [];
@@ -84,7 +127,13 @@ function localDataHandler() {
         indexFile.write(JSON.stringify([]));
     };
 
-    //get all assessments for the working Directory.  
+/**
+`getAllSavedAssessments` get all assessments for the working Directory.  
+
+@method getAllSavedAssessments
+
+@return {JSON_List} savedAssessments
+*/ 
     self.getAllSavedAssessments = function() {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "assessmentIndex.json");
         if (indexFile.exists()) {
@@ -95,20 +144,34 @@ function localDataHandler() {
         }
     };
 
-    //will update all the saved assessments detailed with savedAssessments.
-    //must NOT be used to delete assessments
+/**
+`updateSavedAssessments` will update all the saved assessments detailed with savedAssessments. 
+must NOT be used to delete assessments
+
+@method updateSavedAssessments
+
+@param {JSON_List} savedAssessments
+
+@return {} n/a
+*/   
     self.updateSavedAssessments = function(savedAssessments) {
         var indexFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + "assessmentIndex.json");
         indexFile.write(JSON.stringify(savedAssessments));
         return true;
     };
 
-    //will update the saved copy of the  question in the relevent save file
+/**
+`updateQuestion` will update the saved copy of the  question in the relevent save file
+
+@method updateQuestion
+
+@param {JSON_Object} question
+
+@return {boolean} fail or succeed
+*/   
     self.updateQuestion = function(question) {
         try {
             var savedAssessments = self.getAllSavedAssessments();
-            //Alloy.Globals.Logger.log("savedAssessments >> "+JSON.stringify(savedAssessments), "info");
-            //Alloy.Globals.Logger.log("savedAssessments length >> "+savedAssessments.length, "info");
             var refToSaveAssessmentIndex = null;
             for (var savedAssementIndex = 0; savedAssementIndex < savedAssessments.length; savedAssementIndex++) {
                 if (savedAssessments[savedAssementIndex].assessmentID === question.assessmentId) {
@@ -133,7 +196,6 @@ function localDataHandler() {
                                 sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') &&
                                 sectionList[sectionIndex].questionList[questionIndex].name == question.name) {
 
-                                // sectionList[sectionIndex].questionList[questionIndex] = question;
                                 foundIndex = questionIndex;
                                 foundSectionIndex = sectionIndex;
                                 questionFound = true;
@@ -147,7 +209,6 @@ function localDataHandler() {
                     Alloy.Globals.Logger.log("updateQuestion : question not found ", "info");
                 } else {
                     sectionList[foundSectionIndex].questionList[foundIndex] = question;
-                    //alert("updateQuestion - localDataHandler >> "+JSON.stringify(question));
                 }
 
                 self.updateSavedAssessments(savedAssessments);
@@ -164,7 +225,15 @@ function localDataHandler() {
         }
     };
 
-    //will update a assessment with the same assessmentID as the assessmentObject passed
+/**
+`updateSingleAssessmentIndexEntry` will update a assessment with the same assessmentID as the assessmentObject passed
+
+@method updateSingleAssessmentIndexEntry
+
+@param {JSON_Object} assessmentObject
+
+@return {} n/a
+*/ 
     self.updateSingleAssessmentIndexEntry = function(assessmentObject) {
         try {
 
@@ -183,7 +252,15 @@ function localDataHandler() {
         }
     };
 
-    //will get the most uptodate assessment from file with the same assessmentID as the assessmentObject.assessmentID passed
+/**
+`getMostUpTodateAssessmentObject` will get the most uptodate assessment from file with the same assessmentID as the assessmentObject.assessmentID passed
+
+@method getMostUpTodateAssessmentObject
+
+@param {JSON_Object} assessmentObject
+
+@return {JSON_Object} assessmentObject
+*/
     self.getMostUpTodateAssessmentObject = function(assessmentObject) {
         try {
             var savedAssessments = self.getAllSavedAssessments();
@@ -201,8 +278,17 @@ function localDataHandler() {
         }
     };
 
-    //changes the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
-    //to say that it has been submitted
+
+/**
+`setAssessmentCompleted` changes the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+to say that it has been submitted
+
+@method setAssessmentCompleted
+
+@param {JSON_Object} assessmentObject
+
+@return {} n/a
+*/
     self.setAssessmentCompleted = function(assessmentObject) {
         var savedAssessments = self.getAllSavedAssessments();
 
@@ -215,7 +301,21 @@ function localDataHandler() {
         }
     };
 
-    //creates a new assessment in the working Directory with the passed variables 
+
+/**
+`addNewAssessment` creates a new assessment in the working Directory with the passed variables 
+
+@method addNewAssessment
+
+@param {JSON_Object} JASON_question_list
+@param {String} crossingName
+@param {String} detailID
+@param {String} crossingID
+@param {JSON_Map} quesMap
+
+@return {JSON_Object} assessmentObject
+*/
+
     self.addNewAssessment = function(JASON_question_list, crossingName, detailID, crossingID, quesMap /*defaultCensusQuestions, defaultTrainInfoQuestions*/ ) {
         try {
             var savedAssessments = self.getAllSavedAssessments();
@@ -236,7 +336,6 @@ function localDataHandler() {
                 coreQuestionsFileName: null,
 
                 censusQuestionsfileNameList: [],
-                //censusLastPageID: 1,
                 trainGroupQuestionsfileNameList: [],
                 trainGroupLastPageID: 1,
                 crossingName: crossingName,
@@ -262,10 +361,6 @@ function localDataHandler() {
             var newAssessmentFileName = newAssessment.mainQuestionsfileName;
             var newAssessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + newAssessmentFileName);
 
-            //Alloy.Globals.Logger.log("before calling interpret", "info");
-            //Alloy.Globals.Logger.log(JSON.stringify(JASON_question_list), "info");
-
-            //new interpreterModule
             var newQuestionSet = Alloy.Globals.interpreter.interpret(JASON_question_list, {
                 associatedFileName: newAssessment.mainQuestionsfileName,
                 pageName: L("page_risk_assessment_name"),
@@ -275,8 +370,6 @@ function localDataHandler() {
                 assessmentId: assessmentID,
                 questionMap: quesMap
             });
-            //Alloy.Globals.Logger.log("after calling interpret", "info");
-            //Alloy.Globals.Logger.log("newQuestionSet >> " + JSON.stringify(newQuestionSet), "info");
 
             newAssessmentFile.write(JSON.stringify(newQuestionSet));
             return newAssessment;
@@ -287,10 +380,19 @@ function localDataHandler() {
         }
     };
 
-    //addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+
+/**
+`addNewAssessment` addes a Default Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+
+@method addNewAssessment
+
+@param {JSON_Object} assessmentObject
+@param {JSON_List} defaultQuestionSet
+
+@return {boolean} fail or succeed
+*/
     self.addDefaultCensus = function(assessmentObject, defaultQuestionSet) {
         try {
-            //Alloy.Globals.Logger.log("addDefaultCensus assessmentObject="+JSON.stringify(assessmentObject), "info");
             var savedAssessments = self.getAllSavedAssessments();
 
             for (var i = 0; i < savedAssessments.length; i++) {
@@ -308,10 +410,19 @@ function localDataHandler() {
         }
     };
 
-    //addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+
+/**
+`addDefaultTrainInfo` addes a Default train question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+
+@method addDefaultTrainInfo
+
+@param {JSON_Object} assessmentObject
+@param {JSON_List} defaultQuestionSet
+
+@return {boolean} fail or succeed
+*/
     self.addDefaultTrainInfo = function(assessmentObject, defaultQuestionSet) {
         try {
-            //Alloy.Globals.Logger.log("addDefaultTrainInfo assessmentObject="+JSON.stringify(assessmentObject), "info");
             var savedAssessments = self.getAllSavedAssessments();
 
             for (var i = 0; i < savedAssessments.length; i++) {
@@ -329,7 +440,17 @@ function localDataHandler() {
         }
     };
 
-    //adds a core question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+/**
+`addNewCoreQuestionToAssessment` adds a core question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed  
+
+@method addNewCoreQuestionToAssessment
+
+@param {JSON_Object} assessmentObject
+@param {JSON_List} defaultQuestionSet
+@param {JSON_map} questionMap
+
+@return {JSON_List} question set
+*/
     self.addNewCoreQuestionToAssessment = function(assessmentObject, JASON_question_list, questionMap) {
         try {
             var savedAssessments = self.getAllSavedAssessments();
@@ -374,8 +495,18 @@ function localDataHandler() {
         }
     };
 
-    //adds a new Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
-    //the new Census uses the saved default Census Questions set for this assessment
+
+/**
+`addNewCensusToAssessment` adds a new Census question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+ the new Census uses the saved default Census Questions set for this assessment
+
+@method addNewCensusToAssessment
+
+@param {JSON_Object} assessmentObject
+@param {JSON_map} censusMap
+
+@return {JSON_List} newCensusQuestionSet
+*/
     self.addNewCensusToAssessment = function(assessmentObject, censusMap) {
 
         try {
@@ -405,8 +536,6 @@ function localDataHandler() {
                             newCensusQuestionSet
                         )
                     );
-
-                    //savedAssessments[i].censusLastPageID = parseInt(savedAssessments[i].censusLastPageID) + 1;
                     self.updateSavedAssessments(savedAssessments);
 
                     return newCensusQuestionSet;
@@ -421,7 +550,16 @@ function localDataHandler() {
         }
     };
 
-    //check if census is done for an assessment that matches the assessmentID as the assessmentObject passed 
+
+/**
+`checkIfCensusIsDone` check if census is done for an assessment that matches the assessmentID as the assessmentObject passed 
+
+@method checkIfCensusIsDone
+
+@param {JSON_Object} assessmentObject
+
+@return {} n/a
+*/
     self.checkIfCensusIsDone = function(assessmentObject) {
 
         var censusDone = true;
@@ -451,8 +589,15 @@ function localDataHandler() {
         }
     };
 
+/**
+`createAssessmentPDFResponse` creates an object needed from the saved assessment that is needed by the server to create a PDF doc
 
-    //creates an object needed from the saved assessment that is needed by the server to create a PDF doc
+@method createAssessmentPDFResponse
+
+@param {JSON_Object} assessmentObject
+
+@return {JSON_List} 
+*/
     self.createAssessmentPDFResponse = function(assessmentObject) {
 
         var returnQuestionObj = {
@@ -490,9 +635,18 @@ function localDataHandler() {
         return returnQuestionObj;
     };
 
+/**
+`addNewTrainGroupToAssessment` adds a new train group question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+the new TrainGroup uses the saved default TrainGroup Questions set for this assessment
+    
+@method addNewTrainGroupToAssessment
 
-    //adds a new train group question set to the saved assessment that matches the assessmentID as the assessmentObject.assessmentID passed
-    //the new TrainGroup uses the saved default TrainGroup Questions set for this assessment
+@param {JSON_Object} assessmentObject
+@param {JSON_Map} trainGroupMap
+
+@return {JSON_List} newTrainInfoQuestionSet
+*/
+    
     self.addNewTrainGroupToAssessment = function(assessmentObject, trainGroupMap) {
         try {
 
@@ -504,7 +658,6 @@ function localDataHandler() {
                     var newTrainGroupFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + newTrainGroupFileName);
                     savedAssessments[i].trainGroupQuestionsfileNameList.push(newTrainGroupFileName);
 
-                    //new interpreterModule
                     var newTrainInfoQuestionSet = Alloy.Globals.interpreter.interpret(savedAssessments[i].defaultTrainInfoQuestions, {
                         associatedFileName: newTrainGroupFileName,
                         pageName: L("page_train_info_name") + " " + savedAssessments[i].trainGroupLastPageID,
@@ -534,8 +687,15 @@ function localDataHandler() {
 
     };
 
+/**
+`removeAssessment` deletes all local content for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed
+    
+@method removeAssessment
 
-    //deletes all local content for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+@param {JSON_Object} assessmentObject
+
+@return {boolean} fail or succeed
+*/ 
     self.removeAssessment = function(assessmentObject) {
 		try {
 	        var savedAssessments = self.getAllSavedAssessments();
@@ -601,7 +761,15 @@ function localDataHandler() {
         }
     };
 
-    //Censuses Or Trains questions sets for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+/**
+`getAllCensusesOrTrains` Censuses Or Trains questions sets for an assessment that matches the assessmentID as the assessmentObject.assessmentID passed 
+    
+@method getAllCensusesOrTrains
+
+@param {Int} type
+
+@return {JSOn_List} CensusesOrTrains lists
+*/ 
     self.getAllCensusesOrTrains = function(assessmentObject, type) {
         try {
             var getAllData = [];
@@ -648,8 +816,15 @@ function localDataHandler() {
     };
 
 
+/**
+`deleteAssociatedFileNameFromAssessment` deletes a file attached to an assessment 
 
-    //deletes a file attached to an assessment 
+@method deleteAssociatedFileNameFromAssessment
+
+@param {JSON_Object} assessmentObject
+
+@return {boolean} fail or succeed
+*/
     self.deleteAssociatedFileNameFromAssessment = function(assessmentObject, associatedFileName) {
         try {
             assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
@@ -674,7 +849,17 @@ function localDataHandler() {
 
     };
 
-    //get the main question set for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+
+/**
+`getMainRiskAssessmentQuestions` get the main question set for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+
+@method getMainRiskAssessmentQuestions
+
+@param {JSON_Object} assessmentObject
+
+@return {JSON_List} returnQuestionSet
+*/
+    
     self.getMainRiskAssessmentQuestions = function(assessmentObject) {
         try {
             var returnQuestionSet = [];
@@ -698,14 +883,22 @@ function localDataHandler() {
             Alloy.Globals.aIndicator.hide();
         }
     };
-    
+ 
+ 
+ /**
+`getQuestionCountForFile` 
+
+@method getQuestionCountForFile
+
+@param {String} assessmentFileName
+@param {JSON_Object} assessmentObject
+
+@return {JSON_Object} assessmentObject
+*/   
     var getQuestionCountForFile = function(assessmentFileName, assessmentObject){
-    	//var questionCount = {mandatoryCount : 0, answeredCount : 0};
     	var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentFileName);
 	    if (assessmentFile.exists()) {
 	        var sectionList = JSON.parse(assessmentFile.read().text);
-	        //returnQuestionSet = returnQuestionSet.concat(assessment);
-	        ////Alloy.Globals.Logger.log("returnQuestionSet >> " + JSON.stringify(returnQuestionSet), "info");
 	        for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
 	            if (sectionList[sectionListIndex].alcrmGroupType === "CrossingGeneral") {
 	                continue;
@@ -713,7 +906,7 @@ function localDataHandler() {
 	                //get the questionList
 	                var questionList = sectionList[sectionListIndex].questionList;
 	                for (var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++) {
-	                    //Alloy.Globals.Logger.log("updateQuestionCount name = "+ questionList[questionListIndex].name, "info");
+	
 	                    //Count the Mandatory
 	                    if (questionList[questionListIndex].mandatory == true ||
 	                        questionList[questionListIndex].mandatory == "true") {
@@ -727,14 +920,23 @@ function localDataHandler() {
 	                            assessmentObject.questionsCompleted++;
 	                        }
 	                    }
-	                } //end inner for loop
-	            } //end if
-	        } //end outer for loop
+	                } 
+	            } 
+	        }
 	    }
 	    return assessmentObject;
     };
 
-    //updates the number of answers mandatory questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+
+ /**
+`updateQuestionCount` updates the number of answers mandatory questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+
+@method updateQuestionCount
+
+@param {JSON_Object} assessmentObject
+
+@return {JSON_List} returnQuestionSet
+*/  
     self.updateQuestionCount = function(assessmentObject) {
         try {
             var returnQuestionSet = [];
@@ -757,7 +959,16 @@ function localDataHandler() {
     };
 
 
-    //gets all questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+ /**
+`openAssessment` gets all questions for the assessmesnt that matches the assessmentID as the assessmentObject.assessmentID passed
+
+@method openAssessment
+
+@param {JSON_Object} assessmentObject
+
+@return {JSON_List} returnQuestionSet
+*/ 
+    
     self.openAssessment = function(assessmentObject) {
         try {
             var returnQuestionSet = [];
@@ -780,7 +991,6 @@ function localDataHandler() {
                 var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName);
                 if (assessmentFile.exists()) {
                     var assessment = JSON.parse(assessmentFile.read().text);
-                    //Alloy.Globals.Logger.log("mainQuestionsfileName = "+JSON.stringify(assessment), "info");
                     returnQuestionSet = returnQuestionSet.concat(assessment);
                 }
             }

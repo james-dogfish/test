@@ -249,6 +249,7 @@ var openMenu = function() {
             if (currentAssessmentObject !== null) {
                 Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             }
+            Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
             $.trigger("saveAndExitClick");
         } else if (e.row.id === 7) {
             $.questionListView.toggleScrollLock();

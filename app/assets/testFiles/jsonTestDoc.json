@@ -1,4 +1,75 @@
-[INFO]  Exception in postInterpretSettings >> {
-"message":"'
-
-undefined' is not an object (evaluating 'questionObject.title.font.fontWeight = \"bold\"')","backtrace":"#0 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/interpreter/interpreterModule2.js:564\n#1 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/localDataHandler/localDataHandler.js:229\n#2 addCoreQuestionSetToAssessment() at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/main.js:87\n#3 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/main.js:271\n#4 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/main.js:104\n#5 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/core/Util.js:283","line":479,"sourceId":276483712,"sourceURL":"file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/interpreter/interpreterModule2.js"}
+{
+	"displayValue": {
+		"keyboardType": 4,
+		"value": "ggggf",
+		"touchTestID": "2I_LENGTH_displayValue1"
+	},
+	"selected": true,
+	"questionErrorMessage": {
+		"text": "Must be a numeric Value eg 4"
+	},
+	"associatedFileName": "1392662258974TrainGroupQuestions.json",
+	"renderDependencyList": [],
+	"alcrmGroupType": "Train",
+	"readOnly": false,
+	"selections": [],
+	"notes": "",
+	"btnSelect": {
+		"touchTestID": "2I_LENGTH_button1"
+	},
+	"backgroundView": {
+		"backgroundColor": "#fff"
+	},
+	"subsectionTitle": null,
+	"type": "numeric",
+	"visable": true,
+	"alcrmQuestionID": "I_LENGTH",
+	"alcrmNotes": "I_LENGTH Notes",
+	"name": "2I_LENGTH",
+	"groupType": "2Train",
+	"mandatory": true,
+	"validation": {
+		"maxLength": null,
+		"conditionalMandatory": [],
+		"min": null,
+		"format": null,
+		"mandatory": true,
+		"minLength": null,
+		"max": null,
+		"validationTest": true
+	},
+	"questionResponse": "<ques:parameterName>I_LENGTH</ques:parameterName><ques:parameterValue>ggggf</ques:parameterValue>",
+	"isAQuestion": true,
+	"count": 1,
+	"order": "1604",
+	"help": "I_LENGTH Help",
+	"questionErrorMessageView": {
+		"height": "30dp",
+		"top": "5dp"
+	},
+	"mandatoryDependenciesList": [],
+	"headerView": {
+		"backgroundColor": "#A1F7B6"
+	},
+	"notesBackground": {
+		"touchTestID": "2I_LENGTH_notesButton",
+		"backgroundImage": "images/questionNote.png"
+	},
+	"title": {
+		"font": {
+			"fontWeight": "bold",
+			"fontFamily": "Helvetica Neue",
+			"fontSize": "20sp"
+		},
+		"text": "Normal length of trains (m)*"
+	},
+	"errorMessageVisable": true,
+	"displayValue2": {
+		"value": "",
+		"touchTestID": "2I_LENGTH_displayValue2"
+	},
+	"duration": null,
+	"renderValue": [],
+	"value": ["ggggf"],
+	"template": "textFieldTemplate"
+}

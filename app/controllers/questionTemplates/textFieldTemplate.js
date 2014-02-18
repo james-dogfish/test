@@ -6,6 +6,8 @@ function onTextFieldChange(e){
 };
 
 function onTextFieldBlur(e){
+	Alloy.Globals.Logger.log("onTextFieldBlur");
+	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){
@@ -27,10 +29,18 @@ function onTextFieldBlur(e){
    //"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 
     item.questionResponse = questionResponse;
-    e.source.value = "";
+    //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
 	section.updateItemAt(e.itemIndex, item);
+	
+	//var itemList = section.getItems();
+	//section.setItems(itemList);
+
+
+
+	Ti.API.info("value "+item.value[0]);
+	Ti.API.info("displayValue "+JSON.stringify(item.displayValue));
 };
 
 function onNotesClick(e){
@@ -56,7 +66,7 @@ function onNotesClick(e){
 };
 
 function onTextFieldFocus(e){
-	
+	Alloy.Globals.Logger.log("onTextFieldFocus");
 	/*
 	{"color":"#000",
 	"backgroundColor":"#eee",
@@ -76,11 +86,11 @@ function onTextFieldFocus(e){
 	}
 	*/
 	
-	Ti.API.info("onTextFieldFocus " + JSON.stringify(e.source));
-	Alloy.Globals.currentlyFocusedTF = e.source;
+	var item = e.section.getItemAt(e.itemIndex);
+	
 	
 
-	var item = e.section.getItemAt(e.itemIndex);
+	
 	
 	if(typeof item === "undefined"){
 		return;
@@ -91,6 +101,9 @@ function onTextFieldFocus(e){
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	e.source.value = item.displayValue.value;
+	
+	Ti.API.info("onTextFieldFocus " + JSON.stringify(e.source));
+	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
 
 };
 
