@@ -158,7 +158,8 @@ differently from the `firstTab` and `secondTab` nodes
 				mandatory : true, //can be changed at run time with conditionalMandatory
 				subsectionTitle : null,
 				title : {
-					text : "Date of Census"
+					text : "Date of Census",
+					font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"normal"}
 				}, // the title text for this question
 				displayValue : {
 					value : "",
@@ -364,7 +365,8 @@ differently from the `firstTab` and `secondTab` nodes
 				subsectionTitle : Alloy.Globals.localParser.getTableRowText(question),
 
 				title : {
-					text : Alloy.Globals.localParser.getQuestionText(question)
+					text : Alloy.Globals.localParser.getQuestionText(question),
+					font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"normal"}
 				}, // the title text for this question
 				displayValue : {
 					value : "",
@@ -833,7 +835,8 @@ relevent subsections, this function is called to insert the questions back in to
 						template : "setEntireSectionTemplate",
 
 						title : {
-							text : "Set all photograph questions to"
+							text : "Set all photograph questions to",
+							font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"normal"}
 						},
 						visable : true,
 						name : "",
@@ -886,7 +889,7 @@ relevent subsections, this function is called to insert the questions back in to
 					if (questionObject.mandatory == true) {
 						if (questionObject.title.text.slice(-1) != "*") {
 							questionObject.title.text = questionObject.title.text + "*";
-							questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
+							questionObject.title.font.fontWeight = "bold";
 						}
 					}
 
@@ -897,13 +900,15 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 						if (questionObject.title.text.slice(-1) == "*") {
 							questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
-							questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+							questionObject.title.font.fontWeight = "normal";
 						}
 					}
 					
 					if (passObject.pageType == "trainInfo" && parseInt(passObject.pageID) > 1) {
 						questionObject.mandatory = false;
-						questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+						questionObject.validation.mandatory  = false;
+						questionObject.validation.conditionalMandatory = [];
+						questionObject.title.font.fontWeight = "normal";
 						if (questionObject.title.text.slice(-1) == "*") {
 							questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
 						

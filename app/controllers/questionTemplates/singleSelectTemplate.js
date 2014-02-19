@@ -88,6 +88,9 @@ function onTitleClick(e){
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 	
 	Alloy.Globals.questionRenderer.selectQuestion(item);
-	Ti.API.info("questionResponse = "+JSON.stringify(item.questionResponse));
+	Ti.API.info("title = "+JSON.stringify(item.title));
+	Ti.API.info("e.source = "+JSON.stringify(e.source));
+	Ti.API.info("e.source.getRect( ).width = "+e.source.getRect( ).width);
+	
 };
 
