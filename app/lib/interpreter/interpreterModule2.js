@@ -115,7 +115,7 @@ differently from the `firstTab` and `secondTab` nodes
 */
 	var createCensusDateQuestion = function(passObject, section) {
 		try {
-			return {
+			var questionObject = {
 				isAQuestion : true,
 				template : "dateTemplate", // this is the template used to show the question in the list view
 				type : "date", // this is the alcrem question type
@@ -180,6 +180,9 @@ differently from the `firstTab` and `secondTab` nodes
 				mandatoryDependenciesList : [],
 				headerView : {}
 			};
+			questionObject = questionSetPastVariables(questionObject, passObject.questionMap);
+			return questionObject;
+			
 		} catch(e) {
 			alert("Exception occured in createCensusDateQuestion. Error Details: " + JSON.stringify(e));
 			return null;
@@ -201,7 +204,7 @@ differently from the `firstTab` and `secondTab` nodes
 @return {JSON_obejct} (success) questionObject
 @return {null} (fail) when the question fails to build
 */
-	var createQuestionObject = function(question, passObject, sectionGroupType, assessmentId, questionMap) {
+	var createQuestionObject = function(question, passObject, sectionGroupType, assessmentId) {
 
 		try {
 
@@ -391,7 +394,7 @@ differently from the `firstTab` and `secondTab` nodes
 				questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 			}
 
-			questionObject = questionSetPastVariables(questionObject, questionMap);
+			questionObject = questionSetPastVariables(questionObject, passObject.questionMap);
 
 			self.questionMap[questionObject.name] = questionObject;
 			return questionObject;
