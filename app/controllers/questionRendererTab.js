@@ -114,7 +114,9 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     }
     Alloy.Globals.Logger.log("pastCensusData >> " + JSON.stringify(e.questionList),"info");
     var cenMap = [];
+   
     for (var t = 0; t < e.questionList.length; t++) {
+    	alert(e.questionList[t].parameterName);
         if (typeof e.questionList[t].type !== "undefined") {
             cenMap[e.questionList[t].parameterName] = {
                 value: e.questionList[t].values
@@ -124,6 +126,8 @@ Ti.App.addEventListener("addPastCensus", function(e) {
                 value: e.questionList[t].parameterValue
             };
         }
+        
+        
     }
 
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);

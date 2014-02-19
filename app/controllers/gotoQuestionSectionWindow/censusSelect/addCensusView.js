@@ -56,6 +56,12 @@ exports.show = function(assessmentObject) {
 
 							for (var pastCensuesIndex = 0; pastCensuesIndex < pastCensuses.length; pastCensuesIndex++) {
 								//alert(JSON.stringify(pastCensuses[pastCensuesIndex]));
+								
+								pastCensuses[pastCensuesIndex].censusData.push({
+									parameterName: "I_CENSUS_DATE",
+									parameterValue:Alloy.Globals.Util.convertDate(pastCensuses[pastCensuesIndex].censusDate).dateFormat2
+								});
+								
 								valueList.push({
 									displayValue : "Census " + Alloy.Globals.Util.convertDate(pastCensuses[pastCensuesIndex].censusDate).dateFormat3,
 									value : pastCensuses[pastCensuesIndex].censusId,
@@ -65,12 +71,18 @@ exports.show = function(assessmentObject) {
 							}
 						} else {
 							Ti.API.error("pastCensuses ==>" + JSON.stringify(pastCensuses));
+							
+							pastCensuses.censusData.push({
+								parameterName: "I_CENSUS_DATE",
+								parameterValue:Alloy.Globals.Util.convertDate(pastCensuses.censusDate).dateFormat2
+							});
+							
 							valueList.push({
 								displayValue : "Census " + Alloy.Globals.Util.convertDate(pastCensuses.censusDate).dateFormat3,
 								value : pastCensuses.censusId,
 								questionList : pastCensuses.censusData
 							});
-						}
+						}	
 
 						currentValue = valueList[0];
 						var data = [];
@@ -78,7 +90,8 @@ exports.show = function(assessmentObject) {
 							data.push(Ti.UI.createPickerRow({
 								title : valueList[i].displayValue,
 								value : valueList[i].value,
-								questionList : valueList[i].questionList
+								questionList : valueList[i].questionList,
+						
 							}));
 						}
 
