@@ -711,7 +711,8 @@ using the template subsectionHeaderTemplate
 				template : "subsectionHeaderTemplate",
 				headerView : Alloy.Globals.Styles["headerViewSubsection"],
 				title : {
-					text : title
+					text : title,
+					font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"bold"}
 				},
 				visable : true,
 				name : "",
@@ -775,9 +776,6 @@ relevent subsections, this function is called to insert the questions back in to
 					newQuestionList.push(questionList[questionIndex]);
 				}
 			}
-			
-			
-			
 
 			for (subSectionIndex; subSectionIndex < subSectionList.length; subSectionIndex++) {
 

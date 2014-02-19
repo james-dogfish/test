@@ -15,4 +15,7 @@
 	top: "20dp",
 	borderColor : "#000",
 	backgroundColor: '#A9DDEE'
+},
+"questionTitle" : {
+	font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"bold"}
 }
