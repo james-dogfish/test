@@ -8,11 +8,11 @@
 },
 
 ".headerView" : {
-	width: "98%",
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	top: "10dp",
-	left : "1%",
-	right : "1%",
+	left : 10,
+	right : 10,
 	borderRadius: 5,
 	borderWidth : 1,
 	borderColor : "#000",
@@ -59,12 +59,12 @@
 
 ".questionView" : {
 	touchTestID : "",
-	width: "98%",
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	top: "5dp",
 	bottom : "10dp",
-	left : "1%",
-	right : "1%",
+	left : 10,
+	right : 10,
 	layout : "horizontal",
 	horizontalWrap : false
 },
