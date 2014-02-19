@@ -5,6 +5,7 @@ npm-debug.log
 tmp
 .map
 build/
+tiapp.xml
 Resources/
 docs/
 .settings

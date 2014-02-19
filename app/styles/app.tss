@@ -25,9 +25,9 @@
 	left : "1%",
 	top : "5dp",
 	bottom : "5dp",
-	font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
+	//font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
-	textAlign: 'left'
+	textAlign: 'left',
 },
 ".notesButton" : {
 	touchTestID : "",

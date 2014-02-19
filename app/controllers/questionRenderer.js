@@ -112,12 +112,14 @@ var setQuestionToMandatory = function (questionObject) {
     if (questionObject.mandatory == true) {
         if (questionObject.title.text.slice(-1) != "*") {
             questionObject.title.text = questionObject.title.text + "*";
-            questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
+            //questionObject.title.font = Alloy.Globals.Styles["titleFontMandatory"];
+            questionObject.title.font.fontWeight = "bold";
         }
     } else {
         if (questionObject.title.text.slice(-1) == "*") {
             questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
-            questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+            //questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+            questionObject.title.font.fontWeight = "normal";
         }
     }
 
