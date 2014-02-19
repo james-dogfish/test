@@ -892,10 +892,21 @@ relevent subsections, this function is called to insert the questions back in to
 
 					if (passObject.readOnly == true) {
 						questionObject.readOnly = true;
+						questionObject.mandatory = false;
 						questionObject.template = "textFieldTemplate";
 						questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 						if (questionObject.title.text.slice(-1) == "*") {
 							questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
+							questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+						}
+					}
+					
+					if (passObject.pageType == "trainInfo" && parseInt(passObject.pageID) > 1) {
+						questionObject.mandatory = false;
+						questionObject.title.font = Alloy.Globals.Styles["titleFontNonMandatory"];
+						if (questionObject.title.text.slice(-1) == "*") {
+							questionObject.title.text = questionObject.title.text.substring(0, questionObject.title.text.length - 1);
+						
 						}
 					}
 
