@@ -116,7 +116,7 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     var cenMap = [];
    
     for (var t = 0; t < e.questionList.length; t++) {
-    	alert(e.questionList[t].parameterName);
+    	//alert(e.questionList[t].parameterName);
         if (typeof e.questionList[t].type !== "undefined") {
             cenMap[e.questionList[t].parameterName] = {
                 value: e.questionList[t].values
