@@ -32,7 +32,10 @@ function onTextFieldBlur(e){
     //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
-	section.updateItemAt(e.itemIndex, item);
+	 setTimeout(function(){
+	 	section.updateItemAt(e.itemIndex, item);
+	 },500);
+		
 	
 	//var itemList = section.getItems();
 	//section.setItems(itemList);
