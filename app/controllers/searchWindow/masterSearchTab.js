@@ -128,8 +128,8 @@ function searchFromSearchButton()
 exports.setData = function(shouldRefresh) {
 	Alloy.Globals.Logger.log("masterSearchTab - setData","info");
 	crossingData = Alloy.Globals.localDataHandler.loadCachedCrossingSearch();
-	if (crossingData.length !== 0 && shouldRefresh == false) {
-		Alloy.Globals.aIndicator.show("Loading...", 50000);
+	if ($.tableView.data.length === 0 && crossingData.length !== 0 && shouldRefresh == false) {
+		Alloy.Globals.aIndicator.show("Loading...");
 		$.tableView.setData([]);
 
 		var data = [];
