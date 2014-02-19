@@ -4,10 +4,26 @@ Alloy.Globals.questionRenderer = null;
 Alloy.Globals.questionRenderer = $.questionListView;
 Alloy.Globals.questionRendererTab = this;
 
+/**
+`getAssessment` gets the assessmentObject the questionRender is displaying
+
+@method getAssessment
+
+@return {JSON_obejct} assessmentObject
+*/
 exports.getAssessment = function() {
     return currentAssessmentObject;
 };
 
+/**
+`setAssessment` use the assessmentObject to to populate the list view. first 
+
+@method setAssessment
+
+@param {JSON_obejct} assessmentObject
+
+@return {} n/a
+*/
 exports.setAssessment = function(assessmentObject) {
     Alloy.Globals.aIndicator.show();
     $.appTitle.text = assessmentObject.crossingName;
@@ -20,11 +36,27 @@ exports.setAssessment = function(assessmentObject) {
     Alloy.Globals.Analytics.trackFeature('RiskAssessment:Opened');
 };
 
+
+/**
+`clear` clear all questions in the QuestionRenderer
+
+@method clear
+
+@return {} n/a
+*/
 exports.clear = function() {
     $.questionListView.clear();
 };
 
+/**
+`saveAndExitClick` called when the user clicks save and exit in the menu
 
+@method saveAndExitClick
+
+@param {JSON_obejct} e not used
+
+@return {} n/a
+*/
 function saveAndExitClick(e) {
     $.appTitle.text = ''; 
     if (currentAssessmentObject !== null) {
