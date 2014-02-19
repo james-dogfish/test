@@ -1226,8 +1226,11 @@ exports.questionRealTimeValidation = questionRealTimeValidation;
 */
 var blurCurrentlyFocusedTF = function(){
 	try {
-    	if(Alloy.Globals.currentlyFocusedTF != null){
-	    	Alloy.Globals.currentlyFocusedTF.blur();
+    	if(typeof Alloy.Globals.currentlyFocusedTF.TextField !== "undefined"){
+    		if(Alloy.Globals.currentlyFocusedTF.TextField !== null)
+    		{
+    			Alloy.Globals.currentlyFocusedTF.TextField.blur();
+    		}
 	    }
     } catch (e) {
         Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
@@ -1636,3 +1639,18 @@ resets the list view so there is not overlap
 function footerPostlayout(e) {
     $.listView.bottom = $.footer.size.height;
 };
+
+///////////SCROLL/////////////
+// Will blur out currently focused textfield if table scrolls
+// more than 150 in y axis
+var lastContentOffset = 0; // TODO - reset this when window is closed
+var tableScrolling = function(e) {
+    //if (Alloy.Globals.currentlyFocusedTF) {
+        if (Math.abs(e.contentOffset.y - lastContentOffset) >= 30) {
+            blurCurrentlyFocusedTF();
+            lastContentOffset = e.contentOffset.y;
+        }
+    //}
+};
+
+$.listView.addEventListener('scroll', tableScrolling);
