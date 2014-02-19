@@ -1,15 +1,9 @@
 ".container" : {
-	width: Ti.UI.Fill,
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 },
 "#headerView" : {
-	width: Ti.UI.Fill,
-	height: "30dp",
 	top: 0,
-	left : "1%",
-	right : "1%",
-	borderRadius: 5,
-	borderWidth : 1,
 	borderColor : "#F54949",
 	backgroundColor: '#E8C8C8'
 }

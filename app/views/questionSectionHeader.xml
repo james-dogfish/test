@@ -1,6 +1,6 @@
 <Alloy>
 	<View class="container">
-		<View id="headerView">
+		<View id="headerView" class="headerView">
 			<Label id="headerTitle" />
 		</View>
 	</View>

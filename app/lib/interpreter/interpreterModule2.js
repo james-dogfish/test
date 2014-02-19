@@ -711,7 +711,8 @@ using the template subsectionHeaderTemplate
 				template : "subsectionHeaderTemplate",
 				headerView : Alloy.Globals.Styles["headerViewSubsection"],
 				title : {
-					text : title
+					text : title,
+					font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"bold"}
 				},
 				visable : true,
 				name : "",
@@ -747,12 +748,20 @@ relevent subsections, this function is called to insert the questions back in to
 		try {
 			var subSectionIndex = 0;
 			var newQuestionList = [];
-			for (var questionIndex = 0; questionIndex < questionList.length && subSectionIndex < subSectionList.length; questionIndex++) {
+			
+			if(subSectionList.length == 0){
+				return questionList;
+			}
+			
+			for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 				if (questionList[questionIndex].subsectionTitle != null) {
 					continue;
 				} else if ( typeof questionList[questionIndex].order === "undefined") {
 					newQuestionList.push(questionList[questionIndex]);
-				} else if (parseInt(subSectionList[subSectionIndex].order) < parseInt(questionList[questionIndex].order)) {
+				} else if (subSectionIndex >= subSectionList.length){
+					newQuestionList.push(questionList[questionIndex]);
+				}
+				else if (parseInt(subSectionList[subSectionIndex].order) < parseInt(questionList[questionIndex].order)) {
 
 					newQuestionList.push(createSubsectionHeader(subSectionList[subSectionIndex].title));
 
@@ -761,6 +770,10 @@ relevent subsections, this function is called to insert the questions back in to
 						newQuestionList.push(subSectionList[subSectionIndex].questionList[subSectionQuestionIndex]);
 					}
 					subSectionIndex++;
+					questionIndex--;
+				}
+				else{
+					newQuestionList.push(questionList[questionIndex]);
 				}
 			}
 

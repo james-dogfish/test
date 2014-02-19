@@ -8,11 +8,11 @@
 },
 
 ".headerView" : {
-	width: "98%",
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	top: "10dp",
-	left : "1%",
-	right : "1%",
+	left : 10,
+	right : 10,
 	borderRadius: 5,
 	borderWidth : 1,
 	borderColor : "#000",
@@ -20,19 +20,20 @@
 },
 
 ".questionTitle" : {
-	width: "90%",
+	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	left : "1%",
-	top : "5dp",
-	bottom : "5dp",
+	left : 10,
+	top : 5,
+	bottom : 5,
+	right: 50,
 	//font: {fontFamily:'Helvetica Neue', fontSize:"20sp"},
 	color: '#000000',
-	textAlign: 'left',
+	textAlign: 'left'
 },
 ".notesButton" : {
 	touchTestID : "",
 	backgroundImage: 'images/questionNote.png',
-	right : "10dp",
+	right : 10,
 	width: 30,
 	height: 30,
 },
@@ -58,12 +59,12 @@
 
 ".questionView" : {
 	touchTestID : "",
-	width: "98%",
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	top: "5dp",
 	bottom : "10dp",
-	left : "1%",
-	right : "1%",
+	left : 10,
+	right : 10,
 	layout : "horizontal",
 	horizontalWrap : false
 },
