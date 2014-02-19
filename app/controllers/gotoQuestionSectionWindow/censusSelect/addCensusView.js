@@ -59,7 +59,7 @@ exports.show = function(assessmentObject) {
 								
 								pastCensuses[pastCensuesIndex].censusData.push({
 									parameterName: "I_CENSUS_DATE",
-									parameterValue:Alloy.Globals.Util.convertDate(pastCensuses[pastCensuesIndex].censusDate).dateFormat2
+									parameterValue:Alloy.Globals.Util.convertDate(pastCensuses[pastCensuesIndex].censusDate).dateFormat4
 								});
 								
 								valueList.push({
@@ -74,7 +74,7 @@ exports.show = function(assessmentObject) {
 							
 							pastCensuses.censusData.push({
 								parameterName: "I_CENSUS_DATE",
-								parameterValue:Alloy.Globals.Util.convertDate(pastCensuses.censusDate).dateFormat2
+								parameterValue:Alloy.Globals.Util.convertDate(pastCensuses.censusDate).dateFormat4
 							});
 							
 							valueList.push({
