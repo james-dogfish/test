@@ -20,9 +20,10 @@ function showPicker(e)
 	
 	
 	Ti.API.info("** item.duration = "+JSON.stringify(item.duration));
-
+	
 
 	Alloy.createController("questionDialogs/minuteHourTimePicker", {
+		duration : item.duration,
 		closeCallBack : function(data){
 			item.displayValue = {value : data.displayValue};
 			item.value = [data.value];

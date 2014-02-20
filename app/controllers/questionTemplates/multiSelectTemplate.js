@@ -59,11 +59,15 @@ function multiSelectButtonClicked(e) {
 			for (var i = 0; i < returnValue.valueList.length; i++) {
 				values = values + "<ques:values>" + returnValue.valueList[i] + "</ques:values>";
 			}
-			var questionResponse =
-				"<ques:parameterName>" + item.alcrmQuestionID + "</ques:parameterName>" + values /*+ "<ques:notes>"+item.notes+"</ques:notes>"*/ ;
-
-			item.questionResponse = questionResponse;
-
+			
+			if(singleStringValue === ""){
+				item.questionResponse = null;
+			}
+			else{
+				item.questionResponse = 
+					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values /*+ "<ques:notes>"+item.notes+"</ques:notes>"*/;
+			}
+		    
 			item = Alloy.Globals.questionRenderer.questionValueChange({
 				questionObject: item,
 				questionIndex: e.itemIndex,
