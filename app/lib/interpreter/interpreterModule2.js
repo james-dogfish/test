@@ -1061,6 +1061,7 @@ add changes to map variables to be used latter.
 		}
 
 		var timerPickerQuestions = Ti.App.Properties.getList("timerPickerQuestions", []);
+		alert(JSON.stringify(timerPickerQuestions));
 		Alloy.Globals.Logger.log("timerPickerQuestions = " + JSON.stringify(timerPickerQuestions), "info");
 		timerPickerQuestionMap = [];
 		for (var i = 0; i < timerPickerQuestions.length; i++) {
