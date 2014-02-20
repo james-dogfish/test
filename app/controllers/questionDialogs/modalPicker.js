@@ -1,9 +1,6 @@
 var args = arguments[0] || {};
 
-
-
 var currentValue = args.valueList[0];
-
 	
 var data = [],
 	valueLength = args.valueList.length;
@@ -48,6 +45,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
+	$.destroy();
 });
 
 var closeWindow = function(){

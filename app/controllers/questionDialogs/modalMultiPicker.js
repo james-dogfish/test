@@ -38,6 +38,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
+	$.destory();
 });
 
 var closeWindow = function(){

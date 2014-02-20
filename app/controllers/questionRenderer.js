@@ -43,11 +43,13 @@ matches the questionName and groupType and returns references to the found quest
 */
  
 var findQuestionsRef = function (sectionList, questionName, groupType) {
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+    var sectionListLength = sectionList.length;
+    for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
 		
 		if(sectionList[sectionIndex].groupType == groupType){
 			var itemsList = sectionList[sectionIndex].getItems();
-	        for (var itemIndex = 0; itemIndex < itemsList.length; itemIndex++) {
+            var itemsLength = itemsList.length;
+	        for (var itemIndex = 0; itemIndex < itemsLength; itemIndex++) {
 	            if (itemsList[itemIndex].name == questionName) {
 	                return {
 	                    questionIndex: itemIndex,
