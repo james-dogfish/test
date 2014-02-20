@@ -1197,7 +1197,8 @@ function moveSectionNextClick(e) {
 /**
 `questionRealTimeValidation` called from a textFieldTemplate change event to
 this function validates a question value and display updates the question error
-message if thr question is not valid
+message if thr question is not valid. THIS FUNCTION IS NOT BEING USED, LEFT HERE
+IN CASE WE NEED TO USE IN THE FUTURE
 
 @method questionRealTimeValidation
 

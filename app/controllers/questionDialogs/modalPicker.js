@@ -5,8 +5,10 @@ var args = arguments[0] || {};
 var currentValue = args.valueList[0];
 
 	
-var data = [];
-for(var i=0;i<args.valueList.length;i++){
+var data = [],
+	valueLength = args.valueList.length;
+
+for(var i=0; i < valueLength;i++){
 	data.push(Ti.UI.createPickerRow({title: args.valueList[i].displayValue, value : args.valueList[i].value }
 	));
 }
@@ -16,7 +18,7 @@ $.pickerView.selectionIndicator = true;
 $.pickerView.setSelectedRow(0, 0, true);
 
 if(args.currentValue != "" || typeof args.currentValue === "undefined"){
-	for(var i=0;i<args.valueList.length;i++){
+	for(var i=0;i<valueLength;i++){
 		if(args.valueList[i].value == args.currentValue){
 			$.pickerView.setSelectedRow(0, i, true);
 			currentValue = args.valueList[i];
