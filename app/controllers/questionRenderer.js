@@ -1577,7 +1577,7 @@ var selectQuestion = function (newQuestionSelected) {
         var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){
-            
+           		Alloy.Globals.Logger.log("questionSelected change","info");
 	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
 	            questionRef.question.selected = false;
 	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
