@@ -10,7 +10,7 @@
 		    "name" : "I_DURATION",
 		    "duration" :{
 				"hoursLowBound" : 0,
-				"hoursHighBound" : 12,
+				"hoursHighBound" : 0,
 				"hoursIncrement" : 1,
 				
 				"minutesLowBound" : 0,
