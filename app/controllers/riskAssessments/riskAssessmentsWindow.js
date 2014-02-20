@@ -43,21 +43,13 @@ exports.noCensusMessage = function(assObj){
 
 
 
-exports.assessmentIncomplete = function(assObj){
-	Alloy.Globals.Logger.log("assessmentIncomplete >> "+assObj.assessmentID, "error");
-	Alloy.Globals.Logger.log("assessmentIncomplete assObj>> "+JSON.stringify(assObj), "error");
-	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
-	if(assessmentRow != null){
-		assessmentRow.commitResponseAssessmentIncomplete();
-	}
-};
-
-exports.assessmentSubmitMessage = function(assObj,success){
+exports.assessmentSubmitMessage = function(assObj,success, message){
+	
 	Alloy.Globals.Logger.log("AssessmentSubmitMessage called", "info");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
 		Alloy.Globals.Logger.log("AssessmentSubmitMessage commitResponse = "+success, "info");
-		assessmentRow.commitResponse(success);
+		assessmentRow.commitResponse(success, message);
 	}
 };
 
