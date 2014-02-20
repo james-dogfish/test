@@ -1428,6 +1428,10 @@ timerDuration question value
 */
 var startCensesTimer = function(question){
 
+	if($.censusFooterView.isOpen() == true){
+		alert(L("census_timer_already_started"));
+		return false;
+	}
     var sectionList = getAllQuestionSections();
 
     var questionRef = findQuestionByAssociatedFileName("I_DURATION", question.associatedFileName);
@@ -1541,12 +1545,15 @@ the list view will move to the census usage page and position the top question a
 var setEntireSectionTemplate = function(groupType, value, displayValue, questionToChangeTemplate){
 	var sectionList = getAllQuestionSections();
 
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+    var sectionLength = sectionList.length;
+
+    for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
 
         if (sectionList[sectionIndex].groupType != groupType) continue;
 
         var questionList = sectionList[sectionIndex].getItems();
-        for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].getItems().length; questionIndex++) {
+        var questionLength = sectionList[sectionIndex].getItems().length;
+        for (var questionIndex = 0; questionIndex < questionLength; questionIndex++) {
         	
             if (questionList[questionIndex].template == questionToChangeTemplate) {
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);

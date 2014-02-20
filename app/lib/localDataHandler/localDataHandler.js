@@ -536,6 +536,7 @@ to say that it has been submitted
                             newCensusQuestionSet
                         )
                     );
+                    
                     self.updateSavedAssessments(savedAssessments);
 
                     return newCensusQuestionSet;

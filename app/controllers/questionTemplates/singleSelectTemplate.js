@@ -28,12 +28,14 @@ function showPicker(e)
 			
 			Alloy.Globals.Logger.log("modalPicker value = "+data.value, "info");
 			
-			var questionResponse = 
-		       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
-		       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
-		       //"<ques:notes>"+item.notes+"</ques:notes>";
-		       
-		    item.questionResponse = questionResponse;
+			if(item.value[0] === ""){
+				item.questionResponse = null;
+			}
+			else{
+				item.questionResponse = 
+					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
+		       		"<ques:parameterValue>"+data.value+"</ques:parameterValue>";
+			}
 		
 			var showSpiner = false;
 			var activityIndicator;

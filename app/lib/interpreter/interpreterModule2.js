@@ -858,10 +858,10 @@ relevent subsections, this function is called to insert the questions back in to
 						name : "",
 						questionToChangeTemplate : "singleSelectTemplate",
 						selections : [{
-							displayValue : "Yes",
+							displayValue : "YES",
 							value : 1
 						}, {
-							displayValue : "No",
+							displayValue : "NO",
 							value : 0
 						}],
 						renderValue : []
@@ -891,12 +891,19 @@ relevent subsections, this function is called to insert the questions back in to
 					}
 					if (questionObject.alcrmQuestionID in censusCounterQuestionMap) {
 						questionObject.template = "censusCounterTemplate";
+						questionObject.value[0] = "0";
+						questionObject.displayValue.value = "0";
+						
+					    questionObject.questionResponse =
+					    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+					    	"<ques:parameterValue>"+"0"+"</ques:parameterValue>";
 					}
 
 					if (questionObject.alcrmQuestionID in timerPickerQuestionMap) {
 						questionObject.template = "minuteHourTimeTemplate";
 						questionObject.type = "timerPicker";
 						questionObject.duration = timerPickerQuestionMap[questionObject.alcrmQuestionID];
+						
 					}
 
 					questionObject = testIfQuestionVisable(questionObject);

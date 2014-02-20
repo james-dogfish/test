@@ -111,21 +111,17 @@ function _Util() {
 		if (self.phoneConnected()) {
 			var fileName = 'appconfig.json';
 			self.downloadFileConditionally(cmsUrl + '/data/appconfig.json', docsFolder + fileName, function(c) {
-				// get last modified date
-				var lastModified = c.getResponseHeader('Last-Modified');
-				var previousDate = Ti.App.Properties.getString('helpLastModified', '');
-				if (lastModified !== previousDate) {
-					return true;
-				}
+				// returning true as last modified date isn't consistent
+				return true;
 
 			}, function(data, client) {
-				//alert(JSON.stringify(data));
 				Ti.App.Properties.setString('helpContent', data.help);
 				Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
 				Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);
 				Ti.App.Properties.setList('removedQuestions', data.removedQuestions);
 				Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
 				Ti.App.Properties.setList('timerPickerQuestions', data.timerPickerQuestions);
+				
 				Ti.App.Properties.setString('wsTimeout', JSON.stringify(data.wsTimeout));
 				Ti.App.Properties.setString('maxCrossings',JSON.stringify(data.maxCrossings));
 				Ti.App.Properties.setString('helpLastModified', client.getResponseHeader('Last-Modified'));

@@ -123,7 +123,7 @@
 },
 ".systemButtonText" : {
 	width :Ti.UI.SIZE,
-	height :Ti.UI.FILL,
+	height :Ti.UI.SIZE,
 	left : "10dp",
 	right : "10dp",
 	font:{fontSize:12,fontWeight:'bold',fontFamily:'Helvetica Neue'},
