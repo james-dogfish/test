@@ -111,7 +111,7 @@ function _Util() {
 		if (self.phoneConnected()) {
 			var fileName = 'appconfig.json';
 			self.downloadFileConditionally(cmsUrl + '/data/appconfig.json', docsFolder + fileName, function(c) {
-				// get last modified date
+				// returning true as last modified date isn't consistent
 				return true;
 
 			}, function(data, client) {

@@ -858,10 +858,10 @@ relevent subsections, this function is called to insert the questions back in to
 						name : "",
 						questionToChangeTemplate : "singleSelectTemplate",
 						selections : [{
-							displayValue : "Yes",
+							displayValue : "YES",
 							value : 1
 						}, {
-							displayValue : "No",
+							displayValue : "NO",
 							value : 0
 						}],
 						renderValue : []
