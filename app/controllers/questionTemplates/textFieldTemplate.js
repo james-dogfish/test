@@ -7,7 +7,7 @@ function onTextFieldChange(e){
 
 function onTextFieldBlur(e){
 	Alloy.Globals.Logger.log("onTextFieldBlur");
-	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
+	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){
@@ -31,11 +31,6 @@ function onTextFieldBlur(e){
     item.questionResponse = questionResponse;
     //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-	
-	 setTimeout(function(){
-	 	section.updateItemAt(e.itemIndex, item);
-	 },500);
-		
 	
 	//var itemList = section.getItems();
 	//section.setItems(itemList);
@@ -70,6 +65,9 @@ function onNotesClick(e){
 
 function onTextFieldFocus(e){
 	Alloy.Globals.Logger.log("onTextFieldFocus");
+	
+	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+	
 	/*
 	{"color":"#000",
 	"backgroundColor":"#eee",
