@@ -23,12 +23,17 @@ function onTextFieldBlur(e){
 	item.displayValue.value =  e.value;
 	item.value = [e.value];
 	
-	var questionResponse = 
-   "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-   "<ques:parameterValue>"+e.value+"</ques:parameterValue>";
-   //"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
-
-    item.questionResponse = questionResponse;
+	if(item.value[0] === ""){
+		item.questionResponse = null;
+	}
+	else{
+		item.questionResponse = 
+		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
+   		"<ques:parameterValue>"+e.value+"</ques:parameterValue>";
+   		//"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
+	}
+	
+	
     //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	

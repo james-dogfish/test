@@ -1,6 +1,13 @@
 <Alloy>
 	<Window id="win">
 		<View id="background" />
-		<ActivityIndicator id="activityIndicator" message="Loading..."/>
+		<View id="container">
+			<View id="verticalLayoutContainer">
+				<ActivityIndicator id="activityIndicator" message="Loading..."/>
+				<Button class="systemButton" id="cancelButton" onSingletap="cancelButtonClick">
+					<Label id="systemButtonText" class="systemButtonText" text="Cancel" onSingletap="cancelButtonClick" />
+				</Button>
+			</View>
+		</View>
 	</Window>
 </Alloy>
