@@ -43,6 +43,10 @@
 	width: Ti.UI.FILL,
 	height: Ti.UI.FILL,
 	backgroundColor:"#fff",
+	font : {
+		fontSize : 20,
+		fontWeight : 'normal'
+	}
 },
 "#hintText" : {
 	width: "150dp",
@@ -54,6 +58,6 @@
 		fontSize : 20,
 		fontWeight : 'bold'
 	},
-	color : '#ddd',
+	color : '#ddd'
 }
 
