@@ -499,7 +499,7 @@ function responseGenerator() {
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
-				Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 
 				noneToSubmit++;
 				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
@@ -517,7 +517,8 @@ function responseGenerator() {
 							alert("here0");
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					} else {
 						xmlCensusRequest = self.buildCensusResponse(assObj, sectionListCen, assObj.crossingID, assObj.detailID);
@@ -527,7 +528,8 @@ function responseGenerator() {
 							alert("here1");
 							Ti.API.error("=====xmlCensusRequest======"+JSON.stringify(xmlCensusRequest));
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					}
 					if (sectionListCen.length > 0 && sectionListTra.length > 0) {
@@ -542,7 +544,8 @@ function responseGenerator() {
 						} else {
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					} else {
 						Alloy.Globals.aIndicator.hide();

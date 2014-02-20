@@ -20,6 +20,8 @@
 	    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info </string>
 	    
 	    <string name="assessmentFailed">Assessment Failed </string>
+	    <string name="assessmentNotCompleted">Could not commit - Assessment Incomplete </string>
+	   
 	    <string name="censusFail">Census Failed </string>
 	   
     <!-- delete ra & census related strings -->
