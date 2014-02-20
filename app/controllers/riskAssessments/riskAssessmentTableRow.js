@@ -21,7 +21,7 @@ if (arguments && arguments[0]) {
 	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
 
 	if (thisRA.alcrmStatus === 'sent' || thisRA.isSubmitted == true) {
-		$.row.editable = false;
+		//$.row.nonClickable = false;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
 	} else {
 		$.row.editable = true;

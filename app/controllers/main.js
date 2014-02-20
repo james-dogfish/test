@@ -148,6 +148,7 @@ function parseTrainData(xml_text, curAssObj) {
 		}
 	} catch(e) {
 		Alloy.Globals.Logger.log("Exception in parseTrainData. Details: "+JSON.stringify(e),"info");
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
 };
