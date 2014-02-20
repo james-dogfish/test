@@ -1428,6 +1428,10 @@ timerDuration question value
 */
 var startCensesTimer = function(question){
 
+	if($.censusFooterView.isOpen() == true){
+		alert(L("census_timer_already_started"));
+		return false;
+	}
     var sectionList = getAllQuestionSections();
 
     var questionRef = findQuestionByAssociatedFileName("I_DURATION", question.associatedFileName);

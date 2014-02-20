@@ -12,8 +12,10 @@ var currentValue = {m : "00", h : "00"};
 		minutesHighBound : 60,
 		minutesIncrement : 15,
 	};
-
-
+	
+	if(typeof args.duration !== "undefined"){
+		duration = args.duration;
+	}
 
 for(var hours =duration.hoursLowBound;hours<=duration.hoursHighBound;hours+= duration.hoursIncrement){
 	$.hoursColumn.addRow(Ti.UI.createPickerRow(

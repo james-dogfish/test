@@ -5,9 +5,52 @@
 	backgroundColor:"#000",
 	opacity : 0.5
 },
+"#container" : {
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	borderRadius: 10,
+	borderWidth : 2,
+	borderColor : "#000",
+	backgroundColor: "#474747"
+},
+"#verticalLayoutContainer" : {
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	top : 20,
+	bottom : 20,
+	left : 20,
+	right : 20,
+	layout : "vertical",
+},
 "#activityIndicator" : {
 	width : Titanium.UI.SIZE,
 	height : Titanium.UI.SIZE,
 	style : Titanium.UI.iPhone.ActivityIndicatorStyle.BIG,
 	color   : "#fff"
+},
+"#cancelButton" : {
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	top : 20,
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#E3E3E3', '#A8A8A8']
+    },
+},
+"#systemButtonText" : {
+	left : 10,
+	right : 10,
+	top : 10,
+	bottom : 10,
+	color : "#000",
+	font:{fontSize:20,fontWeight:'bold',fontFamily:'Helvetica Neue'},
 }
+

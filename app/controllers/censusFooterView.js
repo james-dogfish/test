@@ -109,6 +109,11 @@ var open = function(timerDuration, groupType, associatedFileName){
 };
 exports.open = open;
 
+exports.isOpen = function(){
+	return isOpen;
+};
+
+
 var getCensusAssociatedFileName = function(){
 	return censusAssociatedFileName;
 };

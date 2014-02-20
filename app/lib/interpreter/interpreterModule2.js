@@ -903,6 +903,7 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.template = "minuteHourTimeTemplate";
 						questionObject.type = "timerPicker";
 						questionObject.duration = timerPickerQuestionMap[questionObject.alcrmQuestionID];
+						
 					}
 
 					questionObject = testIfQuestionVisable(questionObject);
