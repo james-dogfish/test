@@ -7,7 +7,7 @@
 	layout : "horizontal",
 	horizontalWrap : false,
 	top: "5dp",
-	bottom : "10dp"
+	bottom : 0
 },
 "#valueTextField" : {
 	width: "18%",
