@@ -630,8 +630,12 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateTrainGroupRequest', args, success, failure);
-        }
-
+       },
+       
+       stopRequest:function()
+       {
+       		sudsClient.abort();
+       }
     };
 
     return soapObject;

@@ -39,6 +39,10 @@ var SudsClient = function(_options) {
   function getXHR() {
     return Titanium.Network.createHTTPClient();
   }
+  
+  function abortXHR(){
+  	getXHR().abort();
+  }
 
   //Parse a string and create an XML DOM object
 
@@ -301,6 +305,8 @@ var SudsClient = function(_options) {
   };
   // Invoke a web service
   this.invoke = invokeService;
+  
+  this.abort = abortXHR;
 };
 
 

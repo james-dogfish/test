@@ -152,15 +152,18 @@ function responseGenerator() {
 	self.buildTrainInfoGroupResponse = function(trainList, crossingID, detailID) {
 		try {
 			var xmlRequest = [];
-
+			
+			
 			for (var trainListIndex = 0; trainListIndex < trainList.length; trainListIndex++) {
 				var sectionList = trainList[trainListIndex];
 				var trainData = "";
-				for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
+				var sectionUseless = false;
+				
+				for (var sectionListIndex = 0; sectionListIndex < sectionList.length && sectionUseless === false; sectionListIndex++) {
 					var questionList = sectionList[sectionListIndex].questionList;
-					for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+					for (var questionIndex = 0; questionIndex < questionList.length && sectionUseless === false; questionIndex++) {
 						var questionResponse = questionList[questionIndex].questionResponse;
-
+						
 						var questionType = questionList[questionIndex].type;
 						if (questionResponse != null) {
 							if (questionType === "multiSelect") {
@@ -170,6 +173,13 @@ function responseGenerator() {
 							} else {
 								trainData = trainData + "<tra1:detailedData>" + questionResponse + "</tra1:detailedData>";
 							}
+						}else{
+							if(trainListIndex == 0)
+							{
+								Alloy.Globals.aIndicator.hide();
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfofail'));
+							}
+							sectionUseless = true;
 						}
 					}
 				}
