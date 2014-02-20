@@ -9,6 +9,7 @@
 	width: Ti.UI.FILL,
 },
 "#valueTextField" : {
+	autocorrect: false,
 	returnKeyType : Ti.UI.RETURNKEY_DONE,
 	width: Ti.UI.Fill,
 	height: Ti.UI.FILL,
