@@ -4,22 +4,35 @@
 
 var _Soap = function () {
 
-    var targetNS,
-        wsSecurity = false,
-        loginUrl,
-        crossingUrl,
-        assessmentUrl,
-        questionsUrl,
-        suds;
+    var targetNS = 'http://com/icon/networkrail/alcrm/', // url for namespace
+        serverUrl = 'http://server.iconsolutions.com/alcrm3/', // url for server
+        wsSecurity = true,
+        suds = require('tools/Suds2_fat');
 
-    targetNS = 'http://com/icon/networkrail/alcrm/',
-    loginUrl = 'http://server.iconsolutions.com/alcrm3/adminService/admin.wsdl',
-    assessmentUrl = 'http://server.iconsolutions.com/alcrm3/assessmentService/assessment.wsdl',
-    questionsUrl = 'http://server.iconsolutions.com/alcrm3/questionsService/questions.wsdl',
-    crossingUrl = 'http://server.iconsolutions.com/alcrm3/crossingService/crossing.wsdl',
-    censusUrl = 'http://server.iconsolutions.com/alcrm3/censusService/census.wsdl',
-    trainUrl = 'http://server.iconsolutions.com/alcrm3/trainService/train.wsdl',
-    suds = require('tools/Suds2_fat');
+
+    // Check to see if ian has left an endpoint override file in to the app dir
+    var overRide = Alloy.Globals.Util.getOverrideFile();
+    if (overRide.uri) {
+
+        var uri = overRide.uri,
+            lastChar = uri.substr(-1); // Selects the last character
+
+        if (lastChar !== '/') { // If the last character is not a slash
+            uri += '/';
+        }
+        serverUrl = uri;
+    }
+
+    if (overRide.ws_security) { //overriding ws here
+        wsSecurity = overRide.ws_security;
+    }
+    
+    var loginUrl = serverUrl + 'adminService/admin.wsdl',
+    assessmentUrl = serverUrl + 'assessmentService/assessment.wsdl',
+    questionsUrl = serverUrl + 'questionsService/questions.wsdl',
+    crossingUrl = serverUrl + 'crossingService/crossing.wsdl',
+    censusUrl = serverUrl + 'censusService/census.wsdl',
+    trainUrl = serverUrl + 'trainService/train.wsdl';
 
     var soapObject = {
 
@@ -58,7 +71,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Admin</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetUserRequest', args, success, failure);
@@ -100,7 +113,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Crossing</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('SearchCrossingRequest', args, success, failure);
@@ -131,7 +144,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Crossing</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('AdvancedSearchRequest', args, success, failure);
@@ -173,7 +186,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Crossing</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetCrossingRequest', args, success, failure);
@@ -216,7 +229,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetAssessmentRequest', args, success, failure);
@@ -258,7 +271,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('SearchAssessmentRequest', args, success, failure);
@@ -289,7 +302,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('CopyAssessmentRequest', args, success, failure);
@@ -330,7 +343,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('CreateAssessmentRequest', args, success, failure);
@@ -372,7 +385,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('UpdateAssessmentRequest', args, success, failure);
@@ -415,7 +428,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Questions</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetQuestionsRequest', args, success, failure);
@@ -446,7 +459,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Questions</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetQuestionsResponse', args, success, failure);
@@ -488,7 +501,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetCensusRequest', args, success, failure);
@@ -530,7 +543,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('CreateCensusRequest', args, success, failure);
@@ -572,7 +585,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('SearchCensusRequest', args, success, failure);
@@ -614,7 +627,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Train</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('GetTrainGroupRequest', args, success, failure);
@@ -656,7 +669,7 @@ var _Soap = function () {
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Train</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
-                enableWs: true
+                enableWs: wsSecurity
             });
 
             sudsClient.invoke('CreateTrainGroupRequest', args, success, failure);
