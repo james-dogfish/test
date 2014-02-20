@@ -1,21 +1,29 @@
 
 var args = arguments[0] || {};
 
-this.cancelCallBack = null;
+this.showCancel = false;
 
-exports.show = function(message, cancelCallBack){
+exports.show = function(message, showCancel){
 
-	if(typeof cancelCallBack === "undefined"){
-		this.cancelCallBack = null;
+	if(typeof showCancel === "undefined"){
+		if(showCancel == true){
+			this.showCancel = true;
+			$.cancelButton.height = Ti.UI.SIZE;
+			$.cancelButton.top = 20;
+			$.cancelButton.visible = true;
+		}
+		else{
+			this.showCancel = false;
+			$.cancelButton.height = 0;
+			$.cancelButton.top = 0;
+			$.cancelButton.visible = false;
+		}
+	}
+	else{
+		this.showCancel = false;
 		$.cancelButton.height = 0;
 		$.cancelButton.top = 0;
 		$.cancelButton.visible = false;
-	}
-	else{
-		this.cancelCallBack = cancelCallBack;
-		$.cancelButton.height = Ti.UI.SIZE;
-		$.cancelButton.top = 20;
-		$.cancelButton.visible = true;
 	}
 	
 	
@@ -39,7 +47,7 @@ exports.hide = function(){
 };
 
 function cancelButtonClick(e){
-	if(this.cancelCallBack != null){
-		this.cancelCallBack();
+	if(this.showCancel == true){
+		Alloy.Globals.Soap.stopRequest();
 	}
 }
