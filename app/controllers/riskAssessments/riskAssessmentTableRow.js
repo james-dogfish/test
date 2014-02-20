@@ -61,55 +61,15 @@ exports.showNoCensusMessage = function() {
 	$.commitStatusLabelList.add(currentCommitMessageView);
 };
 
-exports.commitResponseAssessmentIncomplete = function() {
 
-	$.commitResponseView.height = Ti.UI.SIZE;
-
-	if (currentCommitMessageView != null) {
-		$.commitStatusLabelList.remove(currentCommitMessageView);
-	}
-
-	currentCommitMessageView = Alloy.createController('riskAssessments/commitMessageView', {
-		success : false,
-		message : L("assessmentIncomplete"),
-		fontawesome : fontawesome
-	}).getView();
-
-	$.commitStatusLabelList.add(currentCommitMessageView);
-};
-
-exports.commitResponse = function(success, pageType) {
+exports.commitResponse = function(success, message) {
 	//icon-times icon-check
 	$.commitResponseView.height = Ti.UI.SIZE;
 	
-	if (success == true && commitError == false) {
-
-		if (currentCommitMessageView != null) {
-			$.commitStatusLabelList.remove(currentCommitMessageView);
-		}
-
-		currentCommitMessageView = Alloy.createController('riskAssessments/commitMessageView', {
-			success : true,
-			message : L("assessmentSubmitted"),
-			fontawesome : fontawesome
-		}).getView();
-		$.commitStatusLabelList.add(currentCommitMessageView);
-
-	} else if (success == false && commitError == false) {
-		commitError = true;
-		
-		if (currentCommitMessageView != null) {
-			$.commitStatusLabelList.remove(currentCommitMessageView);
-		}
-
-		currentCommitMessageView = Alloy.createController('riskAssessments/commitMessageView', {
-			success : false,
-			message : L("assessmentFailedSubmit"),
-			fontawesome : fontawesome
-		}).getView();
-		$.commitStatusLabelList.add(currentCommitMessageView);
-
-	}
-	
-	
+	currentCommitMessageView = Alloy.createController('riskAssessments/commitMessageView', {
+		success : success,
+		message : message,
+		fontawesome : fontawesome
+	}).getView();
+	$.commitStatusLabelList.add(currentCommitMessageView);
 }; 
