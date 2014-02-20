@@ -9,7 +9,8 @@ function _Validator() {
 
 	this.isDecimal = function(number) {
 		if (number.toString().indexOf('.') !== -1) {
-			return true;
+			var reg = /^\d*\.?\d*$/;
+			return reg.test(number);
 		} else {
 			return false;
 		}
