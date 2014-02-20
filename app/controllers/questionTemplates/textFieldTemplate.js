@@ -2,7 +2,8 @@ function onTextFieldChange(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	item.value[0] = e.value;
 	
-	Alloy.Globals.questionRenderer.questionRealTimeValidation({questionObject : item, questionIndex : e.itemIndex, section : e.section});
+	// Removing as performance is very slow. Signed off with Jordan
+	//Alloy.Globals.questionRenderer.questionRealTimeValidation({questionObject : item, questionIndex : e.itemIndex, section : e.section});
 };
 
 function onTextFieldBlur(e){
@@ -18,7 +19,6 @@ function onTextFieldBlur(e){
 		e.section.updateItemAt(e.itemIndex, item);
 		return;
 	}
-
 	var section = e.section; 
 	item.displayValue.value =  e.value;
 	item.value = [e.value];
@@ -37,13 +37,6 @@ function onTextFieldBlur(e){
     //e.source.value = "";
     item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	
-	//var itemList = section.getItems();
-	//section.setItems(itemList);
-
-
-
-	Ti.API.info("value "+item.value[0]);
-	Ti.API.info("displayValue "+JSON.stringify(item.displayValue));
 };
 
 function onNotesClick(e){
@@ -93,11 +86,7 @@ function onTextFieldFocus(e){
 	*/
 	
 	var item = e.section.getItemAt(e.itemIndex);
-	
-	
-
-	
-	
+		
 	if(typeof item === "undefined"){
 		return;
 	}
@@ -107,8 +96,7 @@ function onTextFieldFocus(e){
 	}
 	item = Alloy.Globals.questionRenderer.selectQuestion(item);
 	e.source.value = item.displayValue.value;
-	
-	Ti.API.info("onTextFieldFocus " + JSON.stringify(e.source));
+
 	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
 
 };
@@ -116,7 +104,6 @@ function onTextFieldFocus(e){
 function onTitleClick(e){
 
 	var item = e.section.getItemAt(e.itemIndex);
-	//alert("question value = "+item.displayValue.value);
 	
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 
