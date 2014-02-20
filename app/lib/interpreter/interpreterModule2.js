@@ -938,11 +938,16 @@ relevent subsections, this function is called to insert the questions back in to
 						}
 					}
 
-					if (questionObject.type == "numeric") {
+					if (questionObject.type === "numeric") {
 						questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_NUMBER_PAD;
 					}
-					if (questionObject.type == "decimal") {
-						questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
+					if (questionObject.type === "decimal") {
+						if(Alloy.Globals.Util.isIOS7Plus()){
+							questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_DECIMAL_PAD;
+						}
+						else{
+							questionObject.displayValue.keyboardType = Ti.UI.KEYBOARD_NUMBER_PAD;
+						}
 					}
 					if (Ti.App.deployType === 'test' && questionObject.alcrmQuestionID == "I_CENSUS_TYPE") {
 						questionObject.template = "textFieldTemplate";
