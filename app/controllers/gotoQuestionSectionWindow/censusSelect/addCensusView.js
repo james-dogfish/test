@@ -21,8 +21,8 @@ var currentValue = 0;
 
 exports.show = function(assessmentObject) {
 	try {
-		Alloy.Globals.aIndicator.show("Loading...");
-		Alloy.Globals.Soap.searchCensus({
+		
+		var sudsClient = Alloy.Globals.Soap.searchCensus({
 			crossingId : assessmentObject.crossingID
 		}, function(xmlDoc) {
 			//var XMLTools = require("tools/XMLTools");
@@ -108,6 +108,9 @@ exports.show = function(assessmentObject) {
 			} catch(e) {
 				Alloy.Globals.aIndicator.hide();
 			}
+		});
+		Alloy.Globals.aIndicator.show("Loading past censuses...",function(){
+			sudsClient.abort();
 		});
 	} catch(e) {
 		Alloy.Globals.aIndicator.hide();

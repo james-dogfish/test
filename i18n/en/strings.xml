@@ -19,12 +19,13 @@
 	    <string name="trainInfoFail1">Failed to commit Train Info Group</string>
 	    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info </string>
 	    
-    trainInfoDidNotSubmit
+	    <string name="assessmentFailed">Assessment Failed </string>
+	    <string name="censusFail">Census Failed </string>
+	   
     <!-- delete ra & census related strings -->
 	    <string name="delete_ra">There is no undo. Are you sure you want to delete this Risk Assessment?</string>
 	    <string name="max_census">You can only attach 2 Censues</string>
 	    <string name="delete_census">There is no undo. Are you sure you want to delete this Census?</string>
-	    <string name="census_timer_already_started">You must stop the current census timer to start a new timer</string>
 	    <string name="census_has_finished">Census has finished</string>
 	    <string name="census">Census</string>
 	    <string name="noCensusMessage">You must complete at least 1 census</string>   

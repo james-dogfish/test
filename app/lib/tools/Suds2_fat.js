@@ -247,6 +247,15 @@ var SudsClient = function(_options) {
 			              //This will never be reached, if you specified cancel for index 1
 			            case 1:
 			              Alloy.Globals.aIndicator.hide();
+			              if(_soapAction.search('CreateTrainGroupRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoFail1'));
+						  }
+						  if(_soapAction.search('CreateCensusRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('censusFail'));
+						  }
+						  if(_soapAction.search('CreateAssessmentRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('assessmentFailed'));
+						  }
 			              break;
 			
 			          }

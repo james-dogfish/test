@@ -177,7 +177,10 @@ function responseGenerator() {
 							if(trainListIndex == 0)
 							{
 								Alloy.Globals.aIndicator.hide();
-								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfofail'));
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoIncomplete1'));
+							}else{ 
+								Alloy.Globals.aIndicator.hide();
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoDidNotSubmit')+(trainListIndex+1));
 							}
 							sectionUseless = true;
 						}

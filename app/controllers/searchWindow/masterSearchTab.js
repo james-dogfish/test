@@ -58,8 +58,8 @@ function searchFromSearchButton()
 			maxCrossings = 1500;
 		}
 		
-		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
-		Alloy.Globals.Soap.searchCrossingRequest({
+		
+		var sudsClient = Alloy.Globals.Soap.searchCrossingRequest({
 				crossingSearchCriteria: {
 					'com:searchCriteria': {
 						'ques:parameterName': 'CROSSING_SEARCH_CROSSING_NAME',
@@ -123,6 +123,9 @@ function searchFromSearchButton()
 
 			},
 			function(xmlDoc) {});
+		Alloy.Globals.aIndicator.show("Downloading Crossings...",function(){
+			sudsClient.abort();	
+		});
 };
 
 exports.setData = function(shouldRefresh) {
@@ -154,8 +157,8 @@ exports.setData = function(shouldRefresh) {
 			maxCrossings = 1500;
 		}
 		
-		Alloy.Globals.aIndicator.show("Downloading Crossings...", 50000);
-		Alloy.Globals.Soap.searchCrossingRequest({
+		//Alloy.Globals.aIndicator.show("Downloading Crossings...",true);
+		var sudsClient = Alloy.Globals.Soap.searchCrossingRequest({
 				crossingSearchCriteria: {
 					'com:searchCriteria': {
 						'ques:parameterName': 'CROSSING_SEARCH_ROUTE',
@@ -212,5 +215,8 @@ exports.setData = function(shouldRefresh) {
 
 			},
 			function(xmlDoc) {});
+		Alloy.Globals.aIndicator.show("Downloading Crossings...",function(){
+			sudsClient.abort();	
+		});
 	}
 };

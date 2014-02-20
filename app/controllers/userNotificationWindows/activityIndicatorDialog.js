@@ -1,26 +1,20 @@
 
 var args = arguments[0] || {};
 
-this.showCancel = false;
+var self = this;
 
-exports.show = function(message, showCancel){
+this.cancelCallback = null;
 
-	if(typeof showCancel === "undefined"){
-		if(showCancel == true){
-			this.showCancel = true;
-			$.cancelButton.height = Ti.UI.SIZE;
-			$.cancelButton.top = 20;
-			$.cancelButton.visible = true;
-		}
-		else{
-			this.showCancel = false;
-			$.cancelButton.height = 0;
-			$.cancelButton.top = 0;
-			$.cancelButton.visible = false;
-		}
+exports.show = function(message, cancelCallback){
+
+	if(typeof cancelCallback !== "undefined"){
+		self.cancelCallback = cancelCallback;
+		$.cancelButton.height = Ti.UI.SIZE;
+		$.cancelButton.top = 20;
+		$.cancelButton.visible = true;
 	}
 	else{
-		this.showCancel = false;
+		self.cancelCallback = null;
 		$.cancelButton.height = 0;
 		$.cancelButton.top = 0;
 		$.cancelButton.visible = false;
@@ -47,7 +41,15 @@ exports.hide = function(){
 };
 
 function cancelButtonClick(e){
-	if(this.showCancel == true){
-		Alloy.Globals.Soap.stopRequest();
+	//if(this.showCancel == true){
+	if(self.cancelCallback !== null){
+			
+		Ti.API.error("cancel button clicked ====================================");
+		self.cancelCallback();
+		
+		$.activityIndicator.hide();
+		$.win.close();
+		
 	}
+	//}
 }
