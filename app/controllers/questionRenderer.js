@@ -29,6 +29,92 @@ var listViewDisplayType = ALL_SECTIONS;
 var currentSingleSectionIndex = 0;
 
 
+var autoComplteQuestion = function(questionObject){
+	Ti.API.info("autoComplteQuestion = "+JSON.stringify(questionObject));
+	if(questionObject.isAQuestion == false)return questionObject;
+	
+	if(questionObject.type == "date"){
+		questionObject.value[0] = "01-01-2014";
+		questionObject.displayValue.value = questionObject.value[0];
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "alphanumeric"){
+		questionObject.value[0] = "11:11";
+		questionObject.displayValue.value = questionObject.value[0];
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "alpha"){
+		questionObject.value[0] = "text";
+		questionObject.displayValue.value = questionObject.value[0];
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "numeric"){
+		questionObject.value[0] = "1";
+		questionObject.displayValue.value = questionObject.value[0];
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "decimal"){
+		questionObject.value[0] = "1.0";
+		questionObject.displayValue.value = questionObject.value[0];
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "radio" || questionObject.type == "singleSelectTemplate"){
+		questionObject.value[0] = questionObject.selections[0].value;
+		questionObject.displayValue.value = questionObject.selections[0].displayValue;
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:parameterValue>"+questionObject.selections[0].value+"</ques:parameterValue>";
+	}
+	else if(questionObject.type == "multiSelect"){
+		questionObject.value[0] = questionObject.selections[0].value;
+		questionObject.displayValue.value = questionObject.selections[0].displayValue;
+		
+	    questionObject.questionResponse =
+	    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    	"<ques:values>" + questionObject.selections[0].value + "</ques:values>";
+	}
+	return questionObject;
+};
+
+var autoComplteAllQuestion = function(){
+	var sectionListLength = allSections.length;
+    for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
+		var itemsList = allSections[sectionIndex].getItems();
+        var itemsLength = itemsList.length;
+        for (var itemIndex = 0; itemIndex < itemsLength; itemIndex++) {
+
+            itemsList[itemIndex] = autoComplteQuestion(itemsList[itemIndex]);
+            Alloy.Globals.localDataHandler.updateQuestion(itemsList[itemIndex]);
+            
+        }
+        allSections[sectionIndex].setItems(itemsList);
+    }
+    
+    var hiddenQuestionsLength = hiddenQuestions.length;
+    for(var i=0; i < hiddenQuestionsLength; i++){
+    	hiddenQuestions[i] = autoComplteQuestion(hiddenQuestions[i]);
+        Alloy.Globals.localDataHandler.updateQuestion(hiddenQuestions[i]);
+    }
+};
+exports.autoComplteAllQuestion = autoComplteAllQuestion;
+
+
 /**
 `findQuestionsRef` searches sectionList for a question that 
 matches the questionName and groupType and returns references to the found question.

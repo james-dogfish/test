@@ -1,7 +1,7 @@
 {
-	"message": "-[KrollCallback krollObjectForBridge:]: unrecognized selector sent to instance 0xccd76d0",
-	"backtrace": "#0 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/riskAssessments/riskAssessmentsWindow.js:189\n#1 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:215\n#2 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:301\n#3 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/riskAssessments/riskAssessmentsWindow.js:227",
-	"line": 267,
-	"sourceId": 311908384,
-	"sourceURL": "file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/riskAssessments/riskAssessmentTableRow.js"
+	"message": "'undefined' is not an object (evaluating 'trainList.length')",
+	"backtrace": "#0 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:224\n#1 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:284\n#2 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/riskAssessments/riskAssessmentsWindow.js:228",
+	"line": 61,
+	"sourceId": 298225568,
+	"sourceURL": "file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js"
 }

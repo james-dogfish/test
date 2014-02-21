@@ -303,6 +303,10 @@ var openMenu = function() {
         }
     ];
     
+    if(Alloy.CFG.debug == true){
+    	data.push({title : "auto complete", id : 8});
+    }
+    
     menuTable.setData(data);
 
     popOver.add(menuTable);
@@ -329,6 +333,12 @@ var openMenu = function() {
         } else if (e.row.id === 7) {
         	if(Alloy.Globals.questionRenderer != null){
             	Alloy.Globals.questionRenderer.toggleScrollLock();
+           	}
+        }else if (e.row.id === 8) {
+        	if(Alloy.Globals.questionRenderer != null){
+        		Alloy.Globals.aIndicator.show();
+            	Alloy.Globals.questionRenderer.autoComplteAllQuestion();
+            	Alloy.Globals.aIndicator.hide();
            	}
         }
     });
