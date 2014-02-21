@@ -41,7 +41,6 @@ matches the questionName and groupType and returns references to the found quest
 @return {Object} (success) {(int)questionIndex, (JSON_Object) questionObject, (Titanium.UI.ListSection) sectionObject}
 @return {null} (fail) : 
 */
- 
 var findQuestionsRef = function (sectionList, questionName, groupType) {
     var sectionListLength = sectionList.length;
     for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
@@ -61,6 +60,42 @@ var findQuestionsRef = function (sectionList, questionName, groupType) {
        }
     }
     return null;
+};
+
+
+/**
+`findQuestionsRef` searches sectionList for a question that 
+matches the questionName and groupType and returns references to the found question.
+
+@method findQuestionsRef
+
+@param {Titanium.UI.ListSection} section
+@param {string} questionName Name to search against
+
+@return {Object} (success) {(int)questionIndex, (JSON_Object) questionObject, (Titanium.UI.ListSection) sectionObject}
+@return {null} (fail) : 
+*/
+var findQuestionsRefFromSection = function (section, questionName) {
+	try {
+		var itemsList = section.getItems();
+	    var itemsLength = itemsList.length;
+	    for (var itemIndex = 0; itemIndex < itemsLength; itemIndex++) {
+	        if (itemsList[itemIndex].name == questionName) {
+	            return {
+	                questionIndex: itemIndex,
+	                question: itemsList[itemIndex],
+	                section: section
+	            };
+	        }
+	    }
+	    
+	     return null;
+   }
+   catch(e) {
+		return null;
+	}
+
+   
 };
 
 
@@ -563,7 +598,7 @@ var setupSelectedQuestion = function () {
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
         	if(questionList[questionIndex] != null){
 	            if (questionList[questionIndex].selected == true) {
-	                selectQuestion(questionList[questionIndex]);
+	                selectQuestion(questionList[questionIndex],allSections[sectionIndex]);
 	                return;
 	            }
 	        }
@@ -574,7 +609,7 @@ var setupSelectedQuestion = function () {
     if (allSections.length > 0) {
         var questionList = allSections[0].getItems();
         if (questionList > 0) {
-            selectQuestion(questionList[0]);
+            selectQuestion(questionList[0],allSections[0]);
         }
     }
  }catch(e){
@@ -684,7 +719,7 @@ exports.moveToQuestion = function (groupType, questionIndex) {
                 });
             }
 
-            selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
+            selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex),sectionList[sectionIndex]);
 
             return;
         }
@@ -751,7 +786,7 @@ var moveToQuestionByName = function (questionName, groupType) {
                     position: Titanium.UI.iPhone.ListViewScrollPosition.TOP
                 });
             }
-            selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex));
+            selectQuestion(sectionList[sectionIndex].getItemAt(questionIndex),sectionList[sectionIndex]);
 
             return;
         }
@@ -777,7 +812,7 @@ exports.goToFirstUnanswered = function () {
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
             if (questionList[questionIndex].value[0] == "") {
             	
-                selectQuestion(questionList[questionIndex]);
+                selectQuestion(questionList[questionIndex],sectionList[sectionIndex]);
 
                 if (listViewDisplayType == ALL_SECTIONS) {
                     $.listView.scrollToItem(sectionIndex, questionIndex, {
@@ -836,6 +871,7 @@ exports.getGoToContentsDetails = function () {
             mandatoryQuestions : false,
             allMandatoryQuestionsAnswered : true,
             allQuestionsAnswered : true,
+            error : false,
             
             sectionIndex: sectionIndex,
             groupType: sectionList[sectionIndex].groupType
@@ -868,9 +904,13 @@ exports.getGoToContentsDetails = function () {
                 title: questionsList[questionIndex].title.text,
                 questionIndex: questionIndex,
                 mandatory: questionsList[questionIndex].mandatory,
-                firstValue: questionsList[questionIndex].value[0]
+                firstValue: questionsList[questionIndex].value[0],
+                error : questionsList[questionIndex].errorMessageVisable
             };
-
+			
+			if(newQuestionDetails.error == true){
+				newSectionContents.error = true;
+			}
             newSectionContents.questionList.push(newQuestionDetails);
         }
 
@@ -1581,14 +1621,36 @@ exports.setEntireSectionTemplate= setEntireSectionTemplate;
  
 @return {JSON_Object}  QuestionObject
 */
-var selectQuestion = function (newQuestionSelected) {
-    var sectionList = getAllQuestionSections();
+var selectQuestion = function (newQuestionSelected, newSection) {
+	
+	newQuestionSelected.section = newSection;
+	//findQuestionsRefFromSection(section, name );
+	
+    var oldQuestion = questionSelected;
+    
+    
+    if(oldQuestion != null){
+    	if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
+    }
+    
+    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
+    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
+    if (questionRef != null) {
+    	if(questionRef.question.readOnly == false){
+	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
+	        
+	        questionRef.question.selected = true;
+	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	        //newQuestionSelected = questionRef.question;
+	        
+	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	       }
+    }
     
 
-    if (questionSelected != null) {
-    	if(questionSelected.name == newQuestionSelected.name)return newQuestionSelected;
+    if (oldQuestion != null) {
     	
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+        var questionRef = findQuestionsRefFromSection(oldQuestion.section, oldQuestion.name);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){
            		Alloy.Globals.Logger.log("questionSelected change","info");
@@ -1599,23 +1661,17 @@ var selectQuestion = function (newQuestionSelected) {
 	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
            }
         }
+        else{
+        	Ti.API.info("question not found : "+JSON.stringify(oldQuestion));
+        }
+        
     }
     
     questionSelected = newQuestionSelected;
+    Ti.API.info("new : "+JSON.stringify(newQuestionSelected));
+    Ti.API.info("old : "+JSON.stringify(oldQuestion));
 
-    Alloy.Globals.Logger.log("new questionSelected title = " + questionSelected.title.text,"info");
-
-    var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        newQuestionSelected = questionRef.question;
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	       }
-    }
+    
 
     return newQuestionSelected;
 };

@@ -1,10 +1,172 @@
-[INFO] :   title = {"font":{"fontWeight":"bold","fontFamily":"Helvetica Neue","fontSize":"20sp"},"text":"Type of Train*"}
-[INFO] :   e.source = {"top":"5dp","color":"#000000","backgroundColor":"#f00","bottom":"5dp","text":"Type of Train*","bindId":"title","font":{"fontWeight":"bold","fontFamily":"Helvetica Neue","fontSize":"20sp"},"textAlign":"left","height":"SIZE","left":"1%","width":"90%","horizontalWrap":true}
-[INFO] :   e.source.getRect( ).width = 678
-
-[INFO] :   title = {"font":{"fontWeight":"bold","fontFamily":"Helvetica Neue","fontSize":"20sp"},"text":"Type of Train*"}
-[INFO] :   e.source = {"top":"5dp","color":"#000000","backgroundColor":"#f00","bottom":"5dp","text":"Type of Train*","bindId":"title","font":{"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"bold"},"textAlign":"left","height":"SIZE","left":"1%","width":"90%","horizontalWrap":true}
-[INFO] :   e.source.getRect( ).width = 678
-
-{"parameterValue":"DEREK WALKER","parameterName":"I_CENSUS_TAKER"},{"parameterValue":"21","displayValue":"estimate","parameterName":"I_CENSUS_TYPE"},{"parameterName":"I_CENSUS_START"},{"parameterName":"I_CENSUS_END"},{"parameterName":"I_CENSUS_QUICK_START"},{"parameterValue":"0","parameterName":"I_DURATION"},{"parameterName":"I_BASIS_ESTIMATE_PASSIVE","@attributes":{"type":"ns6:multiSelectResponse"}},{"parameterValue":"Please write your notes/description here NA","parameterName":"I_CENSUS_NOTES"},{"parameterValue":"14.0","parameterName":"I_OPERAT_TIME"},{"parameterValue":"100","parameterName":"I_CENSUS_PROP"},{"parameterValue":"Please write your notes/description here","parameterName":"I_CENSUS_PROP_NOTES"},{"parameterName":"I_HIGHWAY_STANDARDS","@attributes":{"type":"ns6:multiSelectResponse"}},{"parameterValue":"491","displayValue":"NO","parameterName":"I_VULN_PEDS"},{"parameterName":"I_VULN_PEDS_NOTES"},{"parameterValue":"609","displayValue":"YES","parameterName":"I_IRREG_USERS"},{"parameterName":"I_IRREG_USERS_NOTES"},{"parameterValue":"15","displayValue":"Access track to field","parameterName":"I_CROSSING_ENVIRONMENT"},{"parameterValue":"NA","parameterName":"I_CROSSING_ENVIRONMENT_NOTES"},{"parameterName":"I_NIGHT_USER"},{"parameterName":"I_NIGHT_USER_NOTES"},{"parameterValue":"0","parameterName":"I_NIGHT_USER_PERCENTAGE"},{"parameterValue":"0","parameterName":"I_UWC_PED_FOOT_PERCENTAGE"},{"parameterValue":"0","parameterName":"I_UWC_PED_VEH_PERCENTAGE"},{"parameterValue":"0","parameterName":"I_CAR_COUNT"},{"parameterValue":"0","parameterName":"I_LOR_COUNT"},{"parameterValue":"0","parameterName":"I_BUS_COUNT"},{"parameterValue":"0","parameterName":"I_HGV_COUNT"},{"parameterValue":"0","parameterName":"I_PED_COUNT"},{"parameterValue":"0","parameterName":"I_CYC_COUNT"},{"parameterValue":"0","parameterName":"I_HOOF_COUNT"},{"parameterValue":"0","parameterName":"I_EQUESTRIAN_COUNT"},{"parameterValue":"0","parameterName":"I_TRACTOR_COUNT"},{"parameterValue":"403","displayValue":"NO","parameterName":"I_CAR_EST"},{"parameterValue":"437","displayValue":"NO","parameterName":"I_LOR_EST"},{"parameterValue":"399","displayValue":"NO","parameterName":"I_BUS_EST"},{"parameterValue":"426","displayValue":"NO","parameterName":"I_HGV_EST"},{"parameterValue":"458","displayValue":"WEEKLY","parameterName":"I_PED_EST"},{"parameterValue":"409","displayValue":"NO","parameterName":"I_CYC_EST"},{"parameterValue":"429","displayValue":"FEW","parameterName":"I_HOOF_EST"},{"parameterValue":"413","displayValue":"NO","parameterName":"I_EQUESTRIAN_EST"},{"parameterValue":"465","displayValue":"FEW","parameterName":"I_TRACTOR_EST"}]
-[INFO] :   removedSections = []
+[
+	{
+		"displayValue": {
+			"value": "YES"
+		},
+		"selected": true,
+		"questionErrorMessage": {
+			"text": ""
+		},
+		"associatedFileName": "1392973833735mainQuestions.json",
+		"renderDependencyList": [],
+		"alcrmGroupType": "ReferenceSource",
+		"readOnly": false,
+		"selections": [
+			{
+				"value": "608",
+				"displayValue": "YES"
+			}, {
+				"value": "609",
+				"displayValue": "NO"
+			}
+		],
+		"notes": "",
+		"btnSelect": {
+			"touchTestID": "0I_SMIS_button1"
+		},
+		"backgroundView": {
+			"backgroundColor": "#fff"
+		},
+		"subsectionTitle": null,
+		"type": "radio",
+		"visable": true,
+		"alcrmQuestionID": "I_SMIS",
+		"alcrmNotes": "I_SMIS Notes",
+		"name": "0I_SMIS",
+		"groupType": "0ReferenceSource",
+		"mandatory": true,
+		"assessmentId": 1392973833735,
+		"validation": {
+			"maxLength": null,
+			"conditionalMandatory": [],
+			"min": null,
+			"format": null,
+			"mandatory": true,
+			"minLength": null,
+			"max": null,
+			"validationTest": true
+		},
+		"questionResponse": "<ques:parameterName>I_SMIS</ques:parameterName><ques:parameterValue>608</ques:parameterValue>",
+		"isAQuestion": true,
+		"order": "203",
+		"help": "I_SMIS Help",
+		"questionErrorMessageView": {
+			"top": "0dp",
+			"height": "0dp"
+		},
+		"mandatoryDependenciesList": [
+			{
+				"name": "0I_SMIS_NOTES",
+				"groupType": "0ReferenceSource"
+			}, {
+				"name": "0I_REFERENCE_NONE",
+				"groupType": "0ReferenceSource"
+			}
+		],
+		"headerView": {
+			"backgroundColor": "#A1F7B6"
+		},
+		"notesBackground": {
+			"touchTestID": "0I_SMIS_notesButton",
+			"backgroundImage": "images/questionNote.png"
+		},
+		"title": {
+			"font": {
+				"fontWeight": "bold",
+				"fontFamily": "Helvetica Neue",
+				"fontSize": "20sp"
+			},
+			"text": "SMIS*"
+		},
+		"errorMessageVisable": false,
+		"displayValue2": {
+			"value": "",
+			"touchTestID": "0I_SMIS_displayValue2"
+		},
+		"duration": null,
+		"renderValue": [],
+		"value": ["608"],
+		"template": "singleSelectTemplate"
+	}, {
+		"displayValue": {
+			"value": "Fdfdfdfgg",
+			"touchTestID": "0I_CCIL_NOTES_displayValue1"
+		},
+		"selected": true,
+		"questionErrorMessage": {
+			"text": ""
+		},
+		"associatedFileName": "1392973833735mainQuestions.json",
+		"renderDependencyList": [],
+		"alcrmGroupType": "ReferenceSource",
+		"readOnly": false,
+		"selections": [],
+		"notes": "",
+		"btnSelect": {
+			"touchTestID": "0I_CCIL_NOTES_button1"
+		},
+		"backgroundView": {
+			"backgroundColor": "#fff"
+		},
+		"subsectionTitle": null,
+		"type": "alphanumeric",
+		"visable": true,
+		"alcrmQuestionID": "I_CCIL_NOTES",
+		"alcrmNotes": "I_CCIL_NOTES Notes",
+		"name": "0I_CCIL_NOTES",
+		"groupType": "0ReferenceSource",
+		"mandatory": true,
+		"assessmentId": 1392973833735,
+		"validation": {
+			"maxLength": 1024,
+			"conditionalMandatory": [
+				{
+					"question": {
+						"name": "0I_CCIL",
+						"groupType": "0ReferenceSource"
+					},
+					"value": "608"
+				}
+			],
+			"min": null,
+			"format": null,
+			"mandatory": false,
+			"minLength": 0,
+			"max": null,
+			"validationTest": true
+		},
+		"questionResponse": "<ques:parameterName>I_CCIL_NOTES</ques:parameterName><ques:parameterValue>Fdfdfdfgg</ques:parameterValue>",
+		"isAQuestion": true,
+		"order": "202",
+		"help": "I_CCIL_NOTES Help",
+		"questionErrorMessageView": {
+			"top": "0dp",
+			"height": "0dp"
+		},
+		"mandatoryDependenciesList": [],
+		"headerView": {
+			"backgroundColor": "#A1F7B6"
+		},
+		"notesBackground": {
+			"touchTestID": "0I_CCIL_NOTES_notesButton",
+			"backgroundImage": "images/questionNote.png"
+		},
+		"title": {
+			"font": {
+				"fontWeight": "bold",
+				"fontFamily": "Helvetica Neue",
+				"fontSize": "20sp"
+			},
+			"text": "Provide Details:*"
+		},
+		"errorMessageVisable": false,
+		"displayValue2": {
+			"value": "",
+			"touchTestID": "0I_CCIL_NOTES_displayValue2"
+		},
+		"duration": null,
+		"renderValue": [],
+		"value": ["Fdfdfdfgg"],
+		"template": "textFieldTemplate"
+	}
+]

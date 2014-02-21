@@ -24,7 +24,7 @@ function onNotesClick(e){
 function onTitleClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
 function dateButtonClicked(e){
@@ -40,7 +40,7 @@ function dateButtonClicked(e){
 		return;
 	}
 	
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	
 	var timeLimit =false;
 	if(item.alcrmQuestionID == "CENSUS_DATE" || item.alcrmQuestionID == "I_CENSUS_DATE"){
