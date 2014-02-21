@@ -55,7 +55,8 @@ function doLogin() {
         var animation = require('alloy/animation');
         animation.shake($.loginView, 0, function () {
             Alloy.Globals.Util.showAlert(message);
-            Alloy.Globals.Util.log(message);
+            Alloy.Globals.Logger.log(message, 'info');
+      
         });
 
     };
@@ -94,7 +95,7 @@ function doLogin() {
         // Fire up loading indicator here
 
         $.loginButton.touchEnabled = false;
-        Alloy.Globals.Util.log("Login button pressed");
+        Alloy.Globals.Logger.log("Login button pressed", 'info');
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
         	name: user

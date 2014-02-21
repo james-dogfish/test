@@ -56,7 +56,8 @@ var SudsClient = function(_options) {
       Alloy.Globals.aIndicator.hide();
       // Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
 
-      Alloy.Globals.Util.log('Invalid server response received from ALCRM. Please retry! LOG -' + e);
+      Alloy.Globals.Logger.log('Invalid server response received from ALCRM. Please retry! LOG -' + e, 'info');
+      Alloy.Globals.Logger.logException(e);
 
       //return;
     }
