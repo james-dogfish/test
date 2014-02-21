@@ -62,6 +62,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetUserRequest', args, success, failure);
+            
+           return sudsClient;
         },
 
 /**
@@ -102,6 +104,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchCrossingRequest', args, success, failure);
+            
+           return sudsClient;
         },
         
         advSearchCrossingRequest: function (args, success, failure) {
@@ -131,6 +135,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('AdvancedSearchRequest', args, success, failure);
+            
+           return sudsClient;
         },
         
  /**
@@ -171,6 +177,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetCrossingRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
 
@@ -212,6 +220,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetAssessmentRequest', args, success, failure);
+            
+           return sudsClient;
         },
 
  /**
@@ -252,6 +262,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchAssessmentRequest', args, success, failure);
+            
+           return sudsClient;
         },
 
         copyAssessment: function (args, success, failure) {
@@ -281,6 +293,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CopyAssessmentRequest', args, success, failure);
+            
+           return sudsClient;
         },
  /**
  * `createAssessment` - Creates an assessment with the given payload.
@@ -320,6 +334,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateAssessmentRequest', args, success, failure);
+            
+            return sudsClient;
         },
    
  /**
@@ -360,6 +376,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('UpdateAssessmentRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
 /**
@@ -401,6 +419,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetQuestionsRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
         getQuestionsResponse: function (args, success, failure) {
@@ -430,6 +450,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetQuestionsResponse', args, success, failure);
+            
+            return sudsClient;
         },
 
 /**
@@ -470,6 +492,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetCensusRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
 /**
@@ -510,6 +534,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateCensusRequest', args, success, failure);
+            
+            return sudsClient;
         },
  
  /**
@@ -550,6 +576,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchCensusRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
  /**
@@ -590,6 +618,8 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetTrainGroupRequest', args, success, failure);
+            
+            return sudsClient;
         },
 
  /**
@@ -630,12 +660,9 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateTrainGroupRequest', args, success, failure);
+            
+            return sudsClient;
        },
-       
-       stopRequest:function()
-       {
-       		sudsClient.abort();
-       }
     };
 
     return soapObject;

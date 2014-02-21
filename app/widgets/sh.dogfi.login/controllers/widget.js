@@ -78,7 +78,7 @@ function doLogin() {
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
-
+					Alloy.Globals.Logger.logException(e);
                 }
                 
                 theIndex.startup();

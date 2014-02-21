@@ -114,7 +114,7 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 	$.masterView.MoveToOpen(false);
 	$.detailView.MoveToClose(false);
 	}catch(e){
-		alert("Exception in exports.setContentsDetails");
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
 };

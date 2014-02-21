@@ -130,6 +130,7 @@ function responseGenerator() {
 			//alert("xmlRequest = "+JSON.stringify(xmlRequest));
 			return xmlRequest;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("ERROR in buildCensus Response. Error Details: " + JSON.stringify(e));
 
@@ -177,7 +178,10 @@ function responseGenerator() {
 							if(trainListIndex == 0)
 							{
 								Alloy.Globals.aIndicator.hide();
-								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfofail'));
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoIncomplete1'));
+							}else{ 
+								Alloy.Globals.aIndicator.hide();
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoDidNotSubmit')+(trainListIndex+1));
 							}
 							sectionUseless = true;
 						}
@@ -189,6 +193,7 @@ function responseGenerator() {
 
 			return xmlRequest;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("ERROR in buildTrainInfoGroupResponse. Error Details: " + JSON.stringify(e));
 		}
@@ -303,6 +308,7 @@ function responseGenerator() {
 
 			return xmlRequest;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN buildAssessmentResponse. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -355,6 +361,7 @@ function responseGenerator() {
 				}
 			}
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyCensus. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -397,6 +404,7 @@ function responseGenerator() {
 				});
 			}
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyTrain. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -478,6 +486,7 @@ function responseGenerator() {
 				self.doAssessment(assObj, sectionListAss);
 			}
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithTrainAndCensus. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -496,7 +505,7 @@ function responseGenerator() {
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
-				Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 
 				noneToSubmit++;
 				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
@@ -514,7 +523,8 @@ function responseGenerator() {
 							alert("here0");
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					} else {
 						xmlCensusRequest = self.buildCensusResponse(assObj, sectionListCen, assObj.crossingID, assObj.detailID);
@@ -524,7 +534,8 @@ function responseGenerator() {
 							alert("here1");
 							Ti.API.error("=====xmlCensusRequest======"+JSON.stringify(xmlCensusRequest));
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					}
 					if (sectionListCen.length > 0 && sectionListTra.length > 0) {
@@ -539,7 +550,8 @@ function responseGenerator() {
 						} else {
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
-							Alloy.Globals.riskAssessmentWindow.assessmentIncomplete(assObj);
+							
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					} else {
 						Alloy.Globals.aIndicator.hide();
@@ -547,6 +559,7 @@ function responseGenerator() {
 				}
 			}
 		} catch (e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e), "info");
 			Alloy.Globals.trainIDs = [];
 			Alloy.Globals.censusIDs = [];
@@ -594,6 +607,7 @@ function responseGenerator() {
 				Alloy.Globals.aIndicator.hide();
 			}
 		} catch (e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("Exception in doAssessment. Error Details: " + JSON.stringify(e), "info");
 
@@ -631,6 +645,7 @@ function responseGenerator() {
 			}
 
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("EXCEPTION in commitAllCompleted. Error Details: " + JSON.stringify(e));
 		}

@@ -52,6 +52,7 @@ var SudsClient = function(_options) {
     try {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
+    	Alloy.Globals.Logger.logException(e);
       Alloy.Globals.aIndicator.hide();
      // Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
      
@@ -186,6 +187,7 @@ var SudsClient = function(_options) {
       try{
       	_callback.call(this, xmlDomFromString(this.responseText));
       }catch(e){
+      	Alloy.Globals.Logger.logException(e);
       	Alloy.Globals.aIndicator.hide();
       	Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
       	return;
@@ -247,6 +249,15 @@ var SudsClient = function(_options) {
 			              //This will never be reached, if you specified cancel for index 1
 			            case 1:
 			              Alloy.Globals.aIndicator.hide();
+			              if(_soapAction.search('CreateTrainGroupRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoFail1'));
+						  }
+						  if(_soapAction.search('CreateCensusRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('censusFail'));
+						  }
+						  if(_soapAction.search('CreateAssessmentRequest')!==-1){
+						  	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('assessmentFailed'));
+						  }
 			              break;
 			
 			          }
@@ -267,6 +278,7 @@ var SudsClient = function(_options) {
 		//end of convertJSON
 
       } catch (e) {
+      	Alloy.Globals.Logger.logException(e);
         Alloy.Globals.aIndicator.hide();
       }
 
