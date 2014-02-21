@@ -1,21 +1,21 @@
 {
-    "help": "#This is a header\n*This is a paragraph\n\n#This is anotherheader\n*help text example paragraph replace this\n\n#another title\n*another paragraph\n",
-    "routes": ["ANGLIA", "ENGINEERING", "KENT", "LONDON_NORTH_EAST", "LONDON_NORTH_WEST", "MIDLAND_AND_CONTINENTAL", "SCOTLAND", "SUSSEX", "TRAINING", "WALES", "WESSEX", "WESTERN"],
-    "timerPickerQuestions": [{
-        "name": "I_DURATION",
-        "duration": {
-            "hoursLowBound": 0,
-            "hoursHighBound": 12,
-            "hoursIncrement": 1,
-            "minutesLowBound": 0,
-            "minutesHighBound": 60,
-            "minutesIncrement": 15
-        }
-    }],
-    "censusCounterQuestions": ["I_CAR_COUNT", "I_LOR_COUNT", "I_BUS_COUNT", "I_HGV_COUNT", "I_PED_COUNT", "I_CYC_COUNT", "I_HOOF_COUNT", "I_EQUESTRIAN_COUNT", "I_TRACTOR_COUNT"],
-    "removedSections": ["CrossingLayout"],
-    "removedQuestions": ["I_CROSSING_AREA", "I_CROSSING_GRID_REF", "I_CROSSING_LOC_RAIL", "I_CROSSING_STRATEGIC_ROUTE", "I_CROSSING_HIGHWAY", "I_CROSSING_SIGNALBOX", "I_CROSSING_LOC_MILES", "I_CROSSING_LOC_YARDS", "I_CROSSING_LOC_CHAINS", "I_CROSSING_ELLIPSE_UID", "I_CROSSING_PUBLIC_UID", "I_CROSSING_VALUE_MAP", "CROSSING_STATUS", "I_CROSSING_SLEEPING_DOG", "I_CROSSING_OVERALL_STATUS", "I_CROSSING_NETWORK_RAIL_ID"],
-    "hiddenQuestions": ["I_COLLECTOR_NAME", "PHONE_NUMBER", "EMAIL_ADDRESS"],
-    "wsTimeout": 140000,
-    "maxCrossings": 999999
+	"help": "#This is a header\n*This is a paragraph\n\n#This is anotherheader\n*help text example paragraph replace this\n\n#another title\n*another paragraph\n",
+	"routes": ["ANGLIA", "ENGINEERING", "KENT", "LONDON_NORTH_EAST", "LONDON_NORTH_WEST", "MIDLAND_AND_CONTINENTAL", "SCOTLAND", "SUSSEX", "TRAINING", "WALES", "WESSEX", "WESTERN"],
+	"timerPickerQuestions": [{
+		"name": "I_DURATION",
+		"duration": {
+			"hoursLowBound": 0,
+			"hoursHighBound": 0,
+			"hoursIncrement": 1,
+			"minutesLowBound": 30,
+			"minutesHighBound": 60,
+			"minutesIncrement": 15
+		}
+	}],
+	"censusCounterQuestions": ["I_CAR_COUNT", "I_LOR_COUNT", "I_BUS_COUNT", "I_HGV_COUNT", "I_PED_COUNT", "I_CYC_COUNT", "I_HOOF_COUNT", "I_EQUESTRIAN_COUNT", "I_TRACTOR_COUNT"],
+	"removedSections": ["CrossingLayout"],
+	"removedQuestions": ["I_CROSSING_AREA", "I_CROSSING_GRID_REF", "I_CROSSING_LOC_RAIL", "I_CROSSING_STRATEGIC_ROUTE", "I_CROSSING_HIGHWAY", "I_CROSSING_SIGNALBOX", "I_CROSSING_LOC_MILES", "I_CROSSING_LOC_YARDS", "I_CROSSING_LOC_CHAINS", "I_CROSSING_ELLIPSE_UID", "I_CROSSING_PUBLIC_UID", "I_CROSSING_VALUE_MAP", "CROSSING_STATUS", "I_CROSSING_SLEEPING_DOG", "I_CROSSING_OVERALL_STATUS", "I_CROSSING_NETWORK_RAIL_ID"],
+	"hiddenQuestions": ["I_COLLECTOR_NAME", "PHONE_NUMBER", "EMAIL_ADDRESS"],
+	"wsTimeout": 140000,
+	"maxCrossings": 99999
 }
