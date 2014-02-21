@@ -868,7 +868,8 @@ exports.getGoToContentsDetails = function () {
                 title: questionsList[questionIndex].title.text,
                 questionIndex: questionIndex,
                 mandatory: questionsList[questionIndex].mandatory,
-                firstValue: questionsList[questionIndex].value[0]
+                firstValue: questionsList[questionIndex].value[0],
+                error : questionsList[questionIndex].errorMessageVisable
             };
 
             newSectionContents.questionList.push(newQuestionDetails);

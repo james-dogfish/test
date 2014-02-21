@@ -36,6 +36,10 @@ function showQuestions(){
 				colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 			}
 			
+			if(questionList[questionIndex].error == true){
+				colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
+			}
+			
 			questionRowList.push({
 				template : "detailRowQuestionTemplate", 
 				groupType : groupType,

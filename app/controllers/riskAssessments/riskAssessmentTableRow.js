@@ -22,6 +22,7 @@ if (arguments && arguments[0]) {
 
 	if (thisRA.alcrmStatus === 'sent' || thisRA.isSubmitted == true) {
 		//$.row.nonClickable = false;
+		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
 	} else {
 		$.row.editable = true;
