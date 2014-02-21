@@ -44,7 +44,7 @@ exports.noCensusMessage = function(assObj){
 
 
 exports.assessmentSubmitMessage = function(assObj,success, message){
-	alert("message="+message);
+	//alert("message="+message);
 	Alloy.Globals.Logger.log("AssessmentSubmitMessage called", "info");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){
