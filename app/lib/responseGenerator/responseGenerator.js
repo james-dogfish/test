@@ -401,7 +401,7 @@ function responseGenerator() {
 
 						Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 
-						if (Alloy.Globals.trainIDs.length === 3) {
+						if (Alloy.Globals.trainIDs.length >= 1) {
 
 							self.doAssessment(assObj, sectionListAss);
 						}
@@ -528,9 +528,9 @@ function responseGenerator() {
 					var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 					var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
 					var xmlCensusRequest = null;
-					//alert("sectionListTra = "+JSON.stringify(sectionListTra));
+					alert("sectionListTra = "+JSON.stringify(sectionListTra));
 					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID, assObj);
-					//alert("xmlTrainRequest = "+JSON.stringify(xmlTrainRequest));
+					alert("xmlTrainRequest = "+JSON.stringify(xmlTrainRequest));
 					if ( typeof sectionListCen === "undefined" || sectionListCen.length === 0 || sectionListCen == null) {
 						if (assObj.censusDesktopComplete == false) {
 							//alert("here0");
@@ -554,23 +554,27 @@ function responseGenerator() {
 					}
 					if (sectionListCen.length > 0 && sectionListTra.length > 0) {
 						//alert("here0");
-						self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
+						if (assObj.censusDesktopComplete == true) {
+							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
+						}else{
+							self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
+						}
 					} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
 						//alert("here1");
 						self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
-					} else if (sectionListCen.length <= 0 && sectionListTra.length > 0) {
+					} else if (assObj.censusDesktopComplete == true && sectionListTra.length > 0 ) {
 						//alert("here2");
-						if (assObj.censusDesktopComplete == true) {
+						//if (assObj.censusDesktopComplete == true) {
 							//alert("here2.1");
 							Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = true", "info");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
-						} else {
+						/*} else {
 							//alert("here2.2");
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
 							
 							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
-						}
+						}*/
 					} else {
 						//alert("hrere3");
 						self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
