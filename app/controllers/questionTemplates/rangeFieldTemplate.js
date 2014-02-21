@@ -36,7 +36,7 @@ function onTextFieldFocus(e){
 		e.source.blur();
 		return;
 	}
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
 
@@ -69,7 +69,7 @@ function onTitleClick(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
 function onTextField2Blur(e){

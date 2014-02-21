@@ -94,7 +94,7 @@ function onTextFieldFocus(e){
 		e.source.blur();
 		return;
 	}
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	e.source.value = item.displayValue.value;
 
 	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
@@ -107,6 +107,6 @@ function onTitleClick(e){
 	
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 }
 

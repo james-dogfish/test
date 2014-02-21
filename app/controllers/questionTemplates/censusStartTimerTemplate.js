@@ -5,7 +5,7 @@ function onTextFieldBlur(e){
 function onStartButtonClick(e){
 	var question = e.section.getItemAt(e.itemIndex);
 	
-	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question,e.section);
 	
 	if(question.readOnly == true){
 		e.section.updateItemAt(e.itemIndex, question);
@@ -22,12 +22,12 @@ function onStartButtonClick(e){
 
 function onTextFieldFocus(e){
 	var question = e.section.getItemAt(e.itemIndex);
-	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question,e.section);
 }
 
 function textFieldClick(e){
 	var question = e.section.getItemAt(e.itemIndex);
-	question = Alloy.Globals.questionRenderer.selectQuestion(question);
+	question = Alloy.Globals.questionRenderer.selectQuestion(question,e.section);
 }
 
 function onNotesClick(e){
@@ -58,6 +58,6 @@ function onTitleClick(e){
 	if(Alloy.Globals.isDebugOn == false)return;
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 }
 

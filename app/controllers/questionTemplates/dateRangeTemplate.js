@@ -28,7 +28,7 @@ function onNotesClick(e){
 function dateButton1Clicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);
@@ -66,14 +66,14 @@ function dateButton1Clicked(e){
 function onTitleClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
 function dateButton2Clicked(e){
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section; 
 
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 	
 	if(item.readOnly == true){
 		section.updateItemAt(e.itemIndex, item);

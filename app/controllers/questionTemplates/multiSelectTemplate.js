@@ -29,7 +29,7 @@ function onTitleClick(e) {
 
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
 
@@ -90,5 +90,5 @@ function multiSelectButtonClicked(e) {
 			});
 		}
 	});
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };

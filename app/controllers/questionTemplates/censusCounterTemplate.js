@@ -37,7 +37,7 @@ function onTextFieldFocus(e){
 		e.source.blur();
 	}
 	
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 
 };
 
@@ -74,7 +74,7 @@ function onTitleClick(e){
 	
 	var item = e.section.getItemAt(e.itemIndex);
 	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	Alloy.Globals.questionRenderer.selectQuestion(item);
+	Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 };
 
 
@@ -83,7 +83,7 @@ var addValue = function(additionValue, e){
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
 	
-	item = Alloy.Globals.questionRenderer.selectQuestion(item);
+	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 	
 	var intValue = intValue = parseInt(item.value[0]);
 	if(isNaN(intValue)){
