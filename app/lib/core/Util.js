@@ -79,7 +79,7 @@ function _Util() {
 				}
 			},
 			onerror: function(e) {
-				self.log('There has been an error downloading file ' + e.error);
+				Alloy.Globals.Logger.log('There has been an error downloading file ' + e.error, "info");
 			},
 			timeout: 40000
 		});
@@ -108,7 +108,8 @@ function _Util() {
 				}
 			},
 			onerror: function(e) {
-				self.log('There has been an error downloading file ' + e.error);
+				//self.log('There has been an error downloading file ' + e.error);
+				Alloy.Globals.Logger.log('There has been an error downloading file '+ e.error, "info");
 			},
 			timeout: 40000
 		});
@@ -327,10 +328,12 @@ function _Util() {
 
 		var c = Ti.Network.createHTTPClient({
 			onload: function() {
-				self.log('Assessment and Question Notes emailed successfully');
+				//self.log('Assessment and Question Notes emailed successfully');
+				Alloy.Globals.Logger.log('Assessment and Question Notes emailed successfully', "info");
 			},
 			onerror: function(e) {
-				self.log('Error emailing Assessment and Question Notes');
+				//self.log('Error emailing Assessment and Question Notes');
+				Alloy.Globals.Logger.log('Error emailing Assessment and Question Notes', "info");
 			},
 			timeout: 40000
 		});

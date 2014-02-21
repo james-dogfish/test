@@ -284,10 +284,10 @@ function localParser() {
 		if ( typeof question.riskAnalysisOnly === "undefined") {
 			//Ti.API.info("riskAnalysisOnly == undefined");
 			return false;
-		} else if ( typeof question.riskAnalysisOnly === "true") {
+		} else if (question.riskAnalysisOnly === "true" || question.riskAnalysisOnly === true) {
 			//Ti.API.info("riskAnalysisOnly == true");
 			return true;
-		}else if ( typeof question.riskAnalysisOnly === "false") {
+		}else if (question.riskAnalysisOnly === "false"|| question.riskAnalysisOnly === false) {
 			//Ti.API.info("riskAnalysisOnly == false");
 			return false;
 		}
