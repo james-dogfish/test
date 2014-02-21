@@ -34,6 +34,8 @@ var clearAllSubmitMessages = function(assessmentID){
 
 };
 
+exports.clearAllSubmitMessages = clearAllSubmitMessages;
+
 exports.noCensusMessage = function(assObj){
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
 	if(assessmentRow != null){

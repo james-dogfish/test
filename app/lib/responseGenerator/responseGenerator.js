@@ -82,7 +82,7 @@ function responseGenerator() {
 									censusDate = questionList[questionIndex].value;
 								}else{
 									Alloy.Globals.aIndicator.hide();
-									Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+									Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 									return;
 								}
 								Ti.API.info("censusDate = "+censusDate);
@@ -516,7 +516,7 @@ function responseGenerator() {
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
-				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
+				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 
 				noneToSubmit++;
 				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
@@ -537,7 +537,7 @@ function responseGenerator() {
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
 							
-							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
+							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 						}
 					} else {
 						xmlCensusRequest = self.buildCensusResponse(assObj, sectionListCen, assObj.crossingID, assObj.detailID);
@@ -548,7 +548,7 @@ function responseGenerator() {
 							Ti.API.error("=====xmlCensusRequest======"+JSON.stringify(xmlCensusRequest));
 							Alloy.Globals.aIndicator.hide();
 							if (assObj.censusDesktopComplete == false) {
-								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 							}
 						}
 					}
@@ -632,7 +632,7 @@ function responseGenerator() {
 				Alloy.Globals.aIndicator.hide();
 			}
 		} catch (e) {
-			Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentFailed'));
+			Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentFailed'),"assessmentFailed");
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("Exception in doAssessment. Error Details: " + JSON.stringify(e), "info");
