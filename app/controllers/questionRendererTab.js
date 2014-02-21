@@ -1,7 +1,6 @@
 var currentAssessmentObject = null;
 
 Alloy.Globals.questionRenderer = null;
-Alloy.Globals.questionRenderer = $.questionListView;
 Alloy.Globals.questionRendererTab = this;
 
 /**
@@ -25,11 +24,23 @@ exports.getAssessment = function() {
 @return {} n/a
 */
 exports.setAssessment = function(assessmentObject) {
+	
+	if(Alloy.Globals.questionRenderer != null){
+    	$.window.remove(Alloy.Globals.questionRenderer.getView());
+    	Alloy.Globals.questionRenderer.destroy();
+    	Alloy.Globals.questionRenderer = null;
+    }
+        
+        
+	Alloy.Globals.questionRenderer = Alloy.createController("questionRenderer");
+	$.window.add(Alloy.Globals.questionRenderer.getView());
+	
     Alloy.Globals.aIndicator.show();
     $.appTitle.text = assessmentObject.crossingName;
     currentAssessmentObject = assessmentObject;
     var sectionList = Alloy.Globals.localDataHandler.openAssessment(assessmentObject);
-    $.questionListView.setAssessment(sectionList, assessmentObject);
+    
+    Alloy.Globals.questionRenderer.setAssessment(sectionList, assessmentObject);
     Alloy.Globals.aIndicator.hide();
     // Call analytics functions here
     Alloy.Globals.Analytics.trackNav('Home', 'Assessment Form', 'ra:open');
@@ -45,7 +56,9 @@ exports.setAssessment = function(assessmentObject) {
 @return {} n/a
 */
 exports.clear = function() {
-    $.questionListView.clear();
+	if(Alloy.Globals.questionRenderer != null){
+    	Alloy.Globals.questionRenderer.clear();
+   	}
 };
 
 /**
@@ -61,6 +74,13 @@ function saveAndExitClick(e) {
     $.appTitle.text = ''; 
     if (currentAssessmentObject !== null) {
         Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
+        
+        if(Alloy.Globals.questionRenderer != null){
+        	$.window.remove(Alloy.Globals.questionRenderer.getView());
+        	Alloy.Globals.questionRenderer.destroy();
+        	Alloy.Globals.questionRenderer = null;
+        }
+        
     }
     $.trigger("saveAndExitClick"); // TODO - Why is this being clicked multiple times ??
 }
@@ -106,7 +126,9 @@ var gotoQuestionSectionWindow = null;
 
 Ti.App.addEventListener("goToQuestion", function(e) {
     Alloy.Globals.Logger.log("gotoQuestionSectionWindow : goToQuestion","info");
-    $.questionListView.moveToQuestion(e.groupType, e.questionIndex);
+    if(Alloy.Globals.questionRenderer != null){
+    	Alloy.Globals.questionRenderer.moveToQuestion(e.groupType, e.questionIndex);
+    }
 });
 
 
@@ -122,8 +144,11 @@ var createCensus= function(){
 	        return;
 	    }
 	    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-	    $.questionListView.appendSectionsToAssessment(censusData);
-	    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+	    
+	    if(Alloy.Globals.questionRenderer != null){
+	    	Alloy.Globals.questionRenderer.appendSectionsToAssessment(censusData);
+	   		gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+	    }
 	
 	    Alloy.Globals.aIndicator.hide();
    }catch(e){
@@ -163,9 +188,12 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     }
 
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
-    $.questionListView.appendSectionsToAssessment(censusData);
     
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+    if(Alloy.Globals.questionRenderer != null){
+    	Alloy.Globals.questionRenderer.appendSectionsToAssessment(censusData);
+    	
+    	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    }
 
     Alloy.Globals.aIndicator.hide();
     }catch(e){
@@ -181,11 +209,15 @@ Ti.App.addEventListener("censusDesktopComplete", function(e) {
 });
 
 Ti.App.addEventListener("goToFirstUnanswered", function(e) {
-    $.questionListView.goToFirstUnanswered();
+	if(Alloy.Globals.questionRenderer != null){
+    	Alloy.Globals.questionRenderer.goToFirstUnanswered();
+   	}
 });
 
 Ti.App.addEventListener("goToLastPositiond", function(e) {
-    $.questionListView.goToLastPositiond();
+	if(Alloy.Globals.questionRenderer != null){
+    	Alloy.Globals.questionRenderer.goToLastPositiond();
+    }
 });
 
 Ti.App.addEventListener("deletePage", function(e) {
@@ -207,9 +239,12 @@ Ti.App.addEventListener("deletePage", function(e) {
 
             if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
                 var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
-                $.questionListView.pageDeletedEvent(deletingRow.associatedFileName);
-                $.questionListView.setAssessment(sectionList, currentAssessmentObject);
-                gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+               
+               if(Alloy.Globals.questionRenderer != null){
+	                Alloy.Globals.questionRenderer.pageDeletedEvent(deletingRow.associatedFileName);
+	                Alloy.Globals.questionRenderer.setAssessment(sectionList, currentAssessmentObject);
+	                gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+               }
             }
 
             Alloy.Globals.aIndicator.hide();
@@ -224,7 +259,10 @@ Ti.App.addEventListener("deletePage", function(e) {
 var showGoto = function() {
     gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
     gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
-    gotoQuestionSectionWindow.setContentsDetails($.questionListView.getGoToContentsDetails());
+    
+    if(Alloy.Globals.questionRenderer != null){
+    	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    }
 
     gotoQuestionSectionWindow.show();
 };
@@ -289,7 +327,9 @@ var openMenu = function() {
             Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
             $.trigger("saveAndExitClick");
         } else if (e.row.id === 7) {
-            $.questionListView.toggleScrollLock();
+        	if(Alloy.Globals.questionRenderer != null){
+            	Alloy.Globals.questionRenderer.toggleScrollLock();
+           	}
         }
     });
 };

@@ -35,6 +35,7 @@ var addSectionToPageList= function(section){
 	}
 	
 	var newPage = {
+		template : "masterRowTemplate",
 		name : section.pageName,
 		title : {text : section.pageName}, 
 		sectionList : [],
@@ -124,8 +125,29 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 		}
 	}
 	
+	
+	var assessmentObject= Alloy.Globals.questionRenderer.getCurrentAssessmentObject();
+	if(assessmentObject.censusDesktopComplete === true){
+		pageList.push({
+			template : "masterCensusDesktopCompleteTemplate",
+			title : {text : "censusDesktopComplete"}, 
+			colouredBox : {}
+		});
+	}
+	
+	
 	$.section.setItems(pageList);
 };
+
+var addCensusDesktopCompleteRow = function(){
+	pageList.push({
+		template : "masterCensusDesktopCompleteTemplate",
+		title : {text : "censusDesktopComplete"}, 
+		colouredBox : {}
+	});
+	$.section.setItems(pageList);
+};
+exports.addCensusDesktopCompleteRow = addCensusDesktopCompleteRow;
 
 exports.MoveToOpen = function(isAnimated){
 	if(isAnimated == true){
