@@ -1,6 +1,6 @@
 <Alloy>
 	<ItemTemplate id="textFieldTemplate" name="textFieldTemplate" class="basicTemplate">
-        <View class="viewGroup" bindId = "backgroundView">
+        <View class="viewGroup" bindId="backgroundView">
 			<View class="headerView" bindId="headerView" onClick="onTitleClick">
 				<Label id="questionTitle" bindId="title" class="questionTitle"/>
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
@@ -13,7 +13,7 @@
 			
 			<View class="questionView">
 				
-				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>	
+				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus"/>	
 				<!--
 				<View id="valueTextFieldContainer" class="inputFieldContainer" >
 					<TextArea  id="valueTextField"  bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>
