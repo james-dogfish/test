@@ -92,6 +92,7 @@ $.selectCensusView.on("addCensus", function(){
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
 	Ti.App.fireEvent("censusDesktopComplete", {});
+	$.masterView.addCensusDesktopCompleteRow();
 	$.selectCensusView.hide();
 });
 $.addCensusView.on("addPastCensus", function(e){

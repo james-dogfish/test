@@ -139,6 +139,16 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 	$.section.setItems(pageList);
 };
 
+var addCensusDesktopCompleteRow = function(){
+	pageList.push({
+		template : "masterCensusDesktopCompleteTemplate",
+		title : {text : "censusDesktopComplete"}, 
+		colouredBox : {}
+	});
+	$.section.setItems(pageList);
+};
+exports.addCensusDesktopCompleteRow = addCensusDesktopCompleteRow;
+
 exports.MoveToOpen = function(isAnimated){
 	if(isAnimated == true){
 		$.container.animate(animationOpen);
