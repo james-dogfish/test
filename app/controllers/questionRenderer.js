@@ -1636,9 +1636,9 @@ var selectQuestion = function (newQuestionSelected, newSection) {
            		Alloy.Globals.Logger.log("questionSelected change","info");
 	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
 	            questionRef.question.selected = false;
-	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
+	            //questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
 
-	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	            //Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
            }
         }
         else{
@@ -1653,10 +1653,9 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
 	        
 	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
+	        //questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
 	        //newQuestionSelected = questionRef.question;
-	        
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	        //Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 	       }
     }
     
