@@ -34,7 +34,8 @@ var dateToString = function(date){
     month = (month < 10 )? '0'+month : month;
     
     var year = date.getFullYear();
-    return day + "-" + month + "-" + year;
+    return year + "-" + month + "-" + day;
+   // return Alloy.Globals.Util.convertDate(date).dateformat2;
 };
 
 
