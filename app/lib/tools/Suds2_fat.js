@@ -251,8 +251,9 @@ var SudsClient = function(_options) {
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
                     Alloy.Globals.aIndicator.hide();
-                    
-                    Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'));
+                     if(Alloy.Globals.theAssObj.isSubmitted === false){
+                    	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
+                     }
                     if (_soapAction.search('CreateTrainGroupRequest') !== -1) {
                       Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('trainInfoFail1'));
                     }
@@ -261,7 +262,9 @@ var SudsClient = function(_options) {
                     }
                     if (_soapAction.search('CreateAssessmentRequest') !== -1) {
                       Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('assessmentFailed'));
+                      if(Alloy.Globals.theAssObj.isSubmitted === false){
+                     	 Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('assessmentFailed'),"assessmentFailed");
+                   	  }
                     }
                     break;
 
