@@ -961,24 +961,36 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.template = "textFieldTemplate";
 					}
 
-					if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") {
+					if (questionObject.alcrmQuestionID == "I_COLLECTOR_NAME") { 
 						questionObject.value = [userPreferences.name];
 						questionObject.mandatory = false;
 						questionObject.displayValue = {
 							value : userPreferences.name
 						};
+						questionObject.questionResponse =
+					    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+					    	"<ques:parameterValue>"+userPreferences.name+"</ques:parameterValue>";
+					    	
 					} else if (questionObject.alcrmQuestionID == "PHONE_NUMBER") {
 						questionObject.value = [userPreferences.mobile];
 						questionObject.mandatory = false;
 						questionObject.displayValue = {
 							value : userPreferences.mobile
 						};
+						questionObject.questionResponse =
+					    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+					    	"<ques:parameterValue>"+userPreferences.mobile+"</ques:parameterValue>";
+					    	
 					} else if (questionObject.alcrmQuestionID == "EMAIL_ADDRESS") {
 						questionObject.value = [userPreferences.email];
 						questionObject.mandatory = false;
 						questionObject.displayValue = {
 							value : userPreferences.email
 						};
+						questionObject.questionResponse =
+					    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+					    	"<ques:parameterValue>"+userPreferences.email+"</ques:parameterValue>";
+					    	
 					} else if (questionObject.alcrmQuestionID == "I_CENSUS_QUICK_START") {
 						questionObject.template = "censusStartTimerTemplate";
 					}
