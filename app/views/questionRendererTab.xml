@@ -5,15 +5,12 @@
 				<Button class="systemButton goto" onClick="showGoto">
 					<Label class="systemButtonText" text="Go To" onClick="showGoto" />
 				</Button>
-				<!-- <Button class="systemButton save" onClick="saveAndExitClick">
-					<Label class="systemButtonText" text="Save And Exit" onClick="saveAndExitClick" />
-				</Button> -->
 				<Label id="appTitle"/>
 				<Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" >
 					<Label class="systemButtonText" text="Menu" onClick="openMenu" />
 				</Button>
 			</Toolbar>
-			<Require id="questionListView" src="questionRenderer" type="view"/>
+			<!--<Require id="questionListView" src="questionRenderer" type="view"/>-->
 		</Window>
 	</Tab>
 </Alloy>
