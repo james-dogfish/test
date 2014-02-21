@@ -151,7 +151,7 @@ function responseGenerator() {
  * 
  * @return {String} xmlRequest - the xmlRequest payload string.
  */
-	self.buildTrainInfoGroupResponse = function(trainList, crossingID, detailID) {
+	self.buildTrainInfoGroupResponse = function(trainList, crossingID, detailID, assObj) {
 		try {
 			var xmlRequest = [];
 			
@@ -165,7 +165,7 @@ function responseGenerator() {
 					var questionList = sectionList[sectionListIndex].questionList;
 					for (var questionIndex = 0; questionIndex < questionList.length && sectionUseless === false; questionIndex++) {
 						var questionResponse = questionList[questionIndex].questionResponse;
-						alert("questionResponse "+trainListIndex+" = "+JSON.stringify(questionResponse));
+						//alert("questionResponse "+trainListIndex+" = "+JSON.stringify(questionResponse));
 						var questionType = questionList[questionIndex].type;
 						if (questionResponse != null) {
 							if (questionType === "multiSelect") {
@@ -178,20 +178,25 @@ function responseGenerator() {
 						}else{
 							if(trainListIndex == 0)
 							{
-								Alloy.Globals.aIndicator.hide();
 								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoIncomplete1'));
 
-							}else{ 
+							}/*else{ 
 								Alloy.Globals.aIndicator.hide();
-								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoDidNotSubmit')+(trainListIndex+1));
+								//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true, L('trainInfoDidNotSubmit')+(trainListIndex+1));
 								//
-							}
+							}*/
+							Alloy.Globals.aIndicator.hide();
+							questionList[questionIndex].sectionUseless = true;
 							sectionUseless = true;
+							trainData = "";
 						}
 					}
 				}
-
-				xmlRequest.push("<tra:CreateTrainGroupRequest>" + "<tra:trainGroupData>" + "<tra1:crossingId>" + crossingID + "</tra1:crossingId>" + "<tra1:date>" + new Date().toISOString() + "</tra1:date>" + trainData + "</tra:trainGroupData>" + "</tra:CreateTrainGroupRequest>");
+				//alert("trainData Contents = "+JSON.stringify(trainData));
+				if(trainData !== "")
+				{
+					xmlRequest.push("<tra:CreateTrainGroupRequest>" + "<tra:trainGroupData>" + "<tra1:crossingId>" + crossingID + "</tra1:crossingId>" + "<tra1:date>" + new Date().toISOString() + "</tra1:date>" + trainData + "</tra:trainGroupData>" + "</tra:CreateTrainGroupRequest>");
+				}
 			}
 
 			return xmlRequest;
@@ -353,7 +358,7 @@ function responseGenerator() {
 
 					}, function(xmlDoc) {
 						Alloy.Globas.aIndicator.hide();
-						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+						//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 
 					});
 					
@@ -404,7 +409,7 @@ function responseGenerator() {
 					});
 				}, function(xmlDoc) {
 					Alloy.Globals.aIndicator.hide();
-					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+					//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 				});
 			}
 		} catch(e) {
@@ -455,7 +460,8 @@ function responseGenerator() {
 							Alloy.Globals.censusIDs.push(censusId);
 
 							Alloy.Globals.censusDates.push(censusDate);
-
+					
+							//alert("xmlTrainRequest = "+xmlTrainRequest.length);
 							for (var i = 0; i < xmlTrainRequest.length; i++) {
 								Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest[i], function(xmlDoc) {
 
@@ -467,14 +473,14 @@ function responseGenerator() {
 
 										Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 										Alloy.Globals.Logger.log("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length, "info");
-										if (Alloy.Globals.trainIDs.length === 3) {
+										if (Alloy.Globals.trainIDs.length >=1) {
 											self.doAssessment(assObj, sectionListAss);
 										}
 
 									});
 								}, function(xmlDoc) {
 									Alloy.Globals.aIndicator.hide();
-									Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+									//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 								});
 
 							}
@@ -482,7 +488,7 @@ function responseGenerator() {
 						});
 					}, function(xmlDoc) {
 						Alloy.Globals.aIndicator.hide();
-						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+						//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 					});
 				}
 			} else {
@@ -521,8 +527,9 @@ function responseGenerator() {
 					var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 					var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
 					var xmlCensusRequest = null;
-					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID);
-					alert("xmlTrainRequest = "+JSON.stringify(xmlTrainRequest));
+					//alert("sectionListTra = "+JSON.stringify(sectionListTra));
+					var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID, assObj);
+					//alert("xmlTrainRequest = "+JSON.stringify(xmlTrainRequest));
 					if ( typeof sectionListCen === "undefined" || sectionListCen.length === 0 || sectionListCen == null) {
 						if (assObj.censusDesktopComplete == false) {
 							//alert("here0");
@@ -539,31 +546,39 @@ function responseGenerator() {
 							//alert("here1");
 							Ti.API.error("=====xmlCensusRequest======"+JSON.stringify(xmlCensusRequest));
 							Alloy.Globals.aIndicator.hide();
-							
-							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
+							if (assObj.censusDesktopComplete == false) {
+								Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
+							}
 						}
 					}
 					if (sectionListCen.length > 0 && sectionListTra.length > 0) {
+						//alert("here0");
 						self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
 					} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
+						//alert("here1");
 						self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
 					} else if (sectionListCen.length <= 0 && sectionListTra.length > 0) {
 						//alert("here2");
 						if (assObj.censusDesktopComplete == true) {
+							//alert("here2.1");
 							Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = true", "info");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 						} else {
+							//alert("here2.2");
 							Alloy.Globals.Logger.log("assObj.censusDesktopComplete = " + assObj.censusDesktopComplete, "info");
 							Alloy.Globals.aIndicator.hide();
 							
 							Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted'));
 						}
 					} else {
+						//alert("hrere3");
+						self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 						Alloy.Globals.aIndicator.hide();
 					}
 				}
 			}
 		} catch (e) {
+			//alert("exception: "+JSON.stringify(e));
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e), "info");
 			Alloy.Globals.trainIDs = [];
@@ -606,12 +621,13 @@ function responseGenerator() {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true, L('assessmentSubmitted'));
 				}, function() {
 					Alloy.Globals.aIndicator.hide();
-					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 				});
 			} else {
+				Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true, 'Already Submitted');
 				Alloy.Globals.aIndicator.hide();
 			}
 		} catch (e) {
+			Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentFailed'));
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("Exception in doAssessment. Error Details: " + JSON.stringify(e), "info");
