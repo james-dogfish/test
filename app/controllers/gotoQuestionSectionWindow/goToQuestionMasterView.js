@@ -25,6 +25,10 @@ var addSectionToPageList= function(section){
 				pageList[pageIndex].mandatoryQuestions = true;
 			}
 			
+			if(section.error == true){
+				pageList[pageIndex].error = true;
+			}
+			
 			pageList[pageIndex].sectionList.push(section);
 			return;
 		}
@@ -40,10 +44,15 @@ var addSectionToPageList= function(section){
         allQuestionsAnswered : true,  
         allMandatoryQuestionsAnswered : true,
         coreQuestionType : false,
+        error : false,
         
 		pageType : section.pageType,
 		associatedFileName : section.associatedFileName
 	};
+	
+	if(section.error == true){
+		newPage.error = true;
+	}
 	
 	if(section.allMandatoryQuestionsAnswered == false){
             	newPage.allMandatoryQuestionsAnswered = false;
@@ -108,6 +117,10 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 		}
 		else{
 			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_non_mandatory"];
+		}
+		
+		if(pageList[pageIndex].error == true){
+			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
 		}
 	}
 	

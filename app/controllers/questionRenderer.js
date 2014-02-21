@@ -836,6 +836,7 @@ exports.getGoToContentsDetails = function () {
             mandatoryQuestions : false,
             allMandatoryQuestionsAnswered : true,
             allQuestionsAnswered : true,
+            error : false,
             
             sectionIndex: sectionIndex,
             groupType: sectionList[sectionIndex].groupType
@@ -871,7 +872,10 @@ exports.getGoToContentsDetails = function () {
                 firstValue: questionsList[questionIndex].value[0],
                 error : questionsList[questionIndex].errorMessageVisable
             };
-
+			
+			if(newQuestionDetails.error == true){
+				newSectionContents.error = true;
+			}
             newSectionContents.questionList.push(newQuestionDetails);
         }
 

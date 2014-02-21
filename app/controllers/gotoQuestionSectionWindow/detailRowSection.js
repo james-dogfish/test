@@ -87,6 +87,10 @@ exports.setdata = function(passedSectionDataObject){
 			}
 		}
 	}
+	
+	if(passedSectionDataObject.error == true){
+		sectionHeaderColouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
+	}
 
 	
 	groupType = sectionDataObject.groupType;
