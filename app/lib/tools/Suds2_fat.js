@@ -236,10 +236,20 @@ var SudsClient = function(_options) {
 
               alert.addEventListener('click', function(e) {
                 //Clicked cancel, first check is for iphone, second for android
-                if (e.cancel === e.index || e.cancel === true) {
+               /* if (e.cancel === e.index || e.cancel === true) {
                   Alloy.Globals.aIndicator.hide();
+                  alert(_soapAction);
+                    if (_soapAction.search('CreateTrainGroupRequest') !== -1) {
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoFail1'));
+                    }
+                    if (_soapAction.search('CreateCensusRequest') !== -1) {
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('censusFail'));
+                    }
+                    if (_soapAction.search('CreateAssessmentRequest') !== -1) {
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('assessmentFailed'));
+                    }
                   return;
-                }
+                }*/
 
                 //now you can use parameter e to switch/case
 
@@ -251,14 +261,15 @@ var SudsClient = function(_options) {
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
                     Alloy.Globals.aIndicator.hide();
+                    Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'));
                     if (_soapAction.search('CreateTrainGroupRequest') !== -1) {
-                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoFail1'));
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('trainInfoFail1'));
                     }
                     if (_soapAction.search('CreateCensusRequest') !== -1) {
-                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('censusFail'));
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('censusFail'));
                     }
                     if (_soapAction.search('CreateAssessmentRequest') !== -1) {
-                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('assessmentFailed'));
+                      Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj, false, L('assessmentFailed'));
                     }
                     break;
 
