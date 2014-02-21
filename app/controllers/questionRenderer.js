@@ -845,6 +845,17 @@ exports.goToLastPositiond = function () {
     moveToQuestionByName(questionSelected.name, questionSelected.groupType);
 };
 
+/**
+`exports.getCurrentAssessmentObject` 
+
+@method exports.getCurrentAssessmentObject
+
+@return {JSON_Object} assessmentObject
+*/
+exports.getCurrentAssessmentObject = function(){
+	return Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+};
+
 
 /**
 `exports.getGoToContentsDetails` builds a list of all sections and questions to be used in the goTo window
@@ -1654,8 +1665,6 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	        
 	        questionRef.question.selected = true;
 	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
-	        //newQuestionSelected = questionRef.question;
-	        
 	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 	       }
     }

@@ -1,0 +1,20 @@
+"#pageRow" : {
+	width: Ti.UI.FILL,
+	height : "50dp",
+	selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+"#title" : {
+	width: Ti.UI.FILL,
+	height : "50dp",
+	left : "40dp",
+	wordWrap : false,
+	minimumFontSize : "25dp"
+},
+'#colouredBox' : {
+	borderRadius : "10dp",
+	width : "20dp",
+	height : "20dp",
+	left : "10dp",
+	backgroundColor: "#1ec21e"
+}
+

@@ -7,6 +7,8 @@
 			<Templates>
 				<Require src="gotoQuestionSectionWindow/masterRowTemplate" type="view"/>
 				<Require src="gotoQuestionSectionWindow/masterCensusRowTemplate" type="view"/>
+				<Require src="gotoQuestionSectionWindow/masterCensusDesktopCompleteTemplate" type="view"/>
+				
 			</Templates>
 			<ListSection id="section"/>
 		</ListView>
