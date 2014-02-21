@@ -1588,12 +1588,28 @@ exports.setEntireSectionTemplate= setEntireSectionTemplate;
 */
 var selectQuestion = function (newQuestionSelected) {
     var sectionList = getAllQuestionSections();
+    var oldQuestion = questionSelected;
+    if(oldQuestion != null){
+    	if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
+    }
+    
+    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
+    var questionRef = findQuestionsRef(sectionList, newQuestionSelected.name, newQuestionSelected.groupType);
+    if (questionRef != null) {
+    	if(questionRef.question.readOnly == false){
+	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
+	        
+	        questionRef.question.selected = true;
+	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	        newQuestionSelected = questionRef.question;
+	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	       }
+    }
     
 
-    if (questionSelected != null) {
-    	if(questionSelected.name == newQuestionSelected.name)return newQuestionSelected;
+    if (oldQuestion != null) {
     	
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+        var questionRef = findQuestionsRef(sectionList, oldQuestion.name, oldQuestion.groupType);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){
            		Alloy.Globals.Logger.log("questionSelected change","info");
@@ -1608,19 +1624,7 @@ var selectQuestion = function (newQuestionSelected) {
     
     questionSelected = newQuestionSelected;
 
-    Alloy.Globals.Logger.log("new questionSelected title = " + questionSelected.title.text,"info");
-
-    var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        newQuestionSelected = questionRef.question;
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	       }
-    }
+    
 
     return newQuestionSelected;
 };
