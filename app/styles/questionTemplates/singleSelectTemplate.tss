@@ -15,7 +15,7 @@
 	paddingLeft : "10dp"
 },
 "#selectButton" : {
-	touchTestID : "",
+	touchTestId : "",
 	width : Ti.UI.FILL,
 	height: "50dp",
 	right: "0dp",

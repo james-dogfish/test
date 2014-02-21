@@ -128,7 +128,7 @@ differently from the `firstTab` and `secondTab` nodes
 				order : "1",
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				
-				btnSelect : {touchTestID :passObject.pageID + "I_CENSUS_DATE" + "button1"},
+				btnSelect : {touchTestId :passObject.pageID + "I_CENSUS_DATE" + "button1"},
 
 				assessmentId : passObject.assessmentId,
 
@@ -136,7 +136,7 @@ differently from the `firstTab` and `secondTab` nodes
 
 				notesBackground : {
 					backgroundImage : 'images/questionNote.png',
-					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "_notesButton"
+					touchTestId : passObject.pageID + "I_CENSUS_DATE" + "_notesButton"
 				}, //{backgroundImage: 'images/questionSelectedNote.png'}
 				notes : "",
 				alcrmNotes : "I_CENSUS_DATE Notes",
@@ -164,11 +164,11 @@ differently from the `firstTab` and `secondTab` nodes
 				}, // the title text for this question
 				displayValue : {
 					value : "",
-					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue1"
+					touchTestId : passObject.pageID + "I_CENSUS_DATE" + "displayValue1"
 				},
 				displayValue2 : {
 					value : "",
-					touchTestID : passObject.pageID + "I_CENSUS_DATE" + "displayValue2"
+					touchTestId : passObject.pageID + "I_CENSUS_DATE" + "displayValue2"
 				},
 
 				questionResponse : null,
@@ -345,13 +345,13 @@ differently from the `firstTab` and `secondTab` nodes
 				associatedFileName : passObject.associatedFileName, // file the question is in
 				questionResponse : null,
 				
-				btnSelect : {touchTestID :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)+"_button1"},
+				btnSelect : {touchTestId :passObject.pageID + Alloy.Globals.localParser.getQuestionName(question)+"_button1"},
 
 				assessmentId : assessmentId,
 
 				notesBackground : {
 					backgroundImage : 'images/questionNote.png',
-					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_notesButton"
+					touchTestId : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_notesButton"
 				}, //{backgroundImage: 'images/questionSelectedNote.png'}
 				notes : "",
 				alcrmNotes : Alloy.Globals.localParser.getNotesText(question),
@@ -374,11 +374,11 @@ differently from the `firstTab` and `secondTab` nodes
 				}, // the title text for this question
 				displayValue : {
 					value : "",
-					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue1"
+					touchTestId : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue1"
 				},
 				displayValue2 : {
 					value : "",
-					touchTestID : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue2"
+					touchTestId : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_displayValue2"
 				},
 
 				errorMessageVisable : false,
