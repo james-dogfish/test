@@ -94,7 +94,7 @@ function onTextFieldFocus(e){
 		e.source.blur();
 		return;
 	}
-	e.source.value = item.displayValue.value;
+
 	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	
 
