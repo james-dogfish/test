@@ -1,11 +1,3 @@
-function onTextFieldChange(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	item.value[0] = e.value;
-	
-	// Removing as performance is very slow. Signed off with Jordan
-	//Alloy.Globals.questionRenderer.questionRealTimeValidation({questionObject : item, questionIndex : e.itemIndex, section : e.section});
-};
-
 function onTextFieldBlur(e){
 	Alloy.Globals.Logger.log("onTextFieldBlur");
 	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
@@ -96,10 +88,7 @@ function onTextFieldFocus(e){
 	}
 
 	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
-	
-
 	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
-
 };
 
 function onTitleClick(e){
