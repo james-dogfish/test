@@ -541,6 +541,7 @@ var removeHiddenQuestions = function (JSON_sectionList) {
 	    }
 	    return JSON_sectionList;
 	}catch(e){
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("Exception in removeHiddenQuestions. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -577,6 +578,7 @@ var setupSelectedQuestion = function () {
         }
     }
  }catch(e){
+ 	Alloy.Globals.Logger.logException(e);
  	Alloy.Globals.Logger.log("Exception in setupSelectedQuestion. Error Details: "+JSON.stringify(e), "error");
 	Alloy.Globals.aIndicator.hide();
  }
@@ -623,6 +625,7 @@ exports.setAssessment = function (JSON_sectionList, assessmentObject) {
 	
 	    $.listView.scrollToItem(0, 0);
 	}catch(e){
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("Exception in setAssessment. Error Details: "+JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -1236,6 +1239,7 @@ var blurCurrentlyFocusedTF = function(){
     		}
 	    }
     } catch (e) {
+    	Alloy.Globals.Logger.logException(e);
         Alloy.Globals.Logger.log('Cannot blur textfield' + JSON.stringify(e),"info");
     }
 };

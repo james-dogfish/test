@@ -52,6 +52,7 @@ var SudsClient = function(_options) {
     try {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
+    	Alloy.Globals.Logger.logException(e);
       Alloy.Globals.aIndicator.hide();
       // Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
 
@@ -184,12 +185,13 @@ var SudsClient = function(_options) {
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
       //Alloy.Globals.aIndicator.hide();
-      try {
-        _callback.call(this, xmlDomFromString(this.responseText));
-      } catch (e) {
-        Alloy.Globals.aIndicator.hide();
-        Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
-        return;
+      try{
+      	_callback.call(this, xmlDomFromString(this.responseText));
+      }catch(e){
+      	Alloy.Globals.Logger.logException(e);
+      	Alloy.Globals.aIndicator.hide();
+      	Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
+      	return;
       }
     };
     xhr.onerror = function(e) {
@@ -276,6 +278,7 @@ var SudsClient = function(_options) {
         //end of convertJSON
 
       } catch (e) {
+      	Alloy.Globals.Logger.logException(e);
         Alloy.Globals.aIndicator.hide();
       }
 

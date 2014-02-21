@@ -127,7 +127,7 @@ var createCensus= function(){
 	
 	    Alloy.Globals.aIndicator.hide();
    }catch(e){
-   		alert("DEBUG: An exception occured!!!! Details for dev: "+JSON.stringify(e));
+   		Alloy.Globals.Logger.logException(e);
    		Alloy.Globals.aIndicator.hide();
    }
 };
@@ -169,6 +169,7 @@ Ti.App.addEventListener("addPastCensus", function(e) {
 
     Alloy.Globals.aIndicator.hide();
     }catch(e){
+    	Alloy.Globals.Logger.logException(e);
     	Alloy.Globals.aIndicator.hide();
     }
 });

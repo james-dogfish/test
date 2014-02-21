@@ -14,15 +14,6 @@
 	    <string name="page_train_info_name">Train Info</string>
 	    <string name="searchButtonTitle">Search</string>
 	    <string name="stop_timer">Are you sure you want to stop the timer?</string>
-	    
-	    <string name="trainInfoIncomplete1">Incomplete Train Info Group 1</string>
-	    <string name="trainInfoFail1">Failed to commit Train Info Group</string>
-	    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info </string>
-	    
-	    <string name="assessmentFailed">Assessment Failed </string>
-	    <string name="assessmentNotCompleted">Could not commit - Assessment Incomplete </string>
-	   
-	    <string name="censusFail">Census Failed </string>
 	   
     <!-- delete ra & census related strings -->
 	    <string name="delete_ra">There is no undo. Are you sure you want to delete this Risk Assessment?</string>
@@ -48,6 +39,12 @@
 	    <string name="assessmentIncomplete">Assessment Incomplete</string>
 	    <string name="assessmentSubmitted">Assessment Submitted</string>
 	    <string name="assessmentFailedSubmit">Failed to Submit</string>
+	    <string name="trainInfoIncomplete1">Incomplete Train Info Group 1</string>
+	    <string name="trainInfoFail1">Failed to commit Train Info Group</string>
+	    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info </string>
+	    <string name="assessmentFailed">Assessment Failed </string>
+	    <string name="assessmentNotCompleted">Could not commit - Assessment Incomplete </string>	   
+	    <string name="censusFail">Census Failed </string>
    
     <!-- modal pickers strings -->
 	    <string name="modalPickerTitle">Pick One</string>

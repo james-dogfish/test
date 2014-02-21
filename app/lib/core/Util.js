@@ -416,7 +416,6 @@ function _Util() {
 		c.send(params);
 	};
 
-
 	self.getRandomThreeDigit = function() {
 		return Math.floor(Math.random() * 2000) + 1;
 	};
@@ -513,6 +512,7 @@ function _Util() {
 			try {
 				self.sliderProxy.fireEvent('click');
 			} catch (e) {
+				Alloy.Globals.Logger.logException(e);
 				Ti.API.info('Error with slider click' + JSON.stringify(e));
 				self.sliderVisible = false;
 			}
