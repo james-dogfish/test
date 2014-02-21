@@ -1628,37 +1628,15 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	
     var oldQuestion = questionSelected;
     
-    
-    if(oldQuestion != null){
-    	if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
-    }
-    
-    Alloy.Globals.aIndicator.show();
-    
-    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
-    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        //newQuestionSelected = questionRef.question;
-	        
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	       }
-    }
-    
-
-    if (oldQuestion != null) {
-    	
+	if (oldQuestion != null) {
+		if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
         var questionRef = findQuestionsRefFromSection(oldQuestion.section, oldQuestion.name);
         if (questionRef != null) {
         	if(questionRef.question.readOnly == false){
            		Alloy.Globals.Logger.log("questionSelected change","info");
 	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
 	            questionRef.question.selected = false;
-	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
 
 	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
            }
@@ -1666,14 +1644,29 @@ var selectQuestion = function (newQuestionSelected, newSection) {
         else{
         	Ti.API.info("question not found : "+JSON.stringify(oldQuestion));
         }
-        
     }
+
+    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
+    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
+    if (questionRef != null) {
+    	if(questionRef.question.readOnly == false){
+	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
+	        
+	        questionRef.question.selected = true;
+	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
+	        //newQuestionSelected = questionRef.question;
+	        
+	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	       }
+    }
+    
+
+    
     
     questionSelected = newQuestionSelected;
     Ti.API.info("new : "+JSON.stringify(newQuestionSelected));
     Ti.API.info("old : "+JSON.stringify(oldQuestion));
 
-    Alloy.Globals.aIndicator.hide();
 
     return newQuestionSelected;
 };
