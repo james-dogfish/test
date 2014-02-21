@@ -58,7 +58,7 @@ function localDataHandler() {
             crossingsFile.write(JSON.stringify(payload));
             crossingsFile = null;
         } catch (e) {
-
+			Alloy.Globals.Logger.logException(e);
             Alloy.Globals.aIndicator.hide();
         }
     };
@@ -98,6 +98,7 @@ function localDataHandler() {
                 return [];
             }
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             return [];
         }
     };
@@ -221,6 +222,7 @@ must NOT be used to delete assessments
             Alloy.Globals.Logger.log("ERROR - assessmentFile does not exists", "info");
             return false;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("An exception occured in updateQuestion. Error Details: " + JSON.stringify(e), "info");
         }
     };
@@ -246,6 +248,7 @@ must NOT be used to delete assessments
             }
             self.updateSavedAssessments(savedAssessments);
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception in updateSingleAssessmentIndexEntry. Error details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
             return;
@@ -272,6 +275,7 @@ must NOT be used to delete assessments
             }
             return assessmentObject;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception in getMostUpTodateAssessmentObject. Error details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
             return;
@@ -374,6 +378,7 @@ to say that it has been submitted
             newAssessmentFile.write(JSON.stringify(newQuestionSet));
             return newAssessment;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception in addNewAssessment. Error details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
             return;
@@ -489,6 +494,7 @@ to say that it has been submitted
 
             return [];
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in addNewCoreQuestionToAssessment. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
             return [];
@@ -545,6 +551,7 @@ to say that it has been submitted
 
             return [];
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.aIndicator.hide();
             Alloy.Globals.Logger.log("exception addNewCensusToAssessment >> - " + JSON.stringify(e), "info");
             return [];
@@ -681,6 +688,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
                 }
             }
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in addNewTrainGroupToAssessment. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }
@@ -757,6 +765,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 	        return false;
         } 
         catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in removeAssessment. Error Details: " + JSON.stringify(e), "error");
             return false;
         }
@@ -811,6 +820,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
             Alloy.Globals.Logger.log("getAllCensusesOrTrains returns => " + JSON.stringify(getAllData), "error");
             return getAllData;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in getAllCensusesOrTrains. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }
@@ -844,6 +854,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 
             return false;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in deleteAssociatedFileNameFromAssessment. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }
@@ -880,6 +891,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 
             return returnQuestionSet;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in getMainRiskAssessmentQuestions. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }
@@ -954,6 +966,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
             self.updateSingleAssessmentIndexEntry(assessmentObject);
             return assessmentObject;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception occured in updateQuestionCount. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }
@@ -1017,6 +1030,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
             }
             return returnQuestionSet;
         } catch (e) {
+        	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("An exception occured in openAssessment. Error Details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
         }

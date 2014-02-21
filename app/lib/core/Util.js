@@ -649,6 +649,7 @@ function _Util() {
 							try {
 								faultString = xmlDoc.documentElement.getElementsByTagName('faultstring').item(0).text;
 							} catch (e) {
+								Alloy.Globals.Logger.logException(e);
 								Alloy.Globals.Util.showAlert('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + e.message);
 								Alloy.Globals.Util.log('An error occured while submitting ' + toSend[i - 1].crossingName + ' to ALCRM. Error details - ' + JSON.stringify(e));
 							}
@@ -813,6 +814,7 @@ function _Util() {
 			try {
 				self.sliderProxy.fireEvent('click');
 			} catch (e) {
+				Alloy.Globals.Logger.logException(e);
 				Ti.API.info('Error with slider click' + JSON.stringify(e));
 				self.sliderVisible = false;
 			}

@@ -106,6 +106,7 @@ exports.show = function(assessmentObject) {
 				});
 				//end of convertJSON
 			} catch(e) {
+				Alloy.Globals.Logger.logException(e);
 				Alloy.Globals.aIndicator.hide();
 			}
 		});
@@ -113,6 +114,7 @@ exports.show = function(assessmentObject) {
 			sudsClient.abort();
 		});
 	} catch(e) {
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
 };

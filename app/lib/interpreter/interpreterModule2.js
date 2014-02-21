@@ -97,6 +97,7 @@ differently from the `firstTab` and `secondTab` nodes
 
 			return displayName;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception occured in getSectionDisplayName. Error Details: " + JSON.stringify(e), "info");
 			return "";
 		}
@@ -184,7 +185,7 @@ differently from the `firstTab` and `secondTab` nodes
 			return questionObject;
 			
 		} catch(e) {
-			alert("Exception occured in createCensusDateQuestion. Error Details: " + JSON.stringify(e));
+			Alloy.Globals.Logger.logException(e);
 			return null;
 		}
 
@@ -399,6 +400,7 @@ differently from the `firstTab` and `secondTab` nodes
 			self.questionMap[questionObject.name] = questionObject;
 			return questionObject;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in createQuestionObject >> " + JSON.stringify(e), "info");
 			return null;
 		}
@@ -469,6 +471,7 @@ differently from the `firstTab` and `secondTab` nodes
 			}
 			return questionObject;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in questionSetPastVariables >> " + JSON.stringify(e), "info");
 			return questionObject;
 		}
@@ -519,6 +522,7 @@ section
 			}
 			self.sectionHeaderList.push(newSectionHeader);
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in addQuestionToSectionHeader >> " + JSON.stringify(e), "info");
 			return;
 		}
@@ -659,6 +663,7 @@ and mandatoryDependenciesList. these are list of questions that are dependent on
 			}
 
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in lookQuestionDependencies >> " + JSON.stringify(e), "info");
 		}
 	};
@@ -727,6 +732,7 @@ using the template subsectionHeaderTemplate
 				renderValue : []
 			};
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in createSubsectionHeader >> " + JSON.stringify(e), "info");
 			return null;
 		}
@@ -789,6 +795,7 @@ relevent subsections, this function is called to insert the questions back in to
 
 			return newQuestionList;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in addSubsectionsBackIntoQuestionList >> " + JSON.stringify(e), "info");
 			return [];
 		}
@@ -821,6 +828,7 @@ relevent subsections, this function is called to insert the questions back in to
 				}
 			}
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in addSubsections >> " + JSON.stringify(e), "info");
 			return;
 		}
@@ -994,6 +1002,7 @@ relevent subsections, this function is called to insert the questions back in to
 
 			addSubsections();
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in postInterpretSettings >> " + JSON.stringify(e), "info");
 		}
 	};
@@ -1019,6 +1028,7 @@ relevent subsections, this function is called to insert the questions back in to
 				return parseInt(a.questionList[0].order) - parseInt(b.questionList[0].order);
 			});
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in sortQuestionsByOrder >> " + JSON.stringify(e), "info");
 		}
 	};
@@ -1108,8 +1118,8 @@ question set for questionRender
 
 			return self.sectionHeaderList;
 		} catch(e) {
+			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.aIndicator.hide();
-			Alloy.Globals.Logger.log("self.interpret failed", "info");
 			Alloy.Globals.Logger.log("Interpreter.interpret has an exception: " + JSON.stringify(e), "error");
 			return [];
 		}

@@ -49,9 +49,16 @@ function multiSelectButtonClicked(e) {
 		valueList: item.selections,
 		valuesSelected: item.value,
 		closeCallBack: function(returnValue) {
-			item.displayValue = {
-				value: returnValue.singleStringValue
-			};
+			if(typeof returnValue !== "undefined")
+			{
+				if(typeof returnValue.singleStringValue !== "undefined")
+				{
+					item.displayValue = {
+						value: returnValue.singleStringValue
+					};
+				}
+			}
+			
 			item.value = returnValue.valueList;
 			// section.updateItemAt(e.itemIndex, item);
 
@@ -60,13 +67,13 @@ function multiSelectButtonClicked(e) {
 				values = values + "<ques:values>" + returnValue.valueList[i] + "</ques:values>";
 			}
 			
-			if(singleStringValue === ""){
+			/*if(returnValue.singleStringValue === ""){
 				item.questionResponse = null;
 			}
-			else{
+			else{*/
 				item.questionResponse = 
 					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values /*+ "<ques:notes>"+item.notes+"</ques:notes>"*/;
-			}
+			//}
 		    
 			item = Alloy.Globals.questionRenderer.questionValueChange({
 				questionObject: item,

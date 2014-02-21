@@ -188,6 +188,7 @@ function parseCensusData(xml_text, curAssObj) {
 		}
 	} catch(e) {
 		Alloy.Globals.Logger.log("Exception in parseCensusData. Error: "+JSON.stringify(e),"info");
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
 };
@@ -202,6 +203,7 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 		return assessmentObject;
 	} catch(e) {
 		Alloy.Globals.Logger.log("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e), "error");
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 		return null;
 	}
@@ -242,6 +244,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 		return true;
 
 	} catch(e) {
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("Exception occured in addCoreQuestionSetToAssessment " + JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -454,6 +457,7 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	try{
 		Alloy.Globals.currentlyFocusedTF.blur();
 	}catch(e){
+		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("COULD NOT BLUR Alloy.Globals.currentlyFocusedTF", "error");
 	}
 	$.riskAssessmentsTab.loadRiskAssessments();
