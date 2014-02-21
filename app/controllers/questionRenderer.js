@@ -1633,6 +1633,8 @@ var selectQuestion = function (newQuestionSelected, newSection) {
     	if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
     }
     
+    Alloy.Globals.aIndicator.show();
+    
     Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
     var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
     if (questionRef != null) {
@@ -1671,7 +1673,7 @@ var selectQuestion = function (newQuestionSelected, newSection) {
     Ti.API.info("new : "+JSON.stringify(newQuestionSelected));
     Ti.API.info("old : "+JSON.stringify(oldQuestion));
 
-    
+    Alloy.Globals.aIndicator.hide();
 
     return newQuestionSelected;
 };
