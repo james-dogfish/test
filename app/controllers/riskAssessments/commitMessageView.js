@@ -1,7 +1,9 @@
 if (arguments && arguments[0]) {
 	
-	var fontawesome = arguments[0].fontawesome;
+
+	var savedMessageID = null;
 	
+	/*
 	Alloy.Globals.Logger.log("arguments[0].success = "+arguments[0].success, "info");
 	
 	if(arguments[0].success == true){
@@ -19,5 +21,34 @@ if (arguments && arguments[0]) {
 	}
 	
 	$.commitStatusLabel.text = arguments[0].message;
+	*/
 
 }
+
+exports.getMessageID = function(){
+	return savedMessageID;
+};
+
+var updateMessgae = function(success, message, messageID, fontawesome){
+	
+	savedMessageID = messageID;
+	
+	//Alloy.Globals.Logger.log("arguments[0].success = "+success, "info");
+	
+	if(success == true){
+		$.container.backgroundColor = "#DBFFE1";
+		$.commitIcon.text = fontawesome.icon('icon-ok');
+		$.commitIcon.color = "#0f0"; 
+	}
+	//not submited risk assessment not complete
+	else if(success == false){
+		$.container.backgroundColor = "#FFDBE0";
+		$.commitIcon.text = fontawesome.icon('icon-remove');
+		$.commitIcon.color = "#f00"; 
+	}
+	
+	$.commitStatusLabel.text = message;
+};
+exports.updateMessgae = updateMessgae;
+
+updateMessgae(arguments[0].success, arguments[0].message, arguments[0].messageID, arguments[0].fontawesome);

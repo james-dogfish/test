@@ -26,12 +26,11 @@ var getAssessmentRowController = function(assessmentID){
 	return assessmentRow;
 };
 
-var clearAllSubmitMessages = function(assessmentID){
+var clearAllSubmitMessages = function(){
 
 	for(var i=0; i < assessmentRowControllerList.length; i++){
 		assessmentRowControllerList[i].clearCommitResponseMessages();
 	}
-
 };
 
 exports.noCensusMessage = function(assObj){
@@ -43,14 +42,19 @@ exports.noCensusMessage = function(assObj){
 
 
 
-exports.assessmentSubmitMessage = function(assObj,success, message){
+exports.assessmentSubmitMessage = function(assObj,success, message, messageID){
 	//alert("message="+message);
 	Alloy.Globals.Logger.log("AssessmentSubmitMessage called", "info");
 	var assessmentRow = getAssessmentRowController(assObj.assessmentID);
+	
+	assessmentRow.update(assObj,fontawesome);
+	
 	if(assessmentRow != null){
 		Alloy.Globals.Logger.log("AssessmentSubmitMessage commitResponse = "+success, "info");
-		assessmentRow.commitResponse(success, message);
+		assessmentRow.commitResponse(success, message, messageID, fontawesome);
 	}
+	
+	
 };
 
 var activeAssessments = [];
