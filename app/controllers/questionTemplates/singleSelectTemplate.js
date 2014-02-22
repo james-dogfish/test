@@ -2,13 +2,16 @@ function selectButtonClicked(e) {
 
 	if (Alloy.Globals.dialogWindowOpen == true) return;
 	else Alloy.Globals.dialogWindowOpen = true;
+	
+	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
 	if (item.readOnly == true) {
 		return;
 	}
-
+	
+	
 	Alloy.createController("questionDialogs/modalPicker", {
 		currentValue: item.value[0],
 		valueList: item.selections,
@@ -56,6 +59,8 @@ function selectButtonClicked(e) {
 				section: section
 			});
 		}
+		
+		
 
 	});
 
