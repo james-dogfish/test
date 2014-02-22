@@ -24,7 +24,7 @@ exports.getAssessment = function() {
 @return {} n/a
 */
 exports.setAssessment = function(assessmentObject) {
-	
+	Alloy.Globals.aIndicator.show();
 	if(Alloy.Globals.questionRenderer != null){
     	$.window.remove(Alloy.Globals.questionRenderer.getView());
     	Alloy.Globals.questionRenderer.destroy();
@@ -35,7 +35,7 @@ exports.setAssessment = function(assessmentObject) {
 	Alloy.Globals.questionRenderer = Alloy.createController("questionRenderer");
 	$.window.add(Alloy.Globals.questionRenderer.getView());
 	
-    Alloy.Globals.aIndicator.show();
+    
     $.appTitle.text = assessmentObject.crossingName;
     currentAssessmentObject = assessmentObject;
     var sectionList = Alloy.Globals.localDataHandler.openAssessment(assessmentObject);
