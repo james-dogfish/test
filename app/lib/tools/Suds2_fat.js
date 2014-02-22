@@ -10,6 +10,7 @@
  * Source: http://github.com/kwhinnery/Suds
  */
 var retry_counter = 0;
+var alert_shown = false;
 var SudsClient = function(_options) {
 
   //A generic extend function - thanks MooTools
@@ -149,9 +150,15 @@ var SudsClient = function(_options) {
         message: L('no_connectivity_body'),
         buttonNames: ['OK']
       });
-      alertDialog.show();
+      if(alert_shown == false){
+     	 alertDialog.show();
+     	 alert_shown = true;
+      }
+      abortXHR();
       Alloy.Globals.aIndicator.hide();
       return;
+    }else{
+    	 alert_shown = false;
     }
 
     //Build request body 

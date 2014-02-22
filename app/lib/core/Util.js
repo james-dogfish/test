@@ -3,16 +3,20 @@ function _Util() {
 	var self = this,
 		docsFolder, templatesFolder, cmsUrl, templateFiles, crossingTypes, routeFiles, Alloy = require("alloy");
 	//downloader = require('tools/downloader');
-
+	var connectivtiy_alert_shown = false;
 	self.connectivityChecker = function() {
 		//listen for any network changes
 		Titanium.Network.addEventListener('change', function(e) {
 			if (e.online) {
 				//do nothing   
+				connectivtiy_alert_shown = false;
 			} else {
-				Alloy.Globals.aIndicator.hide();
-				self.showAlert('Please make sure that you are connected to the Internet');
-				return false;
+				if(connectivtiy_alert_shown == false){
+					Alloy.Globals.aIndicator.hide();
+					self.showAlert('Please make sure that you are connected to the Internet');
+					connectivtiy_alert_shown = true;
+					return false;
+				}
 			}
 		});
 	};
