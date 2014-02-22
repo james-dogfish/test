@@ -130,6 +130,11 @@ exports.hide = function() {
 function doneButtonClick(e) {
 	//alert("displayValue = "+currentValue.displayValue);
 	$.trigger('addPastCensus', currentValue);
+	// remove the old change function
+	$.pickerView.removeEventListener('change', pickerChange);
+	// rewrite the picker once again to reload data - DIRTY WORKAROUND
+	$.pickerView = Ti.UI.createPicker();
+	$.pickerView.addEventListener('change', pickerChange);
 };
 
 function pickerChange(e) {
