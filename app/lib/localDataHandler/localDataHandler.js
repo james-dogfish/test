@@ -226,6 +226,28 @@ must NOT be used to delete assessments
             Alloy.Globals.Logger.log("An exception occured in updateQuestion. Error Details: " + JSON.stringify(e), "info");
         }
     };
+    
+    
+/**
+`setQuestionToMandatory` will update a question to be Mandatory 
+
+@method setQuestionToMandatory
+
+@param {JSON_Object} questionObject
+
+@return {JSON_Object} questionObject
+*/  
+	self.setQuestionToMandatory = function(questionObject){
+		
+		questionObject.mandatory = true;
+
+        if (questionObject.title.text.slice(-1) != "*") {
+            questionObject.title.text = questionObject.title.text + "*";
+            questionObject.title.font.fontWeight = "bold";
+        }
+		self.updateQuestion(questionObject);
+		return questionObject;
+	};
 
 /**
 `updateSingleAssessmentIndexEntry` will update a assessment with the same assessmentID as the assessmentObject passed
