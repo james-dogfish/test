@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="container">
-		<View id ="header">
+		<View id="header">
 			<Button id="doneButton" onClick="doneButtonClick"/>
 			<Label id="headerTitle"/>
 		</View>
