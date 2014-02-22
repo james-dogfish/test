@@ -1734,6 +1734,8 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
 	            questionRef.question.selected = false;
 	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	            
+	            
 
 	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
            }
@@ -1751,19 +1753,17 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	        
 	        questionRef.question.selected = true;
 	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+	        
 	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+	        questionRef.question.section = newSection;
 	       }
     }
-    
+    else{
+    	return newQuestionSelected;
+    }
 
-    
-    
-    questionSelected = newQuestionSelected;
-    Ti.API.info("new : "+JSON.stringify(newQuestionSelected));
-    Ti.API.info("old : "+JSON.stringify(oldQuestion));
-
-
-    return newQuestionSelected;
+	questionSelected = questionRef.question;
+    return questionRef.question;
 };
 exports.selectQuestion = selectQuestion;
 

@@ -14,6 +14,8 @@
 	    <string name="page_train_info_name">Train Info</string>
 	    <string name="searchButtonTitle">Search</string>
 	    <string name="stop_timer">Are you sure you want to stop the timer?</string>
+	    <string name="censusDesktopCompleteRow">Census - Complete via Desktop</string>
+	    
 	   
     <!-- delete ra & census related strings -->
 	    <string name="delete_ra">There is no undo. Are you sure you want to delete this Risk Assessment?</string>
@@ -23,6 +25,8 @@
 	    <string name="census">Census</string>
 	    <string name="noCensusMessage">You must complete at least 1 census</string>   
 	    <string name="censusDesktopCompleteMessage">You can now complete the Census by ALCRM Desktop</string>
+	    
+	    
     
     <!-- validation strings for RA form -->
 	    <string name="mandatory_error_text">This question is mandatory</string>
