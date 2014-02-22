@@ -577,26 +577,26 @@ function responseGenerator() {
 					} */
 					
 					if (sectionListCen.length > 0 && sectionListTra.length > 0) {
-						alert("here0");
+						//alert("here0");
 						if (assObj.censusDesktopComplete == true) {
-							alert("here00");
+							//alert("here00");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 						}else{
-							alert("here01");
+							//alert("here01");
 							self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
 						}
 					} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
-						alert("here1");
+						//alert("here1");
 						self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
 					} else if (assObj.censusDesktopComplete == true && sectionListTra.length > 0 ) {
-						alert("here2");
+						//alert("here2");
 
 						//if (assObj.censusDesktopComplete == true) {
 							//alert("here2.1");
 							Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = true", "info");
 							self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 					} else if (assObj.censusDesktopComplete == false && sectionListTra.length > 0 ) {
-						alert("here33");
+						//alert("here33");
 
 						//if (assObj.censusDesktopComplete == true) {
 							//alert("here2.1");
@@ -607,7 +607,7 @@ function responseGenerator() {
 							
 							return;
 					} else if (assObj.censusDesktopComplete == false && sectionListTra.length < 0 ) {
-						alert("44");
+						//alert("44");
 						Alloy.Globals.aIndicator.hide();
 					}
 				}
