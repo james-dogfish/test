@@ -1401,7 +1401,7 @@ var questionValueChange = function (e) {
     // Blur the currently focused TF
     blurCurrentlyFocusedTF();
 
-    if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
+    /*if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
 
         var sectionList = getAllQuestionSections();
 
@@ -1426,7 +1426,7 @@ var questionValueChange = function (e) {
             }
         }
 
-    }
+    }*/
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();

@@ -43,7 +43,7 @@
 	    <string name="assessmentIncomplete">Assessment Incomplete</string>
 	    <string name="assessmentSubmitted">Assessment Submitted</string>
 	    <string name="assessmentFailedSubmit">Failed to Submit</string>
-	    <string name="trainInfoIncomplete1">Incomplete Train Info Group 1</string>
+	    <string name="trainInfoIncomplete1">Incomplete Train Info Group </string>
 	    <string name="trainInfoFail1">Failed to commit Train Info Group</string>
 	    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info </string>
 	    <string name="assessmentFailed">Assessment Failed </string>
