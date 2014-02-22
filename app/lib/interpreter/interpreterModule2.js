@@ -422,30 +422,58 @@ differently from the `firstTab` and `secondTab` nodes
 		try {
 			if (questionObject.alcrmQuestionID in questionMap) {
 				if (questionObject.template === "dateTemplate" || questionObject.template === "textFieldTemplate") {
+					
+					if ( typeof questionMap[questionObject.alcrmQuestionID].value === "undefined"){
+						return questionObject;
+					}
 
 					questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
 					questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
+					
+					 questionObject.questionResponse =
+	    				"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    				"<ques:parameterValue>"+questionObject.displayValue.value+"</ques:parameterValue>";
 
 				} else if (questionObject.template === "singleSelectTemplate") {
+					if ( typeof questionMap[questionObject.alcrmQuestionID].value === "undefined"){
+						return questionObject;
+					}
+					
 					questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
 					questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
+					
+					questionObject.questionResponse =
+	    				"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
+	    				"<ques:parameterValue>"+questionObject.value[0]+"</ques:parameterValue>";
 
 					for (var i = 0; i < questionObject.selections.length; i++) {
 						if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value) {
 							questionObject.displayValue.value = questionObject.selections[i].displayValue;
+							
+							
 							break;
 						}
 					}
 				} else if (questionObject.template === "multiSelectTemplate") {
+					
+					if ( typeof questionMap[questionObject.alcrmQuestionID].value === "undefined"
+						 || !(questionMap[questionObject.alcrmQuestionID].value instanceof Array)){
+						return questionObject;
+					}
+					
 					questionObject.displayValue.value = questionMap[questionObject.alcrmQuestionID].value;
 					questionObject.value = [questionMap[questionObject.alcrmQuestionID].value];
 
 					var temp = "";
-
-					if ( typeof questionMap[questionObject.alcrmQuestionID].value === "undefined" || !(questionMap[questionObject.alcrmQuestionID].value instanceof Array))
-						return questionObject;
-
+											
+					var valueResponse = "";
+					
+						
 					for (var t = 0; t < questionMap[questionObject.alcrmQuestionID].value.length; t++) {
+						
+							valueResponse+="<ques:parameterValue>"+questionMap[questionObject.alcrmQuestionID].value[t]+"</ques:parameterValue>";
+					
+						
 						for (var i = 0; i < questionObject.selections.length; i++) {
 							if (questionObject.selections[i].value === questionMap[questionObject.alcrmQuestionID].value[t]) {
 								if (temp === "") {
@@ -457,8 +485,16 @@ differently from the `firstTab` and `secondTab` nodes
 							}
 						}
 					}
+				
 
 					questionObject.displayValue.value = temp;
+					
+					
+					questionObject.questionResponse =
+	    				"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+valueResponse;
+	    				
+	    				
+	    				
 				} else if (questionObject.template === "rangeFieldTemplate" || questionObject.template === "dateRangeTemplate") {
 					if ( typeof questionMap[questionObject.alcrmQuestionID].value !== "undefined" && questionMap[questionObject.alcrmQuestionID].value instanceof Array) {
 						if (questionMap[questionObject.alcrmQuestionID].value.length >= 2) {
@@ -467,8 +503,8 @@ differently from the `firstTab` and `secondTab` nodes
 						}
 					}
 				}
-
 			}
+
 			return questionObject;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);

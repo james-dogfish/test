@@ -186,6 +186,7 @@ var SudsClient = function(_options) {
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
       //Alloy.Globals.aIndicator.hide();
+      Alloy.Globals.requestFailed = false;
       try{
       	_callback.call(this, xmlDomFromString(this.responseText));
       }catch(e){
@@ -224,7 +225,7 @@ var SudsClient = function(_options) {
                 }
 
               }
-
+			  Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
                 title: 'Error: ' + error_code,
@@ -236,24 +237,34 @@ var SudsClient = function(_options) {
 
               alert.addEventListener('click', function(e) {
                 //Clicked cancel, first check is for iphone, second for android
-                if (e.cancel === e.index || e.cancel === true) {
+              /*  if (e.cancel === e.index || e.cancel === true) {
                   Alloy.Globals.aIndicator.hide();
-                  
-                }
+                  return;
+               } */
 
                 //now you can use parameter e to switch/case
 
                 switch (e.index) {
                   case 0:
+                    Ti.API.error("========here0");
+                    if(Alloy.Globals.theAssObj !== null){
+                    	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
+                    	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
+                    }
                     invokeService(_soapAction, _body, _callback, _failure, _header);
+                    
                     break;
 
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
+                     Ti.API.error("=========here1");
                     Alloy.Globals.aIndicator.hide();
-                    Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                    Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') + " 1","assessmentNotCompleted");
+                    if(Alloy.Globals.theAssObj !== null){
+                    	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
+                    	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
+                    }
                     break;
+
 
                 }
               });
