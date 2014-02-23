@@ -41,6 +41,9 @@ var startup = function() {
 	
 };
 
+Alloy.Globals.Index = {};
+Alloy.Globals.Index.Startup = startup;
+
 if (Alloy.Globals.User.isLoggedIn() && !Alloy.Globals.User.isLoginExpired()) {
 	if (Alloy.Globals.User.howLongLeft() >= 10) {
 		alert("You need to synchronise the RA App with the NR portal, please Login to the RA App whilst connected to Wifi");
