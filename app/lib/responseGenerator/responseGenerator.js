@@ -82,6 +82,7 @@ function responseGenerator() {
 									censusDate = questionList[questionIndex].value;
 								}else{
 									Alloy.Globals.aIndicator.hide();
+									Ti.API.info("===========HERE ===========");
 									//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 									return;
 								}
@@ -434,7 +435,7 @@ function responseGenerator() {
 					});
 				}, function(xmlDoc) {
 					Alloy.Globals.aIndicator.hide();
-					//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 				});
 			}
 			
@@ -473,7 +474,7 @@ function responseGenerator() {
 					if (assObj.censusDesktopComplete == false) {
 						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
-						return;
+						//return;
 					}
 				}
 			if (assObj.censusDesktopComplete == false) {
@@ -522,7 +523,7 @@ function responseGenerator() {
 										});
 									}, function(xmlDoc) {
 										Alloy.Globals.aIndicator.hide();
-										//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+										Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 									});
 								}
 								
@@ -535,7 +536,7 @@ function responseGenerator() {
 						});
 					}, function(xmlDoc) {
 						Alloy.Globals.aIndicator.hide();
-						//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
+						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 					});
 				}
 				
@@ -565,10 +566,6 @@ function responseGenerator() {
  * @param {Object} assObj
  */
 	self.submitAss = function(assObj) {
-		Alloy.Globals.theAssObj = assObj;
-		Alloy.Globals.trainIDs = [];
-		Alloy.Globals.censusIDs = [];
-		Alloy.Globals.censusDates = [];
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
@@ -647,7 +644,7 @@ function responseGenerator() {
  * @param {Object} sectionListAss
  */
 	self.doAssessment = function(assObj, sectionListAss, trainIDs, censusIDs, censusDates) {
-		alert("assObj === > "+JSON.stringify(assObj.crossingID));
+		//alert("assObj === > "+JSON.stringify(assObj.crossingID));
 		try {
 		
 			var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes,  trainIDs, censusIDs, censusDates);
@@ -667,6 +664,8 @@ function responseGenerator() {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true, L('assessmentSubmitted'));
 				}, function() {
 					Alloy.Globals.aIndicator.hide();
+					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
+
 				});
 			} 
 		} catch (e) {

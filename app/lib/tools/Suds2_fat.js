@@ -205,7 +205,7 @@ var SudsClient = function(_options) {
     };
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
-      //_failure.call(this, xmlDomFromString(this.responseText));
+      _failure.call(this, xmlDomFromString(this.responseText));
       try {
         Alloy.Globals.aIndicator.hide();
         Alloy.Globals.censusIDs = [];
@@ -253,23 +253,23 @@ var SudsClient = function(_options) {
 
                 switch (e.index) {
                   case 0:
-                    Ti.API.error("========here0");
-                    if(Alloy.Globals.theAssObj !== null){
-                    	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                    	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
-                    }
+                   // Ti.API.error("========here0");
+                   // if(Alloy.Globals.theAssObj !== null){
+                    //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
+                    //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
+                   // }
                     invokeService(_soapAction, _body, _callback, _failure, _header);
                     
                     break;
 
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
-                     Ti.API.error("=========here1");
-                    Alloy.Globals.aIndicator.hide();
-                    if(Alloy.Globals.theAssObj !== null){
-                    	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                    	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
-                    }
+                     //Ti.API.error("=========here1");
+                   // Alloy.Globals.aIndicator.hide();
+                  //  if(Alloy.Globals.theAssObj !== null){
+                    //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
+                    //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
+                   // }
                     break;
 
 
