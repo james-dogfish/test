@@ -25,8 +25,6 @@ var changeBg = function (e) {
 Ti.Gesture.addEventListener('orientationchange', changeBg);
 
 function doLogin() {
-    var theIndex = Alloy.createController('index');
-    var loginWin = Alloy.createController('startup');
 
     var offlineLogin = false;
     Alloy.Globals.aIndicator.show('Logging in...');
@@ -75,6 +73,9 @@ function doLogin() {
 
             if (offlineAttempt) {
                 // $.window.close();
+                // Remove the login fields now
+                $.loginWin.removeAllChildren();
+
                 $.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
@@ -82,8 +83,8 @@ function doLogin() {
 					Alloy.Globals.Logger.logException(e);
                 }
                 
-                theIndex.startup();
-                loginWin.closeLoginWin();
+                Alloy.Globals.Index.CloseLogin();
+                Alloy.Globals.Index.Startup();
                 return;
 
             } else {
@@ -118,6 +119,9 @@ function doLogin() {
 
                             var logTheUserIn = function (route, user, pass, access) {
 
+                                // Remove the login fields now
+                                $.loginWin.removeAllChildren();
+
                                Alloy.Globals.Logger.setUserName(user);
 
                                 // Build out arguments object to check login
@@ -138,9 +142,8 @@ function doLogin() {
 
                                     if (typeof route == 'string' && isStagedRollOutOn == false) {
                                         Ti.App.Properties.setString('SelectedRoute', route);
-                                        //Ti.App.fireEvent('fireStartup');
-                                        theIndex.startup();
-                                        loginWin.closeLoginWin();
+                                        Alloy.Globals.Index.CloseLogin();
+                                        Alloy.Globals.Index.Startup();
                                     } else if (isStagedRollOutOn == true) {
                                         var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
                                         var rollOutRoutes = [];
@@ -150,22 +153,17 @@ function doLogin() {
                                             });
                                         }
                                         Alloy.createController('selectRouteWindow').show(rollOutRoutes, function () {
-                                            //Ti.App.fireEvent('fireStartup');
-                                            theIndex.startup();
-                                            loginWin.closeLoginWin();
+                                            Alloy.Globals.Index.CloseLogin();   
+                                            Alloy.Globals.Index.Startup();
                                         });
                                     } else {
                                         Alloy.createController('selectRouteWindow').show(route, function () {
-                                            //$.destroy;
-                                            //Ti.App.fireEvent('fireStartup');
-                                            theIndex.startup();
-                                            loginWin.closeLoginWin();
+                                            Alloy.Globals.Index.CloseLogin();
+                                            Alloy.Globals.Index.Startup();
                                         });
                                     }
 
                                     Alloy.Globals.Analytics.trackNav('login', 'home', 'login:success');
-
-                                    //Ti.App.fireEvent('fireStartup');//startup();
 
                                 }, function (args) {
                                     // Error - No access rights! 

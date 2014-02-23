@@ -63,11 +63,8 @@ function pickerChange(e){
 
 function doneButtonClick(e){
 	$.win.close();
-	var loginWin = Alloy.createController('startup');
-	loginWin.closeLoginWin();
 	
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
-	
 	
 	if($.textFieldTestingOnly.value != ""){
 		doneCallbackfunction({title : $.textFieldTestingOnly.value, value : $.textFieldTestingOnly.value});	
