@@ -148,10 +148,20 @@ function doLogin() {
                                         var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
                                         var rollOutRoutes = [];
                                         for (var i = 0; i < rollOutRoutesArray.length; i++) {
-                                            rollOutRoutes.push({
-                                                title: rollOutRoutesArray[i]
-                                            });
+                                            rollOutRoutes.push(rollOutRoutesArray[i]);
                                         }
+                                        
+                                    	var rollOutLength = rollOutRoutes.length;
+                                    	while(rollOutLength--)
+                                    	{
+                                    		if(route.indexOf(rollOutRoutes[rollOutLength]) == -1)
+                                        	{
+                                        		Ti.API.info("splicing "+rollOutRoutes[rollOutLength]);
+                                        		rollOutRoutes.splice(rollOutLength,1);
+                                        	}
+                                    	}
+                                       
+                                       
                                         Alloy.createController('selectRouteWindow').show(rollOutRoutes, function () {
                                             Alloy.Globals.Index.CloseLogin();   
                                             Alloy.Globals.Index.Startup();
@@ -180,10 +190,9 @@ function doLogin() {
                             if (Number(routeLength) > 1) {
                                 var routes = [];
                                 for (var i = 0; i < routeLength; i++) {
-                                    routes.push({
-                                        title: loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]
-                                    });
+                                    routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]);
                                 }
+                               
                                 logTheUserIn(routes.sort(), user, pass, access);
 
                             } else {
