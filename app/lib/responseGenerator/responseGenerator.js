@@ -566,10 +566,6 @@ function responseGenerator() {
  * @param {Object} assObj
  */
 	self.submitAss = function(assObj) {
-		Alloy.Globals.theAssObj = assObj;
-		Alloy.Globals.trainIDs = [];
-		Alloy.Globals.censusIDs = [];
-		Alloy.Globals.censusDates = [];
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
