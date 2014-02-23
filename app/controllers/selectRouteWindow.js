@@ -27,23 +27,23 @@ else{
 }
 
 function sortByNestedTitle(a, b) {
-    var x = a.title.toLowerCase();
-    var y = b.title.toLowerCase();
+    var x = a.toLowerCase();
+    var y = b.toLowerCase();
     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 }
 
 exports.show = function(routeList,callbackfunction){
 	doneCallbackfunction = callbackfunction;
 
-	routeList.sort(sortByNestedTitle); //sorts alphabetically and descending
-	
+	//routeList.sort(sortByNestedTitle); //sorts alphabetically and descending
+	routeList.sort();
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
 		
-		data.push(Ti.UI.createPickerRow({title: routeList[i].title, touchTestId: routeList[i].title }));
+		data.push(Ti.UI.createPickerRow({title: routeList[i], touchTestId: routeList[i] }));
 	}
-	
-	data.sort(sortByNestedTitle);
+	data.sort();
+	//data.sort(sortByNestedTitle);
 	
 	$.pickerView.add(data);
 	$.pickerView.selectionIndicator = true;
@@ -54,10 +54,9 @@ exports.show = function(routeList,callbackfunction){
 };
 
 function pickerChange(e){
-	Ti.API.info("title : "+$.pickerView.getSelectedRow(null).title+", value : "+$.pickerView.getSelectedRow(null).value);
 	currentValue = {
 		title : $.pickerView.getSelectedRow(null).title,
-		value : $.pickerView.getSelectedRow(null).value
+		value : $.pickerView.getSelectedRow(null).title
 	};
 };
 
