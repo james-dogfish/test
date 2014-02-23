@@ -474,7 +474,7 @@ function responseGenerator() {
 					if (assObj.censusDesktopComplete == false) {
 						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
-						return;
+						//return;
 					}
 				}
 			if (assObj.censusDesktopComplete == false) {
