@@ -27,6 +27,9 @@ exports.show = function(assessmentObject) {
 		}, function(xmlDoc) {
 			//var XMLTools = require("tools/XMLTools");
 			try {
+				Alloy.Globals.trainIDs = [];
+				Alloy.Globals.censusIDs = [];
+				Alloy.Globals.censusDates = [];
 				Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
 					// callback
 					var pastCensusObject = JSON.parse(data);
