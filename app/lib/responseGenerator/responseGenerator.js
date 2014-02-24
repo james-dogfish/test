@@ -425,7 +425,7 @@ function responseGenerator() {
 
 						Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 
-						if (Alloy.Globals.trainIDs.length >= 3) {
+						if (Alloy.Globals.trainIDs.length >= 1) {
 							//alert(Alloy.Globals.trainIDs.length);
 							self.doAssessment(assObj, sectionListAss,  Alloy.Globals.trainIDs, [], []);
 							Alloy.Globals.trainIDs = [];
