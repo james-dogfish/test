@@ -8,7 +8,8 @@
 	height : "50dp",
 	left : "40dp",
 	wordWrap : false,
-	minimumFontSize : "25dp"
+	minimumFontSize : "25dp",
+	text : L('censusDesktopCompleteRow')
 },
 '#colouredBox' : {
 	borderRadius : "10dp",

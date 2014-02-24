@@ -1,6 +1,6 @@
 <Alloy>
 	<ItemTemplate id="pageRow" name="masterCensusDesktopCompleteTemplate">
 		<View id="colouredBox"/>
-		<Label id="title" bindId="title"/>
+		<Label id="title"/>
 	</ItemTemplate>
 </Alloy>
