@@ -1038,7 +1038,11 @@ var getAllQuestionSections = function () {
 @/returns {} n/a
 */
 var setSelectedSectionForSingleSections = function (sectionsIndex) {
+	
+	
     currentSingleSectionIndex = sectionsIndex;
+    
+    
     var newSectionList = [];
     newSectionList[0] = allSections[sectionsIndex];
    
@@ -1046,6 +1050,42 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
     $.nextButton.visible = (sectionsIndex < (allSections.length - 1));
 
     $.listView.setSections(newSectionList);
+};
+
+/**
+`moveSelectedSectionForSingleSections
+
+@method moveSelectedSectionForSingleSections
+
+@param {int} move the amount to move
+
+@/returns {} n/a
+*/
+var moveSelectedSectionForSingleSections = function(currentIndex, move){
+	
+	Ti.API.info("moveSelectedSectionForSingleSections move = "+move);
+	var singleIncrement = move;
+	if(singleIncrement > 0){
+		singleIncrement = 1;
+	}
+	else{
+		singleIncrement = -1;
+	}
+	
+	var newMoveIndex = currentIndex + move;
+	if(newMoveIndex < 0 || newMoveIndex>= allSections.length ){
+		return false;
+	}
+	else if(allSections[newMoveIndex].getItems().length == 0){
+		
+		return moveSelectedSectionForSingleSections(currentIndex, (move + singleIncrement));
+	}
+	else{
+		setSelectedSectionForSingleSections(currentIndex + move);
+		return true;
+	}
+	
+	return false;
 };
 
 
@@ -1314,8 +1354,11 @@ in the single section mode to the previous section
 
 @return {} n/a
 */
+
 function moveSectionBackClick(e) {
-    setSelectedSectionForSingleSections(currentSingleSectionIndex - 1);
+
+    //setSelectedSectionForSingleSections(currentSingleSectionIndex -1);
+    moveSelectedSectionForSingleSections(currentSingleSectionIndex, -1);
 };
 
 
@@ -1331,7 +1374,8 @@ in the single section mode to the next section
 @return {} n/a
 */
 function moveSectionNextClick(e) {
-    setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
+    //setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
+    moveSelectedSectionForSingleSections(currentSingleSectionIndex, 1);
 };
 
 
