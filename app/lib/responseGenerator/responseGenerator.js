@@ -424,7 +424,8 @@ function responseGenerator() {
 						Alloy.Globals.trainIDs.push(trainId);
 
 						Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
-
+						//alert("Alloy.Globals.trainIDs.length = "+Alloy.Globals.trainIDs.length);
+						//alert("xmlTrainRequest.length = "+xmlTrainRequest.length);
 						if (Alloy.Globals.trainIDs.length === xmlTrainRequest.length) {
 							//alert(Alloy.Globals.trainIDs.length);
 							var trainIDs = Alloy.Globals.trainIDs;
@@ -513,7 +514,7 @@ function responseGenerator() {
 					
 											Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 					
-											if (Alloy.Globals.trainIDs.length >= 3) {
+											if (Alloy.Globals.trainIDs.length === xmlTrainRequest.length) {
 												//alert(Alloy.Globals.trainIDs.length);
 												var trainIDs = Alloy.Globals.trainIDs;
 												self.doAssessment(assObj, sectionListAss, trainIDs, censusIDs, censusDates);
