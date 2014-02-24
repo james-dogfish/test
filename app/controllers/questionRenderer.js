@@ -1063,7 +1063,7 @@ var setSelectedSectionForSingleSections = function (sectionsIndex) {
 */
 var moveSelectedSectionForSingleSections = function(currentIndex, move){
 	
-	Ti.API.info("moveSelectedSectionForSingleSections move = "+move);
+	Alloy.Globals.Logger.log("Section skipped in move, index = " + (currentIndex + move),"info");
 	var singleIncrement = move;
 	if(singleIncrement > 0){
 		singleIncrement = 1;
@@ -1074,6 +1074,7 @@ var moveSelectedSectionForSingleSections = function(currentIndex, move){
 	
 	var newMoveIndex = currentIndex + move;
 	if(newMoveIndex < 0 || newMoveIndex>= allSections.length ){
+		Alloy.Globals.Logger.log("no section move possible","info");
 		return false;
 	}
 	else if(allSections[newMoveIndex].getItems().length == 0){
