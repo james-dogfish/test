@@ -425,9 +425,10 @@ function responseGenerator() {
 
 						Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
 
-						if (Alloy.Globals.trainIDs.length >= 3) {
+						if (Alloy.Globals.trainIDs.length === xmlTrainRequest.length) {
 							//alert(Alloy.Globals.trainIDs.length);
-							self.doAssessment(assObj, sectionListAss,  Alloy.Globals.trainIDs, [], []);
+							var trainIDs = Alloy.Globals.trainIDs;
+							self.doAssessment(assObj, sectionListAss, trainIDs, [], []);
 							Alloy.Globals.trainIDs = [];
 							//callFired=true;
 						}
