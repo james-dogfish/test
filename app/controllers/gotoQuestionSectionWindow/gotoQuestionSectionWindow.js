@@ -92,7 +92,13 @@ $.selectCensusView.on("addCensus", function(){
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
 	Ti.App.fireEvent("censusDesktopComplete", {});
-	$.masterView.addCensusDesktopCompleteRow();
+	if(currentAssessmentObject != null){
+		if(currentAssessmentObject.censusDesktopComplete == false){
+			$.masterView.addCensusDesktopCompleteRow();
+			currentAssessmentObject.censusDesktopComplete = true;
+		}
+	}
+	
 	$.selectCensusView.hide();
 });
 $.addCensusView.on("addPastCensus", function(e){
