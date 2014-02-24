@@ -61,66 +61,6 @@ exports.clear = function() {
    	}
 };
 
-/**
-`saveAndExitClick` called when the user clicks save and exit in the menu
-
-@method saveAndExitClick
-
-@param {JSON_obejct} e not used
-
-@return {} n/a
-*/
-function saveAndExitClick(e) {
-    $.appTitle.text = ''; 
-    if (currentAssessmentObject !== null) {
-        Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
-        
-        if(Alloy.Globals.questionRenderer != null){
-        	$.window.remove(Alloy.Globals.questionRenderer.getView());
-        	Alloy.Globals.questionRenderer.destroy();
-        	Alloy.Globals.questionRenderer = null;
-        }
-        
-    }
-    $.trigger("saveAndExitClick"); // TODO - Why is this being clicked multiple times ??
-}
-
-/*var createCensus = function() {
-    currentAssessmentObject;
-    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
-    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
-        alert(L('max_census'));
-        return;
-    }
-    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
-    $.questionListView.appendSectionsToAssessment(censusData);
-};*/
-
-/*var createPastCensus = function(pastCensusData) {
-    currentAssessmentObject;
-    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
-    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
-        alert(L('max_census'));
-        return;
-    }
-    Alloy.Globals.Logger.log("pastCensusData >> " + JSON.stringify(pastCensusData),"info");
-    var cenMap = [];
-    for (var t = 0; t < pastCensusData.length; t++) {
-        if (typeof pastCensusData[t]["xsi:type"] !== "undefined") {
-            cenMap[pastCensusData[t]["ns6:parameterName"]] = {
-                value: pastCensusData[t]["ns6:values"]
-            };
-            Alloy.Globals.Logger.log("paramName=" + pastCensusData[t]["ns6:parameterName"] + "type=" + pastCensusData[t]["xsi:type"],"info");
-        } else {
-            cenMap[pastCensusData[t]["ns6:parameterName"]] = {
-                value: pastCensusData[t]["ns6:parameterValue"]
-            };
-        }
-    }
-
-    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
-    $.questionListView.appendSectionsToAssessment(censusData);
-};*/
 
 var gotoQuestionSectionWindow = null;
 
@@ -327,9 +267,15 @@ var openMenu = function() {
         } else if (e.row.id === 6) {
             if (currentAssessmentObject !== null) {
                 Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
+                if(Alloy.Globals.questionRenderer != null){
+                	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
+		        	$.window.remove(Alloy.Globals.questionRenderer.getView());
+		        	Alloy.Globals.questionRenderer.destroy();
+		        	Alloy.Globals.questionRenderer = null;
+		        }
             }
-            Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
             $.trigger("saveAndExitClick");
+            
         } else if (e.row.id === 7) {
         	if(Alloy.Globals.questionRenderer != null){
             	Alloy.Globals.questionRenderer.toggleScrollLock();
