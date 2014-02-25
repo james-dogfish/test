@@ -108,7 +108,8 @@ var addValue = function(additionValue, e){
     
     item.questionResponse = questionResponse;
     
-	section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
+	section.updateItemAt(e.itemIndex, item);
+	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
 function minusFive(e){

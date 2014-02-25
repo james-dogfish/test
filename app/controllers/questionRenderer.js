@@ -1478,7 +1478,8 @@ var questionValueChange = function (e) {
 
     if (e.section != null) {
     	//alert(e.section.customSectionIndex);
-        e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
+        //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
+        e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
@@ -1710,6 +1711,7 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
             "<ques:parameterValue>" + value + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
+        Alloy.Globals.localDataHandler.updateQuestion(question);
     }
     return question;
 };
@@ -1734,6 +1736,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 
     var sectionLength = sectionList.length;
 
+	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
 
         if (sectionList[sectionIndex].groupType != groupType) continue;
@@ -1748,6 +1751,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
             }
         }
     }
+    Alloy.Globals.aIndicator.hide();
 };
 exports.setEntireSectionTemplate= setEntireSectionTemplate;
 
