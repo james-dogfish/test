@@ -75,6 +75,11 @@ Ti.App.addEventListener("goToQuestion", function(e) {
 var createCensus= function(){
 	
 	try{
+		
+		if(currentAssessmentObject === null){
+			Alloy.Globals.Logger.log("questionRendererTab createCensus :  currentAssessmentObject == null","error");
+			return;
+		}
 		Alloy.Globals.aIndicator.show();
 		
 	    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
@@ -101,6 +106,12 @@ exports.createCensus= createCensus;
 Ti.App.addEventListener("addPastCensus", function(e) {
 	
 	try{
+		
+	if(currentAssessmentObject === null){
+		Alloy.Globals.Logger.log("questionRendererTab createCensus :  currentAssessmentObject == null","error");
+		return;
+	}
+		
     Alloy.Globals.aIndicator.show();
 
      currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
@@ -143,9 +154,16 @@ Ti.App.addEventListener("addPastCensus", function(e) {
 });
 
 Ti.App.addEventListener("censusDesktopComplete", function(e) {
+	
+	if(currentAssessmentObject === null){
+		Alloy.Globals.Logger.log("questionRendererTab censusDesktopComplete :  currentAssessmentObject == null","error");
+		return;
+	}
+		
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+
 });
 
 Ti.App.addEventListener("goToFirstUnanswered", function(e) {
@@ -162,6 +180,10 @@ Ti.App.addEventListener("goToLastPositiond", function(e) {
 
 Ti.App.addEventListener("deletePage", function(e) {
 
+	if(currentAssessmentObject === null){
+		Alloy.Globals.Logger.log("questionRendererTab deletePage :  currentAssessmentObject == null","error");
+		return;
+	}
     var deletingRow = e;
 
     var alertYesNo = Titanium.UI.createAlertDialog({
@@ -177,6 +199,7 @@ Ti.App.addEventListener("deletePage", function(e) {
             Alloy.Globals.Logger.log("gotoQuestionSectionWindow : deletePage","info");
             Alloy.Globals.aIndicator.show();
 
+			
             if (Alloy.Globals.localDataHandler.deleteAssociatedFileNameFromAssessment(currentAssessmentObject, deletingRow.associatedFileName) == true) {
                 var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
                
@@ -197,6 +220,12 @@ Ti.App.addEventListener("deletePage", function(e) {
 });
 
 var showGoto = function() {
+	
+	if(currentAssessmentObject === null){
+		Alloy.Globals.Logger.log("questionRendererTab showGoto :  currentAssessmentObject == null","error");
+		return;
+	}
+	
     gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
     gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
     
@@ -265,15 +294,20 @@ var openMenu = function() {
             var appHelp = Alloy.createController('appHelp').getView();
             appHelp.open();
         } else if (e.row.id === 6) {
-            if (currentAssessmentObject !== null) {
-                Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
-                if(Alloy.Globals.questionRenderer != null){
-                	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
-		        	$.window.remove(Alloy.Globals.questionRenderer.getView());
-		        	Alloy.Globals.questionRenderer.destroy();
-		        	Alloy.Globals.questionRenderer = null;
-		        }
-            }
+        	if(currentAssessmentObject === null){
+				Alloy.Globals.Logger.log("questionRendererTab openMenu item click Save & Exit:  currentAssessmentObject == null","error");
+				return;
+			}
+	
+
+            Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
+            if(Alloy.Globals.questionRenderer != null){
+            	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
+	        	$.window.remove(Alloy.Globals.questionRenderer.getView());
+	        	Alloy.Globals.questionRenderer.destroy();
+	        	Alloy.Globals.questionRenderer = null;
+	        }
+            
             currentAssessmentObject = null;
             $.trigger("saveAndExitClick");
             
