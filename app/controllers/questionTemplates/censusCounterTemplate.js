@@ -113,33 +113,17 @@ var addValue = function(additionValue, e){
 };
 
 function minusFive(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(-5, e);
+	addValue(-5, e);
 };
 
 function minusOne(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(-1, e);
+	addValue(-1, e);
 };
 
 function addOne(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(+1, e);
+	addValue(+1, e);
 };
 
 function addFive(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(+5, e);
+	addValue(+5, e);
 };
