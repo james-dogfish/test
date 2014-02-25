@@ -1435,8 +1435,6 @@ var blurCurrentlyFocusedTF = function(){
 };
 exports.blurCurrentlyFocusedTF = blurCurrentlyFocusedTF;
 
-var checkIfTrainSectionIs
-
 
 /**
 `questionValueChange` called from a questionTemplate changes its value
