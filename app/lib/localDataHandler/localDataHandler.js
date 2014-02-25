@@ -300,7 +300,7 @@ must NOT be used to delete assessments
         	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception in getMostUpTodateAssessmentObject. Error details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
-            return;
+            return assessmentObject;
         }
     };
 
@@ -632,10 +632,20 @@ to say that it has been submitted
 
         var returnQuestionObj = {
             assessmentNotes: assessmentObject.notes,
+            coreCrossingSet: new Array(),
             mainQuestionSet: new Array(),
             individualCensusList: [],
             individualTrainList: []
         };
+        
+        if (assessmentObject.coreQuestionsFileName !== null) {
+	    	var coreQuestionsFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.coreQuestionsFileName);
+	        if (coreQuestionsFile.exists()) {
+	         	 returnQuestionObj.coreCrossingSet.push(
+                    JSON.parse(coreQuestionsFile.read().text)
+                );
+	        }
+	    }
 
         var assessmentFile = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.mainQuestionsfileName);
 
@@ -661,7 +671,7 @@ to say that it has been submitted
                 );
             }
         }
-
+		//alert("returnQuestionObj.coreCrossingSet >>>> "+JSON.stringify(returnQuestionObj.coreCrossingSet));
         return returnQuestionObj;
     };
 
