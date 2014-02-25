@@ -4,7 +4,6 @@ build
 npm-debug.log
 tmp
 .map
-tiapp.xml
 build/
 Resources/
 docs/
