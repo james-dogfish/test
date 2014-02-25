@@ -964,6 +964,7 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.readOnly = true;
 						questionObject.mandatory = false;
 						questionObject.displayValue.clearButtonMode = false;
+						questionObject.displayValue.touchEnabled  = false;
 						questionObject.template = "textFieldTemplate";
 						questionObject.headerView = Alloy.Globals.Styles["headerViewReadOnly"];
 						if (questionObject.title.text.slice(-1) == "*") {
