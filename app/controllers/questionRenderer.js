@@ -34,7 +34,13 @@ var autoComplteQuestion = function(questionObject){
 	if(questionObject.isAQuestion == false)return questionObject;
 	
 	if(questionObject.type == "date"){
-		questionObject.value[0] = "01-01-2014";
+		if(questionObject.alcrmQuestionID == "I_CENSUS_DATE"){
+			questionObject.value[0] = "2014-01-01";
+		}
+		else{
+			questionObject.value[0] = "01-01-2014";
+		}
+		
 		questionObject.displayValue.value = questionObject.value[0];
 		
 	    questionObject.questionResponse =
