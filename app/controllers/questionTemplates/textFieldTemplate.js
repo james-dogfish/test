@@ -27,7 +27,9 @@ function onTextFieldBlur(e){
 	
 	
     //e.source.value = "";
-    item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+    if(Alloy.Globals.questionRenderer != null){
+    	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+    }
 	
 };
 
