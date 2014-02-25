@@ -1711,6 +1711,7 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
             "<ques:parameterValue>" + value + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
+        Alloy.Globals.localDataHandler.updateQuestion(question);
     }
     return question;
 };
@@ -1735,6 +1736,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 
     var sectionLength = sectionList.length;
 
+	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
 
         if (sectionList[sectionIndex].groupType != groupType) continue;
@@ -1749,6 +1751,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
             }
         }
     }
+    Alloy.Globals.aIndicator.hide();
 };
 exports.setEntireSectionTemplate= setEntireSectionTemplate;
 
