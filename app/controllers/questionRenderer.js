@@ -1478,7 +1478,8 @@ var questionValueChange = function (e) {
 
     if (e.section != null) {
     	//alert(e.section.customSectionIndex);
-        e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
+        //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
+        e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
