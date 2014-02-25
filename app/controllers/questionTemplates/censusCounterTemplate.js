@@ -115,17 +115,17 @@ var addValue = function(additionValue, e){
 };
 
 function minusFive(e){
-	newValue = addValue(-5, e);
+	addValue(-5, e);
 };
 
 function minusOne(e){
-	newValue = addValue(-1, e);
+	addValue(-1, e);
 };
 
 function addOne(e){
-	newValue = addValue(+1, e);
+	addValue(+1, e);
 };
 
 function addFive(e){
-	newValue = addValue(+5, e);
+	addValue(+5, e);
 };
