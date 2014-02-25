@@ -1433,6 +1433,8 @@ var blurCurrentlyFocusedTF = function(){
 };
 exports.blurCurrentlyFocusedTF = blurCurrentlyFocusedTF;
 
+var checkIfTrainSectionIs
+
 
 /**
 `questionValueChange` called from a questionTemplate changes its value
@@ -1452,32 +1454,21 @@ var questionValueChange = function (e) {
     // Blur the currently focused TF
     blurCurrentlyFocusedTF();
 
-    /*if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
-
-        var sectionList = getAllQuestionSections();
-
-        var questionTitleRef = findQuestionsRef(sectionList, "0I_ASSESSMENT_TITLE", "0Collector");
-		
-		if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
-			questionTitleRef.question = e.questionObject;
-		}
-		
-        if (questionTitleRef !== null) {
-      
-            var questionResponse =
-                "<ques:parameterName>" + questionTitleRef.question.alcrmQuestionID + "</ques:parameterName>" +
-                "<ques:parameterValue>" + questionTitleRef.question.displayValue.value + "</ques:parameterValue>";
-
-            questionTitleRef.question.questionResponse = questionResponse;
-
-            questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex, questionTitleRef.question);
-
-            if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
-                e.questionObject = questionTitleRef.question;
-            }
-        }
-
-    }*/
+	//alert(e.section.pageType);
+    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
+    	if(e.questionObject.value[0] == ""){
+    		
+    	}
+    	else{
+    		if(e.questionObject.mandatory === false){
+    			
+    		}
+    		else{
+    			
+    		}
+    	}
+    	
+    }
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
