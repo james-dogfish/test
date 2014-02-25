@@ -84,6 +84,8 @@ var addValue = function(additionValue, e){
 	
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
+
+	// Ti.API.error(item);
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 	
@@ -108,7 +110,7 @@ var addValue = function(additionValue, e){
     
    // item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	section.updateItemAt(e.itemIndex, item,  {
-		animated: false
+		animate: false
 	});
 };
 
