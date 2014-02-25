@@ -1,6 +1,6 @@
 {
 	"global": {
-		"debug": true,
+		"debug": false,
 		"stagedRollOut": true,
 		"analytics": {
 			"navOverride": true

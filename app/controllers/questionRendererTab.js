@@ -302,6 +302,7 @@ var openMenu = function() {
 
             Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             if(Alloy.Globals.questionRenderer != null){
+            	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
             	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
 	        	$.window.remove(Alloy.Globals.questionRenderer.getView());
 	        	Alloy.Globals.questionRenderer.destroy();
