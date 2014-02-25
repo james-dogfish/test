@@ -142,7 +142,6 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 var addCensusDesktopCompleteRow = function(){
 	pageList.push({
 		template : "masterCensusDesktopCompleteTemplate",
-		title : {text : L('censusDesktopComplete')}, 
 		colouredBox : {}
 	});
 	$.section.setItems(pageList);
