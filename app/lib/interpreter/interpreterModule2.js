@@ -889,6 +889,19 @@ relevent subsections, this function is called to insert the questions back in to
 					self.sectionHeaderList.splice(sectionIndex, 1);
 					sectionIndex = sectionIndex - 1;
 				} else if (self.sectionHeaderList[sectionIndex].alcrmGroupType == "Photograph") {
+					var selections = [{
+							displayValue : "YES 1",
+							value : 1
+						}, {
+							displayValue : "NO 1",
+							value : 0
+						}];
+					
+					if("0I_UPSIDE_APPROACH" in self.questionMap) {
+						selections = self.questionMap["0I_UPSIDE_APPROACH"].selections;
+					}
+					
+					
 					var newRow = {
 						isAQuestion : false,
 						readOnly : false,
@@ -901,13 +914,7 @@ relevent subsections, this function is called to insert the questions back in to
 						visable : true,
 						name : "",
 						questionToChangeTemplate : "singleSelectTemplate",
-						selections : [{
-							displayValue : "YES",
-							value : 1
-						}, {
-							displayValue : "NO",
-							value : 0
-						}],
+						selections : selections,
 						renderValue : []
 					};
 					self.sectionHeaderList[sectionIndex].questionList.unshift(newRow);

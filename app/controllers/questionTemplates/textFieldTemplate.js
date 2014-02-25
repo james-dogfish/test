@@ -86,7 +86,7 @@ function onTextFieldFocus(e){
 		e.source.blur();
 		return;
 	}
-
+	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
 };

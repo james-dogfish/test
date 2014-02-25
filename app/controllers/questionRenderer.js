@@ -1754,6 +1754,10 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 exports.setEntireSectionTemplate= setEntireSectionTemplate;
 
 
+function onQuestionRowClick(e){
+	//alert(JSON.stringify(e.source));
+};
+
 /**
 `selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
 
@@ -1765,6 +1769,9 @@ exports.setEntireSectionTemplate= setEntireSectionTemplate;
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
+	questionSelected = newQuestionSelected;
+	return newQuestionSelected;
+	/*
 	newQuestionSelected.section = newSection;
 	//findQuestionsRefFromSection(section, name );
 	
@@ -1809,6 +1816,7 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 
 	questionSelected = questionRef.question;
     return questionRef.question;
+    */
 };
 exports.selectQuestion = selectQuestion;
 
