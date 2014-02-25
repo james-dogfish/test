@@ -34,6 +34,19 @@ function responseGenerator() {
 		var date = new Date(datum);
 		return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 	};
+	
+var dateToString = function(date){
+    var day = date.getDate();
+    day = (day < 10 )? '0'+day : day;
+    
+    var month = date.getMonth()+1;
+    month = (month < 10 )? '0'+month : month;
+    
+    var year = date.getFullYear();
+    alert(year + "-" + month + "-" + day);
+    return year + "-" + month + "-" + day;
+   // return Alloy.Globals.Util.convertDate(date).dateformat2;
+};
 
 /**
  * `BuildCensusRespose` is responsible for the creation of xml markup required in order to
@@ -117,16 +130,18 @@ function responseGenerator() {
 				Ti.API.info(censusDate);
 				var numbers = "";
 				var dateToPost = "";
-				//alert("censusDate = "+JSON.stringify(censusDate));
+			//	alert("censusDate = "+dateToString(censusDate));
 				if (censusDate !== null && censusDate.trim() !== "") {
-
-					numbers = censusDate.match(/\d+/g);
+					
+					numbers = censusDate.match(/(\d{4})-(\d{2})-(\d{2})/);
 					if (numbers != null) {
-						dateToPost = new Date(numbers[2], numbers[0] - 1, numbers[1]);
+						
+						
+						dateToPost = new Date(numbers[1], numbers[2]-1, numbers[3]);
 					}
-
+					
 					xmlRequest.push("<cen:CreateCensusRequest>" + "<cen:census>" + "<cen1:crossingId>" + crossingID + "</cen1:crossingId>" + "<cen1:censusDate>" + dateToPost.toISOString() + "</cen1:censusDate>" + censusData + "</cen:census>" + "</cen:CreateCensusRequest>");
-
+					dateToPost = "";
 				}
 			}
 			//alert("xmlRequest = "+JSON.stringify(xmlRequest));
