@@ -624,7 +624,9 @@ var buildQuestionSections = function (JSON_sectionList) {
         newQuestionsSection.pageType = JSON_sectionList[i].pageType;
        	newQuestionsSection.pageID= JSON_sectionList[i].pageID;
         newQuestionsSection.setItems(JSON_sectionList[i].questionList);
+        newQuestionsSection.customSectionIndex = newSectionList.length;
         newSectionList.push(newQuestionsSection);
+        //alert(newQuestionsSection.sectionIndex+", length= "+newSectionList.length+", sectionIndex2 = "+newQuestionsSection.sectionIndex2);
         
         if(JSON_sectionList[i].questionList.length == 0){
         	newQuestionsSection.headerView.hide();
@@ -1477,7 +1479,8 @@ var questionValueChange = function (e) {
     e.questionObject = validateEntireQuestion(e.questionObject);
 
     if (e.section != null) {
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
+    	//alert(e.section.customSectionIndex);
+        e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
     }
 	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);

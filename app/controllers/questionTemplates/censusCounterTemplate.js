@@ -108,7 +108,10 @@ var addValue = function(additionValue, e){
     
    	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 	//section.updateItemAt(e.itemIndex, item);
-	section.replaceItemsAt(e.itemIndex,1, [item]);
+	
+	//section.sectionIndex, 
+	//section.replaceItemsAt(e.itemIndex,1, [item]);
+	section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
 };
 
 function minusFive(e){
