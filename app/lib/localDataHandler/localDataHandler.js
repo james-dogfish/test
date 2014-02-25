@@ -300,7 +300,7 @@ must NOT be used to delete assessments
         	Alloy.Globals.Logger.logException(e);
             Alloy.Globals.Logger.log("Exception in getMostUpTodateAssessmentObject. Error details: " + JSON.stringify(e), "info");
             Alloy.Globals.aIndicator.hide();
-            return;
+            return assessmentObject;
         }
     };
 

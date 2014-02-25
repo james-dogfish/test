@@ -274,6 +274,7 @@ var openMenu = function() {
 		        	Alloy.Globals.questionRenderer = null;
 		        }
             }
+            currentAssessmentObject = null;
             $.trigger("saveAndExitClick");
             
         } else if (e.row.id === 7) {
