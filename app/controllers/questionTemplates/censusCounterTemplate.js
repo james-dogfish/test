@@ -107,7 +107,9 @@ var addValue = function(additionValue, e){
     item.questionResponse = questionResponse;
     
    // item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-	section.replaceItemsAt(e.itemIndex,1, [item]);
+	section.replaceItemsAt(e.itemIndex,1, [item], {
+		animated: false
+	});
 };
 
 function minusFive(e){
