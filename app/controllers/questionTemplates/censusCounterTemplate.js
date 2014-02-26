@@ -127,3 +127,40 @@ function addOne(e){
 function addFive(e){
 	addValue(+5, e);
 };
+
+var functionToRun,
+	touchEnded = false;
+
+function longPress(value, e) {
+	functionToRun = setInterval(function() {
+		if(touchEnded) return;
+		addValue(value, e);
+	}, 200);
+};
+
+
+function touchStart() {
+	touchEnded = false;
+};
+
+function touchEnd(e) {
+	touchEnded = true;
+	clearInterval(functionToRun);
+	functionToRun = null;
+};
+
+function longPressMinusFive(e) {
+	longPress(-5, e);
+};
+
+function longPressMinusOne(e) {
+	longPress(-1, e);
+};
+
+function longPressPlusFive(e) {
+	longPress(+5, e);
+};
+
+function longPressPlusOne(e) {
+	longPress(+1, e);
+};
