@@ -1408,7 +1408,7 @@ var questionRealTimeValidation = function(e)
 {
 	 e.questionObject = validateEntireQuestion(e.questionObject);
 	 if (e.section != null) {
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
+        e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     }
 };
 exports.questionRealTimeValidation = questionRealTimeValidation;
@@ -1480,7 +1480,7 @@ var questionValueChange = function (e) {
     if (e.section != null) {
     	//alert(e.section.customSectionIndex);
         //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
+        e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     }
 	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
@@ -1629,7 +1629,7 @@ var startCensesTimer = function(question){
         if (questionRef.question.value[0] == "") {
 
             questionRef.question = setQuestionError(false, L("duration_error_text"), questionRef.question);
-            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
             Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
             return false;
         } else {
@@ -1655,7 +1655,7 @@ var startCensesTimer = function(question){
 		   "<ques:notes>"+questionRef.question.notes+"</ques:notes>";
 		questionRef.question.questionResponse = questionResponse;
 		
-		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
         Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
     }
     else{
@@ -1752,7 +1752,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
             if (questionList[questionIndex].template == questionToChangeTemplate) {
             	
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
-                sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
+                sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion, {animated: false});
             }
         }
     }
