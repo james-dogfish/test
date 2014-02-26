@@ -226,11 +226,19 @@ var showGoto = function() {
 		return;
 	}
 	
+	if(gotoQuestionSectionWindow != null)return;
+	
     gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
     gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
     
     if(Alloy.Globals.questionRenderer != null){
     	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    	gotoQuestionSectionWindow.setCloseCallBack(function(){
+    		gotoQuestionSectionWindow = null;
+    	});
+    }
+    else{
+    	
     }
 
     gotoQuestionSectionWindow.show();
