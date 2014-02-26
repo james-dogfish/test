@@ -9,10 +9,11 @@ function _Validator() {
 
 	this.isDecimal = function(number) {
 		if (number.toString().indexOf('.') !== -1) {
-			var reg = /^\d*\.?\d*$/;
-			return reg.test(number);
+			var decimalReg = /^\d*\.?\d*$/;
+			return decimalReg.test(number);
 		} else {
-			return false;
+			var numReg = /^\d+$/;
+			return numReg.test(number);;
 		}
 	};
 
