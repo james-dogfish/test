@@ -114,7 +114,7 @@ var addValue = function(additionValue, e){
 	section.updateItemAt(e.itemIndex, item, {
 		animated: false
 	});
-	// Alloy.Globals.localDataHandler.updateQuestion(item);
+	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
 function minusFive(e){
