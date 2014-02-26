@@ -119,9 +119,7 @@ var addValue = function(additionValue, e) {
 
 	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 
-	section.updateItemAt(e.itemIndex, item, {
-		animated: false
-	});
+	section.updateItemAt(e.itemIndex, item);
 	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
@@ -141,23 +139,16 @@ function addFive(e) {
 	addValue(+5, e);
 };
 
-var functionToRun,
-	touchEnded = false;
+var functionToRun;
 
 function longPress(value, e) {
 	functionToRun = setInterval(function() {
-		if(touchEnded) return;
 		addValue(value, e);
 	}, 200);
 };
 
 
-function touchStart() {
-	touchEnded = false;
-};
-
 function touchEnd(e) {
-	touchEnded = true;
 	clearInterval(functionToRun);
 	functionToRun = null;
 };
