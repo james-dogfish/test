@@ -1704,11 +1704,11 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
         question.displayValue = {
             value: displayValue
         };
-        question.value = [displayValue];
+        question.value = value;
 
         var questionResponse =
             "<ques:parameterName>" + question.alcrmQuestionID + "</ques:parameterName>" +
-            "<ques:parameterValue>" + value + "</ques:parameterValue>";
+            "<ques:parameterValue>" + value[0] + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
         Alloy.Globals.localDataHandler.updateQuestion(question);
@@ -1735,6 +1735,8 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 	var sectionList = getAllQuestionSections();
 
     var sectionLength = sectionList.length;
+    
+    
 
 	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
@@ -1745,7 +1747,9 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
         var questionLength = sectionList[sectionIndex].getItems().length;
         for (var questionIndex = 0; questionIndex < questionLength; questionIndex++) {
         	
+        	
             if (questionList[questionIndex].template == questionToChangeTemplate) {
+            	
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
                 sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
             }
