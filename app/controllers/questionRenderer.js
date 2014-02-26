@@ -624,7 +624,9 @@ var buildQuestionSections = function (JSON_sectionList) {
         newQuestionsSection.pageType = JSON_sectionList[i].pageType;
        	newQuestionsSection.pageID= JSON_sectionList[i].pageID;
         newQuestionsSection.setItems(JSON_sectionList[i].questionList);
+        newQuestionsSection.customSectionIndex = newSectionList.length;
         newSectionList.push(newQuestionsSection);
+        //alert(newQuestionsSection.sectionIndex+", length= "+newSectionList.length+", sectionIndex2 = "+newQuestionsSection.sectionIndex2);
         
         if(JSON_sectionList[i].questionList.length == 0){
         	newQuestionsSection.headerView.hide();
@@ -1452,32 +1454,21 @@ var questionValueChange = function (e) {
     // Blur the currently focused TF
     blurCurrentlyFocusedTF();
 
-    /*if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE" || e.questionObject.alcrmQuestionID === "LAST_ASSESSMENT_DATE") {
-
-        var sectionList = getAllQuestionSections();
-
-        var questionTitleRef = findQuestionsRef(sectionList, "0I_ASSESSMENT_TITLE", "0Collector");
-		
-		if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
-			questionTitleRef.question = e.questionObject;
-		}
-		
-        if (questionTitleRef !== null) {
-      
-            var questionResponse =
-                "<ques:parameterName>" + questionTitleRef.question.alcrmQuestionID + "</ques:parameterName>" +
-                "<ques:parameterValue>" + questionTitleRef.question.displayValue.value + "</ques:parameterValue>";
-
-            questionTitleRef.question.questionResponse = questionResponse;
-
-            questionTitleRef.section.updateItemAt(questionTitleRef.questionIndex, questionTitleRef.question);
-
-            if (e.questionObject.alcrmQuestionID === "I_ASSESSMENT_TITLE") {
-                e.questionObject = questionTitleRef.question;
-            }
-        }
-
-    }*/
+	//alert(e.section.pageType);
+    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
+    	if(e.questionObject.value[0] == ""){
+    		
+    	}
+    	else{
+    		if(e.questionObject.mandatory === false){
+    			
+    		}
+    		else{
+    			
+    		}
+    	}
+    	
+    }
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
@@ -1486,6 +1477,8 @@ var questionValueChange = function (e) {
     e.questionObject = validateEntireQuestion(e.questionObject);
 
     if (e.section != null) {
+    	//alert(e.section.customSectionIndex);
+        //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
         e.section.updateItemAt(e.questionIndex, e.questionObject);
     }
 	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
@@ -1718,6 +1711,7 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
             "<ques:parameterValue>" + value + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
+        Alloy.Globals.localDataHandler.updateQuestion(question);
     }
     return question;
 };
@@ -1742,6 +1736,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 
     var sectionLength = sectionList.length;
 
+	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
 
         if (sectionList[sectionIndex].groupType != groupType) continue;
@@ -1756,6 +1751,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
             }
         }
     }
+    Alloy.Globals.aIndicator.hide();
 };
 exports.setEntireSectionTemplate= setEntireSectionTemplate;
 

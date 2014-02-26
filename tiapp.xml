@@ -71,7 +71,6 @@
     </mobileweb>
     <modules>
         <module platform="android">com.appcelerator.apm</module>
-        <module platform="iphone" deploy-type="test" version="1.0">com.soasta.touchtest</module>
         <module platform="commonjs">ti.cloud</module>
         <module platform="iphone">com.appcelerator.apm</module>
     </modules>

@@ -106,38 +106,28 @@ var addValue = function(additionValue, e){
     
     item.questionResponse = questionResponse;
     
-   // item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+   	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	//section.updateItemAt(e.itemIndex, item);
+	
+	//section.sectionIndex, 
+	//section.replaceItemsAt(e.itemIndex,1, [item]);
+	//section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
 	section.updateItemAt(e.itemIndex, item);
+	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
 function minusFive(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(-5, e);
+	addValue(-5, e);
 };
 
 function minusOne(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(-1, e);
+	addValue(-1, e);
 };
 
 function addOne(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(+1, e);
+	addValue(+1, e);
 };
 
 function addFive(e){
-	var item = e.section.getItemAt(e.itemIndex);
-	if(item.readOnly == true){
-		return;
-	}
-	var newValue = addValue(+5, e);
+	addValue(+5, e);
 };
