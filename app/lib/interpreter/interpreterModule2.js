@@ -954,7 +954,12 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.template = "minuteHourTimeTemplate";
 						questionObject.type = "timerPicker";
 						questionObject.duration = timerPickerQuestionMap[questionObject.alcrmQuestionID];
-						
+					}
+					
+					if(Alloy.CFG.debug == true && questionObject.alcrmQuestionID == "I_CENSUS_TYPE"){
+						questionObject.template = "textFieldTemplate";
+						questionObject.notesBackground.backgroundImage = 'images/questionSelectedNote.png';
+						questionObject.notes = "full(24 hours) = 19, quick = 20, estimated(24) = 745, estimated = 21";
 					}
 
 					questionObject = testIfQuestionVisable(questionObject);

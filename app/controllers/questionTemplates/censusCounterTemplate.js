@@ -85,7 +85,7 @@ var addValue = function(additionValue, e){
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
 	
-	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
+	// item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 	
 	var intValue = intValue = parseInt(item.value[0]);
 	if(isNaN(intValue)){
@@ -107,11 +107,7 @@ var addValue = function(additionValue, e){
     item.questionResponse = questionResponse;
     
    	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-	//section.updateItemAt(e.itemIndex, item);
-	
-	//section.sectionIndex, 
-	//section.replaceItemsAt(e.itemIndex,1, [item]);
-	//section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
+
 	section.updateItemAt(e.itemIndex, item);
 	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
@@ -130,4 +126,41 @@ function addOne(e){
 
 function addFive(e){
 	addValue(+5, e);
+};
+
+var functionToRun,
+	touchEnded = false;
+
+function longPress(value, e) {
+	functionToRun = setInterval(function() {
+		if(touchEnded) return;
+		addValue(value, e);
+	}, 200);
+};
+
+
+function touchStart() {
+	touchEnded = false;
+};
+
+function touchEnd(e) {
+	touchEnded = true;
+	clearInterval(functionToRun);
+	functionToRun = null;
+};
+
+function longPressMinusFive(e) {
+	longPress(-5, e);
+};
+
+function longPressMinusOne(e) {
+	longPress(-1, e);
+};
+
+function longPressPlusFive(e) {
+	longPress(+5, e);
+};
+
+function longPressPlusOne(e) {
+	longPress(+1, e);
 };

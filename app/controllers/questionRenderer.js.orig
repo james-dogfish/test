@@ -1,6 +1,6 @@
 
 //`Alloy.Globals.currentlyFocusedTF` stores the currently focused textfield
-Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
+Alloy.Globals.currentlyFocusedTF = null;
 
 //`hiddenQuestions` is a list of all questions that are not currently visible
 var hiddenQuestions = [];
@@ -13,7 +13,7 @@ var currentAssessmentObject = null;
 
 //`questionSelected` is used for the move to lastQuestion
 //when a question is selected this value is updated
-var questionSelected = {question: null, section : null};
+var questionSelected = null;
 
 
 // `ALL_SECTIONS` and `SINGLE_SECTIONS` are just names for set values
@@ -1205,8 +1205,8 @@ var validateSingleQuestionValue = function (value, questionObject) {
     }
 	//alert(dataType);
     if (dataType == "numeric" || dataType == "numericRange") {
-        var test = Alloy.Globals.Validator.isNumber(value, false);
-        if (test == false) {
+        var test = Alloy.Globals.Validator.isNumber(Number(value), false);
+        if (test == false || value.match(/^0+/)!==null) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
@@ -1550,8 +1550,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerNotesButtonClick(e) {
 
-    if (questionSelected.question != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
+    if (questionSelected != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
             Alloy.Globals.Util.slideNotify(30, questionRef.question.alcrmNotes, false);
         }
@@ -1572,8 +1572,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerHelpButtonClick(e) {
 	
-	if (questionSelected.question != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
+	if (questionSelected != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
         if (questionRef != null) {
         	
         	if(questionRef.question.help != ""){
@@ -1705,11 +1705,11 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
         question.displayValue = {
             value: displayValue
         };
-        question.value = value;
+        question.value = [displayValue];
 
         var questionResponse =
             "<ques:parameterName>" + question.alcrmQuestionID + "</ques:parameterName>" +
-            "<ques:parameterValue>" + value[0] + "</ques:parameterValue>";
+            "<ques:parameterValue>" + value + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
         Alloy.Globals.localDataHandler.updateQuestion(question);
@@ -1736,8 +1736,6 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 	var sectionList = getAllQuestionSections();
 
     var sectionLength = sectionList.length;
-    
-    
 
 	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
@@ -1748,9 +1746,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
         var questionLength = sectionList[sectionIndex].getItems().length;
         for (var questionIndex = 0; questionIndex < questionLength; questionIndex++) {
         	
-        	
             if (questionList[questionIndex].template == questionToChangeTemplate) {
-            	
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
                 sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
             }
@@ -1776,13 +1772,15 @@ function onQuestionRowClick(e){
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
+<<<<<<< HEAD
+	questionSelected = newQuestionSelected;
+=======
 	if(questionSelected.question != null){
-		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
+		questionSelected.question.selected = false;
 		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
 		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
 		 if (questionRef != null) {
-		 	questionRef.question.selected = false;
-		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
+		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
 		 }
 	}
 	
@@ -1795,6 +1793,7 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
 	 }
 	
+>>>>>>> 0b87be7d728fe944dcf15ebb26e59f79c8c57ef8
 	return newQuestionSelected;
 	/*
 	newQuestionSelected.section = newSection;
@@ -1854,33 +1853,11 @@ exports.selectQuestion = selectQuestion;
 @return {}  n/a
 */
 exports.saveCurrentlySelectedQuestion  = function () {
-	if (questionSelected.question != null) {
+	if (questionSelected != null) {
 		var sectionList = getAllQuestionSections();
-		
-		if(questionSelected.question.template == "textFieldTemplate"){
-			
-			var question = questionSelected.question;
-			var newValue = "";
-			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
-				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
-			}
-		
-			question.displayValue.value =  newValue;
-			question.value= [newValue];
-			question.questionResponse = 
-				"<ques:parameterName>"+question.alcrmQuestionID+"</ques:parameterName>"+ 
-		   		"<ques:parameterValue>"+newValue+"</ques:parameterValue>";
-		   	
-		   	question = validateEntireQuestion(question);
-		   	Alloy.Globals.localDataHandler.updateQuestion(question);
-		}
-		else if(questionSelected.question.template == "censusCounterTemplate"){
-			var sectionList = getAllQuestionSections();
-			var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
-			if (questionRef != null) {
-				//Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-			}
+		var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+		if (questionRef != null) {
+			Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 		}
 	}
 };

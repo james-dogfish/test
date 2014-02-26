@@ -83,6 +83,9 @@ var createCensus= function(){
 		Alloy.Globals.aIndicator.show();
 		
 	    currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+	    currentAssessmentObject.censusDesktopComplete = false;
+	    Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+	    
 	    if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
 	    	Alloy.Globals.aIndicator.hide();
 	        alert(L('max_census'));
@@ -91,7 +94,9 @@ var createCensus= function(){
 	    var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, []);
 	    
 	    if(Alloy.Globals.questionRenderer != null){
-	    	Alloy.Globals.questionRenderer.appendSectionsToAssessment(censusData);
+	    	var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
+       		Alloy.Globals.questionRenderer.setAssessment(sectionList, currentAssessmentObject);
+       		gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
 	   		gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
 	    }
 	
@@ -115,6 +120,8 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     Alloy.Globals.aIndicator.show();
 
      currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
+     currentAssessmentObject.censusDesktopComplete = false;
+     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
     if (currentAssessmentObject.censusQuestionsfileNameList.length >= 2) {
     	Alloy.Globals.aIndicator.hide();
         alert(L('max_census'));
@@ -141,9 +148,10 @@ Ti.App.addEventListener("addPastCensus", function(e) {
     var censusData = Alloy.Globals.localDataHandler.addNewCensusToAssessment(currentAssessmentObject, cenMap);
     
     if(Alloy.Globals.questionRenderer != null){
-    	Alloy.Globals.questionRenderer.appendSectionsToAssessment(censusData);
-    	
-    	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    	var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
+   		Alloy.Globals.questionRenderer.setAssessment(sectionList, currentAssessmentObject);
+   		gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
+   		gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
     }
 
     Alloy.Globals.aIndicator.hide();
@@ -159,10 +167,20 @@ Ti.App.addEventListener("censusDesktopComplete", function(e) {
 		Alloy.Globals.Logger.log("questionRendererTab censusDesktopComplete :  currentAssessmentObject == null","error");
 		return;
 	}
-		
+	
+	Alloy.Globals.aIndicator.show();
     currentAssessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(currentAssessmentObject);
     currentAssessmentObject.censusDesktopComplete = true;
     Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(currentAssessmentObject);
+    Alloy.Globals.localDataHandler.removeAllAttachedCensuses(currentAssessmentObject);
+    
+    var sectionList = Alloy.Globals.localDataHandler.openAssessment(currentAssessmentObject);
+               
+   if(Alloy.Globals.questionRenderer != null){
+        Alloy.Globals.questionRenderer.setAssessment(sectionList, currentAssessmentObject);
+        gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+   }
+   Alloy.Globals.aIndicator.hide();
 
 });
 
@@ -226,11 +244,19 @@ var showGoto = function() {
 		return;
 	}
 	
+	if(gotoQuestionSectionWindow != null)return;
+	
     gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
     gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
     
     if(Alloy.Globals.questionRenderer != null){
     	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    	gotoQuestionSectionWindow.setCloseCallBack(function(){
+    		gotoQuestionSectionWindow = null;
+    	});
+    }
+    else{
+    	
     }
 
     gotoQuestionSectionWindow.show();
@@ -302,11 +328,13 @@ var openMenu = function() {
 			$.appTitle.text = "";
             Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             if(Alloy.Globals.questionRenderer != null){
-            	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+    
+            	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
             	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
 	        	$.window.remove(Alloy.Globals.questionRenderer.getView());
 	        	Alloy.Globals.questionRenderer.destroy();
 	        	Alloy.Globals.questionRenderer = null;
+	
 	        }
             
             currentAssessmentObject = null;

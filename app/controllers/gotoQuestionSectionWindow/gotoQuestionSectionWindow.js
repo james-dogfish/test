@@ -6,7 +6,7 @@ var questionToGoToIndex = 0;
 
 var currentAssessmentObject = null;
 
-
+var closeCallBack = null;
 
 var gotoDisplayViewWidth = "50%";
 var leftPostionClosed = "-50%";
@@ -37,6 +37,13 @@ var closeAnimationHandler = function() {
 	animationClose.removeEventListener('complete',closeAnimationHandler);
 	Ti.App.removeEventListener("goToQuestionEvent", goToQuestionCallBack);
 	Ti.App.removeEventListener("pageSelected", pageSelectedCallBack);
+	
+	if(closeCallBack != null){
+		closeCallBack();
+		closeCallBack = null;
+	}
+	
+	
 	$.destroy();
 };
 animationClose.addEventListener('complete',closeAnimationHandler);
@@ -91,15 +98,29 @@ $.selectCensusView.on("addCensus", function(){
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	Ti.App.fireEvent("censusDesktopComplete", {});
-	if(currentAssessmentObject != null){
-		if(currentAssessmentObject.censusDesktopComplete == false){
+	
+	if(currentAssessmentObject == null) return;
+	if(currentAssessmentObject.censusDesktopComplete == true) return;
+	
+	
+	var alertYesNo = Titanium.UI.createAlertDialog({
+        message: L('censusDesktopComplete_alertYesNo'),
+        buttonNames: ['Yes', 'No']
+    });
+
+    alertYesNo.addEventListener('click', function(e) {
+        if (e.index == 0) {
 			$.masterView.addCensusDesktopCompleteRow();
 			currentAssessmentObject.censusDesktopComplete = true;
-		}
-	}
-	
-	$.selectCensusView.hide();
+			$.selectCensusView.hide();
+			Ti.App.fireEvent("censusDesktopComplete", {});
+        } 
+        else if (e.index == 1) {
+			$.selectCensusView.hide();
+        }
+    });
+    
+    alertYesNo.show();
 });
 $.addCensusView.on("addPastCensus", function(e){
 	Ti.App.fireEvent("addPastCensus", e);
@@ -124,6 +145,10 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
+};
+
+exports.setCloseCallBack= function(NewCloseCallBack){
+	closeCallBack = NewCloseCallBack;
 };
 
 
