@@ -13,7 +13,7 @@ var currentAssessmentObject = null;
 
 //`questionSelected` is used for the move to lastQuestion
 //when a question is selected this value is updated
-var questionSelected = null;
+var questionSelected = {question: null, section : null};
 
 
 // `ALL_SECTIONS` and `SINGLE_SECTIONS` are just names for set values
@@ -692,7 +692,7 @@ var setupSelectedQuestion = function () {
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
         	if(questionList[questionIndex] != null){
 	            if (questionList[questionIndex].selected == true) {
-	                selectQuestion(questionList[questionIndex],allSections[sectionIndex]);
+	                selectQuestion(questionList[questionIndex],allSections[sectionIndex]);        
 	                return;
 	            }
 	        }
@@ -703,6 +703,7 @@ var setupSelectedQuestion = function () {
     if (allSections.length > 0) {
         var questionList = allSections[0].getItems();
         if (questionList > 0) {
+        	alert("search for new selectQuestion");
             selectQuestion(questionList[0],allSections[0]);
         }
     }
@@ -936,7 +937,7 @@ exports.goToFirstUnanswered = function () {
 @return {} n/a
 */
 exports.goToLastPositiond = function () {
-    moveToQuestionByName(questionSelected.name, questionSelected.groupType);
+    moveToQuestionByName(questionSelected.question.name, questionSelected.question.groupType);
 };
 
 /**
@@ -1549,8 +1550,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerNotesButtonClick(e) {
 
-    if (questionSelected != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+    if (questionSelected.question != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
         if (questionRef != null) {
             Alloy.Globals.Util.slideNotify(30, questionRef.question.alcrmNotes, false);
         }
@@ -1571,8 +1572,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerHelpButtonClick(e) {
 	
-	if (questionSelected != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+	if (questionSelected.question != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
         if (questionRef != null) {
         	
         	if(questionRef.question.help != ""){
@@ -1775,7 +1776,24 @@ function onQuestionRowClick(e){
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
-	questionSelected = newQuestionSelected;
+	if(questionSelected.question != null){
+		questionSelected.question.selected = false;
+		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
+		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
+		 if (questionRef != null) {
+		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
+		 }
+	}
+	
+	newQuestionSelected.selected = true;
+	questionSelected.question = newQuestionSelected;
+	questionSelected.section = newSection;
+	Alloy.Globals.localDataHandler.updateQuestion(newQuestionSelected);
+	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name, {animated: false});
+	 if (questionRef != null) {
+	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question);
+	 }
+	
 	return newQuestionSelected;
 	/*
 	newQuestionSelected.section = newSection;
@@ -1835,9 +1853,9 @@ exports.selectQuestion = selectQuestion;
 @return {}  n/a
 */
 exports.saveCurrentlySelectedQuestion  = function () {
-	if (questionSelected != null) {
+	if (questionSelected.questionSelected != null) {
 		var sectionList = getAllQuestionSections();
-		var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+		var questionRef = findQuestionsRef(sectionList, questionSelected.questionSelected.name, questionSelected.questionSelected.groupType);
 		if (questionRef != null) {
 			Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 		}
