@@ -79,10 +79,17 @@ function onTitleClick(e){
 	Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 };
 
+var moment = require('alloy/moment');
+
 var addValue = function(additionValue, e){
 
 	var section = e.section; 
+
+	var timebeforeGet = moment();
+
 	var item = section.getItemAt(e.itemIndex);
+
+	var timeAfterGet = moment();
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 	
@@ -111,10 +118,15 @@ var addValue = function(additionValue, e){
 	//section.sectionIndex, 
 	//section.replaceItemsAt(e.itemIndex,1, [item]);
 	//section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
+	var timeBeforeUpdate = moment();
 	section.updateItemAt(e.itemIndex, item, {
 		animated: false
 	});
-	// Alloy.Globals.localDataHandler.updateQuestion(item);
+	var timeAfterUpdate = moment();
+	Alloy.Globals.localDataHandler.updateQuestion(item);
+	var timeAfterSave = moment();
+
+	alert("time before get item is "+timebeforeGet.format('hh:mm:ss')+" and after get is "+timeAfterGet.format('hh:mm:ss')+" and before update is "+timeBeforeUpdate.format('hh:mm:ss')+" and after update is "+timeAfterUpdate.format('hh:mm:ss'));
 };
 
 function minusFive(e){
