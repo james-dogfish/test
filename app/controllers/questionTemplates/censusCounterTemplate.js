@@ -146,7 +146,7 @@ var functionToRun;
 function longPress(value, e) {
 	functionToRun = setInterval(function() {
 		addValue(value, e);
-	}, 500);
+	}, 200);
 };
 
 
