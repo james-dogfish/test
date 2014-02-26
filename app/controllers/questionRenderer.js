@@ -1853,11 +1853,33 @@ exports.selectQuestion = selectQuestion;
 @return {}  n/a
 */
 exports.saveCurrentlySelectedQuestion  = function () {
-	if (questionSelected.questionSelected != null) {
+	if (questionSelected.question != null) {
 		var sectionList = getAllQuestionSections();
-		var questionRef = findQuestionsRef(sectionList, questionSelected.questionSelected.name, questionSelected.questionSelected.groupType);
-		if (questionRef != null) {
-			Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+		
+		if(questionSelected.question.template == "textFieldTemplate"){
+			
+			var question = questionSelected.question;
+			var newValue = "";
+			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
+				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
+			}
+		
+			question.displayValue.value =  newValue;
+			question.value= [newValue];
+			question.questionResponse = 
+				"<ques:parameterName>"+question.alcrmQuestionID+"</ques:parameterName>"+ 
+		   		"<ques:parameterValue>"+newValue+"</ques:parameterValue>";
+		   	
+		   	question = validateEntireQuestion(question);
+		   	Alloy.Globals.localDataHandler.updateQuestion(question);
+		}
+		else if(questionSelected.question.template == "censusCounterTemplate"){
+			var sectionList = getAllQuestionSections();
+			var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
+			if (questionRef != null) {
+				//Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+			}
 		}
 	}
 };
