@@ -112,9 +112,7 @@ var addValue = function(additionValue, e){
 	//section.sectionIndex, 
 	//section.replaceItemsAt(e.itemIndex,1, [item]);
 	//section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
-	section.updateItemAt(e.itemIndex, item, {
-		animated: false
-	});
+	section.updateItemAt(e.itemIndex, item);
 	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
