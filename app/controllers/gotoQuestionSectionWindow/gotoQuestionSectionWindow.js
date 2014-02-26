@@ -98,15 +98,29 @@ $.selectCensusView.on("addCensus", function(){
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	Ti.App.fireEvent("censusDesktopComplete", {});
-	if(currentAssessmentObject != null){
-		if(currentAssessmentObject.censusDesktopComplete == false){
+	
+	if(currentAssessmentObject == null) return;
+	if(currentAssessmentObject.censusDesktopComplete == true) return;
+	
+	
+	var alertYesNo = Titanium.UI.createAlertDialog({
+        message: L('censusDesktopComplete_alertYesNo'),
+        buttonNames: ['Yes', 'No']
+    });
+
+    alertYesNo.addEventListener('click', function(e) {
+        if (e.index == 0) {
 			$.masterView.addCensusDesktopCompleteRow();
 			currentAssessmentObject.censusDesktopComplete = true;
-		}
-	}
-	
-	$.selectCensusView.hide();
+			$.selectCensusView.hide();
+			Ti.App.fireEvent("censusDesktopComplete", {});
+        } 
+        else if (e.index == 1) {
+			$.selectCensusView.hide();
+        }
+    });
+    
+    alertYesNo.show();
 });
 $.addCensusView.on("addPastCensus", function(e){
 	Ti.App.fireEvent("addPastCensus", e);

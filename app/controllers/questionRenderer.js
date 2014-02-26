@@ -1,6 +1,6 @@
 
 //`Alloy.Globals.currentlyFocusedTF` stores the currently focused textfield
-Alloy.Globals.currentlyFocusedTF = null;
+Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
 
 //`hiddenQuestions` is a list of all questions that are not currently visible
 var hiddenQuestions = [];
