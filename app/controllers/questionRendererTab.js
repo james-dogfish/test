@@ -226,11 +226,19 @@ var showGoto = function() {
 		return;
 	}
 	
+	if(gotoQuestionSectionWindow != null)return;
+	
     gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
     gotoQuestionSectionWindow.setAssessmentObject(currentAssessmentObject);
     
     if(Alloy.Globals.questionRenderer != null){
     	gotoQuestionSectionWindow.setContentsDetails(Alloy.Globals.questionRenderer.getGoToContentsDetails());
+    	gotoQuestionSectionWindow.setCloseCallBack(function(){
+    		gotoQuestionSectionWindow = null;
+    	});
+    }
+    else{
+    	
     }
 
     gotoQuestionSectionWindow.show();
@@ -302,11 +310,13 @@ var openMenu = function() {
 			$.appTitle.text = "";
             Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             if(Alloy.Globals.questionRenderer != null){
-            	Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+    
+            	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
             	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
 	        	$.window.remove(Alloy.Globals.questionRenderer.getView());
 	        	Alloy.Globals.questionRenderer.destroy();
 	        	Alloy.Globals.questionRenderer = null;
+	
 	        }
             
             currentAssessmentObject = null;
