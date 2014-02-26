@@ -10,7 +10,7 @@
 				<Button class="additionFiveButton" onTouchstart="touchStart" onTouchend="touchEnd" onLongpress="longPressMinusFive" onSingletap="minusFive">-5</Button>
 				<Button class="additionOneButton" onTouchstart="touchStart" onTouchend="touchEnd" onLongpress="longPressMinusOne" onSingletap="minusOne">-1</Button>
 				
-				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextField1Blur" onFocus="onTextFieldFocus" />
+				<TextField id="valueTextField" touchEnabled="false" class="inputField" bindId="displayValue" onBlur="onTextField1Blur" onFocus="onTextFieldFocus" />
 				<Button class="additionOneButton" onTouchstart="touchStart" onTouchend="touchEnd" onLongpress="longPressPlusOne" onSingletap="addOne">+1</Button>
 				<Button class="additionFiveButton" onTouchstart="touchStart" onTouchend="touchEnd" onLongpress="longPressPlusFive" onSingletap="addFive">+5</Button>
 			</View>
