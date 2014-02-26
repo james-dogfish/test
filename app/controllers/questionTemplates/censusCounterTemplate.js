@@ -119,7 +119,9 @@ var addValue = function(additionValue, e) {
 
 	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 
-	section.updateItemAt(e.itemIndex, item);
+	section.updateItemAt(e.itemIndex, item, {
+		animated: false
+	});
 	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
