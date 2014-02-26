@@ -1205,8 +1205,8 @@ var validateSingleQuestionValue = function (value, questionObject) {
     }
 	//alert(dataType);
     if (dataType == "numeric" || dataType == "numericRange") {
-        var test = Alloy.Globals.Validator.isNumber(value, false);
-        if (test == false && value.match(/^0+/)!==null) {
+        var test = Alloy.Globals.Validator.isNumber(Number(value), false);
+        if (test == false || value.match(/^0+/)!==null) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
