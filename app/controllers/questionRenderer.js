@@ -1778,11 +1778,11 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	
 	if(questionSelected.question != null){
 		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
-		questionSelected.question.selected = false;
 		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
 		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
 		 if (questionRef != null) {
-		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
+		 	questionRef.question.selected = false;
+		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
 		 }
 	}
 	
