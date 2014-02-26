@@ -936,7 +936,7 @@ exports.goToFirstUnanswered = function () {
 @return {} n/a
 */
 exports.goToLastPositiond = function () {
-    moveToQuestionByName(questionSelected.name, questionSelected.groupType);
+    moveToQuestionByName(questionSelected.question.name, questionSelected.question.groupType);
 };
 
 /**
