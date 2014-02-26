@@ -141,16 +141,23 @@ function addFive(e) {
 	addValue(+5, e);
 };
 
-var functionToRun;
+var functionToRun,
+	touchEnded = false;
 
 function longPress(value, e) {
 	functionToRun = setInterval(function() {
+		if(touchEnded) return;
 		addValue(value, e);
 	}, 200);
 };
 
 
+function touchStart() {
+	touchEnded = false;
+};
+
 function touchEnd(e) {
+	touchEnded = true;
 	clearInterval(functionToRun);
 	functionToRun = null;
 };
