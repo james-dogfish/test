@@ -1778,21 +1778,22 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	
 	if(questionSelected.question != null){
 		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
-		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
 		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
 		 if (questionRef != null) {
 		 	questionRef.question.selected = false;
 		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
+		 	Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 		 }
 	}
 	
 	newQuestionSelected.selected = true;
 	questionSelected.question = newQuestionSelected;
 	questionSelected.section = newSection;
-	Alloy.Globals.localDataHandler.updateQuestion(newQuestionSelected);
+	
 	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
 	 if (questionRef != null) {
 	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
+	 	Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
 	 }
 	
 	return newQuestionSelected;
@@ -1864,6 +1865,7 @@ exports.saveCurrentlySelectedQuestion  = function () {
 			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
 				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
 			}
+			else return;
 		
 			question.displayValue.value =  newValue;
 			question.value= [newValue];
