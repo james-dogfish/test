@@ -79,9 +79,8 @@ function onTitleClick(e){
 	Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
 };
 
-
 var addValue = function(additionValue, e){
-	
+
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
 	
@@ -112,7 +111,9 @@ var addValue = function(additionValue, e){
 	//section.sectionIndex, 
 	//section.replaceItemsAt(e.itemIndex,1, [item]);
 	//section.updateItemAt(item, e.itemIndex, section.customSectionIndex);
-	section.updateItemAt(e.itemIndex, item);
+	section.updateItemAt(e.itemIndex, item, {
+		animated: false
+	});
 	Alloy.Globals.localDataHandler.updateQuestion(item);
 };
 
