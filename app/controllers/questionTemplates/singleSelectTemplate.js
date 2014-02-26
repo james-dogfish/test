@@ -64,10 +64,8 @@ function selectButtonClicked(e) {
 
 	});
 
-	setTimeout(function(){
-		item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
-	},500);
-	
+	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
+
 };
 
 // function showPicker(e)
