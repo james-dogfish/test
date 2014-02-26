@@ -13,7 +13,7 @@ var currentAssessmentObject = null;
 
 //`questionSelected` is used for the move to lastQuestion
 //when a question is selected this value is updated
-var questionSelected = null;
+var questionSelected = {question: null, section : null};
 
 
 // `ALL_SECTIONS` and `SINGLE_SECTIONS` are just names for set values
@@ -692,7 +692,7 @@ var setupSelectedQuestion = function () {
         for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
         	if(questionList[questionIndex] != null){
 	            if (questionList[questionIndex].selected == true) {
-	                selectQuestion(questionList[questionIndex],allSections[sectionIndex]);
+	                selectQuestion(questionList[questionIndex],allSections[sectionIndex]);        
 	                return;
 	            }
 	        }
@@ -703,6 +703,7 @@ var setupSelectedQuestion = function () {
     if (allSections.length > 0) {
         var questionList = allSections[0].getItems();
         if (questionList > 0) {
+        	alert("search for new selectQuestion");
             selectQuestion(questionList[0],allSections[0]);
         }
     }
@@ -936,7 +937,7 @@ exports.goToFirstUnanswered = function () {
 @return {} n/a
 */
 exports.goToLastPositiond = function () {
-    moveToQuestionByName(questionSelected.name, questionSelected.groupType);
+    moveToQuestionByName(questionSelected.question.name, questionSelected.question.groupType);
 };
 
 /**
@@ -1549,8 +1550,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerNotesButtonClick(e) {
 
-    if (questionSelected != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+    if (questionSelected.question != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
         if (questionRef != null) {
             Alloy.Globals.Util.slideNotify(30, questionRef.question.alcrmNotes, false);
         }
@@ -1571,8 +1572,8 @@ triggers the slideNotify for the currently selected question to display the serv
 */
 function footerHelpButtonClick(e) {
 	
-	if (questionSelected != null) {
-        var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
+	if (questionSelected.question != null) {
+        var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
         if (questionRef != null) {
         	
         	if(questionRef.question.help != ""){
@@ -1704,11 +1705,11 @@ var updateAndReturnQuestion = function (question, value, displayValue) {
         question.displayValue = {
             value: displayValue
         };
-        question.value = [displayValue];
+        question.value = value;
 
         var questionResponse =
             "<ques:parameterName>" + question.alcrmQuestionID + "</ques:parameterName>" +
-            "<ques:parameterValue>" + value + "</ques:parameterValue>";
+            "<ques:parameterValue>" + value[0] + "</ques:parameterValue>";
 
         question.questionResponse = questionResponse;
         Alloy.Globals.localDataHandler.updateQuestion(question);
@@ -1735,6 +1736,8 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
 	var sectionList = getAllQuestionSections();
 
     var sectionLength = sectionList.length;
+    
+    
 
 	Alloy.Globals.aIndicator.show();
     for (var sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
@@ -1745,7 +1748,9 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
         var questionLength = sectionList[sectionIndex].getItems().length;
         for (var questionIndex = 0; questionIndex < questionLength; questionIndex++) {
         	
+        	
             if (questionList[questionIndex].template == questionToChangeTemplate) {
+            	
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
                 sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
             }
@@ -1771,7 +1776,24 @@ function onQuestionRowClick(e){
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
-	questionSelected = newQuestionSelected;
+	if(questionSelected.question != null){
+		questionSelected.question.selected = false;
+		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
+		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
+		 if (questionRef != null) {
+		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
+		 }
+	}
+	
+	newQuestionSelected.selected = true;
+	questionSelected.question = newQuestionSelected;
+	questionSelected.section = newSection;
+	Alloy.Globals.localDataHandler.updateQuestion(newQuestionSelected);
+	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name, {animated: false});
+	 if (questionRef != null) {
+	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question);
+	 }
+	
 	return newQuestionSelected;
 	/*
 	newQuestionSelected.section = newSection;
@@ -1831,11 +1853,33 @@ exports.selectQuestion = selectQuestion;
 @return {}  n/a
 */
 exports.saveCurrentlySelectedQuestion  = function () {
-	if (questionSelected != null) {
+	if (questionSelected.question != null) {
 		var sectionList = getAllQuestionSections();
-		var questionRef = findQuestionsRef(sectionList, questionSelected.name, questionSelected.groupType);
-		if (questionRef != null) {
-			Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+		
+		if(questionSelected.question.template == "textFieldTemplate"){
+			
+			var question = questionSelected.question;
+			var newValue = "";
+			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
+				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
+			}
+		
+			question.displayValue.value =  newValue;
+			question.value= [newValue];
+			question.questionResponse = 
+				"<ques:parameterName>"+question.alcrmQuestionID+"</ques:parameterName>"+ 
+		   		"<ques:parameterValue>"+newValue+"</ques:parameterValue>";
+		   	
+		   	question = validateEntireQuestion(question);
+		   	Alloy.Globals.localDataHandler.updateQuestion(question);
+		}
+		else if(questionSelected.question.template == "censusCounterTemplate"){
+			var sectionList = getAllQuestionSections();
+			var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
+			if (questionRef != null) {
+				//Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
+			}
 		}
 	}
 };

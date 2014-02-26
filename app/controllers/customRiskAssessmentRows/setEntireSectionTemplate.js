@@ -17,7 +17,7 @@ function selectButtonClicked(e){
 		item.displayValue = {value : data.displayValue};
 		item.value = [data.displayValue];
 		
-		Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.displayValue], data.displayValue, item.questionToChangeTemplate);
+		Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.value], data.displayValue, item.questionToChangeTemplate);
 		
 		/*
 		Ti.App.fireEvent("setEntireSectionTemplate", {
