@@ -1789,9 +1789,9 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	questionSelected.question = newQuestionSelected;
 	questionSelected.section = newSection;
 	Alloy.Globals.localDataHandler.updateQuestion(newQuestionSelected);
-	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name, {animated: false});
+	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
 	 if (questionRef != null) {
-	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question);
+	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
 	 }
 	
 	return newQuestionSelected;
