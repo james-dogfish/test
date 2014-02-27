@@ -1,7 +1,85 @@
 {
-	"message": "'undefined' is not an object (evaluating 'trainList.length')",
-	"backtrace": "#0 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:224\n#1 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js:284\n#2 () at file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/alloy/controllers/riskAssessments/riskAssessmentsWindow.js:228",
-	"line": 61,
-	"sourceId": 298225568,
-	"sourceURL": "file:///Users/andy/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/CEB30CF4-C656-497E-A77A-F82AD3AC0ACC/ALCRM_Mobile.app/responseGenerator/responseGenerator.js"
+	"displayValue": {},
+	"selected": false,
+	"questionErrorMessage": {
+		"text": ""
+	},
+	"associatedFileName": "1393512974033mainQuestions.json",
+	"renderDependencyList": [
+		{
+			"name": "0I_SELECTED_STAKEHOLDER_INFO",
+			"groupType": "0RiskAssessmentInfo"
+		}, {
+			"name": "0I_STAKEHOLDER_USER_REASON",
+			"groupType": "0RiskAssessmentInfo"
+		}
+	],
+	"alcrmGroupType": "RiskAssessmentInfo",
+	"readOnly": false,
+	"selections": [
+		{
+			"value": "792",
+			"displayValue": "Yes"
+		}, {
+			"value": "793",
+			"displayValue": "No"
+		}
+	],
+	"notes": "",
+	"btnSelect": {
+		"touchTestId": "0I_STAKEHOLDER_USER_ATTENDED_button1"
+	},
+	"backgroundView": {
+		"backgroundColor": "#fff"
+	},
+	"subsectionTitle": null,
+	"type": "radio",
+	"visable": true,
+	"alcrmQuestionID": "I_STAKEHOLDER_USER_ATTENDED",
+	"alcrmNotes": "I_STAKEHOLDER_USER_ATTENDED Notes",
+	"name": "0I_STAKEHOLDER_USER_ATTENDED",
+	"groupType": "0RiskAssessmentInfo",
+	"mandatory": false,
+	"assessmentId": 1393512974033,
+	"validation": {
+		"maxLength": null,
+		"conditionalMandatory": [],
+		"min": null,
+		"format": null,
+		"mandatory": false,
+		"minLength": null,
+		"max": null,
+		"validationTest": true
+	},
+	"questionResponse": null,
+	"isAQuestion": true,
+	"order": "105",
+	"help": "I_STAKEHOLDER_USER_ATTENDED Help",
+	"questionErrorMessageView": {
+		"height": "0dp",
+		"top": "0dp"
+	},
+	"mandatoryDependenciesList": [],
+	"headerView": {},
+	"notesBackground": {
+		"backgroundImage": "images/questionNote.png",
+		"touchTestId": "0I_STAKEHOLDER_USER_ATTENDED_notesButton"
+	},
+	"title": {
+		"text": "Did the key stakeholder(s) attend the Risk Assessment?",
+		"font": {
+			"fontSize": "20sp",
+			"fontFamily": "Helvetica Neue",
+			"fontWeight": "normal"
+		}
+	},
+	"errorMessageVisable": false,
+	"displayValue2": {
+		"value": "",
+		"touchTestId": "0I_STAKEHOLDER_USER_ATTENDED_displayValue2"
+	},
+	"duration": null,
+	"renderValue": [],
+	"value": [""],
+	"template": "singleSelectTemplate"
 }

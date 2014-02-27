@@ -23,9 +23,12 @@
 				</Button>
 				
 			</Toolbar>
+			<TableView id="tableView" onClick="rowClicked"/>
+			<!--
 			<View id="pickerContainerView">
 				<Picker id="pickerView" onChange="pickerChange"/>
 			</View>
+			-->
 		</View>
 	</Window>
 	

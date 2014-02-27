@@ -14,7 +14,7 @@
 
 
 "#window" : {
-	exitOnClose : true
+	//exitOnClose : true
 },
 "#appTitle" : {
 	text : L("modalMultiPickerTitle"),
@@ -27,7 +27,7 @@
 
 "#background" : {
 	backgroundColor:"#000",
-	opacity : 0
+	opacity : 0.5
 },
 "#modalBackgorund" : {
 	width: "76%",
