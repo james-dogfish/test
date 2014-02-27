@@ -668,6 +668,11 @@ var dateToString = function(date){
  */
 	self.doAssessment = function(assObj, sectionListAss, trainIDs, censusIDs, censusDates) {
 		//alert("assObj === > "+JSON.stringify(assObj.crossingID));
+		
+		//Sort numerically and ascending:
+		trainIDs.sort(function(a,b){return a - b;}); //Array now becomes [7, 8, 25, 41]
+
+
 		try {
 		
 			var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes,  trainIDs, censusIDs, censusDates);
