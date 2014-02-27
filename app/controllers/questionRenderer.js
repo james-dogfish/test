@@ -1840,7 +1840,7 @@ function onQuestionRowClick(e){
 };
 
 /**
-`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+`selectQuestion` updates the passed question to be the currently selectQuestion
 
 @method selectQuestion
 
@@ -1853,79 +1853,6 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	questionSelected.question = newQuestionSelected;
 	questionSelected.section = newSection;
 	return newQuestionSelected;
-	
-	/*
-	if(questionSelected.question != null){
-		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
-		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-		 if (questionRef != null) {	 	
-		 	questionRef.question.selected = false;
-		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
-		 	Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-		 }
-	}
-	
-	
-	
-	newQuestionSelected.selected = true;
-	questionSelected.question = newQuestionSelected;
-	questionSelected.section = newSection;
-	
-	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-	 if (questionRef != null) {
-	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
-	 	Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
-	 }
-	
-	return newQuestionSelected;
-	
-	*/
-	/*
-	newQuestionSelected.section = newSection;
-	//findQuestionsRefFromSection(section, name );
-	
-    var oldQuestion = questionSelected;
-    
-	if (oldQuestion != null) {
-		if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
-        var questionRef = findQuestionsRefFromSection(oldQuestion.section, oldQuestion.name);
-        if (questionRef != null) {
-        	if(questionRef.question.readOnly == false){
-           		Alloy.Globals.Logger.log("questionSelected change","info");
-	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
-	            questionRef.question.selected = false;
-	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	            
-	            
-
-	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-           }
-        }
-        else{
-        	Ti.API.info("question not found : "+JSON.stringify(oldQuestion));
-        }
-    }
-
-    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
-    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	        questionRef.question.section = newSection;
-	       }
-    }
-    else{
-    	return newQuestionSelected;
-    }
-
-	questionSelected = questionRef.question;
-    return questionRef.question;
-    */
 };
 exports.selectQuestion = selectQuestion;
 
@@ -1956,8 +1883,11 @@ exports.saveCurrentlySelectedQuestion  = function () {
 		   	
 		   	
 		   	questionSelected.question = question;
-		   	
+		   	Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
+		   	return;
 		}
+		
+		questionSelected.question = newFindQuestionObject(questionSelected.question.name, questionSelected.question.groupType);
 		Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
 	}
 };

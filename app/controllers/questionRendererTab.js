@@ -326,7 +326,7 @@ var openMenu = function() {
 			}
 	
 			$.appTitle.text = "";
-            Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
+            
             if(Alloy.Globals.questionRenderer != null){
     
             	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
@@ -336,6 +336,7 @@ var openMenu = function() {
 	        	Alloy.Globals.questionRenderer = null;
 	
 	        }
+	        Alloy.Globals.localDataHandler.updateQuestionCount(currentAssessmentObject);
             
             currentAssessmentObject = null;
             $.trigger("saveAndExitClick");

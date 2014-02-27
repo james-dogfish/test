@@ -285,6 +285,8 @@ must NOT be used to delete assessments
 	@return {} n/a
 	*/
     self.setQuestionSelected = function(question, assessmentObject){
+    	if(question === null)return;
+    	
     	assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
     	
     	updateQuestionsSelectedInSavedFile(question, assessmentObject.mainQuestionsfileName);
@@ -1047,7 +1049,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 	                        if (typeof questionList[questionListIndex].value === "undefined") continue;
 	                        if (!(questionList[questionListIndex].value instanceof Array)) continue;
 	                        if (questionList[questionListIndex].value.length <= 0) continue;
-	                        if (questionList[questionListIndex].value[0] != "") {
+	                        if (questionList[questionListIndex].questionResponse != null) {
 	                            assessmentObject.questionsCompleted++;
 	                        }
 	                    }
