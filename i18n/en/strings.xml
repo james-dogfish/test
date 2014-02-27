@@ -14,7 +14,7 @@
 	    <string name="page_train_info_name">Train Info</string>
 	    <string name="searchButtonTitle">Search</string>
 	    <string name="stop_timer">Are you sure you want to stop the timer?</string>
-	    <string name="censusDesktopCompleteRow">Census - Complete via Desktop</string>
+	    <string name="censusDesktopCompleteRow">No Census carried out on-site</string>
 	    
 	   
     <!-- delete ra & census related strings -->
@@ -25,6 +25,8 @@
 	    <string name="census">Census</string>
 	    <string name="noCensusMessage">You must complete at least 1 census</string>   
 	    <string name="censusDesktopCompleteMessage">You can now complete the Census by ALCRM Desktop</string>
+	    <string name="censusDesktopComplete_alertYesNo">Are you sure? This will remove any attached censuses for this assessment.</string>
+	    
 	    
 	    
     

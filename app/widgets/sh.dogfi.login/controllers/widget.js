@@ -76,7 +76,7 @@ function doLogin() {
                 // Remove the login fields now
                 $.loginWin.removeAllChildren();
 
-                $.loginButton.touchEnabled = false;
+                //$.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
@@ -95,7 +95,7 @@ function doLogin() {
         }
         // Fire up loading indicator here
 
-        $.loginButton.touchEnabled = false;
+        //$.loginButton.touchEnabled = false;
         Alloy.Globals.Logger.log("Login button pressed", 'info');
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
@@ -202,6 +202,8 @@ function doLogin() {
                         }
                     }
                 );
+				},function(xmlDoc){
+					Alloy.Globals.aIndicator.hide();
 				});
 
         } else {

@@ -209,6 +209,7 @@ must NOT be used to delete assessments
                 if (questionFound == false) {
                     Alloy.Globals.Logger.log("updateQuestion : question not found ", "info");
                 } else {
+                	Ti.API.info("updateQuestion question.value = "+question.value[0]);
                     sectionList[foundSectionIndex].questionList[foundIndex] = question;
                 }
 
@@ -891,6 +892,21 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
             Alloy.Globals.aIndicator.hide();
         }
 
+    };
+    
+    
+    
+    self.removeAllAttachedCensuses= function(assessmentObject){
+    	assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
+    	for (var i = 0; i < assessmentObject.censusQuestionsfileNameList.length; i++) {
+    		var file = Ti.Filesystem.getFile(self.getWorkingDirectory() + assessmentObject.censusQuestionsfileNameList[i]);
+            if (file.exists() == true) {
+                file.deleteFile();
+            }
+    	}
+    	
+    	assessmentObject.censusQuestionsfileNameList = [];
+    	self.updateSingleAssessmentIndexEntry(assessmentObject);
     };
 
 

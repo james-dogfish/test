@@ -1,6 +1,9 @@
 function onTextFieldBlur(e){
+
 	Alloy.Globals.Logger.log("onTextFieldBlur");
 	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
+	
+	
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){
@@ -25,11 +28,10 @@ function onTextFieldBlur(e){
    		//"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 	}
 	
-	
     //e.source.value = "";
     if(Alloy.Globals.questionRenderer != null){
     	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
-    }
+    }   
 	
 };
 
