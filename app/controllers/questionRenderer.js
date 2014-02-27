@@ -342,7 +342,7 @@ depending on the results of the tests
 */
 var newTestDependentQuestions = function (questionObject) {
 	
-	Ti.API.error(JSON.stringify(questionObject));
+
 	//`addToSectionMap`is a map of section using groupType as a key to a list of questions to add to that section
 	try {
 	    var addToSectionMap = [];
@@ -1014,13 +1014,13 @@ exports.getGoToContentsDetails = function () {
             
             if(questionsList[questionIndex].mandatory == true){
             	newSectionContents.mandatoryQuestions = true;
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allMandatoryQuestionsAnswered = false;
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
             else{
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
@@ -1029,7 +1029,7 @@ exports.getGoToContentsDetails = function () {
                 title: questionsList[questionIndex].title.text,
                 questionIndex: questionIndex,
                 mandatory: questionsList[questionIndex].mandatory,
-                firstValue: questionsList[questionIndex].value[0],
+                answered: (questionsList[questionIndex].questionResponse != null) ? true : false,
                 error : questionsList[questionIndex].errorMessageVisable
             };
 			
@@ -1317,6 +1317,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
 
+		questionObject.questionResponse = null;
         questionObject.errorMessageVisable = true;
         questionObject.questionErrorMessageView = {
             height: "30dp",
