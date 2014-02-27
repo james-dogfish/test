@@ -272,10 +272,15 @@ var newTestIfVisable = function (questionObject) {
     for (var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++) {
         var parentQuestion = newFindQuestionObject(questionObject.renderValue[renderValueIndex].question.name, questionObject.renderValue[renderValueIndex].question.groupType);
         if (parentQuestion == null) continue;
-        if (questionObject.renderValue[renderValueIndex].value == null) return true;
+        if (questionObject.renderValue[renderValueIndex].value == null) {
+        	Ti.API.error("questionObject.renderValue[renderValueIndex].value == null");
+        	return true;
+        }
 
         for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
-            if (questionObject.renderValue[renderValueIndex].value == parentQuestion.value[valueIndex]) {
+            if (questionObject.renderValue[renderValueIndex].value === parentQuestion.value[valueIndex]) {
+            	
+            	Ti.API.error("object.value = "+questionObject.renderValue[renderValueIndex].value+", test = "+parentQuestion.value[valueIndex]);
                 return true;
             }
         }
@@ -316,6 +321,13 @@ var newFindQuestionObject = function (questionName, groupType) {
 };
 
 
+var clearQuestion = function(questionObject){
+	questionObject.displayValue.value = "";
+	questionObject.value = [""];
+	questionObject.questionResponse = null;
+	return questionObject;
+};
+
 
 /**
 `newTestDependentQuestions` tests all questions that are dependent on the passed
@@ -330,156 +342,164 @@ depending on the results of the tests
 */
 var newTestDependentQuestions = function (questionObject) {
 	
-	
+
 	//`addToSectionMap`is a map of section using groupType as a key to a list of questions to add to that section
-    var addToSectionMap = [];
-    for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
-        for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
-			if(typeof hiddenQuestions[questionIndex].name === "undefined")
-			{
-				continue;
-			}
-            if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
-            	
-                if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
-                	
-                    if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {
-                    	
-                        addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
-                    }
-                    addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
-                    hiddenQuestions.splice(questionIndex, 1);
-                    questionIndex--;
-                }
-            }
-        }
-    }
-	//`removeFromSectionMap` is a map of section with groupType being the key. each element in the map is a second map of question names.
-	//using this `if(questionName in removeFromSectionMap[groupType]` will tell you if the question needs to be removed
-    var removeFromSectionMap = [];
-    for (var questionIndex = 0; questionIndex < questionObject.renderDependencyList.length; questionIndex++) {
-        var childQuestion = newFindQuestionObject(questionObject.renderDependencyList[questionIndex].name, questionObject.renderDependencyList[questionIndex].groupType);
-        if (childQuestion == null) continue;
-
-        if (newTestIfVisable(childQuestion) == false) {
-            if (!(childQuestion.groupType in removeFromSectionMap)) {
-                removeFromSectionMap[childQuestion.groupType] = [];
-            }
-            removeFromSectionMap[childQuestion.groupType][childQuestion.name] = true;
-        }
-    }
-
-    var sectionList = getAllQuestionSections();
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-
-        var questionList = sectionList[sectionIndex].getItems();
-        var sectionGroupType = sectionList[sectionIndex].groupType;
-
-		//`if (sectionGroupType in removeFromSectionMap)` tests if there are any question that need to be removed 
-        if (sectionGroupType in removeFromSectionMap) {
-            Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
-
-            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-                if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
-                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].title.text,"info");
-                    questionList[questionIndex].visable = false;
-
-                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-
-                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
-                    hiddenQuestions.push(questionList[questionIndex]);
-                    questionList.splice(questionIndex, 1);
-
-                    questionIndex--;
-                }
-            }
-        }
-		//`if (sectionGroupType in addToSectionMap) ` tests if there are any question that need to be added 
-        if (sectionGroupType in addToSectionMap) {
-            Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
-
-            for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
-
-				//will now add the question in the section depending on there order
-                var questionObjectToAdd = addToSectionMap[sectionGroupType][addQuestionIndex];
-                var questionAdded = false;
-                for (var questionIndex = 0; questionIndex < questionList.length && questionAdded != true; questionIndex++) {
-
-                    if (parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)) {
-
-                        questionObjectToAdd.visable = true;
-
-                        questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
-                        questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-     
-
-                        Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
-
-
-                        questionList.splice(questionIndex, 0, questionObjectToAdd);
-                        Alloy.Globals.Logger.log("added splice : " + questionObjectToAdd.title.text,"info");
-                        questionAdded = true;
-                    }
-                }
-                if (questionAdded == false) {
-                    questionObjectToAdd.visable = true;
-
-                    questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
-                    questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-
-                    Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
-                    questionList.push(questionObjectToAdd);
-                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.title.text,"info");
-                }
-            }
-        }
-
-        if (sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap) {
-            sectionList[sectionIndex].setItems(questionList);
-            
-            if(questionList.length > 0){
-	        	sectionList[sectionIndex].headerView.show();
-	        	sectionList[sectionIndex].headerView.height = Ti.UI.SIZE;
+	try {
+	    var addToSectionMap = [];
+	    for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
+	        for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
+				if(typeof hiddenQuestions[questionIndex].name === "undefined")
+				{
+					continue;
+				}
+	            if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
+	            	
+	                if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
+	                	
+	                    if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {
+	                    	
+	                        addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
+	                    }
+	                    addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
+	                    hiddenQuestions.splice(questionIndex, 1);
+	                    questionIndex--;
+	                }
+	            }
 	        }
-	        else{
-	        	sectionList[sectionIndex].headerView.hide();
-	        	sectionList[sectionIndex].headerView.height = 0;
+	    }
+		//`removeFromSectionMap` is a map of section with groupType being the key. each element in the map is a second map of question names.
+		//using this `if(questionName in removeFromSectionMap[groupType]` will tell you if the question needs to be removed
+	    var removeFromSectionMap = [];
+	    for (var questionIndex = 0; questionIndex < questionObject.renderDependencyList.length; questionIndex++) {
+	        var childQuestion = newFindQuestionObject(questionObject.renderDependencyList[questionIndex].name, questionObject.renderDependencyList[questionIndex].groupType);
+	        if (childQuestion == null) continue;
+	
+	        if (newTestIfVisable(childQuestion) == false) {
+	            if (!(childQuestion.groupType in removeFromSectionMap)) {
+	                removeFromSectionMap[childQuestion.groupType] = [];
+	            }
+	            removeFromSectionMap[childQuestion.groupType][childQuestion.name] = true;
 	        }
-        }
-    }
-
-
-    var testMandatorySectionMap = [];
-    for (var questionIndex = 0; questionIndex < questionObject.mandatoryDependenciesList.length; questionIndex++) {
-        var childQuestion = newFindQuestionObject(questionObject.mandatoryDependenciesList[questionIndex].name, questionObject.mandatoryDependenciesList[questionIndex].groupType);
-        if (childQuestion == null) continue;
-
-        if (!(childQuestion.groupType in testMandatorySectionMap)) {
-            testMandatorySectionMap[childQuestion.groupType] = [];
-        }
-        testMandatorySectionMap[childQuestion.groupType][childQuestion.name] = true;
-    }
-
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-        var questionList = sectionList[sectionIndex].getItems();
-        var sectionGroupType = sectionList[sectionIndex].groupType;
-
-        if (sectionGroupType in testMandatorySectionMap) {
-   
-
-            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-                if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
-                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
-                }
-            }
-
-            sectionList[sectionIndex].setItems(questionList);
-
-        }
-    }
+	    }
+	
+	    var sectionList = getAllQuestionSections();
+	    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+	
+	        var questionList = sectionList[sectionIndex].getItems();
+	        var sectionGroupType = sectionList[sectionIndex].groupType;
+	
+			//`if (sectionGroupType in removeFromSectionMap)` tests if there are any question that need to be removed 
+	        if (sectionGroupType in removeFromSectionMap) {
+	            Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
+	
+	            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+	                if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
+	                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].title.text,"info");
+	                    questionList[questionIndex].visable = false;
+	
+	                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex]= clearQuestion(questionList[questionIndex]);
+	
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	                    hiddenQuestions.push(questionList[questionIndex]);
+	                    questionList.splice(questionIndex, 1);
+	
+	                    questionIndex--;
+	                }
+	            }
+	        }
+			//`if (sectionGroupType in addToSectionMap) ` tests if there are any question that need to be added 
+	        if (sectionGroupType in addToSectionMap) {
+	            Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
+	
+	            for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
+	
+					//will now add the question in the section depending on there order
+	                var questionObjectToAdd = addToSectionMap[sectionGroupType][addQuestionIndex];
+	                var questionAdded = false;
+	                for (var questionIndex = 0; questionIndex < questionList.length && questionAdded != true; questionIndex++) {
+	
+	                    if (parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)) {
+	
+	                        questionObjectToAdd.visable = true;
+	
+	                        questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
+	                        questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
+	     
+	
+	                        Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
+	
+	
+	                        questionList.splice(questionIndex, 0, questionObjectToAdd);
+	                        Alloy.Globals.Logger.log("added splice : " + questionObjectToAdd.title.text,"info");
+	                        questionAdded = true;
+	                    }
+	                }
+	                if (questionAdded == false) {
+	                    questionObjectToAdd.visable = true;
+	
+	                    questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
+	                    questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
+	
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
+	                    questionList.push(questionObjectToAdd);
+	                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.title.text,"info");
+	                }
+	            }
+	        }
+	
+	        if (sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap) {
+	            sectionList[sectionIndex].setItems(questionList);
+	            
+	            if(questionList.length > 0){
+		        	sectionList[sectionIndex].headerView.show();
+		        	sectionList[sectionIndex].headerView.height = Ti.UI.SIZE;
+		        }
+		        else{
+		        	sectionList[sectionIndex].headerView.hide();
+		        	sectionList[sectionIndex].headerView.height = 0;
+		        }
+	        }
+	    }
+	
+	
+	    var testMandatorySectionMap = [];
+	    for (var questionIndex = 0; questionIndex < questionObject.mandatoryDependenciesList.length; questionIndex++) {
+	        var childQuestion = newFindQuestionObject(questionObject.mandatoryDependenciesList[questionIndex].name, questionObject.mandatoryDependenciesList[questionIndex].groupType);
+	        if (childQuestion == null) continue;
+	
+	        if (!(childQuestion.groupType in testMandatorySectionMap)) {
+	            testMandatorySectionMap[childQuestion.groupType] = [];
+	        }
+	        testMandatorySectionMap[childQuestion.groupType][childQuestion.name] = true;
+	    }
+	
+	    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+	        var questionList = sectionList[sectionIndex].getItems();
+	        var sectionGroupType = sectionList[sectionIndex].groupType;
+	
+	        if (sectionGroupType in testMandatorySectionMap) {
+	   
+	
+	            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+	                if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
+	                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	                }
+	            }
+	
+	            sectionList[sectionIndex].setItems(questionList);
+	
+	        }
+	    }
+   }
+   catch(e) {
+		Alloy.Globals.Logger.logException(e);
+		Alloy.Globals.Logger.log("Exception occured in newTestDependentQuestions. Error Details: " + JSON.stringify(e), "error");
+		return "";
+	}
 };
 
 
@@ -994,13 +1014,13 @@ exports.getGoToContentsDetails = function () {
             
             if(questionsList[questionIndex].mandatory == true){
             	newSectionContents.mandatoryQuestions = true;
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allMandatoryQuestionsAnswered = false;
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
             else{
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
@@ -1009,7 +1029,7 @@ exports.getGoToContentsDetails = function () {
                 title: questionsList[questionIndex].title.text,
                 questionIndex: questionIndex,
                 mandatory: questionsList[questionIndex].mandatory,
-                firstValue: questionsList[questionIndex].value[0],
+                answered: (questionsList[questionIndex].questionResponse != null) ? true : false,
                 error : questionsList[questionIndex].errorMessageVisable
             };
 			
@@ -1297,6 +1317,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
 
+		questionObject.questionResponse = null;
         questionObject.errorMessageVisable = true;
         questionObject.questionErrorMessageView = {
             height: "30dp",
@@ -1479,8 +1500,8 @@ var questionValueChange = function (e) {
 	//Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
-    Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
-    newTestDependentQuestions(e.questionObject);
+    //Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
+    
     
     
     if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
@@ -1538,6 +1559,8 @@ var questionValueChange = function (e) {
 	else{
 		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
 	}
+	
+	newTestDependentQuestions(e.questionObject);
 
     return e.questionObject;
 };
@@ -1817,7 +1840,7 @@ function onQuestionRowClick(e){
 };
 
 /**
-`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+`selectQuestion` updates the passed question to be the currently selectQuestion
 
 @method selectQuestion
 
@@ -1830,79 +1853,6 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	questionSelected.question = newQuestionSelected;
 	questionSelected.section = newSection;
 	return newQuestionSelected;
-	
-	/*
-	if(questionSelected.question != null){
-		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
-		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-		 if (questionRef != null) {	 	
-		 	questionRef.question.selected = false;
-		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
-		 	Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-		 }
-	}
-	
-	
-	
-	newQuestionSelected.selected = true;
-	questionSelected.question = newQuestionSelected;
-	questionSelected.section = newSection;
-	
-	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-	 if (questionRef != null) {
-	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
-	 	Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
-	 }
-	
-	return newQuestionSelected;
-	
-	*/
-	/*
-	newQuestionSelected.section = newSection;
-	//findQuestionsRefFromSection(section, name );
-	
-    var oldQuestion = questionSelected;
-    
-	if (oldQuestion != null) {
-		if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
-        var questionRef = findQuestionsRefFromSection(oldQuestion.section, oldQuestion.name);
-        if (questionRef != null) {
-        	if(questionRef.question.readOnly == false){
-           		Alloy.Globals.Logger.log("questionSelected change","info");
-	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
-	            questionRef.question.selected = false;
-	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	            
-	            
-
-	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-           }
-        }
-        else{
-        	Ti.API.info("question not found : "+JSON.stringify(oldQuestion));
-        }
-    }
-
-    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
-    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	        questionRef.question.section = newSection;
-	       }
-    }
-    else{
-    	return newQuestionSelected;
-    }
-
-	questionSelected = questionRef.question;
-    return questionRef.question;
-    */
 };
 exports.selectQuestion = selectQuestion;
 
@@ -1933,8 +1883,11 @@ exports.saveCurrentlySelectedQuestion  = function () {
 		   	
 		   	
 		   	questionSelected.question = question;
-		   	
+		   	Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
+		   	return;
 		}
+		
+		questionSelected.question = newFindQuestionObject(questionSelected.question.name, questionSelected.question.groupType);
 		Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
 	}
 };

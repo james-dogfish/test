@@ -1,30 +1,42 @@
 var args = arguments[0] || {};
 
-var currentValue = args.valueList[0];
+var currentValue = args.currentValue;
 
-var data = [],
-	valueLength = args.valueList.length;
-
-for (var i = 0; i < valueLength; i++) {
-	data.push(Ti.UI.createPickerRow({
-		title: args.valueList[i].displayValue,
-		value: args.valueList[i].value
-	}));
-}
-
-$.pickerView.add(data);
-$.pickerView.selectionIndicator = true;
-$.pickerView.setSelectedRow(0, 0, true);
-
-if (args.currentValue != "" || typeof args.currentValue === "undefined") {
-	for (var i = 0; i < valueLength; i++) {
-		if (args.valueList[i].value == args.currentValue) {
-			$.pickerView.setSelectedRow(0, i, true);
-			currentValue = args.valueList[i];
-			break;
-		}
+var data = [];
+for (var i = 0; i < args.valueList.length; i++) {
+	var isSelected = false;
+	if (args.valueList[i].value == args.currentValue.value) {
+		isSelected = true;
 	}
+
+	// Creating multirows here
+	var row = Ti.UI.createTableViewRow({
+		index : i,
+		ntitle: args.valueList[i].displayValue,
+		value: args.valueList[i].value,
+		tintColor: '#008FD5',
+		height: Ti.UI.SIZE,
+		width: Ti.UI.SIZE,
+		hasCheck: isSelected
+	});
+
+	var questionLabel = Ti.UI.createLabel({
+		height: Ti.UI.SIZE,
+		width: Ti.UI.FILL,
+		text: args.valueList[i].displayValue,
+		font: {
+			fontSize: 17
+		},
+		left: 15,
+		top: 5,
+		bottom: 5,
+		right: 10,
+		touchEnabled: false
+	});
+	row.add(questionLabel);
+	data.push(row);
 }
+$.tableView.setData(data);
 
 /*var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
@@ -48,6 +60,7 @@ animationClose.addEventListener("complete", function(e) {
 });*/
 
 var closeWindow = function() {
+	//Ti.API.info("currentValue = "+JSON.stringify(currentValue));
 	args.closeCallBack(currentValue);
 //	$.modalBackgorund.animate(animationClose);
 //	$.background.animate(animationFadeOut);
@@ -86,15 +99,36 @@ function clearButtonClick(e) {
 	//$.background.animate(animationFadeOut);
 };
 
+/*
 function pickerChange(e) {
 	currentValue = {
 		displayValue: $.pickerView.getSelectedRow(null).title,
 		value: $.pickerView.getSelectedRow(null).value
 	};
 }
+*/
 
-var modalBackgorundWidth = $.modalBackgorund.width;
-$.modalBackgorund.left = -1 * modalBackgorundWidth;
+
+function rowClicked(e) {
+	
+	if (e.row.hasCheck == true) {
+		return;
+	}
+	
+	for (var i = 0; i < data.length; i++) {
+		data[i].hasCheck = false;
+	}
+	data[e.row.index].hasCheck = true;
+	
+	currentValue = {
+		displayValue: e.row.ntitle,
+		value: e.row.value
+	};
+	$.tableView.setData(data);
+}
+
+//var modalBackgorundWidth = $.modalBackgorund.width;
+//$.modalBackgorund.left = -1 * modalBackgorundWidth;
 
 //$.window.animate({view: $.modalBackgorund,transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 //{transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT}

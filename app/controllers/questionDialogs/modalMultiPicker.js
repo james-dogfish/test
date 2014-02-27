@@ -95,7 +95,7 @@ var closeWindow = function() {
 	
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-	$.destory();
+	$.destroy();
 	
 //	$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
@@ -105,7 +105,7 @@ function onBackgroundClick(e) {
 	args.closeWithNoValueCallBack();
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-	$.destory();
+	$.destroy();
 	
 	//$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
@@ -126,7 +126,7 @@ function clearButtonClick(e) {
 	
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-	$.destory();
+	$.destroy();
 	
 	//$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
