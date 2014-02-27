@@ -16,7 +16,7 @@
 },
 "#modalBackgorund" : {
 	width: "50%",
-	right : "-50%",
+	//right : "-50%",
 	height: "50%",
 	layout : "vertical",
 	backgroundColor:"#fff",

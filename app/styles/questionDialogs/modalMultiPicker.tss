@@ -31,7 +31,7 @@
 },
 "#modalBackgorund" : {
 	width: "76%",
-	right : "-76%",
+	//right : "-76%",
 	top : "10%",
 	bottom : "10%",
 	height: Ti.UI.SIZE,

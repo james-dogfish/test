@@ -48,7 +48,7 @@ $.tableView.setData(data);
 //$.tableView.selectionIndicator = true;
 
 
-var animationFadeIn = Titanium.UI.createAnimation();
+/*var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
 animationFadeIn.duration = Alloy.Globals.animationDuration;
 
@@ -66,8 +66,8 @@ animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e) {
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-	//$.destory();
-});
+	$.destory();
+});*/
 
 var closeWindow = function() {
 
@@ -92,14 +92,23 @@ var closeWindow = function() {
 		}
 	}
 	args.closeCallBack(returnValue);
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destory();
+	
+//	$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
 };
 
 function onBackgroundClick(e) {
 	args.closeWithNoValueCallBack();
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destory();
+	
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
 }
 
 function rightNavButtonClick(e) {
@@ -114,8 +123,13 @@ function clearButtonClick(e) {
 	};
 
 	args.closeCallBack(returnValue);
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destory();
+	
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
 };
 
 function rowClicked(e) {
@@ -127,5 +141,5 @@ function rowClicked(e) {
 }
 
 $.window.open();
-$.background.animate(animationFadeIn);
-$.modalBackgorund.animate(animationOpen);
+//$.background.animate(animationFadeIn);
+//$.modalBackgorund.animate(animationOpen);

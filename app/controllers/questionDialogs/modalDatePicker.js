@@ -6,7 +6,7 @@ var date = new Date();
 
 
 
-var animationFadeIn = Titanium.UI.createAnimation();
+/*var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
 animationFadeIn.duration = Alloy.Globals.animationDuration;
 
@@ -24,7 +24,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-});
+});*/
 
 var dateToString = function(date){
     var day = date.getDate();
@@ -50,14 +50,22 @@ if(typeof args.timeLimit !== "undefined"){
 
 var closeWindow = function(){
 	args.closeCallBack(dateToString(date));
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 };
 
 function onBackgroundClick(e){
 	args.closeWithNoValueCallBack();
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 }
 
 function rightNavButtonClick(e){
@@ -66,8 +74,12 @@ function rightNavButtonClick(e){
 
 function clearButtonClick(e){
 	args.closeCallBack("");
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 };
 
 
@@ -77,5 +89,5 @@ function pickerChange(e){
 
 $.window.open();
   		
-$.background.animate(animationFadeIn);
-$.modalBackgorund.animate(animationOpen);
+//$.background.animate(animationFadeIn);
+//$.modalBackgorund.animate(animationOpen);
