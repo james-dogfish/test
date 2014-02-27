@@ -1776,15 +1776,22 @@ function onQuestionRowClick(e){
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
+	questionSelected.question = newQuestionSelected;
+	questionSelected.section = newSection;
+	return newQuestionSelected;
+	
+	/*
 	if(questionSelected.question != null){
 		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
 		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-		 if (questionRef != null) {
+		 if (questionRef != null) {	 	
 		 	questionRef.question.selected = false;
 		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
 		 	Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
 		 }
 	}
+	
+	
 	
 	newQuestionSelected.selected = true;
 	questionSelected.question = newQuestionSelected;
@@ -1797,6 +1804,8 @@ var selectQuestion = function (newQuestionSelected, newSection) {
 	 }
 	
 	return newQuestionSelected;
+	
+	*/
 	/*
 	newQuestionSelected.section = newSection;
 	//findQuestionsRefFromSection(section, name );
@@ -1856,16 +1865,12 @@ exports.selectQuestion = selectQuestion;
 */
 exports.saveCurrentlySelectedQuestion  = function () {
 	if (questionSelected.question != null) {
-		var sectionList = getAllQuestionSections();
+		//var sectionList = getAllQuestionSections();
 		
-		if(questionSelected.question.template == "textFieldTemplate"){
+		if(questionSelected.question.template == "textFieldTemplate" && Alloy.Globals.currentlyFocusedTF.TextField != null){
 			
 			var question = questionSelected.question;
-			var newValue = "";
-			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
-				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
-			}
-			else return;
+			var newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;
 		
 			question.displayValue.value =  newValue;
 			question.value= [newValue];
@@ -1874,16 +1879,12 @@ exports.saveCurrentlySelectedQuestion  = function () {
 		   		"<ques:parameterValue>"+newValue+"</ques:parameterValue>";
 		   	
 		   	question = validateEntireQuestion(question);
-		   	Alloy.Globals.localDataHandler.updateQuestion(question);
+		   	
+		   	
+		   	questionSelected.question = question;
+		   	
 		}
-		else if(questionSelected.question.template == "censusCounterTemplate"){
-			var sectionList = getAllQuestionSections();
-			var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
-			if (questionRef != null) {
-				//Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-			}
-		}
+		Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
 	}
 };
 
