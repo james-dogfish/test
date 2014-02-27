@@ -1171,7 +1171,17 @@ var validateSingleQuestionValue = function (value, questionObject) {
     var dataType = questionObject.type;
 
     if (value == "") {
-   	
+    	if (questionObject.mandatory == true) {
+
+            returnObject.isValid = false;
+            returnObject.outPutMessage = L("mandatory_error_text");
+            return returnObject;
+        }
+        else{
+        	returnObject.isValid = true;
+            return returnObject;
+        }
+   		/*
         if (questionObject.validation.mandatory == true) {
 
             returnObject.isValid = false;
@@ -1202,6 +1212,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
             returnObject.isValid = true;
             return returnObject;
         }
+        */
     }
 	//alert(dataType);
     if (dataType == "numeric" || dataType == "numericRange") {
@@ -1456,20 +1467,7 @@ var questionValueChange = function (e) {
     blurCurrentlyFocusedTF();
 
 	//alert(e.section.pageType);
-    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
-    	if(e.questionObject.value[0] == ""){
-    		
-    	}
-    	else{
-    		if(e.questionObject.mandatory === false){
-    			
-    		}
-    		else{
-    			
-    		}
-    	}
-    	
-    }
+    
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
@@ -1477,16 +1475,69 @@ var questionValueChange = function (e) {
 	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
-    if (e.section != null) {
-    	//alert(e.section.customSectionIndex);
-        //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
-        e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
-    }
-	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
+
+	//Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
     Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
     newTestDependentQuestions(e.questionObject);
+    
+    
+    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
+    	if(e.questionObject.value[0] == "" && e.questionObject.mandatory == true){
+    		var questionList = e.section.getItems();
+    		var changeSectionBackToNonMandatory = true;
+    		for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+    			if(questionList[questionIndex].isAQuestion == false) continue;
+    			if(questionList[questionIndex].name === e.questionObject.name){
+    				questionList[questionIndex] = e.questionObject;
+    			}
+    			Ti.API.info("index = "+questionIndex+", value = "+questionList[questionIndex].value[0]);
+    			if(questionList[questionIndex].value[0] != ""){
+    				
+    				changeSectionBackToNonMandatory = false;
+    			}
+    		}
+    		if(changeSectionBackToNonMandatory == true){
+    			Alloy.Globals.aIndicator.show();
+    			for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+	    			if(questionList[questionIndex].isAQuestion == false) continue;
+	    			questionList[questionIndex].mandatory = false;
+	    			questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	    			questionList[questionIndex] = validateEntireQuestion(questionList[questionIndex]);
+	    			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	    			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
+	    		}
+	    		Alloy.Globals.aIndicator.hide();
+    		}
+    		else{
+    			e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+    		}
+    		//e.section.setItems(questionList);
+    	}
+    	else if(e.questionObject.value[0] != "" && e.questionObject.mandatory == false){
+    		var questionList = e.section.getItems();
+    		Alloy.Globals.aIndicator.show();
+    		for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+    			if(questionList[questionIndex].isAQuestion == false) continue;
+    			if(questionList[questionIndex].name === e.questionObject.name){
+    				questionList[questionIndex] = e.questionObject;
+    			}
+    			questionList[questionIndex].mandatory = true;
+    			questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+    			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+    			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
+    		}
+    		//e.section.setItems(questionList);
+    		Alloy.Globals.aIndicator.hide();
+    	}   
+    	else{
+    		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+    	} 	
+    }
+	else{
+		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+	}
 
     return e.questionObject;
 };
