@@ -24,7 +24,7 @@ for (var i = 0; i < args.valueList.length; i++) {
 		width: Ti.UI.FILL,
 		text: args.valueList[i].displayValue,
 		font: {
-			fontSize: 17
+			fontSize: 19
 		},
 		left: 15,
 		top: 5,

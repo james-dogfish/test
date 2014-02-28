@@ -37,8 +37,8 @@
 	layout : "vertical",
 	backgroundColor:"#fff",
 	borderRadius: 5,
-	borderWidth : 2,
-	borderColor : "#aaa",
+	borderWidth : 4,
+	borderColor : "#bbb",
 },
 "#pickerContainerView" : {
 	width: Ti.UI.SIZE,
