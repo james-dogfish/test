@@ -205,25 +205,46 @@ value of anther question.
 */
 var newTestIfMandatory = function (questionObject) {
 
-    if (questionObject.validation.mandatory == true) {
-        return true;
-    } else if (questionObject.validation.conditionalMandatory.length == 0) {
-        return false;
-    }
+	if (questionObject.validation.mandatory == true) {
+	    return true;
+	} else if (questionObject.validation.conditionalMandatory.length == 0) {
+	    return false;
+	}
+	var conditionalMandatory = questionObject.validation.conditionalMandatory;
+	
+	if(questionObject.validation.matchAllMandatoryRestrictions == true){
 
-    var conditionalMandatory = questionObject.validation.conditionalMandatory;
-    for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
-        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
-        if (parentQuestion == null) continue;
-        if (conditionalMandatory[conditionalIndex].value == null) return true;
-
-        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
-            if (conditionalMandatory[conditionalIndex].value == parentQuestion.value[valueIndex]) {
-                return true;
-            }
-        }
-    }
-    return false;
+		var mandatory = true;
+		for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
+	        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
+	        if (parentQuestion == null){ 
+	        	return false;
+	        }
+	        if (conditionalMandatory[conditionalIndex].value == null) return false;
+	
+	        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
+	            if (conditionalMandatory[conditionalIndex].value != parentQuestion.value[valueIndex]) {
+	                return false;
+	            }
+	        }
+	    }
+	    
+	    return true;
+	}
+	else{
+	    for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
+	        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
+	        if (parentQuestion == null) continue;
+	        if (conditionalMandatory[conditionalIndex].value == null) return true;
+	
+	        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
+	            if (conditionalMandatory[conditionalIndex].value == parentQuestion.value[valueIndex]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+   }
 };
 
 
@@ -1551,7 +1572,7 @@ var questionValueChange = function (e) {
     		}
     		//e.section.setItems(questionList);
     		Alloy.Globals.aIndicator.hide();
-    	}   
+    	}  
     	else{
     		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     	} 	

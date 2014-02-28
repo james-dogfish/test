@@ -154,6 +154,7 @@ differently from the `firstTab` and `secondTab` nodes
 					maxLength : null,
 					format : null,
 					mandatory : false,
+					matchAllMandatoryRestrictions : false,
 					conditionalMandatory : []
 				},
 				mandatory : true, //can be changed at run time with conditionalMandatory
@@ -272,6 +273,7 @@ differently from the `firstTab` and `secondTab` nodes
 				maxLength : null,
 				format : null,
 				mandatory : false,
+				matchAllMandatoryRestrictions : false,
 				conditionalMandatory : []
 			};
 
@@ -327,6 +329,12 @@ differently from the `firstTab` and `secondTab` nodes
 
 				if ( typeof validation.format !== "undefined") {
 					questionValidation.format = validation.format;
+				}
+				
+				if ( typeof validation.matchAllMandatoryRestrictions !== "undefined") {
+					if(validation.matchAllMandatoryRestrictions == true || validation.matchAllMandatoryRestrictions == "true"){
+						questionValidation.matchAllMandatoryRestrictions = true;
+					}
 				}
 			}
 
