@@ -5,7 +5,7 @@
 var _Soap = function () {
 
     var targetNS = 'http://com/icon/networkrail/alcrm/', // url for namespace
-        serverUrl = Alloy.CFG.serverUrl.dte, // url for server
+        serverUrl = Alloy.CFG.serverUrl.ppte, // url for server
         wsSecurity = true,
         suds = require('tools/Suds2_fat');
 
