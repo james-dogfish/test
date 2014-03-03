@@ -206,6 +206,7 @@ var SudsClient = function(_options) {
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       _failure.call(this, xmlDomFromString(this.responseText));
+      alert('debugging error '+JSON.stringify(this.responseText));
       try {
         Alloy.Globals.aIndicator.hide();
         Alloy.Globals.censusIDs = [];
@@ -223,7 +224,7 @@ var SudsClient = function(_options) {
               typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault.faultcode !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined" && typeof error_code != "undefined") {
-              error_message = JSON.stringify(error_object);
+              //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
