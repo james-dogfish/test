@@ -38,8 +38,8 @@ animationClose.addEventListener("complete", function(e){
 
 var closeWindow = function(){
 	args.closeCallBack($.textArea.value);
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
 	
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
