@@ -276,7 +276,7 @@ var SudsClient = function(_options) {
 
                 }
               });
-              if (typeof error_code === "string") {
+              if (error_code !== null) {
                 alert.show();
               }
 
