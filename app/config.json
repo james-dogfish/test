@@ -5,7 +5,7 @@
 		"analytics": {
 			"navOverride": true
 		},
-		"currentEnv": "ppte",
+		"currentEnv": "dte",
 		"serverUrl": {
 			"fat": "http://server.iconsolutions.com/alcrm3/",
 			"dte": "https://icondte.networkrail.co.uk/WebServices/",
