@@ -206,7 +206,6 @@ var SudsClient = function(_options) {
     xhr.onerror = function(e) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       _failure.call(this, xmlDomFromString(this.responseText));
-      alert('debugging error '+JSON.stringify(this.responseText));
       try {
         Alloy.Globals.aIndicator.hide();
         Alloy.Globals.censusIDs = [];
