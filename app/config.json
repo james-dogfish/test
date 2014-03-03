@@ -4,6 +4,11 @@
 		"stagedRollOut": true,
 		"analytics": {
 			"navOverride": true
+		},
+		"serverUrl": {
+			"fat": "http://server.iconsolutions.com/alcrm3/",
+			"dte": "https://icondte.networkrail.co.uk/WebServices/",
+			"ppte": "https://iconppte.networkrail.co.uk/WebServices/"
 		}
 	},
 	"env:development": {},
