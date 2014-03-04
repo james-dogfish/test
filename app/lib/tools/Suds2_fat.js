@@ -190,6 +190,8 @@ var SudsClient = function(_options) {
     }
     //POST XML document to service endpoint
     var xhr = getXHR();
+    // Turning off SSL certificate validation
+    xhr.validatesSecureCertificate = false; // Need to turn off to disable cert validation as NR env goes crazy!
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
       //Alloy.Globals.aIndicator.hide();
