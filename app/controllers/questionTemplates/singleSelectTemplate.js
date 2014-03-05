@@ -11,17 +11,14 @@ function selectButtonClicked(e) {
 		return;
 	}
 	
-	
 	Alloy.createController("questionDialogs/modalPicker", {
-		currentValue: item.value[0],
+		currentValue: {displayValue : item.displayValue.value, value :item.value[0]},
 		valueList: item.selections,
 		closeCallBack: function(data) {
 			item.displayValue = {
 				value: data.displayValue
 			};
 			item.value = [data.value];
-
-			Alloy.Globals.Logger.log("modalPicker value = " + data.value, "info");
 
 			if (item.value[0] === "") {
 				item.questionResponse = null;

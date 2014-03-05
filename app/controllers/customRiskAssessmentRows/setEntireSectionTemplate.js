@@ -13,21 +13,31 @@ function selectButtonClicked(e){
 		return;
 	}
 	
-	Alloy.createController("questionDialogs/modalPicker", {valueList : item.selections, closeCallBack : function(data){
-		item.displayValue = {value : data.displayValue};
-		item.value = [data.displayValue];
-		
-		Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.value], data.displayValue, item.questionToChangeTemplate);
-		
-		/*
-		Ti.App.fireEvent("setEntireSectionTemplate", {
-			groupType : section.groupType,
-			value : [data.displayValue],
-			displayValue : data.displayValue,
-			questionToChangeTemplate : item.questionToChangeTemplate
+	var currentValue = {displayValue : "", value :""};
+	if(item.selections.length >= 1){
+		currentValue = item.selections[0];
+	}
+	
+	
+	
+	Alloy.createController("questionDialogs/modalPicker", {
+		currentValue: currentValue,
+		valueList : item.selections, 
+		closeCallBack : function(data){
+			item.displayValue = {value : data.displayValue};
+			item.value = [data.displayValue];
 			
-		});
-		*/
+			Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.value], data.displayValue, item.questionToChangeTemplate);
+			
+			/*
+			Ti.App.fireEvent("setEntireSectionTemplate", {
+				groupType : section.groupType,
+				value : [data.displayValue],
+				displayValue : data.displayValue,
+				questionToChangeTemplate : item.questionToChangeTemplate
+				
+			});
+			*/
 		
 	}});
 };

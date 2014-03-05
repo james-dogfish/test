@@ -17,14 +17,14 @@ function showQuestions(){
 			var colouredBox = Alloy.Globals.Styles["goToColouredBox_answered"];
 
 			if(questionList[questionIndex].mandatory == true){
-				if(questionList[questionIndex].firstValue == ""){
+				if(questionList[questionIndex].answered == false){
 					colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
 				}
 				else{
 					colouredBox = Alloy.Globals.Styles["goToColouredBox_answered"];
 				}
 			} else {
-				if(questionList[questionIndex].firstValue == "") {
+				if(questionList[questionIndex].answered == false) {
 					colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_non_mandatory"];
 				}
 				else{

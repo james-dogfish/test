@@ -41,7 +41,7 @@ $.pickerView.setSelectedRow(0, 0, true);
 $.pickerView.setSelectedRow(1, 0, true);
 
 
-var animationFadeIn = Titanium.UI.createAnimation();
+/*var animationFadeIn = Titanium.UI.createAnimation();
 animationFadeIn.opacity = 0.5;
 animationFadeIn.duration = Alloy.Globals.animationDuration;
 
@@ -59,7 +59,7 @@ animationClose.duration = Alloy.Globals.animationDuration;
 animationClose.addEventListener("complete", function(e){
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
-});
+});*/
 
 var closeWindow = function(){
 	var stringValue = ""+currentValue.h+":"+currentValue.m;
@@ -68,14 +68,21 @@ var closeWindow = function(){
 		value : parseInt(currentValue.h)*60 + parseInt(currentValue.m)
 	});
 	Alloy.Globals.Logger.log("minuteHourTimeTemplate minutes = "+parseInt(currentValue.h)*60 + parseInt(currentValue.m),"info");
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 };
 
 function onBackgroundClick(e){
 	args.closeWithNoValueCallBack();
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 }
 
 function rightNavButtonClick(e){
@@ -84,8 +91,11 @@ function rightNavButtonClick(e){
 
 function clearButtonClick(e){
 	args.closeCallBack({title: "", value : ""});
-	$.modalBackgorund.animate(animationClose);
-	$.background.animate(animationFadeOut);
+	//$.modalBackgorund.animate(animationClose);
+	//$.background.animate(animationFadeOut);
+	Alloy.Globals.dialogWindowOpen = false;
+	$.window.close();
+	$.destroy();
 };
 
 function pickerChange(e){
@@ -104,6 +114,6 @@ $.modalBackgorund.left = -1*modalBackgorundWidth;
 //$.window.animate({view: $.modalBackgorund,transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 //{transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT}
 $.window.open();
-$.background.animate(animationFadeIn);
-$.modalBackgorund.animate(animationOpen);
+//$.background.animate(animationFadeIn);
+//$.modalBackgorund.animate(animationOpen);
 //$.modalBackgorund.open({transition:Ti.UI.iPhone.AnimationStyle.SLIDE_TO_LEFT});

@@ -123,6 +123,10 @@ exports.setContentsDetails = function(questionSectionContentsDetails){
 		if(pageList[pageIndex].error == true){
 			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
 		}
+		
+		if(pageList[pageIndex].pageType ==='coreQuestion'){
+			pageList[pageIndex].colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
+		}
 	}
 	
 	

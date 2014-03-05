@@ -205,25 +205,46 @@ value of anther question.
 */
 var newTestIfMandatory = function (questionObject) {
 
-    if (questionObject.validation.mandatory == true) {
-        return true;
-    } else if (questionObject.validation.conditionalMandatory.length == 0) {
-        return false;
-    }
+	if (questionObject.validation.mandatory == true) {
+	    return true;
+	} else if (questionObject.validation.conditionalMandatory.length == 0) {
+	    return false;
+	}
+	var conditionalMandatory = questionObject.validation.conditionalMandatory;
+	
+	if(questionObject.validation.matchAllMandatoryRestrictions == true){
 
-    var conditionalMandatory = questionObject.validation.conditionalMandatory;
-    for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
-        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
-        if (parentQuestion == null) continue;
-        if (conditionalMandatory[conditionalIndex].value == null) return true;
-
-        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
-            if (conditionalMandatory[conditionalIndex].value == parentQuestion.value[valueIndex]) {
-                return true;
-            }
-        }
-    }
-    return false;
+		var mandatory = true;
+		for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
+	        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
+	        if (parentQuestion == null){ 
+	        	return false;
+	        }
+	        if (conditionalMandatory[conditionalIndex].value == null) return false;
+	
+	        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
+	            if (conditionalMandatory[conditionalIndex].value != parentQuestion.value[valueIndex]) {
+	                return false;
+	            }
+	        }
+	    }
+	    
+	    return true;
+	}
+	else{
+	    for (var conditionalIndex = 0; conditionalIndex < conditionalMandatory.length; conditionalIndex++) {
+	        var parentQuestion = newFindQuestionObject(conditionalMandatory[conditionalIndex].question.name, conditionalMandatory[conditionalIndex].question.groupType);
+	        if (parentQuestion == null) continue;
+	        if (conditionalMandatory[conditionalIndex].value == null) return true;
+	
+	        for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
+	            if (conditionalMandatory[conditionalIndex].value == parentQuestion.value[valueIndex]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+   }
 };
 
 
@@ -272,10 +293,15 @@ var newTestIfVisable = function (questionObject) {
     for (var renderValueIndex = 0; renderValueIndex < questionObject.renderValue.length; renderValueIndex++) {
         var parentQuestion = newFindQuestionObject(questionObject.renderValue[renderValueIndex].question.name, questionObject.renderValue[renderValueIndex].question.groupType);
         if (parentQuestion == null) continue;
-        if (questionObject.renderValue[renderValueIndex].value == null) return true;
+        if (questionObject.renderValue[renderValueIndex].value == null) {
+        	Ti.API.error("questionObject.renderValue[renderValueIndex].value == null");
+        	return true;
+        }
 
         for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
-            if (questionObject.renderValue[renderValueIndex].value == parentQuestion.value[valueIndex]) {
+            if (questionObject.renderValue[renderValueIndex].value === parentQuestion.value[valueIndex]) {
+            	
+            	Ti.API.error("object.value = "+questionObject.renderValue[renderValueIndex].value+", test = "+parentQuestion.value[valueIndex]);
                 return true;
             }
         }
@@ -316,6 +342,13 @@ var newFindQuestionObject = function (questionName, groupType) {
 };
 
 
+var clearQuestion = function(questionObject){
+	questionObject.displayValue.value = "";
+	questionObject.value = [""];
+	questionObject.questionResponse = null;
+	return questionObject;
+};
+
 
 /**
 `newTestDependentQuestions` tests all questions that are dependent on the passed
@@ -330,156 +363,164 @@ depending on the results of the tests
 */
 var newTestDependentQuestions = function (questionObject) {
 	
-	
+
 	//`addToSectionMap`is a map of section using groupType as a key to a list of questions to add to that section
-    var addToSectionMap = [];
-    for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
-        for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
-			if(typeof hiddenQuestions[questionIndex].name === "undefined")
-			{
-				continue;
-			}
-            if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
-            	
-                if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
-                	
-                    if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {
-                    	
-                        addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
-                    }
-                    addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
-                    hiddenQuestions.splice(questionIndex, 1);
-                    questionIndex--;
-                }
-            }
-        }
-    }
-	//`removeFromSectionMap` is a map of section with groupType being the key. each element in the map is a second map of question names.
-	//using this `if(questionName in removeFromSectionMap[groupType]` will tell you if the question needs to be removed
-    var removeFromSectionMap = [];
-    for (var questionIndex = 0; questionIndex < questionObject.renderDependencyList.length; questionIndex++) {
-        var childQuestion = newFindQuestionObject(questionObject.renderDependencyList[questionIndex].name, questionObject.renderDependencyList[questionIndex].groupType);
-        if (childQuestion == null) continue;
-
-        if (newTestIfVisable(childQuestion) == false) {
-            if (!(childQuestion.groupType in removeFromSectionMap)) {
-                removeFromSectionMap[childQuestion.groupType] = [];
-            }
-            removeFromSectionMap[childQuestion.groupType][childQuestion.name] = true;
-        }
-    }
-
-    var sectionList = getAllQuestionSections();
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-
-        var questionList = sectionList[sectionIndex].getItems();
-        var sectionGroupType = sectionList[sectionIndex].groupType;
-
-		//`if (sectionGroupType in removeFromSectionMap)` tests if there are any question that need to be removed 
-        if (sectionGroupType in removeFromSectionMap) {
-            Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
-
-            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-                if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
-                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].title.text,"info");
-                    questionList[questionIndex].visable = false;
-
-                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-
-                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
-                    hiddenQuestions.push(questionList[questionIndex]);
-                    questionList.splice(questionIndex, 1);
-
-                    questionIndex--;
-                }
-            }
-        }
-		//`if (sectionGroupType in addToSectionMap) ` tests if there are any question that need to be added 
-        if (sectionGroupType in addToSectionMap) {
-            Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
-
-            for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
-
-				//will now add the question in the section depending on there order
-                var questionObjectToAdd = addToSectionMap[sectionGroupType][addQuestionIndex];
-                var questionAdded = false;
-                for (var questionIndex = 0; questionIndex < questionList.length && questionAdded != true; questionIndex++) {
-
-                    if (parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)) {
-
-                        questionObjectToAdd.visable = true;
-
-                        questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
-                        questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-     
-
-                        Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
-
-
-                        questionList.splice(questionIndex, 0, questionObjectToAdd);
-                        Alloy.Globals.Logger.log("added splice : " + questionObjectToAdd.title.text,"info");
-                        questionAdded = true;
-                    }
-                }
-                if (questionAdded == false) {
-                    questionObjectToAdd.visable = true;
-
-                    questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
-                    questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
-
-                    Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
-                    questionList.push(questionObjectToAdd);
-                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.title.text,"info");
-                }
-            }
-        }
-
-        if (sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap) {
-            sectionList[sectionIndex].setItems(questionList);
-            
-            if(questionList.length > 0){
-	        	sectionList[sectionIndex].headerView.show();
-	        	sectionList[sectionIndex].headerView.height = Ti.UI.SIZE;
+	try {
+	    var addToSectionMap = [];
+	    for (var questionIndex = 0; questionIndex < hiddenQuestions.length; questionIndex++) {
+	        for (var childQuestionIndex = 0; childQuestionIndex < questionObject.renderDependencyList.length; childQuestionIndex++) {
+				if(typeof hiddenQuestions[questionIndex].name === "undefined")
+				{
+					continue;
+				}
+	            if (hiddenQuestions[questionIndex].name == questionObject.renderDependencyList[childQuestionIndex].name) {
+	            	
+	                if (newTestIfVisable(hiddenQuestions[questionIndex]) == true) {
+	                	
+	                    if (!(hiddenQuestions[questionIndex].groupType in addToSectionMap)) {
+	                    	
+	                        addToSectionMap[hiddenQuestions[questionIndex].groupType] = [];
+	                    }
+	                    addToSectionMap[hiddenQuestions[questionIndex].groupType].push(hiddenQuestions[questionIndex]);
+	                    hiddenQuestions.splice(questionIndex, 1);
+	                    questionIndex--;
+	                }
+	            }
 	        }
-	        else{
-	        	sectionList[sectionIndex].headerView.hide();
-	        	sectionList[sectionIndex].headerView.height = 0;
+	    }
+		//`removeFromSectionMap` is a map of section with groupType being the key. each element in the map is a second map of question names.
+		//using this `if(questionName in removeFromSectionMap[groupType]` will tell you if the question needs to be removed
+	    var removeFromSectionMap = [];
+	    for (var questionIndex = 0; questionIndex < questionObject.renderDependencyList.length; questionIndex++) {
+	        var childQuestion = newFindQuestionObject(questionObject.renderDependencyList[questionIndex].name, questionObject.renderDependencyList[questionIndex].groupType);
+	        if (childQuestion == null) continue;
+	
+	        if (newTestIfVisable(childQuestion) == false) {
+	            if (!(childQuestion.groupType in removeFromSectionMap)) {
+	                removeFromSectionMap[childQuestion.groupType] = [];
+	            }
+	            removeFromSectionMap[childQuestion.groupType][childQuestion.name] = true;
 	        }
-        }
-    }
-
-
-    var testMandatorySectionMap = [];
-    for (var questionIndex = 0; questionIndex < questionObject.mandatoryDependenciesList.length; questionIndex++) {
-        var childQuestion = newFindQuestionObject(questionObject.mandatoryDependenciesList[questionIndex].name, questionObject.mandatoryDependenciesList[questionIndex].groupType);
-        if (childQuestion == null) continue;
-
-        if (!(childQuestion.groupType in testMandatorySectionMap)) {
-            testMandatorySectionMap[childQuestion.groupType] = [];
-        }
-        testMandatorySectionMap[childQuestion.groupType][childQuestion.name] = true;
-    }
-
-    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-        var questionList = sectionList[sectionIndex].getItems();
-        var sectionGroupType = sectionList[sectionIndex].groupType;
-
-        if (sectionGroupType in testMandatorySectionMap) {
-   
-
-            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
-                if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
-                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
-                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
-                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
-                }
-            }
-
-            sectionList[sectionIndex].setItems(questionList);
-
-        }
-    }
+	    }
+	
+	    var sectionList = getAllQuestionSections();
+	    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+	
+	        var questionList = sectionList[sectionIndex].getItems();
+	        var sectionGroupType = sectionList[sectionIndex].groupType;
+	
+			//`if (sectionGroupType in removeFromSectionMap)` tests if there are any question that need to be removed 
+	        if (sectionGroupType in removeFromSectionMap) {
+	            Alloy.Globals.Logger.log("remove from section : " + sectionGroupType,"info");
+	
+	            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+	                if (questionList[questionIndex].name in removeFromSectionMap[sectionGroupType]) {
+	                    Alloy.Globals.Logger.log("remove : " + questionList[questionIndex].title.text,"info");
+	                    questionList[questionIndex].visable = false;
+	
+	                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex]= clearQuestion(questionList[questionIndex]);
+	
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	                    hiddenQuestions.push(questionList[questionIndex]);
+	                    questionList.splice(questionIndex, 1);
+	
+	                    questionIndex--;
+	                }
+	            }
+	        }
+			//`if (sectionGroupType in addToSectionMap) ` tests if there are any question that need to be added 
+	        if (sectionGroupType in addToSectionMap) {
+	            Alloy.Globals.Logger.log("add from section : " + sectionGroupType,"info");
+	
+	            for (var addQuestionIndex = 0; addQuestionIndex < addToSectionMap[sectionGroupType].length; addQuestionIndex++) {
+	
+					//will now add the question in the section depending on there order
+	                var questionObjectToAdd = addToSectionMap[sectionGroupType][addQuestionIndex];
+	                var questionAdded = false;
+	                for (var questionIndex = 0; questionIndex < questionList.length && questionAdded != true; questionIndex++) {
+	
+	                    if (parseInt(questionObjectToAdd.order) < parseInt(questionList[questionIndex].order)) {
+	
+	                        questionObjectToAdd.visable = true;
+	
+	                        questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
+	                        questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
+	     
+	
+	                        Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
+	
+	
+	                        questionList.splice(questionIndex, 0, questionObjectToAdd);
+	                        Alloy.Globals.Logger.log("added splice : " + questionObjectToAdd.title.text,"info");
+	                        questionAdded = true;
+	                    }
+	                }
+	                if (questionAdded == false) {
+	                    questionObjectToAdd.visable = true;
+	
+	                    questionObjectToAdd.mandatory = newTestIfMandatory(questionObjectToAdd);
+	                    questionObjectToAdd = setQuestionToMandatory(questionObjectToAdd);
+	
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionObjectToAdd);
+	                    questionList.push(questionObjectToAdd);
+	                    Alloy.Globals.Logger.log("added push : " + questionObjectToAdd.title.text,"info");
+	                }
+	            }
+	        }
+	
+	        if (sectionGroupType in addToSectionMap || sectionGroupType in removeFromSectionMap) {
+	            sectionList[sectionIndex].setItems(questionList);
+	            
+	            if(questionList.length > 0){
+		        	sectionList[sectionIndex].headerView.show();
+		        	sectionList[sectionIndex].headerView.height = Ti.UI.SIZE;
+		        }
+		        else{
+		        	sectionList[sectionIndex].headerView.hide();
+		        	sectionList[sectionIndex].headerView.height = 0;
+		        }
+	        }
+	    }
+	
+	
+	    var testMandatorySectionMap = [];
+	    for (var questionIndex = 0; questionIndex < questionObject.mandatoryDependenciesList.length; questionIndex++) {
+	        var childQuestion = newFindQuestionObject(questionObject.mandatoryDependenciesList[questionIndex].name, questionObject.mandatoryDependenciesList[questionIndex].groupType);
+	        if (childQuestion == null) continue;
+	
+	        if (!(childQuestion.groupType in testMandatorySectionMap)) {
+	            testMandatorySectionMap[childQuestion.groupType] = [];
+	        }
+	        testMandatorySectionMap[childQuestion.groupType][childQuestion.name] = true;
+	    }
+	
+	    for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+	        var questionList = sectionList[sectionIndex].getItems();
+	        var sectionGroupType = sectionList[sectionIndex].groupType;
+	
+	        if (sectionGroupType in testMandatorySectionMap) {
+	   
+	
+	            for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
+	                if (questionList[questionIndex].name in testMandatorySectionMap[sectionGroupType]) {
+	                    questionList[questionIndex].mandatory = newTestIfMandatory(questionList[questionIndex]);
+	                    questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	                    Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	                }
+	            }
+	
+	            sectionList[sectionIndex].setItems(questionList);
+	
+	        }
+	    }
+   }
+   catch(e) {
+		Alloy.Globals.Logger.logException(e);
+		Alloy.Globals.Logger.log("Exception occured in newTestDependentQuestions. Error Details: " + JSON.stringify(e), "error");
+		return "";
+	}
 };
 
 
@@ -936,7 +977,7 @@ exports.goToFirstUnanswered = function () {
 @return {} n/a
 */
 exports.goToLastPositiond = function () {
-    moveToQuestionByName(questionSelected.name, questionSelected.groupType);
+    moveToQuestionByName(questionSelected.question.name, questionSelected.question.groupType);
 };
 
 /**
@@ -994,13 +1035,13 @@ exports.getGoToContentsDetails = function () {
             
             if(questionsList[questionIndex].mandatory == true){
             	newSectionContents.mandatoryQuestions = true;
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allMandatoryQuestionsAnswered = false;
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
             else{
-            	if(questionsList[questionIndex].value[0] == ""){
+            	if(questionsList[questionIndex].questionResponse == null){
             		newSectionContents.allQuestionsAnswered = false;
             	}
             }
@@ -1009,7 +1050,7 @@ exports.getGoToContentsDetails = function () {
                 title: questionsList[questionIndex].title.text,
                 questionIndex: questionIndex,
                 mandatory: questionsList[questionIndex].mandatory,
-                firstValue: questionsList[questionIndex].value[0],
+                answered: (questionsList[questionIndex].questionResponse != null) ? true : false,
                 error : questionsList[questionIndex].errorMessageVisable
             };
 			
@@ -1171,7 +1212,17 @@ var validateSingleQuestionValue = function (value, questionObject) {
     var dataType = questionObject.type;
 
     if (value == "") {
-   	
+    	if (questionObject.mandatory == true) {
+
+            returnObject.isValid = false;
+            returnObject.outPutMessage = L("mandatory_error_text");
+            return returnObject;
+        }
+        else{
+        	returnObject.isValid = true;
+            return returnObject;
+        }
+   		/*
         if (questionObject.validation.mandatory == true) {
 
             returnObject.isValid = false;
@@ -1202,11 +1253,12 @@ var validateSingleQuestionValue = function (value, questionObject) {
             returnObject.isValid = true;
             return returnObject;
         }
+        */
     }
 	//alert(dataType);
     if (dataType == "numeric" || dataType == "numericRange") {
-        var test = Alloy.Globals.Validator.isNumber(value, false);
-        if (test == false) {
+        var test = Alloy.Globals.Validator.isNumber(Number(value), false);
+        if (test == false || value.match(/^0+/)!==null) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
@@ -1286,6 +1338,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 var setQuestionError = function (isValid, message, questionObject) {
     if (isValid == false) {
 
+		questionObject.questionResponse = null;
         questionObject.errorMessageVisable = true;
         questionObject.questionErrorMessageView = {
             height: "30dp",
@@ -1408,7 +1461,7 @@ var questionRealTimeValidation = function(e)
 {
 	 e.questionObject = validateEntireQuestion(e.questionObject);
 	 if (e.section != null) {
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
+        e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     }
 };
 exports.questionRealTimeValidation = questionRealTimeValidation;
@@ -1456,20 +1509,7 @@ var questionValueChange = function (e) {
     blurCurrentlyFocusedTF();
 
 	//alert(e.section.pageType);
-    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
-    	if(e.questionObject.value[0] == ""){
-    		
-    	}
-    	else{
-    		if(e.questionObject.mandatory === false){
-    			
-    		}
-    		else{
-    			
-    		}
-    	}
-    	
-    }
+    
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
     	$.censusFooterView.close();
@@ -1477,16 +1517,71 @@ var questionValueChange = function (e) {
 	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
-    if (e.section != null) {
-    	//alert(e.section.customSectionIndex);
-        //e.section.updateItemAt(e.questionObject, e.questionIndex, e.section.customSectionIndex);
-        e.section.updateItemAt(e.questionIndex, e.questionObject);
-    }
-	Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
+
+	//Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
     Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
-    Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
-    newTestDependentQuestions(e.questionObject);
+    //Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
+    
+    
+    
+    if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
+    	if(e.questionObject.value[0] == "" && e.questionObject.mandatory == true){
+    		var questionList = e.section.getItems();
+    		var changeSectionBackToNonMandatory = true;
+    		for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+    			if(questionList[questionIndex].isAQuestion == false) continue;
+    			if(questionList[questionIndex].name === e.questionObject.name){
+    				questionList[questionIndex] = e.questionObject;
+    			}
+    			Ti.API.info("index = "+questionIndex+", value = "+questionList[questionIndex].value[0]);
+    			if(questionList[questionIndex].value[0] != ""){
+    				
+    				changeSectionBackToNonMandatory = false;
+    			}
+    		}
+    		if(changeSectionBackToNonMandatory == true){
+    			Alloy.Globals.aIndicator.show();
+    			for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+	    			if(questionList[questionIndex].isAQuestion == false) continue;
+	    			questionList[questionIndex].mandatory = false;
+	    			questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+	    			questionList[questionIndex] = validateEntireQuestion(questionList[questionIndex]);
+	    			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+	    			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
+	    		}
+	    		Alloy.Globals.aIndicator.hide();
+    		}
+    		else{
+    			e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+    		}
+    		//e.section.setItems(questionList);
+    	}
+    	else if(e.questionObject.value[0] != "" && e.questionObject.mandatory == false){
+    		var questionList = e.section.getItems();
+    		Alloy.Globals.aIndicator.show();
+    		for(var questionIndex = 0; questionIndex < questionList.length; questionIndex++){
+    			if(questionList[questionIndex].isAQuestion == false) continue;
+    			if(questionList[questionIndex].name === e.questionObject.name){
+    				questionList[questionIndex] = e.questionObject;
+    			}
+    			questionList[questionIndex].mandatory = true;
+    			questionList[questionIndex] = setQuestionToMandatory(questionList[questionIndex]);
+    			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
+    			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
+    		}
+    		//e.section.setItems(questionList);
+    		Alloy.Globals.aIndicator.hide();
+    	}  
+    	else{
+    		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+    	} 	
+    }
+	else{
+		e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
+	}
+	
+	newTestDependentQuestions(e.questionObject);
 
     return e.questionObject;
 };
@@ -1629,7 +1724,7 @@ var startCensesTimer = function(question){
         if (questionRef.question.value[0] == "") {
 
             questionRef.question = setQuestionError(false, L("duration_error_text"), questionRef.question);
-            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
             Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
             return false;
         } else {
@@ -1655,7 +1750,7 @@ var startCensesTimer = function(question){
 		   "<ques:notes>"+questionRef.question.notes+"</ques:notes>";
 		questionRef.question.questionResponse = questionResponse;
 		
-		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
+		questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
         Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
     }
     else{
@@ -1752,7 +1847,7 @@ var setEntireSectionTemplate = function(groupType, value, displayValue, question
             if (questionList[questionIndex].template == questionToChangeTemplate) {
             	
                 var updatedQuestion = updateAndReturnQuestion(questionList[questionIndex], value, displayValue);
-                sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion);
+                sectionList[sectionIndex].updateItemAt(questionIndex, updatedQuestion, {animated: false});
             }
         }
     }
@@ -1766,7 +1861,7 @@ function onQuestionRowClick(e){
 };
 
 /**
-`selectQuestion` updates the new question to be selected and removed the ui changes for the last selected question
+`selectQuestion` updates the passed question to be the currently selectQuestion
 
 @method selectQuestion
 
@@ -1776,72 +1871,9 @@ function onQuestionRowClick(e){
 */
 var selectQuestion = function (newQuestionSelected, newSection) {
 	
-	if(questionSelected.question != null){
-		if(newQuestionSelected.name == questionSelected.question.name)return newQuestionSelected;
-		Alloy.Globals.localDataHandler.updateQuestion(questionSelected.question);
-		 var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-		 if (questionRef != null) {
-		 	questionRef.question.selected = false;
-		 	questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question, {animated: false});
-		 }
-	}
-	
-	newQuestionSelected.selected = true;
 	questionSelected.question = newQuestionSelected;
 	questionSelected.section = newSection;
-	Alloy.Globals.localDataHandler.updateQuestion(newQuestionSelected);
-	var questionRef = findQuestionsRefFromSection(questionSelected.section, questionSelected.question.name);
-	 if (questionRef != null) {
-	 	questionRef.section.updateItemAt(questionRef.questionIndex, questionSelected.question, {animated: false});
-	 }
-	
 	return newQuestionSelected;
-	/*
-	newQuestionSelected.section = newSection;
-	//findQuestionsRefFromSection(section, name );
-	
-    var oldQuestion = questionSelected;
-    
-	if (oldQuestion != null) {
-		if(oldQuestion.name == newQuestionSelected.name)return newQuestionSelected;
-        var questionRef = findQuestionsRefFromSection(oldQuestion.section, oldQuestion.name);
-        if (questionRef != null) {
-        	if(questionRef.question.readOnly == false){
-           		Alloy.Globals.Logger.log("questionSelected change","info");
-	            questionRef.question.headerView = Alloy.Globals.Styles["headerViewDefult"];	    		
-	            questionRef.question.selected = false;
-	            questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	            
-	            
-
-	            Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-           }
-        }
-        else{
-        	Ti.API.info("question not found : "+JSON.stringify(oldQuestion));
-        }
-    }
-
-    Alloy.Globals.Logger.log("new questionSelected title = " + newQuestionSelected.title.text,"info");
-    var questionRef = findQuestionsRefFromSection(newQuestionSelected.section , newQuestionSelected.name);
-    if (questionRef != null) {
-    	if(questionRef.question.readOnly == false){
-	        questionRef.question.headerView = Alloy.Globals.Styles["headerViewSelected"];
-	        
-	        questionRef.question.selected = true;
-	        questionRef.section.updateItemAt(questionRef.questionIndex, questionRef.question);
-	        
-	        Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-	        questionRef.question.section = newSection;
-	       }
-    }
-    else{
-    	return newQuestionSelected;
-    }
-
-	questionSelected = questionRef.question;
-    return questionRef.question;
-    */
 };
 exports.selectQuestion = selectQuestion;
 
@@ -1855,15 +1887,12 @@ exports.selectQuestion = selectQuestion;
 */
 exports.saveCurrentlySelectedQuestion  = function () {
 	if (questionSelected.question != null) {
-		var sectionList = getAllQuestionSections();
+		//var sectionList = getAllQuestionSections();
 		
-		if(questionSelected.question.template == "textFieldTemplate"){
+		if(questionSelected.question.template == "textFieldTemplate" && Alloy.Globals.currentlyFocusedTF.TextField != null){
 			
 			var question = questionSelected.question;
-			var newValue = "";
-			if(Alloy.Globals.currentlyFocusedTF.TextField != null){
-				newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;	
-			}
+			var newValue = Alloy.Globals.currentlyFocusedTF.TextField.value;
 		
 			question.displayValue.value =  newValue;
 			question.value= [newValue];
@@ -1872,16 +1901,15 @@ exports.saveCurrentlySelectedQuestion  = function () {
 		   		"<ques:parameterValue>"+newValue+"</ques:parameterValue>";
 		   	
 		   	question = validateEntireQuestion(question);
-		   	Alloy.Globals.localDataHandler.updateQuestion(question);
+		   	
+		   	
+		   	questionSelected.question = question;
+		   	Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
+		   	return;
 		}
-		else if(questionSelected.question.template == "censusCounterTemplate"){
-			var sectionList = getAllQuestionSections();
-			var questionRef = findQuestionsRef(sectionList, questionSelected.question.name, questionSelected.question.groupType);
-			if (questionRef != null) {
-				//Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-				Alloy.Globals.localDataHandler.updateQuestion(questionRef.question);
-			}
-		}
+		
+		questionSelected.question = newFindQuestionObject(questionSelected.question.name, questionSelected.question.groupType);
+		Alloy.Globals.localDataHandler.setQuestionSelected(questionSelected.question, currentAssessmentObject);
 	}
 };
 

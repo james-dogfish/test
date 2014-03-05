@@ -24,7 +24,7 @@ function onTextFieldBlur(e){
 	else{
 		item.questionResponse = 
 		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-   		"<ques:parameterValue>"+e.value+"</ques:parameterValue>";
+   		"<ques:parameterValue>"+Alloy.Globals.Util.escapeXML(e.value)+"</ques:parameterValue>";
    		//"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 	}
 	

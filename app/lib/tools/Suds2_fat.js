@@ -53,7 +53,7 @@ var SudsClient = function(_options) {
     try {
       xmlDoc = Titanium.XML.parseString(_xml);
     } catch (e) {
-    	Alloy.Globals.Logger.logException(e);
+      Alloy.Globals.Logger.logException(e);
       Alloy.Globals.aIndicator.hide();
       // Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
 
@@ -150,15 +150,15 @@ var SudsClient = function(_options) {
         message: L('no_connectivity_body'),
         buttonNames: ['OK']
       });
-      if(alert_shown == false){
-     	 alertDialog.show();
-     	 alert_shown = true;
+      if (alert_shown == false) {
+        alertDialog.show();
+        alert_shown = true;
       }
       abortXHR();
       Alloy.Globals.aIndicator.hide();
       return;
-    }else{
-    	 alert_shown = false;
+    } else {
+      alert_shown = false;
     }
 
     //Build request body 
@@ -190,17 +190,19 @@ var SudsClient = function(_options) {
     }
     //POST XML document to service endpoint
     var xhr = getXHR();
+    // Turning off SSL certificate validation
+    xhr.validatesSecureCertificate = false; // Need to turn off to disable cert validation as NR env goes crazy!
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
       //Alloy.Globals.aIndicator.hide();
       Alloy.Globals.requestFailed = false;
-      try{
-      	_callback.call(this, xmlDomFromString(this.responseText));
-      }catch(e){
-      	Alloy.Globals.Logger.logException(e);
-      	Alloy.Globals.aIndicator.hide();
-      	Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
-      	return;
+      try {
+        _callback.call(this, xmlDomFromString(this.responseText));
+      } catch (e) {
+        Alloy.Globals.Logger.logException(e);
+        Alloy.Globals.aIndicator.hide();
+        Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
+        return;
       }
     };
     xhr.onerror = function(e) {
@@ -221,22 +223,23 @@ var SudsClient = function(_options) {
             if (typeof error_object !== "undefined" ||
               typeof error_object.response.Envelope.Body !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
-              typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && typeof error_code != "undefined") {
-              error_message = JSON.stringify(error_object);
+              typeof error_object.response.Envelope.Body.Fault.faultcode !== "undefined" ||
+              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined" && typeof error_code != "undefined") {
+              //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
-              if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined") {
-                error_message = error_object.response.Envelope.Body.Fault.detail.MESSAGE + ". ";
-                error_code = error_object.response.Envelope.Body.Fault.detail.CODE;
-                if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
-                  error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
-                }
+              if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
+                error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                error_code = error_object.response.Envelope.Body.Fault.faultcode;
+                // if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+                //   error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
+                // }
 
               }
-			  Alloy.Globals.requestFailed = true;
+              Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
-                title: 'Error: ' + error_code,
-                message: error_message + "\n\nWould you like to retry?",
+                title: 'WebService Error',
+                message: error_message + "\n\n" + error_code + "\n\nWould you like to retry?",
                 buttonNames: ['Yes', 'No'],
                 cancel: 1,
                 stackTrace: error_stacktrace
@@ -244,7 +247,7 @@ var SudsClient = function(_options) {
 
               alert.addEventListener('click', function(e) {
                 //Clicked cancel, first check is for iphone, second for android
-              /*  if (e.cancel === e.index || e.cancel === true) {
+                /*  if (e.cancel === e.index || e.cancel === true) {
                   Alloy.Globals.aIndicator.hide();
                   return;
                } */
@@ -253,29 +256,29 @@ var SudsClient = function(_options) {
 
                 switch (e.index) {
                   case 0:
-                   // Ti.API.error("========here0");
-                   // if(Alloy.Globals.theAssObj !== null){
+                    // Ti.API.error("========here0");
+                    // if(Alloy.Globals.theAssObj !== null){
                     //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
                     //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
-                   // }
+                    // }
                     invokeService(_soapAction, _body, _callback, _failure, _header);
-                    
+
                     break;
 
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
-                     //Ti.API.error("=========here1");
-                   // Alloy.Globals.aIndicator.hide();
-                  //  if(Alloy.Globals.theAssObj !== null){
+                    //Ti.API.error("=========here1");
+                    // Alloy.Globals.aIndicator.hide();
+                    //  if(Alloy.Globals.theAssObj !== null){
                     //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
                     //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
-                   // }
+                    // }
                     break;
 
 
                 }
               });
-              if (typeof error_code === "string") {
+              if (error_code !== null) {
                 alert.show();
               }
 
@@ -290,7 +293,7 @@ var SudsClient = function(_options) {
         //end of convertJSON
 
       } catch (e) {
-      	Alloy.Globals.Logger.logException(e);
+        Alloy.Globals.Logger.logException(e);
         Alloy.Globals.aIndicator.hide();
       }
 
@@ -308,7 +311,7 @@ var SudsClient = function(_options) {
         header += convertToXml(_header);
         header += '</' + _soapAction + '>';
       }
-      if(config.enableWs !== 'false' && config.enableWs !== false) {
+      if (config.enableWs !== 'false' && config.enableWs !== false) {
         sendXML = config.xmlDeclaration + config.envelopeBegin + config.headerBegin + header + config.headerEnd + config.bodyBegin + body + config.bodyEnd + config.envelopeEnd;
       } else {
         sendXML = config.xmlDeclaration + config.envelopeBegin + config.bodyBegin + body + config.bodyEnd + config.envelopeEnd;
