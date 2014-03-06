@@ -68,6 +68,10 @@ var _Soap = function () {
                     '   <wsse:Username>' + args.name + '</wsse:Username>' +
                     '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + /*Kafk3TB4JlTq+QvwDUDBOYnVMfM=*/ password + '</wsse:Password>' +
                 '</wsse:UsernameToken>' +
+                ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '   <wsse:Username>' + args.name + '</wsse:Username>' +
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + /*Kafk3TB4JlTq+QvwDUDBOYnVMfM=*/ password + '</wsse:Password>' +
+                '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Admin</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -110,6 +114,10 @@ var _Soap = function () {
                     '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Crossing</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -137,6 +145,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -179,6 +191,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     '   <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     '   <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -226,6 +242,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -268,6 +288,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -295,6 +319,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -340,6 +368,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Assessment</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -378,6 +410,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -425,6 +461,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Questions</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -452,6 +492,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     ' xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     ' xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    '<wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    '<wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    '<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '<wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     '<wsse:Username>' + userPass.username + '</wsse:Username>' +
                     '<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -498,6 +542,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -536,6 +584,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
@@ -582,6 +634,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Census</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -624,6 +680,10 @@ var _Soap = function () {
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
                     '</wsse:UsernameToken>' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     '</wsse:Security>' +
                     '<versionInfo xmlns="http://com.icon.networkrail.alcrm/version"><version>0.1</version><module>Train</module></versionInfo>',
                 headerEnd: '</soapenv:Header>',
@@ -662,6 +722,10 @@ var _Soap = function () {
                 headerContent: '<wsse:Security soapenv:mustUnderstand="1"' +
                     '   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"' +
                     '   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">' +
+                    ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
+                    ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
+                    ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
+                    '</wsse:UsernameToken>' +
                     ' <wsse:UsernameToken wsu:Id="UsernameToken-1">' +
                     ' <wsse:Username>' + userPass.username + '</wsse:Username>' +
                     ' <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' + userPass.password + '</wsse:Password>' +
