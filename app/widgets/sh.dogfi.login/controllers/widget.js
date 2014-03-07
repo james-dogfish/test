@@ -185,21 +185,35 @@ function doLogin() {
                                             Alloy.Globals.Index.Startup();
                                         } else {
                                             var rollOutRoutes = isRouteEnabled(route, true);
-                                            Alloy.createController('selectRouteWindow').show(rollOutRoutes, function() {
+                                            if (rollOutRoutes.length === 1) {
+                                                Ti.App.Properties.setString('SelectedRoute', rollOutRoutes[0]);
                                                 Alloy.Globals.Index.CloseLogin();
                                                 Alloy.Globals.Index.Startup();
-                                            });
+                                            } else {
+                                                Alloy.createController('selectRouteWindow').show(rollOutRoutes, function() {
+                                                    Alloy.Globals.Index.CloseLogin();
+                                                    Alloy.Globals.Index.Startup();
+                                                });
+                                            }
+
                                         }
                                     } else {
                                         if (typeof route === 'string') {
                                             Ti.App.Properties.setString('SelectedRoute', route);
                                             Alloy.Globals.Index.CloseLogin();
                                             Alloy.Globals.Index.Startup();
-                                        } else {
-                                            Alloy.createController('selectRouteWindow').show(route, function() {
+                                        } else if (Array.isArray(route)) {
+                                            if (route.length === 1) {
+                                                Ti.App.Properties.setString('SelectedRoute', route[0]);
                                                 Alloy.Globals.Index.CloseLogin();
                                                 Alloy.Globals.Index.Startup();
-                                            });
+                                            } else {
+                                                Alloy.createController('selectRouteWindow').show(route, function() {
+                                                    Alloy.Globals.Index.CloseLogin();
+                                                    Alloy.Globals.Index.Startup();
+                                                });
+                                            }
+
                                         }
                                     }
 
