@@ -42,7 +42,7 @@ function onNotesClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes",closeCallBack : function(notes){
-		
+		var item = e.section.getItemAt(e.itemIndex);
 		if(notes != ""){
 			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
 			item.notes = notes; 
