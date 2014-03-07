@@ -216,9 +216,3 @@ var openSearchClick = function(e){
 function onRowClick(e){
 	$.trigger("openRiskAssessment", {assessmentObject : activeAssessments[e.index]});
 };
-
-// Setting title of window 
-var route = Ti.App.Properties.getString('SelectedRoute', '');
-if(route !== '') {
-	$.appTitle.text = "My Risk Assessments - " + route;
-}
