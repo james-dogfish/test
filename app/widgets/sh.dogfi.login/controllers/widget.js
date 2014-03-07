@@ -178,11 +178,7 @@ function doLogin() {
 
                                     var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
 
-                                    if (typeof route == 'string' && isStagedRollOutOn == false) {
-                                        Ti.App.Properties.setString('SelectedRoute', route);
-                                        Alloy.Globals.Index.CloseLogin();
-                                        Alloy.Globals.Index.Startup();
-                                    } else if (isStagedRollOutOn == true) {
+                                    if (isStagedRollOutOn === true) {
                                         if (typeof route === 'string') {
                                             Ti.App.Properties.setString('SelectedRoute', route);
                                             Alloy.Globals.Index.CloseLogin();
@@ -195,10 +191,16 @@ function doLogin() {
                                             });
                                         }
                                     } else {
-                                        Alloy.createController('selectRouteWindow').show(route, function() {
+                                        if (typeof route === 'string') {
+                                            Ti.App.Properties.setString('SelectedRoute', route);
                                             Alloy.Globals.Index.CloseLogin();
                                             Alloy.Globals.Index.Startup();
-                                        });
+                                        } else {
+                                            Alloy.createController('selectRouteWindow').show(route, function() {
+                                                Alloy.Globals.Index.CloseLogin();
+                                                Alloy.Globals.Index.Startup();
+                                            });
+                                        }
                                     }
 
                                     Alloy.Globals.Analytics.trackNav('login', 'home', 'login:success');
@@ -228,10 +230,14 @@ function doLogin() {
                                     routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]);
                                 }
 
-                                if (isRouteEnabled(routes)) {
-                                    logTheUserIn(routes.sort(), user, pass, access);
+                                if (Alloy.CFG.stagedRollOut === true) {
+                                    if (isRouteEnabled(routes)) {
+                                        logTheUserIn(routes.sort(), user, pass, access);
+                                    } else {
+                                        loginError(L('no_valid_routes'));
+                                    }
                                 } else {
-                                    loginError(L('no_valid_routes'));
+                                    logTheUserIn(routes.sort(), user, pass, access);
                                 }
 
                             } else {
@@ -240,11 +246,16 @@ function doLogin() {
                                 } else {
                                     route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
                                 }
-                                if (isRouteEnabled(route)) {
-                                    logTheUserIn(route, user, pass, access);
+                                if (Alloy.CFG.stagedRollOut === true) {
+                                    if (isRouteEnabled(route)) {
+                                        logTheUserIn(route, user, pass, access);
+                                    } else {
+                                        loginError(L('no_valid_routes'));
+                                    }
                                 } else {
-                                    loginError(L('no_valid_routes'));
+                                    logTheUserIn(route, user, pass, access);
                                 }
+
                             }
                         }
                     }
