@@ -14,7 +14,7 @@ if (pWidth > pHeight) {
     $.loginWin.backgroundImage = WPATH('images/bg/portrait.jpg');
 }
 
-var changeBg = function (e) {
+var changeBg = function(e) {
     if (e.source.isLandscape()) {
         $.loginWin.backgroundImage = WPATH('images/bg/landscape.jpg');
     } else {
@@ -47,14 +47,14 @@ function doLogin() {
         return;
     }
 
-    var loginError = function (message) {
+    var loginError = function(message) {
         // Performs an animation and displays an error message
         Alloy.Globals.aIndicator.hide();
         var animation = require('alloy/animation');
-        animation.shake($.loginView, 0, function () {
+        animation.shake($.loginView, 0, function() {
             Alloy.Globals.Util.showAlert(message);
             Alloy.Globals.Logger.log(message, 'info');
-      
+
         });
 
     };
@@ -80,16 +80,16 @@ function doLogin() {
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
-					Alloy.Globals.Logger.logException(e);
+                    Alloy.Globals.Logger.logException(e);
                 }
-                
+
                 Alloy.Globals.Index.CloseLogin();
                 Alloy.Globals.Index.Startup();
                 return;
 
             } else {
                 Alloy.Globals.aIndicator.hide();
-                Alloy.Globals.Util.showAlert("Sorry but your username or password is incorrect, Please try again.");
+                Alloy.Globals.Util.showAlert(L('wrong_user_pass'));
             }
             return;
         }
@@ -99,12 +99,12 @@ function doLogin() {
         Alloy.Globals.Logger.log("Login button pressed", 'info');
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
-        	name: user
-        },pass,
-            function (xmlDoc) {
+                name: user
+            }, pass,
+            function(xmlDoc) {
 
                 Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
-                    function (data) {
+                    function(data) {
                         // callback
                         var loginObject = JSON.parse(data);
                         Alloy.Globals.Logger.log("loginObject >> " + JSON.stringify(loginObject), "info");
@@ -113,16 +113,56 @@ function doLogin() {
                         var accessCode = Number(loginObject.response.Envelope.Body.GetUserResponse.user.access);
                         if (accessCode === 0) {
                             // Error - No access rights! 
-                            loginError('Invalid login - ALCRM returned an access code 0. Please check your details and retry!');
+                            loginError(L('invalid_login'));
                         } else {
+
+                            // Will return a boolean if the route 
+                            // passed in is turned on in the CMS
+                            // if returnenabledroutes is true then
+                            // this function will return routes applicable
+                            // to the user that are allowed in the CMS
+                            var isRouteEnabled = function(routes, returnEnabledRoutes) {
+                                var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
+                                var rollOutRoutes = [];
+                                for (var i = 0; i < rollOutRoutesArray.length; i++) {
+                                    rollOutRoutes.push(rollOutRoutesArray[i]);
+                                }
+                                if (typeof routes === 'string') {
+                                    // Route returned by WS is a string
+                                    if (rollOutRoutes.indexOf(routes) === -1) {
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+                                } else {
+                                    // Route returned by WS is an array
+                                    var rollOutLength = rollOutRoutes.length;
+                                    while (rollOutLength--) {
+                                        if (routes.indexOf(rollOutRoutes[rollOutLength]) == -1) {
+                                            rollOutRoutes.splice(rollOutLength, 1);
+                                        }
+                                    }
+                                    if (returnEnabledRoutes) {
+                                        return rollOutRoutes;
+                                    } else {
+                                        if (rollOutRoutes.length === 0) {
+                                            return false;
+                                        } else {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            };
+
+
                             // Success Callback
 
-                            var logTheUserIn = function (route, user, pass, access) {
+                            var logTheUserIn = function(route, user, pass, access) {
 
                                 // Remove the login fields now
                                 $.loginWin.removeAllChildren();
 
-                               Alloy.Globals.Logger.setUserName(user);
+                                Alloy.Globals.Logger.setUserName(user);
 
                                 // Build out arguments object to check login
                                 var args = {
@@ -132,50 +172,54 @@ function doLogin() {
                                     route: route
                                 };
 
-                                Alloy.Globals.User.setLogin(args, function (args) {
+                                Alloy.Globals.User.setLogin(args, function(args) {
                                     // Success callback
                                     // Shows the home screen now
-                                    // $.window.close();
-                                    //Ti.App.fireEvent('closeLoginWin');
 
                                     var isStagedRollOutOn = require('alloy').CFG.stagedRollOut;
 
-                                    if (typeof route == 'string' && isStagedRollOutOn == false) {
-                                        Ti.App.Properties.setString('SelectedRoute', route);
-                                        Alloy.Globals.Index.CloseLogin();
-                                        Alloy.Globals.Index.Startup();
-                                    } else if (isStagedRollOutOn == true) {
-                                        var rollOutRoutesArray = JSON.parse(Ti.App.Properties.getString('stagedRollOutRoutes'));
-                                        var rollOutRoutes = [];
-                                        for (var i = 0; i < rollOutRoutesArray.length; i++) {
-                                            rollOutRoutes.push(rollOutRoutesArray[i]);
-                                        }
-                                        
-                                    	var rollOutLength = rollOutRoutes.length;
-                                    	while(rollOutLength--)
-                                    	{
-                                    		if(route.indexOf(rollOutRoutes[rollOutLength]) == -1)
-                                        	{
-                                        		Ti.API.info("splicing "+rollOutRoutes[rollOutLength]);
-                                        		rollOutRoutes.splice(rollOutLength,1);
-                                        	}
-                                    	}
-                                       
-                                       
-                                        Alloy.createController('selectRouteWindow').show(rollOutRoutes, function () {
-                                            Alloy.Globals.Index.CloseLogin();   
-                                            Alloy.Globals.Index.Startup();
-                                        });
-                                    } else {
-                                        Alloy.createController('selectRouteWindow').show(route, function () {
+                                    if (isStagedRollOutOn === true) {
+                                        if (typeof route === 'string') {
+                                            Ti.App.Properties.setString('SelectedRoute', route);
                                             Alloy.Globals.Index.CloseLogin();
                                             Alloy.Globals.Index.Startup();
-                                        });
+                                        } else {
+                                            var rollOutRoutes = isRouteEnabled(route, true);
+                                            if (rollOutRoutes.length === 1) {
+                                                Ti.App.Properties.setString('SelectedRoute', rollOutRoutes[0]);
+                                                Alloy.Globals.Index.CloseLogin();
+                                                Alloy.Globals.Index.Startup();
+                                            } else {
+                                                Alloy.createController('selectRouteWindow').show(rollOutRoutes, function() {
+                                                    Alloy.Globals.Index.CloseLogin();
+                                                    Alloy.Globals.Index.Startup();
+                                                });
+                                            }
+
+                                        }
+                                    } else {
+                                        if (typeof route === 'string') {
+                                            Ti.App.Properties.setString('SelectedRoute', route);
+                                            Alloy.Globals.Index.CloseLogin();
+                                            Alloy.Globals.Index.Startup();
+                                        } else if (Array.isArray(route)) {
+                                            if (route.length === 1) {
+                                                Ti.App.Properties.setString('SelectedRoute', route[0]);
+                                                Alloy.Globals.Index.CloseLogin();
+                                                Alloy.Globals.Index.Startup();
+                                            } else {
+                                                Alloy.createController('selectRouteWindow').show(route, function() {
+                                                    Alloy.Globals.Index.CloseLogin();
+                                                    Alloy.Globals.Index.Startup();
+                                                });
+                                            }
+
+                                        }
                                     }
 
                                     Alloy.Globals.Analytics.trackNav('login', 'home', 'login:success');
 
-                                }, function (args) {
+                                }, function(args) {
                                     // Error - No access rights! 
                                     loginError('Login invalid - Access code is ' + args.access + ' and route returned is ' + args.route);
                                 });
@@ -184,31 +228,59 @@ function doLogin() {
                             var access = loginObject.response.Envelope.Body.GetUserResponse.user.access;
                             route = null;
 
+                            var routeLength;
+
                             // 22-08 - Multi-route login
-                            var routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.areas.length;
+                            // Update for bugfix
+                            if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
+                                routeLength = 1;
+                            } else {
+                                routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.areas.length;
+                            }
 
                             if (Number(routeLength) > 1) {
                                 var routes = [];
                                 for (var i = 0; i < routeLength; i++) {
                                     routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]);
                                 }
-                               
-                                logTheUserIn(routes.sort(), user, pass, access);
+
+                                if (Alloy.CFG.stagedRollOut === true) {
+                                    if (isRouteEnabled(routes)) {
+                                        logTheUserIn(routes.sort(), user, pass, access);
+                                    } else {
+                                        loginError(L('no_valid_routes'));
+                                    }
+                                } else {
+                                    logTheUserIn(routes.sort(), user, pass, access);
+                                }
 
                             } else {
-                                route = loginObject.response.Envelope.Body.GetUserResponse.user.areas[0];
-                                logTheUserIn(route, user, pass, access);
+                                if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                } else {
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                }
+                                if (Alloy.CFG.stagedRollOut === true) {
+                                    if (isRouteEnabled(route)) {
+                                        logTheUserIn(route, user, pass, access);
+                                    } else {
+                                        loginError(L('no_valid_routes'));
+                                    }
+                                } else {
+                                    logTheUserIn(route, user, pass, access);
+                                }
+
                             }
                         }
                     }
                 );
-				},function(xmlDoc){
-					Alloy.Globals.aIndicator.hide();
-				});
+            }, function(xmlDoc) {
+                Alloy.Globals.aIndicator.hide();
+            });
 
-        } else {
-            loginError('Please check your credentials!');
-        }
+    } else {
+        loginError(L('enter_email_and_password'));
+    }
 }
 
 function focusPassword() {

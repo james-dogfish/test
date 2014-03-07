@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	
+	<!-- login related -->
+		<string name="invalid_login">'Invalid login - ALCRM returned an access code 0. Please check your details and retry!'</string>
+		<string name="no_valid_routes">No routes found for your Username or the route has not been enabled by the Administrator.</string>
+		<string name="wrong_user_pass">Sorry but your username or password is incorrect, Please try again.</string>
+		<string name="enter_email_and_password">Please check your credentials!</string>
+
 	<!-- general/miscellaneous -->
 	    <string name="no_data">No data available. Please try again!</string>  
 	    <string name="no_results">No Results Available.</string>
@@ -26,9 +32,6 @@
 	    <string name="noCensusMessage">You must complete at least 1 census</string>   
 	    <string name="censusDesktopCompleteMessage">You can now complete the Census by ALCRM Desktop</string>
 	    <string name="censusDesktopComplete_alertYesNo">Are you sure? This will remove any attached censuses for this assessment.</string>
-	    
-	    
-	    
     
     <!-- validation strings for RA form -->
 	    <string name="mandatory_error_text">This question is mandatory</string>
