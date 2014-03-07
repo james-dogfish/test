@@ -13,7 +13,7 @@
 }
 */
 "#window" : {
-	exitOnClose : true
+	//exitOnClose : true
 },
 "#appTitle" : {
 	text : L("modalPickerTitle"),
@@ -26,17 +26,19 @@
 
 "#background" : {
 	backgroundColor:"#000",
-	opacity : 0
+	opacity : 0.5
 },
 "#modalBackgorund" : {
 	width: "50%",
-	right : "-50%",
+	//right : "-50%",
 	height: Ti.UI.SIZE,
+	top : "30%",
+	bottom : "30%",
 	layout : "vertical",
 	backgroundColor:"#fff",
 	borderRadius: 5,
-	borderWidth : 2,
-	borderColor : "#aaa",
+	borderWidth : 4,
+	borderColor : "#bbb",
 },
 "#pickerContainerView" : {
 	width: Ti.UI.SIZE,

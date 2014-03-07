@@ -16,13 +16,13 @@
 },
 "#modalBackgorund" : {
 	width: "50%",
-	right : "-50%",
+	//right : "-50%",
 	height: "50%",
 	layout : "vertical",
 	backgroundColor:"#fff",
 	borderRadius: 5,
-	borderWidth : 2,
-	borderColor : "#aaa",
+	borderWidth : 4,
+	borderColor : "#bbb",
 },
 "#textAreaContainerView" : {
 	width: Ti.UI.FILL,

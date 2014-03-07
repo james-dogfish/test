@@ -229,6 +229,78 @@ must NOT be used to delete assessments
     };
     
     
+    /**
+	`updateQuestionsSelectedInSavedFile` will set this question to seleted, and change all others to not in specified file
+	called by setQuestionToSelected
+	
+	@method updateQuestionsSelectedInSavedFile
+	
+	@param {JSON_Object} question
+	@param {String} fileName
+	
+	@return {} n/a
+	*/
+    var updateQuestionsSelectedInSavedFile = function(question, fileName){
+    	var file = Ti.Filesystem.getFile(self.getWorkingDirectory() + fileName);
+        if (file.exists()) {
+        	var sectionList = JSON.parse(file.read().text);
+        	for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
+
+	            if (sectionList[sectionIndex].alcrmGroupType == question.alcrmGroupType) {
+	                var questionList = sectionList[sectionIndex].questionList;
+	
+	                for (var questionIndex = 0; questionIndex < sectionList[sectionIndex].questionList.length; questionIndex++) {
+	                	if(sectionList[sectionIndex].questionList[questionIndex] === null)continue;
+	                	if(sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('name') === false)continue;
+	                	if(sectionList[sectionIndex].questionList[questionIndex].hasOwnProperty('selected') === false)continue;
+	                	
+	                    if(sectionList[sectionIndex].questionList[questionIndex].name === question.name){
+	                    	//alert("question Found");
+	                    	sectionList[sectionIndex].questionList[questionIndex] = question;
+	                    	sectionList[sectionIndex].questionList[questionIndex].selected = true;
+	                    }
+	                    else{
+	                    	sectionList[sectionIndex].questionList[questionIndex].selected = false;
+	                    }
+	                }
+	            }
+	        }
+	        
+	        file.write(JSON.stringify(sectionList));
+        }
+        else{
+        	return;
+        }
+            
+    };
+    
+    /**
+	`setQuestionToSelected` will set this question to seleted, and change all others to not. only to be called on save and exit
+	
+	@method setQuestionToSelected
+	
+	@param {JSON_Object} question
+	@param {JSON_Object} assessmentObject
+	
+	@return {} n/a
+	*/
+    self.setQuestionSelected = function(question, assessmentObject){
+    	if(question === null)return;
+    	
+    	assessmentObject = self.getMostUpTodateAssessmentObject(assessmentObject);
+    	
+    	updateQuestionsSelectedInSavedFile(question, assessmentObject.mainQuestionsfileName);
+    	
+    	for(var i=0; i< assessmentObject.censusQuestionsfileNameList.length; i++){
+    		updateQuestionsSelectedInSavedFile(question, assessmentObject.censusQuestionsfileNameList[i]);
+    	}
+    	for(var i=0; i< assessmentObject.trainGroupQuestionsfileNameList.length; i++){
+    		updateQuestionsSelectedInSavedFile(question, assessmentObject.trainGroupQuestionsfileNameList[i]);
+    	}
+    	
+    };
+    
+    
 /**
 `setQuestionToMandatory` will update a question to be Mandatory 
 
@@ -977,7 +1049,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 	                        if (typeof questionList[questionListIndex].value === "undefined") continue;
 	                        if (!(questionList[questionListIndex].value instanceof Array)) continue;
 	                        if (questionList[questionListIndex].value.length <= 0) continue;
-	                        if (questionList[questionListIndex].value[0] != "") {
+	                        if (questionList[questionListIndex].questionResponse != null) {
 	                            assessmentObject.questionsCompleted++;
 	                        }
 	                    }

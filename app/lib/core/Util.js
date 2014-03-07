@@ -143,6 +143,7 @@ function _Util() {
 				Ti.App.Properties.setString('helpContent', data.help);
 				Ti.App.Properties.setString('stagedRollOutRoutes', JSON.stringify(data.routes));
 				Ti.App.Properties.setList('censusCounterQuestions', data.censusCounterQuestions);
+				Ti.App.Properties.setList('removedSections', data.removedSections);
 				Ti.App.Properties.setList('removedQuestions', data.removedQuestions);
 				Ti.App.Properties.setList('hiddenQuestions', data.hiddenQuestions);
 				Ti.App.Properties.setList('timerPickerQuestions', data.timerPickerQuestions);
