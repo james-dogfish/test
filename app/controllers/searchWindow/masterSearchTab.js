@@ -225,3 +225,10 @@ exports.setData = function(shouldRefresh) {
 		});
 	}
 };
+
+
+// Setting title of window 
+var route = Ti.App.Properties.getString('SelectedRoute', '');
+if(route !== '') {
+	$.appTitle.text = "Crossing Search - " + route;
+}
