@@ -29,7 +29,7 @@ var _Soap = function() {
 
     var loginUrl = serverUrl + 'adminService/admin.wsdl',
         assessmentUrl = serverUrl + 'assessmentService/assessment.wsdl',
-        questionsUrl = serverUrl + 'questionsService/questions.wsdl',
+        questionsUrl = serverUrl + 'questionService/questions.wsdl',
         crossingUrl = serverUrl + 'crossingService/crossing.wsdl',
         censusUrl = serverUrl + 'censusService/census.wsdl',
         trainUrl = serverUrl + 'trainService/train.wsdl';
