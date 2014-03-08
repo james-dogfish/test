@@ -102,6 +102,8 @@ var closeWindow = function() {
 };
 
 function onBackgroundClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	args.closeWithNoValueCallBack();
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
@@ -112,10 +114,14 @@ function onBackgroundClick(e) {
 }
 
 function rightNavButtonClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	closeWindow();
 };
 
 function clearButtonClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	var returnValue = {
 		displayNameList: [],
 		valueList: [],

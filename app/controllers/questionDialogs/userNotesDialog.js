@@ -11,9 +11,6 @@ if(args.title == ""  || typeof args.title === "undefined"){
 else{
 	$.appTitle.text = args.title;
 }
-
-
-
 $.hintText.text = "Enter Notes : ";
 
 /*var animationFadeIn = Titanium.UI.createAnimation();
@@ -37,6 +34,7 @@ animationClose.addEventListener("complete", function(e){
 });*/
 
 var closeWindow = function(){
+	
 	args.closeCallBack($.textArea.value);
 	//$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
@@ -47,10 +45,14 @@ var closeWindow = function(){
 };
 
 function onBackgroundClick(e){
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	closeWindow();
 }
 
 function rightNavButtonClick(e){
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	closeWindow();
 };
 

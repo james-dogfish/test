@@ -59,6 +59,9 @@ var closeWindow = function(){
 };
 
 function onBackgroundClick(e){
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
+	
 	args.closeWithNoValueCallBack();
 	//$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
@@ -69,10 +72,16 @@ function onBackgroundClick(e){
 }
 
 function rightNavButtonClick(e){
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
+	
 	closeWindow();
 };
 
 function clearButtonClick(e){
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
+	
 	args.closeCallBack("");
 	//$.modalBackgorund.animate(animationClose);
 	//$.background.animate(animationFadeOut);
