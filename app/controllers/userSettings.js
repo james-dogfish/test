@@ -21,19 +21,19 @@ var blurAllFields = function() {
 var saveSettings = function() {
 	blurAllFields();
 
-	if(!$.name.value) {
+	if (!$.name.value) {
 		Alloy.Globals.Util.slideNotify(0, 'Please provide a valid name.');
 		//alert('Please provide a valid name.');
 		return false;
 	}
 
-	if(!Alloy.Globals.Validator.isValidText($.name.value, 50)) {
+	if (!Alloy.Globals.Validator.isValidText($.name.value, 50)) {
 		Alloy.Globals.Util.slideNotify(0, 'Please enter a name that is less than 50 characters.');
 		//alert('Please enter a name that is less than 50 characters.');
 		return false;
 	}
 
-	if(!Alloy.Globals.Validator.isNumber($.mobile.value, 15)) {
+	if (!Alloy.Globals.Validator.isNumber($.mobile.value, 15)) {
 		//alert('Please enter a valid mobile number.');
 		Alloy.Globals.Util.slideNotify(0, 'Please enter a valid mobile number.');
 		return false;
@@ -44,9 +44,9 @@ var saveSettings = function() {
 		//alert('Please provide a valid email address.');
 		Alloy.Globals.Util.slideNotify(0, 'Please provide a valid email address.');
 		return false;
-	} 
+	}
 
-	if(!Alloy.Globals.Validator.isValidText($.email.value, 254)) {
+	if (!Alloy.Globals.Validator.isValidText($.email.value, 254)) {
 		//alert('Please enter an email address that is less than 254 characters.');
 		Alloy.Globals.Util.slideNotify(0, 'Please enter an email address that is less than 254 characters.');
 		return false;
@@ -62,18 +62,18 @@ var saveSettings = function() {
 	Alloy.Globals.User.setPreferences(settingsObj);
 
 	Alloy.Globals.Util.slideNotify(0, '', true); // hide any open settings errors
-	
+
 	Ti.App.fireEvent("singleViewChange", {
-			isSingleView : $.sectionSwitch.value
-		}); 
+		isSingleView: $.sectionSwitch.value
+	});
 
 	$.window.close();
 	$.destroy();
 };
 
-var closeSettings = function() {		
-			$.window.close();
-			$.destroy();
+var closeSettings = function() {
+	$.window.close();
+	$.destroy();
 };
 
 exports.open = function() {
@@ -87,3 +87,23 @@ function focusMobile() {
 function focusEmail() {
 	$.email.focus();
 }
+
+function sendBugReport() {
+
+	var appVersion = Ti.App.version,
+		osVersion = Ti.Platform.osname + " " + Ti.Platform.version,
+		deviceType = Ti.Platform.model,
+		sdkVersion = Ti.version;
+
+	var emailBody = 'App Version - ' + appVersion + '\n';
+	emailBody += 'OS Version - ' + osVersion + '\n';
+	emailBody += 'Devide Model - ' + deviceType + '\n';
+	emailBody += 'Titanium SDK Version - ' + sdkVersion;
+
+	var zipBlob = Alloy.Globals.Util.zipUpDocumentsFolder();
+
+	Alloy.Globals.Util.sendBugReport({
+		emailBody: emailBody,
+		docsZip: zipBlob
+	});
+};
