@@ -93,12 +93,16 @@ function sendBugReport() {
 	var appVersion = Ti.App.version,
 		osVersion = Ti.Platform.osname + " " + Ti.Platform.version,
 		deviceType = Ti.Platform.model,
-		sdkVersion = Ti.version;
-
-	var emailBody = 'App Version - ' + appVersion + '\n';
+		sdkVersion = Ti.version,
+		emailBody = '';
+	emailBody += 'Please describe your problem here by providing as much detail as you can - \n\n';
+	emailBody += '\n--------------------------------------------------\n';
+	emailBody += 'Diagnostic information - Please do not edit!\n';
+	emailBody += 'App Version - ' + appVersion + '\n';
 	emailBody += 'OS Version - ' + osVersion + '\n';
 	emailBody += 'Devide Model - ' + deviceType + '\n';
 	emailBody += 'Titanium SDK Version - ' + sdkVersion;
+	emailBody += '\n--------------------------------------------------\n';
 
 	var zipBlob = Alloy.Globals.Util.zipUpDocumentsFolder();
 
