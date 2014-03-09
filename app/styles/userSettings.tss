@@ -8,7 +8,7 @@
 },
 "#settingView": {
 	width : 400,
-	height : 475,
+	height : Ti.UI.SIZE,
 	backgroundColor : '#084e6d',
 	borderRadius : 8,
 	borderSize : 1,
@@ -63,10 +63,11 @@
 	left: 25,
 	top: 10
 },
-"#saveButton": {
-	top: 15,
-	width: 125,
-	height: 35,
+".saveButton": {
+	top: 10,
+	bottom: 10,
+	width: 170,
+	height: 45,
 	borderRadius:6,
     borderWidth:1,
     borderColor:'#151d21',
@@ -81,6 +82,29 @@
             y : '100%'
         },
         colors : ['#456473', '#052f43']
+    },
+    backgroundColor: 'transparent',
+    backgroundImage: 'none'
+},
+".bugReport": {
+	top: 5,
+	bottom: 5,
+	width: 170,
+	height: 45,
+	borderRadius:6,
+    borderWidth:1,
+    borderColor:'#092d41',
+	backgroundGradient : {
+        type : 'linear',
+        startPoint : {
+            x : '100%',
+            y : '0%'
+        },
+        endPoint : {
+            x : '100%',
+            y : '100%'
+        },
+        colors : ['#1e7db4','#155c85']
     },
     backgroundColor: 'transparent',
     backgroundImage: 'none'

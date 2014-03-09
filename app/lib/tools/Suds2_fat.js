@@ -224,22 +224,22 @@ var SudsClient = function(_options) {
               typeof error_object.response.Envelope.Body !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault.faultcode !== "undefined" ||
-              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined" && typeof error_code != "undefined") {
+              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
               //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
-                // if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
-                //   error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
-                // }
+                if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+                  error_message += "\n\n" + error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
+                }
 
               }
               Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
                 title: 'WebService Error',
-                message: error_message + "\n\n" + error_code + "\n\nWould you like to retry?",
+                message: "\n" + error_message +  "\n\nWould you like to retry?",
                 buttonNames: ['Yes', 'No'],
                 cancel: 1,
                 stackTrace: error_stacktrace

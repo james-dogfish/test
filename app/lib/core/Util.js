@@ -349,6 +349,83 @@ function _Util() {
 
 	/*
 	 |---------------------------------------------------------------------------------
+	 | Emails a bug report by using the cms api
+	 |---------------------------------------------------------------------------------
+	 */
+	self.sendBugReport = function(args, success) {
+
+		var emailDialog = Ti.UI.createEmailDialog();
+		emailDialog.subject = 'Bug Report';
+
+		emailDialog.messageBody = args.emailBody;
+		emailDialog.toRecipients = ['shebby@dogfi.sh', 'james@dogfi.sh'];
+
+		emailDialog.addAttachment(args.docsZip);
+		emailDialog.addEventListener('complete', function(){
+			args.docsZip.deleteFile();
+			args.docsZip = null;
+		});
+		emailDialog.open();
+
+	};
+
+	self.zipUpDocumentsFolder = function() {
+
+		// Will return all the files of a folder in an array
+		function returnFilesFromDir(folder) {
+			var outputArray = [];
+
+			try {
+				var dir = Titanium.Filesystem.getFile(folder);
+				var dir_files = dir.getDirectoryListing();
+
+				for (var i = 0; i < dir_files.length; i++) {
+					if (dir_files[i].toString() !== 'bugReport.zip') {
+						// get the file now
+						var file = Titanium.Filesystem.getFile(dir_files[i]);
+						// We only need the files inside the folder 
+						if (dir_files[i].toString().indexOf('.') !== -1) {
+							outputArray.push(folder + '/' + dir_files[i].toString());
+							// outputArray.push(folder + '/' + dir_files[i].toString());
+						} else if(Alloy.Globals.User.getLogin().username === dir_files[i].toString()){
+							// maybe a directory 
+							// we only need the logged in directory of the user
+							outputArray = outputArray.concat(returnFilesFromDir(folder + '/' + dir_files[i]));
+						}
+						file = null;
+					}
+				}
+			} catch(e) {
+
+			}
+
+			return outputArray;
+		};
+		var docsFolder = Ti.Filesystem.applicationDataDirectory;
+		var outPutFile = docsFolder + '/bugReport.zip';
+		var Compression = require('ti.compression');
+
+		var filesToZip = [];
+		
+		filesToZip = returnFilesFromDir(docsFolder);
+
+		if(filesToZip.length!==0) {
+			var result = Compression.zip(outPutFile, filesToZip);
+			// Now read the zip file
+			var zipFile = Titanium.Filesystem.getFile(outPutFile);
+			if(zipFile.exists()) {
+				return zipFile;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	};
+
+
+	/*
+	 |---------------------------------------------------------------------------------
 	 | Function to check whether we a nested json structure exists
 	 |---------------------------------------------------------------------------------
 	 */
