@@ -238,7 +238,7 @@ var SudsClient = function(_options) {
               Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
-                title: 'WebService Error - ' + error_code,
+                title: 'WebService Error',
                 message: "\n" + error_message +  "\n\nWould you like to retry?",
                 buttonNames: ['Yes', 'No'],
                 cancel: 1,
