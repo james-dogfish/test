@@ -1083,6 +1083,10 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
             	assessmentObject =  getQuestionCountForFile(assessmentObject.trainGroupQuestionsfileNameList[i], assessmentObject);
             }
             
+            for(var i =0; i < assessmentObject.censusQuestionsfileNameList.length; i++){
+                assessmentObject =  getQuestionCountForFile(assessmentObject.censusQuestionsfileNameList[i], assessmentObject);
+            }
+
             self.updateSingleAssessmentIndexEntry(assessmentObject);
             return assessmentObject;
         } catch (e) {
