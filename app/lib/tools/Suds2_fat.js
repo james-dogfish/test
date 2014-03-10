@@ -230,7 +230,8 @@ var SudsClient = function(_options) {
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
-                if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+                if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && 
+                    typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
                   error_message += "\n\n" + error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
                 }
 
