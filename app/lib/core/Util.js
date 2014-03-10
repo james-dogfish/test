@@ -365,7 +365,11 @@ function _Util() {
 			args.docsZip.deleteFile();
 			args.docsZip = null;
 		});
-		emailDialog.open();
+		if(emailDialog.isSupported()) {
+			emailDialog.open();
+		} else {
+			self.showAlert(L('no_email_client'));
+		}
 
 	};
 
