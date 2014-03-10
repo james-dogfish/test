@@ -71,6 +71,9 @@ var closeWindow = function() {
 };
 
 function onBackgroundClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
+	
 	if (args.closeWithNoValueCallBack) {
 		args.closeWithNoValueCallBack();
 	}
@@ -83,10 +86,14 @@ function onBackgroundClick(e) {
 }
 
 function rightNavButtonClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	closeWindow();
 };
 
 function clearButtonClick(e) {
+	$.background.touchEnabled = false;
+	$.modalBackgorund.touchEnabled = false;
 	args.closeCallBack({
 		title: "",
 		value: ""

@@ -224,58 +224,38 @@ var SudsClient = function(_options) {
               typeof error_object.response.Envelope.Body !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault.faultcode !== "undefined" ||
-              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined" && typeof error_code != "undefined") {
+              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
               //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
-                // if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
-                //   error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
-                // }
+                if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+                  error_message += "\n\n" + error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
+                }
 
               }
               Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
                 title: 'WebService Error',
-                message: error_message + "\n\n" + error_code + "\n\nWould you like to retry?",
+                message: "\n" + error_message +  "\n\nWould you like to retry?",
                 buttonNames: ['Yes', 'No'],
                 cancel: 1,
                 stackTrace: error_stacktrace
               });
 
               alert.addEventListener('click', function(e) {
-                //Clicked cancel, first check is for iphone, second for android
-                /*  if (e.cancel === e.index || e.cancel === true) {
-                  Alloy.Globals.aIndicator.hide();
-                  return;
-               } */
-
                 //now you can use parameter e to switch/case
 
                 switch (e.index) {
                   case 0:
-                    // Ti.API.error("========here0");
-                    // if(Alloy.Globals.theAssObj !== null){
-                    //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                    //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
-                    // }
                     invokeService(_soapAction, _body, _callback, _failure, _header);
-
                     break;
 
                     //This will never be reached, if you specified cancel for index 1
                   case 1:
-                    //Ti.API.error("=========here1");
-                    // Alloy.Globals.aIndicator.hide();
-                    //  if(Alloy.Globals.theAssObj !== null){
-                    //	Alloy.Globals.riskAssessmentWindow.clearAllSubmitMessages();
-                    //	Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(Alloy.Globals.theAssObj,false,L('assessmentNotCompleted'),"assessmentNotCompleted");
-                    // }
                     break;
-
-
                 }
               });
               if (error_code !== null) {

@@ -122,7 +122,12 @@ function searchFromSearchButton()
 					});
 
 			},
-			function(xmlDoc) {});
+			function() {
+				alert('failure function');
+				Alloy.Globals.aIndicator.hide();
+				Alloy.Globals.Util.showAlert(L('no_results'));
+			});
+
 		Alloy.Globals.aIndicator.show("Downloading Crossings...",function(){
 			sudsClient.abort();	
 		});
@@ -220,3 +225,10 @@ exports.setData = function(shouldRefresh) {
 		});
 	}
 };
+
+
+// Setting title of window 
+var route = Ti.App.Properties.getString('SelectedRoute', '');
+if(route !== '') {
+	$.appTitle.text = "Crossing Search - " + route;
+}
