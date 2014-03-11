@@ -5,24 +5,12 @@
 				<Label id="questionTitle" bindId="title" class="questionTitle"/>
 				<Button class="notesButton" onClick="onNotesClick" bindId="notesBackground"/>
 			</View>
-			
 			<View class="questionErrorMessageView" bindId="questionErrorMessageView">
 				<Label id="questionErrorMessage" class="questionErrorMessage" bindId="questionErrorMessage"/>
 			</View>
-			
-			
 			<View class="questionView">
-				
 				<TextField id="valueTextField" class="inputField" bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus"/>	
-				<!--
-				<View id="valueTextFieldContainer" class="inputFieldContainer" >
-					<TextArea  id="valueTextField"  bindId="displayValue" onBlur="onTextFieldBlur" onFocus="onTextFieldFocus" onChange="onTextFieldChange"/>
-				</View>
-				-->
-			</View>
-			
-			
-			
+			</View>	
 		</View>
     </ItemTemplate>
 </Alloy>
