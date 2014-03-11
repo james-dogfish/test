@@ -10,7 +10,6 @@
 					<Label class="systemButtonText" text="Menu" onClick="openMenu" />
 				</Button>
 			</Toolbar>
-			<!--<Require id="questionListView" src="questionRenderer" type="view"/>-->
 		</Window>
 	</Tab>
 </Alloy>

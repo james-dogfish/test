@@ -1,7 +1,6 @@
 "#subsectionHeaderTemplate" : {
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
-	
 	bottom : "10dp"
 },
 "#mainView" : {

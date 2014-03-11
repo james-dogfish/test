@@ -1222,40 +1222,8 @@ var validateSingleQuestionValue = function (value, questionObject) {
         	returnObject.isValid = true;
             return returnObject;
         }
-   		/*
-        if (questionObject.validation.mandatory == true) {
-
-            returnObject.isValid = false;
-            returnObject.outPutMessage = L("mandatory_error_text");
-            return returnObject;
-        } else {
-
-            var conditionalMandatory = questionObject.validation.conditionalMandatory;
-            if (conditionalMandatory.length != 0) {
-                for (var i = 0; i < conditionalMandatory.length; i++) {
-
-                    var testValue = findQuestionsValue(conditionalMandatory[i].name);
-
-                    if (conditionalMandatory[i].value == null) {
-                        continue;
-                    }
-
-                    for (var testValueIndex = 0; testValueIndex < testValue.length; testValueIndex++) {
-                        if (conditionalMandatory[i].value == testValue[testValueIndex]) {
-                            returnObject.isValid = false;
-                            returnObject.outPutMessage = L("mandatory_error_text");;
-                            return returnObject;
-                        }
-                    }
-                }
-            }
-
-            returnObject.isValid = true;
-            return returnObject;
-        }
-        */
     }
-	//alert(dataType);
+	
     if (dataType == "numeric" || dataType == "numericRange") {
         var test = Alloy.Globals.Validator.isNumber(Number(value), false);
         if (test == false || value.match(/^0+/)!==null) {
@@ -1397,16 +1365,6 @@ var validateEntireQuestion = function (questionObject) {
     return questionObject;
 };
 
-/*
-//`Ti.App.addEventListener("singleViewChange)` listen for an event of the question renderer
-//being changed from single to muiti section view
-Ti.App.addEventListener("singleViewChange", function (data) {
-    setListViewDisplayTypeToSingleSections(data.isSingleView);
-});
-*/
-
-
-
 /**
 `moveSectionBackClick` the callback function for the button click to move the selected section
 in the single section mode to the previous section
@@ -1419,8 +1377,6 @@ in the single section mode to the previous section
 */
 
 function moveSectionBackClick(e) {
-
-    //setSelectedSectionForSingleSections(currentSingleSectionIndex -1);
     moveSelectedSectionForSingleSections(currentSingleSectionIndex, -1);
 };
 
@@ -1437,7 +1393,6 @@ in the single section mode to the next section
 @return {} n/a
 */
 function moveSectionNextClick(e) {
-    //setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
     moveSelectedSectionForSingleSections(currentSingleSectionIndex, 1);
 };
 
@@ -1507,8 +1462,6 @@ var questionValueChange = function (e) {
 
     // Blur the currently focused TF
     blurCurrentlyFocusedTF();
-
-	//alert(e.section.pageType);
     
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
@@ -1517,13 +1470,7 @@ var questionValueChange = function (e) {
 	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
-
-	//Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
-    Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
-    
-    //Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
-    
-    
+	Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
     if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
     	if(e.questionObject.value[0] == "" && e.questionObject.mandatory == true){
@@ -1555,7 +1502,6 @@ var questionValueChange = function (e) {
     		else{
     			e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     		}
-    		//e.section.setItems(questionList);
     	}
     	else if(e.questionObject.value[0] != "" && e.questionObject.mandatory == false){
     		var questionList = e.section.getItems();
@@ -1570,7 +1516,6 @@ var questionValueChange = function (e) {
     			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
     			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
     		}
-    		//e.section.setItems(questionList);
     		Alloy.Globals.aIndicator.hide();
     	}  
     	else{

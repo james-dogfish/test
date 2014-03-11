@@ -20,15 +20,14 @@
 	color : '#ffffff'	
 },
 "#listView" : {
-	backgroundColor:"#fff",
+	backgroundColor:"#fff"
 },
 "#listView" : {
 	backgroundColor:"#fff",
 	caseInsensitiveSearch: true
 },
 "#tableVeiw" : {
-	filterAttribute : "filter",
-	
+	filterAttribute : "filter"
 },
 "#searchBar" : {
 	barColor:'#000', 

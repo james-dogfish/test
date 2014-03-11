@@ -49,7 +49,7 @@
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT,
 	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD
-	},
+},
 ".label": {
 	top: 15,
 	left: 25,

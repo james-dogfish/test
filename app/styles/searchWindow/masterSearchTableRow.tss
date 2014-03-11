@@ -5,8 +5,7 @@
 "#viewGroup" : {
 	width : Ti.UI.FILL,
 	height: Ti.UI.SIZE,
-	
-	layout: 'vertical',
+	layout: 'vertical'
 },
 "#crossingName" : {
 	width : Ti.UI.FILL,
@@ -16,7 +15,6 @@
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'normal'},
 	color: '#000000'
 },
-
 "#crossingElr" : {
 	width : Ti.UI.FILL,
 	height: "15dp",

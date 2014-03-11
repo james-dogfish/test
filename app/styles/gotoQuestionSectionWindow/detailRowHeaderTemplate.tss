@@ -2,7 +2,6 @@
 	width: Ti.UI.FILL,
 	height : "40dp",
 	backgroundColor : "#E4E9EB"
-	//selectionStyle : Titanium.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "#title" : {
 	width: Ti.UI.FILL,
@@ -17,6 +16,3 @@
 	height : "20dp",
 	left : "10dp",
 }
-
-
-

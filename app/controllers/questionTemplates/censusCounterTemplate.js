@@ -1,5 +1,3 @@
-//var currentValue = "";
-
 function onNotesClick(e){
 	if(Alloy.Globals.dialogWindowOpen == true)return;
 	else Alloy.Globals.dialogWindowOpen = true;
@@ -62,7 +60,6 @@ function onTextField1Blur(e){
 	var questionResponse =
        "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
        "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
-      // "<ques:notes>"+item.notes+"</ques:notes>";
        
     item.questionResponse = questionResponse;
 	
@@ -85,8 +82,6 @@ var addValue = function(additionValue, e){
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
 	
-	// item = Alloy.Globals.questionRenderer.selectQuestion(item,e.section);
-	
 	var intValue = intValue = parseInt(item.value[0]);
 	if(isNaN(intValue)){
 		intValue =0;
@@ -105,8 +100,6 @@ var addValue = function(additionValue, e){
        "<ques:parameterValue>"+item.value[0]+"</ques:parameterValue>";
     
     item.questionResponse = questionResponse;
-    
-   	//item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 
 	section.updateItemAt(e.itemIndex, item);
 	Alloy.Globals.localDataHandler.updateQuestion(item);

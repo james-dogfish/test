@@ -13,9 +13,6 @@
 	},
 	color : '#ffffff'	
 },
-"#listView" : {
-	//searchText : "name"
-},
 "#tableView" : {
 	filterAttribute : "filter"
 },
@@ -45,7 +42,6 @@
 	left : "1%",
 	top : "5dp",
 	bottom : "5dp",
-	//backgroundColor: '#fff',
 	width : "20%",
 	height : "50dp",
 	title : L("searchButtonTitle"),

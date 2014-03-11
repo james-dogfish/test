@@ -49,11 +49,8 @@ function dateButton1Clicked(e){
 		       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 		       "<ques:lowValue>"+item.value[0]+"</ques:lowValue>"+
 		       "<ques:highValue>"+item.value[2]+"</ques:highValue>";
-		       //"<ques:notes>"+item.notes+"</ques:notes>";
 		       
 		    item.questionResponse = questionResponse;
-		
-			//questionValueChange(item, section, dateString);
 			item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
 		}, 
 		closeWithNoValueCallBack : function(){

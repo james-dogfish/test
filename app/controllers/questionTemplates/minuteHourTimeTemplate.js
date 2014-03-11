@@ -30,12 +30,10 @@ function showPicker(e)
 			section.updateItemAt(e.itemIndex, item);
 			
 			Alloy.Globals.Logger.log("modalPicker value = "+data.value, "info");
-			//questionValueChange(item, section, valueString);
 			
 			var questionResponse = 
 		       "<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+
 		       "<ques:parameterValue>"+data.value+"</ques:parameterValue>";
-		       //"<ques:notes>"+item.notes+"</ques:notes>";
 		       
 		    item.questionResponse = questionResponse;
 		

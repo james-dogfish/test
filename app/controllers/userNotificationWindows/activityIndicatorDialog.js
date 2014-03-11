@@ -41,15 +41,12 @@ exports.hide = function(){
 };
 
 function cancelButtonClick(e){
-	//if(this.showCancel == true){
 	if(self.cancelCallback !== null){
 			
 		Ti.API.error("cancel button clicked ====================================");
 		self.cancelCallback();
 		
 		$.activityIndicator.hide();
-		$.win.close();
-		
+		$.win.close();	
 	}
-	//}
 }

@@ -4,9 +4,9 @@
 		"stagedRollOut": true,
 		"fakeSearchCrossings": true,
 		"analytics": {
-			"navOverride": true
+			"navOverride": false
 		},
-		"currentEnv": "dte",
+		"currentEnv": "fat",
 		"serverUrl": {
 			"fat": "http://server.iconsolutions.com/alcrm3/",
 			"dte": "https://icondte.networkrail.co.uk/WebServices/",
