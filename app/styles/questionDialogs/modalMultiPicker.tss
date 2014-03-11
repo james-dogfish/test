@@ -1,21 +1,3 @@
-/*
-"#navWindow" : {
-	modal : true,
-},
-"#win" : {
-		title : "Pick one or more",
-		backgroundColor:"#fff",
-		barColor : "#c7efed",
-		tintColor : "#00ff00"
-},
-"#rightNavButton" : {
-	systemButton: Ti.UI.iPhone.SystemButton.DONE
-}*/
-
-
-"#window" : {
-	//exitOnClose : true
-},
 "#appTitle" : {
 	text : L("modalMultiPickerTitle"),
 	font : {
@@ -24,14 +6,12 @@
 	},
 	color : '#ffffff'	
 },
-
 "#background" : {
 	backgroundColor:"#000",
 	opacity : 0.5
 },
 "#modalBackgorund" : {
 	width: "76%",
-	//right : "-76%",
 	top : "10%",
 	bottom : "10%",
 	height: Ti.UI.SIZE,

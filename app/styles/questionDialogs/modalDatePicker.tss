@@ -1,20 +1,3 @@
-/*
-"#navWindow" : {
-	modal : true,
-},
-"#win" : {
-		title : "pick a date",
-		backgroundColor:"#fff",
-		barColor : "#c7efed",
-		tintColor : "ffffff"
-},
-"#rightNavButton" : {
-	systemButton: Ti.UI.iPhone.SystemButton.DONE
-},
-"#datePicker" : {
-	type:Ti.UI.PICKER_TYPE_DATE
-}*/
-
 "#window" : {
 	exitOnClose : true
 },
@@ -26,14 +9,12 @@
 	},
 	color : '#ffffff'	
 },
-
 "#background" : {
 	backgroundColor:"#000",
 	opacity : 0.5
 },
 "#modalBackgorund" : {
 	width: "50%",
-	//right : "-50%",
 	height: Ti.UI.SIZE,
 	layout : "vertical",
 	backgroundColor:"#fff",
@@ -47,7 +28,6 @@
 	top : "20dp",
 	bottom : "20dp",
 	backgroundColor:"#eee",
-	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
 },

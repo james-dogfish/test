@@ -1,7 +1,7 @@
 "#win" : {
 	barColor: '#000',
 	barTint : '#000',
-	top : 20, //Alloy.Globals.windowTop,
+	top : 20,
 	statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
 },
 "#background" : {
@@ -35,9 +35,6 @@
 	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
-},
-"#pickerView" : {
-	
 },
 "#textFieldTestingOnly" : {
 	paddingLeft : "10dp",
