@@ -362,65 +362,6 @@ var dateToString = function(date){
 	};
 
 /**
- * `commitWithOnlyCensus` - we take an xmlCensusRequest array containing all the xml we need to post to web service
- * assObj is the current assessment object that we want to commit
- * sectionListAss contains section data.
- * 
- * @method commitWithOnlyCensus
- * 
- * @param {Object} xmlCensusRequest
- * @param {Object} assObj
- * @param {Object} sectionListAss
- */
-	/*self.commitWithOnlyCensus = function(xmlCensusRequest, assObj, sectionListAss) {
-		
-		try {
-			
-			Alloy.Globals.Logger.log("assObj.censusDesktopComplete == " + assObj.censusDesktopComplete, "info");
-			if (assObj.censusDesktopComplete == false) {
-				var callFired = false;
-				for (var i = 0; i < xmlCensusRequest.length; i++) {
-					Alloy.Globals.Soap.createCensus(xmlCensusRequest[i], function(xmlDoc) {
-
-						Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
-							var data = JSON.parse(data);
-							var censusId = data.response.Envelope.Body.CreateCensusResponse.census.censusId;
-							var censusDate = data.response.Envelope.Body.CreateCensusResponse.census.censusDate;
-
-							Alloy.Globals.censusIDs.push(censusId);
-
-							Alloy.Globals.censusDates.push(censusDate);
-
-							Alloy.Globals.Logger.log("Census - Alloy.Globals.censusIDs.length === xmlCensusRequest.length >> " + Alloy.Globals.censusDates.length, "info");
-							if(callFired == false){
-								self.doAssessment(assObj, sectionListAss,  [], censusIDs, censusDates);
-								callFired = true;
-							}
-							
-
-						});
-
-					}, function(xmlDoc) {
-						Alloy.Globas.aIndicator.hide();
-						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
-
-					});
-					
-				}
-
-			} else {
-				if (assObj.censusDesktopComplete == true) {
-					self.doAssessment(assObj, sectionListAss,  [], censusIDs, censusDates);
-				}
-			}
-		} catch(e) {
-			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
-			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyCensus. Error Details: " + JSON.stringify(e), "info");
-		}
-	};*/
-
-/**
  * `commitWithOnlyTrain` - we take an xmlTrainRequest array containing all the xml we need to post to web service
  * assObj is the current assessment object that we want to commit
  * sectionListAss contains section data. We then invoke the function to create a tran group request (SOAP) and
@@ -561,10 +502,7 @@ var dateToString = function(date){
 						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 					});
-				}
-				
-			
-				
+				}			
 				
 			} else {
 
@@ -617,9 +555,6 @@ var dateToString = function(date){
 					
 						self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
 					}
-				} else if (sectionListCen.length > 0 && sectionListTra.length <= 0) {
-					//alert("here1");
-					self.commitWithOnlyCensus(xmlCensusRequest, assObj, sectionListAss);
 				} else if (assObj.censusDesktopComplete == true && sectionListTra.length > 0 ) {
 					//alert("here2");
 
@@ -734,9 +669,6 @@ var dateToString = function(date){
 				if (activeAssessments[assessmentIndex].isSubmitted === false) {
 					self.submitAss(activeAssessments[assessmentIndex]);
 				}
-				/*Alloy.Globals.trainIDs = [];
-				Alloy.Globals.censusIDs = [];
-				Alloy.Globals.censusDates = [];*/
 			}
 
 		} catch(e) {
