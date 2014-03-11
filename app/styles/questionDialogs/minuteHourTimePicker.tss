@@ -16,7 +16,6 @@
 },
 "#modalBackgorund" : {
 	width: "50%",
-	//right : "-50%",
 	height: Ti.UI.SIZE,
 	layout : "vertical",
 	backgroundColor:"#fff",
@@ -29,7 +28,6 @@
 	height: Ti.UI.SIZE,
 	bottom : "10dp",
 	backgroundColor:"#eee",
-	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
 },

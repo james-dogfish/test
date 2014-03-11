@@ -40,27 +40,6 @@ $.pickerView.selectionIndicator = true;
 $.pickerView.setSelectedRow(0, 0, true);
 $.pickerView.setSelectedRow(1, 0, true);
 
-
-/*var animationFadeIn = Titanium.UI.createAnimation();
-animationFadeIn.opacity = 0.5;
-animationFadeIn.duration = Alloy.Globals.animationDuration;
-
-var animationFadeOut = Titanium.UI.createAnimation();
-animationFadeOut.opacity = 0;
-animationFadeOut.duration = Alloy.Globals.animationDuration;
-
-var animationOpen = Titanium.UI.createAnimation();
-animationOpen.right = "25%";
-animationOpen.duration = Alloy.Globals.animationDuration;
-
-var animationClose = Titanium.UI.createAnimation();
-animationClose.right = "-50%";
-animationClose.duration = Alloy.Globals.animationDuration;
-animationClose.addEventListener("complete", function(e){
-	Alloy.Globals.dialogWindowOpen = false;
-	$.window.close();
-});*/
-
 var closeWindow = function(){
 	var stringValue = ""+currentValue.h+":"+currentValue.m;
 	args.closeCallBack({
@@ -68,8 +47,6 @@ var closeWindow = function(){
 		value : parseInt(currentValue.h)*60 + parseInt(currentValue.m)
 	});
 	Alloy.Globals.Logger.log("minuteHourTimeTemplate minutes = "+parseInt(currentValue.h)*60 + parseInt(currentValue.m),"info");
-	//$.modalBackgorund.animate(animationClose);
-	//$.background.animate(animationFadeOut);
 	
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
@@ -81,8 +58,6 @@ function onBackgroundClick(e){
 	$.modalBackgorund.touchEnabled = false;
 	
 	args.closeWithNoValueCallBack();
-	//$.modalBackgorund.animate(animationClose);
-	//$.background.animate(animationFadeOut);
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
 	$.destroy();
@@ -100,8 +75,6 @@ function clearButtonClick(e){
 	$.modalBackgorund.touchEnabled = false;
 	
 	args.closeCallBack({title: "", value : ""});
-	//$.modalBackgorund.animate(animationClose);
-	//$.background.animate(animationFadeOut);
 	Alloy.Globals.dialogWindowOpen = false;
 	$.window.close();
 	$.destroy();
@@ -120,9 +93,4 @@ function pickerChange(e){
 var modalBackgorundWidth = $.modalBackgorund.width;
 $.modalBackgorund.left = -1*modalBackgorundWidth;
 
-//$.window.animate({view: $.modalBackgorund,transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
-//{transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT}
 $.window.open();
-//$.background.animate(animationFadeIn);
-//$.modalBackgorund.animate(animationOpen);
-//$.modalBackgorund.open({transition:Ti.UI.iPhone.AnimationStyle.SLIDE_TO_LEFT});

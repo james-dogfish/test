@@ -1,7 +1,5 @@
 module.exports =  {
 	
-	//"windowTop" : Alloy.Globals.Util.isIOS7Plus() ? 20 : 0,
-	
 	"headerViewDefult" : {
 		backgroundColor: "#eee"
 	},
@@ -32,13 +30,11 @@ module.exports =  {
 	"goToMandatoryColouredBox_n_a" : {
 		backgroundColor: "none"
 	},
-	
 	"titleFontNonMandatory" : {
 		fontFamily:'Helvetica Neue', fontSize:"20sp"
 	},
 	"titleFontMandatory" : {
 		fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight : 'bold'
-	}
-	
+	}	
 };
 

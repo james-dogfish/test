@@ -1,4 +1,4 @@
-//var User = require('core/User');
+
 // Trying out fontawesome
 var fontawesome = require('tools/fonts/IconicFont').IconicFont({
 	font: 'tools/fonts/FontAwesome',

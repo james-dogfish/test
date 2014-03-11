@@ -2,7 +2,6 @@
 	height: Ti.UI.SIZE,
 	width : Ti.UI.FILL,
 },
-
 "#commitIcon" : { 
 	height: Ti.UI.SIZE,
 	left: "10dp",

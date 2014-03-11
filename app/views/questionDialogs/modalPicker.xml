@@ -1,15 +1,4 @@
-<Alloy>
-	<!--
-	<NavigationWindow id="navWindow">
-		<Window id="win">
-			<RightNavButton>
-                <Button id="rightNavButton" onClick="rightNavButtonClick"/>
-            </RightNavButton>
-			<Picker id="pickerView" onChange="pickerChange"/>
-		</Window>
-	</NavigationWindow>
-	-->
-	
+<Alloy>	
 	<Window id="window">
 		<View id="background" onClick="onBackgroundClick"/>
 		<View id="modalBackgorund">
@@ -24,12 +13,6 @@
 				
 			</Toolbar>
 			<TableView id="tableView" onClick="rowClicked"/>
-			<!--
-			<View id="pickerContainerView">
-				<Picker id="pickerView" onChange="pickerChange"/>
-			</View>
-			-->
 		</View>
 	</Window>
-	
 </Alloy>

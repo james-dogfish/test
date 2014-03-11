@@ -29,6 +29,5 @@
 	width : "75%",
 	height : Ti.UI.SIZE,
 	bottom : "10dp",
-	//left : "10dp",
 	color : "#000"
 }

@@ -6,7 +6,6 @@ tmp
 .map
 build/
 Resources/
-docs/
 .settings
 .project
 tiapp.xml

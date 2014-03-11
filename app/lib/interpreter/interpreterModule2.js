@@ -137,7 +137,7 @@ differently from the `firstTab` and `secondTab` nodes
 				notesBackground : {
 					backgroundImage : 'images/questionNote.png',
 					touchTestId : passObject.pageID + "I_CENSUS_DATE" + "_notesButton"
-				}, //{backgroundImage: 'images/questionSelectedNote.png'}
+				},
 				notes : "",
 				alcrmNotes : "I_CENSUS_DATE Notes",
 				help : "",
@@ -360,7 +360,7 @@ differently from the `firstTab` and `secondTab` nodes
 				notesBackground : {
 					backgroundImage : 'images/questionNote.png',
 					touchTestId : passObject.pageID + Alloy.Globals.localParser.getQuestionName(question) + "_notesButton"
-				}, //{backgroundImage: 'images/questionSelectedNote.png'}
+				},
 				notes : "",
 				alcrmNotes : Alloy.Globals.localParser.getNotesText(question),
 				help : Alloy.Globals.localParser.getHelpText(question),

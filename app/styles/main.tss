@@ -3,7 +3,7 @@
 	separatorStyle : Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 },
-"Label": {      //TODO: Andy can you please name things so that we know what they are? :P :)
+"Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000"

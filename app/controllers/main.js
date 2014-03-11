@@ -24,65 +24,6 @@ function toggleSearch() {
 	$.masterSearchTab.setData(false);
 }
 
-/*******************************************************************************
- * openMenu: this function sets up menu item for home screen
- *******************************************************************************/
-// var openMenu = function() {
-	
-// 	popOver = Ui.renderPopOver({
-// 		width : 250
-// 	}), menuTable = Ti.UI.createTableView({
-// 		width : 250,
-// 		height : Ti.UI.SIZE
-// 	}), data = [/*{
-// 	 title: 'Settings',
-// 	 id: 1
-// 	 }, */
-// 	{
-// 		title : 'GoTo',
-// 		id : 2
-// 	}, {
-// 		title : 'Help',
-// 		id : 3
-// 	}];
-
-// 	menuTable.setData(data);
-
-// 	popOver.add(menuTable);
-
-// 	popOver.show({
-// 		view : $.menuButton
-// 	});
-
-// 	menuTable.addEventListener('click', function(e) {
-// 		popOver.hide();
-// 		if (e.row.id === 1) {
-// 			// Open setting screen
-// 			var userSettings = Alloy.createController('userSettings');
-// 			userSettings.open();
-// 		} else if (e.row.id === 2) {
-// 			// GoTo screen
-// 			var gotoQuestionSectionWindow = Alloy.createController('gotoQuestionSectionWindow/gotoQuestionSectionWindow');
-// 			gotoQuestionSectionWindow.on("goToQuestion", function(data) {
-// 				questionRendererController.moveToQuestion(data.groupType, data.questionIndex);
-// 			});
-// 			gotoQuestionSectionWindow.setContentsDetails(questionRendererController.getContentsDetails());
-// 			gotoQuestionSectionWindow.show();
-
-// 		} else if (e.row.id === 3) {
-// 			//do nothing
-// 		} else if (e.row.id === 4) {
-// 			Alloy.Globals.responseGenerator.commitAllCompleted();
-// 		} else if (e.row.id === 5) {
-// 			Alloy.Globals.User.logOut();
-// 			$.tabGroup.close();
-// 			$.destroy();
-// 			Alloy.createController('index').getView().open();
-// 			loginView.open();
-// 		}
-// 	});
-// };
-
 /** here we load the risk assessments **/
 $.riskAssessmentsTab.loadRiskAssessments();
 
@@ -466,6 +407,3 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	Alloy.Globals.Analytics.trackNav('Assessment Form', 'Home', 'ra:exit');
     Alloy.Globals.Analytics.trackFeature('RiskAssessment:Closed');
 });
-
-/** call the openMenu function above **/
-// $.questionRendererTab.on("openMenu", openMenu);

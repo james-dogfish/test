@@ -19,9 +19,6 @@
 			<Label id="commitIcon" class="icon" />
 			<Label id="commitStatus" class="titleText">Commit </Label>
 			<View id="commitStatusLabelList"/>
-		</View>
-		
-
-				
+		</View>			
 	</TableViewRow>
 </Alloy>

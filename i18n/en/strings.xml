@@ -8,6 +8,7 @@
 		<string name="enter_email_and_password">Please check your credentials!</string>
 		
 	<!-- general/miscellaneous -->
+		<string name="no_email_client">Please make sure you have setup email access on this ipad.</string>
 	    <string name="no_data">No data available. Please try again!</string>  
 	    <string name="no_results">No Results Available.</string>
 	    <string name="spinner_text">Loading ... </string>

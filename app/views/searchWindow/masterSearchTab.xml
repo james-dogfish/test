@@ -11,42 +11,9 @@
 				</Button> 
 				<Label id="appTitle"/>
 			</Toolbar>
-			
-			<!--<View id="SearchBarView">
-				<TextField id="searchTextField" class="inputField" onChange="onSearchTextFieldChange"/>
-				<Button id="searchButton" class="inputButton" onClick="onSearchButtonClick"/>
-		    </View> -->
 			<TableView id="tableView" onClick="onRowClick">
 				<SearchBar id="searchBar"/>
 			</TableView>
 		</Window>
 	</Tab>
 </Alloy>
-
-<!--<Alloy>
-	<Tab title="masterSearchTab" active="false">
-		<Window id="window" tabBarHidden="true" navBarHidden="true">
-
-			
-			<Toolbar id="toolbar" platform="ios">
-				<Button class="systemButton" onClick="backButtonClick" left="10" >
-					<Label class="systemButtonText" text="Home" onClick="backButtonClick" />
-				</Button>
-				<Button class="systemButton" onClick="refreshButtonClick" right="10" >
-					<Label class="systemButtonText" text="Refresh" onClick="refreshButtonClick" />
-				</Button>
-				<Label id="appTitle"/>
-			</Toolbar>
-
-			<ListView id="listView" onItemclick="onRowClick">
-		
-				<SearchBar id="search" barColor="#000" showCancel="true" height="43" top="0" />
-		
-				<Templates>
-		       		<Require src="searchWindow/masterSearchTableRow" type="view"/>
-		       	</Templates>
-				<ListSection id="listSection"/>
-			</ListView>
-		</Window>
-	</Tab>
-</Alloy>-->

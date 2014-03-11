@@ -6,7 +6,6 @@
 	touchEnabled : true
 },
 ".view": {
-	//layout: 'horizontal',
 	left: "10dp",
 	bottom: "7dp",
 	width: Ti.UI.FILL,
@@ -44,27 +43,6 @@
 	},
 	color: '#989696'
 },
-/*
-"#statusView" : {
-	bottom : 10
-},
-"#statusLabel" : {
-	left : 95
-},
-"#alcrmView" : {
-	bottom : 10
-},
-"#alcrmIcon" : {
-	top : 5
-},
-"#alcrmStatus" : {
-	top : 5
-},
-"#alcrmStatusLabel" : {
-	left : 80,
-	top : 2
-},
-*/
 "#commitResponseView" : { 
 	height : 0
 },

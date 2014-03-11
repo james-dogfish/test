@@ -2,7 +2,7 @@ function _Util() {
 
 	var self = this,
 		docsFolder, templatesFolder, cmsUrl, templateFiles, crossingTypes, routeFiles, Alloy = require("alloy");
-	//downloader = require('tools/downloader');
+
 	var connectivtiy_alert_shown = false;
 	self.connectivityChecker = function() {
 		//listen for any network changes
@@ -174,7 +174,6 @@ function _Util() {
 		
 	};
 
-	//cmsUrl = 'http://95.138.166.94/alcrm_cms';
 	cmsUrl = 'http://dogfishdata.com/alcrm_cms';
 	docsFolder = Ti.Filesystem.getApplicationDataDirectory();
 
@@ -198,57 +197,6 @@ function _Util() {
 			};
 			return dateObj;
 		}
-	};
-
-	/*
-	 |---------------------------------------------------------------------------------
-	 | Saves a RA to filesystem
-	 |---------------------------------------------------------------------------------
-	 */
-	self.saveAssessment = function(filename, data) {
-
-		var assessmentsFolder = Ti.Filesystem.getFile(docsFolder, 'assessments');
-		if (!assessmentsFolder.exists()) {
-			assessmentsFolder.createDirectory();
-		}
-
-		var assessmentFile = Ti.Filesystem.getFile(docsFolder + '/assessments/' + filename);
-
-		if (assessmentFile.exists()) {
-			assessmentFile.deleteFile();
-		}
-
-		// Now write to file
-		assessmentFile.write(data);
-		assessmentFile = null;
-		assessmentsFolder = null;
-
-	};
-
-	self.saveFile = function(filename, nfolder, data) {
-		var folder = Ti.Filesystem.getFile(docsFolder, nfolder);
-		if (!folder.exists()) {
-			folder.createDirectory();
-		}
-
-		var file = Ti.Filesystem.getFile(docsFolder + '/' + nfolder + '/' + filename);
-
-		if (file.exists()) {
-			file.deleteFile();
-		}
-
-		// Now write to file
-		file.write(data);
-		file = null;
-		folder = null;
-	};
-
-	self.deleteFile = function(folder, fileName) {
-		var file = Ti.Filesystem.getFile(docsFolder + folder + fileName);
-		if (file.exists()) {
-			file.deleteFile();
-		}
-		file = null;
 	};
 
 	/*
@@ -365,7 +313,11 @@ function _Util() {
 			args.docsZip.deleteFile();
 			args.docsZip = null;
 		});
-		emailDialog.open();
+		if(emailDialog.isSupported()) {
+			emailDialog.open();
+		} else {
+			self.showAlert(L('no_email_client'));
+		}
 
 	};
 
@@ -521,16 +473,6 @@ function _Util() {
 
 	};
 
-	self.getFont = function(size, bold) {
-
-		return {
-			fontFamily: "HelveticaNeue-Light",
-			fontSize: size,
-			fontWeight: bold ? "Bold" : "Normal"
-		};
-
-	};
-
 	self.showDebugAlert = function(message) {
 		var isDebugOn = require('alloy').CFG.debug;
 
@@ -552,13 +494,6 @@ function _Util() {
 
 		alert.show();
 
-	};
-
-	// Returns a new object with the prototype of the old one
-	self.objectify = function(o) {
-		var F = function() {};
-		F.prototype = o;
-		return new F();
 	};
 
 	self.sliderVisible = false;
@@ -629,13 +564,16 @@ function _Util() {
 		var noConnectionText = Ti.UI.createLabel({
 			text: message,
 			color: '#ffffff',
-			font: self.getFont(18, 1),
+			font: {
+				fontFamily: 'Helvetica',
+				fontSize: 18,
+				fontWeight: 'bold'
+			},
 			top: 5,
 			bottom: 5,
 			height: Ti.UI.SIZE,
 			textAlign: 'center'
 		});
-
 		sliderView.add(noConnectionText);
 
 		var animation = Ti.UI.createAnimation();

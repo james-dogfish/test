@@ -1,7 +1,5 @@
 // Get orientation on load to assign right bg image
 // get max width and height
-//var User = Alloy.Globals.User; //require('core/User');
-//var Util = require('core/Util');
 Alloy.Globals.Util.downloadConfig();
 var pWidth = Ti.Platform.displayCaps.platformWidth,
     pHeight = Ti.Platform.displayCaps.platformHeight;
@@ -72,11 +70,8 @@ function doLogin() {
             });
 
             if (offlineAttempt) {
-                // $.window.close();
                 // Remove the login fields now
                 $.loginWin.removeAllChildren();
-
-                //$.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
@@ -95,7 +90,6 @@ function doLogin() {
         }
         // Fire up loading indicator here
 
-        //$.loginButton.touchEnabled = false;
         Alloy.Globals.Logger.log("Login button pressed", 'info');
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
