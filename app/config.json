@@ -4,7 +4,7 @@
 		"stagedRollOut": true,
 		"fakeSearchCrossings": true,
 		"analytics": {
-			"navOverride": true
+			"navOverride": false
 		},
 		"currentEnv": "dte",
 		"serverUrl": {

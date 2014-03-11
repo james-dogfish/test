@@ -45,6 +45,14 @@ exports.setAssessment = function(assessmentObject) {
     // Call analytics functions here
     Alloy.Globals.Analytics.trackNav('Home', 'Assessment Form', 'ra:open');
     Alloy.Globals.Analytics.trackFeature('RiskAssessment:Opened');
+
+    if(Alloy.Globals.User.prefersSingleView()) {
+        // single view opened
+        Alloy.Globals.Analytics.trackFeature('RiskAssessment:Single-Section-View');
+    } else {
+        // multiple view opened
+        Alloy.Globals.Analytics.trackFeature('RiskAssessment:Multi-Section-View');
+    }
 };
 
 
