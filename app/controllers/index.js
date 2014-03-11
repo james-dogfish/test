@@ -6,7 +6,7 @@ var getValidator = function() {
 };
 
 /*************************************************************
- * startup: - Downloads app help + cheatsheet.
+ * startup: - Downloads app help
  * 			- Initialises the validator by calling getValidator
  * 			- Creates the mainView.
  * 			- Checks if user has prefs and shows settings view
@@ -18,9 +18,6 @@ var startup = function() {
 	
 	//only downloads if not already downloaded before.
 	Alloy.Globals.Util.downloadConfig();
-
-	//only downloads if not already downloaded before.
-	//Alloy.Globals.Util.downloadCheatSheet();
 
 	Alloy.Globals.Util.showDebugAlert("DEBUG ALERTS IS ON");
 	

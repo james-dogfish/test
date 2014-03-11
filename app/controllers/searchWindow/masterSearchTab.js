@@ -14,17 +14,10 @@ function refreshButtonClick(e) {
 
 function onRowClick(e) {
 	Alloy.Globals.Logger.log("Tapped on a crossing","info");
-	//alert(JSON.stringify(e));
 	$.trigger("crossingSelected", crossingData[e.index]);
 };
 
 function setTableData(crossingData){
-	
-	//this is the form, the crossingData should be in
-	//crossingData = [
-	//	{name:"Garston", id:"439", type:"UWCT"},
-	//	{name:"The Oaks", id:"8660", type:"UWCT"}
-	//];
 	
 	var rowViewList = [];
 	for (var i = 0; i < crossingData.length; i++) {
@@ -34,16 +27,15 @@ function setTableData(crossingData){
 };
 
 function onSearchTextFieldChange(e){
-	//$.tableView.
-}
+
+};
 
 function onSearchButtonClick(){
 	$.searchTextField.blur();
 	$.searchTextField.value; // this is the value of the searchTextField
-	//if($.searchTextField.value.trim()!="")
-	//{
-		searchFromSearchButton();
-	//}
+
+	searchFromSearchButton();
+
 };
 
 function searchFromSearchButton()
@@ -72,8 +64,6 @@ function searchFromSearchButton()
 					'com:maxResults':maxCrossings,
 				},
 				searchFunction: 'assess'
-				//sortByELR: true,
-				//includeDeleted: false
 			},
 			function(xmlDoc) {
 
@@ -162,7 +152,6 @@ exports.setData = function(shouldRefresh) {
 			maxCrossings = 1500;
 		}
 		
-		//Alloy.Globals.aIndicator.show("Downloading Crossings...",true);
 		var sudsClient = Alloy.Globals.Soap.searchCrossingRequest({
 				crossingSearchCriteria: {
 					'com:searchCriteria': {

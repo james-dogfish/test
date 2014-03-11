@@ -41,7 +41,6 @@ function multiSelectButtonClicked(e) {
 	var section = e.section;
 
 	if (item.readOnly == true) {
-		// section.updateItemAt(e.itemIndex, item);
 		return;
 	}
 
@@ -60,20 +59,14 @@ function multiSelectButtonClicked(e) {
 			}
 			
 			item.value = returnValue.valueList;
-			// section.updateItemAt(e.itemIndex, item);
 
 			var values = "";
 			for (var i = 0; i < returnValue.valueList.length; i++) {
 				values = values + "<ques:values>" + returnValue.valueList[i] + "</ques:values>";
 			}
 			
-			/*if(returnValue.singleStringValue === ""){
-				item.questionResponse = null;
-			}
-			else{*/
 				item.questionResponse = 
-					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values /*+ "<ques:notes>"+item.notes+"</ques:notes>"*/;
-			//}
+					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values;
 		    
 			item = Alloy.Globals.questionRenderer.questionValueChange({
 				questionObject: item,

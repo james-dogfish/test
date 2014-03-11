@@ -2,8 +2,6 @@ function selectButtonClicked(e) {
 
 	if (Alloy.Globals.dialogWindowOpen == true) return;
 	else Alloy.Globals.dialogWindowOpen = true;
-	
-	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
 
 	var item = e.section.getItemAt(e.itemIndex);
 	var section = e.section;
@@ -27,8 +25,6 @@ function selectButtonClicked(e) {
 					"<ques:parameterName>" + item.alcrmQuestionID + "</ques:parameterName>" +
 					"<ques:parameterValue>" + data.value + "</ques:parameterValue>";
 			}
-
-			// section.updateItemAt(e.itemIndex, item);
 
 			var showSpiner = false;
 			var activityIndicator;
@@ -56,19 +52,12 @@ function selectButtonClicked(e) {
 				section: section
 			});
 		}
-		
-		
 
 	});
 
 	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 
 };
-
-// function showPicker(e)
-// {
-
-// }
 
 function onNotesClick(e) {
 	if (Alloy.Globals.dialogWindowOpen == true) return;

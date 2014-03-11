@@ -34,8 +34,6 @@ function sortByNestedTitle(a, b) {
 
 exports.show = function(routeList,callbackfunction){
 	doneCallbackfunction = callbackfunction;
-
-	//routeList.sort(sortByNestedTitle); //sorts alphabetically and descending
 	routeList.sort();
 	var data = [];
 	for(var i=0;i<routeList.length;i++){
@@ -43,8 +41,6 @@ exports.show = function(routeList,callbackfunction){
 		data.push(Ti.UI.createPickerRow({title: routeList[i], touchTestId: routeList[i] }));
 	}
 	data.sort();
-	//data.sort(sortByNestedTitle);
-	
 	$.pickerView.add(data);
 	$.pickerView.selectionIndicator = true;
 	$.pickerView.setSelectedRow(0, 0, true);
