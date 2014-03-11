@@ -564,13 +564,16 @@ function _Util() {
 		var noConnectionText = Ti.UI.createLabel({
 			text: message,
 			color: '#ffffff',
-			font: self.getFont(18, 1),
+			font: {
+				fontFamily: 'Helvetica',
+				fontSize: 18,
+				fontWeight: 'bold'
+			},
 			top: 5,
 			bottom: 5,
 			height: Ti.UI.SIZE,
 			textAlign: 'center'
 		});
-
 		sliderView.add(noConnectionText);
 
 		var animation = Ti.UI.createAnimation();
