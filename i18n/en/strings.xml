@@ -42,7 +42,7 @@
 	    <string name="max_error_text">Value must be less than or equal to</string>
 	    <string name="minLength_error_text">Value cannot have less than</string>
 	    <string name="maxLength_error_text">Value cannot have more than</string>
-	    <string name="format_error_text">Value must be in the format</string>
+	    <string name="format_error_text">Please make sure that the value is in the format, e.g. [format] and that it is valid.</string>
 	    <string name="duration_error_text">You must enter a value to start the census</string>
     
     <!-- my risk assessments - assessment submissions labels/strings -->
