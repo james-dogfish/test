@@ -1280,9 +1280,37 @@ var validateSingleQuestionValue = function (value, questionObject) {
 
 
     if (questionObject.validation.format != null) {
+
         if (Alloy.Globals.Validator.isValidFormat(value) == false) {
+
+            // if there is a max and min length property for the question, then
+            // make sure the exampleFormat matches it
+            var toReturn;
+            var generateRegexString = function(regex){
+
+            	function generateString(regex) {
+            		var RandExp = require('tools/randexp');
+	            	var exampleFormat = new RandExp(regex).gen();
+	            	return exampleFormat;
+            	}
+
+            	toReturn = generateString(regex);
+
+            	if(questionObject.validation.minLength != null) {
+	            	if(toReturn.length < questionObject.validation.minLength) {
+	            		generateRegexString(regex);
+	            	}
+	            }
+	            if(questionObject.validation.maxLength != null) {
+	            	if(toReturn.length > questionObject.validation.maxLength) {
+	            		generateRegexString(regex);
+	            	}
+	            } 
+	            return toReturn;	
+            };
+
             returnObject.isValid = false;
-            returnObject.outPutMessage = L("format_error_text") +" "+ questionObject.validation.format;
+            returnObject.outPutMessage = L("format_error_text").replace('[format]', generateRegexString(questionObject.validation.format));
             return returnObject;
         }
     }

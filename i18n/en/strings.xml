@@ -2,7 +2,7 @@
 <resources>
 	
 	<!-- login related -->
-		<string name="invalid_login">'Invalid login - ALCRM returned an access code 0. Please check your details and retry!'</string>
+		<string name="invalid_login">Invalid login - ALCRM returned an access code 0. Please check your details and retry!</string>
 		<string name="no_valid_routes">No routes found for your Username or the route has not been enabled by the Administrator.</string>
 		<string name="wrong_user_pass">Sorry but your username or password is incorrect, Please try again.</string>
 		<string name="enter_email_and_password">Please check your credentials!</string>
@@ -38,12 +38,12 @@
 	    <string name="mandatory_error_text">This question is mandatory</string>
 	    <string name="numeric_error_text">Must be a numeric Value eg 4</string>
 	    <string name="decimal_error_text">Must be a decimal Value eg 1.0</string>
-	    <string name="min_error_text">value must be greater than or equal to</string>
-	    <string name="max_error_text">value must be less than or equal to</string>
-	    <string name="minLength_error_text">value cannot have less than</string>
-	    <string name="maxLength_error_text">value cannot have more than</string>
-	    <string name="format_error_text">value must be in the format</string>
-	    <string name="duration_error_text">"you must enter a value to start the census</string>
+	    <string name="min_error_text">Value must be greater than or equal to</string>
+	    <string name="max_error_text">Value must be less than or equal to</string>
+	    <string name="minLength_error_text">Value cannot have less than</string>
+	    <string name="maxLength_error_text">Value cannot have more than</string>
+	    <string name="format_error_text">Please make sure that the value is in the format, e.g. [format] and that it is valid.</string>
+	    <string name="duration_error_text">You must enter a value to start the census</string>
     
     <!-- my risk assessments - assessment submissions labels/strings -->
 	    <string name="assessmentIncomplete">Assessment Incomplete</string>
