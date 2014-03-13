@@ -32,6 +32,20 @@ function onTitleClick(e) {
 	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
+function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
+	for(var parentSelectionIndex =0; parentSelectionIndex< parentQuestion.selections.length; parentSelectionIndex++){
+		if(parentQuestion.selections[parentSelectionIndex].value === parentQuestionVale){
+			var displayValue = parentQuestion.selections[parentSelectionIndex].displayValue;
+			for(var childSelectionIndex =0; childSelectionIndex< childQuestion.selections.length; childSelectionIndex++){
+				if(childQuestion.selections[childSelectionIndex].displayValue == displayValue){
+					return childQuestion.selections[childSelectionIndex];
+				}
+			}
+		}
+	}
+	return null;
+};
+
 
 function multiSelectButtonClicked(e) {
 	if (Alloy.Globals.dialogWindowOpen == true) return;
@@ -43,9 +57,25 @@ function multiSelectButtonClicked(e) {
 	if (item.readOnly == true) {
 		return;
 	}
+	
+	var selections = item.selections;
+	if(item.alcrmQuestionID === "I_SELECTED_STAKEHOLDER_INFO"){
+		var selections = [];
+		var stakeholderQuestion =  Alloy.Globals.questionRenderer.findQuestionByAlcrmGroupAndName("I_STAKEHOLDER_INFO", "RiskAssessmentInfo");
+		if(stakeholderQuestion != null){
+			for(var i=0; i < stakeholderQuestion.value.length; i++){
+				var newvalue = LookUpSelections(stakeholderQuestion, stakeholderQuestion.value[i], item);
+				if(newvalue != null){
+					selections.push(newvalue);
+				}
+			}
+			
+		}
+	}
+	
 
 	Alloy.createController("questionDialogs/modalMultiPicker", {
-		valueList: item.selections,
+		valueList: selections,
 		valuesSelected: item.value,
 		closeCallBack: function(returnValue) {
 			if(typeof returnValue !== "undefined")
