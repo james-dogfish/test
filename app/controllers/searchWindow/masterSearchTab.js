@@ -40,16 +40,7 @@ function onSearchButtonClick(){
 
 function searchFromSearchButton()
 {
-	var maxCrossings = null;
-		if(typeof Ti.App.Properties.getString('maxCrossings') !== "undefined" &&  Ti.App.Properties.getString('maxCrossings') != null && Ti.App.Properties.getString('maxCrossings') !="" && Number(Ti.App.Properties.getString('maxCrossings')) > 0)
-		{
-			maxCrossings = Number(Ti.App.Properties.getString('maxCrossings'));
-			alert(maxCrossings);
-		}else{
-			Alloy.Globals.Logger.log("Error reading Ti.App.Properties.getString('maxCrossigs'). Defaulted to 1500", "error");
-			maxCrossings = 1500;
-		}
-		
+		var maxCrossings = Number(Ti.App.Properties.getString('maxCrossings', '9999'));
 		
 		var sudsClient = Alloy.Globals.Soap.searchCrossingRequest({
 				crossingSearchCriteria: {

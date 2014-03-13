@@ -111,7 +111,7 @@ var SudsClient = function(_options) {
     headerBegin: '<soap:Header>',
     headerNode: 'head',
     headerEnd: '</soap:Header>',
-    timeout: 999999,
+    timeout: Number(Ti.App.Properties.getString('wsTimeout', '99999')),
     includeNS: true,
     emptyHeader: '',
     addTargetSchema: false,
