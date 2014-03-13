@@ -616,6 +616,47 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
     return null;
 };
 
+/**
+`findQuestionByAlcrmGroupAndName` searches for a question that matches both alcrmQuestionID and alcrmGroupType.
+if to be used for questions in census or train info you most supply a associatedFileName 
+
+@method findQuestionByAlcrmGroupAndName
+
+@param {String} alcrmQuestionID alcrmQuestionID to search for
+@param {String} alcrmGroupType alcrmGroupType to search for
+@param {String} associatedFileName associatedFileName to search for (optional)
+  
+@return {JSON} (success) questionObject
+@return {null} (fail)
+*/
+var findQuestionByAlcrmGroupAndName = function (alcrmQuestionID, alcrmGroupType, associatedFileName) {
+    var sectionList = getAllQuestionSections();
+	var sectionListLength = sectionList.length;
+	
+	var searchByAssociatedFileName = false;
+	if ( typeof associatedFileName !== "undefined") {
+		searchByAssociatedFileName = true;
+	}
+
+	
+    for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
+
+        if (sectionList[sectionIndex].alcrmGroupType == alcrmGroupType) {
+        	if(searchByAssociatedFileName == true && sectionList[sectionIndex].associatedFileName != associatedFileName)continue;
+        	
+        	var questionList = sectionList[sectionIndex].getItems();
+        	var questionListLength = questionList.length;
+        	for (var questionIndex = 0; questionIndex < questionListLength; questionIndex++) {
+        		if(questionList[questionIndex].alcrmQuestionID === alcrmQuestionID){
+        			return questionList[questionIndex];
+        		}
+        	}	
+        }
+    }
+    return null;
+};
+exports.findQuestionByAlcrmGroupAndName= findQuestionByAlcrmGroupAndName;
+
 
 
 /** 
