@@ -32,6 +32,7 @@ function onTitleClick(e) {
 	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
+/*
 function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
 	for(var parentSelectionIndex =0; parentSelectionIndex< parentQuestion.selections.length; parentSelectionIndex++){
 		if(parentQuestion.selections[parentSelectionIndex].value === parentQuestionVale){
@@ -44,7 +45,19 @@ function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
 		}
 	}
 	return null;
+};*/
+
+function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
+	for(var parentSelectionIndex =0; parentSelectionIndex< parentQuestion.selections.length; parentSelectionIndex++){
+		if(parentQuestion.selections[parentSelectionIndex].value === parentQuestionVale){	
+			if(parentSelectionIndex < childQuestion.selections.length){
+				return childQuestion.selections[parentSelectionIndex];
+			}
+		}
+	}
+	return null;
 };
+
 
 
 function multiSelectButtonClicked(e) {
