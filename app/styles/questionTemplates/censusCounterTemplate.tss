@@ -35,7 +35,7 @@
 	backgroundColor: '#eee'
 },
 ".additionFiveButton" : {
-	width: "23%",
+	width: "19%",
 	height: "45dp",
 	left : "1%",
 	font: {fontFamily:'Helvetica Neue', fontSize:"20sp", fontWeight:'bold'},
@@ -52,7 +52,7 @@
 	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER
 },
 "#header" : {
-	width : "38%",
+	width : "42%",
 	height: "45dp",
 	right : 0,
 	top: 0,
