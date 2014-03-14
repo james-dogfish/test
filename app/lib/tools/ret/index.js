@@ -1,7 +1,7 @@
-var util      = require('./util');
-var types     = require('./types');
-var sets      = require('./sets');
-var positions = require('./positions');
+var util      = require('tools/ret/util');
+var types     = require('tools/ret/types');
+var sets      = require('tools/ret/sets');
+var positions = require('tools/ret/positions');
 
 
 module.exports = function(regexpStr) {
