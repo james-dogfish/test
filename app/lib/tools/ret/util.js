@@ -1,5 +1,5 @@
-var types = require('./types');
-var sets  = require('./sets');
+var types = require('tools/ret/types');
+var sets  = require('tools/ret/sets');
 
 
 // All of these are private and only used by randexp.
