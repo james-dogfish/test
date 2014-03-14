@@ -1267,7 +1267,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 	
     if (dataType == "numeric" || dataType == "numericRange") {
         var test = Alloy.Globals.Validator.isNumber(Number(value), false);
-        if (test == false || value.match(/^0+/)!==null) {
+        if (test == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
