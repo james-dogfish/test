@@ -25,7 +25,6 @@ exports.show = function(assessmentObject) {
 		var sudsClient = Alloy.Globals.Soap.searchCensus({
 			crossingId : assessmentObject.crossingID
 		}, function(xmlDoc) {
-			//var XMLTools = require("tools/XMLTools");
 			try {
 				Alloy.Globals.trainIDs = [];
 				Alloy.Globals.censusIDs = [];

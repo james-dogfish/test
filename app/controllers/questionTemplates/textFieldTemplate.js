@@ -25,10 +25,8 @@ function onTextFieldBlur(e){
 		item.questionResponse = 
 		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
    		"<ques:parameterValue>"+Alloy.Globals.Util.escapeXML(e.value)+"</ques:parameterValue>";
-   		//"<ques:notes>"+item.notes+"</ques:notes>";  //TODO: TBC with Ben for actual param name
 	}
 	
-    //e.source.value = "";
     if(Alloy.Globals.questionRenderer != null){
     	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
     }   
@@ -42,7 +40,7 @@ function onNotesClick(e){
 	var item = e.section.getItemAt(e.itemIndex);
 
 	Alloy.createController("questionDialogs/userNotesDialog", {notes : item.notes, title : "Question Notes",closeCallBack : function(notes){
-		
+		var item = e.section.getItemAt(e.itemIndex);
 		if(notes != ""){
 			item.notesBackground = {backgroundImage: 'images/questionSelectedNote.png'};
 			item.notes = notes; 
@@ -59,27 +57,6 @@ function onNotesClick(e){
 
 function onTextFieldFocus(e){
 	Alloy.Globals.Logger.log("onTextFieldFocus");
-	
-	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
-	
-	/*
-	{"color":"#000",
-	"backgroundColor":"#eee",
-	"title":"Select",
-	"enabled":true,
-	"font":{"fontWeight":"bold","fontFamily":"Helvetica Neue","fontSize":"20sp"},
-	"borderColor":"#aaa",
-	"touchTestID":"0I_CCIL_button1",
-	"bindId":"btnSelect",
-	"textAlign":1,
-	"borderRadius":5,
-	"right":"0dp",
-	"borderWidth":2,
-	"height":"50dp",
-	"width":"FILL",
-	"horizontalWrap":true
-	}
-	*/
 	
 	var item = e.section.getItemAt(e.itemIndex);
 		

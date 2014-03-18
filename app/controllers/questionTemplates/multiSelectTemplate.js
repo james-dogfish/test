@@ -32,6 +32,33 @@ function onTitleClick(e) {
 	Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 };
 
+/*
+function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
+	for(var parentSelectionIndex =0; parentSelectionIndex< parentQuestion.selections.length; parentSelectionIndex++){
+		if(parentQuestion.selections[parentSelectionIndex].value === parentQuestionVale){
+			var displayValue = parentQuestion.selections[parentSelectionIndex].displayValue;
+			for(var childSelectionIndex =0; childSelectionIndex< childQuestion.selections.length; childSelectionIndex++){
+				if(childQuestion.selections[childSelectionIndex].displayValue == displayValue){
+					return childQuestion.selections[childSelectionIndex];
+				}
+			}
+		}
+	}
+	return null;
+};*/
+
+function LookUpSelections(parentQuestion, parentQuestionVale, childQuestion){
+	for(var parentSelectionIndex =0; parentSelectionIndex< parentQuestion.selections.length; parentSelectionIndex++){
+		if(parentQuestion.selections[parentSelectionIndex].value === parentQuestionVale){	
+			if(parentSelectionIndex < childQuestion.selections.length){
+				return childQuestion.selections[parentSelectionIndex];
+			}
+		}
+	}
+	return null;
+};
+
+
 
 function multiSelectButtonClicked(e) {
 	if (Alloy.Globals.dialogWindowOpen == true) return;
@@ -41,12 +68,27 @@ function multiSelectButtonClicked(e) {
 	var section = e.section;
 
 	if (item.readOnly == true) {
-		// section.updateItemAt(e.itemIndex, item);
 		return;
 	}
+	
+	var selections = item.selections;
+	if(item.alcrmQuestionID === "I_SELECTED_STAKEHOLDER_INFO"){
+		var selections = [];
+		var stakeholderQuestion =  Alloy.Globals.questionRenderer.findQuestionByAlcrmGroupAndName("I_STAKEHOLDER_INFO", "RiskAssessmentInfo");
+		if(stakeholderQuestion != null){
+			for(var i=0; i < stakeholderQuestion.value.length; i++){
+				var newvalue = LookUpSelections(stakeholderQuestion, stakeholderQuestion.value[i], item);
+				if(newvalue != null){
+					selections.push(newvalue);
+				}
+			}
+			
+		}
+	}
+	
 
 	Alloy.createController("questionDialogs/modalMultiPicker", {
-		valueList: item.selections,
+		valueList: selections,
 		valuesSelected: item.value,
 		closeCallBack: function(returnValue) {
 			if(typeof returnValue !== "undefined")
@@ -60,20 +102,14 @@ function multiSelectButtonClicked(e) {
 			}
 			
 			item.value = returnValue.valueList;
-			// section.updateItemAt(e.itemIndex, item);
 
 			var values = "";
 			for (var i = 0; i < returnValue.valueList.length; i++) {
 				values = values + "<ques:values>" + returnValue.valueList[i] + "</ques:values>";
 			}
 			
-			/*if(returnValue.singleStringValue === ""){
-				item.questionResponse = null;
-			}
-			else{*/
 				item.questionResponse = 
-					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values /*+ "<ques:notes>"+item.notes+"</ques:notes>"*/;
-			//}
+					"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ values;
 		    
 			item = Alloy.Globals.questionRenderer.questionValueChange({
 				questionObject: item,

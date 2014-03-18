@@ -1,14 +1,4 @@
 <Alloy>
-	<!--
-	<NavigationWindow id="navWindow">
-		<Window id="win">
-			<RightNavButton>
-                <Button id="rightNavButton" onClick="rightNavButtonClick"/>
-            </RightNavButton>
-			<TableView id="tableView" onClick="rowClicked"/>
-		</Window>
-	</NavigationWindow>
-	-->
 	<Window id="window">
 		<View id="background" onClick="onBackgroundClick"/>
 		<View id="modalBackgorund">

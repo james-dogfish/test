@@ -54,14 +54,11 @@ function dateButtonClicked(e){
 			item.value = [dateString];	
 			
 			section.updateItemAt(e.itemIndex, item);
-			//alert(dateString);
 			
 			
 			var questionResponse = 
 	       		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
 	       		"<ques:parameterValue>"+dateString+"</ques:parameterValue>";
-	       		//"<ques:notes>"+item.notes+"</ques:notes>";
-			//alert(questionResponse);
 			
 			item.questionResponse = questionResponse;
 			

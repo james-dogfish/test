@@ -1,20 +1,3 @@
-/*
-"#navWindow" : {
-	modal : true,
-},
-"#win" : {
-		title : "Pick one",
-		backgroundColor:"#fff",
-		barColor : "#c7efed",
-		tintColor : "ffffff"
-},
-"#rightNavButton" : {
-	systemButton: Ti.UI.iPhone.SystemButton.DONE
-}
-*/
-"#window" : {
-	//exitOnClose : true
-},
 "#appTitle" : {
 	text : L("modalPickerTitle"),
 	font : {
@@ -23,14 +6,12 @@
 	},
 	color : '#ffffff'	
 },
-
 "#background" : {
 	backgroundColor:"#000",
 	opacity : 0.5
 },
 "#modalBackgorund" : {
 	width: "50%",
-	//right : "-50%",
 	height: Ti.UI.SIZE,
 	top : "30%",
 	bottom : "30%",
@@ -45,10 +26,6 @@
 	height: Ti.UI.SIZE,
 	bottom : "10dp",
 	backgroundColor:"#eee",
-	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
-},
-"#pickerView" : {
-	
 }

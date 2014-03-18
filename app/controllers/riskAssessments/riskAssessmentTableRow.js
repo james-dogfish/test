@@ -1,41 +1,7 @@
 var assessmentID = null;
 
-if (arguments && arguments[0]) {
-	
-	/*
-	var fontawesome = arguments[0].fontawesome, 
-	thisRA = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(arguments[0].thisRA);
-
-	assessmentID = thisRA.assessmentID;
-
-	$.row.filter = thisRA.crossingName;
-	$.row.customData = thisRA;
-	$.crossingIcon.text = fontawesome.icon('icon-book');
-	//$.crossingLabel.text = thisRA.crossingName.toLowerCase().capitalize();
-	$.crossingLabel.text = thisRA.crossingName;
-
-	$.statusIcon.text = fontawesome.icon('icon-time');
-	$.statusLabel.text = '(' + (thisRA.questionsCompleted === 0 ? 'New' : (thisRA.questionsCompleted + '/' + thisRA.questionCount)) + ')';
-	if ($.statusLabel.text.search('New') === -1) {
-		$.statusLabel.text = $.statusLabel.text + " Mandatory Questions";
-	}
-	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
-
-	if (thisRA.alcrmStatus === 'sent' || thisRA.isSubmitted == true) {
-		//$.row.nonClickable = false;
-		$.row.editable = true;
-		$.alcrmStatusLabel.text = 'Submitted - Read Only';
-	} else {
-		$.row.editable = true;
-		$.alcrmStatusLabel.text = 'Not Sent';
-	}
-
-	$.commitIcon.text = fontawesome.icon('icon-cloud-upload');
-	*/
-}
-
 var update = function(assessmentObject, fontawesome){
-	//var fontawesome = arguments[0].fontawesome, 
+
 	assessmentObject = Alloy.Globals.localDataHandler.getMostUpTodateAssessmentObject(assessmentObject);
 
 	assessmentID = assessmentObject.assessmentID;
@@ -43,7 +9,6 @@ var update = function(assessmentObject, fontawesome){
 	$.row.filter = assessmentObject.crossingName;
 	$.row.customData = assessmentObject;
 	$.crossingIcon.text = fontawesome.icon('icon-book');
-	//$.crossingLabel.text = assessmentObject.crossingName.toLowerCase().capitalize();
 	$.crossingLabel.text = assessmentObject.crossingName;
 
 	$.statusIcon.text = fontawesome.icon('icon-time');
@@ -54,7 +19,6 @@ var update = function(assessmentObject, fontawesome){
 	$.alcrmIcon.text = fontawesome.icon('icon-cloud');
 
 	if (assessmentObject.alcrmStatus === 'sent' || assessmentObject.isSubmitted == true) {
-		//$.row.nonClickable = false;
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
 	} else {

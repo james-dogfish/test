@@ -1,7 +1,5 @@
 // Get orientation on load to assign right bg image
 // get max width and height
-//var User = Alloy.Globals.User; //require('core/User');
-//var Util = require('core/Util');
 Alloy.Globals.Util.downloadConfig();
 var pWidth = Ti.Platform.displayCaps.platformWidth,
     pHeight = Ti.Platform.displayCaps.platformHeight;
@@ -72,11 +70,8 @@ function doLogin() {
             });
 
             if (offlineAttempt) {
-                // $.window.close();
                 // Remove the login fields now
                 $.loginWin.removeAllChildren();
-
-                //$.loginButton.touchEnabled = false;
                 try {
                     Ti.Gesture.removeEventListener('orientationchange', changeBg);
                 } catch (e) {
@@ -95,7 +90,6 @@ function doLogin() {
         }
         // Fire up loading indicator here
 
-        //$.loginButton.touchEnabled = false;
         Alloy.Globals.Logger.log("Login button pressed", 'info');
         // Making sure both are valid entries
         Alloy.Globals.Soap.login({
@@ -232,16 +226,16 @@ function doLogin() {
 
                             // 22-08 - Multi-route login
                             // Update for bugfix
-                            if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
+                            if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.routes === 'string') {
                                 routeLength = 1;
                             } else {
-                                routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.areas.length;
+                                routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.routes.length;
                             }
 
                             if (Number(routeLength) > 1) {
                                 var routes = [];
                                 for (var i = 0; i < routeLength; i++) {
-                                    routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]);
+                                    routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.routes[i]);
                                 }
 
                                 if (Alloy.CFG.stagedRollOut === true) {
@@ -255,10 +249,10 @@ function doLogin() {
                                 }
 
                             } else {
-                                if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
-                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.routes === 'string') {
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.routes;
                                 } else {
-                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.routes;
                                 }
                                 if (Alloy.CFG.stagedRollOut === true) {
                                     if (isRouteEnabled(route)) {

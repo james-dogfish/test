@@ -254,7 +254,28 @@
 						},
 						"riskAnalysisOnly": "false"
 					}, {
-						"parameterName": "I_STAKEHOLDER_USER_ATTENDED"
+						"parameterName": "I_STAKEHOLDER_USER_ATTENDED",
+						"order": "105",
+						"group": "RiskAssessmentInfo",
+						"text": "Did the key stakeholder(s) attend the Risk Assessment?",
+						"firstTab": "Risk Assessment Info",
+						"helpText": "I_STAKEHOLDER_USER_ATTENDED Help",
+						"notesText": "I_STAKEHOLDER_USER_ATTENDED Notes",
+						"type": "radio",
+						"validation": {
+							"mandatory": "false",
+							"matchAllMandatoryRestrictions": "false"
+						},
+						"selections": [{
+							"name": "I_STAKEHOLDER_USER_ATTENDED",
+							"value": "792",
+							"displayValue": "Yes"
+						}, {
+							"name": "I_STAKEHOLDER_USER_ATTENDED",
+							"value": "793",
+							"displayValue": "No"
+						}],
+						"riskAnalysisOnly": "false"
 					}, {
 						"parameterName": "I_SELECTED_STAKEHOLDER_INFO",
 						"order": "106",
@@ -1249,6 +1270,14 @@
 						},
 						"selections": [{
 							"name": "I_DECKING_UWC",
+							"value": "2004",
+							"displayValue": "DECKING"
+						}, {
+							"name": "I_DECKING_UWC",
+							"value": "2005",
+							"displayValue": "BALLAST"
+						}, {
+							"name": "I_DECKING_UWC",
 							"value": "608",
 							"displayValue": "Decking"
 						}, {
@@ -1408,13 +1437,40 @@
 						},
 						"riskAnalysisOnly": "false"
 					}, {
-						"parameterName": "I_UWC_2TRAINS_NONMWL",
-						"order": "532",
+						"parameterName": "I_2TRAINS_VIEW_NONMWL",
+						"order": "533",
 						"group": "Misuse",
-						"text": "How often does a second train pass the crossing within 20 seconds of the first train",
+						"text": "What is the chance that a second approaching train would not be seen until the first train has passed",
 						"firstTab": "Misuse",
-						"helpText": "I_UWC_2TRAINS_NONMWL Help",
-						"notesText": "I_UWC_2TRAINS_NONMWL Notes",
+						"helpText": "I_2TRAINS_VIEW_NONMWL Help",
+						"notesText": "I_2TRAINS_VIEW_NONMWL Notes",
+						"type": "radio",
+						"validation": {
+							"mandatory": "true",
+							"matchAllMandatoryRestrictions": "false"
+						},
+						"selections": [{
+							"name": "I_2TRAINS_VIEW",
+							"value": "376",
+							"displayValue": "Impossible - view not obscured from either side"
+						}, {
+							"name": "I_2TRAINS_VIEW",
+							"value": "377",
+							"displayValue": "Likely - view usually or always obscured"
+						}, {
+							"name": "I_2TRAINS_VIEW",
+							"value": "378",
+							"displayValue": "Possible - view obscured in some situations"
+						}],
+						"riskAnalysisOnly": "false"
+					}, {
+						"parameterName": "I_UWC_2TRAINS_BARROW",
+						"order": "534",
+						"group": "Misuse",
+						"text": "What proportion of the time does the second train pass the crossing when another train is in the platform",
+						"firstTab": "Misuse",
+						"helpText": "I_UWC_2TRAINS_BARROW Help",
+						"notesText": "I_UWC_2TRAINS_BARROW Notes",
 						"type": "radio",
 						"validation": {
 							"mandatory": "true",
@@ -1440,33 +1496,6 @@
 							"name": "I_UWC_2TRAINS",
 							"value": "471",
 							"displayValue": "Rarely or never"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_2TRAINS_VIEW_NONMWL",
-						"order": "533",
-						"group": "Misuse",
-						"text": "What is the chance that a second approaching train would not be seen until the first train has passed",
-						"firstTab": "Misuse",
-						"helpText": "I_2TRAINS_VIEW_NONMWL Help",
-						"notesText": "I_2TRAINS_VIEW_NONMWL Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "true",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_2TRAINS_VIEW",
-							"value": "376",
-							"displayValue": "Impossible - view not obscured from either side"
-						}, {
-							"name": "I_2TRAINS_VIEW",
-							"value": "377",
-							"displayValue": "Likely - view usually or always obscured"
-						}, {
-							"name": "I_2TRAINS_VIEW",
-							"value": "378",
-							"displayValue": "Possible - view obscured in some situations"
 						}],
 						"riskAnalysisOnly": "false"
 					}, {
@@ -1610,45 +1639,6 @@
 						"firstTab": "Approach",
 						"helpText": "I_APPROACH_CROSSING_NOTES Help",
 						"notesText": "I_APPROACH_CROSSING_NOTES Notes",
-						"type": "alphanumeric",
-						"validation": {
-							"minLength": "0",
-							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_FP_APPROACH_STEEP",
-						"order": "630",
-						"group": "Approach",
-						"text": "For footpath crossings is the approach steep",
-						"firstTab": "Approach",
-						"helpText": "I_FP_APPROACH_STEEP Help",
-						"notesText": "I_FP_APPROACH_STEEP Notes",
-						"type": "radio",
-						"validation": {
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"selections": [{
-							"name": "I_YES_NO",
-							"value": "608",
-							"displayValue": "YES"
-						}, {
-							"name": "I_YES_NO",
-							"value": "609",
-							"displayValue": "NO"
-						}],
-						"riskAnalysisOnly": "false"
-					}, {
-						"parameterName": "I_ADD_FP_CROSSING_NOTES",
-						"order": "631",
-						"group": "Approach",
-						"text": "Additional notes on FP crossings",
-						"firstTab": "Approach",
-						"helpText": "I_ADD_FP_CROSSING_NOTES Help",
-						"notesText": "I_ADD_FP_CROSSING_NOTES Notes",
 						"type": "alphanumeric",
 						"validation": {
 							"minLength": "0",
@@ -2635,22 +2625,6 @@
 						"validation": {
 							"minLength": "0",
 							"maxLength": "1500",
-							"mandatory": "false",
-							"matchAllMandatoryRestrictions": "false"
-						},
-						"riskAnalysisOnly": "true"
-					}, {
-						"parameterName": "I_CYC_MITIGATION",
-						"order": "1106",
-						"group": "Mitigation",
-						"text": "Pedal \/ Motor Cycles",
-						"firstTab": "Mitigation",
-						"helpText": "I_CYC_MITIGATION Help",
-						"notesText": "I_CYC_MITIGATION Notes",
-						"type": "numeric",
-						"validation": {
-							"max": "100",
-							"min": "0",
 							"mandatory": "false",
 							"matchAllMandatoryRestrictions": "false"
 						},

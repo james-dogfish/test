@@ -111,7 +111,7 @@ var SudsClient = function(_options) {
     headerBegin: '<soap:Header>',
     headerNode: 'head',
     headerEnd: '</soap:Header>',
-    timeout: 999999,
+    timeout: Number(Ti.App.Properties.getString('wsTimeout', '99999')),
     includeNS: true,
     emptyHeader: '',
     addTargetSchema: false,
@@ -173,10 +173,11 @@ var SudsClient = function(_options) {
       body += '</' + wrapNS(false) + _soapAction + '>';
     }
 
-    var crossingSearchFix = JSON.stringify(body);
-    crossingSearchFix = crossingSearchFix.replace("</com:searchCriteria_2>", "</com:searchCriteria>").replace("<com:searchCriteria_2>", "<com:searchCriteria>");
-    Ti.API.error(crossingSearchFix);
-    body = JSON.parse(crossingSearchFix);
+    // Commenting out fix
+    // var crossingSearchFix = JSON.stringify(body);
+    // crossingSearchFix = crossingSearchFix.replace("</com:searchCriteria_1>", "</com:searchCriteria>").replace("<com:searchCriteria_1>", "<com:searchCriteria>");
+    // Ti.API.error(crossingSearchFix);
+    // body = JSON.parse(crossingSearchFix);
 
     var ebegin = config.envelopeBegin;
     config.envelopeBegin = ebegin.replace('PLACEHOLDER', config.targetNamespace);
@@ -224,22 +225,23 @@ var SudsClient = function(_options) {
               typeof error_object.response.Envelope.Body !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault !== "undefined" ||
               typeof error_object.response.Envelope.Body.Fault.faultcode !== "undefined" ||
-              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined" && typeof error_code != "undefined") {
+              typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
               //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
-                // if (typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
-                //   error_message += error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
-                // }
+                if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && 
+                    typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
+                  error_message += "\n\n" + error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL;
+                }
 
               }
               Alloy.Globals.requestFailed = true;
 
               var alert = Titanium.UI.createAlertDialog({
                 title: 'WebService Error',
-                message: error_message + "\n\n" + error_code + "\n\nWould you like to retry?",
+                message: "\n" + error_message +  "\n\nWould you like to retry?",
                 buttonNames: ['Yes', 'No'],
                 cancel: 1,
                 stackTrace: error_stacktrace

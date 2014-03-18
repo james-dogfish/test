@@ -32,8 +32,5 @@
 	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
-},
-"#pickerView" : {
-	
 }
 

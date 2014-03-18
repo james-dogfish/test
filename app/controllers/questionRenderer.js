@@ -616,6 +616,47 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
     return null;
 };
 
+/**
+`findQuestionByAlcrmGroupAndName` searches for a question that matches both alcrmQuestionID and alcrmGroupType.
+if to be used for questions in census or train info you most supply a associatedFileName 
+
+@method findQuestionByAlcrmGroupAndName
+
+@param {String} alcrmQuestionID alcrmQuestionID to search for
+@param {String} alcrmGroupType alcrmGroupType to search for
+@param {String} associatedFileName associatedFileName to search for (optional)
+  
+@return {JSON} (success) questionObject
+@return {null} (fail)
+*/
+var findQuestionByAlcrmGroupAndName = function (alcrmQuestionID, alcrmGroupType, associatedFileName) {
+    var sectionList = getAllQuestionSections();
+	var sectionListLength = sectionList.length;
+	
+	var searchByAssociatedFileName = false;
+	if ( typeof associatedFileName !== "undefined") {
+		searchByAssociatedFileName = true;
+	}
+
+	
+    for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
+
+        if (sectionList[sectionIndex].alcrmGroupType == alcrmGroupType) {
+        	if(searchByAssociatedFileName == true && sectionList[sectionIndex].associatedFileName != associatedFileName)continue;
+        	
+        	var questionList = sectionList[sectionIndex].getItems();
+        	var questionListLength = questionList.length;
+        	for (var questionIndex = 0; questionIndex < questionListLength; questionIndex++) {
+        		if(questionList[questionIndex].alcrmQuestionID === alcrmQuestionID){
+        			return questionList[questionIndex];
+        		}
+        	}	
+        }
+    }
+    return null;
+};
+exports.findQuestionByAlcrmGroupAndName= findQuestionByAlcrmGroupAndName;
+
 
 
 /** 
@@ -1222,43 +1263,11 @@ var validateSingleQuestionValue = function (value, questionObject) {
         	returnObject.isValid = true;
             return returnObject;
         }
-   		/*
-        if (questionObject.validation.mandatory == true) {
-
-            returnObject.isValid = false;
-            returnObject.outPutMessage = L("mandatory_error_text");
-            return returnObject;
-        } else {
-
-            var conditionalMandatory = questionObject.validation.conditionalMandatory;
-            if (conditionalMandatory.length != 0) {
-                for (var i = 0; i < conditionalMandatory.length; i++) {
-
-                    var testValue = findQuestionsValue(conditionalMandatory[i].name);
-
-                    if (conditionalMandatory[i].value == null) {
-                        continue;
-                    }
-
-                    for (var testValueIndex = 0; testValueIndex < testValue.length; testValueIndex++) {
-                        if (conditionalMandatory[i].value == testValue[testValueIndex]) {
-                            returnObject.isValid = false;
-                            returnObject.outPutMessage = L("mandatory_error_text");;
-                            return returnObject;
-                        }
-                    }
-                }
-            }
-
-            returnObject.isValid = true;
-            return returnObject;
-        }
-        */
     }
-	//alert(dataType);
+	
     if (dataType == "numeric" || dataType == "numericRange") {
         var test = Alloy.Globals.Validator.isNumber(Number(value), false);
-        if (test == false || value.match(/^0+/)!==null) {
+        if (test == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
@@ -1310,15 +1319,49 @@ var validateSingleQuestionValue = function (value, questionObject) {
         }
     }
 
+	// Checking if icon are sending a regex for us to match
+	if (questionObject.validation.format != null) {
+		try {
+			var regexString = new RegExp(questionObject.validation.format);
+			if (!regexString.test(value)) {
 
-    if (questionObject.validation.format != null) {
-        if (Alloy.Globals.Validator.isValidFormat(value) == false) {
-            returnObject.isValid = false;
-            returnObject.outPutMessage = L("format_error_text") +" "+ questionObject.validation.format;
-            return returnObject;
-        }
-    }
+				// if there is a max and min length property for the question, then
+				// make sure the exampleFormat matches it
+				
+				var toReturn,
+					RandExp = require('tools/randexp');
+				var generateRegexString = function(regex) {
 
+					function generateString(regex) {
+						
+						var exampleFormat = new RandExp(regex).gen();
+						return exampleFormat;
+					}
+
+					toReturn = generateString(regex);
+
+					if (questionObject.validation.minLength != null) {
+						if (toReturn.length < questionObject.validation.minLength) {
+							generateRegexString(regex);
+						}
+					}
+					if (questionObject.validation.maxLength != null) {
+						if (toReturn.length > questionObject.validation.maxLength) {
+							generateRegexString(regex);
+						}
+					}
+					return toReturn;
+				};
+
+				returnObject.isValid = false;
+				returnObject.outPutMessage = L("format_error_text").replace('[format]', generateRegexString(regexString));
+				return returnObject;
+			}
+		} catch (e) {
+			Alloy.Globals.Logger.log('Error message '+e.message+' while checking regex from icon for questionObject' + JSON.stringify(questionObject), 'error');
+			Alloy.Globals.Logger.logException(e);
+		}
+	}
     returnObject.isValid = true;
     return returnObject;
 };
@@ -1397,16 +1440,6 @@ var validateEntireQuestion = function (questionObject) {
     return questionObject;
 };
 
-/*
-//`Ti.App.addEventListener("singleViewChange)` listen for an event of the question renderer
-//being changed from single to muiti section view
-Ti.App.addEventListener("singleViewChange", function (data) {
-    setListViewDisplayTypeToSingleSections(data.isSingleView);
-});
-*/
-
-
-
 /**
 `moveSectionBackClick` the callback function for the button click to move the selected section
 in the single section mode to the previous section
@@ -1419,8 +1452,6 @@ in the single section mode to the previous section
 */
 
 function moveSectionBackClick(e) {
-
-    //setSelectedSectionForSingleSections(currentSingleSectionIndex -1);
     moveSelectedSectionForSingleSections(currentSingleSectionIndex, -1);
 };
 
@@ -1437,7 +1468,6 @@ in the single section mode to the next section
 @return {} n/a
 */
 function moveSectionNextClick(e) {
-    //setSelectedSectionForSingleSections(currentSingleSectionIndex + 1);
     moveSelectedSectionForSingleSections(currentSingleSectionIndex, 1);
 };
 
@@ -1507,8 +1537,6 @@ var questionValueChange = function (e) {
 
     // Blur the currently focused TF
     blurCurrentlyFocusedTF();
-
-	//alert(e.section.pageType);
     
     
     if(e.questionObject.alcrmQuestionID === "I_CENSUS_TYPE" && e.questionObject.value[0] != "20" && e.questionObject.associatedFileName === $.censusFooterView.getCensusAssociatedFileName()){
@@ -1517,13 +1545,7 @@ var questionValueChange = function (e) {
 	
     e.questionObject = validateEntireQuestion(e.questionObject);
 
-
-	//Ti.API.info("e.questionObject.questionResponse = "+JSON.stringify(e.questionObject.questionResponse));
-    Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
-    
-    //Alloy.Globals.Logger.log("questionRender questionValueChange name = "+e.questionObject.name + ", question = "+JSON.stringify(e.questionObject),"info");
-    
-    
+	Alloy.Globals.localDataHandler.updateQuestion(e.questionObject);
     
     if(e.section.pageType == "trainInfo" && e.section.pageID > 1){
     	if(e.questionObject.value[0] == "" && e.questionObject.mandatory == true){
@@ -1555,7 +1577,6 @@ var questionValueChange = function (e) {
     		else{
     			e.section.updateItemAt(e.questionIndex, e.questionObject, {animated: false});
     		}
-    		//e.section.setItems(questionList);
     	}
     	else if(e.questionObject.value[0] != "" && e.questionObject.mandatory == false){
     		var questionList = e.section.getItems();
@@ -1570,7 +1591,6 @@ var questionValueChange = function (e) {
     			Alloy.Globals.localDataHandler.updateQuestion(questionList[questionIndex]);
     			e.section.updateItemAt(questionIndex, questionList[questionIndex], {animated: false});
     		}
-    		//e.section.setItems(questionList);
     		Alloy.Globals.aIndicator.hide();
     	}  
     	else{

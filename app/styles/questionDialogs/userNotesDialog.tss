@@ -9,14 +9,12 @@
 	},
 	color : '#ffffff'	
 },
-
 "#background" : {
 	backgroundColor:"#000",
 	opacity : 0
 },
 "#modalBackgorund" : {
 	width: "50%",
-	//right : "-50%",
 	height: "50%",
 	layout : "vertical",
 	backgroundColor:"#fff",
@@ -31,7 +29,6 @@
 	bottom : "5dp",
 	left : "5dp",
 	right : "5dp",
-	//borderRadius: 5,
 	borderWidth : 3,
 	borderColor : "#ddd",
 },
@@ -60,4 +57,3 @@
 	},
 	color : '#ddd'
 }
-
