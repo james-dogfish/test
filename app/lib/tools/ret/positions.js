@@ -1,4 +1,4 @@
-var types = require('./types');
+var types = require('tools/ret/types');
 
 exports.wordBoundary = function() {
   return { type: types.POSITION, value: 'b' };

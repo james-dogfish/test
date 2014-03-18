@@ -226,16 +226,16 @@ function doLogin() {
 
                             // 22-08 - Multi-route login
                             // Update for bugfix
-                            if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
+                            if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.routes === 'string') {
                                 routeLength = 1;
                             } else {
-                                routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.areas.length;
+                                routeLength = loginObject.response.Envelope.Body.GetUserResponse.user.routes.length;
                             }
 
                             if (Number(routeLength) > 1) {
                                 var routes = [];
                                 for (var i = 0; i < routeLength; i++) {
-                                    routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.areas[i]);
+                                    routes.push(loginObject.response.Envelope.Body.GetUserResponse.user.routes[i]);
                                 }
 
                                 if (Alloy.CFG.stagedRollOut === true) {
@@ -249,10 +249,10 @@ function doLogin() {
                                 }
 
                             } else {
-                                if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.areas === 'string') {
-                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                if (typeof loginObject.response.Envelope.Body.GetUserResponse.user.routes === 'string') {
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.routes;
                                 } else {
-                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.areas;
+                                    route = loginObject.response.Envelope.Body.GetUserResponse.user.routes;
                                 }
                                 if (Alloy.CFG.stagedRollOut === true) {
                                     if (isRouteEnabled(route)) {

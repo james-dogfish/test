@@ -616,6 +616,47 @@ var findSectionByAssociatedFileName = function (alcrmGroupType, associatedFileNa
     return null;
 };
 
+/**
+`findQuestionByAlcrmGroupAndName` searches for a question that matches both alcrmQuestionID and alcrmGroupType.
+if to be used for questions in census or train info you most supply a associatedFileName 
+
+@method findQuestionByAlcrmGroupAndName
+
+@param {String} alcrmQuestionID alcrmQuestionID to search for
+@param {String} alcrmGroupType alcrmGroupType to search for
+@param {String} associatedFileName associatedFileName to search for (optional)
+  
+@return {JSON} (success) questionObject
+@return {null} (fail)
+*/
+var findQuestionByAlcrmGroupAndName = function (alcrmQuestionID, alcrmGroupType, associatedFileName) {
+    var sectionList = getAllQuestionSections();
+	var sectionListLength = sectionList.length;
+	
+	var searchByAssociatedFileName = false;
+	if ( typeof associatedFileName !== "undefined") {
+		searchByAssociatedFileName = true;
+	}
+
+	
+    for (var sectionIndex = 0; sectionIndex < sectionListLength; sectionIndex++) {
+
+        if (sectionList[sectionIndex].alcrmGroupType == alcrmGroupType) {
+        	if(searchByAssociatedFileName == true && sectionList[sectionIndex].associatedFileName != associatedFileName)continue;
+        	
+        	var questionList = sectionList[sectionIndex].getItems();
+        	var questionListLength = questionList.length;
+        	for (var questionIndex = 0; questionIndex < questionListLength; questionIndex++) {
+        		if(questionList[questionIndex].alcrmQuestionID === alcrmQuestionID){
+        			return questionList[questionIndex];
+        		}
+        	}	
+        }
+    }
+    return null;
+};
+exports.findQuestionByAlcrmGroupAndName= findQuestionByAlcrmGroupAndName;
+
 
 
 /** 
@@ -1226,7 +1267,7 @@ var validateSingleQuestionValue = function (value, questionObject) {
 	
     if (dataType == "numeric" || dataType == "numericRange") {
         var test = Alloy.Globals.Validator.isNumber(Number(value), false);
-        if (test == false || value.match(/^0+/)!==null) {
+        if (test == false) {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
@@ -1278,43 +1319,49 @@ var validateSingleQuestionValue = function (value, questionObject) {
         }
     }
 
+	// Checking if icon are sending a regex for us to match
+	if (questionObject.validation.format != null) {
+		try {
+			var regexString = new RegExp(questionObject.validation.format);
+			if (!regexString.test(value)) {
 
-    if (questionObject.validation.format != null) {
+				// if there is a max and min length property for the question, then
+				// make sure the exampleFormat matches it
+				
+				var toReturn,
+					RandExp = require('tools/randexp');
+				var generateRegexString = function(regex) {
 
-        if (Alloy.Globals.Validator.isValidFormat(value) == false) {
+					function generateString(regex) {
+						
+						var exampleFormat = new RandExp(regex).gen();
+						return exampleFormat;
+					}
 
-            // if there is a max and min length property for the question, then
-            // make sure the exampleFormat matches it
-            var toReturn;
-            var generateRegexString = function(regex){
+					toReturn = generateString(regex);
 
-            	function generateString(regex) {
-            		var RandExp = require('tools/randexp');
-	            	var exampleFormat = new RandExp(regex).gen();
-	            	return exampleFormat;
-            	}
+					if (questionObject.validation.minLength != null) {
+						if (toReturn.length < questionObject.validation.minLength) {
+							generateRegexString(regex);
+						}
+					}
+					if (questionObject.validation.maxLength != null) {
+						if (toReturn.length > questionObject.validation.maxLength) {
+							generateRegexString(regex);
+						}
+					}
+					return toReturn;
+				};
 
-            	toReturn = generateString(regex);
-
-            	if(questionObject.validation.minLength != null) {
-	            	if(toReturn.length < questionObject.validation.minLength) {
-	            		generateRegexString(regex);
-	            	}
-	            }
-	            if(questionObject.validation.maxLength != null) {
-	            	if(toReturn.length > questionObject.validation.maxLength) {
-	            		generateRegexString(regex);
-	            	}
-	            } 
-	            return toReturn;	
-            };
-
-            returnObject.isValid = false;
-            returnObject.outPutMessage = L("format_error_text").replace('[format]', generateRegexString(questionObject.validation.format));
-            return returnObject;
-        }
-    }
-
+				returnObject.isValid = false;
+				returnObject.outPutMessage = L("format_error_text").replace('[format]', generateRegexString(regexString));
+				return returnObject;
+			}
+		} catch (e) {
+			Alloy.Globals.Logger.log('Error message '+e.message+' while checking regex from icon for questionObject' + JSON.stringify(questionObject), 'error');
+			Alloy.Globals.Logger.logException(e);
+		}
+	}
     returnObject.isValid = true;
     return returnObject;
 };

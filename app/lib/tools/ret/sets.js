@@ -1,4 +1,4 @@
-var types = require('./types');
+var types = require('tools/ret/types');
 
 var INTS = function() {
  return [{ type: types.RANGE , from: 48, to: 57 }];

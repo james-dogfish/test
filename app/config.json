@@ -2,7 +2,7 @@
 	"global": {
 		"debug": false,
 		"stagedRollOut": true,
-		"fakeSearchCrossings": true,
+		"fakeSearchCrossings": false,
 		"analytics": {
 			"navOverride": false
 		},

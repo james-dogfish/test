@@ -173,10 +173,11 @@ var SudsClient = function(_options) {
       body += '</' + wrapNS(false) + _soapAction + '>';
     }
 
-    var crossingSearchFix = JSON.stringify(body);
-    crossingSearchFix = crossingSearchFix.replace("</com:searchCriteria_2>", "</com:searchCriteria>").replace("<com:searchCriteria_2>", "<com:searchCriteria>");
-    Ti.API.error(crossingSearchFix);
-    body = JSON.parse(crossingSearchFix);
+    // Commenting out fix
+    // var crossingSearchFix = JSON.stringify(body);
+    // crossingSearchFix = crossingSearchFix.replace("</com:searchCriteria_1>", "</com:searchCriteria>").replace("<com:searchCriteria_1>", "<com:searchCriteria>");
+    // Ti.API.error(crossingSearchFix);
+    // body = JSON.parse(crossingSearchFix);
 
     var ebegin = config.envelopeBegin;
     config.envelopeBegin = ebegin.replace('PLACEHOLDER', config.targetNamespace);
