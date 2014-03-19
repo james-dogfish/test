@@ -1039,12 +1039,11 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
 	                //get the questionList
 	                var questionList = sectionList[sectionListIndex].questionList;
 	                for (var questionListIndex = 0; questionListIndex < questionList.length; questionListIndex++) {
-	
+	                   
 	                    //Count the Mandatory
-	                    if (questionList[questionListIndex].mandatory == true ||
-	                        questionList[questionListIndex].mandatory == "true") {
+	                    if (questionList[questionListIndex].mandatory === true && 
+                            questionList[questionListIndex].visable !== false) {
 	                        assessmentObject.questionCount++;
-	
 	
 	                        if (typeof questionList[questionListIndex].value === "undefined") continue;
 	                        if (!(questionList[questionListIndex].value instanceof Array)) continue;
