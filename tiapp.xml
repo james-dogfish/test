@@ -10,7 +10,7 @@
     <property name="acs-oauth-key-production" type="string">hWxJL9flYK3rpSmKW1ZsSEzoOcQvKUNT</property>
     <property name="acs-api-key-production" type="string">kdlTgaaS85v1hl6HoIpSImEfqwagi10W</property>
     <id>sh.dogfi.nwr.phase2</id>
-    <name>ALCRM_Mobile</name>
+    <name>RA App</name>
     <version>1.0</version>
     <publisher>Gorenjai</publisher>
     <url>http://dogfi.sh</url>
