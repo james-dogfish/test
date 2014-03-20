@@ -12,7 +12,7 @@
 				<TextField class='numberField' id='mobile' onReturn="focusEmail"/>
 				<Label class='label' text="Email" />
 				<TextField class='textField' id='email' />
-				<Label class='label' text="Single Section View - Ver. 1.0.22 - DTE" />
+				<Label class='label' text="Single Section View - Ver. 1.0.23 - PPTE" />
 				<Switch id='sectionSwitch' value='false' />
 				<Button id='saveButton' class='saveButton' title='Save' onClick='saveSettings' touchTestId='saveButton'/>
 				<Button id='sendBugReport' class='bugReport' title='Send Bug Report' onClick='sendBugReport' />
