@@ -174,7 +174,8 @@ function _Util() {
 		
 	};
 
-	cmsUrl = 'http://dogfishdata.com/alcrm_cms';
+	// cmsUrl = 'http://dogfishdata.com/alcrm_cms';
+	cmsUrl = 'http://phase2.nwrcrossings.co.uk';
 	docsFolder = Ti.Filesystem.getApplicationDataDirectory();
 
 	// Function to bring the route picker up
@@ -303,10 +304,10 @@ function _Util() {
 	self.sendBugReport = function(args, success) {
 
 		var emailDialog = Ti.UI.createEmailDialog();
-		emailDialog.subject = 'Bug Report';
+		emailDialog.subject = 'RA App bug report from ' + args.userName;
 
 		emailDialog.messageBody = args.emailBody;
-		emailDialog.toRecipients = ['shebby@dogfi.sh', 'james@dogfi.sh'];
+		emailDialog.toRecipients = ['paul.haggett@networkrail.co.uk'];
 
 		emailDialog.addAttachment(args.docsZip);
 		emailDialog.addEventListener('complete', function(){

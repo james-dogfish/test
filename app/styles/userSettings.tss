@@ -66,8 +66,8 @@
 ".saveButton": {
 	top: 10,
 	bottom: 10,
-	width: 170,
-	height: 45,
+	width: 230,
+	height: 50,
 	borderRadius:6,
     borderWidth:1,
     borderColor:'#151d21',
@@ -87,8 +87,8 @@
     backgroundImage: 'none'
 },
 ".bugReport": {
-	top: 5,
-	bottom: 5,
+	top: 0,
+	bottom: 10,
 	width: 170,
 	height: 45,
 	borderRadius:6,
