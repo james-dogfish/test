@@ -14,8 +14,8 @@
 				<TextField class='textField' id='email' />
 				<Label class='label' text="Single Section View - Ver. 1.0.21" />
 				<Switch id='sectionSwitch' value='false' />
-				<Button id='sendBugReport' class='bugReport' title='Send Bug Report' onClick='sendBugReport' />
 				<Button id='saveButton' class='saveButton' title='Save' onClick='saveSettings' touchTestId='saveButton'/>
+				<Button id='sendBugReport' class='bugReport' title='Send Bug Report' onClick='sendBugReport' />
 			</View>
 		</ScrollView>
 	</Window>
