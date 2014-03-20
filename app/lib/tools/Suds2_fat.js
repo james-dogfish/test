@@ -200,6 +200,7 @@ var SudsClient = function(_options) {
       try {
         _callback.call(this, xmlDomFromString(this.responseText));
       } catch (e) {
+        Alloy.Globals.Analytics.trackFeature('Invalid server response received from ALCRM while calling '+xhr.getLocation());
         Alloy.Globals.Logger.logException(e);
         Alloy.Globals.aIndicator.hide();
         Alloy.Globals.Util.showAlert('Invalid server response received from ALCRM. Please retry!');
@@ -229,7 +230,13 @@ var SudsClient = function(_options) {
               //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
-                error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                var faultString = error_object.response.Envelope.Body.Fault.faultstring;
+                if(faultString.toLowerCase().indexOf('ldap') !== -1 && faultString.toLowerCase().indexOf('error') !== -1) {
+                  error_message = L('invalid_login') + "\n\n" + error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                } else {
+                  error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                }
+                
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
                 if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && 
                     typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {

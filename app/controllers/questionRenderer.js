@@ -811,7 +811,7 @@ questionRenderer to veiw an assessment
 */
 exports.setAssessment = function (JSON_sectionList, assessmentObject) {
 	try{
-		Ti.API.info("setAssessment = "+JSON.stringify(JSON_sectionList));
+		// Ti.API.info("setAssessment = "+JSON.stringify(JSON_sectionList));
 		$.listView.setSections([]);
 	    currentAssessmentObject = assessmentObject;
 	
@@ -854,7 +854,7 @@ used to add extra sectons to the listView after setAssessment has been called
 @return {} n/a
 */
 exports.appendSectionsToAssessment = function (JSON_sectionList) {
-	Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JSON_sectionList));
+	// Ti.API.info("appendSectionsToAssessment = "+JSON.stringify(JSON_sectionList));
     JSON_sectionList = removeHiddenQuestions(JSON_sectionList);
 
     appendSectionList = buildQuestionSections(JSON_sectionList);

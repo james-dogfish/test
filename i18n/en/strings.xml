@@ -31,7 +31,7 @@
     <string name="census">Census</string> 
     <string name="noCensusMessage">You must complete at least 1 census</string> 
     <string name="censusDesktopCompleteMessage">You do not have to complete your census through the Risk Assessment app, please complete through ALCRM once you have submitted your risk assessment</string> 
-    <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will remove any attached censuses for this assessment)</string> 
+    <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will delete any information entered for Census General, Census Environment or Census Usage sections for all censuses attached to this assessment)</string> 
  
     
     <!-- validation strings for RA form -->

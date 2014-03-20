@@ -89,10 +89,14 @@ function sendBugReport() {
 		osVersion = Ti.Platform.osname + " " + Ti.Platform.version,
 		deviceType = Ti.Platform.model,
 		sdkVersion = Ti.version,
+		userName = Alloy.Globals.User.getPreferences().name,
+		alcrmUsername = Alloy.Globals.User.getLogin().username,
 		emailBody = '';
+
 	emailBody += 'Please describe your problem here by providing as much detail as you can - \n\n';
 	emailBody += '\n--------------------------------------------------\n';
 	emailBody += 'Diagnostic information - Please do not edit!\n';
+	emailBody += 'ALCRM Username - ' + alcrmUsername + '\n';
 	emailBody += 'App Version - ' + appVersion + '\n';
 	emailBody += 'OS Version - ' + osVersion + '\n';
 	emailBody += 'Devide Model - ' + deviceType + '\n';
@@ -102,6 +106,7 @@ function sendBugReport() {
 	var zipBlob = Alloy.Globals.Util.zipUpDocumentsFolder();
 
 	Alloy.Globals.Util.sendBugReport({
+		userName: userName,
 		emailBody: emailBody,
 		docsZip: zipBlob
 	});
