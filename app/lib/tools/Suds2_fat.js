@@ -231,7 +231,7 @@ var SudsClient = function(_options) {
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
                 var faultString = error_object.response.Envelope.Body.Fault.faultstring;
-                if(faultString.toLowerCase().indexOf('ldap') !== -1 && faultString.toLowerCase().indexOf('error') !== -1) {
+                if(faultString.toLowerCase().indexOf('ldap') !== -1) {
                   error_message = L('invalid_login') + "\n\n" + error_object.response.Envelope.Body.Fault.faultstring + ". ";
                 } else {
                   error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
