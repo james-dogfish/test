@@ -230,7 +230,13 @@ var SudsClient = function(_options) {
               //error_message = JSON.stringify(error_object);
               error_stacktrace = "";
               if (typeof error_object.response.Envelope.Body.Fault.faultstring !== "undefined") {
-                error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                var faultString = error_object.response.Envelope.Body.Fault.faultstring;
+                if(faultString.toLowerCase().indexOf('ldap') !== -1) {
+                  error_message = L('invalid_login') + "\n\n" + error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                } else {
+                  error_message = error_object.response.Envelope.Body.Fault.faultstring + ". ";
+                }
+                
                 error_code = error_object.response.Envelope.Body.Fault.faultcode;
                 if (typeof error_object.response.Envelope.Body.Fault.detail !== "undefined" && 
                     typeof error_object.response.Envelope.Body.Fault.detail.ADDITIONAL_DETAIL !== "undefined") {
