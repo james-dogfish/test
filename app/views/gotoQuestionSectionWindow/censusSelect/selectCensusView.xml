@@ -5,7 +5,9 @@
 			<Label id="headerTitle"/>
 		</View>
 		<Button class="selectButton" onClick="createCensusClick">Create Census</Button>
-		<Button class="selectButton" onClick="addCensusClick">Select from past censuses</Button>
+		<!-- <Button class="selectButton" onClick="addCensusClick">Select from past censuses</Button> -->
+		<!-- Disabling button above as per Jordan's request as NR is not confident about e2e testing 
+		carried out by CSC + team on this section, will be re-enabled in a future release -->
 		<Button class="selectButton" onClick="censusDesktopCompleteClick">No Census carried out on-site</Button>
 	</View>
 </Alloy>
