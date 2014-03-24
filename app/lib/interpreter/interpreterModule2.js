@@ -949,13 +949,15 @@ relevent subsections, this function is called to insert the questions back in to
 						questionObject.renderDependencyList = [];
 					}
 					if (questionObject.alcrmQuestionID in censusCounterQuestionMap) {
+						if (questionObject.value[0] === "") {
+							questionObject.value[0] = "0";
+							questionObject.displayValue.value = "0";
+							questionObject.questionResponse =
+								"<ques:parameterName>" + questionObject.alcrmQuestionID + "</ques:parameterName>" +
+								"<ques:parameterValue>" + "0" + "</ques:parameterValue>";
+						}
 						questionObject.template = "censusCounterTemplate";
-						questionObject.value[0] = "0";
-						questionObject.displayValue.value = "0";
-						
-					    questionObject.questionResponse =
-					    	"<ques:parameterName>"+questionObject.alcrmQuestionID+"</ques:parameterName>"+
-					    	"<ques:parameterValue>"+"0"+"</ques:parameterValue>";
+
 					}
 
 					if (questionObject.alcrmQuestionID in timerPickerQuestionMap) {
