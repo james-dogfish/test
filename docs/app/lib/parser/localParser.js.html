@@ -1,0 +1,264 @@
+<!DOCTYPE html><html><head><title>localParser.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../../index.html" class="source"><span class="file_name">README</span></a><a href="../../../app/alloy.js.html" class="source "><span class="base_path">app / </span><span class="file_name">alloy.js</span></a><a href="../../../app/assets/specs/interpreterModule/interpreterModule.js.html" class="source "><span class="base_path">app / assets / specs / interpreterModule / </span><span class="file_name">interpreterModule.js</span></a><a href="../../../app/assets/specs/LocalDataHandler/localDataHandler.js.html" class="source "><span class="base_path">app / assets / specs / LocalDataHandler / </span><span class="file_name">localDataHandler.js</span></a><a href="../../../app/assets/specs/Parser/parserSpec.js.html" class="source "><span class="base_path">app / assets / specs / Parser / </span><span class="file_name">parserSpec.js</span></a><a href="../../../app/assets/specs/ResponseGenerator/responseGenerator.js.html" class="source "><span class="base_path">app / assets / specs / ResponseGenerator / </span><span class="file_name">responseGenerator.js</span></a><a href="../../../app/assets/specs/Soap/soapSpec.js.html" class="source "><span class="base_path">app / assets / specs / Soap / </span><span class="file_name">soapSpec.js</span></a><a href="../../../app/assets/specs/User/userSpec.js.html" class="source "><span class="base_path">app / assets / specs / User / </span><span class="file_name">userSpec.js</span></a><a href="../../../app/assets/specs/Validator/validatorSpec.js.html" class="source "><span class="base_path">app / assets / specs / Validator / </span><span class="file_name">validatorSpec.js</span></a><a href="../../../app/controllers/appHelp.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">appHelp.js</span></a><a href="../../../app/controllers/censusFooterView.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">censusFooterView.js</span></a><a href="../../../app/controllers/customRiskAssessmentRows/setEntireSectionTemplate.js.html" class="source "><span class="base_path">app / controllers / customRiskAssessmentRows / </span><span class="file_name">setEntireSectionTemplate.js</span></a><a href="../../../app/controllers/customRiskAssessmentRows/subsectionHeaderTemplate.js.html" class="source "><span class="base_path">app / controllers / customRiskAssessmentRows / </span><span class="file_name">subsectionHeaderTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/censusSelect/addCensusView.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / censusSelect / </span><span class="file_name">addCensusView.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/censusSelect/selectCensusView.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / censusSelect / </span><span class="file_name">selectCensusView.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/detailRowHeaderTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">detailRowHeaderTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/detailRowQuestionTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">detailRowQuestionTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/detailRowSection.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">detailRowSection.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/goToQuestionDetailView.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">goToQuestionDetailView.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/goToQuestionMasterView.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">goToQuestionMasterView.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/goToQuestionRow.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">goToQuestionRow.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/gotoQuestionSectionWindow.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">gotoQuestionSectionWindow.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/goToSectionHeader.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">goToSectionHeader.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/masterCensusDesktopCompleteTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">masterCensusDesktopCompleteTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/masterCensusRowTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">masterCensusRowTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/masterRowTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">masterRowTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/riskAssessmentPageRowTemplate.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">riskAssessmentPageRowTemplate.js</span></a><a href="../../../app/controllers/gotoQuestionSectionWindow/sectionRow.js.html" class="source "><span class="base_path">app / controllers / gotoQuestionSectionWindow / </span><span class="file_name">sectionRow.js</span></a><a href="../../../app/controllers/index.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">index.js</span></a><a href="../../../app/controllers/main.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">main.js</span></a><a href="../../../app/controllers/questionDialogs/minuteHourTimePicker.js.html" class="source "><span class="base_path">app / controllers / questionDialogs / </span><span class="file_name">minuteHourTimePicker.js</span></a><a href="../../../app/controllers/questionDialogs/modalDatePicker.js.html" class="source "><span class="base_path">app / controllers / questionDialogs / </span><span class="file_name">modalDatePicker.js</span></a><a href="../../../app/controllers/questionDialogs/modalMultiPicker.js.html" class="source "><span class="base_path">app / controllers / questionDialogs / </span><span class="file_name">modalMultiPicker.js</span></a><a href="../../../app/controllers/questionDialogs/modalPicker.js.html" class="source "><span class="base_path">app / controllers / questionDialogs / </span><span class="file_name">modalPicker.js</span></a><a href="../../../app/controllers/questionDialogs/userNotesDialog.js.html" class="source "><span class="base_path">app / controllers / questionDialogs / </span><span class="file_name">userNotesDialog.js</span></a><a href="../../../app/controllers/questionRenderer.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">questionRenderer.js</span></a><a href="../../../app/controllers/questionRendererTab.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">questionRendererTab.js</span></a><a href="../../../app/controllers/questionSectionHeader.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">questionSectionHeader.js</span></a><a href="../../../app/controllers/questionSectionNavigation.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">questionSectionNavigation.js</span></a><a href="../../../app/controllers/questionTemplates/censusCounterTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">censusCounterTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/censusStartTimerTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">censusStartTimerTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/dateRangeTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">dateRangeTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/dateSelectTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">dateSelectTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/minuteHourTimeTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">minuteHourTimeTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/multiSelectTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">multiSelectTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/rangeFieldTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">rangeFieldTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/singleSelectTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">singleSelectTemplate.js</span></a><a href="../../../app/controllers/questionTemplates/textFieldTemplate.js.html" class="source "><span class="base_path">app / controllers / questionTemplates / </span><span class="file_name">textFieldTemplate.js</span></a><a href="../../../app/controllers/riskAssessments/commitMessageView.js.html" class="source "><span class="base_path">app / controllers / riskAssessments / </span><span class="file_name">commitMessageView.js</span></a><a href="../../../app/controllers/riskAssessments/riskAssessmentsWindow.js.html" class="source "><span class="base_path">app / controllers / riskAssessments / </span><span class="file_name">riskAssessmentsWindow.js</span></a><a href="../../../app/controllers/riskAssessments/riskAssessmentTableRow.js.html" class="source "><span class="base_path">app / controllers / riskAssessments / </span><span class="file_name">riskAssessmentTableRow.js</span></a><a href="../../../app/controllers/searchWindow/masterSearchTab.js.html" class="source "><span class="base_path">app / controllers / searchWindow / </span><span class="file_name">masterSearchTab.js</span></a><a href="../../../app/controllers/searchWindow/masterSearchTableRow.js.html" class="source "><span class="base_path">app / controllers / searchWindow / </span><span class="file_name">masterSearchTableRow.js</span></a><a href="../../../app/controllers/selectRouteWindow.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">selectRouteWindow.js</span></a><a href="../../../app/controllers/startup.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">startup.js</span></a><a href="../../../app/controllers/userNotificationWindows/activityIndicatorDialog.js.html" class="source "><span class="base_path">app / controllers / userNotificationWindows / </span><span class="file_name">activityIndicatorDialog.js</span></a><a href="../../../app/controllers/userSettings.js.html" class="source "><span class="base_path">app / controllers / </span><span class="file_name">userSettings.js</span></a><a href="../../../app/lib/core/Analytics.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Analytics.js</span></a><a href="../../../app/lib/core/Logger.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Logger.js</span></a><a href="../../../app/lib/core/Soap.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Soap.js</span></a><a href="../../../app/lib/core/Soap_FAT.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Soap_FAT.js</span></a><a href="../../../app/lib/core/Ui.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Ui.js</span></a><a href="../../../app/lib/core/User.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">User.js</span></a><a href="../../../app/lib/core/Util.js.html" class="source "><span class="base_path">app / lib / core / </span><span class="file_name">Util.js</span></a><a href="../../../app/lib/interpreter/interpreterModule2.js.html" class="source "><span class="base_path">app / lib / interpreter / </span><span class="file_name">interpreterModule2.js</span></a><a href="../../../app/lib/localDataHandler/localDataHandler.js.html" class="source "><span class="base_path">app / lib / localDataHandler / </span><span class="file_name">localDataHandler.js</span></a><a href="../../../app/lib/parser/localParser.js.html" class="source selected"><span class="base_path">app / lib / parser / </span><span class="file_name">localParser.js</span></a><a href="../../../app/lib/responseGenerator/responseGenerator.js.html" class="source "><span class="base_path">app / lib / responseGenerator / </span><span class="file_name">responseGenerator.js</span></a><a href="../../../app/lib/styles/styles.js.html" class="source "><span class="base_path">app / lib / styles / </span><span class="file_name">styles.js</span></a><a href="../../../app/lib/test-framework/jasmine.js.html" class="source "><span class="base_path">app / lib / test-framework / </span><span class="file_name">jasmine.js</span></a><a href="../../../app/lib/test-framework/tijasmine-console.js.html" class="source "><span class="base_path">app / lib / test-framework / </span><span class="file_name">tijasmine-console.js</span></a><a href="../../../app/lib/test-framework/tijasmine.js.html" class="source "><span class="base_path">app / lib / test-framework / </span><span class="file_name">tijasmine.js</span></a><a href="../../../app/lib/tests_runner.js.html" class="source "><span class="base_path">app / lib / </span><span class="file_name">tests_runner.js</span></a><a href="../../../app/lib/tools/fonts/FontAwesome.js.html" class="source "><span class="base_path">app / lib / tools / fonts / </span><span class="file_name">FontAwesome.js</span></a><a href="../../../app/lib/tools/fonts/IconicFont.js.html" class="source "><span class="base_path">app / lib / tools / fonts / </span><span class="file_name">IconicFont.js</span></a><a href="../../../app/lib/tools/randexp.js.html" class="source "><span class="base_path">app / lib / tools / </span><span class="file_name">randexp.js</span></a><a href="../../../app/lib/tools/ret/index.js.html" class="source "><span class="base_path">app / lib / tools / ret / </span><span class="file_name">index.js</span></a><a href="../../../app/lib/tools/ret/positions.js.html" class="source "><span class="base_path">app / lib / tools / ret / </span><span class="file_name">positions.js</span></a><a href="../../../app/lib/tools/ret/sets.js.html" class="source "><span class="base_path">app / lib / tools / ret / </span><span class="file_name">sets.js</span></a><a href="../../../app/lib/tools/ret/types.js.html" class="source "><span class="base_path">app / lib / tools / ret / </span><span class="file_name">types.js</span></a><a href="../../../app/lib/tools/ret/util.js.html" class="source "><span class="base_path">app / lib / tools / ret / </span><span class="file_name">util.js</span></a><a href="../../../app/lib/tools/Suds2_fat.js.html" class="source "><span class="base_path">app / lib / tools / </span><span class="file_name">Suds2_fat.js</span></a><a href="../../../app/lib/validator/Validator.js.html" class="source "><span class="base_path">app / lib / validator / </span><span class="file_name">Validator.js</span></a><a href="../../../app/widgets/sh.dogfi.login/controllers/widget.js.html" class="source "><span class="base_path">app / widgets / sh.dogfi.login / controllers / </span><span class="file_name">widget.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>localParser.js</h1><div class="filepath">app/lib/parser/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div><h2>Local Parser</h2>
+
+<p>deals with parsing the converted JSON.</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">localParser</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  </pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestions - we pass in a JSON payload (JSON converted by dogfishdata)
+<ul><li>we then traverse the payload and return the questions.</li>
+<li>
+<ul><li>@method getQuestions</li></ul></li>
+<li>
+<ul><li>@param {Object} JSONPayload</li>
+<li>
+<ul><li>@return {Object} questions - an array of questions.</li></ul></li></ul></li></ul></li>
+</ul></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestions</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">JSONPayload</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">questions</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">JSONPayload</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">Envelope</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">GetQuestionsResponse</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">questions</span> <span class="o">=</span> <span class="nx">JSONPayload</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">Envelope</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">GetQuestionsResponse</span><span class="p">.</span><span class="nx">questions</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">JSONPayload</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">Envelope</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">GetCrossingResponse</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">questions</span> <span class="o">=</span> <span class="nx">JSONPayload</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">Envelope</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">GetCrossingResponse</span><span class="p">.</span><span class="nx">crossing</span><span class="p">.</span><span class="nx">detailedData</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">questions</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">||</span> <span class="nx">questions</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">questions</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span> <span class="nx">questions</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">questions</span> <span class="o">=</span> <span class="p">[</span><span class="nx">questions</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">questions</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionText - given a specific question object, we return the question 's text
+<ul><li>
+<ul><li>@method getQuestionText</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's text</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">text</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getHelpText - given a specific question object, we return the question 's helptext
+<ul><li>
+<ul><li>@method getHelpText</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's help text</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getHelpText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span><span class="p">.</span><span class="nx">helpText</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">helpText</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+  </pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getNotesText - given a specific question object, we return the question 's notesText
+<ul><li>
+<ul><li>@method getNotesText</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's notesText</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getNotesText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span><span class="p">.</span><span class="nx">notesText</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">notesText</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionName - given a specific question object, we return the question 's parameterName
+<ul><li>
+<ul><li>@method getQuestionName</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's parameterName</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">parameterName</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionDisplayGroup - given a specific question object, we return the question 's displayGroup
+<ul><li>
+<ul><li>@method getQuestionDisplayGroup</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's displayGroup</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionDisplayGroup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">displayGroup</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionOrder - given a specific question object, we return the question 's order value
+<ul><li>
+<ul><li>@method getQuestionOrder</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">int</span><span>question's order value</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionOrder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">order</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-9"><td class="docs"><div class="pilwrap"><a href="#section-9" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionGroup - given a specific question object, we return the question 's group 
+<ul><li>IFF the question is NOT undefined. Otherwise, we return an empty string</li>
+<li>
+<ul><li>@method getQuestionGroup</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">String</span><span>question's group OR empty string.</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionGroup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">group</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+  <span class="p">};</span>
+  </pre></div></td></tr><tr id="section-10"><td class="docs"><div class="pilwrap"><a href="#section-10" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><ul>
+<li>getQuestionMandatory - given a specific question object, we return a boolean to indicate
+<ul><li>if the question is mandatory or not.</li>
+<li>
+<ul><li>@method getQuestionMandatory</li></ul></li>
+ *</ul></li>
+</ul></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>question
+ </span><span class="dox_type">Object</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">Boolean</span><span>true/false to indicate if question s mandatory</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionMandatory</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">validation</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">getValidation</span><span class="p">(</span><span class="nx">question</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">validation</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">mandatory</span> <span class="o">=</span> <span class="nx">validation</span><span class="p">.</span><span class="nx">mandatory</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">mandatory</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">mandatory</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="p">};</span>
+  
+  
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getUserResponse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">questionResponse</span> <span class="o">=</span> <span class="nx">question</span><span class="p">.</span><span class="nx">userResponse</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">questionResponse</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span>
+      <span class="k">return</span> <span class="nx">questionResponse</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getValidation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">validation</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getConditionalMandatory</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">validation</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">validation</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">conditionalMandatory</span> <span class="o">=</span> <span class="nx">validation</span><span class="p">.</span><span class="nx">conditionalMandatory</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">conditionalMandatory</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span> <span class="nx">conditionalMandatory</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">conditionalMandatory</span> <span class="o">=</span> <span class="p">[</span><span class="nx">conditionalMandatory</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">returnList</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">conditionalMandatory</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">parameterValue</span> <span class="o">=</span> <span class="nx">conditionalMandatory</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">parameterValue</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">parameterValue</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">parameterValue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">parameterValue</span> <span class="o">=</span> <span class="nx">parameterValue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">returnList</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">name</span> <span class="o">:</span> <span class="nx">conditionalMandatory</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">parameterName</span><span class="p">,</span>
+        <span class="nx">value</span> <span class="o">:</span> <span class="nx">parameterValue</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">returnList</span><span class="p">;</span>
+
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getValidationFormat</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">validation</span><span class="p">.</span><span class="nx">format</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">isValidationMandatory</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">validation</span><span class="p">.</span><span class="nx">mandatory</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-11"><td class="docs"><div class="pilwrap"><a href="#section-11" class="pilcrow">&#182;</a></div><p>get by "type" || by "group"</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">self</span><span class="p">.</span><span class="nx">getBy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">bytag</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">all_questions</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">question</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">question</span><span class="p">.</span><span class="nx">bytag</span><span class="p">.</span><span class="nx">text</span> <span class="o">===</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">all_questions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">question</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">all_questions</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getAllSelections</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">selections</span> <span class="o">=</span> <span class="nx">question</span><span class="p">.</span><span class="nx">selections</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">selections</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">selections</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">selections</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getQuestionType</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getSelectionName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selection_tag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">selection_tag</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getSelectionDisplayValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selection_tag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">selection_tag</span><span class="p">.</span><span class="nx">displayValue</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getSelectionValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selection_tag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">selection_tag</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getRenderValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">renderValue</span> <span class="o">=</span> <span class="nx">question</span><span class="p">.</span><span class="nx">renderValue</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">renderValue</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">renderValue</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">renderValue</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">renderValue</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="nx">renderValue</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">renderValue</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getRenderValueParamName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">render_value_tag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">render_value_tag</span><span class="p">.</span><span class="nx">parameterName</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getRenderValueParamValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">render_value_tag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">render_value_tag</span><span class="p">.</span><span class="nx">parameterValue</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">render_value_tag</span><span class="p">.</span><span class="nx">parameterValue</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getTableRowText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span><span class="p">.</span><span class="nx">tableDetails</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span><span class="p">.</span><span class="nx">tableDetails</span><span class="p">.</span><span class="nx">rowText</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">question</span><span class="p">.</span><span class="nx">tableDetails</span><span class="p">.</span><span class="nx">rowText</span><span class="p">;</span>
+  <span class="p">};</span>
+  
+  <span class="nx">self</span><span class="p">.</span><span class="nx">getRiskAnalysisOnly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">question</span><span class="p">.</span><span class="nx">riskAnalysisOnly</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-12"><td class="docs"><div class="pilwrap"><a href="#section-12" class="pilcrow">&#182;</a></div><p>Ti.API.info("riskAnalysisOnly == undefined");</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">question</span><span class="p">.</span><span class="nx">riskAnalysisOnly</span> <span class="o">===</span> <span class="s2">&quot;true&quot;</span> <span class="o">||</span> <span class="nx">question</span><span class="p">.</span><span class="nx">riskAnalysisOnly</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-13"><td class="docs"><div class="pilwrap"><a href="#section-13" class="pilcrow">&#182;</a></div><p>Ti.API.info("riskAnalysisOnly == true");</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">question</span><span class="p">.</span><span class="nx">riskAnalysisOnly</span> <span class="o">===</span> <span class="s2">&quot;false&quot;</span><span class="o">||</span> <span class="nx">question</span><span class="p">.</span><span class="nx">riskAnalysisOnly</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>Ti.API.info("riskAnalysisOnly == false");</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">};</span>
+  </pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div>
+</td><td class="code"><div class="highlight"><pre><span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">localParser</span><span class="p">;</span> 
+
+</pre></div></td></tr></tbody></table><div id="generated">generated Mon Mar 24 2014 19:50:06 GMT+0000 (GMT)  </div></div></body></html>
