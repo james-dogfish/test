@@ -66,7 +66,9 @@ function onTextField1Blur(e){
        
     item.questionResponse = questionResponse;
 	
-	item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	if(Alloy.Globals.questionRenderer != null){
+		item = Alloy.Globals.questionRenderer.questionValueChange({questionObject : item, questionIndex : e.itemIndex, section : section});
+	}
     
 };
 
