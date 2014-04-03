@@ -671,7 +671,7 @@ to say that it has been submitted
                 );
             }
         }
-		alert("returnQuestionObj.coreCrossingSet >>>> "+JSON.stringify(returnQuestionObj.coreCrossingSet));
+		//alert("returnQuestionObj.coreCrossingSet >>>> "+JSON.stringify(returnQuestionObj.coreCrossingSet));
         return returnQuestionObj;
     };
 

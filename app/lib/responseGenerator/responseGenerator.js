@@ -138,6 +138,12 @@ var dateToString = function(date){
 						
 						
 						dateToPost = new Date(numbers[1], numbers[2]-1, numbers[3]);
+					}else{
+						numbers = censusDate.match(/(\d{2})-(\d{2})-(\d{4})/);
+						if(numbers != null)
+						{
+							dateToPost = new Date(numbers[3], numbers[2]-1, numbers[1]);
+						}
 					}
 					
 					xmlRequest.push("<cen:CreateCensusRequest>" + "<cen:census>" + "<cen1:crossingId>" + crossingID + "</cen1:crossingId>" + "<cen1:censusDate>" + dateToPost.toISOString() + "</cen1:censusDate>" + censusData + "</cen:census>" + "</cen:CreateCensusRequest>");
