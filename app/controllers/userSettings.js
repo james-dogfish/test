@@ -1,3 +1,5 @@
+$.appVersion.text = "App Version - " + Ti.App.version;
+
 // Will save user details to the app
 var userPreferences = Alloy.Globals.User.getPreferences();
 
