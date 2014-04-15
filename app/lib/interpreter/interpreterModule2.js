@@ -207,7 +207,6 @@ differently from the `firstTab` and `secondTab` nodes
 @return {null} (fail) when the question fails to build
 */
 	var createQuestionObject = function(question, passObject, sectionGroupType, assessmentId) {
-
 		try {
 
 			var questionName = passObject.pageID + Alloy.Globals.localParser.getQuestionName(question);
@@ -914,13 +913,16 @@ relevent subsections, this function is called to insert the questions back in to
 						isAQuestion : false,
 						readOnly : false,
 						template : "setEntireSectionTemplate",
-
+						value : [""],
 						title : {
 							text : "Set all photograph questions to",
 							font : {"fontSize":"20sp","fontFamily":"Helvetica Neue","fontWeight":"normal"}
 						},
 						visable : true,
-						name : "",
+						associatedFileName : passObject.associatedFileName,
+						assessmentId : passObject.assessmentId,
+						alcrmGroupType : self.sectionHeaderList[sectionIndex].alcrmGroupType,
+						name : "setEntirePhotographSectionValues",
 						questionToChangeTemplate : "singleSelectTemplate",
 						selections : selections,
 						renderValue : []

@@ -1609,7 +1609,6 @@ exports.questionValueChange = questionValueChange;
 
 
 
-
 /**
 `toggleScrollLock` toggles if the list view is locked in place or not
 
