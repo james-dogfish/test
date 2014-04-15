@@ -22,6 +22,8 @@
 	<string name="searchButtonTitle">Search</string> 
 	<string name="stop_timer">Are you sure you want to stop the census timer?</string> 
 	<string name="censusDesktopCompleteRow">No Census carried out on-site</string> 
+	<string name="stop_censuse_to_save_and_exit">You must stop the census timer before you can save and exit</string> 
+	
 	    
 	<!-- delete ra & census related strings -->
 	<string name="delete_ra">Are you sure you want to delete this Risk Assessment? (This action cannot be undone)</string> 

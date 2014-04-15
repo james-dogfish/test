@@ -1716,6 +1716,17 @@ var pageDeletedEvent = function(associatedFileName){
 exports.pageDeletedEvent = pageDeletedEvent;
 
 
+/**
+`isCensusTimerRunning` test if the census timer is running
+
+@method isCensusTimerRunning
+ 
+@return {Boolean}  true or false
+*/
+var isCensusTimerRunning = function(){
+	return $.censusFooterView.isOpen();
+};
+exports.isCensusTimerRunning = isCensusTimerRunning;
 
 /**
 `startCensesTimer` fired when a used clicks start for the quick census
@@ -1731,7 +1742,7 @@ timerDuration question value
 */
 var startCensesTimer = function(question){
 
-	if($.censusFooterView.isOpen() == true){
+	if(isCensusTimerRunning() == true){
 		alert(L("census_timer_already_started"));
 		return false;
 	}
