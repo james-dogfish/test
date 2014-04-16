@@ -337,18 +337,59 @@ var buildAssessment = function(crossingDetail) {
 		parseTrainData(JSONDocTrain, assessmentObject);
 		JSONDocTrain = null;
 
-		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-		Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-
+		var trainGroup1 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		var trainGroup2 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
+		var trainGroup3 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 		
-		if(typeof assessmentObject !== "undefined")
+		Ti.API.info("************** trainGroup1 queestionList ==> "+JSON.stringify(trainGroup1[0].questionList));
+		Ti.API.info("************** trainGroup2 queestionList ==> "+JSON.stringify(trainGroup2[0].questionList));
+		Ti.API.info("************** trainGroup3 queestionList ==> "+JSON.stringify(trainGroup3[0].questionList));
+		
+		if(typeof assessmentObject !== "undefined" && 
+			typeof trainGroup1 !== "undefined" && 
+			typeof trainGroup2 !== "undefined" &&
+			typeof trainGroup3 !== "undefined")
 		{
-			if(assessmentObject !== null && assessmentObject !== []){
-				$.riskAssessmentsTab.loadRiskAssessments();
-				$.questionRendererTab.setAssessment(assessmentObject);
-				$.tabGroup.setActiveTab($.questionRendererTab.getView());
+			if(assessmentObject !== null && assessmentObject !== [] &&
+				typeof trainGroup1[0] !== "undefined" && 
+				typeof trainGroup2[0] !== "undefined" &&
+				typeof trainGroup3[0] !== "undefined")
+			{
+				if(trainGroup1[0].questionList !== null && trainGroup1[0].questionList !== [] &&
+					trainGroup2[0].questionList !== null && trainGroup2[0].questionList !== [] &&
+					trainGroup3[0].questionList !== null && trainGroup3[0].questionList !== [])
+				{
+					//Assuming that there are always **at least** 4 questions in each train info group
+					if(trainGroup1[0].questionList.length >=4 || 
+						trainGroup2[0].questionList.length >=4 || 
+						trainGroup3[0].questionList.length >=4)
+					{
+						Ti.API.info("************** trainGroup1.queestionList FOUND " + trainGroup1[0].questionList.length + " questions");
+						Ti.API.info("************** trainGroup2.queestionList FOUND " + trainGroup2[0].questionList.length + " questions");
+						Ti.API.info("************** trainGroup3.queestionList FOUND " + trainGroup3[0].questionList.length + " questions");
+
+						$.riskAssessmentsTab.loadRiskAssessments();
+						$.questionRendererTab.setAssessment(assessmentObject);
+						$.tabGroup.setActiveTab($.questionRendererTab.getView());
+					}else{
+						alert(L('unableToBuildRA'));
+						Alloy.Globals.aIndicator.hide();
+						return;
+					}
+				}else{
+					alert(L('unableToBuildRA'));
+					Alloy.Globals.aIndicator.hide();
+					return;
+				}
+			}else{
+				alert(L('unableToBuildRA'));
+				Alloy.Globals.aIndicator.hide();
+				return;
 			}
+		}else{
+			alert(L('unableToBuildRA'));
+			Alloy.Globals.aIndicator.hide();
+			return;
 		}
 		
 
