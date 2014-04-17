@@ -22,7 +22,6 @@
 	<string name="searchButtonTitle">Search</string> 
 	<string name="stop_timer">Are you sure you want to stop the census timer?</string> 
 	<string name="censusDesktopCompleteRow">No Census carried out on-site</string> 
-	<string name="unableToBuildRA">The data has not been downloaded correctly. Please try again.</string> 
 	
 	    
 	<!-- delete ra & census related strings -->
