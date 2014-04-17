@@ -496,7 +496,9 @@ to say that it has been submitted
             var savedAssessments = self.getAllSavedAssessments();
 
             for (var i = 0; i < savedAssessments.length; i++) {
-                if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+                if (savedAssessments[i].assessmentID == assessmentObject.assessmentID && 
+                	(defaultQuestionSet!==null && defaultQuestionSet!==[])) {
+                		
                     savedAssessments[i].defaultCensusQuestions = defaultQuestionSet;
                     self.updateSavedAssessments(savedAssessments);
                     return true;
@@ -526,7 +528,9 @@ to say that it has been submitted
             var savedAssessments = self.getAllSavedAssessments();
 
             for (var i = 0; i < savedAssessments.length; i++) {
-                if (savedAssessments[i].assessmentID == assessmentObject.assessmentID) {
+                if (savedAssessments[i].assessmentID == assessmentObject.assessmentID &&
+                	(defaultQuestionSet!==null && defaultQuestionSet!==[])) {
+                		
                     savedAssessments[i].defaultTrainInfoQuestions = defaultQuestionSet;
                     self.updateSavedAssessments(savedAssessments);
                     return true;

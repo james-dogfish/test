@@ -79,6 +79,13 @@ function parseTrainData(xml_text, curAssObj) {
 				return;
 			}
 			var trainData = Alloy.Globals.localDataHandler.addDefaultTrainInfo(curAssObj, data);
+			//addDefaultTrainInfo returns false IFF it fails
+			if(trainData === false)
+			{
+				alert(L('unableToBuildRA'));
+				Alloy.Globals.aIndicator.hide();
+				return;
+			}
 			trainData = null;
 			censusData = null;
 			Alloy.Globals.Logger.log("parseTrainData > got data","info");
@@ -118,6 +125,13 @@ function parseCensusData(xml_text, curAssObj) {
 			}
 
 			var censusData = Alloy.Globals.localDataHandler.addDefaultCensus(curAssObj, data);
+			//addDefaultCensus returns false IFF it fails
+			if(censusData === false)
+			{
+				alert(L('unableToBuildRA'));
+				Alloy.Globals.aIndicator.hide();
+				return;
+			}
 			xml_text = null;
 			censusData = null;
 			Alloy.Globals.Logger.log("parseCensusData > got data","info");
@@ -177,8 +191,14 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 			return false;
 		}
 
-		Alloy.Globals.localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
-
+		var coreQues = Alloy.Globals.localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
+		if(coreQues === [])//see line 558 of localDataHandler.js
+		{
+			alert(L('unableToBuildRA'));
+			Alloy.Globals.aIndicator.hide();
+			return;
+		}
+		
 		quesMap = null;
 		crossingQuestions = null;
 
