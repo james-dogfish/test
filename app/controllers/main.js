@@ -10,12 +10,12 @@ var JSONDocAss, JSONDocCrossQues, JSONDocCrossAns, JSONDocCensus, JSONDocTrain =
  * toggleSearch: this function is fired when a user taps on the "Search" button
  *******************************************************************************/
 function toggleSearch() {
-	Alloy.Globals.Logger.log("toggleSearch()","info");
+	Alloy.Globals.Logger.log("toggleSearch()", "info");
 	Alloy.Globals.Analytics.trackFeature('home:search:toggled');
 	if (!Alloy.Globals.User.hasPreferences()) {
 		// Open setting screen
 		var userSettings = Alloy.createController('userSettings', {
-			message : true
+			message: true
 		}).getView();
 		userSettings.open();
 	}
@@ -37,7 +37,7 @@ $.riskAssessmentsTab.loadRiskAssessments();
  *************************************************************/
 
 $.riskAssessmentsTab.on("openRiskAssessment", function(e) {
-	Alloy.Globals.Logger.log("openRiskAssessment","info");
+	Alloy.Globals.Logger.log("openRiskAssessment", "info");
 	$.questionRendererTab.clear();
 	$.tabGroup.setActiveTab($.questionRendererTab.getView());
 
@@ -74,28 +74,27 @@ function parseTrainData(xml_text, curAssObj) {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
 			var data = Alloy.Globals.localParser.getQuestions(xml_text);
-			if ( typeof data === "undefined") {
+			if (typeof data === "undefined") {
 				alert(L('no_data'));
 				return;
 			}
 			var trainData = Alloy.Globals.localDataHandler.addDefaultTrainInfo(curAssObj, data);
 			//addDefaultTrainInfo returns false IFF it fails
-			if(trainData === false)
-			{
+			if (trainData === false) {
 				alert(L('unableToBuildRA'));
 				Alloy.Globals.aIndicator.hide();
 				return;
 			}
 			trainData = null;
 			censusData = null;
-			Alloy.Globals.Logger.log("parseTrainData > got data","info");
+			Alloy.Globals.Logger.log("parseTrainData > got data", "info");
 		} else {
-			Alloy.Globals.Logger.log("parseTrainData > no data","info");
+			Alloy.Globals.Logger.log("parseTrainData > no data", "info");
 			alert(L('no_data'));
 
 		}
-	} catch(e) {
-		Alloy.Globals.Logger.log("Exception in parseTrainData. Details: "+JSON.stringify(e),"info");
+	} catch (e) {
+		Alloy.Globals.Logger.log("Exception in parseTrainData. Details: " + JSON.stringify(e), "info");
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -118,31 +117,30 @@ function parseCensusData(xml_text, curAssObj) {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
 			var data = Alloy.Globals.localParser.getQuestions(xml_text);
-			if ( typeof data === "undefined") {
+			if (typeof data === "undefined") {
 				alert(L('no_data'));
-				Alloy.Globals.Logger.log("parseCensusData > no data","info");
+				Alloy.Globals.Logger.log("parseCensusData > no data", "info");
 				return;
 			}
 
 			var censusData = Alloy.Globals.localDataHandler.addDefaultCensus(curAssObj, data);
 			//addDefaultCensus returns false IFF it fails
-			if(censusData === false)
-			{
+			if (censusData === false) {
 				alert(L('unableToBuildRA'));
 				Alloy.Globals.aIndicator.hide();
 				return;
 			}
 			xml_text = null;
 			censusData = null;
-			Alloy.Globals.Logger.log("parseCensusData > got data","info");
+			Alloy.Globals.Logger.log("parseCensusData > got data", "info");
 
 		} else {
-			Alloy.Globals.Logger.log("parseCensusData > xml_text is undefined or null","info");
+			Alloy.Globals.Logger.log("parseCensusData > xml_text is undefined or null", "info");
 			alert(L('no_data'));
 
 		}
-	} catch(e) {
-		Alloy.Globals.Logger.log("Exception in parseCensusData. Error: "+JSON.stringify(e),"info");
+	} catch (e) {
+		Alloy.Globals.Logger.log("Exception in parseCensusData. Error: " + JSON.stringify(e), "info");
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -156,7 +154,7 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 		xml_text = null;
 
 		return assessmentObject;
-	} catch(e) {
+	} catch (e) {
 		Alloy.Globals.Logger.log("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e), "error");
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
@@ -176,35 +174,35 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 
 		var quesMap = [];
 		var crossingAnswers = Alloy.Globals.localParser.getQuestions(crosAns);
-		Alloy.Globals.Logger.log("crossingAnswers ======= > "+JSON.stringify(crossingAnswers), "info");
-		if ( typeof crossingAnswers !== "undefined") {
-					for (var i = 0; i < crossingAnswers.length; i++) {
-						if ( typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
+		Alloy.Globals.Logger.log("crossingAnswers ======= > " + JSON.stringify(crossingAnswers), "info");
+		if (typeof crossingAnswers !== "undefined") {
+			for (var i = 0; i < crossingAnswers.length; i++) {
+				if (typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
 
-							quesMap[crossingAnswers[i].parameterName] = {
-								value : crossingAnswers[i].parameterValue
-							};
-						}
-					}
+					quesMap[crossingAnswers[i].parameterName] = {
+						value: crossingAnswers[i].parameterValue
+					};
+				}
+			}
 		} else {
 			Alloy.Globals.Logger.log("typeof crossingAnswers == undefined", "info");
 			return false;
 		}
 
 		var coreQues = Alloy.Globals.localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
-		if(coreQues === [])//see line 558 of localDataHandler.js
+		if (coreQues === []) //see line 558 of localDataHandler.js
 		{
 			alert(L('unableToBuildRA'));
 			Alloy.Globals.aIndicator.hide();
 			return;
 		}
-		
+
 		quesMap = null;
 		crossingQuestions = null;
 
 		return true;
 
-	} catch(e) {
+	} catch (e) {
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("Exception occured in addCoreQuestionSetToAssessment " + JSON.stringify(e), "error");
 		Alloy.Globals.aIndicator.hide();
@@ -214,10 +212,10 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 
 function getCrossingQuestionSet(crossingDetail) {
 	Alloy.Globals.Soap.getQuestionsRequest({
-		crossingId : crossingDetail.id,
-		groupType : "Crossing"
+		crossingId: crossingDetail.id,
+		groupType: "Crossing"
 	}, function(xmlDoc) {
-		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
@@ -225,9 +223,9 @@ function getCrossingQuestionSet(crossingDetail) {
 				JSONDocCrossQues = data;
 				buildAssessment(crossingDetail);
 			}
-		);	
+		);
 		//end of convertJSON
-		
+
 	}, function(xmlDoc) {
 		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
@@ -236,61 +234,61 @@ function getCrossingQuestionSet(crossingDetail) {
 function getCrossingQuestionAnswersSet(crossingDetail) {
 
 	Alloy.Globals.Soap.getCrossingRequest({
-		crossingId : crossingDetail.id
+		crossingId: crossingDetail.id
 	}, function(xmlDoc) {
-		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-					
+
 				JSONDocCrossAns = data;
 				buildAssessment(crossingDetail);
 			}
-		);	
+		);
 		//end of convertJSON
-		
+
 	}, function(xmlDoc) {
 		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
 };
 
 function getAssessmentQuestionSet(crossingDetail) {
-		Alloy.Globals.Soap.getQuestionsRequest({
-			crossingId : crossingDetail.id,
-			groupType : "Assessment"
-		}, function(xmlDoc) {
-			Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
-				function(data) {
-					// callback
-					var data = JSON.parse(data);
-			
-					JSONDocAss = data;
-					buildAssessment(crossingDetail);
-				}
-			);	
-			//end of convertJSON
-	
-		}, function(xmlDoc) {
-			Alloy.Globals.Logger.log("getAssessmentQuestionSet failed", "info");
-		});
+	Alloy.Globals.Soap.getQuestionsRequest({
+		crossingId: crossingDetail.id,
+		groupType: "Assessment"
+	}, function(xmlDoc) {
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
+			function(data) {
+				// callback
+				var data = JSON.parse(data);
+
+				JSONDocAss = data;
+				buildAssessment(crossingDetail);
+			}
+		);
+		//end of convertJSON
+
+	}, function(xmlDoc) {
+		Alloy.Globals.Logger.log("getAssessmentQuestionSet failed", "info");
+	});
 };
 
 function getCensusQuestionSet(crossingDetail) {
 	Alloy.Globals.Soap.getQuestionsRequest({
-		crossingId : crossingDetail.id,
-		groupType : "Census"
+		crossingId: crossingDetail.id,
+		groupType: "Census"
 	}, function(xmlDoc) {
-		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-	
+
 				JSONDocCensus = data;
 				buildAssessment(crossingDetail);
 			}
-		);	
+		);
 		//end of convertJSON
-		
+
 	}, function(xmlDoc) {
 		Alloy.Globals.Logger.log("getCensusQuestionSet failed", "info");
 	});
@@ -298,18 +296,18 @@ function getCensusQuestionSet(crossingDetail) {
 
 function getTrainInfoQuestionSet(crossingDetail) {
 	Alloy.Globals.Soap.getQuestionsRequest({
-		crossingId : crossingDetail.id,
-		groupType : "Train"
+		crossingId: crossingDetail.id,
+		groupType: "Train"
 	}, function(xmlDoc) {
-		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), 
+		Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc),
 			function(data) {
 				// callback
 				var data = JSON.parse(data);
-	
+
 				JSONDocTrain = data;
 				buildAssessment(crossingDetail);
 			}
-		);	
+		);
 		//end of convertJSON
 
 	}, function(xmlDoc) {
@@ -346,7 +344,7 @@ var buildAssessment = function(crossingDetail) {
 		return;
 	}
 
-	if ( typeof assessmentObject === "undefined") {
+	if (typeof assessmentObject === "undefined") {
 		alert(L('no_data'));
 		Alloy.Globals.aIndicator.hide();
 		return;
@@ -360,30 +358,26 @@ var buildAssessment = function(crossingDetail) {
 		var trainGroup1 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 		var trainGroup2 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
 		var trainGroup3 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
-		
-		Ti.API.info("************** trainGroup1 queestionList ==> "+JSON.stringify(trainGroup1[0].questionList));
-		Ti.API.info("************** trainGroup2 queestionList ==> "+JSON.stringify(trainGroup2[0].questionList));
-		Ti.API.info("************** trainGroup3 queestionList ==> "+JSON.stringify(trainGroup3[0].questionList));
-		
-		if(typeof assessmentObject !== "undefined" && 
-			typeof trainGroup1 !== "undefined" && 
+
+		Ti.API.info("************** trainGroup1 queestionList ==> " + JSON.stringify(trainGroup1[0].questionList));
+		Ti.API.info("************** trainGroup2 queestionList ==> " + JSON.stringify(trainGroup2[0].questionList));
+		Ti.API.info("************** trainGroup3 queestionList ==> " + JSON.stringify(trainGroup3[0].questionList));
+
+		if (typeof assessmentObject !== "undefined" &&
+			typeof trainGroup1 !== "undefined" &&
 			typeof trainGroup2 !== "undefined" &&
-			typeof trainGroup3 !== "undefined")
-		{
-			if(assessmentObject !== null && assessmentObject !== [] &&
-				typeof trainGroup1[0] !== "undefined" && 
+			typeof trainGroup3 !== "undefined") {
+			if (assessmentObject !== null && assessmentObject !== [] &&
+				typeof trainGroup1[0] !== "undefined" &&
 				typeof trainGroup2[0] !== "undefined" &&
-				typeof trainGroup3[0] !== "undefined")
-			{
-				if(trainGroup1[0].questionList !== null && trainGroup1[0].questionList !== [] &&
+				typeof trainGroup3[0] !== "undefined") {
+				if (trainGroup1[0].questionList !== null && trainGroup1[0].questionList !== [] &&
 					trainGroup2[0].questionList !== null && trainGroup2[0].questionList !== [] &&
-					trainGroup3[0].questionList !== null && trainGroup3[0].questionList !== [])
-				{
+					trainGroup3[0].questionList !== null && trainGroup3[0].questionList !== []) {
 					//Assuming that there are always **at least** 4 questions in each train info group
-					if(trainGroup1[0].questionList.length >=4 || 
-						trainGroup2[0].questionList.length >=4 || 
-						trainGroup3[0].questionList.length >=4)
-					{
+					if (trainGroup1[0].questionList.length >= 4 ||
+						trainGroup2[0].questionList.length >= 4 ||
+						trainGroup3[0].questionList.length >= 4) {
 						Ti.API.info("************** trainGroup1.queestionList FOUND " + trainGroup1[0].questionList.length + " questions");
 						Ti.API.info("************** trainGroup2.queestionList FOUND " + trainGroup2[0].questionList.length + " questions");
 						Ti.API.info("************** trainGroup3.queestionList FOUND " + trainGroup3[0].questionList.length + " questions");
@@ -391,27 +385,27 @@ var buildAssessment = function(crossingDetail) {
 						$.riskAssessmentsTab.loadRiskAssessments();
 						$.questionRendererTab.setAssessment(assessmentObject);
 						$.tabGroup.setActiveTab($.questionRendererTab.getView());
-					}else{
+					} else {
 						alert(L('unableToBuildRA'));
 						Alloy.Globals.aIndicator.hide();
 						return;
 					}
-				}else{
+				} else {
 					alert(L('unableToBuildRA'));
 					Alloy.Globals.aIndicator.hide();
 					return;
 				}
-			}else{
+			} else {
 				alert(L('unableToBuildRA'));
 				Alloy.Globals.aIndicator.hide();
 				return;
 			}
-		}else{
+		} else {
 			alert(L('unableToBuildRA'));
 			Alloy.Globals.aIndicator.hide();
 			return;
 		}
-		
+
 
 		Alloy.Globals.aIndicator.hide();
 	}
@@ -431,34 +425,34 @@ var buildAssessment = function(crossingDetail) {
  *
  *************************************************************/
 $.masterSearchTab.on("crossingSelected", function(crossingDetail) {
-		if ( typeof crossingDetail != "undefined") {
-			if (crossingDetail != "null") {
-				Alloy.Globals.currentCrossingName = crossingDetail.name;
-				Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
-				Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
-			}
-		} else {
-			return;
+	if (typeof crossingDetail != "undefined") {
+		if (crossingDetail != "null") {
+			Alloy.Globals.currentCrossingName = crossingDetail.name;
+			Alloy.Globals.currentCrossingDetailID = crossingDetail.id;
+			Alloy.Globals.aIndicator.show("Creating Risk Assessment...");
 		}
+	} else {
+		return;
+	}
 
-		JSONDocAss = null;
-		JSONDocCrossQues = null;
-		JSONDocCrossAns = null;
-		JSONDocCensus = null;
-		JSONDocTrain = null;
+	JSONDocAss = null;
+	JSONDocCrossQues = null;
+	JSONDocCrossAns = null;
+	JSONDocCensus = null;
+	JSONDocTrain = null;
 
-		getCrossingQuestionSet(crossingDetail);
-		getAssessmentQuestionSet(crossingDetail);
-		getCrossingQuestionAnswersSet(crossingDetail);
-		getCensusQuestionSet(crossingDetail);
-		getTrainInfoQuestionSet(crossingDetail);
+	getCrossingQuestionSet(crossingDetail);
+	getAssessmentQuestionSet(crossingDetail);
+	getCrossingQuestionAnswersSet(crossingDetail);
+	getCensusQuestionSet(crossingDetail);
+	getTrainInfoQuestionSet(crossingDetail);
 });
 
 /** laod the risk assessments then switch tab **/
 $.questionRendererTab.on("saveAndExitClick", function(e) {
-	try{
+	try {
 		Alloy.Globals.currentlyFocusedTF.blur();
-	}catch(e){
+	} catch (e) {
 		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.Logger.log("COULD NOT BLUR Alloy.Globals.currentlyFocusedTF", "error");
 	}
@@ -466,5 +460,5 @@ $.questionRendererTab.on("saveAndExitClick", function(e) {
 	$.tabGroup.setActiveTab($.riskAssessmentsTab.getView());
 
 	Alloy.Globals.Analytics.trackNav('Assessment Form', 'Home', 'ra:exit');
-    Alloy.Globals.Analytics.trackFeature('RiskAssessment:Closed');
+	Alloy.Globals.Analytics.trackFeature('RiskAssessment:Closed');
 });
