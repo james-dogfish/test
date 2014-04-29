@@ -22,6 +22,9 @@
 	<string name="searchButtonTitle">Search</string> 
 	<string name="stop_timer">Are you sure you want to stop the census timer?</string> 
 	<string name="censusDesktopCompleteRow">No Census carried out on-site</string> 
+	<string name="stop_censuse_to_save_and_exit">You must stop the census timer before you can save and exit</string>
+    <string name="unableToBuildRA">Unable to build Risk Assessment. Please retry</string>
+	
 	    
 	<!-- delete ra & census related strings -->
 	<string name="delete_ra">Are you sure you want to delete this Risk Assessment? (This action cannot be undone)</string> 
@@ -31,7 +34,8 @@
     <string name="census">Census</string> 
     <string name="noCensusMessage">You must complete at least 1 census</string> 
     <string name="censusDesktopCompleteMessage">You do not have to complete your census through the Risk Assessment app, please complete through ALCRM once you have submitted your risk assessment</string> 
-    <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will delete any information entered for Census General, Census Environment or Census Usage sections for all censuses attached to this assessment)</string> 
+    <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will delete any information entered for Census General, Census Environment or Census Usage sections for all censuses attached to this assessment)</string>
+    <string name="stop_censuse_to_save_and_exit">Please be aware the census timer is currently running, in order to successfully submit your assessment you will need to either stop the timer or wait for the timer to complete</string>
  
     
     <!-- validation strings for RA form -->

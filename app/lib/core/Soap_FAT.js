@@ -29,7 +29,7 @@ var _Soap = function () {
     
     var loginUrl = serverUrl + 'adminService/admin.wsdl',
     assessmentUrl = serverUrl + 'assessmentService/assessment.wsdl',
-    questionsUrl = serverUrl + 'questionsService/questions.wsdl',
+    questionsUrl = serverUrl + 'questionService/questions.wsdl',
     crossingUrl = serverUrl + 'crossingService/crossing.wsdl',
     censusUrl = serverUrl + 'censusService/census.wsdl',
     trainUrl = serverUrl + 'trainService/train.wsdl';
@@ -676,6 +676,58 @@ var _Soap = function () {
             
             return sudsClient;
        },
+
+       /**
+         * [searchFakeCrossingRequest Doing this as a last minute fix as asked by CSC/NR on 06-03]
+         * @param  {[type]} args    [description]
+         * @param  {[type]} success [description]
+         * @param  {[type]} failure [description]
+         * @return {[type]}         [description]
+         */
+        searchFakeCrossingRequest: function(args, success, failure) {
+
+            function xmlDomFromString(_xml) {
+                var xmlDoc;
+                try {
+                    xmlDoc = Titanium.XML.parseString(_xml);
+                } catch (e) {
+                }
+                if (xmlDoc) {
+                    return xmlDoc;
+                }
+
+            };
+
+            var Util = Alloy.Globals.Util;
+            var client = Ti.Network.createHTTPClient({
+                // function called when the response data is available
+                onload: function(e) {
+                    if(this.responseText !== '404') {
+                        var xmlDOM = xmlDomFromString(this.responseText);
+                        if (success) success(xmlDOM);
+                    } else {
+                        // Error call not being triggered properly by function
+                        // so harcoding these
+                        Alloy.Globals.aIndicator.hide();
+                        Alloy.Globals.Util.showAlert(L('no_results'));
+                    }
+                },
+                onerror: function(e) {
+                    // Error call not being triggered properly by function
+                    // so harcoding these
+                    Alloy.Globals.aIndicator.hide();
+                    Alloy.Globals.Util.showAlert(L('no_results'));
+                },
+                timeout: Number(Ti.App.Properties.getString('wsTimeout', '20000'))
+            });
+            // Prepare the connection.
+            client.open("POST", Util.getCmsUrl() + '/api/getCrossings.php');
+            // Send the request.
+            client.send({
+                'route': Ti.App.Properties.getString("SelectedRoute")
+            });
+
+        }
     };
 
     return soapObject;

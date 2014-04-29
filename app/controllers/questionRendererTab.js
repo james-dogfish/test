@@ -336,7 +336,11 @@ var openMenu = function() {
 			$.appTitle.text = "";
             
             if(Alloy.Globals.questionRenderer != null){
-    
+            	Ti.API.info("isCensusTimerRunning = "+Alloy.Globals.questionRenderer.isCensusTimerRunning());
+    			if(Alloy.Globals.questionRenderer.isCensusTimerRunning() === true){
+    				alert(L("stop_censuse_to_save_and_exit"));
+    				return;
+    			}
             	//Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
             	Alloy.Globals.questionRenderer.saveCurrentlySelectedQuestion();
 	        	$.window.remove(Alloy.Globals.questionRenderer.getView());

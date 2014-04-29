@@ -13,19 +13,33 @@ function selectButtonClicked(e){
 		return;
 	}
 	
+	/*
 	var currentValue = {displayValue : "", value :""};
-	if(item.selections.length >= 1){
+	if(item.currentValue.length >= 1){
 		currentValue = item.selections[0];
 	}
-	
+	*/
+	if ( typeof item.value !== "undefined") {
+		if(item.value.length === 0){
+			item.value = [""];
+		}
+	}
+	else{
+		item.value = [""];
+	}
+	Ti.API.info("1 item.value = "+JSON.stringify(item.value));
 	Alloy.createController("questionDialogs/modalPicker", {
-		currentValue: currentValue,
+		currentValue: {displayValue : "", value :item.value[0]},
 		valueList : item.selections, 
 		closeCallBack : function(data){
 			item.displayValue = {value : data.displayValue};
-			item.value = [data.displayValue];
+			item.value = [data.value];
+			Ti.API.info("2 item.value = "+JSON.stringify(item.value));
+			Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.value], data.displayValue, item.questionToChangeTemplate);	
 			
-			Alloy.Globals.questionRenderer.setEntireSectionTemplate(section.groupType, [data.value], data.displayValue, item.questionToChangeTemplate);		
+			Alloy.Globals.localDataHandler.updateQuestion(item);
+			section.updateItemAt(e.itemIndex, item, {animated: false});
+			
 	}});
 };
 
