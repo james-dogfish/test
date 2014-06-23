@@ -21,12 +21,24 @@ var update = function(assessmentObject, fontawesome){
 	if (assessmentObject.alcrmStatus === 'sent' || assessmentObject.isSubmitted == true) {
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
+		$.regenerateView.visible = true;
 	} else {
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Not Sent';
+		$.regenerateView.visible = false;
 	}
-
+	
+	$.regeneratePDF.addEventListener('click', function(e){
+		e.cancelBubble = true;
+		Ti.API.info("assessmentID = "+assessmentID);
+		var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assessmentObject);
+		Ti.API.info("newAssessmentForPDF = "+JSON.stringify(newAssessmentForPDF));
+		Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
+	});
+	
 	$.commitIcon.text = fontawesome.icon('icon-cloud-upload');
+	
+	$.pdfIcon.text = fontawesome.icon('icon-file');
 };
 exports.update = update;
 

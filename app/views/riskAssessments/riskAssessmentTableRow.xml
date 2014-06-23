@@ -19,6 +19,10 @@
 			<Label id="commitIcon" class="icon" />
 			<Label id="commitStatus" class="titleText">Commit </Label>
 			<View id="commitStatusLabelList"/>
-		</View>			
+		</View>	
+		<View id="regenerateView" class="view">
+			<Label id="pdfIcon" class="icon" />
+			<Button id="regeneratePDF" class="titleText" height="Ti.UI.SIZE" title="Regenerate PDF" top="-1"/>
+		</View>	
 	</TableViewRow>
 </Alloy>
