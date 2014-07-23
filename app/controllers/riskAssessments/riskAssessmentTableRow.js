@@ -30,10 +30,12 @@ var update = function(assessmentObject, fontawesome){
 	
 	$.regeneratePDF.addEventListener('click', function(e){
 		e.cancelBubble = true;
+		Alloy.Globals.aIndicator.show("Loading...");
 		Ti.API.info("assessmentID = "+assessmentID);
 		var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assessmentObject);
 		Ti.API.info("newAssessmentForPDF = "+JSON.stringify(newAssessmentForPDF));
 		Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
+		Alloy.Globals.aIndicator.hide();
 	});
 	
 	$.commitIcon.text = fontawesome.icon('icon-cloud-upload');
