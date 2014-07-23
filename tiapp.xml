@@ -74,6 +74,7 @@
         <module platform="commonjs">ti.cloud</module>
         <module platform="iphone">com.appcelerator.apm</module>
         <module platform="iphone">ti.compression</module>
+        <module platform="iphone">com.soasta.touchtest</module>
     </modules>
     <deployment-targets>
         <target device="android">false</target>
