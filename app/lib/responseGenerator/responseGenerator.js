@@ -616,9 +616,10 @@ var dateToString = function(date){
 					assObj.isSubmitted = true;
 					Ti.API.info("createAssessment called");
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-
+					Ti.API.info("assObj = "+JSON.stringify(assObj));
+					return;
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
-					Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
+					Alloy.Globals.Util.emailNotes(newAssessmentForPDF,assObj.crossingName);
 
 					Alloy.Globals.theAssObj = null;
 					Alloy.Globals.aIndicator.hide();

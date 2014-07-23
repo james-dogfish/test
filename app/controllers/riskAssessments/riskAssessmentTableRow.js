@@ -34,7 +34,7 @@ var update = function(assessmentObject, fontawesome){
 		Ti.API.info("assessmentID = "+assessmentID);
 		var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assessmentObject);
 		Ti.API.info("newAssessmentForPDF = "+JSON.stringify(newAssessmentForPDF));
-		Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
+		Alloy.Globals.Util.emailNotes(newAssessmentForPDF,assessmentObject.crossingName);
 		Alloy.Globals.aIndicator.hide();
 	});
 	

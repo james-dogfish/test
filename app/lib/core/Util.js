@@ -264,8 +264,9 @@ function _Util() {
 	 | Emails assessment and question notes to the user
 	 |---------------------------------------------------------------------------------
 	 */
-	self.emailNotes = function(payload) {
+	self.emailNotes = function(payload,crossingName) {
 		//var Alloy.Globals.User = require('core/Alloy.Globals.User');
+		Ti.API.info(JSON.stringify(payload));
 		var userEmail = Alloy.Globals.User.getEmail();
 		Ti.API.info("userEmail = " + userEmail);
 
@@ -275,7 +276,7 @@ function _Util() {
 
 		var params = {
 			email: userEmail,
-			//message: message,
+			subject: "Risk Assessment Notes for "+crossingName,
 			archived: JSON.stringify(payload)
 		};
 		Ti.API.info(params.archived);
