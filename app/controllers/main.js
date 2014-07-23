@@ -156,7 +156,6 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 		return assessmentObject;
 	} catch (e) {
 		Alloy.Globals.Logger.log("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e), "error");
-		Alloy.Globals.Logger.logExcepcreateAssessmentWithMainQuestionSettion(e);
 		Alloy.Globals.aIndicator.hide();
 		return null;
 	}
