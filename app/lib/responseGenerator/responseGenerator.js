@@ -300,7 +300,7 @@ var dateToString = function(date){
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 						var assDate = self.findQuestionByParam(sectionList, "LAST_ASSESSMENT_DATE");
 						//alert("assDate ="+assDate);
-						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + questionList[questionIndex].value + "</ques:parameterValue>";
+						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + escape(questionList[questionIndex].value) + "</ques:parameterValue>";
 						questionResponse = questionList[questionIndex].questionResponse;
 						assessmentDate = assDate;
 						titleFixed = true;
