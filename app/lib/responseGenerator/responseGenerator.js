@@ -572,8 +572,11 @@ var dateToString = function(date){
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
 						
 					
-				} else if (assObj.censusDesktopComplete == false && sectionListTra.length < 0 ) {
+				} else if (assObj.censusDesktopComplete == false && sectionListTra.length <= 0 ) {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
+					Alloy.Globals.aIndicator.hide();
+				} else if (assObj.censusDesktopComplete == true && sectionListTra.length <= 0 ) {
+					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noTrainsMessage'),"noTrainsMessage");
 					Alloy.Globals.aIndicator.hide();
 				}
 			}

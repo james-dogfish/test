@@ -33,6 +33,7 @@
     <string name="census_has_finished">Census has finished</string> 
     <string name="census">Census</string> 
     <string name="noCensusMessage">You must complete at least 1 census</string> 
+    <string name="noTrainsMessage">There was an error with the creation of this RA. Please try to delete the current RA and recreate while on WiFi.</string> 
     <string name="censusDesktopCompleteMessage">You do not have to complete your census through the Risk Assessment app, please complete through ALCRM once you have submitted your risk assessment</string> 
     <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will delete any information entered for Census General, Census Environment or Census Usage sections for all censuses attached to this assessment)</string>
     <string name="stop_censuse_to_save_and_exit">Please be aware the census timer is currently running, in order to successfully submit your assessment you will need to either stop the timer or wait for the timer to complete</string>
