@@ -1,7 +1,7 @@
 <Alloy>
 	<View id="container">
 		<View id ="header">
-			<Button id="backButton" onClick="backButtonClick">
+			<Button id="backButton" onClick="backButtonClick" />
 			<Label id="headerTitle"/>
 		</View>
 		<ListView id="listView">

@@ -5,7 +5,7 @@
 				<Label id="raTitle" text="Help"/>
 				<Button id="closeButton" title="Close" onClick="closeWindow" class="button" right="10"/>
 			</Toolbar>		
-			<ScrollView id="borderedView">
+			<ScrollView id="borderedView" />
 		</View>
 	</Window>
 </Alloy>
