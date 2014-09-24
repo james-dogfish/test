@@ -300,7 +300,7 @@ var dateToString = function(date){
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 						var assDate = self.findQuestionByParam(sectionList, "LAST_ASSESSMENT_DATE");
 						//alert("assDate ="+assDate);
-						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + questionList[questionIndex].value + "</ques:parameterValue>";
+						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + escape(questionList[questionIndex].value) + "</ques:parameterValue>";
 						questionResponse = questionList[questionIndex].questionResponse;
 						assessmentDate = assDate;
 						titleFixed = true;
@@ -572,8 +572,11 @@ var dateToString = function(date){
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
 						
 					
-				} else if (assObj.censusDesktopComplete == false && sectionListTra.length < 0 ) {
+				} else if (assObj.censusDesktopComplete == false && sectionListTra.length <= 0 ) {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
+					Alloy.Globals.aIndicator.hide();
+				} else if (assObj.censusDesktopComplete == true && sectionListTra.length <= 0 ) {
+					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noTrainsMessage'),"noTrainsMessage");
 					Alloy.Globals.aIndicator.hide();
 				}
 			}
@@ -616,9 +619,9 @@ var dateToString = function(date){
 					assObj.isSubmitted = true;
 					Ti.API.info("createAssessment called");
 					Alloy.Globals.localDataHandler.updateSingleAssessmentIndexEntry(assObj);
-
+				
 					var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assObj);
-					Alloy.Globals.Util.emailNotes(newAssessmentForPDF);
+					Alloy.Globals.Util.emailNotes(newAssessmentForPDF,assObj.crossingName);
 
 					Alloy.Globals.theAssObj = null;
 					Alloy.Globals.aIndicator.hide();

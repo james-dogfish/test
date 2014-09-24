@@ -156,7 +156,6 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 		return assessmentObject;
 	} catch (e) {
 		Alloy.Globals.Logger.log("Exception occured in createAssessmentWithMainQuestionSet " + JSON.stringify(e), "error");
-		Alloy.Globals.Logger.logException(e);
 		Alloy.Globals.aIndicator.hide();
 		return null;
 	}
@@ -165,24 +164,36 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 
 function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 	try {
-		if (assessmentObject == null) {
-			Alloy.Globals.Logger.log("assessmentObject == null ", "info");
+		if (assessmentObject === null || 
+			typeof assessmentObject === "undefined") {
+			Alloy.Globals.Logger.log("assessmentObject is null or undefined", "info");
 			return false;
 		}
+		
 
 		var crossingQuestions = Alloy.Globals.localParser.getQuestions(crosQues);
-
+		
+		if (typeof crossingQuestions === "undefined" || crossingQuestions === null) {
+			Alloy.Globals.Logger.log("typeof crossingQuestions is undefined or null", "info");
+			return false;
+		}
+			
 		var quesMap = [];
 		var crossingAnswers = Alloy.Globals.localParser.getQuestions(crosAns);
 		Alloy.Globals.Logger.log("crossingAnswers ======= > " + JSON.stringify(crossingAnswers), "info");
 		if (typeof crossingAnswers !== "undefined") {
-			for (var i = 0; i < crossingAnswers.length; i++) {
-				if (typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
-
-					quesMap[crossingAnswers[i].parameterName] = {
-						value: crossingAnswers[i].parameterValue
-					};
+			if(crossingAnswers !== null){
+				for (var i = 0; i < crossingAnswers.length; i++) {
+					if (typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
+	
+						quesMap[crossingAnswers[i].parameterName] = {
+							value: crossingAnswers[i].parameterValue
+						};
+					}
 				}
+			}else{
+				Alloy.Globals.Logger.log("typeof crossingAnswers is null", "info");
+				return false;
 			}
 		} else {
 			Alloy.Globals.Logger.log("typeof crossingAnswers == undefined", "info");
@@ -190,11 +201,12 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 		}
 
 		var coreQues = Alloy.Globals.localDataHandler.addNewCoreQuestionToAssessment(assessmentObject, crossingQuestions, quesMap);
-		if (coreQues === []) //see line 558 of localDataHandler.js
+		if (coreQues === [] || coreQues === null || typeof coreQues === "undefined") //see line 558 of localDataHandler.js
 		{
+			Alloy.Globals.Logger.log("coreQues is empty or undefined or null - unable to build ra", "info");
 			alert(L('unableToBuildRA'));
 			Alloy.Globals.aIndicator.hide();
-			return;
+			return false;
 		}
 
 		quesMap = null;
@@ -324,22 +336,32 @@ var buildAssessment = function(crossingDetail) {
 	Alloy.Globals.Logger.log("JSONDocTrain = " + (JSONDocTrain !== null && typeof JSONDocTrain !== "undefined"), "info");
 	Alloy.Globals.Logger.log("============== END OF DEBUG ==============", "info");
 
-	if (JSONDocAss == null || JSONDocCrossQues == null || JSONDocCrossAns == null || JSONDocCensus == null || JSONDocTrain == null) {
+	if (JSONDocAss === null || JSONDocCrossQues === null || JSONDocCrossAns === null || JSONDocCensus === null || JSONDocTrain === null) {
 		return false;
 	}
 
 	var assessmentObject = createAssessmentWithMainQuestionSet(JSONDocAss, 0, crossingDetail.id);
 	JSONDocAss = null;
 
-	if (assessmentObject == null) {
-		Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject == null", "info");
+	if (assessmentObject === null || typeof assessmentObject === "undefined") {
+		Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject == null or undefined", "info");
+		Alloy.Globals.aIndicator.hide();
 		return;
 	}
+	
+	if(assessmentObject === null || typeof assessmentObject === "undefined" ||
+		JSONDocCrossQues === null || typeof JSONDocCrossQues === "undefined" ||
+		JSONDocCrossAns === null || typeof JSONDocCrossAns === "undefined")
+		{
+			Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject OR JSONDocCrossQues OR JSONDocCrossAns == null or undefined", "info");
+			Alloy.Globals.aIndicator.hide();
+			return;
+		}
 
 	var returnValue = addCoreQuestionSetToAssessment(assessmentObject, JSONDocCrossQues, JSONDocCrossAns);
 	JSONDocCrossQues = null;
 	JSONDocCrossAns = null;
-	if (returnValue == false) {
+	if (returnValue === false) {
 		Alloy.Globals.Logger.log("in main.js addCoreQuestionSetToAssessment >> did not create", "info");
 		return;
 	}

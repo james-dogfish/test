@@ -21,6 +21,7 @@
 		fontFamily: Alloy.Globals.fontawesome.fontfamily
 	}
 },
+
 ".titleText": {
 	height: Ti.UI.SIZE,
 	left: "45dp",
