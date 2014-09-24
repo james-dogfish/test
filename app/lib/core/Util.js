@@ -308,7 +308,7 @@ function _Util() {
 		emailDialog.subject = 'RA App bug report from ' + args.userName;
 
 		emailDialog.messageBody = args.emailBody;
-		emailDialog.toRecipients = ['paul.haggett@networkrail.co.uk'];
+		emailDialog.toRecipients = ['NationalLevelCrossingTeam@networkrail.co.uk'];
 
 		emailDialog.addAttachment(args.docsZip);
 		emailDialog.addEventListener('complete', function(){
