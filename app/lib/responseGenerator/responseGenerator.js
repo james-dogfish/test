@@ -112,6 +112,25 @@ var dateToString = function(date){
 						tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace(/[0-9]I_/g, 'I_');
 						questionResponse = JSON.parse(tempFix);
 						
+						if(questionResponse!==null){
+							Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
+							var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
+							if (typeof questionValue !== "undefined" && questionValue !== "null")
+							{
+								Ti.API.info("typeof questionValue = "+typeof questionValue);
+								
+								if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
+									Ti.API.info("================= Found Question with Special Chars =======================");
+									var newValue = escape(questionValue);
+								
+									questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
+									questionResponse = questionList[questionIndex].questionResponse;
+									Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
+									Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
+								}
+							}
+						}
+						
 						Ti.API.info("questionResponse = "+JSON.stringify(questionResponse));
 						if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
 							if (questionType === "multiSelect") {
@@ -294,7 +313,28 @@ var dateToString = function(date){
 				var questionList = sectionList[sectionListIndex].questionList;
 				for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 					var questionResponse = questionList[questionIndex].questionResponse;
-
+					
+					Ti.API.info("**** questionResponse - "+questionResponse);
+					//Ti.API.info("==== "+questionResponse.indexOf("&"));
+					if(questionResponse!==null){
+						Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
+						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
+						if (typeof questionValue !== "undefined" && questionValue !== "null")
+						{
+							Ti.API.info("typeof questionValue = "+typeof questionValue);
+							
+							if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
+								Ti.API.info("================= Found Question with Special Chars =======================");
+								var newValue = escape(questionValue);
+							
+								questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
+								questionResponse = questionList[questionIndex].questionResponse;
+								Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
+								Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
+							}
+						}
+					}
+					
 					var questionType = questionList[questionIndex].type;
 
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
