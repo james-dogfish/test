@@ -58,7 +58,7 @@ function pickerChange(e){
 
 function doneButtonClick(e){
 	//$.win.close();
-	
+	//
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
 	if($.textFieldTestingOnly.value != ""){
