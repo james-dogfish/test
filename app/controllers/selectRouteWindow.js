@@ -57,7 +57,7 @@ function pickerChange(e){
 };
 
 function doneButtonClick(e){
-	$.win.close();
+	//$.win.close();
 	
 	Ti.App.Properties.setString('SelectedRoute', currentValue.title);
 	
@@ -69,5 +69,5 @@ function doneButtonClick(e){
 	}
 	$.win.hide();
 	
-	$.destroy();
+	//$.destroy();
 };
