@@ -121,7 +121,7 @@ var dateToString = function(date){
 								
 								if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
 									Ti.API.info("================= Found Question with Special Chars =======================");
-									var newValue = escape(questionValue);
+									var newValue = escape(questionValue).replace(/%20/g, " ");
 								
 									questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 									questionResponse = questionList[questionIndex].questionResponse;
@@ -325,10 +325,10 @@ var dateToString = function(date){
 							
 							if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
 								Ti.API.info("================= Found Question with Special Chars =======================");
-								var newValue = escape(questionValue);
+								var newValue = escape(questionValue).replace(/%20/g, " ");
 							
 								questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
-								questionResponse = questionList[questionIndex].questionResponse;
+								questionResponse = questionList[questifonIndex].questionResponse;
 								Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
 								Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
 							}
@@ -340,7 +340,7 @@ var dateToString = function(date){
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 						var assDate = self.findQuestionByParam(sectionList, "LAST_ASSESSMENT_DATE");
 						//alert("assDate ="+assDate);
-						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + escape(questionList[questionIndex].value) + "</ques:parameterValue>";
+						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + escape(questionList[questionIndex].value).replace(/%20/g, " ") + "</ques:parameterValue>";
 						questionResponse = questionList[questionIndex].questionResponse;
 						assessmentDate = assDate;
 						titleFixed = true;
