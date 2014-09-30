@@ -81,6 +81,8 @@ var addValue = function(additionValue, e){
 	
 	var section = e.section; 
 	var item = section.getItemAt(e.itemIndex);
+
+	// Ti.API.error(item);
 	
 	var intValue = intValue = parseInt(item.value[0]);
 	if(isNaN(intValue)){
