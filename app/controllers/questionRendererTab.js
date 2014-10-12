@@ -354,8 +354,6 @@ var openMenu = function() {
             $.trigger("saveAndExitClick");
             
             Alloy.Globals.questionRenderer = null;
-            
-            Ti.API.info("***** GOT HERE ******");
            
             
         } else if (e.row.id === 7) {
