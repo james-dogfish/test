@@ -39,9 +39,8 @@ $.riskAssessmentsTab.loadRiskAssessments();
 $.riskAssessmentsTab.on("openRiskAssessment", function(e) {
 	Alloy.Globals.Logger.log("openRiskAssessment", "info");
 	$.questionRendererTab.clear();
-	$.tabGroup.setActiveTab($.questionRendererTab.getView());
-
 	$.questionRendererTab.setAssessment(e.assessmentObject);
+	$.tabGroup.setActiveTab($.questionRendererTab.getView());
 });
 
 /** here we call toggleSearch (see above) **/

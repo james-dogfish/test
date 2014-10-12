@@ -121,12 +121,17 @@ var dateToString = function(date){
 								
 								if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
 									Ti.API.info("================= Found Question with Special Chars =======================");
-									var newValue = escape(questionValue).replace(/%20/g, " ");
+									var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g,", ").replace(/%28/g,"(").replace(/%26/g," and ");
 								
 									questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 									questionResponse = questionList[questionIndex].questionResponse;
 									Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
 									Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
+								}else{
+									var newValue = String(questionValue).trim();
+									if(typeof newValue === "undefined" || newValue === "undefined") newValue = "";
+									questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
+									questionResponse = questionList[questionIndex].questionResponse;
 								}
 							}
 						}
@@ -169,7 +174,7 @@ var dateToString = function(date){
 					dateToPost = "";
 				}
 			}
-			//alert("xmlRequest = "+JSON.stringify(xmlRequest));
+			Ti.API.info("censusXMLRequest = "+JSON.stringify(xmlRequest));
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
@@ -319,18 +324,25 @@ var dateToString = function(date){
 					if(questionResponse!==null){
 						Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
-						if (typeof questionValue !== "undefined" && questionValue !== "null")
+						var questionID = questionList[questionIndex].alcrmQuestionID;
+						Ti.API.info(">>> QuestionID = "+questionID);
+						if (typeof questionValue !== "undefined" && questionValue !== "null" && typeof questionID !== "undefined")
 						{
 							Ti.API.info("typeof questionValue = "+typeof questionValue);
 							
 							if(questionValue.indexOf("&")!==-1 || questionValue.indexOf("&amp;")!==-1 || questionValue.indexOf("&apos;")!==-1){
 								Ti.API.info("================= Found Question with Special Chars =======================");
-								var newValue = escape(questionValue).replace(/%20/g, " ");
+								var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g,", ").replace(/%28/g,"(").replace(/%26/g," and ");
 							
-								questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionList[questionIndex].alcrmQuestionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
-								questionResponse = questionList[questifonIndex].questionResponse;
+								questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
+								questionResponse = questionList[questionIndex].questionResponse;
 								Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
 								Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
+							}else{
+								var newValue = String(questionValue).trim();
+								if(typeof newValue === "undefined" || newValue === "undefined") newValue = "";
+								questionList[questionIndex].questionResponse = "<ques:parameterName>"+questionID+"</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
+								questionResponse = questionList[questionIndex].questionResponse;
 							}
 						}
 					}
@@ -392,7 +404,7 @@ var dateToString = function(date){
 			//alert("riskData = "+riskData);
 
 			var xmlRequest = "<ass:CreateAssessmentRequest><ass:assessment><ass1:crossingID>" + crossingID + "</ass1:crossingID>" + censusIDSXml + trainIDSXml + censusDatesXml + riskData + "</ass:assessment></ass:CreateAssessmentRequest>";
-
+			Ti.API.info("CreateAssessmentRequestXMLRequest = "+xmlRequest);
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);

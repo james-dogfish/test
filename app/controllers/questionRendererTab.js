@@ -353,6 +353,11 @@ var openMenu = function() {
             currentAssessmentObject = null;
             $.trigger("saveAndExitClick");
             
+            Alloy.Globals.questionRenderer = null;
+            
+            Ti.API.info("***** GOT HERE ******");
+           
+            
         } else if (e.row.id === 7) {
         	if(Alloy.Globals.questionRenderer != null){
             	Alloy.Globals.questionRenderer.toggleScrollLock();
