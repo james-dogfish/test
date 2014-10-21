@@ -320,8 +320,12 @@ var dateToString = function(date){
 					var questionResponse = questionList[questionIndex].questionResponse;
 					
 					Ti.API.info("**** questionResponse - "+questionResponse);
-					//Ti.API.info("==== "+questionResponse.indexOf("&"));
-					if(questionResponse!==null){
+
+					// Only do Alessios magic for alphanumeric answers
+					Ti.API.error(questionList[questionIndex].type);
+					// //Ti.API.info("==== "+questionResponse.indexOf("&"));
+					if(questionResponse!==null && questionList[questionIndex].type === 'alphanumeric'){
+
 						Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 						var questionID = questionList[questionIndex].alcrmQuestionID;
