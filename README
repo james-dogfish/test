@@ -7,6 +7,7 @@ You need Alloy 1.3.1 to build this project, get it by doing the following
 sudo npm -g remove alloy
 and then
 sudo npm install -g alloy@1.3.1
+If Npm doesn't have a record, then you can download this from - http://dogfishdata.com/custom-sdks/alloy-1.3.1.zip
 
 Titanium
 --
