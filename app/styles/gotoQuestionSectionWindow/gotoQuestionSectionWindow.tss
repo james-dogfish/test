@@ -46,4 +46,7 @@
 	width: Ti.UI.FILL,
 	backgroundColor: "#06354a",
 	top: 8
+},
+"#contaierView": {
+    clipMode: Titanium.UI.iOS.CLIP_MODE_ENABLED
 }
