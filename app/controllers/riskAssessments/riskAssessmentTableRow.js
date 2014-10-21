@@ -27,21 +27,25 @@ var update = function(assessmentObject, fontawesome){
 		$.alcrmStatusLabel.text = 'Not Sent';
 		$.regenerateView.visible = false;
 	}
-	
-	$.regeneratePDF.addEventListener('click', function(e){
-		e.cancelBubble = true;
-		Alloy.Globals.aIndicator.show("Loading...");
-		Ti.API.info("assessmentID = "+assessmentID);
-		var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse(assessmentObject);
-		Ti.API.info("newAssessmentForPDF = "+JSON.stringify(newAssessmentForPDF));
-		Alloy.Globals.Util.emailNotes(newAssessmentForPDF,assessmentObject.crossingName);
-		Alloy.Globals.aIndicator.hide();
-	});
+
+	$.regeneratePDF.assessmentObject = assessmentObject;
+	$.regeneratePDF.clickEnabled = true;
 	
 	$.commitIcon.text = fontawesome.icon('icon-cloud-upload');
 	
 	$.pdfIcon.text = fontawesome.icon('icon-file');
 };
+
+$.regeneratePDF.addEventListener('click', function(e){
+	if(!$.regeneratePDF.clickEnabled) return false;
+	e.cancelBubble = true;
+	Alloy.Globals.aIndicator.show("Loading...");
+	var newAssessmentForPDF = Alloy.Globals.localDataHandler.createAssessmentPDFResponse($.regeneratePDF.assessmentObject);
+	Alloy.Globals.Util.emailNotes(newAssessmentForPDF,$.regeneratePDF.assessmentObject.crossingName);
+	Alloy.Globals.aIndicator.hide();
+});
+
+
 exports.update = update;
 
 if (arguments && arguments[0]) {
