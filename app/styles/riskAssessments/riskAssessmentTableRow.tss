@@ -7,7 +7,7 @@
 },
 ".view": {
 	left: "10dp",
-	bottom: "7dp",
+	bottom: "5dp",
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE
 },
@@ -44,13 +44,10 @@
 	},
 	color: '#989696'
 },
-"#commitResponseView" : { 
-	height : 0
-},
+
 "#commitStatusLabelList" : { 
 	height: Ti.UI.SIZE,
 	left: "200dp",
 	top: "5dp",
-	bottom : "5dp",
-	layout: 'vertical',
+	layout: 'vertical'
 }

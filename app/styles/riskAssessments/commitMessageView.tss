@@ -1,6 +1,6 @@
 "#container" : { 
 	height: Ti.UI.SIZE,
-	width : Ti.UI.FILL,
+	width : Ti.UI.FILL
 },
 "#commitIcon" : { 
 	height: Ti.UI.SIZE,
@@ -15,8 +15,6 @@
 "#commitStatusLabel" : { 
 	height: Ti.UI.SIZE,
 	left: "45dp",
-	top: "5dp",
-	bottom : "5dp",
 	font: {
 		fontSize: 20,
 		fontFamily: 'Arial'

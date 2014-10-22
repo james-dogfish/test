@@ -22,10 +22,12 @@ var update = function(assessmentObject, fontawesome){
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Submitted - Read Only';
 		$.regenerateView.visible = true;
+		$.regenerateView.height = Ti.UI.SIZE;
 	} else {
 		$.row.editable = true;
 		$.alcrmStatusLabel.text = 'Not Sent';
 		$.regenerateView.visible = false;
+		$.regenerateView.height = 0;
 	}
 
 	$.regeneratePDF.assessmentObject = assessmentObject;
