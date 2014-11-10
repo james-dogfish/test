@@ -336,6 +336,7 @@ var buildAssessment = function(crossingDetail) {
 	Alloy.Globals.Logger.log("============== END OF DEBUG ==============", "info");
 
 	if (JSONDocAss === null || JSONDocCrossQues === null || JSONDocCrossAns === null || JSONDocCensus === null || JSONDocTrain === null) {
+		Alloy.Globals.loadingRiskAssessment = false;
 		return false;
 	}
 
@@ -345,6 +346,7 @@ var buildAssessment = function(crossingDetail) {
 	if (assessmentObject === null || typeof assessmentObject === "undefined") {
 		Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject == null or undefined", "info");
 		Alloy.Globals.aIndicator.hide();
+		Alloy.Globals.loadingRiskAssessment = false;
 		return;
 	}
 	
@@ -354,6 +356,7 @@ var buildAssessment = function(crossingDetail) {
 		{
 			Alloy.Globals.Logger.log("in main.js buildAssessment >> assessmentObject OR JSONDocCrossQues OR JSONDocCrossAns == null or undefined", "info");
 			Alloy.Globals.aIndicator.hide();
+			Alloy.Globals.loadingRiskAssessment = false;
 			return;
 		}
 
@@ -362,12 +365,14 @@ var buildAssessment = function(crossingDetail) {
 	JSONDocCrossAns = null;
 	if (returnValue === false) {
 		Alloy.Globals.Logger.log("in main.js addCoreQuestionSetToAssessment >> did not create", "info");
+		Alloy.Globals.loadingRiskAssessment = false;
 		return;
 	}
 
 	if (typeof assessmentObject === "undefined") {
 		alert(L('no_data'));
 		Alloy.Globals.aIndicator.hide();
+		Alloy.Globals.loadingRiskAssessment = false;
 		return;
 	} else {
 		parseCensusData(JSONDocCensus, assessmentObject);
@@ -406,28 +411,33 @@ var buildAssessment = function(crossingDetail) {
 						$.riskAssessmentsTab.loadRiskAssessments();
 						$.questionRendererTab.setAssessment(assessmentObject);
 						$.tabGroup.setActiveTab($.questionRendererTab.getView());
+						Alloy.Globals.loadingRiskAssessment = false;
 					} else {
 						alert(L('unableToBuildRA'));
 						Alloy.Globals.aIndicator.hide();
+						Alloy.Globals.loadingRiskAssessment = false;
 						return;
 					}
 				} else {
 					alert(L('unableToBuildRA'));
 					Alloy.Globals.aIndicator.hide();
+					Alloy.Globals.loadingRiskAssessment = false;
 					return;
 				}
 			} else {
 				alert(L('unableToBuildRA'));
 				Alloy.Globals.aIndicator.hide();
+				Alloy.Globals.loadingRiskAssessment = false;
 				return;
 			}
 		} else {
 			alert(L('unableToBuildRA'));
 			Alloy.Globals.aIndicator.hide();
+			Alloy.Globals.loadingRiskAssessment = false;
 			return;
 		}
 
-
+		Alloy.Globals.loadingRiskAssessment = false;
 		Alloy.Globals.aIndicator.hide();
 	}
 };

@@ -8,14 +8,18 @@ function refreshButtonClick(e) {
 	Alloy.Globals.Logger.log("refreshButtonClick","info");
 	var data = [];
 	$.tableView.setData(data);
-	$.tableView.setTouchEnabled(false);
 	$.trigger("RefreshButtonClick");
 }
 
-
+Alloy.Globals.loadingRiskAssessment = false;
 function onRowClick(e) {
-	Alloy.Globals.Logger.log("Tapped on a crossing","info");
-	$.trigger("crossingSelected", crossingData[e.index]);
+	if(!Alloy.Globals.loadingRiskAssessment) {
+		Alloy.Globals.Logger.log("Tapped on a crossing","info");
+		Alloy.Globals.loadingRiskAssessment = true;
+		$.trigger("crossingSelected", crossingData[e.index]);
+	} else {
+		return false;
+	}
 };
 
 function setTableData(crossingData){
@@ -40,7 +44,6 @@ exports.setData = function(shouldRefresh) {
 		}
 		$.tableView.setData(data);
 		Alloy.Globals.aIndicator.hide();
-		$.tableView.setTouchEnabled(true);
 		return;
 	} //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
 
@@ -98,7 +101,6 @@ exports.setData = function(shouldRefresh) {
 							}
 						} else {
 							Alloy.Globals.aIndicator.hide();
-							$.tableView.setTouchEnabled(true);
 							Alloy.Globals.Util.showAlert(L('no_results'));
 						}
 						
@@ -109,7 +111,6 @@ exports.setData = function(shouldRefresh) {
 						Alloy.Globals.localDataHandler.cacheCrossingSearch(crossingData);
 						$.tableView.setData(data);
 						Alloy.Globals.aIndicator.hide();
-						$.tableView.setTouchEnabled(true);
 
 					});
 
