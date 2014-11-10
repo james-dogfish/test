@@ -7,7 +7,7 @@ function responseGenerator() {
 	var noneToSubmit = 0;
 
 /**
- * `testIfAssessmentIsComplete` - Here we pass in a questionList and we return true/false
+ * `testIfAssessmentIsComplete` - Here we pass in a questionList and we return true/false 
  * depending on weather the assessment is fully done or not.
  * 
  * @method testIfAssessmentIsComplete
@@ -94,10 +94,7 @@ var dateToString = function(date){
 								}else if(questionList[questionIndex].value.trim() != ""){
 									censusDate = questionList[questionIndex].value;
 								}else{
-									Alloy.Globals.aIndicator.hide();
 									Ti.API.info("===========HERE ===========");
-									//Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
-									return;
 								}
 								Ti.API.info("censusDate = "+censusDate);
 								if (censusDate.length === 1) {
@@ -178,7 +175,6 @@ var dateToString = function(date){
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("ERROR in buildCensus Response. Error Details: " + JSON.stringify(e));
 
 		}
@@ -234,15 +230,11 @@ var dateToString = function(date){
 					}
 					
 					if(trainListIndex == 0 && questionUnAnswered == true){
-						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoIncomplete1') + (trainListIndex+1),"trainInfoIncomplete1");
-						return;
 					}
 					
 					if(questionAnswered == true && questionUnAnswered == true){
-						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('trainInfoIncomplete1') + (trainListIndex+1),"trainInfoIncomplete1");
-						return;
 					}
 					
 					
@@ -257,7 +249,6 @@ var dateToString = function(date){
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("ERROR in buildTrainInfoGroupResponse. Error Details: " + JSON.stringify(e));
 		}
 	};
@@ -327,7 +318,7 @@ var dateToString = function(date){
 					if(questionResponse!==null && questionList[questionIndex].type === 'alphanumeric'){
 
 						Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
-						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
+						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID)).trim();
 						var questionID = questionList[questionIndex].alcrmQuestionID;
 						Ti.API.info(">>> QuestionID = "+questionID);
 						if (typeof questionValue !== "undefined" && questionValue !== "null" && typeof questionID !== "undefined")
@@ -412,7 +403,6 @@ var dateToString = function(date){
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN buildAssessmentResponse. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
@@ -454,14 +444,12 @@ var dateToString = function(date){
 
 					});
 				}, function(xmlDoc) {
-					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'));
 				});
 			}
 			
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyTrain. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
@@ -492,9 +480,7 @@ var dateToString = function(date){
 			if(xmlCensusRequest.length === 0)
 				{
 					if (assObj.censusDesktopComplete == false) {
-						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
-						//return;
 					}
 				}
 			if (assObj.censusDesktopComplete == false) {
@@ -542,7 +528,6 @@ var dateToString = function(date){
 					
 										});
 									}, function(xmlDoc) {
-										Alloy.Globals.aIndicator.hide();
 										Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 									});
 								}
@@ -555,7 +540,6 @@ var dateToString = function(date){
 
 						});
 					}, function(xmlDoc) {
-						Alloy.Globals.aIndicator.hide();
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentNotCompleted'),"assessmentNotCompleted");
 					});
 				}			
@@ -567,7 +551,6 @@ var dateToString = function(date){
 			}
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithTrainAndCensus. Error Details: " + JSON.stringify(e), "info");
 		}
 	};
@@ -582,7 +565,16 @@ var dateToString = function(date){
  * 
  * @param {Object} assObj
  */
-	self.submitAss = function(assObj) {
+	self.submitAss = function(assObj, currentAssIndex, totalAsses) {
+		Alloy.Globals.totalAsses = 0;
+		var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
+			
+			for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
+				if (activeAssessments[assessmentIndex].isSubmitted === false) {
+					Alloy.Globals.totalAsses++;
+				}
+			}
+	
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
 
@@ -592,7 +584,6 @@ var dateToString = function(date){
 				Alloy.Globals.Logger.log("noneToSubmit = " + noneToSubmit, "info");
 
 			} else {
-				Alloy.Globals.aIndicator.show("Committing...");
 				var sectionListAss = Alloy.Globals.localDataHandler.getMainRiskAssessmentQuestions(assObj);
 				var sectionListCen = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 0);
 				var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
@@ -623,19 +614,20 @@ var dateToString = function(date){
 
 					
 						Alloy.Globals.Logger.log("======================assObj.censusDesktopComplete = false", "info");
-						Alloy.Globals.aIndicator.hide();
 						
 						Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
-						
 					
 				} else if (assObj.censusDesktopComplete == false && sectionListTra.length <= 0 ) {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noCensusMessage'),"noCensusMessage");
-					Alloy.Globals.aIndicator.hide();
 				} else if (assObj.censusDesktopComplete == true && sectionListTra.length <= 0 ) {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('noTrainsMessage'),"noTrainsMessage");
-					Alloy.Globals.aIndicator.hide();
 				}
+				
 			}
+			
+			
+			  
+			
 		} catch (e) {
 			//alert("exception: "+JSON.stringify(e));
 			Alloy.Globals.Logger.logException(e);
@@ -643,8 +635,6 @@ var dateToString = function(date){
 			Alloy.Globals.trainIDs = [];
 			Alloy.Globals.censusIDs = [];
 			Alloy.Globals.censusDates = [];
-
-			Alloy.Globals.aIndicator.hide();
 		}
 	};
 
@@ -680,10 +670,8 @@ var dateToString = function(date){
 					Alloy.Globals.Util.emailNotes(newAssessmentForPDF,assObj.crossingName);
 
 					Alloy.Globals.theAssObj = null;
-					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, true, L('assessmentSubmitted'));
 				}, function() {
-					Alloy.Globals.aIndicator.hide();
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj,false,L('assessmentNotCompleted') ,"assessmentNotCompleted");
 
 				});
@@ -691,7 +679,6 @@ var dateToString = function(date){
 		} catch (e) {
 			Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false,L('assessmentFailed'),"assessmentFailed");
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Alloy.Globals.Logger.log("Exception in doAssessment. Error Details: " + JSON.stringify(e), "info");
 
 		}
@@ -710,7 +697,6 @@ var dateToString = function(date){
 	self.commitAllCompleted = function() {
 		try {
 			if (!Titanium.Network.online) {
-				Alloy.Globals.aIndicator.hide();
 				var alertDialog = Titanium.UI.createAlertDialog({
 					title : L('no_connectivity_title'),
 					message : L('no_connectivity_body'),
@@ -722,17 +708,26 @@ var dateToString = function(date){
 			}
 
 			var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
+			
 			// alert(activeAssessments.length);
+			Alloy.Globals.activeAssessments =  activeAssessments.length;
+			
+			//alert("activeAssessments = "+Number(Alloy.Globals.activeAssessments));
+			if(Number(Alloy.Globals.activeAssessments) === 0)
+			{
+				return;
+			}else{
+				Alloy.Globals.aIndicator.show('Committing ...');
+			}
 			
 			for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
 				if (activeAssessments[assessmentIndex].isSubmitted === false) {
-					self.submitAss(activeAssessments[assessmentIndex]);
+					self.submitAss(activeAssessments[assessmentIndex], assessmentIndex, activeAssessments.length);
 				}
 			}
 
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
-			Alloy.Globals.aIndicator.hide();
 			Ti.API.error("EXCEPTION in commitAllCompleted. Error Details: " + JSON.stringify(e));
 		}
 	};

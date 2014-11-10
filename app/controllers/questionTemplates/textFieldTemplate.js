@@ -3,7 +3,6 @@ function onTextFieldBlur(e){
 	Alloy.Globals.Logger.log("onTextFieldBlur");
 	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
 	
-	
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){
@@ -15,8 +14,8 @@ function onTextFieldBlur(e){
 		return;
 	}
 	var section = e.section; 
-	item.displayValue.value =  e.value;
-	item.value = [e.value];
+	item.displayValue.value =  String(e.value).trim();
+	item.value = [String(e.value).trim()];
 	
 	if(item.value[0] === ""){
 		item.questionResponse = null;
@@ -24,7 +23,7 @@ function onTextFieldBlur(e){
 	else{
 		item.questionResponse = 
 		"<ques:parameterName>"+item.alcrmQuestionID+"</ques:parameterName>"+ 
-   		"<ques:parameterValue>"+Alloy.Globals.Util.escapeXML(e.value)+"</ques:parameterValue>";
+   		"<ques:parameterValue>"+Alloy.Globals.Util.escapeXML(String(e.value).trim())+"</ques:parameterValue>";
 	}
 	
     if(Alloy.Globals.questionRenderer != null){

@@ -1964,10 +1964,10 @@ function footerPostlayout(e) {
 var lastContentOffset = 0; // TODO - reset this when window is closed
 var tableScrolling = function(e) {
     //if (Alloy.Globals.currentlyFocusedTF) {
-        if (Math.abs(e.contentOffset.y - lastContentOffset) >= 30) {
+       // if (Math.abs(e.contentOffset.y - lastContentOffset) >= 30) {
             blurCurrentlyFocusedTF();
             lastContentOffset = e.contentOffset.y;
-        }
+       // }
     //}
 };
 

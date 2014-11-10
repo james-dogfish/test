@@ -8,6 +8,7 @@ function refreshButtonClick(e) {
 	Alloy.Globals.Logger.log("refreshButtonClick","info");
 	var data = [];
 	$.tableView.setData(data);
+	$.tableView.setTouchEnabled(false);
 	$.trigger("RefreshButtonClick");
 }
 
@@ -39,6 +40,7 @@ exports.setData = function(shouldRefresh) {
 		}
 		$.tableView.setData(data);
 		Alloy.Globals.aIndicator.hide();
+		$.tableView.setTouchEnabled(true);
 		return;
 	} //CURRENTLY DISABLING CACHING AS NEEDS EXTRA WORK
 
@@ -96,6 +98,7 @@ exports.setData = function(shouldRefresh) {
 							}
 						} else {
 							Alloy.Globals.aIndicator.hide();
+							$.tableView.setTouchEnabled(true);
 							Alloy.Globals.Util.showAlert(L('no_results'));
 						}
 						
@@ -106,6 +109,7 @@ exports.setData = function(shouldRefresh) {
 						Alloy.Globals.localDataHandler.cacheCrossingSearch(crossingData);
 						$.tableView.setData(data);
 						Alloy.Globals.aIndicator.hide();
+						$.tableView.setTouchEnabled(true);
 
 					});
 
