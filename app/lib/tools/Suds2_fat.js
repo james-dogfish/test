@@ -211,7 +211,7 @@ var SudsClient = function(_options) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       _failure.call(this, xmlDomFromString(this.responseText));
       try {
-        Alloy.Globals.aIndicator.hide();
+        //Alloy.Globals.aIndicator.hide();
         Alloy.Globals.censusIDs = [];
         Alloy.Globals.trainIDs = [];
         Alloy.Globals.censusDates = [];
@@ -271,10 +271,10 @@ var SudsClient = function(_options) {
                 alert.show();
               }
 
-            } else {
-              Alloy.Globals.aIndicator.hide();
+            } /*else {
+              //Alloy.Globals.aIndicator.hide();
               return;
-            }
+            }*/
 
 
           }

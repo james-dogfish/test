@@ -54,6 +54,14 @@ exports.assessmentSubmitMessage = function(assObj,success, message, messageID){
 	if(assessmentRow != null){
 		Alloy.Globals.Logger.log("AssessmentSubmitMessage commitResponse = "+success, "info");
 		assessmentRow.commitResponse(success, message, messageID, fontawesome);
+		Alloy.Globals.commitCounter ++;
+		if(Alloy.Globals.commitCounter === Alloy.Globals.totalAsses){
+			Alloy.Globals.servicesInvoked = 0;
+      		Alloy.Globals.aIndicator.hide();
+      		Alloy.Globals.commitCounter = 0;
+      		return;
+		}
+		//alert(Alloy.Globals.commitCounter + "/" +Alloy.Globals.totalAsses);
 	}
 	
 	
@@ -109,6 +117,9 @@ var openMenu = function() {
 			if(Alloy.Globals.User.hasPreferences())
 			{
 				clearAllSubmitMessages();
+				Alloy.Globals.servicesInvoked = 0;
+				Alloy.Globals.responses = [];
+				Alloy.Globals.fromResponseGenerator = true;
 				Alloy.Globals.responseGenerator.commitAllCompleted();
 			}else{
 				var userSettings = Alloy.createController('userSettings', {
