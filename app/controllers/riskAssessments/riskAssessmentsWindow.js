@@ -117,9 +117,6 @@ var openMenu = function() {
 			if(Alloy.Globals.User.hasPreferences())
 			{
 				clearAllSubmitMessages();
-				Alloy.Globals.servicesInvoked = 0;
-				Alloy.Globals.responses = [];
-				Alloy.Globals.fromResponseGenerator = true;
 				Alloy.Globals.responseGenerator.commitAllCompleted();
 			}else{
 				var userSettings = Alloy.createController('userSettings', {

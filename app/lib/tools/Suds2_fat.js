@@ -195,7 +195,6 @@ var SudsClient = function(_options) {
     xhr.validatesSecureCertificate = false; // Need to turn off to disable cert validation as NR env goes crazy!
     xhr.onload = function() {
       // //Ti.API.info('SUDS - Success');
-      //Alloy.Globals.aIndicator.hide();
       Alloy.Globals.requestFailed = false;
       try {
         _callback.call(this, xmlDomFromString(this.responseText));
@@ -211,7 +210,6 @@ var SudsClient = function(_options) {
       ////Ti.API.info('SUDS - Error' + this.responseText);
       _failure.call(this, xmlDomFromString(this.responseText));
       try {
-        //Alloy.Globals.aIndicator.hide();
         Alloy.Globals.censusIDs = [];
         Alloy.Globals.trainIDs = [];
         Alloy.Globals.censusDates = [];
@@ -271,10 +269,7 @@ var SudsClient = function(_options) {
                 alert.show();
               }
 
-            } /*else {
-              //Alloy.Globals.aIndicator.hide();
-              return;
-            }*/
+            }
 
 
           }
