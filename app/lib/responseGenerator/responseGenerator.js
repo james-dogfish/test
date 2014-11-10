@@ -7,7 +7,7 @@ function responseGenerator() {
 	var noneToSubmit = 0;
 
 /**
- * `testIfAssessmentIsComplete` - Here we pass in a questionList and we return true/false
+ * `testIfAssessmentIsComplete` - Here we pass in a questionList and we return true/false 
  * depending on weather the assessment is fully done or not.
  * 
  * @method testIfAssessmentIsComplete

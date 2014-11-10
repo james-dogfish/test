@@ -3,7 +3,6 @@ function onTextFieldBlur(e){
 	Alloy.Globals.Logger.log("onTextFieldBlur");
 	Alloy.Globals.currentlyFocusedTF = {TextField : null, questionObject : null};
 	
-	
 	var item = e.section.getItemAt(e.itemIndex);
 	
 	if(typeof item === "undefined"){

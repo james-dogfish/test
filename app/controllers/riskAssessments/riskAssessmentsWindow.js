@@ -8,7 +8,6 @@ var fontawesome = require('tools/fonts/IconicFont').IconicFont({
 Alloy.Globals.fontawesome = {
 	fontfamily: fontawesome.fontfamily()
 };
-
 Alloy.Globals.riskAssessmentWindow = this;
 
 var assessmentRowControllerList = [];
