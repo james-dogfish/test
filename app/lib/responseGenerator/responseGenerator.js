@@ -713,15 +713,16 @@ var dateToString = function(date){
 			Alloy.Globals.activeAssessments =  activeAssessments.length;
 			
 			//alert("activeAssessments = "+Number(Alloy.Globals.activeAssessments));
-			if(Number(Alloy.Globals.activeAssessments) === 0)
+		/*	if(Number(Alloy.Globals.activeAssessments) === 0)
 			{
 				return;
 			}else{
-				Alloy.Globals.aIndicator.show('Committing ...');
-			}
+				
+			}  */
 			
 			for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
 				if (activeAssessments[assessmentIndex].isSubmitted === false) {
+					Alloy.Globals.aIndicator.show('Committing ...');
 					self.submitAss(activeAssessments[assessmentIndex], assessmentIndex, activeAssessments.length);
 				}
 			}

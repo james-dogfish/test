@@ -1267,14 +1267,16 @@ var validateSingleQuestionValue = function (value, questionObject) {
 	
     if (dataType == "numeric" || dataType == "numericRange") {
         var test = Alloy.Globals.Validator.isNumber(Number(value), false);
-        if (test == false) {
+        if (test == false || value.toString().substr(value.toString().length - 1) === ".")
+		{
             returnObject.isValid = false;
             returnObject.outPutMessage = L("numeric_error_text");
             return returnObject;
         }
     } else if (dataType == "decimal" || dataType == "decimalRange") {
         var test = Alloy.Globals.Validator.isDecimal(value);
-        if (test == false) {
+        if (test == false || value.toString().substr(value.toString().length - 1) === ".")
+        {
             returnObject.isValid = false;
             returnObject.outPutMessage = L("decimal_error_text");
             return returnObject;
