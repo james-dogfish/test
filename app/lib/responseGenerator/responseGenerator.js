@@ -45,7 +45,6 @@ function responseGenerator() {
 		var year = date.getFullYear();
 		alert(year + "-" + month + "-" + day);
 		return year + "-" + month + "-" + day;
-		// return Alloy.Globals.Util.convertDate(date).dateformat2;
 	};
 
 	/**
@@ -66,10 +65,6 @@ function responseGenerator() {
 	 * @return {String} xmlRequest - the xmlRequest payload string.
 	 */
 	self.buildCensusResponse = function(assObj, censusList, crossingID, detailID) {
-		//alert("buildCensusResponse invoked");
-
-		//alert("censusList = "+JSON.stringify(censusList));
-		//Ti.API.info("==============censusList = "+JSON.stringify(censusList));
 		try {
 			var xmlRequest = [];
 			for (var censusListIndex = 0; censusListIndex < censusList.length; censusListIndex++) {
@@ -94,9 +89,7 @@ function responseGenerator() {
 								} else if (questionList[questionIndex].value.trim() != "") {
 									censusDate = questionList[questionIndex].value;
 								} else {
-									//Ti.API.info("===========HERE ===========");
 								}
-								//Ti.API.info("censusDate = "+censusDate);
 								if (censusDate.length === 1) {
 									censusDate = null;
 								}
@@ -104,25 +97,19 @@ function responseGenerator() {
 							}
 						}
 
-						//Ti.API.info("questionResponse = "+JSON.stringify(questionResponse));
 						var tempFix = JSON.stringify(questionResponse);
 						tempFix = tempFix.replace("<ass1:riskData>", "").replace("</ass1:riskData>", "").replace(/[0-9]I_/g, 'I_');
 						questionResponse = JSON.parse(tempFix);
 
 						if (questionResponse !== null) {
-							//Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 							var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 							if ( typeof questionValue !== "undefined" && questionValue !== "null") {
-								//Ti.API.info("typeof questionValue = "+typeof questionValue);
 
 								if (questionValue.indexOf("&") !== -1 || questionValue.indexOf("&amp;") !== -1 || questionValue.indexOf("&apos;") !== -1) {
-									//Ti.API.info("================= Found Question with Special Chars =======================");
 									var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g, ", ").replace(/%28/g, "(").replace(/%26/g, " and ");
 
 									questionList[questionIndex].questionResponse = "<ques:parameterName>" + questionList[questionIndex].alcrmQuestionID + "</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 									questionResponse = questionList[questionIndex].questionResponse;
-									//Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
-									//Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
 								} else {
 									var newValue = String(questionValue).trim();
 									if ( typeof newValue === "undefined" || newValue === "undefined")
@@ -133,7 +120,6 @@ function responseGenerator() {
 							}
 						}
 
-						//Ti.API.info("questionResponse = "+JSON.stringify(questionResponse));
 						if (questionResponse != null && questionResponse.search("ass1") === -1 && questionResponse.search("tra1") === -1) {
 							if (questionType === "multiSelect") {
 								censusData = censusData + '<cen1:censusData xsi:type="ques:multiSelectResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' + questionResponse + '</cen1:censusData>';
@@ -148,10 +134,8 @@ function responseGenerator() {
 						}
 					}
 				}
-				//Ti.API.info(censusDate);
 				var numbers = "";
 				var dateToPost = "";
-				//	alert("censusDate = "+dateToString(censusDate));
 				if (censusDate !== null && censusDate.trim() !== "") {
 
 					numbers = censusDate.match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -169,7 +153,6 @@ function responseGenerator() {
 					dateToPost = "";
 				}
 			}
-			//Ti.API.info("censusXMLRequest = "+JSON.stringify(xmlRequest));
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
@@ -207,7 +190,6 @@ function responseGenerator() {
 					var questionList = sectionList[sectionListIndex].questionList;
 					for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 						var questionResponse = questionList[questionIndex].questionResponse;
-						//alert("questionResponse "+trainListIndex+" = "+JSON.stringify(questionResponse));
 						var questionType = questionList[questionIndex].type;
 						if (questionResponse != null) {
 							questionAnswered = true;
@@ -234,7 +216,6 @@ function responseGenerator() {
 					}
 
 				}
-				//alert("trainData Contents = "+JSON.stringify(trainData));
 				if (trainData !== "") {
 					xmlRequest.push("<tra:CreateTrainGroupRequest>" + "<tra:trainGroupData>" + "<tra1:crossingId>" + crossingID + "</tra1:crossingId>" + "<tra1:date>" + new Date().toISOString() + "</tra1:date>" + trainData + "</tra:trainGroupData>" + "</tra:CreateTrainGroupRequest>");
 				}
@@ -304,28 +285,19 @@ function responseGenerator() {
 				for (var questionIndex = 0; questionIndex < questionList.length; questionIndex++) {
 					var questionResponse = questionList[questionIndex].questionResponse;
 
-					//Ti.API.info("**** questionResponse - "+questionResponse);
-
 					// Only do Alessios magic for alphanumeric answers
 					Ti.API.error(questionList[questionIndex].type);
-					// //Ti.API.info("==== "+questionResponse.indexOf("&"));
 					if (questionResponse !== null && questionList[questionIndex].type === 'alphanumeric') {
 
-						//Ti.API.info("*-*-* "+self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
 						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID)).trim();
 						var questionID = questionList[questionIndex].alcrmQuestionID;
-						//Ti.API.info(">>> QuestionID = "+questionID);
 						if ( typeof questionValue !== "undefined" && questionValue !== "null" && typeof questionID !== "undefined") {
-							//Ti.API.info("typeof questionValue = "+typeof questionValue);
 
 							if (questionValue.indexOf("&") !== -1 || questionValue.indexOf("&amp;") !== -1 || questionValue.indexOf("&apos;") !== -1) {
-								//Ti.API.info("================= Found Question with Special Chars =======================");
 								var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g, ", ").replace(/%28/g, "(").replace(/%26/g, " and ");
 
 								questionList[questionIndex].questionResponse = "<ques:parameterName>" + questionID + "</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 								questionResponse = questionList[questionIndex].questionResponse;
-								//Ti.API.info(questionList[questionIndex].alcrmQuestionID + " contains a special char");
-								//Ti.API.info("escaped questionResponse = "+questionList[questionIndex].questionResponse);
 							} else {
 								var newValue = String(questionValue).trim();
 								if ( typeof newValue === "undefined" || newValue === "undefined")
@@ -340,7 +312,6 @@ function responseGenerator() {
 
 					if (questionList[questionIndex].alcrmQuestionID == "I_ASSESSMENT_TITLE" && titleFixed == false) {
 						var assDate = self.findQuestionByParam(sectionList, "LAST_ASSESSMENT_DATE");
-						//alert("assDate ="+assDate);
 						questionList[questionIndex].questionResponse = "<ques:parameterName>I_ASSESSMENT_TITLE</ques:parameterName>" + "<ques:parameterValue>" + crossingID + " " + assDate + " " + escape(questionList[questionIndex].value).replace(/%20/g, " ") + "</ques:parameterValue>";
 						questionResponse = questionList[questionIndex].questionResponse;
 						assessmentDate = assDate;
@@ -357,15 +328,10 @@ function responseGenerator() {
 						}
 					}
 					if (questionList[questionIndex].alcrmQuestionID == "LAST_ASSESSMENT_DATE") {
-						//alert("here: "+questionList[questionIndex].questionResponse);
 					}
 
 				}
 			}
-			//var date = new Date();
-			//	var trainIDs = Alloy.Globals.trainIDs;
-			//var censusIDs = Alloy.Globals.censusIDs;
-			//var censusDates = Alloy.Globals.censusDates;
 
 			var trainIDSXml = "";
 			var censusIDSXml = "";
@@ -389,10 +355,7 @@ function responseGenerator() {
 				}
 			}
 
-			//alert("riskData = "+riskData);
-
 			var xmlRequest = "<ass:CreateAssessmentRequest><ass:assessment><ass1:crossingID>" + crossingID + "</ass1:crossingID>" + censusIDSXml + trainIDSXml + censusDatesXml + riskData + "</ass:assessment></ass:CreateAssessmentRequest>";
-			//Ti.API.info("CreateAssessmentRequestXMLRequest = "+xmlRequest);
 			return xmlRequest;
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
@@ -418,7 +381,6 @@ function responseGenerator() {
 
 		Alloy.Globals.trainIDs[key] = [];
 		try {
-			//var callFired=false;
 			for (var i = 0; i < xmlTrainRequest.length; i++) {
 				Alloy.Globals.Soap.createTrainGroupRequest(xmlTrainRequest[i], function(xmlDoc) {
 
@@ -429,14 +391,9 @@ function responseGenerator() {
 						Alloy.Globals.Logger.log("trainId=" + trainId, "info");
 						Alloy.Globals.trainIDs[key].push(trainId);
 
-						//Alloy.Globals.Logger.log("Trains - Alloy.Globals.trainIDs.length === 3 >> " + Alloy.Globals.trainIDs.length, "info");
-						//alert("Alloy.Globals.trainIDs.length = "+Alloy.Globals.trainIDs.length);
-						//alert("xmlTrainRequest.length = "+xmlTrainRequest.length);
 						if (Alloy.Globals.trainIDs[key].length === xmlTrainRequest.length) {
-							//alert(Alloy.Globals.trainIDs.length);
 							self.doAssessment(assObj, sectionListAss, Alloy.Globals.trainIDs[key], [], []);
 							Alloy.Globals.trainIDs[key] = [];
-							//callFired=true;
 						}
 
 					});
@@ -475,7 +432,6 @@ function responseGenerator() {
 		Alloy.Globals.trainIDs[assObj.assessmentID] = [];
 
 		try {
-			//alert("xmlCensusRequest = "+xmlCensusRequest.length);
 			//BIT OF SANITY CHECK HERE!!
 			if (xmlCensusRequest.length === 0) {
 				if (assObj.censusDesktopComplete == false) {
@@ -483,9 +439,7 @@ function responseGenerator() {
 				}
 			}
 			if (assObj.censusDesktopComplete == false) {
-				//var callFired = false;
 				for (var i = 0; i < xmlCensusRequest.length; i++) {
-					//alert(xmlCensusRequest.length);
 					Alloy.Globals.Soap.createCensus(xmlCensusRequest[i], function(xmlDoc) {
 
 						Alloy.Globals.Util.convertJson(Ti.XML.serializeToString(xmlDoc), function(data) {
@@ -497,7 +451,6 @@ function responseGenerator() {
 							Alloy.Globals.censusDates[assObj.assessmentID].push(censusDate);
 
 							if (Alloy.Globals.censusIDs[assObj.assessmentID].length == xmlCensusRequest.length) {
-								//alert("Alloy.Globals.censusIDs = "+JSON.stringify(Alloy.Globals.censusIDs));
 								var censusIDs = Alloy.Globals.censusIDs[assObj.assessmentID];
 								var censusDates = Alloy.Globals.censusDates[assObj.assessmentID];
 								Alloy.Globals.censusIDs[assObj.assessmentID] = [];
@@ -512,11 +465,9 @@ function responseGenerator() {
 											Alloy.Globals.trainIDs[assObj.assessmentID].push(trainId);
 
 											if (Alloy.Globals.trainIDs[assObj.assessmentID].length === xmlTrainRequest.length) {
-												//alert(Alloy.Globals.trainIDs.length);
 												var trainIDs = Alloy.Globals.trainIDs[assObj.assessmentID];
 												self.doAssessment(assObj, sectionListAss, trainIDs, censusIDs, censusDates);
 												Alloy.Globals.trainIDs[assObj.assessmentID] = [];
-												//callFired=true;
 											}
 
 										});
@@ -526,7 +477,6 @@ function responseGenerator() {
 								}
 
 							} else {
-								//alert("else Alloy.Globals.censusIDs = "+JSON.stringify(Alloy.Globals.censusIDs));
 							}
 
 						});
@@ -577,26 +527,18 @@ function responseGenerator() {
 				Ti.API.error("xmlTrainRequest = " + xmlTrainRequest);
 
 				if (sectionListCen.length > 0 && sectionListTra.length > 0) {
-					//alert("here0");
 					if (assObj.censusDesktopComplete == true) {
-						//alert("here00");
-
 						self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 						return;
 					} else {
-						//alert("here01");
-
 						self.commitWithTrainAndCensus(xmlCensusRequest, xmlTrainRequest, assObj, sectionListAss);
 						return;
 					}
 				} else if (assObj.censusDesktopComplete == true && sectionListTra.length > 0) {
-					//alert("here2");
 					self.commitWithOnlyTrain(xmlTrainRequest, assObj, sectionListAss);
 					return;
 				} else if (assObj.censusDesktopComplete == false && sectionListTra.length > 0) {
-					//alert("here33");
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('noCensusMessage'), "noCensusMessage");
-
 				} else if (assObj.censusDesktopComplete == false && sectionListTra.length <= 0) {
 					Alloy.Globals.riskAssessmentWindow.assessmentSubmitMessage(assObj, false, L('noCensusMessage'), "noCensusMessage");
 				} else if (assObj.censusDesktopComplete == true && sectionListTra.length <= 0) {
@@ -606,7 +548,6 @@ function responseGenerator() {
 			}
 
 		} catch (e) {
-			//alert("exception: "+JSON.stringify(e));
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("Exception in responseGenerator submitAss. Error Details: " + JSON.stringify(e), "info");
 			Alloy.Globals.trainIDs[assObj.assessmentID] = [];
@@ -636,14 +577,12 @@ function responseGenerator() {
 	 * @param {Object} sectionListAss
 	 */
 	self.doAssessment = function(assObj, sectionListAss, trainIDs, censusIDs, censusDates) {
-		//alert("assObj === > "+JSON.stringify(assObj.crossingID));
-
 		//Sort numerically and ascending:
 		trainIDs.sort(function(a, b) {
 			return a - b;
 		});
 		//Array now becomes [7, 8, 25, 41]
- 
+
 		try {
 			var xmlRequest = self.buildAssessmentResponse(sectionListAss, assObj.crossingID, assObj.detailID, assObj.notes, trainIDs, censusIDs, censusDates);
 			Alloy.Globals.theAssObj = assObj;
@@ -704,7 +643,6 @@ function responseGenerator() {
 
 			var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 			Alloy.Globals.assessmentsToCommit = activeAssessments.length;
-			//Alloy.Globals.aIndicator.show('Committing ...');
 			var assessmentIndex = 0;
 			while (assessmentIndex <= activeAssessments.length) {
 				if (activeAssessments[assessmentIndex].isSubmitted === false) {
@@ -714,16 +652,6 @@ function responseGenerator() {
 				}
 				assessmentIndex++;
 			}
-
-			//@TODO: converting this for loop to a while loop as suggested by Shebby.
-			/*for (var assessmentIndex = 0; assessmentIndex < activeAssessments.length; assessmentIndex++) {
-			 if (activeAssessments[assessmentIndex].isSubmitted === false) {
-			 Alloy.Globals.aIndicator.show('Committing ...');
-			 Ti.API.error('Submitting assessments with >>'+activeAssessments[assessmentIndex].assessmentID);
-			 self.submitAss(activeAssessments[assessmentIndex], assessmentIndex, activeAssessments.length);
-			 }
-			 }*/
-
 		} catch(e) {
 			Alloy.Globals.Logger.logException(e);
 			Ti.API.error("EXCEPTION in commitAllCompleted. Error Details: " + JSON.stringify(e));
