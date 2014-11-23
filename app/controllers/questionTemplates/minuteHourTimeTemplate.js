@@ -19,7 +19,7 @@ function showPicker(e)
 	var section = e.section;
 	
 	
-	Ti.API.info("** item.duration = "+JSON.stringify(item.duration));
+	//Ti.API.info("** item.duration = "+JSON.stringify(item.duration));
 	
 
 	Alloy.createController("questionDialogs/minuteHourTimePicker", {

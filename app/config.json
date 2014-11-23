@@ -1,12 +1,12 @@
 {
 	"global": {
 		"debug": false,
-		"stagedRollOut": true,
+		"stagedRollOut": false,
 		"fakeSearchCrossings": false,
 		"analytics": {
 			"navOverride": false
 		},
-		"currentEnv": "ppte",
+		"currentEnv": "dte",
 		"serverUrl": {
 			"fat": "http://server.iconsolutions.com/alcrm3/",
 			"dte": "https://icondte.networkrail.co.uk/WebServices/",
