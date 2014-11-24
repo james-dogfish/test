@@ -10,9 +10,17 @@ function _Validator() {
 	this.isDecimal = function(number) {
 		if (number.toString().indexOf('.') !== -1) {
 			var decimalReg = /^\d*\.?\d*$/;
+			if(decimalReg.toString().substr(decimalReg.toString().length - 1) === ".")
+			{
+				return false;
+			}
 			return decimalReg.test(number);
 		} else {
 			var numReg = /^\d+$/;
+			if(decimalReg.toString().substr(decimalReg.toString().length - 1) === ".")
+			{
+				return false;
+			}
 			return numReg.test(number);;
 		}
 	};
@@ -20,12 +28,26 @@ function _Validator() {
 	this.numberLiesBetween = function(number, lbound, ubound, charLength) {
 		if (charLength) {
 			if ((number >= lbound && number <= ubound) && (number.toString().length <= charLength)) {
+				if (number.toString().indexOf('.') !== -1) {
+					return false;
+				}
+				if(number.toString().substr(number.toString().length - 1) === ".")
+				{
+					return false;
+				}
 				return true;
 			} else {
 				return false;
 			}
 		} else {
 			if (number >= lbound && number <= ubound) {
+				if (number.toString().indexOf('.') !== -1) {
+					return false;
+				}
+				if(number.toString().substr(number.toString().length - 1) === ".")
+				{
+					return false;
+				}
 				return true;
 			} else {
 				return false;
@@ -36,8 +58,22 @@ function _Validator() {
 	this.isNumber = function(number, lengthtoCheck) {
 		var re = /^\d+$/;
 		if (lengthtoCheck) {
+			if (number.toString().indexOf('.') !== -1) {
+					return false;
+				}
+			if(number.toString().substr(number.toString().length - 1) === ".")
+				{
+					return false;
+				}
 			return (re.test(number) && number.toString().trim().length <= lengthtoCheck);
 		} else {
+			if (number.toString().indexOf('.') !== -1) {
+					return false;
+				}
+				if(number.toString().substr(number.toString().length - 1) === ".")
+				{
+					return false;
+				}
 			return re.test(number);
 		}
 	};
