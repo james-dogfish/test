@@ -209,7 +209,7 @@ must NOT be used to delete assessments
                 if (questionFound == false) {
                     Alloy.Globals.Logger.log("updateQuestion : question not found ", "info");
                 } else {
-                	Ti.API.info("updateQuestion question.value = "+question.value[0]);
+                	//Ti.API.info("updateQuestion question.value = "+question.value[0]);
                     sectionList[foundSectionIndex].questionList[foundIndex] = question;
                 }
 
