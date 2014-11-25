@@ -58,7 +58,7 @@ function onTextFieldFocus(e){
 	Alloy.Globals.Logger.log("onTextFieldFocus");
 	
 	var item = e.section.getItemAt(e.itemIndex);
-		
+
 	if(typeof item === "undefined"){
 		return;
 	}
@@ -69,6 +69,24 @@ function onTextFieldFocus(e){
 	
 	item = Alloy.Globals.questionRenderer.selectQuestion(item, e.section);
 	Alloy.Globals.currentlyFocusedTF = {TextField : e.source, questionObject : item};
+
+	// Function will remove Transparentview created in questionRenderer 
+	// and clean up touchstart events.
+	// http://jira.dogfishdata.com/browse/NRAM-383
+	var removeTransparentView = function(){
+		Alloy.Globals.questionRenderer.blurCurrentlyFocusedTF();
+		Alloy.Globals.containerView.remove(Alloy.Globals.transparentView);
+		Alloy.Globals.transparentView.removeEventListener('touchstart', removeTransparentView);
+	};
+
+	Alloy.Globals.transparentView.addEventListener('touchstart', removeTransparentView);
+
+	Alloy.Globals.containerView.add(Alloy.Globals.transparentView);
+
+	// Need to re-call the focus event once again as 
+	// when the view above is added, the textfield loses 
+	// focus
+	Alloy.Globals.currentlyFocusedTF.TextField.focus();
 };
 
 function onTitleClick(e){

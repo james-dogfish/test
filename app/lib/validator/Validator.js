@@ -10,18 +10,18 @@ function _Validator() {
 	this.isDecimal = function(number) {
 		if (number.toString().indexOf('.') !== -1) {
 			var decimalReg = /^\d*\.?\d*$/;
-			if(decimalReg.toString().substr(decimalReg.toString().length - 1) === ".")
+			if(number.toString().substr(number.toString().length - 1) === ".")
 			{
 				return false;
 			}
 			return decimalReg.test(number);
 		} else {
 			var numReg = /^\d+$/;
-			if(decimalReg.toString().substr(decimalReg.toString().length - 1) === ".")
+			if(number.toString().substr(number.toString().length - 1) === ".")
 			{
 				return false;
 			}
-			return numReg.test(number);;
+			return numReg.test(number);
 		}
 	};
 
