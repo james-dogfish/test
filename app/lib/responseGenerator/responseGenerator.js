@@ -286,7 +286,7 @@ function responseGenerator() {
 					var questionResponse = questionList[questionIndex].questionResponse;
 
 					// Only do Alessios magic for alphanumeric answers
-					Ti.API.error(questionList[questionIndex].type);
+					// Ti.API.error(questionList[questionIndex].type);
 					if (questionResponse !== null && questionList[questionIndex].type === 'alphanumeric') {
 
 						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID)).trim();
@@ -508,7 +508,7 @@ function responseGenerator() {
 	 * @param {Object} assObj
 	 */
 	self.submitAss = function(assObj, currentAssIndex, totalAsses) {
-		Ti.API.error("self.submitAss -> assObj with Index= " + assObj.assessmentIndex);
+		// Ti.API.error("self.submitAss -> assObj with Index= " + assObj.assessmentIndex);
 
 		try {
 			if (!(Alloy.Globals.isDebugOn) && assObj.questionsCompleted < assObj.questionCount) {
