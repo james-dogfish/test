@@ -646,7 +646,7 @@ function responseGenerator() {
 			var activeAssessments = Alloy.Globals.localDataHandler.getAllSavedAssessments();
 			Alloy.Globals.assessmentsToCommit = activeAssessments.length;
 			var assessmentIndex = 0;
-			while (assessmentIndex <= activeAssessments.length) {
+			while (assessmentIndex < activeAssessments.length) {
 				if (activeAssessments[assessmentIndex] && activeAssessments[assessmentIndex].isSubmitted === false) {
 					Alloy.Globals.aIndicator.show('Committing ...');
 					Ti.API.error('Submitting assessments with >>' + activeAssessments[assessmentIndex].assessmentID);
