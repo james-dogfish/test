@@ -926,7 +926,7 @@ the new TrainGroup uses the saved default TrainGroup Questions set for this asse
                     break;
 
             }
-            Alloy.Globals.Logger.log("getAllCensusesOrTrains returns => " + JSON.stringify(getAllData), "error");
+            // Alloy.Globals.Logger.log("getAllCensusesOrTrains returns => " + JSON.stringify(getAllData), "error");
             return getAllData;
         } catch (e) {
         	Alloy.Globals.Logger.logException(e);

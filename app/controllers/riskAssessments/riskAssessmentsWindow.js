@@ -17,7 +17,7 @@ var getAssessmentRowController = function(assessmentID){
 	for(var i=0; i < assessmentRowControllerList.length; i++){
 		
 		if(assessmentRowControllerList[i].getAssessmentID() == assessmentID){
-			Alloy.Globals.Logger.log("found assessmentRow = "+JSON.stringify(assessmentRowControllerList[i]), "info");
+			// Alloy.Globals.Logger.log("found assessmentRow = "+JSON.stringify(assessmentRowControllerList[i]), "info");
 			assessmentRow = assessmentRowControllerList[i];
 			break;
 		}

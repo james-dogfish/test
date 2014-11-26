@@ -308,14 +308,14 @@ var newTestIfVisable = function(questionObject) {
 		if (parentQuestion == null)
 			continue;
 		if (questionObject.renderValue[renderValueIndex].value == null) {
-			Ti.API.error("questionObject.renderValue[renderValueIndex].value == null");
+			// Ti.API.error("questionObject.renderValue[renderValueIndex].value == null");
 			return true;
 		}
 
 		for (var valueIndex = 0; valueIndex < parentQuestion.value.length; valueIndex++) {
 			if (questionObject.renderValue[renderValueIndex].value === parentQuestion.value[valueIndex]) {
 
-				Ti.API.error("object.value = " + questionObject.renderValue[renderValueIndex].value + ", test = " + parentQuestion.value[valueIndex]);
+				// Ti.API.error("object.value = " + questionObject.renderValue[renderValueIndex].value + ", test = " + parentQuestion.value[valueIndex]);
 				return true;
 			}
 		}

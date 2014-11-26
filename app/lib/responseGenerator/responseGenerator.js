@@ -37,10 +37,10 @@ function responseGenerator() {
 
 	var dateToString = function(date) {
 		var day = date.getDate();
-		day = (day < 10 ) ? '0' + day : day;
+		day = (day < 10) ? '0' + day : day;
 
 		var month = date.getMonth() + 1;
-		month = (month < 10 ) ? '0' + month : month;
+		month = (month < 10) ? '0' + month : month;
 
 		var year = date.getFullYear();
 		alert(year + "-" + month + "-" + day);
@@ -88,8 +88,7 @@ function responseGenerator() {
 									censusDate = questionList[questionIndex].value[0];
 								} else if (questionList[questionIndex].value.trim() != "") {
 									censusDate = questionList[questionIndex].value;
-								} else {
-								}
+								} else {}
 								if (censusDate.length === 1) {
 									censusDate = null;
 								}
@@ -103,7 +102,7 @@ function responseGenerator() {
 
 						if (questionResponse !== null) {
 							var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID));
-							if ( typeof questionValue !== "undefined" && questionValue !== "null") {
+							if (typeof questionValue !== "undefined" && questionValue !== "null") {
 
 								if (questionValue.indexOf("&") !== -1 || questionValue.indexOf("&amp;") !== -1 || questionValue.indexOf("&apos;") !== -1) {
 									var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g, ", ").replace(/%28/g, "(").replace(/%26/g, " and ");
@@ -112,7 +111,7 @@ function responseGenerator() {
 									questionResponse = questionList[questionIndex].questionResponse;
 								} else {
 									var newValue = String(questionValue).trim();
-									if ( typeof newValue === "undefined" || newValue === "undefined")
+									if (typeof newValue === "undefined" || newValue === "undefined")
 										newValue = "";
 									questionList[questionIndex].questionResponse = "<ques:parameterName>" + questionList[questionIndex].alcrmQuestionID + "</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 									questionResponse = questionList[questionIndex].questionResponse;
@@ -154,7 +153,7 @@ function responseGenerator() {
 				}
 			}
 			return xmlRequest;
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Ti.API.error("ERROR in buildCensus Response. Error Details: " + JSON.stringify(e));
 
@@ -222,7 +221,7 @@ function responseGenerator() {
 			}
 
 			return xmlRequest;
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Ti.API.error("ERROR in buildTrainInfoGroupResponse. Error Details: " + JSON.stringify(e));
 		}
@@ -291,7 +290,7 @@ function responseGenerator() {
 
 						var questionValue = String(self.findQuestionByParam(sectionList, questionList[questionIndex].alcrmQuestionID)).trim();
 						var questionID = questionList[questionIndex].alcrmQuestionID;
-						if ( typeof questionValue !== "undefined" && questionValue !== "null" && typeof questionID !== "undefined") {
+						if (typeof questionValue !== "undefined" && questionValue !== "null" && typeof questionID !== "undefined") {
 
 							if (questionValue.indexOf("&") !== -1 || questionValue.indexOf("&amp;") !== -1 || questionValue.indexOf("&apos;") !== -1) {
 								var newValue = escape(questionValue).replace(/%20/g, " ").replace(/%2C/g, ", ").replace(/%28/g, "(").replace(/%26/g, " and ");
@@ -300,7 +299,7 @@ function responseGenerator() {
 								questionResponse = questionList[questionIndex].questionResponse;
 							} else {
 								var newValue = String(questionValue).trim();
-								if ( typeof newValue === "undefined" || newValue === "undefined")
+								if (typeof newValue === "undefined" || newValue === "undefined")
 									newValue = "";
 								questionList[questionIndex].questionResponse = "<ques:parameterName>" + questionID + "</ques:parameterName>" + "<ques:parameterValue>" + newValue + "</ques:parameterValue>";
 								questionResponse = questionList[questionIndex].questionResponse;
@@ -327,8 +326,7 @@ function responseGenerator() {
 							riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
 						}
 					}
-					if (questionList[questionIndex].alcrmQuestionID == "LAST_ASSESSMENT_DATE") {
-					}
+					if (questionList[questionIndex].alcrmQuestionID == "LAST_ASSESSMENT_DATE") {}
 
 				}
 			}
@@ -357,7 +355,7 @@ function responseGenerator() {
 
 			var xmlRequest = "<ass:CreateAssessmentRequest><ass:assessment><ass1:crossingID>" + crossingID + "</ass1:crossingID>" + censusIDSXml + trainIDSXml + censusDatesXml + riskData + "</ass:assessment></ass:CreateAssessmentRequest>";
 			return xmlRequest;
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("EXCEPTION IN buildAssessmentResponse. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -402,7 +400,7 @@ function responseGenerator() {
 				});
 			}
 
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithOnlyTrain. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -415,7 +413,7 @@ function responseGenerator() {
 	 * sectionListAss contains section data. We then invoke the function to create a census request (SOAP) and
 	 * upon success we invoke the function to create a train group request. Finally upon success of the latter
 	 * we call the doAssessment function which will deal with the commit of an assessment.
-
+	 
 	 * NOTE: if an assessment has been marked to be completed via ALCRM Destop, we call the doAssessment function
 	 *      straight away.
 	 *
@@ -462,12 +460,17 @@ function responseGenerator() {
 											var data = JSON.parse(data);
 											var trainId = data.response.Envelope.Body.CreateTrainGroupResponse.trainGroupData.trainDataId;
 											Alloy.Globals.Logger.log("trainId=" + trainId, "info");
-											Alloy.Globals.trainIDs[assObj.assessmentID].push(trainId);
 
-											if (Alloy.Globals.trainIDs[assObj.assessmentID].length === xmlTrainRequest.length) {
-												var trainIDs = Alloy.Globals.trainIDs[assObj.assessmentID];
-												self.doAssessment(assObj, sectionListAss, trainIDs, censusIDs, censusDates);
-												Alloy.Globals.trainIDs[assObj.assessmentID] = [];
+											if (Alloy.Globals.trainIDs[assObj.assessmentID]) {
+												Alloy.Globals.trainIDs[assObj.assessmentID].push(trainId);
+
+												if (Alloy.Globals.trainIDs[assObj.assessmentID].length === xmlTrainRequest.length) {
+													var trainIDs = Alloy.Globals.trainIDs[assObj.assessmentID];
+													self.doAssessment(assObj, sectionListAss, trainIDs, censusIDs, censusDates);
+													Alloy.Globals.trainIDs[assObj.assessmentID] = [];
+												}
+											} else {
+												return;
 											}
 
 										});
@@ -476,8 +479,7 @@ function responseGenerator() {
 									});
 								}
 
-							} else {
-							}
+							} else {}
 
 						});
 					}, function(xmlDoc) {
@@ -492,7 +494,7 @@ function responseGenerator() {
 				Alloy.Globals.censusIDs[assObj.assessmentID] = [];
 				Alloy.Globals.censusDates[assObj.assessmentID] = [];
 			}
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Alloy.Globals.Logger.log("EXCEPTION IN commitWithTrainAndCensus. Error Details: " + JSON.stringify(e), "info");
 		}
@@ -524,7 +526,7 @@ function responseGenerator() {
 				var sectionListTra = Alloy.Globals.localDataHandler.getAllCensusesOrTrains(assObj, 1);
 				var xmlCensusRequest = self.buildCensusResponse(assObj, sectionListCen, assObj.crossingID, assObj.detailID);
 				var xmlTrainRequest = self.buildTrainInfoGroupResponse(sectionListTra, assObj.crossingID, assObj.detailID, assObj);
-				Ti.API.error("xmlTrainRequest = " + xmlTrainRequest);
+				// Ti.API.error("xmlTrainRequest = " + xmlTrainRequest);
 
 				if (sectionListCen.length > 0 && sectionListTra.length > 0) {
 					if (assObj.censusDesktopComplete == true) {
@@ -632,9 +634,9 @@ function responseGenerator() {
 		try {
 			if (!Titanium.Network.online) {
 				var alertDialog = Titanium.UI.createAlertDialog({
-					title : L('no_connectivity_title'),
-					message : L('no_connectivity_body'),
-					buttonNames : ['OK']
+					title: L('no_connectivity_title'),
+					message: L('no_connectivity_body'),
+					buttonNames: ['OK']
 				});
 				alertDialog.show();
 				Alloy.Globals.aIndicator.hide();
@@ -645,14 +647,14 @@ function responseGenerator() {
 			Alloy.Globals.assessmentsToCommit = activeAssessments.length;
 			var assessmentIndex = 0;
 			while (assessmentIndex <= activeAssessments.length) {
-				if (activeAssessments[assessmentIndex].isSubmitted === false) {
+				if (activeAssessments[assessmentIndex] && activeAssessments[assessmentIndex].isSubmitted === false) {
 					Alloy.Globals.aIndicator.show('Committing ...');
 					Ti.API.error('Submitting assessments with >>' + activeAssessments[assessmentIndex].assessmentID);
 					self.submitAss(activeAssessments[assessmentIndex], assessmentIndex, activeAssessments.length);
 				}
 				assessmentIndex++;
 			}
-		} catch(e) {
+		} catch (e) {
 			Alloy.Globals.Logger.logException(e);
 			Ti.API.error("EXCEPTION in commitAllCompleted. Error Details: " + JSON.stringify(e));
 		}
