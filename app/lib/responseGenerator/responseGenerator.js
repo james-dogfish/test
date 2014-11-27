@@ -88,7 +88,7 @@ function responseGenerator() {
 									censusDate = questionList[questionIndex].value[0];
 								} else if (questionList[questionIndex].value.trim() != "") {
 									censusDate = questionList[questionIndex].value;
-								} else {}
+								}
 								if (censusDate.length === 1) {
 									censusDate = null;
 								}
@@ -326,7 +326,7 @@ function responseGenerator() {
 							riskData = riskData + "<ass1:riskData>" + questionResponse + "</ass1:riskData>";
 						}
 					}
-					if (questionList[questionIndex].alcrmQuestionID == "LAST_ASSESSMENT_DATE") {}
+					// if (questionList[questionIndex].alcrmQuestionID == "LAST_ASSESSMENT_DATE") {}
 
 				}
 			}
@@ -479,7 +479,7 @@ function responseGenerator() {
 									});
 								}
 
-							} else {}
+							}
 
 						});
 					}, function(xmlDoc) {
