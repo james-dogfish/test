@@ -20,7 +20,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>88779ba1-0b65-4d98-9dc9-7cc9b05bd9b7</guid>
+    <guid>04e1c9c4-f49c-4596-9444-040ea3e9a2a7</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>
@@ -79,16 +79,15 @@
     </modules>
     <deployment-targets>
         <target device="android">false</target>
-        <target device="blackberry">false</target>
         <target device="ipad">true</target>
         <target device="iphone">false</target>
         <target device="mobileweb">false</target>
-        <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>3.4.1.GA</sdk-version>
+    <sdk-version>5.1.2.GA</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>
     <property name="com-soasta-touchtest-version" type="string">6937.16</property>
     <property name="com-soasta-touchtest-ios-appId" type="string">179729</property>
+    <property name="appc-app-id" type="string">56af621b67df01ae5d903494</property>
 </ti:app>
