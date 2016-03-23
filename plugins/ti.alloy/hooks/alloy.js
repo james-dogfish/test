@@ -5,7 +5,6 @@
  */
 
 exports.cliVersion = '>=3.X';
-exports.version = '1.0.0';
 var SILENT = true;
 
 exports.init = function (logger, config, cli, appc) {
@@ -84,7 +83,6 @@ exports.init = function (logger, config, cli, appc) {
 			// we have no clue where alloy is installed, so we're going to subprocess
 			// alloy and hope it's in the system path or a well known place
 			var paths = {};
-			var locatorCmd = process.platform === 'win32' ? 'where' : 'which';
 			parallel(this, ['alloy', 'node'].map(function (bin) {
 				return function (done) {
 					var envName = 'ALLOY_' + (bin === 'node' ? 'NODE_' : '') + 'PATH';
@@ -96,7 +94,7 @@ exports.init = function (logger, config, cli, appc) {
 						paths.alloy = 'alloy.cmd';
 						done();
 					} else {
-						exec(locatorCmd + ' ' + bin, function (err, stdout, strerr) {
+						exec('which ' + bin, function (err, stdout, strerr) {
 							if (!err) {
 								paths[bin] = stdout.trim();
 								done();
@@ -142,7 +140,7 @@ exports.init = function (logger, config, cli, appc) {
 
 				// execute alloy in os-specific manner
 				var child;
-				if (process.platform === 'win32' && paths.alloy === 'alloy.cmd') {
+				if (process.platform === 'win32') {
 					cmd.shift();
 					logger.info(__('Executing Alloy compile: %s',
 						['cmd','/s','/c'].concat(cmd).join(' ').cyan));
@@ -174,9 +172,6 @@ exports.init = function (logger, config, cli, appc) {
 						process.exit(1);
 					} else {
 						logger.info(__('Alloy compiler completed successfully'));
-
-						afs.exists(path.join(cli.argv["project-dir"], 'build', 'i18n')) && process.argv.push('--i18n-dir', 'build');
-						afs.exists(path.join(cli.argv["project-dir"], 'build', 'platform')) && (cli.argv['platform-dir'] = 'build/platform');
 					}
 					finished();
 				});
