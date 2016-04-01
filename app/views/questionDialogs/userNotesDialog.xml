@@ -1,17 +1,18 @@
 <Alloy>
-	<Window id="window">
-		<View id="background" onClick="onBackgroundClick"/>
-		<View id="modalBackgorund">
-			<Toolbar platform="ios" top="0" borderTop="true" borderBottom="true" barColor="#084f6f">
-				<Button class="systemButton" title="Done" onClick="rightNavButtonClick" right="10" >
-					<Label class="systemButtonText" text="Done" onClick="rightNavButtonClick" />
-				</Button>
-				<Label id="appTitle"/>
-			</Toolbar>
-			<View id="textAreaContainerView">
-				<TextArea id="textArea" onFocus="onFirstTimeSelect"/>
-				<Label id="hintText" onFocus="onFirstTimeSelect"/>
-			</View>
-		</View>
-	</Window>
+    <Window id="window">
+        <View id="background" onClick="onBackgroundClick"/>
+        <View id="modalBackgorund">
+            <Toolbar platform="ios" top="0" borderTop="true" borderBottom="true" barColor="#084f6f">
+                <Items>
+                    <Button class="systemButton" title="Done" onClick="rightNavButtonClick" right="10"/>
+                    <FlexSpace/>
+                    <Label id="appTitle"/>
+                </Items>
+            </Toolbar>
+            <View id="textAreaContainerView">
+                <TextArea id="textArea" onFocus="onFirstTimeSelect"/>
+                <Label id="hintText" onFocus="onFirstTimeSelect"/>
+            </View>
+        </View>
+    </Window>
 </Alloy>
