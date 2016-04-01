@@ -1,18 +1,16 @@
 <Alloy>
-	<Tab title="riskAssessmentsTab" active="true">
-		<Window id="window" tabBarHidden="true" navBarHidden="true">
-			<Toolbar id="toolbar" platform="ios">
-				<Button class="systemButton" onClick="openSearchClick" left="10" >
-					<Label class="systemButtonText" text="Search" onClick="openSearchClick" />
-				</Button>
-				<Label id="appTitle"/>
-				<Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" >
-					<Label class="systemButtonText" text="Menu" onClick="openMenu" />
-				</Button>
-			</Toolbar>
-			<TableView id="tableVeiw" onClick="onRowClick" onDelete="onDeleteRow">
-			</TableView>
-		</Window>
-	</Tab>
-
+    <Tab title="riskAssessmentsTab" active="true">
+        <Window id="window" tabBarHidden="true" navBarHidden="true">
+            <Toolbar id="toolbar" platform="ios">
+                <Items>
+                    <Button class="systemButton" onClick="openSearchClick" left="10" title="Search"/>
+                    <FlexSpace/>
+                    <Label id="appTitle"/>
+                    <FlexSpace/>
+                    <Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" title="Menu"/>
+                </Items>
+            </Toolbar>
+            <TableView id="tableVeiw" onClick="onRowClick" onDelete="onDeleteRow"></TableView>
+        </Window>
+    </Tab>
 </Alloy>
