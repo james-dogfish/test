@@ -6,6 +6,7 @@
 	layout: 'vertical',
 },
 "#appTitle" : {
+    top:0,
 	text : "Crossing Search",
 	font : {
 		fontSize : 19,
@@ -14,6 +15,7 @@
 	color : '#ffffff'	
 },
 "#tableView" : {
+    top:0,
 	filterAttribute : "filter"
 },
 "#toolbar": {
