@@ -35,6 +35,9 @@ function _Ui() {
 			height: Ti.UI.SIZE
 		});
 
+        if(args){
+           popOver.applyProperties(args); 
+        }
 		if (evt) {
 			var doneButton = Ti.UI.createButton({
 				systemButton: Ti.UI.iPhone.SystemButton.DONE
@@ -44,7 +47,7 @@ function _Ui() {
 
 			doneButton.addEventListener('click', evt);
 		}
-		return self.parseArgs(popOver, args);
+		return popOver;
 	};
 
 	return self;
