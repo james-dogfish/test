@@ -312,7 +312,7 @@ var openMenu = function() {
     
     menuTable.setData(data);
 
-    popOver.add(menuTable);
+    popOver.setContentView(menuTable);
 
     popOver.show({
         view: $.menuButton

@@ -4,7 +4,7 @@
 			<View id="header" class="headerView" onClick="showLinkedQuestions">
 				<Label id="questionTitle" bindId="title" class="questionTitle" />
 			</View>
-			<Button id="selectButton" class="inputButton" onClick="selectButtonClicked">Select</Button>
+			<Button id="selectButton" class="inputButton" onClick="selectButtonClicked" title="Select"/>
 		</View>
     </ItemTemplate>
 </Alloy>
