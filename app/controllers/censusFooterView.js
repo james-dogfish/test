@@ -1,7 +1,7 @@
 var duration = 0;
 var censusGroupType = "";
 var censusAssociatedFileName = "";
-
+var moment = require('alloy/moment');
 var soundEffect = Ti.Media.createSound({url:"sound/beep-01a.wav"});
 
 var countDown =  function( seconds, fn_tick, fn_end  ) {
