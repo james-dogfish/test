@@ -22,17 +22,10 @@ var closeWindow = function(){
 	$.destroy();
 };
 
-function onBackgroundClick(e){
-	$.background.touchEnabled = false;
+function onClick(e){
 	$.modalBackgorund.touchEnabled = false;
 	closeWindow();
 }
-
-function rightNavButtonClick(e){
-	$.background.touchEnabled = false;
-	$.modalBackgorund.touchEnabled = false;
-	closeWindow();
-};
 
 function onFirstTimeSelect(e){
 	$.hintText.hide();
