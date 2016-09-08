@@ -181,8 +181,8 @@ function _Util() {
 
     };
 
-    cmsUrl = 'http://dogfishdata.com/alcrm_cms';
-    //cmsUrl = 'http://phase2.nwrcrossings.co.uk';
+    cmsUrl = 'https://dogfishdata.com/alcrm_cms';
+    // cmsUrl = 'https://phase2.nwrcrossings.co.uk';
     docsFolder = Ti.Filesystem.getApplicationDataDirectory();
 
     // Function to bring the route picker up
