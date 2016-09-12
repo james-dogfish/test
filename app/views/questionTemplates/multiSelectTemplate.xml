@@ -12,7 +12,7 @@
 		
 			<View class="questionView">
 				<TextField id="multiSelectTextField" class="inputField" bindId="displayValue" onClick="multiSelectButtonClicked"/>
-				<Button id="multiSelectButton" class="inputButton" bindId="btnSelect" onClick="multiSelectButtonClicked">Select</Button>
+				<Button id="multiSelectButton" class="inputButton" bindId="btnSelect" onClick="multiSelectButtonClicked" title="Select"/>
 			</View>
 			
 		</View>

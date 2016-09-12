@@ -2,14 +2,14 @@
 	<View id="container">
 		<View id ="header">
 			<Button id="backButton" onClick="backButtonClick" />
-			<Label id="headerTitle"/>
+			<Label id="headerTitle" text=""/>
 		</View>
 		<ListView id="listView">
 			<Templates>
 				<Require src="gotoQuestionSectionWindow/detailRowQuestionTemplate" type="view"/>
 				<Require src="gotoQuestionSectionWindow/detailRowHeaderTemplate" type="view"/>
 			</Templates>
-			<ListSection id="section"/>
+			<!--ListSection id="section"/-->
 		</ListView>
 	</View>
 </Alloy>
