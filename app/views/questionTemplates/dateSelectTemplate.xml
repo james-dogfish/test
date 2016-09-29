@@ -12,7 +12,7 @@
 		
 			<View class="questionView">
 				<TextField id="textField" class="inputField" bindId="displayValue" onClick="dateButtonClicked"/>
-				<Button id="button" class="inputButton" bindId="btnSelect" onClick="dateButtonClicked">Select</Button>
+				<Button id="button" class="inputButton" bindId="btnSelect" onClick="dateButtonClicked" title="Select"/>
 			</View>
 			
 		</View>

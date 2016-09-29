@@ -1,11 +1,14 @@
 <Alloy>
-	<Window id="window" modal="true" title="Help" fullscreen="true" navBarHidden="true" layout="vertical">
-		<View id="container" layout="vertical">
-			<Toolbar platform="ios" borderTop="true" borderBottom="true" barColor="#084f6f">
-				<Label id="raTitle" text="Help"/>
-				<Button id="closeButton" title="Close" onClick="closeWindow" class="button" right="10"/>
-			</Toolbar>		
-			<ScrollView id="borderedView" />
-		</View>
-	</Window>
+    <Window id="window" modal="true" title="Help" fullscreen="true" navBarHidden="true" layout="vertical">
+        <View id="container" layout="vertical">
+            <Toolbar platform="ios" borderTop="true" borderBottom="true" barColor="#084f6f">
+                <Items>
+                    <Label id="raTitle" text="Help"/>
+                    <FlexSpace/>
+                    <Button id="closeButton" title="Close" onClick="closeWindow" class="button" right="10"/>
+                </Items>
+            </Toolbar>
+            <ScrollView id="borderedView" />
+        </View>
+    </Window>
 </Alloy>

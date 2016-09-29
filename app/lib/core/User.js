@@ -3,17 +3,18 @@
 // File deals with a User = an LCM
 function _User() {
 
-    var userKeychain = null; 
-        passKeychain = null; 
+    var userKeychain = null;
+        passKeychain = null;
         loginKeychain = null;
 
+var moment = Alloy.Globals.moment;
 
     userObject = {
  /**
  * `init` - Initialises all User "keychains"
- * 
+ *
  * @method init
- * 
+ *
  * @return {} N/A
  */
     	init: function () {
@@ -32,20 +33,20 @@ function _User() {
     	},
  /**
  * `setLoginTimestamp` - sets the lastLogin property
- * 
+ *
  * @method setLoginTimestamp
- * 
+ *
  * @return {} N/A
  */
         setLoginTimestamp: function () {
             Ti.App.Properties.setString('lastLogin', moment().format('YYYY-MM-DD'));
         },
- 
+
  /**
  * `howLongLeft` - returns the difference between the lastLogin property and the current timestamp in days.
- * 
+ *
  * @method howLongLeft
- * 
+ *
  * @return {int} difference between the lastLogin property and the current timestamp in days.
  */
         howLongLeft: function () {
@@ -56,9 +57,9 @@ function _User() {
         },
  /**
  * `isLoginExpired` - checks if a user login is expired based on the hard coded value (14)
- * 
+ *
  * @method isLoginExpired
- * 
+ *
  * @return {Boolean} true/false depending on weather the login is expired or not.
  */
         isLoginExpired: function () {
@@ -74,11 +75,11 @@ function _User() {
         },
 
  /**
- * `setLogin` - Logs a user into the app i.e - stores username, password and route if they are 
+ * `setLogin` - Logs a user into the app i.e - stores username, password and route if they are
  * 				valid
- * 
+ *
  * @method setLogin
- * 
+ *
  * @return {Boolean} true/false if the function succeds or not.
  */
         setLogin: function (args, success, failure) {
@@ -147,11 +148,11 @@ function _User() {
                 return Ti.App.Properties.getString('LCM_ROUTE', null);
             }
         },
-        
+
         getUserDir: function () {
-        	
+
         	var userDir = null;
-        	
+
         	if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
         	{
         		if(Ti.App.Properties.getString('userKeychain') !== null)
@@ -159,9 +160,9 @@ function _User() {
         			userDir = Ti.App.Properties.getString('userKeychain').replace(/ /g,'');
         		}
         	}
-        	
+
         	return userDir;
-          
+
         },
 
         setPreferences: function (object) {
@@ -171,7 +172,7 @@ function _User() {
 		     	userMobile: object.mobile,
 		     	userSingleView: object.singleView
 		     };
-		     
+
              	if(typeof Ti.App.Properties.getString('userKeychain') !=="undefined")
 	        	{
 	        		if(Ti.App.Properties.getString('userKeychain') !== null)
@@ -180,7 +181,7 @@ function _User() {
 						Ti.API.info("Created User Directory: " + UserDir.createDirectory());
 						Ti.API.info('UserDir ' + UserDir);
 						var newFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
-						
+
 						newFile.createFile();
 						if (newFile.exists()){
 						    newFile.write(JSON.stringify(UserObj));
@@ -188,7 +189,7 @@ function _User() {
 						}
 	        		}
 	        	}
-		    
+
 		},
 
         getPreferences: function () {
@@ -200,7 +201,7 @@ function _User() {
 		            var UserFile = Titanium.Filesystem.getFile(UserDir.nativePath,'userSettings.json');
 					 if (!UserFile.exists()) {
 				          return {};
-				     } 
+				     }
 		    		var UserObj = JSON.parse(UserFile.read().text);
 		    		if(UserObj.userSingleView === "" || UserObj.userSingleView === null)
 		    		{
@@ -257,7 +258,7 @@ function _User() {
             }
         },
 
- 
+
         prefersSingleView: function () {
         	var prefHash = this.getPreferences();
             if (prefHash.singleView) {

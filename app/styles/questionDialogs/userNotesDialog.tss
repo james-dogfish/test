@@ -1,59 +1,62 @@
-"#window" : {
-	exitOnClose : true
+"#window": {
+    exitOnClose: true,
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#70000000"
 },
-"#appTitle" : {
-	text : "Notes",
-	font : {
-		fontSize : 20,
-		fontWeight : 'bold'
-	},
-	color : '#ffffff'	
+"#appTitle": {
+    text: "Notes",
+    font: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    color: '#ffffff'
 },
-"#background" : {
-	backgroundColor:"#000",
-	opacity : 0
+"#modalBackgorund": {
+    width: "50%",
+    height: "50%",
+    layout: "vertical",
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    borderWidth: 4,
+    borderColor: "#bbb"
 },
-"#modalBackgorund" : {
-	width: "50%",
-	height: "50%",
-	layout : "vertical",
-	backgroundColor:"#fff",
-	borderRadius: 5,
-	borderWidth : 4,
-	borderColor : "#bbb",
+"#textAreaContainerView": {
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL,
+    top: "5dp",
+    bottom: "5dp",
+    left: "5dp",
+    right: "5dp",
+    borderWidth: 3,
+    borderColor: "#ddd"
 },
-"#textAreaContainerView" : {
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	top : "5dp",
-	bottom : "5dp",
-	left : "5dp",
-	right : "5dp",
-	borderWidth : 3,
-	borderColor : "#ddd",
+"#textArea": {
+    top: "10dp",
+    bottom: "10dp",
+    left: "10dp",
+    right: "10dp",
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL,
+    backgroundColor: "#fff",
+    font: {
+        fontSize: 20,
+        fontWeight: 'normal'
+    }
 },
-"#textArea" : {
-	top : "10dp",
-	bottom : "10dp",
-	left : "10dp",
-	right : "10dp",
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	backgroundColor:"#fff",
-	font : {
-		fontSize : 20,
-		fontWeight : 'normal'
-	}
-},
-"#hintText" : {
-	width: "150dp",
-	height: "50dp",
-	top : "10dp",
-	left : "10dp",
-	verticalAlign : Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
-	font : {
-		fontSize : 20,
-		fontWeight : 'bold'
-	},
-	color : '#ddd'
+"#hintText": {
+    width: "150dp",
+    height: "50dp",
+    top: "10dp",
+    left: "10dp",
+    verticalAlign: Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
+    font: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    color: '#ddd'
 }

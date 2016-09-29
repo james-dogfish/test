@@ -1,19 +1,18 @@
 <Alloy>
-	<Tab title="masterSearchTab" active="false">
-		<Window id="window" tabBarHidden="true" navBarHidden="true">
-			
-			<Toolbar id="toolbar" platform="ios">
-				<Button class="systemButton" onClick="backButtonClick" left="10" >
-					<Label class="systemButtonText" text="Home" onClick="backButtonClick" />
-				</Button>
-				<Button class="systemButton" onClick="refreshButtonClick" right="10" >
-						<Label class="systemButtonText" text="Refresh" onClick="refreshButtonClick" />
-				</Button> 
-				<Label id="appTitle"/>
-			</Toolbar>
-			<TableView id="tableView" onClick="onRowClick">
-				<SearchBar id="searchBar"/>
-			</TableView>
-		</Window>
-	</Tab>
+    <Tab title="masterSearchTab" active="false">
+        <Window id="window" tabBarHidden="true" navBarHidden="true">
+            <Toolbar id="toolbar" platform="ios">
+                <Items>
+                    <Button class="systemButton" onClick="backButtonClick" left="10" title="Home"/>
+                    <FlexSpace/>
+                    <Label id="appTitle"/>
+                    <FlexSpace/>
+                    <Button class="systemButton" onClick="refreshButtonClick" right="10" title="Refresh"/>
+                </Items>
+            </Toolbar>
+            <TableView id="tableView" onClick="onRowClick">
+                <SearchBar id="searchBar"/>
+            </TableView>
+        </Window>
+    </Tab>
 </Alloy>

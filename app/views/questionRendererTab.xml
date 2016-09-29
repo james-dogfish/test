@@ -1,15 +1,15 @@
 <Alloy>
-	<Tab title="questionsTab" active="false">
-		<Window id="window" tabBarHidden="true" navBarHidden="true" layout="vertical">
-			<Toolbar id="toolbar" platform="ios">
-				<Button class="systemButton goto" onClick="showGoto">
-					<Label class="systemButtonText" text="Go To" onClick="showGoto" />
-				</Button>
-				<Label id="appTitle"/>
-				<Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" >
-					<Label class="systemButtonText" text="Menu" onClick="openMenu" />
-				</Button>
-			</Toolbar>
-		</Window>
-	</Tab>
+    <Tab title="questionsTab" active="false">
+        <Window id="window" tabBarHidden="true" navBarHidden="true" layout="vertical">
+            <Toolbar id="toolbar" platform="ios">
+                <Items>
+                    <Button class="systemButton goto" onClick="showGoto" title="Go To"/>
+                    <FlexSpace/>
+                    <Label id="appTitle"/>
+                    <FlexSpace/>
+                    <Button class="systemButton" id="menuButton" onSingletap="openMenu" right="10" title="Menu" />
+                </Items>
+            </Toolbar>
+        </Window>
+    </Tab>
 </Alloy>

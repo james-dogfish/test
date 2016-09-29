@@ -12,9 +12,9 @@
 			
 			<View class="questionView">	
 				<TextField id="textField1" class="inputField" bindId="displayValue" onClick="dateButton1Clicked"/>
-				<Button id="button1" class="inputButton" onClick="dateButton1Clicked">Select</Button>
+				<Button id="button1" class="inputButton" onClick="dateButton1Clicked" title="Select"/>
 				<TextField id="textField2" class="inputField" bindId="displayValue2" onClick="dateButton2Clicked"/>
-				<Button id="button2" class="inputButton" onClick="dateButton2Clicked">Select</Button>
+				<Button id="button2" class="inputButton" onClick="dateButton2Clicked" title="Select"/>
 			</View>
 		</View>
     </ItemTemplate>
