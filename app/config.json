@@ -6,7 +6,7 @@
 		"analytics": {
 			"navOverride": false
 		},
-		"currentEnv": "prod",
+		"currentEnv": "ppte",
 		"serverUrl": {
 			"fat": "http://server.iconsolutions.com/alcrm3/",
 			"dte": "https://icondte.networkrail.co.uk/WebServices/",
@@ -14,7 +14,7 @@
 			"prod": "https://iconprod.networkrail.co.uk/WebServices/"
 		}
 	},
-	"theme": "Prod",
+	"theme": "test",
 	"env:development": {},
 	"env:test": {},
 	"env:production": {},
