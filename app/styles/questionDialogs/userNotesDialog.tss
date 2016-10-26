@@ -14,7 +14,8 @@
         fontSize: 20,
         fontWeight: 'bold'
     },
-    color: '#ffffff'
+    color: '#ffffff', 
+    center: 0
 },
 "#modalBackgorund": {
     width: "50%",
