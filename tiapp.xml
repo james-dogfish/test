@@ -11,6 +11,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
+    <guid>8a6e88b3-4782-4bde-9333-b303d9720c43</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>
@@ -75,7 +76,7 @@
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>
-    <property name="appc-app-id" type="string">5874ca4e7ac14b482656d63a</property>
+    <property name="appc-app-id" type="string">56f28dff53c2864a3d3680fe</property>
     <property name="com-soasta-touchtest-version" type="string">8023.374</property>
     <property name="com-soasta-touchtest-ios-appId" type="string">424669</property>
     <property name="acs-authbase-url-development" type="string">https://secure-identity.cloud.appcelerator.com</property>
@@ -95,5 +96,4 @@
     <property name="appc-org-id" type="string">100000213</property>
     <property name="appc-creator-user-id" type="string">ceeddb6478d759d88e90add38db39835</property>
     <property name="com-appcelerator-apm-id" type="string">78a12e6373154d379bfb7c096c542cc400555300</property>
-    <guid>2af6dd4d-5341-4c89-9111-b303d9720c43</guid>
 </ti:app>
