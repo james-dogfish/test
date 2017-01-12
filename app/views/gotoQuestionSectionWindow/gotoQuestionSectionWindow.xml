@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="win" exitOnClose="true">
+	<Window id="win" exitOnClose="true" onClose="onClose">
 		<View id="background" onClick="closeWindowCallBack"/>
 		<View id="gotoDisplayView">
 			<Button id="firstUnanswered" class="gotoButton" onClick="firstUnansweredClick" title="First Unanswered"/>
@@ -8,10 +8,10 @@
 			<View class="ruler" />
 			<View id="contaierView">
 				 <Require id="masterView" src="gotoQuestionSectionWindow/goToQuestionMasterView" type="view"/>
-				 <Require id="detailView" src="gotoQuestionSectionWindow/goToQuestionDetailView" type="view"/>  
+				 <Require id="detailView" src="gotoQuestionSectionWindow/goToQuestionDetailView" type="view"/>
 			</View>
 		</View>
 		<Require id="selectCensusView" src="gotoQuestionSectionWindow/censusSelect/selectCensusView" type="view"/>
-		<Require id="addCensusView" src="gotoQuestionSectionWindow/censusSelect/addCensusView" type="view"/>		
+		<Require id="addCensusView" src="gotoQuestionSectionWindow/censusSelect/addCensusView" type="view"/>
 	</Window>
 </Alloy>

@@ -4,9 +4,9 @@ Alloy.Globals.currentlyFocusedTF = {
 	questionObject: null
 };
 
-// Creating a transparent view to 
+// Creating a transparent view to
 // overlay on top of the container when
-// a text field is focused as when 
+// a text field is focused as when
 // the table is scrolled quickly, the listview
 // seems to replicate the textfield value
 // onto other textfields by recycling them.
@@ -863,9 +863,7 @@ exports.moveToQuestion = function(groupType, questionIndex) {
 	Alloy.Globals.Logger.log("** questionRender moveToQuestion, groupType = " + groupType + ", questionIndex = " + questionIndex, "info");
 	var sectionList = getAllQuestionSections();
 	for (var sectionIndex = 0; sectionIndex < sectionList.length; sectionIndex++) {
-
 		if (sectionList[sectionIndex].groupType == groupType) {
-
 			if (listViewDisplayType == ALL_SECTIONS) {
 				$.listView.scrollToItem(sectionIndex, questionIndex, {
 					animated: false,

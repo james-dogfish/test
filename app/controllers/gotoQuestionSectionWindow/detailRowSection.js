@@ -7,12 +7,12 @@ var groupType = null;
 
 function showQuestions(){
 	if(questionRowList.length == 0){
-		
+
 		questionRowList.push(headerRow);
-		
+
 		var questionList = sectionDataObject.questionList;
 		for(var questionIndex =0; questionIndex< questionList.length; questionIndex++){
-			
+
 			//mandatory firstValue
 			var colouredBox = Alloy.Globals.Styles["goToColouredBox_answered"];
 
@@ -35,15 +35,15 @@ function showQuestions(){
 			if(sectionDataObject.pageType==='coreQuestion') {
 				colouredBox = Alloy.Globals.Styles["goToMandatoryColouredBox_n_a"];
 			}
-			
+
 			if(questionList[questionIndex].error == true){
 				colouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
 			}
-			
+
 			questionRowList.push({
-				template : "detailRowQuestionTemplate", 
+				template : "detailRowQuestionTemplate",
 				groupType : groupType,
-				questionTitle : {text : questionList[questionIndex].title}, 
+				questionTitle : {text : questionList[questionIndex].title},
 				questionIndex : questionList[questionIndex].questionIndex,
 				colouredBox : colouredBox
 			});
@@ -87,24 +87,31 @@ exports.setdata = function(passedSectionDataObject){
 			}
 		}
 	}
-	
+
 	if(passedSectionDataObject.error == true){
 		sectionHeaderColouredBox = Alloy.Globals.Styles["goToColouredBox_unanswered_mandatory"];
 	}
 
-	
+
 	groupType = sectionDataObject.groupType;
-	
+
 	headerRow = {template : "detailRowHeaderTemplate", headerTitle : {
-		text : sectionDataObject.title}, 
+		text : sectionDataObject.title},
 		groupType : sectionDataObject.groupType,
 		colouredBox : sectionHeaderColouredBox
 	};
 	$.section.setItems([headerRow]);
 };
 
-Ti.App.addEventListener("goToHeaderClicked", function(data){
-	if(data.groupType != groupType)return;
-	
-	toggleQuestionVisable();
-});
+
+
+function goToHeaderClicked(data){
+    if(data.groupType != groupType)return;
+    toggleQuestionVisable();
+}
+
+Ti.App.addEventListener("goToHeaderClicked", goToHeaderClicked);
+
+exports.clear = function(){
+    Ti.App.removeEventListener("goToHeaderClicked", goToHeaderClicked);
+};
