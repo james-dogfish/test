@@ -73,16 +73,15 @@ function parseTrainData(xml_text, curAssObj) {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
 			var data = Alloy.Globals.localParser.getQuestions(xml_text);
-			if (typeof data === "undefined") {
+			if (typeof data === "undefined" || data.length.length === 0) {
 				alert(L('no_data'));
-				return;
+				return false;
 			}
 			var trainData = Alloy.Globals.localDataHandler.addDefaultTrainInfo(curAssObj, data);
 			//addDefaultTrainInfo returns false IFF it fails
 			if (trainData === false) {
 				alert(L('unableToBuildRA'));
-				Alloy.Globals.aIndicator.hide();
-				return;
+				return false;
 			}
 			trainData = null;
 			censusData = null;
@@ -90,13 +89,15 @@ function parseTrainData(xml_text, curAssObj) {
 		} else {
 			Alloy.Globals.Logger.log("parseTrainData > no data", "info");
 			alert(L('no_data'));
+			return false;
 
 		}
 	} catch (e) {
 		Alloy.Globals.Logger.log("Exception in parseTrainData. Details: " + JSON.stringify(e), "info");
 		Alloy.Globals.Logger.logException(e);
-		Alloy.Globals.aIndicator.hide();
+		return false;
 	}
+	return true;
 };
 
 /*************************************************************
@@ -116,18 +117,17 @@ function parseCensusData(xml_text, curAssObj) {
 		if (xml_text !== null || typeof xml_text !== 'undefined') {
 
 			var data = Alloy.Globals.localParser.getQuestions(xml_text);
-			if (typeof data === "undefined") {
+			if (typeof data === "undefined" || data.length === 0) {
 				alert(L('no_data'));
 				Alloy.Globals.Logger.log("parseCensusData > no data", "info");
-				return;
+				return false;
 			}
 
 			var censusData = Alloy.Globals.localDataHandler.addDefaultCensus(curAssObj, data);
 			//addDefaultCensus returns false IFF it fails
 			if (censusData === false) {
 				alert(L('unableToBuildRA'));
-				Alloy.Globals.aIndicator.hide();
-				return;
+				return false;
 			}
 			xml_text = null;
 			censusData = null;
@@ -136,13 +136,15 @@ function parseCensusData(xml_text, curAssObj) {
 		} else {
 			Alloy.Globals.Logger.log("parseCensusData > xml_text is undefined or null", "info");
 			alert(L('no_data'));
+			return false;
 
 		}
 	} catch (e) {
 		Alloy.Globals.Logger.log("Exception in parseCensusData. Error: " + JSON.stringify(e), "info");
 		Alloy.Globals.Logger.logException(e);
-		Alloy.Globals.aIndicator.hide();
+		return false;
 	}
+	return true;
 };
 
 function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
@@ -163,20 +165,20 @@ function createAssessmentWithMainQuestionSet(xml_text, detaildID, crossingID) {
 
 function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 	try {
-		if (assessmentObject === null || 
+		if (assessmentObject === null ||
 			typeof assessmentObject === "undefined") {
 			Alloy.Globals.Logger.log("assessmentObject is null or undefined", "info");
 			return false;
 		}
-		
+
 
 		var crossingQuestions = Alloy.Globals.localParser.getQuestions(crosQues);
-		
+
 		if (typeof crossingQuestions === "undefined" || crossingQuestions === null) {
 			Alloy.Globals.Logger.log("typeof crossingQuestions is undefined or null", "info");
 			return false;
 		}
-			
+
 		var quesMap = [];
 		var crossingAnswers = Alloy.Globals.localParser.getQuestions(crosAns);
 		Alloy.Globals.Logger.log("crossingAnswers ======= > " + JSON.stringify(crossingAnswers), "info");
@@ -184,7 +186,7 @@ function addCoreQuestionSetToAssessment(assessmentObject, crosQues, crosAns) {
 			if(crossingAnswers !== null){
 				for (var i = 0; i < crossingAnswers.length; i++) {
 					if (typeof crossingAnswers[i].parameterValue !== "undefined" && typeof crossingAnswers[i].parameterName !== "undefined") {
-	
+
 						quesMap[crossingAnswers[i].parameterName] = {
 							value: crossingAnswers[i].parameterValue
 						};
@@ -349,7 +351,7 @@ var buildAssessment = function(crossingDetail) {
 		Alloy.Globals.loadingRiskAssessment = false;
 		return;
 	}
-	
+
 	if(assessmentObject === null || typeof assessmentObject === "undefined" ||
 		JSONDocCrossQues === null || typeof JSONDocCrossQues === "undefined" ||
 		JSONDocCrossAns === null || typeof JSONDocCrossAns === "undefined")
@@ -375,10 +377,18 @@ var buildAssessment = function(crossingDetail) {
 		Alloy.Globals.loadingRiskAssessment = false;
 		return;
 	} else {
-		parseCensusData(JSONDocCensus, assessmentObject);
+		if(parseCensusData(JSONDocCensus, assessmentObject) === false){
+		    Alloy.Globals.aIndicator.hide();
+		    Alloy.Globals.loadingRiskAssessment = false;
+		    return;
+		}
 		JSONDocCensus = null;
 
-		parseTrainData(JSONDocTrain, assessmentObject);
+		if(parseTrainData(JSONDocTrain, assessmentObject) === false){
+		    Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+            return;
+		}
 		JSONDocTrain = null;
 
 		var trainGroup1 = Alloy.Globals.localDataHandler.addNewTrainGroupToAssessment(assessmentObject, []);
