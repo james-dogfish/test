@@ -239,7 +239,11 @@ function getCrossingQuestionSet(crossingDetail) {
 		);
 		//end of convertJSON
 
-	}, function(xmlDoc) {
+	}, function(xmlDoc, cancelRetry) {
+	    if(cancelRetry === true){
+            Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+        }
 		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
 };
@@ -260,7 +264,11 @@ function getCrossingQuestionAnswersSet(crossingDetail) {
 		);
 		//end of convertJSON
 
-	}, function(xmlDoc) {
+	}, function(xmlDoc, cancelRetry) {
+	    if(cancelRetry === true){
+            Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+        }
 		Alloy.Globals.Logger.log("getCrossingQuestionSet failed", "info");
 	});
 };
@@ -281,7 +289,11 @@ function getAssessmentQuestionSet(crossingDetail) {
 		);
 		//end of convertJSON
 
-	}, function(xmlDoc) {
+	}, function(xmlDoc, cancelRetry) {
+	    if(cancelRetry === true){
+            Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+        }
 		Alloy.Globals.Logger.log("getAssessmentQuestionSet failed", "info");
 	});
 };
@@ -302,7 +314,11 @@ function getCensusQuestionSet(crossingDetail) {
 		);
 		//end of convertJSON
 
-	}, function(xmlDoc) {
+	}, function(xmlDoc, cancelRetry) {
+	    if(cancelRetry === true){
+	        Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+	    }
 		Alloy.Globals.Logger.log("getCensusQuestionSet failed", "info");
 	});
 };
@@ -323,7 +339,11 @@ function getTrainInfoQuestionSet(crossingDetail) {
 		);
 		//end of convertJSON
 
-	}, function(xmlDoc) {
+	}, function(xmlDoc, cancelRetry) {
+	    if(cancelRetry === true){
+            Alloy.Globals.aIndicator.hide();
+            Alloy.Globals.loadingRiskAssessment = false;
+        }
 		Alloy.Globals.Logger.log("getTrainInfoQuestionSet failed", "info");
 	});
 };

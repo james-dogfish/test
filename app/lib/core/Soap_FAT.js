@@ -26,7 +26,7 @@ var _Soap = function () {
     if (overRide.ws_security) { //overriding ws here
         wsSecurity = overRide.ws_security;
     }
-    
+
     var loginUrl = serverUrl + 'adminService/admin.wsdl',
     assessmentUrl = serverUrl + 'assessmentService/assessment.wsdl',
     questionsUrl = serverUrl + 'questionService/questions.wsdl',
@@ -38,14 +38,14 @@ var _Soap = function () {
 
 /**
  * `login` - deals with login functionality. Invokes the SUDS client for Login.
- * 
+ *
  * @params args
  * @params password
  * @params success
  * @params failure
- * 
+ *
  * @method login
- * 
+ *
  * @return {} N/A
  */
         login: function (args, password, success, failure) {
@@ -75,19 +75,19 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetUserRequest', args, success, failure);
-            
+
            return sudsClient;
         },
 
 /**
  * `searchCrossingRequest` - Returns the core crossing details for a given crossing
- * 
- * @params args    - the arguments we want to use with 
+ *
+ * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method searchCrossingRequest
- * 
+ *
  * @return {} N/A
  */
         searchCrossingRequest: function (args, success, failure) {
@@ -117,10 +117,10 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchCrossingRequest', args, success, failure);
-            
+
            return sudsClient;
         },
-        
+
         advSearchCrossingRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -148,21 +148,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('AdvancedSearchRequest', args, success, failure);
-            
+
            return sudsClient;
         },
-        
+
  /**
  * `getCrossingRequest` - Returns the core crossing details for a given crossing
- * 
- * @params args    - the arguments we want to use with 
+ *
+ * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method getCrossingRequest
- * 
+ *
  * @return {} N/A
- */       
+ */
          getCrossingRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -190,22 +190,22 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetCrossingRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
 
  /**
  * `getAssessment` - Returns a specific assessment
- * 
- * @params args    - the arguments we want to use with 
+ *
+ * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method getAssessment
- * 
+ *
  * @return {} N/A
- */    
+ */
         getAssessment: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -233,21 +233,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetAssessmentRequest', args, success, failure);
-            
+
            return sudsClient;
         },
 
  /**
  * `searchAssessment` - Returns a specific assessment based on the search criteria
- * 
+ *
  * @params args    - the arguments we want to use with (such as search criteria for example)
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method searchAssessment
- * 
+ *
  * @return {} N/A
- */ 
+ */
         searchAssessment: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -275,7 +275,7 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchAssessmentRequest', args, success, failure);
-            
+
            return sudsClient;
         },
 
@@ -306,20 +306,20 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CopyAssessmentRequest', args, success, failure);
-            
+
            return sudsClient;
         },
  /**
  * `createAssessment` - Creates an assessment with the given payload.
- * 
+ *
  * @params args    - the arguments we want to use with (such as xml payload)
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method createAssessment
- * 
+ *
  * @return {} N/A
- */ 
+ */
         createAssessment: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -347,21 +347,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateAssessmentRequest', args, success, failure);
-            
+
             return sudsClient;
         },
-   
+
  /**
  * `updateAssessment` - Updates an assessment with the given payload.
- * 
+ *
  * @params args    - the arguments we want to use with (such as xml payload)
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method updateAssessment
- * 
+ *
  * @return {} N/A
- */     
+ */
         updateAssessment: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -389,22 +389,22 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('UpdateAssessmentRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
 /**
  * `getQuestionsRequest` - Returns a set of questions based on the specified
  * 						   type (e.g. assessment or census or crossing etc.)
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method getQuestionsRequest
- * 
+ *
  * @return {} N/A
- */  
+ */
         getQuestionsRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -430,9 +430,8 @@ var _Soap = function () {
                 headerEnd: '</soapenv:Header>',
                 enableWs: wsSecurity
             });
-
             sudsClient.invoke('GetQuestionsRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
@@ -463,21 +462,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetQuestionsResponse', args, success, failure);
-            
+
             return sudsClient;
         },
 
 /**
  * `getCensus` - Returns a specific census.
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method getCensus
- * 
+ *
  * @return {} N/A
- */  
+ */
         getCensus: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -505,21 +504,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetCensusRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
 /**
  * `createCensus` - Creates a new census
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method createCensus
- * 
+ *
  * @return {} N/A
- */  
+ */
         createCensus: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -547,21 +546,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateCensusRequest', args, success, failure);
-            
+
             return sudsClient;
         },
- 
+
  /**
  * `searchCensus` - Search for a census - used for past censuses...
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method searchCensus
- * 
+ *
  * @return {} N/A
- */       
+ */
         searchCensus: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -589,21 +588,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('SearchCensusRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
  /**
  * `getTrainGroupRequest` - retrieves train info groups
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method getTrainGroupRequest
- * 
+ *
  * @return {} N/A
- */    
+ */
         getTrainGroupRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -631,21 +630,21 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('GetTrainGroupRequest', args, success, failure);
-            
+
             return sudsClient;
         },
 
  /**
  * `createTrainGroupRequest` - Creates a train info group
- * 
+ *
  * @params args    - the arguments we want to use with
  * @params success - the callback success function
  * @params failure - the callback failure function
- * 
+ *
  * @method createTrainGroupRequest
- * 
+ *
  * @return {} N/A
- */ 
+ */
  	createTrainGroupRequest: function (args, success, failure) {
             var userPass = Alloy.Globals.User.getLogin();
             var sudsClient = new suds({
@@ -673,7 +672,7 @@ var _Soap = function () {
             });
 
             sudsClient.invoke('CreateTrainGroupRequest', args, success, failure);
-            
+
             return sudsClient;
        },
 
