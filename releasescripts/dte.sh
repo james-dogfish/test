@@ -21,6 +21,8 @@ var fs = require('fs'),
 	configJson = require('../app/config');
 
 configJson.global.currentEnv = 'dte';
+fs.writeFileSync('./app/config.json', JSON.stringify(configJson, null, 4), 'utf8');
+
 
 
 # Set Ti SDK to 3.4.0 Custom
