@@ -8,6 +8,8 @@ curl --user ${API_USER}:${API_PASS} -s "${BUILD_URL}api/xml?wrapper=changes&xpat
 # cd into workspace
 cd $WORKSPACE
 
+BUILD_ENV=$1
+
 # JSHint report
 jshint app --reporter=checkstyle > checkstyle-result.xml | true
 
@@ -15,15 +17,9 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 tiversion --version $BUILD_NUMBER
 
 #add build number to the icon
-ti-icon-overlay "DTE $BUILD_NUMBER" $WORKSPACE
+ti-icon-overlay $BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 
-var fs = require('fs'),
-	configJson = require('../app/config');
-
-configJson.global.currentEnv = 'dte';
-fs.writeFileSync('./app/config.json', JSON.stringify(configJson, null, 4), 'utf8');
-
-
+scripts/build.sh $BUILD_ENV
 
 # Set Ti SDK to 3.4.0 Custom
 node /usr/local/bin/ti sdk select 5.1.2.GA
