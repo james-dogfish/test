@@ -19,7 +19,7 @@ tiversion --version $BUILD_NUMBER
 #add build number to the icon
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 
-scripts/build.sh $BUILD_ENV
+releasescripts/build.sh $BUILD_ENV
 
 # Set Ti SDK to 3.4.0 Custom
 node /usr/local/bin/ti sdk select 5.1.2.GA
