@@ -209,7 +209,7 @@ var SudsClient = function(_options) {
 		};
 		xhr.onerror = function(e) {
 			////Ti.API.info('SUDS - Error' + this.responseText);
-			_failure.call(this, xmlDomFromString(this.responseText));
+			_failure.call(this, xmlDomFromString(this.responseText), false);
 			try {
 				Alloy.Globals.censusIDs = [];
 				Alloy.Globals.trainIDs = [];
@@ -257,6 +257,7 @@ var SudsClient = function(_options) {
 
 							//This will never be reached, if you specified cancel for index 1
 							case 1:
+							    _failure.call(this, xmlDomFromString(this.responseText), true);
 								break;
 							}
 						});
@@ -316,4 +317,4 @@ var SudsClient = function(_options) {
 	this.abort = abortXHR;
 };
 
-module.exports = SudsClient; 
+module.exports = SudsClient;

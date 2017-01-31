@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	
+	<!-- login related -->
+	<string name="invalid_login">Invalid login, please check your details and retry</string>
+	<string name="no_valid_routes">No routes found for your username</string>
+	<string name="wrong_user_pass">Sorry but your username or password is incorrect, please try again</string>
+	<string name="enter_email_and_password">Please enter both your username and password</string>
+		
+	<!-- general/miscellaneous -->
+	<string name="no_email_client">Please make sure you have setup email access on this ipad</string>
+	<string name="no_data">No data available, please try again</string> 
+	<string name="no_results">No Results Available</string> 
+	<string name="spinner_text">Loading ...</string> 
+	<string name="no_help_content">No help content available</string> 
+	<string name="no_connectivity_title">WARNING</string> 
+	<string name="no_connectivity_body">Your device is not online</string> 
+	<string name="page_risk_assessment_name">Risk Assessment</string> 
+	<string name="page_core_question_name">Core Crossing Details</string> 
+	<string name="page_census_name">Census</string> 
+	<string name="page_train_info_name">Train Info</string> 
+	<string name="searchButtonTitle">Search</string> 
+	<string name="stop_timer">Are you sure you want to stop the census timer?</string> 
+	<string name="censusDesktopCompleteRow">No Census carried out on-site</string> 
+	<string name="stop_censuse_to_save_and_exit">You must stop the census timer before you can save and exit</string>
+    <string name="unableToBuildRA">Unable to build Risk Assessment. Please retry</string>
+	
+	    
+	<!-- delete ra & census related strings -->
+	<string name="delete_ra">Are you sure you want to delete this Risk Assessment? (This action cannot be undone)</string> 
+    <string name="max_census">You can only attach 2 Censuses</string> 
+    <string name="delete_census">Are you sure you want to delete this Census? (This action cannot be undone)</string> 
+    <string name="census_has_finished">Census has finished</string> 
+    <string name="census">Census</string> 
+    <string name="noCensusMessage">You must complete at least 1 census</string> 
+    <string name="noTrainsMessage">There was an error with the creation of this RA. Please try to delete the current RA and recreate while on WiFi.</string> 
+    <string name="censusDesktopCompleteMessage">You do not have to complete your census through the Risk Assessment app, please complete through ALCRM once you have submitted your risk assessment</string> 
+    <string name="censusDesktopComplete_alertYesNo">Are you sure? (This will delete any information entered for Census General, Census Environment or Census Usage sections for all censuses attached to this assessment)</string>
+    <string name="stop_censuse_to_save_and_exit">Please be aware the census timer is currently running, in order to successfully submit your assessment you will need to either stop the timer or wait for the timer to complete</string>
+ 
+    
+    <!-- validation strings for RA form -->
+    <string name="mandatory_error_text">This question is mandatory</string> 
+    <string name="numeric_error_text">Must be an integer value eg 4</string> 
+    <string name="decimal_error_text">Must be a decimal value eg 1.0 or an integer eg 1</string> 
+    <string name="min_error_text">Value must be greater than or equal to</string> 
+    <string name="max_error_text">Value must be less than or equal to</string> 
+    <string name="minLength_error_text">Value cannot have less than</string> 
+    <string name="maxLength_error_text">Value cannot have more than</string> 
+    <string name="format_error_text">Please make sure that the value is in the format, e.g. [format] and that it is valid</string> 
+    <string name="duration_error_text">You must enter a value to start the census</string> 
+    
+    <!-- my risk assessments - assessment submissions labels/strings -->
+    <string name="assessmentIncomplete">Assessment Incomplete</string> 
+    <string name="assessmentSubmitted">Assessment Submitted</string> 
+    <string name="assessmentFailedSubmit">Failed to Submit</string> 
+    <string name="trainInfoIncomplete1">Incomplete Train Info Group</string> 
+    <string name="trainInfoFail1">Failed to commit Train Info Group</string> 
+    <string name="trainInfoDidNotSubmit">Must complete to submit Train Info</string> 
+    <string name="assessmentFailed">Assessment Failed</string> 
+    <string name="assessmentNotCompleted">Could not commit - Assessment Incomplete</string> 
+    <string name="censusFail">Census Failed</string> 
+   
+    <!-- modal pickers strings -->
+    <string name="modalPickerTitle">Pick One</string> 
+    <string name="modalMultiPickerTitle">Pick All that Apply</string> 
+    <string name="modalDatePickerTitle">Pick a Date</string> 
+    <string name="minuteHourTimePickerTitle">Pick a Time</string>
+</resources>
