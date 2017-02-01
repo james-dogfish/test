@@ -23,7 +23,7 @@ else if (process.argv[2] === "dte") {
 	configJson.global.currentEnv = 'dte';
 	configJson.global.serverUrl = 'https://icondte.networkrail.co.uk/WebServices/';
 	
-{	
+}
 
 else {
 	console.log("change config to prod");
