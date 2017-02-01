@@ -15,7 +15,7 @@ if (process.argv[2] === "dte") {
 	console.log("change config to fat");
 	configJson.global.serverUrl = 'http://server.iconsolutions.com/alcrm3/';
 
-
+}
 
 
 fs.writeFileSync('./app/config.json', JSON.stringify(configJson, null, 4), 'utf8');
