@@ -1,5 +1,6 @@
 {
 	"global": {
+	"currentEnv": "ppte",
 		"debug": false,
 		"stagedRollOut": true,
 		"fakeSearchCrossings": false,
