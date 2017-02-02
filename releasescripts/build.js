@@ -27,6 +27,7 @@ else if (process.argv[2] === "dte") {
 
 else {
 	console.log("change config to prod");
+	configJson.global.currentEnv = 'prod';
 	configJson.global.serverUrl = 'https://iconprod.networkrail.co.uk/WebServices/';
 
 }
