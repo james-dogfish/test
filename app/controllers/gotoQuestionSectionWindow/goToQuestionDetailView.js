@@ -7,19 +7,29 @@ var animationClose = Titanium.UI.createAnimation();
 animationClose.left = "100%";
 animationClose.duration = Alloy.Globals.animationDuration;
 
+var ListViewSectionControllerList = [];
+
+exports.clear = function(){
+    for(var i=0; i< ListViewSectionControllerList.length; i++){
+        ListViewSectionControllerList[i].clear();
+    }
+    ListViewSectionControllerList = [];
+};
+
 exports.setContentsDetails = function(pageName, questionSectionContentsDetails) {
 	$.headerTitle.text = pageName;
 
 	var sectionList = questionSectionContentsDetails;
 	var ListViewSectionList = [];
+	exports.clear();
 
 	for (var sectionListIndex = 0; sectionListIndex < sectionList.length; sectionListIndex++) {
 		var newListViewSection = Alloy.createController('gotoQuestionSectionWindow/detailRowSection');
 		newListViewSection.setdata(sectionList[sectionListIndex]);
+		ListViewSectionControllerList.push(newListViewSection);
 		ListViewSectionList.push(newListViewSection.getView());
 	}
 	$.listView.setSections(ListViewSectionList);
-
 };
 
 function backButtonClick(e) {
@@ -42,7 +52,7 @@ exports.MoveToClose = function(isAnimated) {
 	}
 };
 
-// Styling on ios6 
+// Styling on ios6
 if (!Alloy.Globals.Util.isIOS7Plus()) {
 	$.backButton.width = 80;
 	$.backButton.height = 30;

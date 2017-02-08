@@ -37,13 +37,13 @@ var closeAnimationHandler = function() {
 	animationClose.removeEventListener('complete',closeAnimationHandler);
 	Ti.App.removeEventListener("goToQuestionEvent", goToQuestionCallBack);
 	Ti.App.removeEventListener("pageSelected", pageSelectedCallBack);
-	
+
 	if(closeCallBack != null){
 		closeCallBack();
 		closeCallBack = null;
 	}
-	
-	
+
+
 	$.destroy();
 };
 animationClose.addEventListener('complete',closeAnimationHandler);
@@ -66,7 +66,7 @@ var hide = function(){
 		//$.selectCensusView.hide();
 		//$.addCensusView.hide();
 	}
-	
+
 };
 exports.hide = hide;
 
@@ -89,20 +89,20 @@ function createCensusClick(e){
 $.selectCensusView.on("createCensus", function(){
 	Alloy.Globals.Logger.log("selectCensusView : createCensus", "info");
 	//Ti.App.fireEvent("createCensus", {});
-	
+
 	Alloy.Globals.questionRendererTab.createCensus();
-	
+
 	$.selectCensusView.hide();
 });
 $.selectCensusView.on("addCensus", function(){
 	$.addCensusView.show(currentAssessmentObject);
 });
 $.selectCensusView.on("censusDesktopComplete", function(){
-	
+
 	if(currentAssessmentObject == null) return;
 	if(currentAssessmentObject.censusDesktopComplete == true) return;
-	
-	
+
+
 	var alertYesNo = Titanium.UI.createAlertDialog({
         message: L('censusDesktopComplete_alertYesNo'),
         buttonNames: ['Yes', 'No']
@@ -114,12 +114,12 @@ $.selectCensusView.on("censusDesktopComplete", function(){
 			currentAssessmentObject.censusDesktopComplete = true;
 			$.selectCensusView.hide();
 			Ti.App.fireEvent("censusDesktopComplete", {});
-        } 
+        }
         else if (e.index == 1) {
 			$.selectCensusView.hide();
         }
     });
-    
+
     alertYesNo.show();
 });
 $.addCensusView.on("addPastCensus", function(e){
@@ -162,7 +162,7 @@ var pageSelectedCallBack = function(e){
 	$.masterView.MoveToClose(true);
 	$.detailView.MoveToOpen(true);
 	$.detailView.setContentsDetails(e.pageName, e.sectionList);
-	
+
 };
 Ti.App.addEventListener("pageSelected", pageSelectedCallBack);
 
@@ -177,4 +177,10 @@ if(Alloy.Globals.Util.isIOS7Plus()) {
 	$.gotoDisplayView.top = "65";
 } else {
 	$.gotoDisplayView.top = "45";
+}
+
+function onClose(){
+    Ti.App.removeEventListener("pageSelected", pageSelectedCallBack);
+    Ti.App.removeEventListener("goToQuestionEvent", goToQuestionCallBack);
+    $.detailView.clear();
 }
