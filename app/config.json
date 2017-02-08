@@ -14,7 +14,7 @@
 			"prod": "https://iconprod.networkrail.co.uk/WebServices/"
 		}
 	},
-	"theme": "prod",
+	"theme": "test",
 	"env:development": {},
 	"env:test": {},
 	"env:production": {},
