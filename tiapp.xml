@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>sh.dogfi.nwr.phase2</id>
     <name>RA App</name>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <publisher>Gorenjai</publisher>
     <url>http://dogfi.sh</url>
     <description>not specified</description>
