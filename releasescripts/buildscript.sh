@@ -17,9 +17,9 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 tiversion --version $BUILD_NUMBER
 
 #add build number to the icon
-var env = $BUILD_ENV;
+# var $BUILD_ENV;
 
-if (env !== "prod") {
+if ($BUILD_ENV !== "prod") {
 
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 }
