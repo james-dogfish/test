@@ -17,7 +17,6 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 tiversion --version $BUILD_NUMBER
 
 #add build number to the icon
-var env = $BUILD_ENV;
 
 if ($1 !== "prod") 
 then
