@@ -16,11 +16,13 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 # Change version number of tiapp.xml
 tiversion --version $BUILD_NUMBER
 
-if (BUILD_ENV !== "prod") {
-
 #add build number to the icon
-ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
+var fs = require('fs'),
+	configJson = require('../app/config');
 
+if (process.argv[2] !== "prod") {
+
+ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 }
 
 node releasescripts/build.js $BUILD_ENV
