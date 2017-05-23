@@ -21,7 +21,7 @@ tiversion --version $BUILD_NUMBER
 
 
 
-if BUILD_ENV !== 'prod') {
+if (BUILD_ENV !== 'prod') {
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 }
 
