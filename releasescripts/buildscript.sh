@@ -21,13 +21,13 @@ tiversion --version $BUILD_NUMBER
 
 if ($BUILD_ENV === "prod"} {
 node releasescripts/build.js $BUILD_ENV
+}
 
 
-else 
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 node releasescripts/build.js $BUILD_ENV;
 
-}
+
 
 node releasescripts/build.js $BUILD_ENV
 
