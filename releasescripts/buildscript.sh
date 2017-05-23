@@ -16,13 +16,17 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 # Change version number of tiapp.xml
 tiversion --version $BUILD_NUMBER
 
+if (process.argv[2] !== "prod") {
+
 #add build number to the icon
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
+
+}
 
 node releasescripts/build.js $BUILD_ENV
 
 # Set Ti SDK to 3.4.0 Custom
-node /usr/local/bin/ti sdk select 5.1.2.GA
+#node /usr/local/bin/ti sdk select 5.1.2.GA
 
 # Build - iOS
 # cd into workspace
@@ -30,4 +34,4 @@ cd $WORKSPACE
 
 tisergeant
 
-appc run --distribution-name 'Dogfi.sh Mobile Ltd' --pp-uuid ${PROV_ID} --target dist-adhoc --output-dir dist/ --log-level debug --platform ios --sdk 5.1.2.GA
+appc run --distribution-name 'Dogfi.sh Mobile Ltd' --pp-uuid ${PROV_ID} --target dist-adhoc --output-dir dist/ --log-level debug --platform ios
