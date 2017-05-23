@@ -29,7 +29,7 @@ else {
 	console.log("change config to prod");
 	configJson.global.currentEnv = 'prod';
 	configJson.global.serverUrl.prod = 'https://iconprod.networkrail.co.uk/WebServices/';
-
+	ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 }
 
 
