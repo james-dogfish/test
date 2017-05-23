@@ -19,7 +19,7 @@ tiversion --version $BUILD_NUMBER
 #add build number to the icon
 
 
-if $BUILD_ENV === "prod" {
+if ($BUILD_ENV === "prod"} {
 node releasescripts/build.js $BUILD_ENV;
 }
 
