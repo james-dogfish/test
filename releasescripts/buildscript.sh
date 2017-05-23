@@ -19,7 +19,10 @@ tiversion --version $BUILD_NUMBER
 #add build number to the icon
 
 
-if $BUILD_ENV === prod {
+var fs = require('fs'),
+	configJson = require('../app/config');
+
+if (process.argv[2] !== "prod") {
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
 }
 
