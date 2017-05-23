@@ -16,7 +16,7 @@ jshint app --reporter=checkstyle > checkstyle-result.xml | true
 # Change version number of tiapp.xml
 tiversion --version $BUILD_NUMBER
 
-if (process.argv[2] !== "prod") {
+if (BUILD_ENV !== "prod") {
 
 #add build number to the icon
 ti-icon-overlay "$BUILD_ENV $BUILD_NUMBER" $WORKSPACE
